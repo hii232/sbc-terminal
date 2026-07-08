@@ -883,7 +883,15 @@ const DATA = [
     revenue:[9.46,11.79,14.05,16.38], ni:[-0.37,-1.22,0.11,-0.38], sbc:[0.181,0.19,0.202,0.26],
     buyback:[0,0.21,0.22,1.12], shares:[0.177,0.177,0.18,0.177],
     qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[3.67,4.19,3.79,4.74,4.3], ni:[0.33,0.03,-0.76,0.02,0.22], sbc:[0.057,0.072,0.071,0.06,0.049], buyback:[0.24,0.35,0.24,0.28,0.14], shares:[0.18,0.179,0.176,0.176,0.177]},
-    note:"FanDuel cash machine, but meaningful SBC and share count still creeping up post-US listing. Haircut the adjusted numbers." }),
+    note:"World #1 online betting (FanDuel/Paddy Power/Betfair). Burry bought ~$107 (Jul 2026, 60/40 with DKNG): great core business, past capital misallocation, valuation assumes debt paydown + buybacks now." }),
+  co({ ticker:"DKNG", name:"DraftKings", sector:"Gaming/Betting", bucket:"high", grade:"C", inflecting:true,
+    price:27.17, change:0.97, mktCap:13.5, headlinePE:301.9, ownersKeep:0.62,
+    gaapEPS:0.09, nonGaapEPS:0.10,
+    fy:["2022","2023","2024","2025"], sbcPctRev:5.6, sbcPctOCF:51.2, sbcPctNI:9146,
+    revenue:[2.24,3.67,4.77,6.05], ni:[-1.38,-0.8,-0.51,0], sbc:[0.579,0.398,0.381,0.339],
+    buyback:[0.03,0.08,0.15,0.83], shares:[0.436,0.463,0.482,0.496],
+    qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[1.41,1.51,1.14,1.99,1.65], ni:[-0.03,0.16,-0.26,0.14,0.02], sbc:[0.079,0.085,0.072,0.103,0.065], buyback:[0.22,0.13,0.1,0.38,0.12], shares:[0.493,0.529,0.497,0.546,0.511]},
+    note:"Inflecting: US iGaming scale + huge mindshare, but heavy SBC. Burry bought low $26s (Jul 2026) as an inflection play; prediction-market loophole is the bear case he thinks gets regulated away." }),
 ];
 
 /* ordering for the framework legend */

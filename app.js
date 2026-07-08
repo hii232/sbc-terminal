@@ -246,6 +246,8 @@
         <div class="sub">${d.gaapEPS && d.nonGaapEPS ? "+" + (((d.nonGaapEPS - d.gaapEPS) / d.gaapEPS) * 100).toFixed(0) + "% above GAAP" : ""}</div></div>
       <div class="card"><h3>TRUE SBC-ADJ EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">the number to value off</div></div>
 
+      ${ivLadderCard(d)}
+
       ${sectorContextCard(d)}
 
       <div class="card" style="grid-column:span 3">
@@ -304,6 +306,7 @@
         ], yrs, { h: 130 })}
         <div class="chart-legend"><span><i style="background:var(--dim)"></i>Offset SBC</span><span><i style="background:var(--green)"></i>Real cut</span></div>
         <div class="sub" style="margin-top:4px;color:${bq.c}">${bq.t}</div>
+        ${(() => { const acc = buybackAccretion(d, ivLadder(d)); return acc ? `<div class="sub" style="margin-top:5px;color:${acc.acc ? "var(--green)" : "var(--red)"}">IV check: ${acc.txt}</div>` : ""; })()}
       </div>
     </div>
 
@@ -494,6 +497,32 @@
         </div>
       </div>
       <div class="note" style="margin-top:14px;border-left-color:var(--green)"><b>One-sentence rule:</b> A stock is not truly cheap until it is cheap on SBC-adjusted owner earnings per share, not Wall Street adjusted EPS.</div>
+    </div>
+
+    <div class="card" style="margin-top:12px"><h3>THE IV15 OVERLAY — FROM EARNINGS QUALITY TO A BUY PRICE</h3>
+      <div class="note" style="margin-bottom:12px">A low multiple is not necessarily a value. <b style="color:var(--amber)">IV15</b> is the price at which you'd expect <b>15% compounded annual returns over 15 years</b> — a buy target from a multi-stage DCF built on SBC-adjusted owner earnings and business quality, not a simple P/E. A higher-quality business can be a fat pitch above IV15; a lower-quality one only well below it.</div>
+      <div class="grid g2">
+        <div>
+          ${[
+            ["The IV ladder", "IV20 < IV18 < IV15 < IV12 < IV10 < IV8 in price. Set alerts at every rung; IV15 ★ is the swing trigger."],
+            ["Baseline intrinsic value", "Sits between IV8 and IV10 depending on quality — this terminal uses IV8 for clean names, IV9 middle, IV10 lower tiers."],
+            ["The buyback nuance", "Buybacks BELOW baseline IV are accretive to intrinsic value per share. Above it, they pull shares in but DILUTE IV/share — which is what most tech companies do when offsetting SBC at high prices."],
+            ["Inflecting companies", "Get a 4th DCF stage (growth cap lifted to 25%) — e.g. DKNG. The value is in the transition."],
+            ["The All Map", "Baseball-field view on the ⊞ TRUE P/E tab: Fat Pitches (≥15% implied), Just Outside (10–15%), The Out Field (<10%)."],
+          ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
+        </div>
+        <div>
+          <div class="sub" style="line-height:1.7">
+            <b style="color:var(--text)">How this terminal computes it</b> (simplified but faithful):<br>
+            • Base = SBC-adjusted owner EPS (the Step-5 number).<br>
+            • Stage 1 (yrs 1–5): revenue growth blend, haircut &amp; capped by quality tier.<br>
+            • Stage 2 (yrs 6–10): 60% of stage 1 · Stage 3 (yrs 11–15): ≤4%.<br>
+            • Exit multiple by quality: clean 18x → tragic 10x.<br>
+            • IVr = year-15 value ÷ (1+r)¹⁵ · implied CAGR = what today's price offers.<br><br>
+            <b style="color:var(--red)">Caveats:</b> it's a screen, not the full model — no per-name debt, serial-acquirer, or bedeviled-accounting adjustments. Use it to rank pitches, then do the work.
+          </div>
+        </div>
+      </div>
     </div>`;
   }
 
@@ -525,6 +554,145 @@
     </div>`;
   }
 
+  /* ------------------------ IV15 ENGINE (Burry DCF buy targets) ------------------------ */
+  // IVr = the price at which you'd expect r% CAGR over 15 years, built on
+  // SBC-adjusted owner EPS, 3-stage growth (4th "inflection" stage for flagged
+  // names), quality-set exit multiple. IV15 is the buy target; baseline IV
+  // (IV8–IV10 by quality) is where buybacks stop being accretive.
+  const IV_Q = {
+    clean:  { cap: 0.16, exit: 18, hair: 1.00 },
+    middle: { cap: 0.14, exit: 15, hair: 0.85 },
+    high:   { cap: 0.11, exit: 12, hair: 0.70 },
+    tragic: { cap: 0.09, exit: 10, hair: 0.55 },
+  };
+  function ivLadder(d) {
+    const E0 = d.sbcAdjEPS;
+    if (!E0 || E0 <= 0) return null; // GAAP-loss names: no owner earnings to price
+    let gRecent = null, gCagr = null;
+    if (d.qd && d.qd.revenue && d.qd.revenue.length >= 5 && d.qd.revenue[0] > 0)
+      gRecent = d.qd.revenue[4] / d.qd.revenue[0] - 1;
+    const rv = (d.revenue || []).filter(v => v != null && v > 0);
+    if (rv.length >= 3) gCagr = Math.pow(rv[rv.length - 1] / rv[0], 1 / (rv.length - 1)) - 1;
+    const Q = IV_Q[d.bucket];
+    let g1 = ((gRecent ?? gCagr ?? 0.06) * 0.6 + (gCagr ?? gRecent ?? 0.06) * 0.4) * Q.hair;
+    g1 = clamp(g1, 0.01, d.inflecting ? 0.25 : Q.cap); // inflection: growth cap lifted
+    const g2 = g1 * 0.6, g3 = Math.min(g2, 0.04);
+    // owner-EPS stream for 15 years + exit value on year-15 earnings
+    const stream = [];
+    let e = E0;
+    for (let y = 1; y <= 15; y++) { e *= 1 + (y <= 5 ? g1 : y <= 10 ? g2 : g3); stream.push(e); }
+    const FV = e * Q.exit;
+    // IVr = full DCF: every year's owner earnings + terminal value, discounted at r
+    const iv = (r) => stream.reduce((a, ey, i) => a + ey / Math.pow(1 + r, i + 1), 0) + FV / Math.pow(1 + r, 15);
+    const price = state.live[d.ticker]?.quote?.price ?? d.price;
+    let impliedCAGR = null; // solve iv(r) = price by bisection
+    if (price > 0) {
+      let lo = -0.5, hi = 1.0;
+      for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; iv(mid) > price ? (lo = mid) : (hi = mid); }
+      impliedCAGR = (lo + hi) / 2;
+    }
+    return {
+      E0, g1, g2, g3, exit: Q.exit, FV, price, impliedCAGR,
+      IV20: iv(0.20), IV18: iv(0.18), IV15: iv(0.15), IV12: iv(0.12), IV10: iv(0.10), IV8: iv(0.08),
+      baseline: d.bucket === "clean" ? iv(0.08) : d.bucket === "middle" ? iv(0.09) : iv(0.10),
+      zone: impliedCAGR >= 0.15 ? "fat" : impliedCAGR >= 0.10 ? "just" : "out",
+    };
+  }
+  const ZONE = {
+    fat:  { label: "FAT PITCH",     color: "var(--green)", desc: "priced for 15%+ CAGR over 15y" },
+    just: { label: "JUST OUTSIDE",  color: "var(--amber)", desc: "priced for 10–15% CAGR" },
+    out:  { label: "THE OUT FIELD", color: "var(--red)",   desc: "priced for <10% CAGR" },
+  };
+  function buybackAccretion(d, L) {
+    const bb = d.buyback && d.buyback[d.buyback.length - 1];
+    if (!bb || bb <= 0.05 || !L) return null;
+    const acc = L.price <= L.baseline;
+    return { acc, txt: acc
+      ? `Buying back BELOW baseline IV ($${L.baseline.toFixed(0)}) — accretive to intrinsic value per share.`
+      : `Buying back ABOVE baseline IV ($${L.baseline.toFixed(0)}) — pulls shares in but DILUTES intrinsic value per share. The depressing nuance of offsetting SBC at high prices.` };
+  }
+
+  function ivLadderCard(d) {
+    const L = ivLadder(d);
+    if (!L) return `<div class="card" style="grid-column:span 3">
+      <h3>IV LADDER — BURRY DCF BUY TARGETS</h3>
+      <div class="sub">No positive SBC-adjusted owner earnings — the IV ladder needs real owner earnings to price. GAAP-loss names live in the Out Field by default.</div></div>`;
+    const z = ZONE[L.zone];
+    const rungs = [["IV20", L.IV20], ["IV18", L.IV18], ["IV15 ★", L.IV15], ["IV12", L.IV12], ["IV10", L.IV10], ["IV8 · baseline", L.IV8]];
+    const maxV = Math.max(L.IV8, L.price) * 1.08;
+    const bars = rungs.map(([lb, v]) => {
+      const isIV15 = lb.startsWith("IV15");
+      return `<div style="display:grid;grid-template-columns:104px 1fr 76px;gap:8px;align-items:center;padding:3px 0">
+        <span class="sub" style="${isIV15 ? "color:var(--amber);font-weight:700" : ""}">${lb}</span>
+        <div class="pe-bar" style="position:relative">
+          <i style="width:${clamp(v / maxV * 100, 1, 100)}%;background:${isIV15 ? "var(--amber)" : v >= L.price ? "var(--green)" : "#31405c"}"></i>
+          <span style="position:absolute;left:${clamp(L.price / maxV * 100, 0, 98)}%;top:-2px;bottom:-2px;width:2px;background:var(--red)"></span>
+        </div>
+        <span style="font-size:11px;text-align:right;font-weight:${isIV15 ? 800 : 400};color:${isIV15 ? "var(--amber)" : "var(--text)"}">$${v.toFixed(v >= 100 ? 0 : 2)}</span>
+      </div>`;
+    }).join("");
+    const acc = buybackAccretion(d, L);
+    return `<div class="card" style="grid-column:span 3;border-left:3px solid ${z.color}">
+      <h3>IV LADDER — BURRY DCF BUY TARGETS <span class="unit">3-stage DCF on SBC-adj owner EPS $${L.E0.toFixed(2)} · growth ${(L.g1 * 100).toFixed(0)}%→${(L.g2 * 100).toFixed(0)}%→${(L.g3 * 100).toFixed(0)}% · exit ${L.exit}x${d.inflecting ? " · ⚡ INFLECTING (4th stage)" : ""}</span></h3>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:2;min-width:260px">${bars}
+          <div class="sub" style="margin-top:4px">red line = current price $${L.price.toFixed(2)} · green rungs = buy targets at/above today's price · IV15 ★ is THE buy trigger</div></div>
+        <div style="flex:1;min-width:180px;text-align:center;border-left:1px solid var(--line);padding-left:16px">
+          <div class="sub">AT TODAY'S PRICE THE MARKET OFFERS</div>
+          <div class="stat" style="color:${z.color}">${(L.impliedCAGR * 100).toFixed(1)}%/yr</div>
+          <div class="sub">implied 15-year CAGR</div>
+          <div class="badge" style="color:${z.color};border-color:${z.color};display:inline-block;margin-top:8px">${z.label}</div>
+          <div class="sub" style="margin-top:4px">${z.desc}</div>
+          ${acc ? `<div class="note ${acc.acc ? "" : "callout"}" style="margin-top:10px;text-align:left;font-size:10.5px">${acc.txt}</div>` : ""}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  /* ---- ALL MAP: baseball-field view of the whole board ---- */
+  function allMapSVG() {
+    const W = 700, H = 400, hx = W / 2, hy = H - 18;
+    const pt = (deg, rad) => { const a = (deg * Math.PI) / 180; return [hx + rad * Math.sin(a), hy - rad * Math.cos(a)]; };
+    const arc = (rad) => { const [x1, y1] = pt(-45, rad), [x2, y2] = pt(45, rad); return `M${x1.toFixed(1)} ${y1.toFixed(1)} A${rad} ${rad} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`; };
+    const band = (r1, r2, fill) => {
+      const [ax, ay] = pt(-45, r1), [bx, by] = pt(-45, r2), [cx2, cy2] = pt(45, r2), [dx, dy] = pt(45, r1);
+      return `<path d="M${ax} ${ay} L${bx} ${by} A${r2} ${r2} 0 0 1 ${cx2} ${cy2} L${dx} ${dy} A${r1} ${r1} 0 0 0 ${ax} ${ay}" fill="${fill}"/>`;
+    };
+    const zones = { fat: [], just: [], out: [] };
+    DATA.forEach(d => { const L = ivLadder(d); zones[L ? L.zone : "out"].push({ d, L }); });
+    Object.values(zones).forEach(z => z.sort((a, b) => (b.L?.impliedCAGR ?? -1) - (a.L?.impliedCAGR ?? -1)));
+    const RB = { fat: [70, 155], just: [168, 248], out: [260, 345] };
+    let dots = "";
+    Object.entries(zones).forEach(([zn, arr]) => {
+      const [r1, r2] = RB[zn];
+      arr.forEach((it, i) => {
+        const n = arr.length;
+        const deg = n === 1 ? 0 : -41 + (82 * i) / (n - 1);
+        const rad = r1 + (r2 - r1) * (0.2 + 0.6 * ((i % 3) / 2));
+        const [x, y] = pt(deg, rad);
+        const col = { fat: "#26d07c", just: "#ffb000", out: "#ff5b6b" }[zn];
+        const cagr = it.L ? (it.L.impliedCAGR * 100).toFixed(1) + "%" : "n/m (GAAP loss)";
+        const showLabel = zn !== "out";
+        dots += `<g data-tk="${it.d.ticker}" style="cursor:pointer">
+          <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${zn === "fat" ? 6 : 4.5}" fill="${col}" stroke="#05070c" stroke-width="1.2"><title>${it.d.ticker} — implied 15y CAGR ${cagr}</title></circle>
+          ${showLabel ? `<text x="${x.toFixed(1)}" y="${(y - 8).toFixed(1)}" fill="${col}" font-size="8.5" font-weight="700" text-anchor="middle">${it.d.ticker}</text>` : ""}</g>`;
+      });
+    });
+    const [flx, fly] = pt(-45, 350), [frx, fry] = pt(45, 350);
+    return { svg: `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">
+      ${band(60, 158, "rgba(38,208,124,.07)")}${band(158, 251, "rgba(255,176,0,.06)")}${band(251, 348, "rgba(255,91,107,.05)")}
+      <path d="${arc(158)}" stroke="#26d07c" stroke-dasharray="4 4" fill="none" opacity=".5"/>
+      <path d="${arc(251)}" stroke="#ffb000" stroke-dasharray="4 4" fill="none" opacity=".5"/>
+      <path d="${arc(348)}" stroke="#ff5b6b" stroke-dasharray="4 4" fill="none" opacity=".4"/>
+      <line x1="${hx}" y1="${hy}" x2="${flx}" y2="${fly}" stroke="#31405c"/><line x1="${hx}" y1="${hy}" x2="${frx}" y2="${fry}" stroke="#31405c"/>
+      <rect x="${hx - 5}" y="${hy - 5}" width="10" height="10" fill="#d8e0ea" transform="rotate(45 ${hx} ${hy})"/>
+      <text x="${hx}" y="${hy - 42}" fill="#26d07c" font-size="11" font-weight="800" text-anchor="middle">FAT PITCHES ≥15%</text>
+      <text x="${hx}" y="${hy - 192}" fill="#ffb000" font-size="10" font-weight="700" text-anchor="middle" opacity=".85">JUST OUTSIDE 10–15%</text>
+      <text x="${hx}" y="${hy - 288}" fill="#ff5b6b" font-size="10" font-weight="700" text-anchor="middle" opacity=".85">THE OUT FIELD &lt;10%</text>
+      ${dots}
+    </svg>`, counts: { fat: zones.fat.length, just: zones.just.length, out: zones.out.length }, zones };
+  }
+
   /* ------------------------ TRUE P/E SCREENER view ------------------------ */
   const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
   const bucketColor = (b) => BUCKETS[b].color;
@@ -550,6 +718,7 @@
       .sort((a, b) => (a.med ?? 1e9) - (b.med ?? 1e9));
 
     const all = DATA.filter(d => d.truePE && d.headlinePE);
+    const map = allMapSVG();
     const globalCap = Math.min(120, Math.max(...all.map(d => d.truePE)));
     const cheapest = [...all].sort((a, b) => a.truePE - b.truePE).slice(0, 10);
     const dearest = [...all].sort((a, b) => b.truePE - a.truePE).slice(0, 10);
@@ -579,6 +748,11 @@
       </div>
       <div class="note" style="margin-bottom:12px">
         <b style="color:var(--cyan)">Cyan</b> = headline P/E · <b style="color:var(--red)">red</b> = the SBC dilution premium you actually pay · <b style="color:var(--amber)">amber number</b> = TRUE P/E (headline ÷ owner-earnings retention). Colored dot = quality bucket. Tap any row to open the stock.
+      </div>
+      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
+        <h3>THE ALL MAP — WHERE EVERY PITCH LANDS <span class="unit">IV-ladder DCF on SBC-adj owner earnings · ${map.counts.fat} fat pitches · ${map.counts.just} just outside · ${map.counts.out} out field · tap a dot</span></h3>
+        ${map.svg}
+        <div class="sub" style="margin-top:6px">Distance from home plate = the 15-year CAGR today's price offers, from the IV ladder (see any stock's Overview). A low multiple is not necessarily a value — quality sets each name's growth and exit multiple. GAAP-loss names are parked in the Out Field.</div>
       </div>
       <div class="grid g2" style="margin-bottom:12px">
         <div class="card" style="border-left:3px solid var(--green)">
@@ -730,7 +904,23 @@
       })), { labelW: 52 }),
       (green / tape.length) * 100, "of the board is green", green > tape.length / 2 ? "var(--green)" : "var(--red)");
 
-    // 7) live Polymarket odds (graceful fallback)
+    // 7) fat pitches (IV15 engine)
+    const map = allMapSVG();
+    const fats = map.zones.fat.slice(0, 10);
+    const n7 = narrCard(
+      `${map.counts.fat} FAT PITCHES ON THE FIELD`,
+      map.counts.fat ? `Priced for ≥15%/yr over 15 years on SBC-adjusted owner earnings — the only zone where you swing. ${map.counts.just} just outside, ${map.counts.out} in the out field.`
+        : `Nothing on the board is priced for 15%/yr right now — patience is a position. ${map.counts.just} names sit just outside (10–15%).`,
+      fats.length ? Chart.hbars(fats.map(f => ({
+        label: f.d.ticker, value: f.L.impliedCAGR * 100, color: "var(--green)",
+        display: (f.L.impliedCAGR * 100).toFixed(1) + "%/yr",
+      })), { labelW: 52 }) : Chart.hbars(map.zones.just.slice(0, 8).map(f => ({
+        label: f.d.ticker, value: f.L.impliedCAGR * 100, color: "var(--amber)",
+        display: (f.L.impliedCAGR * 100).toFixed(1) + "%/yr",
+      })), { labelW: 52 }),
+      null, "", "var(--green)");
+
+    // 8) live Polymarket odds (graceful fallback)
     const pm = `<div class="card" style="border-left:3px solid var(--cyan)">
       <div style="font-size:15px;font-weight:800;color:var(--text)">PREDICTION MARKETS — LIVE POLYMARKET ODDS</div>
       <div class="sub" style="margin:4px 0 10px">What real-money bettors price in right now · highest-volume open markets</div>
@@ -746,9 +936,10 @@
         <div class="spacer"></div>
         <div style="text-align:right"><div class="sub">DATA AS OF</div><div class="stat sm">${SECTORS.asof}</div></div>
       </div>
-      <div class="grid g2">${n1}${n2}${n3}${n6}${n4}${n5}
+      <div class="grid g2">${n1}${n2}${n3}${n6}${n7}${n4}${n5}
         <div style="grid-column:span 2">${pm}</div>
       </div>`;
+    el("main").querySelectorAll(".card [data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
     loadPolymarket();
   }
 
