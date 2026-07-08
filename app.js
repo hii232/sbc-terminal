@@ -126,6 +126,7 @@
     state.view = "stock";
     el("sectorBtn").classList.remove("active");
     el("narrBtn").classList.remove("active");
+    el("valBtn").classList.remove("active");
     renderWatchlist();
     render();
     closeDrawer();
@@ -137,6 +138,7 @@
     state.view = "sectors";
     el("sectorBtn").classList.add("active");
     el("narrBtn").classList.remove("active");
+    el("valBtn").classList.remove("active");
     renderWatchlist();
     renderSectors();
     closeDrawer();
@@ -152,6 +154,7 @@
     el("navList").classList.toggle("active", drawerOpen);
     el("navSectors").classList.toggle("active", !drawerOpen && state.view === "sectors");
     el("navNarr").classList.toggle("active", !drawerOpen && state.view === "narratives");
+    el("navPE").classList.toggle("active", !drawerOpen && state.view === "valuation");
     el("navXray").classList.toggle("active", !drawerOpen && state.view === "stock" && currentTab === "sbc");
   }
 
@@ -522,6 +525,88 @@
     </div>`;
   }
 
+  /* ------------------------ TRUE P/E SCREENER view ------------------------ */
+  const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
+  const bucketColor = (b) => BUCKETS[b].color;
+
+  function peRow(d, cap) {
+    const hw = clamp((d.headlinePE / cap) * 100, 1, 100);
+    const xw = clamp(((d.truePE - d.headlinePE) / cap) * 100, 0, 100 - hw);
+    return `<div class="pe-row" data-tk="${d.ticker}" title="${d.name} — headline ${d.headlinePE}x → true ${d.truePE}x (keeps ${(d.ownersKeep * 100).toFixed(0)}¢/$)">
+      <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(d.bucket)}"></i>${d.ticker}</span>
+      <div class="pe-bar"><i style="width:${hw}%;background:var(--cyan)"></i><i style="width:${xw}%;background:var(--red)"></i></div>
+      <span class="pe-val"><b style="color:var(--amber)">${d.truePE.toFixed(1)}x</b> <span class="sub">${d.headlinePE.toFixed(0)}x hdl</span></span>
+    </div>`;
+  }
+
+  function renderValuation() {
+    const groups = {};
+    DATA.forEach(d => { const etf = SECTOR_MAP[d.sector] || "XLK"; (groups[etf] = groups[etf] || []).push(d); });
+    const secs = Object.entries(groups).map(([etf, ds]) => {
+      const withPE = ds.filter(d => d.truePE && d.headlinePE).sort((a, b) => a.truePE - b.truePE);
+      const noPE = ds.filter(d => !d.truePE || !d.headlinePE);
+      return { etf, s: secByT(etf), withPE, noPE, med: medianOf(withPE.map(d => d.truePE)) };
+    }).filter(g => g.withPE.length || g.noPE.length)
+      .sort((a, b) => (a.med ?? 1e9) - (b.med ?? 1e9));
+
+    const all = DATA.filter(d => d.truePE && d.headlinePE);
+    const globalCap = Math.min(120, Math.max(...all.map(d => d.truePE)));
+    const cheapest = [...all].sort((a, b) => a.truePE - b.truePE).slice(0, 10);
+    const dearest = [...all].sort((a, b) => b.truePE - a.truePE).slice(0, 10);
+
+    const secCards = secs.map(g => {
+      const cap = Math.min(120, Math.max(...(g.withPE.length ? g.withPE.map(d => d.truePE) : [30])) * 1.05);
+      const r3 = g.s ? retOver(g.s, 3) : null;
+      return `<div class="card">
+        <h3>${(g.s ? g.s.name : g.etf).toUpperCase()} · ${g.etf}
+          <span class="unit">median TRUE P/E <b style="color:var(--amber)">${g.med ? g.med.toFixed(1) + "x" : "n/m"}</b>${r3 != null ? ` · 3M <b class="${r3 >= 0 ? "up" : "down"}">${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%</b>` : ""}</span></h3>
+        ${g.withPE.map(d => peRow(d, cap)).join("")}
+        ${g.noPE.length ? `<div class="sub" style="margin-top:6px">n/m (GAAP loss or no P/E): ${g.noPE.map(d => `<span class="tag" data-tk="${d.ticker}" style="cursor:pointer">${d.ticker}</span>`).join("")}</div>` : ""}
+      </div>`;
+    }).join("");
+
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div>
+          <div class="tick" style="color:var(--green)">⊞ TRUE P/E SCREENER</div>
+          <div class="co">SBC-adjusted valuation vs sector competitors · sectors & stocks ranked cheapest → most expensive</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right">
+          <div class="sub">MEDIAN TRUE P/E · ALL ${all.length} NAMES</div>
+          <div class="stat sm" style="color:var(--amber)">${medianOf(all.map(d => d.truePE)).toFixed(1)}x</div>
+        </div>
+      </div>
+      <div class="note" style="margin-bottom:12px">
+        <b style="color:var(--cyan)">Cyan</b> = headline P/E · <b style="color:var(--red)">red</b> = the SBC dilution premium you actually pay · <b style="color:var(--amber)">amber number</b> = TRUE P/E (headline ÷ owner-earnings retention). Colored dot = quality bucket. Tap any row to open the stock.
+      </div>
+      <div class="grid g2" style="margin-bottom:12px">
+        <div class="card" style="border-left:3px solid var(--green)">
+          <h3>CHEAPEST IN THE MARKET <span class="unit">true P/E, whole board</span></h3>
+          ${cheapest.map(d => peRow(d, globalCap)).join("")}
+        </div>
+        <div class="card" style="border-left:3px solid var(--red)">
+          <h3>MOST EXPENSIVE <span class="unit">true P/E, whole board</span></h3>
+          ${dearest.map(d => peRow(d, globalCap)).join("")}
+        </div>
+      </div>
+      <div class="grid g2">${secCards}</div>`;
+
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+
+  function showValuation() {
+    state.view = "valuation";
+    el("sectorBtn").classList.remove("active");
+    el("narrBtn").classList.remove("active");
+    el("valBtn").classList.add("active");
+    renderWatchlist();
+    renderValuation();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
+  }
+
   /* ------------------------ NARRATIVES view ------------------------ */
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   function flowShareOf(s) { // sector's % of total sector-ETF dollar volume per month
@@ -712,6 +797,7 @@
     state.view = "narratives";
     el("sectorBtn").classList.remove("active");
     el("narrBtn").classList.add("active");
+    el("valBtn").classList.remove("active");
     renderWatchlist();
     renderNarratives();
     closeDrawer();
@@ -927,6 +1013,9 @@
   function runCommand(q) {
     q = (q || "").trim().toUpperCase();
     if (!q) return;
+    if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
+      showValuation(); flash("True P/E screener", "ok"); return;
+    }
     if (["NARRATIVES", "NARRATIVE", "NARR", "STORIES", "STORY", "POLYMARKET"].includes(q)) {
       showNarratives(); flash("Narratives view", "ok"); return;
     }
@@ -990,14 +1079,16 @@
     el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) refreshAllLive(); else el("gearBtn").click(); };
     el("sectorBtn").onclick = showSectors;
     el("narrBtn").onclick = showNarratives;
+    el("valBtn").onclick = showValuation;
 
     // mobile bottom nav + drawer
     el("navList").onclick = () => $("aside").classList.contains("open") ? closeDrawer() : openDrawer();
     el("navSectors").onclick = showSectors;
     el("navNarr").onclick = showNarratives;
+    el("navPE").onclick = showValuation;
     el("navXray").onclick = () => {
       closeDrawer();
-      if (state.view !== "stock") { state.view = "stock"; el("sectorBtn").classList.remove("active"); el("narrBtn").classList.remove("active"); }
+      if (state.view !== "stock") { state.view = "stock"; el("sectorBtn").classList.remove("active"); el("narrBtn").classList.remove("active"); el("valBtn").classList.remove("active"); }
       currentTab = "sbc"; render(); window.scrollTo({ top: 0 }); syncNav();
     };
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };

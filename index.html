@@ -83,6 +83,19 @@
   .sector-btn.narr{color:var(--amber);margin-top:0}
   .sector-btn.narr:hover{border-color:var(--amber);box-shadow:0 0 10px rgba(255,176,0,.18)}
   .sector-btn.narr.active{background:linear-gradient(135deg,rgba(255,176,0,.18),rgba(255,176,0,.05));border-color:var(--amber)}
+  .sector-btn.val{color:var(--green);margin-top:0}
+  .sector-btn.val:hover{border-color:var(--green);box-shadow:0 0 10px rgba(38,208,124,.18)}
+  .sector-btn.val.active{background:linear-gradient(135deg,rgba(38,208,124,.18),rgba(38,208,124,.05));border-color:var(--green)}
+
+  /* true P/E screener rows */
+  .pe-row{display:grid;grid-template-columns:66px 1fr 96px;gap:8px;align-items:center;
+    padding:5px 0;border-bottom:1px solid #10151f;cursor:pointer}
+  .pe-row:hover{background:#0c121d}
+  .pe-row:last-of-type{border-bottom:none}
+  .pe-tk{font-weight:700;font-size:11px;white-space:nowrap}
+  .pe-bar{height:12px;background:#0b101b;border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex}
+  .pe-bar i{display:block;height:100%}
+  .pe-val{text-align:right;font-size:11px;white-space:nowrap}
   .wl-head{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;
     border-bottom:1px solid var(--line);color:var(--dim);font-size:10px;letter-spacing:1.5px}
   .filter{display:flex;gap:4px;padding:8px 10px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
@@ -310,6 +323,7 @@
   <aside>
     <button class="sector-btn" id="sectorBtn">◈ SECTOR FLOW</button>
     <button class="sector-btn narr" id="narrBtn">◆ NARRATIVES</button>
+    <button class="sector-btn val" id="valBtn">⊞ TRUE P/E</button>
     <div class="wl-head"><span>WATCHLIST</span><span id="wlCount"></span></div>
     <div class="filter" id="filter">
       <button data-b="all" class="active">ALL</button>
@@ -350,14 +364,15 @@
   <button id="navNarr"><span class="ni">◆</span>STORIES</button>
   <button id="navSectors"><span class="ni">◈</span>SECTORS</button>
   <button id="navXray"><span class="ni">★</span>X-RAY</button>
+  <button id="navPE"><span class="ni">⊞</span>P/E</button>
   <button id="navSearch"><span class="ni">⌕</span>SEARCH</button>
 </nav>
 
 <div class="flash" id="flash"></div>
 
-<script src="data.js?v=5"></script>
-<script src="sectors.js?v=5"></script>
-<script src="charts.js?v=5"></script>
-<script src="app.js?v=5"></script>
+<script src="data.js?v=6"></script>
+<script src="sectors.js?v=6"></script>
+<script src="charts.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
