@@ -10,11 +10,12 @@
   const signCls = (n) => n >= 0 ? "up" : "down";
   const arrow = (n) => (n >= 0 ? "▲" : "▼");
 
+  const DEFAULT_FINNHUB = "d977d8pr01qs09n8fingd977d8pr01qs09n8fio0"; // ships with terminal; replace in ⚙ if rate-limited
   const state = {
     active: null,
-    view: "stock", // 'stock' | 'sectors'
+    view: "stock", // 'stock' | 'sectors' | 'narratives'
     bucket: "all",
-    keys: { finnhub: localStorage.getItem("finnhubKey") || "", fmp: localStorage.getItem("fmpKey") || "" },
+    keys: { finnhub: localStorage.getItem("finnhubKey") || DEFAULT_FINNHUB, fmp: localStorage.getItem("fmpKey") || "" },
     live: {}, // ticker -> {quote, news}
     secOn: new Set(["XLK", "SMH", "XLF", "XLV", "XLE", "SPY"]), // default sector lines
   };
@@ -27,7 +28,7 @@
     "Semis": "SMH", "Semis/AI": "SMH", "Semi Equip": "SMH", "Semis/IP": "SMH",
     "E-commerce": "XLY", "E-commerce/Cloud": "XLY", "Auto/AI": "XLY", "Retail": "XLP",
     "Home Improvement": "XLY", "Restaurants": "XLY", "Apparel": "XLY", "Travel": "XLY",
-    "Ride-Hailing": "XLY", "Gaming": "XLC", "Streaming": "XLC", "Social Media": "XLC",
+    "Ride-Hailing": "XLY", "Gaming/Betting": "XLY", "Gaming": "XLC", "Streaming": "XLC", "Social Media": "XLC",
     "Media": "XLC", "Telecom": "XLC",
     "Payments": "XLF", "Banks": "XLF", "Asset Mgmt": "XLF", "Financial Data": "XLF",
     "Crypto Exchange": "XLF", "Fintech Brokerage": "XLF",
@@ -124,6 +125,7 @@
     state.active = tk;
     state.view = "stock";
     el("sectorBtn").classList.remove("active");
+    el("narrBtn").classList.remove("active");
     renderWatchlist();
     render();
     closeDrawer();
@@ -134,6 +136,7 @@
   function showSectors() {
     state.view = "sectors";
     el("sectorBtn").classList.add("active");
+    el("narrBtn").classList.remove("active");
     renderWatchlist();
     renderSectors();
     closeDrawer();
@@ -148,6 +151,7 @@
     const drawerOpen = $("aside").classList.contains("open");
     el("navList").classList.toggle("active", drawerOpen);
     el("navSectors").classList.toggle("active", !drawerOpen && state.view === "sectors");
+    el("navNarr").classList.toggle("active", !drawerOpen && state.view === "narratives");
     el("navXray").classList.toggle("active", !drawerOpen && state.view === "stock" && currentTab === "sbc");
   }
 
@@ -518,6 +522,203 @@
     </div>`;
   }
 
+  /* ------------------------ NARRATIVES view ------------------------ */
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  function flowShareOf(s) { // sector's % of total sector-ETF dollar volume per month
+    const secOnly = SECTORS.series.filter(x => x.t !== "SPY");
+    const totals = SECTORS.labels.map((_, i) => secOnly.reduce((a, x) => a + (x.flow[i] || 0), 0));
+    return s.flow.map((v, i) => totals[i] ? +((v / totals[i]) * 100).toFixed(1) : null);
+  }
+  function flowDelta(s) { // current $-volume share vs trailing-6M average, in pp
+    const sh = flowShareOf(s), n = sh.length - 1;
+    const avg6 = sh.slice(Math.max(0, n - 6), n).reduce((a, v) => a + v, 0) / Math.min(6, n);
+    return (sh[n] ?? sh[n - 1]) - avg6;
+  }
+  const oddsPill = (p, label) => {
+    const col = p >= 70 ? "var(--green)" : p >= 50 ? "var(--amber)" : "var(--red)";
+    return `<div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+      <div class="meter" style="flex:1;margin-top:0"><i style="width:${p}%;background:${col}"></i></div>
+      <span style="font-size:11px;font-weight:800;color:${col};white-space:nowrap">${p.toFixed(0)}%</span>
+      <span class="sub" style="white-space:nowrap">${label}</span>
+    </div>`;
+  };
+  const narrCard = (headline, sub, body, odds, oddsLabel, accent = "var(--amber)") => `
+    <div class="card" style="border-left:3px solid ${accent}">
+      <div style="font-size:15px;font-weight:800;letter-spacing:.5px;line-height:1.3;color:var(--text)">${headline}</div>
+      <div class="sub" style="margin:4px 0 10px">${sub}</div>
+      ${body}
+      ${odds != null ? oddsPill(clamp(odds, 5, 95), oddsLabel) : ""}
+    </div>`;
+
+  function renderNarratives() {
+    const secOnly = SECTORS.series.filter(s => s.t !== "SPY");
+    const spy = secByT("SPY");
+    const spy3 = retOver(spy, 3);
+    const ranked = [...secOnly].sort((a, b) => retOver(b, 3) - retOver(a, 3));
+    const leader = ranked[0], second = ranked[1], laggard = ranked[ranked.length - 1];
+    const byDelta = [...secOnly].sort((a, b) => flowDelta(b) - flowDelta(a));
+    const rotIn = byDelta[0], rotOut = byDelta[byDelta.length - 1];
+
+    // 1) leadership
+    const leadEdge = retOver(leader, 3) - spy3;
+    const n1 = narrCard(
+      `MARKET IS REWARDING ${leader.name.toUpperCase()} RIGHT NOW`,
+      `${leader.t} +${retOver(leader, 3).toFixed(1)}% over 3M vs S&P ${spy3 >= 0 ? "+" : ""}${spy3.toFixed(1)}% · money flow ${flowDelta(leader) >= 0 ? "confirms — dollars rotating in" : "diverges — price up but dollars leaving (fragile)"}`,
+      Chart.line([
+        { points: perfSeries(leader), color: leader.color },
+        { points: perfSeries(second), color: second.color },
+        { points: perfSeries(spy), color: spy.color },
+      ], SECTORS.labels, { h: 160, zero: true }) +
+      `<div class="chart-legend"><span><i style="background:${leader.color}"></i>${leader.t}</span><span><i style="background:${second.color}"></i>${second.t}</span><span><i style="background:${spy.color}"></i>SPY</span></div>`,
+      50 + leadEdge * 2.5 + flowDelta(leader) * 8, "odds leadership holds", leader.color);
+
+    // 2) money rotation
+    const n2 = narrCard(
+      `MONEY IS ROTATING INTO ${rotIn.name.toUpperCase()}, OUT OF ${rotOut.name.toUpperCase()}`,
+      `${rotIn.t} taking ${flowDelta(rotIn) >= 0 ? "+" : ""}${flowDelta(rotIn).toFixed(1)}pp more of all sector dollars vs its 6M average · ${rotOut.t} ${flowDelta(rotOut).toFixed(1)}pp`,
+      Chart.line([
+        { points: flowShareOf(rotIn), color: rotIn.color },
+        { points: flowShareOf(rotOut), color: rotOut.color },
+      ], SECTORS.labels, { h: 150 }) +
+      `<div class="chart-legend"><span><i style="background:${rotIn.color}"></i>${rotIn.t} $-share</span><span><i style="background:${rotOut.color}"></i>${rotOut.t} $-share</span></div>`,
+      50 + flowDelta(rotIn) * 10, "odds rotation continues", rotIn.color);
+
+    // 3) laggard
+    const lagGap = retOver(laggard, 3) - spy3;
+    const n3 = narrCard(
+      `MARKET IS PUNISHING ${laggard.name.toUpperCase()}`,
+      `${laggard.t} ${retOver(laggard, 3) >= 0 ? "+" : ""}${retOver(laggard, 3).toFixed(1)}% over 3M, ${Math.abs(lagGap).toFixed(1)}pp behind the S&P · 12M: ${retOver(laggard, 12) >= 0 ? "+" : ""}${retOver(laggard, 12).toFixed(1)}%`,
+      Chart.line([
+        { points: perfSeries(laggard), color: laggard.color },
+        { points: perfSeries(spy), color: spy.color },
+      ], SECTORS.labels, { h: 150, zero: true }) +
+      `<div class="chart-legend"><span><i style="background:${laggard.color}"></i>${laggard.t}</span><span><i style="background:${spy.color}"></i>SPY</span></div>`,
+      50 - lagGap * 2.5, "odds weakness persists", "var(--red)");
+
+    // 4) buyback mirage (across all tickers, TTM)
+    let totBB = 0, totAnti = 0, totReal = 0;
+    DATA.forEach(d => {
+      if (!d.qd) return;
+      const bb = ttm(d.qd.buyback) || 0, sbc = ttm(d.qd.sbc) || 0;
+      totBB += bb; totAnti += Math.min(bb, sbc); totReal += Math.max(0, bb - sbc);
+    });
+    const realPct = totBB ? (totReal / totBB) * 100 : 0;
+    const n4 = narrCard(
+      `THE BUYBACK MIRAGE: ONLY ${realPct.toFixed(0)}¢ OF EVERY BUYBACK DOLLAR SHRINKS THE SHARE COUNT`,
+      `Across all ${DATA.length} names (TTM): $${totBB.toFixed(0)}B announced buybacks — $${totAnti.toFixed(0)}B just offsets SBC issuance`,
+      Chart.hbars([
+        { label: "Announced", value: totBB, color: "var(--cyan)", display: "$" + totBB.toFixed(0) + "B" },
+        { label: "Anti-dilution", value: totAnti, color: "var(--red)", display: "$" + totAnti.toFixed(0) + "B" },
+        { label: "REAL return", value: totReal, color: "var(--green)", display: "$" + totReal.toFixed(0) + "B" },
+      ], { labelW: 96 }),
+      null, "", "var(--orange)");
+
+    // 5) dilution tax by tier (median TTM SBC/revenue per bucket)
+    const med = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
+    const tierSbc = Object.keys(BUCKETS).map(b => {
+      const vals = DATA.filter(d => d.bucket === b && d.qd).map(d => {
+        const r = ttm(d.qd.revenue), s = ttm(d.qd.sbc);
+        return r && s != null ? (s / r) * 100 : null;
+      });
+      return { b, v: med(vals) };
+    });
+    const n5 = narrCard(
+      `THE DILUTION TAX: TRAGIC TIER PAYS ${tierSbc[3].v?.toFixed(0) ?? "?"}x THE SBC OF CLEAN NAMES`,
+      `Median TTM stock-comp as % of revenue, by quality tier — this is the framework in one chart`,
+      Chart.hbars(tierSbc.map(t => ({
+        label: BUCKETS[t.b].label.split(" ")[0].toUpperCase(),
+        value: t.v || 0, color: BUCKETS[t.b].color, display: (t.v ?? 0).toFixed(1) + "%",
+      })), { labelW: 96 }),
+      null, "", "var(--purple)");
+
+    // 6) today's tape
+    const tape = DATA.map(d => ({ tk: d.ticker, ch: state.live[d.ticker]?.quote?.changePct ?? d.change }))
+      .sort((a, b) => b.ch - a.ch);
+    const green = tape.filter(t => t.ch > 0).length;
+    const movers = [...tape.slice(0, 5), ...tape.slice(-5)];
+    const n6 = narrCard(
+      `TODAY'S TAPE: ${green} OF ${tape.length} NAMES GREEN`,
+      `${green > tape.length / 2 ? "Breadth positive — buyers in control" : "Breadth negative — risk-off tape"} · biggest movers below ${state.keys.finnhub ? "(live quotes streaming)" : ""}`,
+      Chart.hbars(movers.map(m => ({
+        label: m.tk, value: Math.abs(m.ch), color: m.ch >= 0 ? "var(--green)" : "var(--red)",
+        display: (m.ch >= 0 ? "+" : "−") + Math.abs(m.ch).toFixed(1) + "%",
+      })), { labelW: 52 }),
+      (green / tape.length) * 100, "of the board is green", green > tape.length / 2 ? "var(--green)" : "var(--red)");
+
+    // 7) live Polymarket odds (graceful fallback)
+    const pm = `<div class="card" style="border-left:3px solid var(--cyan)">
+      <div style="font-size:15px;font-weight:800;color:var(--text)">PREDICTION MARKETS — LIVE POLYMARKET ODDS</div>
+      <div class="sub" style="margin:4px 0 10px">What real-money bettors price in right now · highest-volume open markets</div>
+      <div id="pmBody"><div class="sub">Loading Polymarket…</div></div>
+    </div>`;
+
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div>
+          <div class="tick" style="color:var(--amber)">◆ NARRATIVES</div>
+          <div class="co">What the market is telling you — computed live from price, money flow, and the SBC framework</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">DATA AS OF</div><div class="stat sm">${SECTORS.asof}</div></div>
+      </div>
+      <div class="grid g2">${n1}${n2}${n3}${n6}${n4}${n5}
+        <div style="grid-column:span 2">${pm}</div>
+      </div>`;
+    loadPolymarket();
+  }
+
+  async function loadPolymarket() {
+    const box = el("pmBody");
+    if (!box) return;
+    try {
+      const base = "https://gamma-api.polymarket.com/events?closed=false&order=volume24hr&ascending=false&limit=6&tag_slug=";
+      const [eco, cry] = await Promise.all([
+        fetch(base + "economy").then(r => r.json()).catch(() => []),
+        fetch(base + "crypto").then(r => r.json()).catch(() => []),
+      ]);
+      const events = [...(Array.isArray(eco) ? eco : []), ...(Array.isArray(cry) ? cry : [])]
+        .sort((a, b) => (+b.volume24hr || 0) - (+a.volume24hr || 0)).slice(0, 7);
+      const rows = events.map(ev => {
+        try {
+          const ms = (ev.markets || []).filter(m => m.outcomePrices);
+          if (!ms.length) return "";
+          // grouped events: show the most contested outcome (nearest 50/50); binary: show YES odds
+          const scored = ms.map(m => ({ m, p: JSON.parse(m.outcomePrices).map(Number)[0] }))
+            .sort((a, b) => Math.abs(a.p - 0.5) - Math.abs(b.p - 0.5));
+          const top = ms.length > 1 ? scored[0] : scored.sort((a, b) => b.p - a.p)[0];
+          const p = clamp(top.p * 100, 0, 100);
+          const label = ms.length > 1 ? escapeHtml(top.m.groupItemTitle || top.m.question) : "YES";
+          const col = p >= 65 ? "var(--green)" : p >= 40 ? "var(--amber)" : "var(--red)";
+          const vol = ev.volume24hr ? "$" + (+ev.volume24hr / 1e6).toFixed(1) + "M/24h" : "";
+          return `<div style="padding:8px 0;border-bottom:1px solid var(--line)">
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
+              <span style="font-size:12px;color:var(--text)">${escapeHtml(ev.title)}</span>
+              <b style="color:${col};white-space:nowrap">${p.toFixed(0)}% — ${label}</b>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+              <div class="meter" style="flex:1;margin-top:0"><i style="width:${p}%;background:${col}"></i></div>
+              <span class="sub" style="white-space:nowrap">${vol}</span>
+            </div>
+          </div>`;
+        } catch { return ""; }
+      }).filter(Boolean);
+      box.innerHTML = rows.length ? rows.join("") : `<div class="sub">No markets returned — try again later.</div>`;
+    } catch {
+      box.innerHTML = `<div class="sub">Polymarket unreachable right now — the odds above are computed from market data instead.</div>`;
+    }
+  }
+
+  function showNarratives() {
+    state.view = "narratives";
+    el("sectorBtn").classList.remove("active");
+    el("narrBtn").classList.add("active");
+    renderWatchlist();
+    renderNarratives();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
+  }
+
   /* ------------------------ SECTOR FLOW view ------------------------ */
   function renderSectors() {
     const S = SECTORS.series;
@@ -651,7 +852,7 @@
   function priceLabels() { return ["12M", "", "", "9M", "", "", "6M", "", "", "3M", "", "", "NOW"].filter((_, i) => i % 2 === 0).concat().slice(0, 13); }
 
   /* ------------------------ LIVE DATA ------------------------ */
-  async function fetchLive(tk) {
+  async function fetchLive(tk, full = true) {
     const d = DATA.find(x => x.ticker === tk);
     if (!d) return;
     state.live[tk] = state.live[tk] || {};
@@ -662,11 +863,13 @@
         .then(r => r.json()).then(q => {
           if (q && q.c) state.live[tk].quote = { price: q.c, changePct: q.dp ?? 0 };
         }).catch(() => {}));
-      const to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 30;
-      const fd = new Date(from * 1000).toISOString().slice(0, 10);
-      const td = new Date(to * 1000).toISOString().slice(0, 10);
-      tasks.push(fetch(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${fd}&to=${td}&token=${k.finnhub}`)
-        .then(r => r.json()).then(n => { if (Array.isArray(n)) state.live[tk].news = n; }).catch(() => {}));
+      if (full) { // news only for the selected ticker — keeps the free key inside 60 calls/min
+        const to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 30;
+        const fd = new Date(from * 1000).toISOString().slice(0, 10);
+        const td = new Date(to * 1000).toISOString().slice(0, 10);
+        tasks.push(fetch(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${fd}&to=${td}&token=${k.finnhub}`)
+          .then(r => r.json()).then(n => { if (Array.isArray(n)) state.live[tk].news = n; }).catch(() => {}));
+      }
     }
     if (k.fmp) {
       tasks.push(Promise.all([
@@ -709,9 +912,9 @@
 
   function refreshAllLive() {
     if (!state.keys.finnhub && !state.keys.fmp) return;
-    flash("Pulling live data for watchlist…", "ok");
-    // stagger to respect rate limits
-    DATA.forEach((d, i) => setTimeout(() => fetchLive(d.ticker), i * 350));
+    flash("Streaming live quotes…", "ok");
+    // quotes only, ~55/min stagger to respect the free-tier rate limit
+    DATA.forEach((d, i) => setTimeout(() => fetchLive(d.ticker, false), i * 1100));
   }
 
   function updateLiveDot() {
@@ -724,6 +927,9 @@
   function runCommand(q) {
     q = (q || "").trim().toUpperCase();
     if (!q) return;
+    if (["NARRATIVES", "NARRATIVE", "NARR", "STORIES", "STORY", "POLYMARKET"].includes(q)) {
+      showNarratives(); flash("Narratives view", "ok"); return;
+    }
     if (["SECTORS", "SECTOR", "FLOW", "ROTATION"].includes(q) || SECTORS.series.some(s => s.t === q)) {
       showSectors();
       if (SECTORS.series.some(s => s.t === q)) { state.secOn.add(q); renderSectors(); }
@@ -783,13 +989,15 @@
     };
     el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) refreshAllLive(); else el("gearBtn").click(); };
     el("sectorBtn").onclick = showSectors;
+    el("narrBtn").onclick = showNarratives;
 
     // mobile bottom nav + drawer
     el("navList").onclick = () => $("aside").classList.contains("open") ? closeDrawer() : openDrawer();
     el("navSectors").onclick = showSectors;
+    el("navNarr").onclick = showNarratives;
     el("navXray").onclick = () => {
       closeDrawer();
-      if (state.view !== "stock") { state.view = "stock"; el("sectorBtn").classList.remove("active"); }
+      if (state.view !== "stock") { state.view = "stock"; el("sectorBtn").classList.remove("active"); el("narrBtn").classList.remove("active"); }
       currentTab = "sbc"; render(); window.scrollTo({ top: 0 }); syncNav();
     };
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };

@@ -80,6 +80,9 @@
     letter-spacing:1.5px;padding:9px 10px;border-radius:7px;cursor:pointer;text-align:center}
   .sector-btn:hover{border-color:var(--cyan);box-shadow:0 0 10px rgba(55,198,255,.18)}
   .sector-btn.active{background:linear-gradient(135deg,rgba(55,198,255,.18),rgba(55,198,255,.05));border-color:var(--cyan)}
+  .sector-btn.narr{color:var(--amber);margin-top:0}
+  .sector-btn.narr:hover{border-color:var(--amber);box-shadow:0 0 10px rgba(255,176,0,.18)}
+  .sector-btn.narr.active{background:linear-gradient(135deg,rgba(255,176,0,.18),rgba(255,176,0,.05));border-color:var(--amber)}
   .wl-head{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;
     border-bottom:1px solid var(--line);color:var(--dim);font-size:10px;letter-spacing:1.5px}
   .filter{display:flex;gap:4px;padding:8px 10px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
@@ -306,6 +309,7 @@
 <div class="app">
   <aside>
     <button class="sector-btn" id="sectorBtn">◈ SECTOR FLOW</button>
+    <button class="sector-btn narr" id="narrBtn">◆ NARRATIVES</button>
     <div class="wl-head"><span>WATCHLIST</span><span id="wlCount"></span></div>
     <div class="filter" id="filter">
       <button data-b="all" class="active">ALL</button>
@@ -342,17 +346,18 @@
 <div class="backdrop" id="backdrop"></div>
 
 <nav class="bottom-nav" id="bottomNav">
-  <button id="navList"><span class="ni">☰</span>WATCHLIST</button>
+  <button id="navList"><span class="ni">☰</span>LIST</button>
+  <button id="navNarr"><span class="ni">◆</span>STORIES</button>
   <button id="navSectors"><span class="ni">◈</span>SECTORS</button>
-  <button id="navXray"><span class="ni">★</span>SBC X-RAY</button>
+  <button id="navXray"><span class="ni">★</span>X-RAY</button>
   <button id="navSearch"><span class="ni">⌕</span>SEARCH</button>
 </nav>
 
 <div class="flash" id="flash"></div>
 
-<script src="data.js?v=4"></script>
-<script src="sectors.js?v=4"></script>
-<script src="charts.js?v=4"></script>
-<script src="app.js?v=4"></script>
+<script src="data.js?v=5"></script>
+<script src="sectors.js?v=5"></script>
+<script src="charts.js?v=5"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

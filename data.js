@@ -876,6 +876,14 @@ const DATA = [
     buyback:[0,0.03,0,0], shares:[0.404,0.404,0.464,0.435],
     qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[0.98,1.21,1.36,1.57,2.08], ni:[-0.32,-0.29,-0.11,-0.45,-0.74], sbc:[0.184,0.145,0.144,0.157,0.153], buyback:[null,null,null,null,null], shares:[0.249,0.487,0.498,0.506,0.527]},
     note:"Post-IPO: heavy SBC + debt + dilution to fund GPUs. Value per share is the only honest lens." }),
+  co({ ticker:"FLUT", name:"Flutter Entertainment", sector:"Gaming/Betting", bucket:"middle", grade:"C",
+    price:111.32, change:2.74, mktCap:19.3, headlinePE:null, ownersKeep:0.8,
+    gaapEPS:-2.10, nonGaapEPS:0.84,
+    fy:["2022","2023","2024","2025"], sbcPctRev:1.6, sbcPctOCF:22.0, sbcPctNI:null,
+    revenue:[9.46,11.79,14.05,16.38], ni:[-0.37,-1.22,0.11,-0.38], sbc:[0.181,0.19,0.202,0.26],
+    buyback:[0,0.21,0.22,1.12], shares:[0.177,0.177,0.18,0.177],
+    qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[3.67,4.19,3.79,4.74,4.3], ni:[0.33,0.03,-0.76,0.02,0.22], sbc:[0.057,0.072,0.071,0.06,0.049], buyback:[0.24,0.35,0.24,0.28,0.14], shares:[0.18,0.179,0.176,0.176,0.177]},
+    note:"FanDuel cash machine, but meaningful SBC and share count still creeping up post-US listing. Haircut the adjusted numbers." }),
 ];
 
 /* ordering for the framework legend */
