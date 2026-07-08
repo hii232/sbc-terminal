@@ -12,9 +12,26 @@
 
   const state = {
     active: null,
+    view: "stock", // 'stock' | 'sectors'
     bucket: "all",
     keys: { finnhub: localStorage.getItem("finnhubKey") || "", fmp: localStorage.getItem("fmpKey") || "" },
     live: {}, // ticker -> {quote, news}
+    secOn: new Set(["XLK", "SMH", "XLF", "XLV", "XLE", "SPY"]), // default sector lines
+  };
+
+  /* map each stock's sector to its ETF for the sector-context card */
+  const SECTOR_MAP = {
+    "Consumer Tech": "XLK", "Software": "XLK", "Software/AI": "XLK", "HR Tech": "XLK",
+    "Networking": "XLK", "Cybersecurity": "XLK", "AdTech": "XLK", "EDA Software": "SMH",
+    "Semis": "SMH", "Semis/AI": "SMH", "Semi Equip": "SMH", "Semis/IP": "SMH",
+    "E-commerce": "XLY", "E-commerce/Cloud": "XLY", "Auto/AI": "XLY", "Retail": "XLP",
+    "Streaming": "XLC", "Pharma": "XLV", "Industrials": "XLI", "Public Safety Tech": "XLI",
+  };
+  const secByT = (t) => SECTORS.series.find(s => s.t === t);
+  const perfSeries = (s) => s.closes.map(c => +(((c / s.closes[0]) - 1) * 100).toFixed(1));
+  const retOver = (s, m) => { // % return over last m months
+    const c = s.closes, n = c.length - 1, i = Math.max(0, n - m);
+    return +(((c[n] / c[i]) - 1) * 100).toFixed(1);
   };
 
   /* ------------------------ SBC math helpers ------------------------ */
@@ -70,7 +87,7 @@
       const lv = state.live[d.ticker];
       const price = lv?.quote?.price ?? d.price;
       const ch = lv?.quote?.changePct ?? d.change;
-      return `<div class="row ${state.active === d.ticker ? "sel" : ""}" data-tk="${d.ticker}">
+      return `<div class="row ${state.active === d.ticker && state.view === "stock" ? "sel" : ""}" data-tk="${d.ticker}">
         <div class="bucketbar" style="background:${bcol[d.bucket]}"></div>
         <div style="min-width:0">
           <div class="tk">${d.ticker} <span style="font-size:9px;color:var(--dim)">${d.grade}</span></div>
@@ -90,9 +107,17 @@
   let currentTab = "overview";
   function selectTicker(tk) {
     state.active = tk;
+    state.view = "stock";
+    el("sectorBtn").classList.remove("active");
     renderWatchlist();
     render();
     if (state.keys.finnhub || state.keys.fmp) fetchLive(tk);
+  }
+  function showSectors() {
+    state.view = "sectors";
+    el("sectorBtn").classList.add("active");
+    renderWatchlist();
+    renderSectors();
   }
 
   /* ------------------------ main render ------------------------ */
@@ -178,6 +203,8 @@
       <div class="card"><h3>WALL ST ADJ EPS</h3><div class="stat" style="color:var(--orange)">$${d.nonGaapEPS?.toFixed(2) ?? "–"}</div>
         <div class="sub">${d.gaapEPS && d.nonGaapEPS ? "+" + (((d.nonGaapEPS - d.gaapEPS) / d.gaapEPS) * 100).toFixed(0) + "% above GAAP" : ""}</div></div>
       <div class="card"><h3>TRUE SBC-ADJ EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">the number to value off</div></div>
+
+      ${sectorContextCard(d)}
 
       <div class="card" style="grid-column:span 3">
         <h3>QUICK VERDICT</h3>
@@ -368,6 +395,136 @@
     </div>`;
   }
 
+  /* sector-context strip shown on each stock's overview */
+  function sectorContextCard(d) {
+    const etf = SECTOR_MAP[d.sector];
+    const s = etf && secByT(etf);
+    if (!s) return "";
+    const chip = (m, lbl) => {
+      const v = retOver(s, m);
+      return `<div style="text-align:center;min-width:64px">
+        <div class="sub">${lbl}</div>
+        <div class="stat sm ${v >= 0 ? "up" : "down"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</div>
+      </div>`;
+    };
+    const spy = secByT("SPY");
+    const rel = +(retOver(s, 3) - retOver(spy, 3)).toFixed(1);
+    return `<div class="card" style="grid-column:span 3">
+      <h3>SECTOR CONTEXT — ${s.name.toUpperCase()} (${s.t}) <span class="unit">click ◈ SECTOR FLOW for full rotation view</span></h3>
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">${Chart.line([{ points: perfSeries(s), color: s.color }], SECTORS.labels, { h: 110, area: true })}</div>
+        ${chip(1, "1M")}${chip(3, "3M")}${chip(6, "6M")}${chip(12, "12M")}
+        <div style="text-align:center;min-width:90px;border-left:1px solid var(--line);padding-left:14px">
+          <div class="sub">vs S&P · 3M</div>
+          <div class="stat sm ${rel >= 0 ? "up" : "down"}">${rel >= 0 ? "+" : ""}${rel.toFixed(1)}pp</div>
+          <div class="sub" style="color:${rel >= 0 ? "var(--green)" : "var(--red)"}">${rel >= 0 ? "money rotating IN" : "money rotating OUT"}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  /* ------------------------ SECTOR FLOW view ------------------------ */
+  function renderSectors() {
+    const S = SECTORS.series;
+    const labels = SECTORS.labels;
+    const on = S.filter(s => state.secOn.has(s.t));
+
+    // 1) cumulative performance lines for toggled sectors
+    const perfChart = Chart.line(
+      on.map(s => ({ points: perfSeries(s), color: s.color })),
+      labels, { h: 250, zero: true });
+
+    // 2) money-flow share: each sector's % of total sector $ volume per month (excl SPY)
+    const secOnly = S.filter(s => s.t !== "SPY");
+    const totals = labels.map((_, i) => secOnly.reduce((a, s) => a + (s.flow[i] || 0), 0));
+    const flowShare = (s) => s.flow.map((v, i) => totals[i] ? +((v / totals[i]) * 100).toFixed(1) : null);
+    const flowChart = Chart.line(
+      on.filter(s => s.t !== "SPY").map(s => ({ points: flowShare(s), color: s.color })),
+      labels, { h: 220, zero: false });
+
+    // 3) leaders/laggards 3M
+    const ranked = [...secOnly].sort((a, b) => retOver(b, 3) - retOver(a, 3));
+    const llBars = Chart.hbars(
+      ranked.map(s => ({
+        label: s.t, value: Math.abs(retOver(s, 3)),
+        color: retOver(s, 3) >= 0 ? "var(--green)" : "var(--red)",
+        display: (retOver(s, 3) >= 0 ? "+" : "−") + Math.abs(retOver(s, 3)).toFixed(1) + "%",
+      })), { labelW: 46 });
+
+    // 4) scoreboard: returns + flow trend (MTD share vs trailing-6M avg share)
+    const rows = ranked.map(s => {
+      const sh = flowShare(s);
+      const n = sh.length - 1;
+      const avg6 = sh.slice(Math.max(0, n - 6), n).reduce((a, v) => a + v, 0) / Math.min(6, n);
+      const cur = sh[n] ?? sh[n - 1];
+      const delta = cur - avg6;
+      const cell = (v) => `<td class="${v >= 0 ? "up" : "down"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</td>`;
+      return `<tr>
+        <td><i class="sec-dot" style="background:${s.color}"></i><b>${s.t}</b> <span style="color:var(--dim);font-size:9.5px">${s.name}</span></td>
+        ${cell(retOver(s, 1))}${cell(retOver(s, 3))}${cell(retOver(s, 6))}${cell(retOver(s, 12))}
+        <td>${(s.flow[s.flow.length - 2] || 0).toFixed(0)}</td>
+        <td class="${delta >= 0 ? "up" : "down"}">${delta >= 0 ? "▲ IN" : "▼ OUT"} ${Math.abs(delta).toFixed(1)}pp</td>
+      </tr>`;
+    }).join("");
+
+    const spy = secByT("SPY");
+    const chips = S.map(s => {
+      const isOn = state.secOn.has(s.t);
+      return `<span class="sec-chip ${isOn ? "on" : ""}" data-sec="${s.t}"
+        style="${isOn ? `background:${s.color};border-color:${s.color}` : `color:${s.color}`}">${s.t}</span>`;
+    }).join("");
+
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div>
+          <div class="tick" style="color:var(--cyan)">◈ SECTOR FLOW</div>
+          <div class="co">12-month rotation monitor · 11 SPDR sectors + semis vs S&P 500</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right">
+          <div class="sub">S&P 500 · 12M</div>
+          <div class="stat sm ${retOver(spy, 12) >= 0 ? "up" : "down"}">${retOver(spy, 12) >= 0 ? "+" : ""}${retOver(spy, 12).toFixed(1)}%</div>
+        </div>
+        <div style="text-align:right;border-left:1px solid var(--line);padding-left:16px">
+          <div class="sub">DATA AS OF</div>
+          <div class="stat sm">${SECTORS.asof}</div>
+        </div>
+      </div>
+
+      <div class="grid g2">
+        <div class="card" style="grid-column:span 2">
+          <h3>SECTOR ROTATION — CUMULATIVE RETURN % <span class="unit">rebased to ${labels[0]} · click chips to toggle</span></h3>
+          <div class="sec-chips" id="secChips">${chips}</div>
+          ${perfChart}
+        </div>
+
+        <div class="card">
+          <h3>MONEY FLOW — SHARE OF SECTOR $ VOLUME <span class="unit">% of all sector-ETF dollars traded / month</span></h3>
+          ${flowChart}
+          <div class="sub" style="margin-top:6px">Rising line = money rotating <b class="up">into</b> that sector; falling = rotating <b class="down">out</b>. Same chip toggles as above (SPY excluded).</div>
+        </div>
+
+        <div class="card">
+          <h3>LEADERS / LAGGARDS — 3M RETURN</h3>
+          ${llBars}
+        </div>
+
+        <div class="card" style="grid-column:span 2">
+          <h3>FLOW SCOREBOARD <span class="unit">sorted by 3M return · flow = MTD $-volume share vs 6M avg</span></h3>
+          <div style="overflow-x:auto"><table class="sec">
+            <tr><th>SECTOR</th><th>1M</th><th>3M</th><th>6M</th><th>12M</th><th>$VOL/MO ($B)</th><th>FLOW</th></tr>
+            ${rows}
+          </table></div>
+        </div>
+      </div>`;
+
+    el("secChips").querySelectorAll(".sec-chip").forEach(c => c.onclick = () => {
+      const t = c.dataset.sec;
+      state.secOn.has(t) ? state.secOn.delete(t) : state.secOn.add(t);
+      renderSectors();
+    });
+  }
+
   /* ------------------------ small UI builders ------------------------ */
   function sbcMeter(label, val, cap) {
     if (val == null) return `<div class="kv"><span class="k">${label}</span><span class="v">n/a</span></div>`;
@@ -472,6 +629,12 @@
   function runCommand(q) {
     q = (q || "").trim().toUpperCase();
     if (!q) return;
+    if (["SECTORS", "SECTOR", "FLOW", "ROTATION"].includes(q) || SECTORS.series.some(s => s.t === q)) {
+      showSectors();
+      if (SECTORS.series.some(s => s.t === q)) { state.secOn.add(q); renderSectors(); }
+      flash("Sector flow view", "ok");
+      return;
+    }
     const hit = DATA.find(d => d.ticker === q) || DATA.find(d => d.ticker.startsWith(q)) ||
       DATA.find(d => d.name.toUpperCase().includes(q));
     if (hit) { selectTicker(hit.ticker); flash("Loaded " + hit.ticker, "ok"); }
@@ -524,6 +687,7 @@
       refreshAllLive();
     };
     el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) refreshAllLive(); else el("gearBtn").click(); };
+    el("sectorBtn").onclick = showSectors;
 
     renderWatchlist();
     selectTicker("NVDA");

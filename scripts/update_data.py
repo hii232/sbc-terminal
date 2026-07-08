@@ -7,9 +7,12 @@ Updates data.js in place with REAL data from Yahoo Finance (no API key needed):
     buybacks, diluted average shares (as-reported filings)
   - recomputes SBC/revenue, SBC/OCF, SBC/net-income ratios
 
+Also refreshes sectors.js (11 SPDR sector ETFs + SMH + SPY: 13 months of
+monthly closes and dollar volume for the SECTOR FLOW view).
+
 Usage:
-    python scripts/update_data.py            # refresh everything
-    python scripts/update_data.py NVDA PLTR  # refresh only these tickers
+    python scripts/update_data.py            # refresh everything (stocks + sectors)
+    python scripts/update_data.py NVDA PLTR  # refresh only these tickers (skips sectors)
 
 Run from the stock-terminal folder (or anywhere — paths are resolved
 relative to this file). Requires Python 3.8+ with internet access; uses
@@ -63,6 +66,52 @@ def fetch_fundamentals(tk):
         rec[k] = {v["asOfDate"][:4]: v["reportedValue"]["raw"]
                   for v in (r.get(k) or []) if v and v.get("reportedValue")}
     return rec
+
+SECTOR_ETFS = [
+    ("XLK", "Technology", "#37c6ff"), ("SMH", "Semiconductors", "#ffb000"),
+    ("XLC", "Comm Services", "#b48cff"), ("XLY", "Cons Discretionary", "#ff8a3d"),
+    ("XLP", "Cons Staples", "#8fa3b8"), ("XLF", "Financials", "#26d07c"),
+    ("XLV", "Health Care", "#ff6ec7"), ("XLE", "Energy", "#e8e05a"),
+    ("XLI", "Industrials", "#c9a86a"), ("XLB", "Materials", "#6fd8d8"),
+    ("XLRE", "Real Estate", "#e87d7d"), ("XLU", "Utilities", "#7d9be8"),
+    ("SPY", "S&P 500", "#d8e0ea"),
+]
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+def update_sectors():
+    from datetime import datetime, timezone
+    out_series, labels = [], None
+    for tk, name, color in SECTOR_ETFS:
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{tk}?interval=1mo&range=13mo"
+        r = json.loads(get(url))["chart"]["result"][0]
+        ts, q = r["timestamp"], r["indicators"]["quote"][0]
+        lb, cl, vol = [], [], []
+        for i, t in enumerate(ts):
+            c = q["close"][i]
+            if c is None:
+                continue
+            d = datetime.fromtimestamp(t, timezone.utc)
+            lb.append((d.month, d.year))
+            cl.append(round(c, 2))
+            vol.append(round(c * (q["volume"][i] or 0) / 1e9, 1))
+        # merge Yahoo's duplicate current-day bar into the running month
+        while len(lb) >= 2 and lb[-1] == lb[-2]:
+            cl[-2] = cl[-1]; vol[-2] = round(vol[-2] + vol[-1], 1)
+            lb.pop(); cl.pop(); vol.pop()
+        lab2 = [f"{MONTHS[m-1]}'{y % 100}" for m, y in lb]
+        if labels is None:
+            labels = lab2
+        out_series.append({"t": tk, "name": name, "color": color, "closes": cl, "flow": vol})
+        print(f"  {tk}: ok ({len(cl)} months)")
+        time.sleep(0.3)
+    out = {"asof": date.today().isoformat(), "labels": labels, "series": out_series}
+    js = ("/* SBC TERMINAL — sector ETF dataset (real Yahoo Finance monthly data)\n"
+          "   closes: monthly close · flow: monthly dollar volume $B (last month = MTD)\n"
+          "   Refresh with scripts/update_data.py */\n"
+          "const SECTORS = " + json.dumps(out) + ";\n"
+          'if (typeof window !== "undefined") window.SECTORS = SECTORS;\n')
+    (DATA_JS.parent / "sectors.js").write_text(js, encoding="utf-8")
+    print(f"  wrote sectors.js")
 
 def arr(vals, nd=2):
     def f(v):
@@ -151,6 +200,9 @@ def main():
                  src)
     DATA_JS.write_text(src, encoding="utf-8")
     print(f"\nWrote {DATA_JS}")
+    if not only:
+        print("Refreshing sectors…")
+        update_sectors()
 
 if __name__ == "__main__":
     main()
