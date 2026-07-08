@@ -8,12 +8,16 @@
     amber: "#ffb000", green: "#26d07c", red: "#ff5b6b",
     cyan: "#37c6ff", orange: "#ff8a3d", purple: "#b48cff",
   };
-  const fmt = (n) => {
+  const fmt = (n, step) => {
     if (n == null || isNaN(n)) return "–";
     const a = Math.abs(n);
     if (a >= 1000) return (n / 1000).toFixed(1) + "k";
+    // precision follows the tick step so small ranges don't produce duplicate labels
+    if (step != null) {
+      const dec = step >= 1 ? 0 : step >= 0.1 ? 1 : step >= 0.01 ? 2 : 3;
+      return n.toFixed(dec);
+    }
     if (a >= 100) return n.toFixed(0);
-    if (a >= 10) return n.toFixed(1);
     if (a >= 1) return n.toFixed(1);
     return n.toFixed(2);
   };
@@ -46,7 +50,7 @@
     sc.ticks.forEach(t => {
       const yy = y(t);
       g += `<line x1="${P.l}" y1="${yy}" x2="${W - P.r}" y2="${yy}" stroke="${C.grid}"/>`;
-      g += `<text x="${P.l - 5}" y="${yy + 3}" fill="${C.text}" font-size="8.5" text-anchor="end">${fmt(t)}</text>`;
+      g += `<text x="${P.l - 5}" y="${yy + 3}" fill="${C.text}" font-size="8.5" text-anchor="end">${fmt(t, sc.ticks[1] - sc.ticks[0])}</text>`;
     });
     xlabels.forEach((lb, i) => {
       g += `<text x="${x(i)}" y="${H - 6}" fill="${C.text}" font-size="8.5" text-anchor="middle">${lb}</text>`;
@@ -86,7 +90,7 @@
     sc.ticks.forEach(t => {
       const yy = y(t);
       g += `<line x1="${P.l}" y1="${yy}" x2="${W - P.r}" y2="${yy}" stroke="${C.grid}"/>`;
-      g += `<text x="${P.l - 5}" y="${yy + 3}" fill="${C.text}" font-size="8.5" text-anchor="end">${fmt(t)}</text>`;
+      g += `<text x="${P.l - 5}" y="${yy + 3}" fill="${C.text}" font-size="8.5" text-anchor="end">${fmt(t, sc.ticks[1] - sc.ticks[0])}</text>`;
     });
     let rects = "";
     xlabels.forEach((lb, gi) => {

@@ -114,35 +114,83 @@
   .spacer{flex:1}
 
   /* ---------- tabs ---------- */
-  .tabs{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .tabs{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid var(--line);
+    flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
   .tabs button{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);
-    font-family:var(--mono);font-size:11.5px;padding:8px 14px;cursor:pointer;letter-spacing:.5px}
+    font-family:var(--mono);font-size:11.5px;padding:8px 14px;cursor:pointer;letter-spacing:.5px;white-space:nowrap;flex-shrink:0}
   .tabs button:hover{color:var(--text)}
   .tabs button.active{color:var(--amber);border-color:var(--amber)}
 
   /* ---------- panels/grid ---------- */
   .grid{display:grid;gap:12px}
+  .grid > *{min-width:0} /* wide tables scroll inside cards instead of stretching them */
   .g2{grid-template-columns:repeat(2,1fr)}
   .g3{grid-template-columns:repeat(3,1fr)}
   .g4{grid-template-columns:repeat(4,1fr)}
   @media(max-width:1100px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+  /* backdrop + bottom nav (mobile drawer chrome, hidden on desktop) */
+  .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:35;display:none;backdrop-filter:blur(2px)}
+  .backdrop.show{display:block}
+  .bottom-nav{display:none}
+
+  /* ============ MOBILE ============ */
   @media(max-width:720px){
+    body{font-size:13.5px}
     .g2,.g3,.g4{grid-template-columns:1fr}
     .card[style*="span 2"],.card[style*="span 3"]{grid-column:span 1 !important}
-    .app{grid-template-columns:1fr;grid-template-rows:auto 1fr;height:auto;min-height:calc(100vh - 49px)}
-    aside{border-right:none;border-bottom:2px solid var(--line2);max-height:200px}
-    main{padding:12px 12px 80px}
+    .app{display:block;height:auto}
+    main{padding:12px 12px calc(84px + env(safe-area-inset-bottom))}
+
+    /* header: brand + search only */
+    header{gap:8px;padding:8px 10px}
+    header .spacer{display:none}
+    .brand span{display:none}
+    .brand b{font-size:12px}
     .clock{display:none}
-    .cmd{max-width:none}
-    .hdr .tick{font-size:24px}.hdr .pxbig{font-size:21px}
-    .hdr{gap:12px}
-    .tabs button{padding:8px 10px;font-size:10.5px}
+    .cmd{max-width:none;min-width:0;flex:1}
+    .cmd input{font-size:16px;min-width:0;width:100%} /* 16px prevents iOS zoom-on-focus */
+
+    /* watchlist becomes a slide-in drawer */
+    aside{position:fixed;left:0;top:0;bottom:0;width:min(84vw,330px);z-index:40;
+      transform:translateX(-105%);transition:transform .25s ease;
+      border-right:1px solid var(--line2);box-shadow:8px 0 30px rgba(0,0,0,.5);
+      padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+    aside.open{transform:translateX(0)}
+    .row{padding:11px 12px} /* bigger touch targets */
+    .filter button{padding:8px 2px;font-size:10px}
+
+    /* compact stock header */
+    .hdr{gap:10px;padding-bottom:10px}
+    .hdr .tick{font-size:24px}
+    .hdr .pxbig{font-size:21px}
+    .hdr .co{font-size:11px}
+    .grade{width:34px;height:34px;font-size:18px}
+    .stat{font-size:19px}
+    .tabs button{padding:9px 11px;font-size:10.5px}
+
+    /* bottom navigation bar */
+    .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;
+      background:linear-gradient(180deg,#0c1220,#080b12);border-top:1px solid var(--line2);
+      padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+    .bottom-nav button{flex:1;background:none;border:none;color:var(--muted);font-family:var(--mono);
+      font-size:8.5px;letter-spacing:.5px;padding:5px 2px;cursor:pointer;border-radius:8px}
+    .bottom-nav button .ni{display:block;font-size:17px;margin-bottom:2px}
+    .bottom-nav button.active{color:var(--amber);background:rgba(255,176,0,.1)}
+    .bottom-nav #navSectors.active{color:var(--cyan);background:rgba(55,198,255,.1)}
+
+    /* modal fits phone */
+    .modal .box{padding:16px;max-height:85vh;overflow-y:auto}
+
+    table.fin,table.sec{font-size:10px}
   }
   .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
     border-radius:9px;padding:13px 14px}
-  .card h3{margin:0 0 4px;font-size:10px;letter-spacing:1.5px;color:var(--dim);font-weight:600;
-    display:flex;justify-content:space-between;align-items:center}
-  .card .unit{font-size:9px;color:var(--dim);font-weight:400;letter-spacing:.5px}
+  .card h3{margin:0 0 6px;font-size:10px;letter-spacing:1.5px;color:#9aa7b8;font-weight:700;
+    display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+  .card h3::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--amber);
+    flex-shrink:0;box-shadow:0 0 6px rgba(255,176,0,.5)}
+  .card .unit{font-size:9px;color:var(--dim);font-weight:400;letter-spacing:.5px;margin-left:auto}
   .stat{font-size:22px;font-weight:700}
   .stat.sm{font-size:16px}
   .sub{font-size:10px;color:var(--muted)}
@@ -213,6 +261,12 @@
   svg text{font-family:var(--mono)}
   .chart-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:6px}
   .chart-legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:middle}
+
+  /* financials FY/QTR toggle */
+  .fin-toggle{font-family:var(--mono);font-size:10px;letter-spacing:1px;padding:6px 14px;
+    border-radius:6px;cursor:pointer;background:#0b101b;border:1px solid var(--line2);color:var(--muted);font-weight:700}
+  .fin-toggle:hover{border-color:var(--amber);color:var(--amber)}
+  .fin-toggle.on{background:var(--amber);border-color:var(--amber);color:#111}
 
   /* sector flow view */
   .sec-chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 4px}
@@ -285,11 +339,20 @@
   </div>
 </div>
 
+<div class="backdrop" id="backdrop"></div>
+
+<nav class="bottom-nav" id="bottomNav">
+  <button id="navList"><span class="ni">☰</span>WATCHLIST</button>
+  <button id="navSectors"><span class="ni">◈</span>SECTORS</button>
+  <button id="navXray"><span class="ni">★</span>SBC X-RAY</button>
+  <button id="navSearch"><span class="ni">⌕</span>SEARCH</button>
+</nav>
+
 <div class="flash" id="flash"></div>
 
-<script src="data.js"></script>
-<script src="sectors.js"></script>
-<script src="charts.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=4"></script>
+<script src="sectors.js?v=4"></script>
+<script src="charts.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

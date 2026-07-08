@@ -25,7 +25,9 @@ from datetime import date
 DATA_JS = Path(__file__).resolve().parent.parent / "data.js"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 FUND_TYPES = ("annualTotalRevenue,annualNetIncome,annualStockBasedCompensation,"
-              "annualRepurchaseOfCapitalStock,annualDilutedAverageShares,annualOperatingCashFlow")
+              "annualRepurchaseOfCapitalStock,annualDilutedAverageShares,annualOperatingCashFlow,"
+              "quarterlyTotalRevenue,quarterlyNetIncome,quarterlyStockBasedCompensation,"
+              "quarterlyRepurchaseOfCapitalStock,quarterlyDilutedAverageShares")
 
 def get(url, opener=None):
     req = urllib.request.Request(url, headers=UA)
@@ -59,13 +61,33 @@ def fetch_fundamentals(tk):
     d = json.loads(get(url))
     rec = {}
     for r in d["timeseries"]["result"]:
-        keys = [k for k in r.keys() if k.startswith("annual")]
+        keys = [k for k in r.keys() if k.startswith("annual") or k.startswith("quarterly")]
         if not keys:
             continue
         k = keys[0]
-        rec[k] = {v["asOfDate"][:4]: v["reportedValue"]["raw"]
+        # annual keyed by year, quarterly keyed by full asOfDate
+        key_fn = (lambda v: v["asOfDate"][:4]) if k.startswith("annual") else (lambda v: v["asOfDate"])
+        rec[k] = {key_fn(v): v["reportedValue"]["raw"]
                   for v in (r.get(k) or []) if v and v.get("reportedValue")}
     return rec
+
+def build_qd(f):
+    """Build the qd:{...} quarterly line from fetched fundamentals (last 5 quarters)."""
+    if not f.get("quarterlyTotalRevenue"):
+        return None
+    dates = sorted(f["quarterlyTotalRevenue"].keys())[-5:]
+    B = 1e9
+    def series(key, absval=False):
+        d = f.get(key, {})
+        return [abs(d[dt]) / B if absval and dt in d else d[dt] / B if dt in d else None
+                for dt in dates]
+    labels = [f"{MONTHS[int(dt[5:7])-1]}'{dt[2:4]}" for dt in dates]
+    lab = "[" + ",".join(f'"{l}"' for l in labels) + "]"
+    return (f"qd:{{labels:{lab}, revenue:{arr(series('quarterlyTotalRevenue'))}, "
+            f"ni:{arr(series('quarterlyNetIncome'))}, "
+            f"sbc:{arr(series('quarterlyStockBasedCompensation'), 3)}, "
+            f"buyback:{arr(series('quarterlyRepurchaseOfCapitalStock', absval=True))}, "
+            f"shares:{arr(series('quarterlyDilutedAverageShares'), 3)}}},")
 
 SECTOR_ETFS = [
     ("XLK", "Technology", "#37c6ff"), ("SMH", "Semiconductors", "#ffb000"),
@@ -191,6 +213,12 @@ def main():
                 block = re.sub(r"sbcPctNI:(?:[\d.]+|null)", f"sbcPctNI:{ls/ln*100:.0f}", block)
             if ls is not None and lo:
                 block = re.sub(r"sbcPctOCF:[\d.]+", f"sbcPctOCF:{ls/lo*100:.1f}", block)
+        qd = f and build_qd(f)
+        if qd:
+            if "qd:{" in block:
+                block = re.sub(r"qd:\{[^}]*\},", qd, block)
+            else:
+                block = block.replace("    note:", "    " + qd + "\n    note:")
         print(f"  {tk}: ok")
         return block
 

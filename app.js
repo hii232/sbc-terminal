@@ -126,6 +126,9 @@
     el("sectorBtn").classList.remove("active");
     renderWatchlist();
     render();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
     if (state.keys.finnhub || state.keys.fmp) fetchLive(tk);
   }
   function showSectors() {
@@ -133,6 +136,19 @@
     el("sectorBtn").classList.add("active");
     renderWatchlist();
     renderSectors();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
+  }
+
+  /* ------------------------ mobile drawer + bottom nav ------------------------ */
+  function openDrawer() { $("aside").classList.add("open"); el("backdrop").classList.add("show"); syncNav(); }
+  function closeDrawer() { $("aside").classList.remove("open"); el("backdrop").classList.remove("show"); syncNav(); }
+  function syncNav() {
+    const drawerOpen = $("aside").classList.contains("open");
+    el("navList").classList.toggle("active", drawerOpen);
+    el("navSectors").classList.toggle("active", !drawerOpen && state.view === "sectors");
+    el("navXray").classList.toggle("active", !drawerOpen && state.view === "stock" && currentTab === "sbc");
   }
 
   /* ------------------------ main render ------------------------ */
@@ -184,7 +200,7 @@
 
     el("main").innerHTML = header + tabs + `<div id="tabBody"></div>`;
     el("main").querySelectorAll(".tabs button").forEach(btn =>
-      btn.onclick = () => { currentTab = btn.dataset.tab; render(); });
+      btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); });
     renderTab(d);
   }
 
@@ -193,7 +209,11 @@
     const body = el("tabBody");
     if (currentTab === "overview") body.innerHTML = tabOverview(d);
     else if (currentTab === "sbc") body.innerHTML = tabSBC(d);
-    else if (currentTab === "financials") body.innerHTML = tabFinancials(d);
+    else if (currentTab === "financials") {
+      body.innerHTML = tabFinancials(d);
+      body.querySelectorAll(".fin-toggle").forEach(b =>
+        b.onclick = () => { finMode = b.dataset.m; renderTab(d); });
+    }
     else if (currentTab === "news") body.innerHTML = tabNews(d);
     else if (currentTab === "framework") body.innerHTML = tabFramework(d);
   }
@@ -327,31 +347,91 @@
     </div>`;
   }
 
+  /* --- quarterly helpers --- */
+  let finMode = "qtr"; // 'qtr' | 'fy'
+  const ttm = (arr) => {
+    if (!arr) return null;
+    const t = arr.slice(-4).filter(v => v != null);
+    return t.length ? t.reduce((a, v) => a + v, 0) : null;
+  };
+  const yoyPct = (arr) => { // latest quarter vs same quarter last year (5-point series)
+    if (!arr || arr.length < 5) return null;
+    const a = arr[arr.length - 5], b = arr[arr.length - 1];
+    if (a == null || b == null || a <= 0) return null;
+    return ((b / a) - 1) * 100;
+  };
+  const yoyChip = (arr, invert = false) => {
+    const v = yoyPct(arr);
+    if (v == null) return "";
+    const good = invert ? v <= 0 : v >= 0;
+    return `<span class="unit" style="color:${good ? "var(--green)" : "var(--red)"};font-weight:700">${v >= 0 ? "▲" : "▼"} ${Math.abs(v).toFixed(1)}% YoY</span>`;
+  };
+
   function tabFinancials(d) {
-    const yrs = fyLabels(d);
-    const rows = (label, arr, fmt2 = money) => `<tr><td>${label}</td>${arr.map(v => `<td>${fmt2(v)}</td>`).join("")}</tr>`;
+    const hasQ = !!(d.qd && d.qd.revenue);
+    const mode = hasQ ? finMode : "fy";
+    const q = mode === "qtr";
+    const labels = q ? d.qd.labels : fyLabels(d);
+    const D = q ? d.qd : d;
+    const unit = q ? "$B / QUARTER" : "$B / FY";
+    const rows = (label, arr, fmt2 = money) => `<tr><td>${label}</td>${arr.map(v => `<td>${v == null ? "–" : fmt2(v)}</td>`).join("")}</tr>`;
     const live = state.live[d.ticker]?.financialsSource;
-    return `<div class="grid g2">
-      <div class="card"><h3>REVENUE <span class="unit">$B / FY</span></h3>${Chart.bars([{ name: "Revenue", values: d.revenue, color: "var(--cyan)" }], yrs, { h: 180 })}</div>
-      <div class="card"><h3>GAAP NET INCOME <span class="unit">$B / FY</span></h3>${Chart.bars([{ name: "NI", values: d.ni, color: "var(--green)" }], yrs, { h: 180 })}</div>
-      <div class="card"><h3>STOCK-BASED COMP <span class="unit">$B / FY</span></h3>${Chart.bars([{ name: "SBC", values: d.sbc, color: "var(--red)" }], yrs, { h: 180 })}</div>
-      <div class="card"><h3>BUYBACKS vs SBC <span class="unit">$B / FY</span></h3>
-        ${Chart.bars([{ name: "Buyback", color: "var(--amber)", values: d.buyback }, { name: "SBC", color: "var(--red)", values: d.sbc }], yrs, { h: 180 })}
+
+    // toggle
+    const toggle = hasQ ? `<div style="display:flex;gap:6px;margin-bottom:12px">
+      <button class="fin-toggle ${q ? "on" : ""}" data-m="qtr">QUARTERLY</button>
+      <button class="fin-toggle ${!q ? "on" : ""}" data-m="fy">ANNUAL</button>
+      <span class="sub" style="align-self:center;margin-left:8px">${q ? "last 5 reported quarters · through " + d.qd.labels[d.qd.labels.length - 1] : "last 4 fiscal years"}</span>
+    </div>` : "";
+
+    // TTM strip (from quarterly data)
+    let ttmStrip = "";
+    if (hasQ) {
+      const tRev = ttm(d.qd.revenue), tNi = ttm(d.qd.ni), tSbc = ttm(d.qd.sbc), tBb = ttm(d.qd.buyback);
+      const cell = (lbl, val, color) => `<div style="flex:1;min-width:110px;text-align:center;border-right:1px solid var(--line)">
+        <div class="sub">${lbl}</div><div class="stat sm" ${color ? `style="color:${color}"` : ""}>${val}</div></div>`;
+      ttmStrip = `<div class="card" style="grid-column:span 2;padding:10px 6px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center">
+          <div style="min-width:90px;text-align:center"><div class="sub" style="color:var(--amber);font-weight:700;letter-spacing:1.5px">TTM</div><div class="sub">trailing 12M</div></div>
+          ${cell("REVENUE", money(tRev), "var(--cyan)")}
+          ${cell("GAAP NET INCOME", money(tNi), tNi >= 0 ? "var(--green)" : "var(--red)")}
+          ${cell("SBC", money(tSbc), "var(--red)")}
+          ${cell("BUYBACKS", money(tBb), "var(--amber)")}
+          ${cell("SBC / REVENUE", tRev && tSbc != null ? (tSbc / tRev * 100).toFixed(1) + "%" : "–", sbcSeverity(tRev && tSbc != null ? tSbc / tRev * 100 : null).c)}
+          ${cell("BUYBACK / SBC", tSbc ? (tBb / tSbc).toFixed(1) + "x" : "–", tBb > tSbc ? "var(--green)" : "var(--orange)")}
+        </div>
+      </div>`;
+    }
+
+    const html = `${toggle}<div class="grid g2">
+      ${ttmStrip}
+      <div class="card"><h3>REVENUE <span class="unit">${unit}</span> ${q ? yoyChip(D.revenue) : ""}</h3>
+        ${Chart.bars([{ name: "Revenue", values: D.revenue, color: "var(--cyan)" }], labels, { h: 180 })}</div>
+      <div class="card"><h3>GAAP NET INCOME <span class="unit">${unit}</span> ${q ? yoyChip(D.ni) : ""}</h3>
+        ${Chart.bars([{ name: "NI", values: D.ni, color: "var(--green)" }], labels, { h: 180 })}</div>
+      <div class="card"><h3>STOCK-BASED COMP <span class="unit">${unit}</span> ${q ? yoyChip(D.sbc, true) : ""}</h3>
+        ${Chart.bars([{ name: "SBC", values: D.sbc, color: "var(--red)" }], labels, { h: 180 })}</div>
+      <div class="card"><h3>BUYBACKS vs SBC <span class="unit">${unit}</span></h3>
+        ${Chart.bars([{ name: "Buyback", color: "var(--amber)", values: D.buyback || [] }, { name: "SBC", color: "var(--red)", values: D.sbc }], labels, { h: 180 })}
         <div class="chart-legend"><span><i style="background:var(--amber)"></i>Buyback</span><span><i style="background:var(--red)"></i>SBC</span></div>
       </div>
+      <div class="card" style="grid-column:span 2"><h3>DILUTED SHARES <span class="unit">billions · ${q ? "quarterly — the dilution truth at high resolution" : "annual"}</span> ${q ? yoyChip(D.shares, true) : ""}</h3>
+        ${Chart.line([{ points: D.shares, color: shareTrend(D.shares.filter(v => v != null)).c }], labels, { h: 150 })}</div>
       <div class="card" style="grid-column:span 2">
         <h3>FINANCIAL SUMMARY <span class="unit">${live ? "● " + live + " (live)" : d.snapshot}</span></h3>
-        <table class="fin">
-          <tr><th>$B</th>${yrs.map(y => `<th>${y}</th>`).join("")}</tr>
-          ${rows("Revenue", d.revenue)}
-          ${rows("Net income (GAAP)", d.ni)}
-          ${rows("Stock-based comp", d.sbc)}
-          ${rows("SBC % of revenue", d.revenue.map((r, i) => d.sbc[i] == null || !r ? null : (d.sbc[i] / r) * 100), v => v == null ? "–" : v.toFixed(1) + "%")}
-          ${rows("Buybacks", d.buyback)}
-          ${rows("Diluted shares (B)", d.shares, v => v.toFixed(3))}
-        </table>
+        <div style="overflow-x:auto"><table class="fin">
+          <tr><th>$B</th>${labels.map(y => `<th>${y}</th>`).join("")}</tr>
+          ${rows("Revenue", D.revenue)}
+          ${rows("Net income (GAAP)", D.ni)}
+          ${rows("Stock-based comp", D.sbc)}
+          ${rows("SBC % of revenue", D.revenue.map((r, i) => D.sbc[i] == null || !r ? null : (D.sbc[i] / r) * 100), v => v.toFixed(1) + "%")}
+          ${rows("Buybacks", D.buyback || [])}
+          ${rows("Diluted shares (B)", D.shares, v => v.toFixed(3))}
+          ${q ? rows("Revenue QoQ", D.revenue.map((v, i) => i === 0 || v == null || D.revenue[i - 1] == null || D.revenue[i - 1] <= 0 ? null : ((v / D.revenue[i - 1]) - 1) * 100), v => (v >= 0 ? "+" : "") + v.toFixed(1) + "%") : ""}
+        </table></div>
       </div>
     </div>`;
+    return html;
   }
 
   function tabNews(d) {
@@ -703,6 +783,17 @@
     };
     el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) refreshAllLive(); else el("gearBtn").click(); };
     el("sectorBtn").onclick = showSectors;
+
+    // mobile bottom nav + drawer
+    el("navList").onclick = () => $("aside").classList.contains("open") ? closeDrawer() : openDrawer();
+    el("navSectors").onclick = showSectors;
+    el("navXray").onclick = () => {
+      closeDrawer();
+      if (state.view !== "stock") { state.view = "stock"; el("sectorBtn").classList.remove("active"); }
+      currentTab = "sbc"; render(); window.scrollTo({ top: 0 }); syncNav();
+    };
+    el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
+    el("backdrop").onclick = closeDrawer;
 
     renderWatchlist();
     selectTicker("NVDA");
