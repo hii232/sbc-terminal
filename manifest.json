@@ -1,0 +1,16 @@
+{
+  "name": "SBC Terminal — Owner-Earnings X-Ray",
+  "short_name": "SBC Terminal",
+  "description": "Bloomberg-style stock terminal built on the SBC / dilution / true-owner-earnings framework",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#05070c",
+  "theme_color": "#05070c",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon.svg", "sizes": "192x192", "type": "image/svg+xml" },
+    { "src": "icon.svg", "sizes": "512x512", "type": "image/svg+xml" }
+  ]
+}
