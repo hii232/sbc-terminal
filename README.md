@@ -70,11 +70,21 @@ Every stock gets the 7-step check:
 6. **Valuation re-rate** — headline P/E ÷ owner-earnings retention = true P/E.
 7. **Management score** — A→F on SBC discipline, buyback honesty, share-count direction.
 
-## Tickers covered (4 quality buckets)
-- **Shareholder-friendly:** AAPL, MSFT, MU, CSCO, TXN, ADP, COST, GILD, HON, ASML, MELI
-- **Meaningful haircut:** GOOGL, AMZN, NVDA, AMD, ADBE, NFLX, INTU, CDNS, SNPS
-- **High SBC concern:** AVGO, LRCX, MPWR, APP, ARM
-- **Tragic tier:** TSLA, PLTR, CRWD, DDOG, SHOP, MRVL, ZS, WDAY, AXON
+## Tickers covered — 100 names across every sector (4 quality buckets)
+- **Shareholder-friendly (56):** AAPL, MSFT, MU, CSCO, TXN, ADP, COST, GILD, HON, ASML,
+  MELI, V, MA, JPM, GS, BLK, SPGI, LLY, UNH, JNJ, ABBV, MRK, TMO, XOM, CVX, COP, CAT,
+  DE, GE, UNP, LMT, RTX, ETN, PG, KO, PEP, WMT, PM, HD, MCD, NKE, BKNG, LIN, SHW, PLD,
+  AMT, NEE, SO, DUK, TMUS, VZ, DIS, QCOM, AMAT, KLAC, ADI
+- **Meaningful haircut (17):** GOOGL, AMZN, NVDA, AMD, ADBE, NFLX, INTU, CDNS, SNPS,
+  META, ORCL, ACN, IBM, ANET, ISRG, INTC, VRTX
+- **High SBC concern (12):** AVGO, LRCX, MPWR, APP, ARM, CRM, NOW, PANW, UBER, ABNB,
+  COIN, HOOD
+- **Tragic tier (15):** TSLA, PLTR, CRWD, DDOG, SHOP, MRVL, ZS, WDAY, AXON, SNOW, NET,
+  MDB, RBLX, IREN, CRWV
+
+Watchlist is sorted quality-first (clean → tragic), then by market cap. Every stock
+shows a SECTOR CONTEXT strip tied to its sector ETF, and the ◈ SECTOR FLOW view
+tracks 12-month rotation and money flow across all 11 SPDR sectors + semis vs SPY.
 
 ## Note on the numbers
 Quotes and annual fundamentals (revenue, net income, SBC, buybacks, diluted shares)

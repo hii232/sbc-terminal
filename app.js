@@ -22,10 +22,23 @@
   /* map each stock's sector to its ETF for the sector-context card */
   const SECTOR_MAP = {
     "Consumer Tech": "XLK", "Software": "XLK", "Software/AI": "XLK", "HR Tech": "XLK",
-    "Networking": "XLK", "Cybersecurity": "XLK", "AdTech": "XLK", "EDA Software": "SMH",
+    "Networking": "XLK", "Cybersecurity": "XLK", "AdTech": "XLK", "IT Services": "XLK",
+    "AI Infrastructure": "XLK", "Neocloud": "XLK", "EDA Software": "SMH",
     "Semis": "SMH", "Semis/AI": "SMH", "Semi Equip": "SMH", "Semis/IP": "SMH",
     "E-commerce": "XLY", "E-commerce/Cloud": "XLY", "Auto/AI": "XLY", "Retail": "XLP",
-    "Streaming": "XLC", "Pharma": "XLV", "Industrials": "XLI", "Public Safety Tech": "XLI",
+    "Home Improvement": "XLY", "Restaurants": "XLY", "Apparel": "XLY", "Travel": "XLY",
+    "Ride-Hailing": "XLY", "Gaming": "XLC", "Streaming": "XLC", "Social Media": "XLC",
+    "Media": "XLC", "Telecom": "XLC",
+    "Payments": "XLF", "Banks": "XLF", "Asset Mgmt": "XLF", "Financial Data": "XLF",
+    "Crypto Exchange": "XLF", "Fintech Brokerage": "XLF",
+    "Pharma": "XLV", "Managed Care": "XLV", "Life Sciences": "XLV",
+    "Medical Devices": "XLV", "Biotech": "XLV",
+    "Energy": "XLE",
+    "Industrials": "XLI", "Public Safety Tech": "XLI", "Machinery": "XLI",
+    "Aerospace": "XLI", "Rails": "XLI", "Defense": "XLI",
+    "Staples": "XLP", "Beverages": "XLP", "Mega Retail": "XLP",
+    "Industrial Gas": "XLB", "Materials": "XLB",
+    "REIT": "XLRE", "Utilities": "XLU",
   };
   const secByT = (t) => SECTORS.series.find(s => s.t === t);
   const perfSeries = (s) => s.closes.map(c => +(((c / s.closes[0]) - 1) * 100).toFixed(1));
@@ -79,8 +92,10 @@
   }
 
   /* ------------------------ watchlist ------------------------ */
+  const BUCKET_ORDER = { clean: 0, middle: 1, high: 2, tragic: 3 };
   function renderWatchlist() {
-    const list = DATA.filter(d => state.bucket === "all" || d.bucket === state.bucket);
+    const list = DATA.filter(d => state.bucket === "all" || d.bucket === state.bucket)
+      .sort((a, b) => BUCKET_ORDER[a.bucket] - BUCKET_ORDER[b.bucket] || b.mktCap - a.mktCap);
     el("wlCount").textContent = list.length + "/" + DATA.length;
     const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)" };
     el("watchlist").innerHTML = list.map(d => {
