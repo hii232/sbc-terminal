@@ -121,12 +121,12 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
+  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn"];
+  function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function selectTicker(tk) {
     state.active = tk;
     state.view = "stock";
-    el("sectorBtn").classList.remove("active");
-    el("narrBtn").classList.remove("active");
-    el("valBtn").classList.remove("active");
+    setViewBtn(null);
     renderWatchlist();
     render();
     closeDrawer();
@@ -136,9 +136,7 @@
   }
   function showSectors() {
     state.view = "sectors";
-    el("sectorBtn").classList.add("active");
-    el("narrBtn").classList.remove("active");
-    el("valBtn").classList.remove("active");
+    setViewBtn("sectorBtn");
     renderWatchlist();
     renderSectors();
     closeDrawer();
@@ -155,7 +153,7 @@
     el("navSectors").classList.toggle("active", !drawerOpen && state.view === "sectors");
     el("navNarr").classList.toggle("active", !drawerOpen && state.view === "narratives");
     el("navPE").classList.toggle("active", !drawerOpen && state.view === "valuation");
-    el("navXray").classList.toggle("active", !drawerOpen && state.view === "stock" && currentTab === "sbc");
+    el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
   }
 
   /* ------------------------ main render ------------------------ */
@@ -693,6 +691,135 @@
     </svg>`, counts: { fat: zones.fat.length, just: zones.just.length, out: zones.out.length }, zones };
   }
 
+  /* ------------------------ MASTER RANKING ENGINE (all logic in harmony) ------------------------ */
+  // One composite score per stock blending every layer of the terminal:
+  //   VALUE   — IV15 implied 15y CAGR (the DCF verdict)          40%
+  //   QUALITY — SBC-adjusted earnings quality (owner-earnings)   25%
+  //   CHEAP   — TRUE P/E (SBC-adjusted), lower better            20%
+  //   FLOW    — sector money rotation (3M relative to S&P)       15%
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
+  function rankOf(d) {
+    const L = ivLadder(d);
+    const cagr = L ? L.impliedCAGR : null;          // e.g. 0.12
+    const truePE = d.truePE || null;
+    // sector 3M momentum vs SPY
+    const etf = SECTOR_MAP[d.sector], s = etf && secByT(etf), spy = secByT("SPY");
+    const mom = s ? retOver(s, 3) - retOver(spy, 3) : 0;
+
+    // sub-scores 0..100
+    const vScore = cagr == null ? (d.truePE ? 25 : 8) : clamp01((cagr + 0.05) / 0.25) * 100; // -5%→0, +20%→100
+    const qScore = clamp01(d.ownersKeep ? (d.ownersKeep - 0.35) / (0.97 - 0.35) : 0) * 100;   // 35¢→0, 97¢→100
+    const cScore = truePE == null ? 20 : clamp01((45 - truePE) / (45 - 10)) * 100;             // 45x→0, 10x→100
+    const fScore = clamp01((mom + 12) / 24) * 100;                                             // -12pp→0, +12pp→100
+
+    const composite = 0.40 * vScore + 0.25 * qScore + 0.20 * cScore + 0.15 * fScore;
+    return { L, cagr, truePE, mom, vScore, qScore, cScore, fScore, composite, zone: L ? L.zone : "out" };
+  }
+  function thesisOf(d, r) {
+    const bits = [];
+    if (r.cagr != null) bits.push(r.cagr >= 0.15 ? `fat pitch at ${(r.cagr * 100).toFixed(0)}%/yr` : r.cagr >= 0.10 ? `just outside at ${(r.cagr * 100).toFixed(0)}%/yr` : `priced rich at ${(r.cagr * 100).toFixed(0)}%/yr`);
+    else bits.push("GAAP loss — no owner-earnings floor");
+    bits.push(d.ownersKeep >= 0.9 ? "clean owner earnings" : d.ownersKeep >= 0.7 ? "moderate SBC haircut" : `only ${(d.ownersKeep * 100).toFixed(0)}¢/$ kept after SBC`);
+    if (r.truePE) bits.push(`${r.truePE.toFixed(0)}x true P/E`);
+    bits.push(r.mom >= 2 ? "sector money rotating in" : r.mom <= -2 ? "sector out of favor" : "neutral sector flow");
+    return bits.join(" · ");
+  }
+
+  const RANK_COLS = [
+    { k: "composite", label: "SCORE" },
+    { k: "cagr", label: "IMPLIED CAGR" },
+    { k: "truePE", label: "TRUE P/E" },
+    { k: "headlinePE", label: "HDL P/E" },
+    { k: "sbcPctRev", label: "SBC/REV" },
+    { k: "ownersKeep", label: "OWNER ¢" },
+    { k: "mom", label: "SEC 3M" },
+    { k: "mktCap", label: "MKT CAP" },
+  ];
+  const rankState = { sort: "composite", dir: -1 };
+
+  function renderRankings() {
+    const rows = DATA.map(d => ({ d, r: rankOf(d) }));
+    const raw = (o, k) => k === "composite" ? o.r.composite : k === "cagr" ? o.r.cagr
+      : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : o.d[k];
+    rows.sort((a, b) => {
+      const va = raw(a, rankState.sort), vb = raw(b, rankState.sort);
+      if (va == null && vb == null) return 0;
+      if (va == null) return 1;   // missing always sinks to the bottom
+      if (vb == null) return -1;
+      return (va - vb) * rankState.dir;
+    });
+
+    // headline cards computed independently of the current table sort
+    const byScore = [...rows].sort((a, b) => b.r.composite - a.r.composite);
+    const byCagr = [...rows].filter(x => x.r.cagr != null).sort((a, b) => b.r.cagr - a.r.cagr);
+    const byCheap = [...rows].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE);
+    const best = byScore[0];
+    const fats = rows.filter(x => x.r.zone === "fat").length;
+
+    const th = RANK_COLS.map(c => `<th data-sort="${c.k}" class="${rankState.sort === c.k ? "sorted" : ""}">${c.label}${rankState.sort === c.k ? (rankState.dir < 0 ? " ▾" : " ▴") : ""}</th>`).join("");
+    const body = rows.map((x, i) => {
+      const d = x.d, r = x.r;
+      const zc = { fat: "var(--green)", just: "var(--amber)", out: "var(--red)" }[r.zone];
+      const sc = r.composite >= 62 ? "var(--green)" : r.composite >= 48 ? "var(--amber)" : "var(--red)";
+      return `<tr data-tk="${d.ticker}">
+        <td><span class="rk-num">${i + 1}</span></td>
+        <td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
+        <td><span class="rk-score" style="color:${sc}">${r.composite.toFixed(0)}</span></td>
+        <td class="${r.cagr == null ? "" : r.cagr >= 0.15 ? "up" : r.cagr < 0.10 ? "down" : ""}" style="${r.cagr != null && r.cagr >= 0.1 && r.cagr < 0.15 ? "color:var(--amber)" : ""}">${r.cagr == null ? "n/m" : (r.cagr * 100).toFixed(1) + "%"}</td>
+        <td style="color:var(--amber)">${r.truePE ? r.truePE.toFixed(1) + "x" : "n/m"}</td>
+        <td class="sub">${d.headlinePE ? d.headlinePE.toFixed(0) + "x" : "n/m"}</td>
+        <td class="${d.sbcPctRev == null ? "" : d.sbcPctRev < 5 ? "up" : d.sbcPctRev >= 15 ? "down" : ""}">${d.sbcPctRev == null ? "–" : d.sbcPctRev.toFixed(1) + "%"}</td>
+        <td>${d.ownersKeep ? (d.ownersKeep * 100).toFixed(0) + "¢" : "–"}</td>
+        <td class="${r.mom >= 0 ? "up" : "down"}">${r.mom >= 0 ? "+" : ""}${r.mom.toFixed(1)}</td>
+        <td class="sub">${money(d.mktCap)}</td>
+      </tr>`;
+    }).join("");
+
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div>
+          <div class="tick" style="color:var(--purple)">⚡ MASTER RANKINGS</div>
+          <div class="co">every layer in harmony — IV15 CAGR · owner-earnings quality · true P/E · sector flow → one score & thesis</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right">
+          <div class="sub">FAT PITCHES</div><div class="stat sm" style="color:var(--green)">${fats}</div>
+        </div>
+        <div style="text-align:right;border-left:1px solid var(--line);padding-left:14px">
+          <div class="sub">UNIVERSE</div><div class="stat sm">${DATA.length}</div>
+        </div>
+      </div>
+
+      <div class="grid g3" style="margin-bottom:12px">
+        <div class="card" style="border-left:3px solid var(--green)"><h3>#1 BY SCORE — ${best.d.ticker}</h3>
+          <div class="stat" style="color:var(--green)">${best.r.composite.toFixed(0)}<span class="sub" style="font-weight:400">/100</span></div>
+          <div class="sub" style="margin-top:4px">${thesisOf(best.d, best.r)}</div></div>
+        <div class="card"><h3>TOP CAGR — ${byCagr[0]?.d.ticker || "–"}</h3>
+          <div class="stat" style="color:var(--green)">${byCagr[0] ? (byCagr[0].r.cagr * 100).toFixed(1) + "%" : "–"}<span class="sub" style="font-weight:400">/yr</span></div>
+          <div class="sub" style="margin-top:4px">highest IV15 implied 15-year compounded return</div></div>
+        <div class="card"><h3>CHEAPEST TRUE P/E — ${byCheap[0]?.d.ticker || "–"}</h3>
+          <div class="stat" style="color:var(--amber)">${byCheap[0] ? byCheap[0].r.truePE.toFixed(1) + "x" : "–"}</div>
+          <div class="sub" style="margin-top:4px">${byCheap[0] ? byCheap[0].d.name : ""} — lowest SBC-adjusted multiple</div></div>
+      </div>
+
+      <div class="note" style="margin-bottom:12px">
+        <b style="color:var(--purple)">Composite score</b> = 40% IV15 implied CAGR + 25% owner-earnings quality (SBC retention) + 20% true P/E cheapness + 15% sector money-flow. Tap any column header to re-rank; tap a row to open the stock. This is a screen to rank pitches — not a substitute for the full model.
+      </div>
+
+      <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
+        <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
+        <tbody>${body}</tbody>
+      </table></div></div>`;
+
+    el("main").querySelectorAll("th[data-sort]").forEach(h => h.onclick = () => {
+      const k = h.dataset.sort;
+      if (rankState.sort === k) rankState.dir *= -1;
+      else { rankState.sort = k; rankState.dir = (k === "truePE" || k === "sbcPctRev") ? 1 : -1; }
+      renderRankings();
+    });
+    el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+
   /* ------------------------ TRUE P/E SCREENER view ------------------------ */
   const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
   const bucketColor = (b) => BUCKETS[b].color;
@@ -771,11 +898,19 @@
 
   function showValuation() {
     state.view = "valuation";
-    el("sectorBtn").classList.remove("active");
-    el("narrBtn").classList.remove("active");
-    el("valBtn").classList.add("active");
+    setViewBtn("valBtn");
     renderWatchlist();
     renderValuation();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
+  }
+  function showRankings() {
+    state.view = "rankings";
+    setViewBtn("rankBtn");
+    rankState.sort = "composite"; rankState.dir = -1; // always land on the harmony ranking
+    renderWatchlist();
+    renderRankings();
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
@@ -986,9 +1121,7 @@
 
   function showNarratives() {
     state.view = "narratives";
-    el("sectorBtn").classList.remove("active");
-    el("narrBtn").classList.add("active");
-    el("valBtn").classList.remove("active");
+    setViewBtn("narrBtn");
     renderWatchlist();
     renderNarratives();
     closeDrawer();
@@ -1204,6 +1337,9 @@
   function runCommand(q) {
     q = (q || "").trim().toUpperCase();
     if (!q) return;
+    if (["RANK", "RANKINGS", "RANKING", "LEADERBOARD", "SCORE", "BEST", "TOP"].includes(q)) {
+      showRankings(); flash("Master rankings", "ok"); return;
+    }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
       showValuation(); flash("True P/E screener", "ok"); return;
     }
@@ -1277,11 +1413,8 @@
     el("navSectors").onclick = showSectors;
     el("navNarr").onclick = showNarratives;
     el("navPE").onclick = showValuation;
-    el("navXray").onclick = () => {
-      closeDrawer();
-      if (state.view !== "stock") { state.view = "stock"; el("sectorBtn").classList.remove("active"); el("narrBtn").classList.remove("active"); el("valBtn").classList.remove("active"); }
-      currentTab = "sbc"; render(); window.scrollTo({ top: 0 }); syncNav();
-    };
+    el("navRank").onclick = showRankings;
+    el("rankBtn").onclick = showRankings;
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
     el("backdrop").onclick = closeDrawer;
 

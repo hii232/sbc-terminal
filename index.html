@@ -86,6 +86,24 @@
   .sector-btn.val{color:var(--green);margin-top:0}
   .sector-btn.val:hover{border-color:var(--green);box-shadow:0 0 10px rgba(38,208,124,.18)}
   .sector-btn.val.active{background:linear-gradient(135deg,rgba(38,208,124,.18),rgba(38,208,124,.05));border-color:var(--green)}
+  .sector-btn.rank{color:var(--purple);margin-bottom:0}
+  .sector-btn.rank:hover{border-color:var(--purple);box-shadow:0 0 10px rgba(180,140,255,.2)}
+  .sector-btn.rank.active{background:linear-gradient(135deg,rgba(180,140,255,.2),rgba(180,140,255,.05));border-color:var(--purple)}
+
+  /* rankings leaderboard table */
+  table.rank{width:100%;border-collapse:collapse;font-size:11px}
+  table.rank th,table.rank td{padding:6px 7px;text-align:right;border-bottom:1px solid #141b28;white-space:nowrap}
+  table.rank th{color:var(--dim);font-weight:600;font-size:9px;letter-spacing:.5px;cursor:pointer;position:sticky;top:0;background:#0c111b;z-index:1;user-select:none}
+  table.rank th:hover{color:var(--purple)}
+  table.rank th.sorted{color:var(--purple)}
+  table.rank td:first-child,table.rank th:first-child,table.rank td:nth-child(2),table.rank th:nth-child(2){text-align:left}
+  table.rank tr[data-tk]{cursor:pointer}
+  table.rank tr[data-tk]:hover td{background:#0c141f}
+  .rk-num{color:var(--dim);font-weight:700}
+  .rk-tk{font-weight:700;color:var(--text)}
+  .rk-score{font-weight:800}
+  .rk-pill{display:inline-block;min-width:38px;padding:1px 6px;border-radius:4px;font-size:9.5px;font-weight:700;text-align:center}
+  .zone-fat{color:var(--green)} .zone-just{color:var(--amber)} .zone-out{color:var(--red)}
 
   /* true P/E screener rows */
   .pe-row{display:grid;grid-template-columns:66px 1fr 96px;gap:8px;align-items:center;
@@ -321,6 +339,7 @@
 
 <div class="app">
   <aside>
+    <button class="sector-btn rank" id="rankBtn">⚡ RANKINGS</button>
     <button class="sector-btn" id="sectorBtn">◈ SECTOR FLOW</button>
     <button class="sector-btn narr" id="narrBtn">◆ NARRATIVES</button>
     <button class="sector-btn val" id="valBtn">⊞ TRUE P/E</button>
@@ -363,16 +382,16 @@
   <button id="navList"><span class="ni">☰</span>LIST</button>
   <button id="navNarr"><span class="ni">◆</span>STORIES</button>
   <button id="navSectors"><span class="ni">◈</span>SECTORS</button>
-  <button id="navXray"><span class="ni">★</span>X-RAY</button>
+  <button id="navRank"><span class="ni">⚡</span>RANK</button>
   <button id="navPE"><span class="ni">⊞</span>P/E</button>
   <button id="navSearch"><span class="ni">⌕</span>SEARCH</button>
 </nav>
 
 <div class="flash" id="flash"></div>
 
-<script src="data.js?v=7"></script>
-<script src="sectors.js?v=7"></script>
-<script src="charts.js?v=7"></script>
-<script src="app.js?v=7"></script>
+<script src="data.js?v=8"></script>
+<script src="sectors.js?v=8"></script>
+<script src="charts.js?v=8"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>
