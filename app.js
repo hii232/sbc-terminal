@@ -262,10 +262,9 @@
 
   function tabOverview(d) {
     const priceSeries = fakePricePath(d);
-    const st = trueOwnerEarnings(d);
-    const sev = sbcSeverity(d.sbcPctRev);
-    const trend = shareTrend(d.shares);
     return `<div class="grid g3">
+      ${verdictCard(d)}
+
       <div class="card" style="grid-column:span 2">
         <h3>PRICE · 12M INTRADAY PROXY <span class="unit">${state.live[d.ticker]?.quote ? "anchored to live px" : "illustrative"}</span></h3>
         ${Chart.line([{ points: priceSeries, color: "var(--cyan)" }], priceLabels(), { area: true, h: 200 })}
@@ -290,13 +289,8 @@
       ${sectorContextCard(d)}
 
       <div class="card" style="grid-column:span 3">
-        <h3>QUICK VERDICT</h3>
-        <div class="verdict">
-          <span class="pill ${sev.t === "MANAGEABLE" ? "g" : "r"}" style="color:${sev.c}">SBC/REV ${pct(d.sbcPctRev)} · ${sev.t}</span>
-          <span class="pill" style="color:${trend.c}">SHARES 5Y ${trend.chg >= 0 ? "+" : ""}${trend.chg.toFixed(1)}% · ${trend.t}</span>
-          <span class="pill ${d.truePE && d.headlinePE && d.truePE > d.headlinePE * 1.2 ? "r" : "g"}">RE-RATE ${d.headlinePE ?? "n/m"}x → ${d.truePE ?? "n/m"}x true</span>
-        </div>
-        <div class="note ${d.bucket === "tragic" || d.bucket === "high" ? "callout" : ""}" style="margin-top:10px">${d.note}</div>
+        <h3>CURATOR NOTE</h3>
+        <div class="note ${d.bucket === "tragic" || d.bucket === "high" ? "callout" : ""}">${d.note}</div>
       </div>
     </div>`;
   }
@@ -918,45 +912,22 @@
     </svg>`, counts: { fat: zones.fat.length, just: zones.just.length, out: zones.out.length }, zones };
   }
 
-  /* ------------------------ MASTER RANKING ENGINE (all logic in harmony) ------------------------ */
-  // One composite score per stock blending every layer of the terminal:
-  //   VALUE   — IV15 implied 15y CAGR (the DCF verdict)          40%
-  //   QUALITY — SBC-adjusted earnings quality (owner-earnings)   25%
-  //   CHEAP   — TRUE P/E (SBC-adjusted), lower better            20%
-  //   FLOW    — sector money rotation (3M relative to S&P)       15%
+  /* ------------------------ MASTER RANKING ENGINE ------------------------ */
+  // Rankings ARE the brain: rankOf() reads verdictOf(), so the leaderboard,
+  // the screener and every stock page share ONE unified conclusion.
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function rankOf(d) {
-    const L = ivLadder(d);
-    const cagr = L ? L.impliedCAGR : null;          // e.g. 0.12
-    const truePE = d.truePE || null;
-    // sector 3M momentum vs SPY
-    const etf = sectorETF(d.sector), s = etf && secByT(etf), spy = secByT("SPY");
-    const mom = s ? retOver(s, 3) - retOver(spy, 3) : 0;
-
-    // sub-scores 0..100
-    const vScore = cagr == null ? (d.truePE ? 25 : 8) : clamp01((cagr + 0.05) / 0.25) * 100; // -5%→0, +20%→100
-    const qScore = clamp01(d.ownersKeep ? (d.ownersKeep - 0.35) / (0.97 - 0.35) : 0) * 100;   // 35¢→0, 97¢→100
-    const cScore = truePE == null ? 20 : clamp01((45 - truePE) / (45 - 10)) * 100;             // 45x→0, 10x→100
-    const fScore = clamp01((mom + 12) / 24) * 100;                                             // -12pp→0, +12pp→100
-
-    const composite = 0.40 * vScore + 0.25 * qScore + 0.20 * cScore + 0.15 * fScore;
-    return { L, cagr, truePE, mom, vScore, qScore, cScore, fScore, composite, zone: L ? L.zone : "out" };
+    const V = verdictOf(d);
+    return { L: V.L, cagr: V.cagr, truePE: d.truePE || null, mom: V.mom,
+             composite: V.score, zone: V.zone, call: V.call, C: V.C, thesis: V.thesis };
   }
-  function thesisOf(d, r) {
-    const bits = [];
-    if (r.cagr != null) bits.push(r.cagr >= 0.15 ? `fat pitch at ${(r.cagr * 100).toFixed(0)}%/yr` : r.cagr >= 0.10 ? `just outside at ${(r.cagr * 100).toFixed(0)}%/yr` : `priced rich at ${(r.cagr * 100).toFixed(0)}%/yr`);
-    else bits.push("GAAP loss — no owner-earnings floor");
-    bits.push(d.ownersKeep >= 0.9 ? "clean owner earnings" : d.ownersKeep >= 0.7 ? "moderate SBC haircut" : `only ${(d.ownersKeep * 100).toFixed(0)}¢/$ kept after SBC`);
-    if (r.truePE) bits.push(`${r.truePE.toFixed(0)}x true P/E`);
-    bits.push(r.mom >= 2 ? "sector money rotating in" : r.mom <= -2 ? "sector out of favor" : "neutral sector flow");
-    return bits.join(" · ");
-  }
+  function thesisOf(d, r) { return r.thesis || ""; }
 
   const RANK_COLS = [
-    { k: "composite", label: "SCORE" },
+    { k: "composite", label: "BRAIN SCORE" },
+    { k: "call", label: "CALL" },
     { k: "cagr", label: "IMPLIED CAGR" },
     { k: "truePE", label: "TRUE P/E" },
-    { k: "headlinePE", label: "HDL P/E" },
     { k: "sbcPctRev", label: "SBC/REV" },
     { k: "ownersKeep", label: "OWNER ¢" },
     { k: "graham", label: "GRAHAM /7" },
@@ -967,7 +938,7 @@
 
   function renderRankings() {
     const rows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d) }));
-    const raw = (o, k) => k === "composite" ? o.r.composite : k === "cagr" ? o.r.cagr
+    const raw = (o, k) => k === "composite" || k === "call" ? o.r.composite : k === "cagr" ? o.r.cagr
       : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : k === "graham" ? (o.G ? o.G.passed : null) : o.d[k];
     rows.sort((a, b) => {
       const va = raw(a, rankState.sort), vb = raw(b, rankState.sort);
@@ -993,9 +964,9 @@
         <td><span class="rk-num">${i + 1}</span></td>
         <td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
         <td><span class="rk-score" style="color:${sc}">${r.composite.toFixed(0)}</span></td>
+        <td style="color:${r.C.color};font-weight:700;font-size:9.5px">${r.C.label.split(" — ")[0]}</td>
         <td class="${r.cagr == null ? "" : r.cagr >= 0.15 ? "up" : r.cagr < 0.10 ? "down" : ""}" style="${r.cagr != null && r.cagr >= 0.1 && r.cagr < 0.15 ? "color:var(--amber)" : ""}">${r.cagr == null ? "n/m" : (r.cagr * 100).toFixed(1) + "%"}</td>
         <td style="color:var(--amber)">${r.truePE ? r.truePE.toFixed(1) + "x" : "n/m"}</td>
-        <td class="sub">${d.headlinePE ? d.headlinePE.toFixed(0) + "x" : "n/m"}</td>
         <td class="${d.sbcPctRev == null ? "" : d.sbcPctRev < 5 ? "up" : d.sbcPctRev >= 15 ? "down" : ""}">${d.sbcPctRev == null ? "–" : d.sbcPctRev.toFixed(1) + "%"}</td>
         <td>${d.ownersKeep ? (d.ownersKeep * 100).toFixed(0) + "¢" : "–"}</td>
         <td class="${x.G == null ? "" : x.G.passed >= 5 ? "up" : x.G.passed <= 2 ? "down" : ""}" style="color:#5aa9d6">${x.G ? x.G.passed + "/7" : "–"}</td>
@@ -1007,8 +978,8 @@
     el("main").innerHTML = `
       <div class="hdr">
         <div>
-          <div class="tick" style="color:var(--purple)">⚡ MASTER RANKINGS</div>
-          <div class="co">every layer in harmony — IV15 CAGR · owner-earnings quality · true P/E · sector flow → one score & thesis</div>
+          <div class="tick" style="color:var(--purple)">⚛ THE BRAIN — MASTER RANKINGS</div>
+          <div class="co">every engine votes — SBC x-ray · IV15 DCF · Graham · quality &amp; cash · buyback truth · sector flow → ONE score, ONE call per stock</div>
         </div>
         <div class="spacer"></div>
         <div style="text-align:right">
@@ -1032,7 +1003,7 @@
       </div>
 
       <div class="note" style="margin-bottom:12px">
-        <b style="color:var(--purple)">Composite score</b> = 40% IV15 implied CAGR + 25% owner-earnings quality (SBC retention) + 20% true P/E cheapness + 15% sector money-flow. Tap any column header to re-rank; tap a row to open the stock. This is a screen to rank pitches — not a substitute for the full model.
+        <b style="color:var(--purple)">The brain score</b> merges every engine's weighted vote: IV15 DCF 25% · SBC x-ray 20% · quality &amp; cash (ROIC + FCF-after-SBC) 20% · Graham 15% · buyback truth 10% · sector flow 10% (+ insiders when live). The CALL column is the one-line conclusion — open any stock to see the full vote breakdown and written thesis on ⚛ THE VERDICT card. Tap a column to re-rank, a row to open.
       </div>
 
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
@@ -1174,6 +1145,136 @@
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
   const toolHeader = (icon, title, sub, right = "") => `<div class="hdr"><div><div class="tick" style="color:var(--cyan)">${icon} ${title}</div><div class="co">${sub}</div></div><div class="spacer"></div>${right}</div>`;
+
+  /* ============================================================================
+     ⚛ THE BRAIN — the unified verdict engine
+     Every framework in the terminal votes (-2..+2, weighted); the votes merge
+     into ONE score, ONE call, ONE written thesis. Rankings, the screener and
+     the stock page all read from this — no more separate conclusions.
+     ============================================================================ */
+  const CALLS = {
+    SWING:  { label: "SWING — FAT PITCH",        color: "var(--green)",  desc: "priced for 15%+ owner-earnings returns and quality holds up — the pitch you wait for" },
+    ACC:    { label: "ACCUMULATE",               color: "#7dd87d",       desc: "most engines bullish — build the position on weakness" },
+    STALK:  { label: "STALK — WAIT FOR PRICE",   color: "var(--amber)",  desc: "great business, wrong price — set the alert and be patient" },
+    WATCH:  { label: "WATCH",                    color: "#c9a86a",       desc: "mixed evidence — needs a catalyst or a better price" },
+    PASS:   { label: "PASS",                     color: "var(--orange)", desc: "not enough return for the risk — better pitches elsewhere" },
+    TRAP:   { label: "VALUE TRAP",               color: "var(--red)",    desc: "screens cheap but the earnings aren't real — the cheapness is the bait" },
+    AVOID:  { label: "AVOID — DILUTION MACHINE", color: "var(--red)",    desc: "run for employees, not shareholders — not investable until SBC discipline changes" },
+  };
+  function verdictOf(d) {
+    const L = ivLadder(d);
+    const G = grahamOf(d);
+    const Q = qualityOf(d);
+    const bq = buybackQuality(d);
+    const trend = shareTrend((d.shares || []).filter(v => v != null));
+    const etf = sectorETF(d.sector), s = secByT(etf), spy = secByT("SPY");
+    const mom = s && spy ? retOver(s, 3) - retOver(spy, 3) : 0;
+    const lv = state.live[d.ticker] || {};
+    const keep = d.ownersKeep || 0;
+    const sig = [];
+
+    // 1 · SBC X-Ray — is the earnings dollar real? (w20)
+    let v = keep >= .9 ? 2 : keep >= .8 ? 1 : keep >= .65 ? 0 : keep >= .5 ? -1 : -2;
+    sig.push({ k: "SBC X-RAY", w: 20, v, why: `keeps ${(keep * 100).toFixed(0)}¢/$ · SBC ${d.sbcPctRev == null ? "n/a" : d.sbcPctRev.toFixed(1) + "% of rev"} · shares ${trend.chg >= 0 ? "+" : ""}${(trend.chg || 0).toFixed(1)}% over the record` });
+
+    // 2 · IV15 DCF — what return does today's price offer? (w25)
+    const cagr = L ? L.impliedCAGR : null;
+    v = cagr == null ? -2 : cagr >= .15 ? 2 : cagr >= .12 ? 1 : cagr >= .09 ? 0 : cagr >= .05 ? -1 : -2;
+    sig.push({ k: "IV15 DCF", w: 25, v, why: cagr == null ? "no positive owner earnings to price — Out Field by default" : `priced for ${(cagr * 100).toFixed(1)}%/yr over 15y · buy target IV15 $${L.IV15.toFixed(L.IV15 >= 100 ? 0 : 2)} vs $${L.price.toFixed(2)} now` });
+
+    // 3 · Graham — classic asset-value margin of safety (w15)
+    if (G) {
+      v = G.netnet ? 2 : G.passed >= 6 ? 2 : G.passed >= 5 ? 1 : G.passed >= 4 ? 0 : G.passed >= 3 ? -1 : -2;
+      if (G.grahamMOS != null && G.grahamMOS > 0.1 && v < 2) v++;
+      const mosTxt = G.grahamMOS == null ? "Graham № n/m" : G.grahamMOS >= 0 ? `${(G.grahamMOS * 100).toFixed(0)}% below Graham №` : `${(-G.grahamMOS * 100).toFixed(0)}% above Graham №`;
+      sig.push({ k: "GRAHAM", w: 15, v, why: `${G.passed}/7 defensive${G.netnet ? " · NET-NET" : ""} · ${mosTxt} · ${G.isInvestment ? "investment-grade" : "speculative"}` });
+    } else sig.push({ k: "GRAHAM", w: 15, v: 0, why: "balance-sheet data n/a" });
+
+    // 4 · Quality & Cash — does the business earn its keep? (w20)
+    // Banks/insurers/REITs: FCF & ROIC are not meaningful (loan books, float,
+    // property depreciation distort them) — judge on ROE instead.
+    const finSector = etf === "XLF" || etf === "XLRE";
+    if (finSector) {
+      v = Q.roe == null ? 0 : Q.roe >= 15 ? 2 : Q.roe >= 10 ? 1 : Q.roe >= 7 ? 0 : -1;
+      sig.push({ k: "QUALITY & CASH", w: 20, v, why: `ROE ${Q.roe == null ? "n/a" : Q.roe.toFixed(0) + "%"} · FCF/ROIC not meaningful for financials — judged on returns on equity` });
+    } else {
+      v = Q.roic == null ? 0 : Q.roic >= 20 ? 2 : Q.roic >= 12 ? 1 : Q.roic >= 8 ? 0 : -1;
+      if (Q.fcfAfterSbc != null && Q.fcfAfterSbc < 0) v = -2;
+      else if (Q.ocfToNi != null && Q.ocfToNi < 0.8 && v > -1) v--;
+      sig.push({ k: "QUALITY & CASH", w: 20, v, why: `ROIC ${Q.roic == null ? "n/a" : Q.roic.toFixed(0) + "%"} · FCF-after-SBC ${Q.fcfAfterSbc == null ? "n/a" : money(Q.fcfAfterSbc) + " (" + fmtPct(Q.fcfAfterSbcYield, 1) + " yield)"} · OCF/NI ${Q.ocfToNi ? Q.ocfToNi.toFixed(2) + "×" : "n/a"}` });
+    }
+
+    // 5 · Buyback integrity — real return or treadmill? (w10)
+    const acc = L ? buybackAccretion(d, L) : null;
+    if (bq.anti === 0 && bq.real === 0) v = trend.chg > 3 ? -1 : 0;
+    else if (bq.real > bq.anti) v = acc && acc.acc ? 2 : 1;
+    else v = -1;
+    if (trend.chg > 12) v = -2;
+    sig.push({ k: "BUYBACK TRUTH", w: 10, v, why: bq.anti === 0 && bq.real === 0 ? (trend.chg > 3 ? "no buybacks and shares rising — pure dilution" : "no buybacks — judge on dividends/growth") : `${bq.t.toLowerCase()}${acc ? (acc.acc ? " · below baseline IV (accretive)" : " · above baseline IV (dilutes IV/share)") : ""}` });
+
+    // 6 · Sector flow — is money coming toward this name? (w10)
+    v = mom >= 3 ? 2 : mom >= 1 ? 1 : mom >= -1 ? 0 : mom >= -3 ? -1 : -2;
+    sig.push({ k: "SECTOR FLOW", w: 10, v, why: `${s ? s.name : d.sector} ${mom >= 0 ? "+" : ""}${mom.toFixed(1)}pp vs S&P over 3M — money rotating ${mom >= 1 ? "IN" : mom <= -1 ? "OUT" : "sideways"}` });
+
+    // 7 · Insiders — live bonus signal when loaded (w5)
+    if (lv.insider) {
+      const ins = lv.insider;
+      v = ins.net > 0.05 ? 2 : ins.net > 0 ? 1 : ins.net < -1 ? -1 : 0;
+      sig.push({ k: "INSIDERS", w: 5, v, why: `${ins.net >= 0 ? "+" : ""}${ins.net.toFixed(2)}M shares net 6M (${ins.buys} buys / ${ins.sells} sells)${v === 2 && L && L.price <= L.IV15 ? " — buying below IV15, the elite signal" : ""}` });
+    }
+
+    // ---- merge: one score ----
+    const wSum = sig.reduce((a, x) => a + x.w, 0);
+    const score = sig.reduce((a, x) => a + x.w * ((x.v + 2) / 4) * 100, 0) / wSum;
+    const bulls = sig.filter(x => x.v > 0).length, bears = sig.filter(x => x.v < 0).length;
+
+    // ---- one call (hard rules first, then score) ----
+    const sbcV = sig[0].v, ivV = sig[1].v, qV = sig[3].v;
+    const looksCheap = (d.truePE && d.truePE < 22) || (G && (G.passed >= 5 || G.netnet));
+    let call;
+    if (looksCheap && (keep < 0.6 || (!finSector && Q.fcfAfterSbc != null && Q.fcfAfterSbc < 0))) call = "TRAP";
+    else if (d.bucket === "tragic" && score < 45) call = "AVOID";
+    else if (L && L.zone === "fat" && keep >= 0.7 && qV >= 0) call = "SWING";
+    else if (score >= 62 && ivV >= 0) call = "ACC";
+    else if (sbcV >= 1 && qV >= 1 && ivV <= 0) call = "STALK";
+    else if (score >= 48) call = "WATCH";
+    else call = "PASS";
+    const C = CALLS[call];
+
+    // ---- one written thesis ----
+    const bits = [];
+    bits.push(keep >= .85 ? `Earnings are real (${(keep * 100).toFixed(0)}¢ of every GAAP dollar reaches owners)` : keep >= .65 ? `Earnings need a ${(100 - keep * 100).toFixed(0)}% SBC haircut` : `Reported earnings are heavily inflated by stock comp (only ${(keep * 100).toFixed(0)}¢/$ real)`);
+    bits.push(cagr == null ? "and there's no owner-earnings floor to value it on" : cagr >= .15 ? `today's price pays you ${(cagr * 100).toFixed(0)}%/yr — a genuine fat pitch` : cagr >= .10 ? `the price offers a decent ${(cagr * 100).toFixed(0)}%/yr, just outside the fat-pitch zone` : `the price only offers ${(cagr * 100).toFixed(1)}%/yr — you're paying for the story`);
+    if (G) bits.push(G.netnet ? "Graham would buy it below liquidation value" : G.passed >= 5 ? `the classic lens agrees (${G.passed}/7 defensive)` : `the classic lens is unimpressed (${G.passed}/7)`);
+    if (Q.roic != null) bits.push(Q.roic >= 15 ? `and at ${Q.roic.toFixed(0)}% ROIC the business earns its keep` : Q.roic < 8 ? `and ${Q.roic.toFixed(0)}% ROIC says capital isn't compounding here` : "");
+    const thesis = bits.filter(Boolean).join("; ") + `. ${C.desc.charAt(0).toUpperCase() + C.desc.slice(1)}.`;
+
+    return { score, call, C, sig, bulls, bears, thesis, L, G, Q, cagr, mom, zone: L ? L.zone : "out" };
+  }
+
+  function verdictCard(d) {
+    const V = verdictOf(d);
+    const votePill = (v) => {
+      const m = { "2": ["▲▲", "var(--green)"], "1": ["▲", "#7dd87d"], "0": ["·", "var(--dim)"], "-1": ["▼", "var(--orange)"], "-2": ["▼▼", "var(--red)"] }[String(v)];
+      return `<span style="color:${m[1]};font-weight:800;width:26px;display:inline-block;text-align:center">${m[0]}</span>`;
+    };
+    const scoreColor = V.score >= 62 ? "var(--green)" : V.score >= 48 ? "var(--amber)" : "var(--red)";
+    return `<div class="card" style="grid-column:span 3;border:1px solid ${V.C.color};box-shadow:0 0 18px ${V.C.color.startsWith("var") ? "rgba(255,255,255,.06)" : V.C.color + "33"}">
+      <h3>⚛ THE VERDICT — EVERY ENGINE, ONE CONCLUSION <span class="unit">${V.bulls} bullish · ${V.sig.length - V.bulls - V.bears} neutral · ${V.bears} bearish</span></h3>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;margin-top:4px">
+        <div style="text-align:center;min-width:150px">
+          <div class="stat" style="font-size:38px;color:${scoreColor}">${V.score.toFixed(0)}</div>
+          <div class="sub">BRAIN SCORE /100</div>
+          <div class="badge" style="display:inline-block;margin-top:9px;font-size:11px;padding:5px 12px;color:${V.C.color};border-color:${V.C.color}">${V.C.label}</div>
+        </div>
+        <div style="flex:1;min-width:260px">
+          ${V.sig.map(x => `<div style="display:grid;grid-template-columns:26px 118px 1fr;gap:8px;align-items:baseline;padding:3px 0;border-bottom:1px dashed #141b28">
+            ${votePill(x.v)}<span class="sub" style="font-weight:700;letter-spacing:.5px">${x.k}</span><span class="sub">${x.why}</span></div>`).join("")}
+        </div>
+      </div>
+      <div class="note" style="margin-top:12px;border-left-color:${V.C.color}"><b style="color:${V.C.color}">Thesis:</b> ${V.thesis}</div>
+    </div>`;
+  }
 
   function qualityCard(d) {
     const Q = qualityOf(d);
