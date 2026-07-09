@@ -89,6 +89,9 @@
   .sector-btn.rank{color:var(--purple);margin-bottom:0}
   .sector-btn.rank:hover{border-color:var(--purple);box-shadow:0 0 10px rgba(180,140,255,.2)}
   .sector-btn.rank.active{background:linear-gradient(135deg,rgba(180,140,255,.2),rgba(180,140,255,.05));border-color:var(--purple)}
+  .sector-btn.graham{color:#5aa9d6;margin-top:0;margin-bottom:0}
+  .sector-btn.graham:hover{border-color:#5aa9d6;box-shadow:0 0 10px rgba(90,169,214,.2)}
+  .sector-btn.graham.active{background:linear-gradient(135deg,rgba(90,169,214,.2),rgba(90,169,214,.05));border-color:#5aa9d6}
 
   /* rankings leaderboard table */
   table.rank{width:100%;border-collapse:collapse;font-size:11px}
@@ -340,6 +343,7 @@
 <div class="app">
   <aside>
     <button class="sector-btn rank" id="rankBtn">⚡ RANKINGS</button>
+    <button class="sector-btn graham" id="grahamBtn">🛡 GRAHAM VALUE</button>
     <button class="sector-btn" id="sectorBtn">◈ SECTOR FLOW</button>
     <button class="sector-btn narr" id="narrBtn">◆ NARRATIVES</button>
     <button class="sector-btn val" id="valBtn">⊞ TRUE P/E</button>
@@ -389,9 +393,9 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="data.js?v=8"></script>
-<script src="sectors.js?v=8"></script>
-<script src="charts.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="data.js?v=9"></script>
+<script src="sectors.js?v=9"></script>
+<script src="charts.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

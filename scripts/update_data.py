@@ -27,7 +27,47 @@ UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 FUND_TYPES = ("annualTotalRevenue,annualNetIncome,annualStockBasedCompensation,"
               "annualRepurchaseOfCapitalStock,annualDilutedAverageShares,annualOperatingCashFlow,"
               "quarterlyTotalRevenue,quarterlyNetIncome,quarterlyStockBasedCompensation,"
-              "quarterlyRepurchaseOfCapitalStock,quarterlyDilutedAverageShares")
+              "quarterlyRepurchaseOfCapitalStock,quarterlyDilutedAverageShares,"
+              # Graham & Dodd balance-sheet inputs (latest FY)
+              "annualCurrentAssets,annualCurrentLiabilities,annualTotalAssets,"
+              "annualTotalLiabilitiesNetMinorityInterest,annualStockholdersEquity,"
+              "annualTangibleBookValue,annualTotalDebt,annualLongTermDebt,"
+              "annualCashCashEquivalentsAndShortTermInvestments,annualInventory,"
+              "annualReceivables,annualCashDividendsPaid")
+
+# maps Yahoo field -> short key used in the gd:{} block
+GD_FIELDS = [
+    ("annualCurrentAssets", "ca"), ("annualCurrentLiabilities", "cl"),
+    ("annualTotalAssets", "ta"), ("annualTotalLiabilitiesNetMinorityInterest", "tl"),
+    ("annualStockholdersEquity", "eq"), ("annualTangibleBookValue", "tbv"),
+    ("annualTotalDebt", "debt"), ("annualLongTermDebt", "ltd"),
+    ("annualCashCashEquivalentsAndShortTermInvestments", "cash"),
+    ("annualInventory", "inv"), ("annualReceivables", "rec"),
+]
+
+def build_gd(f, q):
+    """Latest-FY balance-sheet snapshot -> gd:{...} block string (or None)."""
+    if not f:
+        return None
+    def numj(v):
+        if v is None:
+            return "null"
+        s = f"{v:.3f}".rstrip("0").rstrip(".")
+        return s if s not in ("", "-0") else "0"
+    def latest(key):
+        d = f.get(key)
+        if not d:
+            return None
+        y = sorted(d.keys())[-1]
+        return d[y] / 1e9
+    parts = [f"{sk}:{numj(latest(yk))}" for yk, sk in GD_FIELDS]
+    dp = latest("annualCashDividendsPaid")
+    parts.append(f"divPaid:{numj(abs(dp) if dp else None)}")
+    parts.append(f"divRate:{numj(q.get('trailingAnnualDividendRate') if q else None)}")
+    parts.append(f"divYield:{numj(q.get('trailingAnnualDividendYield') if q else None)}")
+    if all(p.endswith(":null") for p in parts[:5]):
+        return None
+    return "gd:{" + ", ".join(parts) + "},"
 
 def get(url, opener=None):
     req = urllib.request.Request(url, headers=UA)
@@ -219,6 +259,12 @@ def main():
                 block = re.sub(r"qd:\{[^}]*\},", qd, block)
             else:
                 block = block.replace("    note:", "    " + qd + "\n    note:")
+        gd = build_gd(f, q)
+        if gd:
+            if "gd:{" in block:
+                block = re.sub(r"gd:\{[^}]*\},", gd, block)
+            else:
+                block = block.replace("    note:", "    " + gd + "\n    note:")
         print(f"  {tk}: ok")
         return block
 

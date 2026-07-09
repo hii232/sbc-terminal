@@ -121,7 +121,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn"];
+  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function selectTicker(tk) {
     state.active = tk;
@@ -199,7 +199,7 @@
       </div>`;
 
     const tabs = `<div class="tabs">
-      ${[["overview", "OVERVIEW"], ["sbc", "★ SBC X-RAY"], ["financials", "FINANCIALS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
+      ${[["overview", "OVERVIEW"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
         .map(([k, l]) => `<button data-tab="${k}" class="${currentTab === k ? "active" : ""}">${l}</button>`).join("")}
     </div>`;
 
@@ -219,6 +219,7 @@
       body.querySelectorAll(".fin-toggle").forEach(b =>
         b.onclick = () => { finMode = b.dataset.m; renderTab(d); });
     }
+    else if (currentTab === "graham") body.innerHTML = tabGraham(d);
     else if (currentTab === "news") body.innerHTML = tabNews(d);
     else if (currentTab === "framework") body.innerHTML = tabFramework(d);
   }
@@ -552,6 +553,156 @@
     </div>`;
   }
 
+  /* ============================================================================
+     GRAHAM & DODD ENGINE — classic Security Analysis (7th ed.) principles
+     Intrinsic value from assets, earning power and dividends; margin of safety;
+     net current asset value (net-net); Graham Number; the defensive checklist;
+     and the investment-vs-speculation test. Complements the modern IV15 lens.
+     ============================================================================ */
+  function grahamOf(d) {
+    const g = d.gd;
+    if (!g) return null;
+    const sh = d.shares && d.shares[d.shares.length - 1];        // billions of shares
+    if (!sh) return null;
+    const price = state.live[d.ticker]?.quote?.price ?? d.price;
+    const eps = d.gaapEPS;
+    // --- asset-value anchors (all $B / B shares = $/share) ---
+    const bvps = g.eq != null ? g.eq / sh : null;               // book value per share
+    const tbvps = g.tbv != null ? g.tbv / sh : null;            // tangible book
+    const pb = bvps && bvps > 0 ? price / bvps : null;
+    const ptbv = tbvps && tbvps > 0 ? price / tbvps : null;
+    // net current asset value (Graham net-net): current assets − ALL liabilities
+    const ncav = g.ca != null && g.tl != null ? g.ca - g.tl : null;
+    const ncavps = ncav != null ? ncav / sh : null;
+    const priceToNcav = ncavps && ncavps > 0 ? price / ncavps : null; // <1 below NCAV, <0.667 deep bargain
+    // liquidating value estimate (Graham rule-of-thumb haircuts)
+    const liq = (g.cash != null && g.rec != null && g.inv != null && g.tl != null)
+      ? (g.cash * 1.0 + g.rec * 0.8 + g.inv * 0.667 + Math.max(0, (g.ta - g.cash - g.rec - g.inv)) * 0.15 - g.tl) : null;
+    const liqps = liq != null ? liq / sh : null;
+    // --- financial strength ---
+    const currentRatio = g.ca != null && g.cl ? g.ca / g.cl : null;
+    const workingCap = g.ca != null && g.cl != null ? g.ca - g.cl : null;
+    const ltdVsWC = g.ltd != null && workingCap && workingCap > 0 ? g.ltd / workingCap : null;
+    const de = g.debt != null && g.eq && g.eq > 0 ? g.debt / g.eq : null;
+    // --- Graham Number = √(22.5 × EPS × BVPS)  [22.5 = 15 P/E × 1.5 P/B] ---
+    const grahamNumber = eps > 0 && bvps > 0 ? Math.sqrt(22.5 * eps * bvps) : null;
+    const grahamMOS = grahamNumber && price > 0 ? (grahamNumber - price) / grahamNumber : null; // >0 = below fair value
+    // --- earning power (average earnings over the record, not one year) ---
+    const nis = (d.ni || []).filter(v => v != null);
+    const avgEps = nis.length && sh ? (nis.reduce((a, v) => a + v, 0) / nis.length) / sh : null;
+    const epStable = nis.length >= 3 && nis.every(v => v > 0);
+    const epGrowth = nis.length >= 2 && nis[nis.length - 1] > nis[0];
+    const earningPowerPE = avgEps && avgEps > 0 ? price / avgEps : null;
+    // --- dividends ---
+    const divYield = g.divYield ? g.divYield * 100 : (g.divRate && price ? (g.divRate / price) * 100 : 0);
+    const paysDiv = (g.divRate || 0) > 0 || (g.divPaid || 0) > 0;
+    // --- Graham's defensive 7-point checklist (adapted from Security Analysis) ---
+    const checks = [
+      { k: "Adequate size", pass: d.mktCap >= 10, detail: money(d.mktCap) + " mkt cap" },
+      { k: "Strong financial condition", pass: currentRatio != null ? currentRatio >= 2 : (de != null ? de < 1 : false), detail: currentRatio != null ? "current ratio " + currentRatio.toFixed(2) : (de != null ? "D/E " + de.toFixed(2) : "n/a") },
+      { k: "Earnings stability (no deficits)", pass: epStable, detail: epStable ? "positive every year" : "deficit in the record" },
+      { k: "Dividend record", pass: paysDiv, detail: paysDiv ? divYield.toFixed(1) + "% yield" : "pays none" },
+      { k: "Earnings growth", pass: epGrowth, detail: epGrowth ? "up over the record" : "flat / declining" },
+      { k: "Moderate P/E (≤15×)", pass: eps > 0 && d.headlinePE != null && d.headlinePE <= 15, detail: d.headlinePE ? d.headlinePE.toFixed(0) + "×" : "n/m" },
+      { k: "Moderate price/book (≤1.5×)", pass: pb != null && pb > 0 && pb <= 1.5, detail: pb ? pb.toFixed(2) + "× book" : "n/a" },
+    ];
+    const passed = checks.filter(c => c.pass).length;
+    // --- investment vs speculation (Ch.4): safety of principal + satisfactory return ---
+    const safety = (currentRatio != null ? currentRatio >= 1.5 : (de != null ? de < 1.5 : false)) && epStable;
+    const isInvestment = safety && (paysDiv || (avgEps && avgEps > 0));
+    // Graham value score 0..100
+    const sChk = (passed / 7) * 100;
+    const sMOS = grahamMOS == null ? 40 : clamp01((grahamMOS + 0.5) / 1.0) * 100; // -50%→0, +50%→100
+    const sFin = currentRatio != null ? clamp01((currentRatio - 1) / 2) * 100 : (de != null ? clamp01((2 - de) / 2) * 100 : 40);
+    const netnetBonus = priceToNcav != null && priceToNcav < 1 ? (priceToNcav < 0.667 ? 100 : 70) : 0;
+    const score = 0.40 * sChk + 0.30 * sMOS + 0.15 * sFin + 0.15 * netnetBonus;
+    return {
+      price, eps, bvps, tbvps, pb, ptbv, ncav, ncavps, priceToNcav, liqps,
+      currentRatio, workingCap, ltdVsWC, de, grahamNumber, grahamMOS,
+      avgEps, epStable, epGrowth, earningPowerPE, divYield, paysDiv,
+      checks, passed, isInvestment, score,
+      netnet: priceToNcav != null && priceToNcav < 1,
+      deepNetnet: priceToNcav != null && priceToNcav < 0.667,
+    };
+  }
+
+  function tabGraham(d) {
+    const G = grahamOf(d);
+    if (!G) return `<div class="card"><h3>GRAHAM & DODD ANALYSIS</h3><div class="sub">Balance-sheet data unavailable for ${d.ticker}.</div></div>`;
+    const price = G.price;
+    const grade = G.passed >= 6 ? "A" : G.passed >= 5 ? "B" : G.passed >= 4 ? "C" : G.passed >= 2 ? "D" : "F";
+    const gc = { A: "var(--green)", B: "var(--cyan)", C: "var(--amber)", D: "var(--orange)", F: "var(--red)" }[grade];
+    // intrinsic-value anchors bar chart (per share vs price)
+    const anchors = [
+      { label: "Price", value: price, color: "var(--red)", display: "$" + price.toFixed(2) },
+      { label: "Book value", value: G.bvps, color: "var(--cyan)", display: G.bvps ? "$" + G.bvps.toFixed(2) : "–" },
+      { label: "Tangible book", value: G.tbvps, color: "#5aa9d6", display: G.tbvps ? "$" + G.tbvps.toFixed(2) : "–" },
+      { label: "Net-current-asset", value: G.ncavps, color: "var(--amber)", display: G.ncavps ? "$" + G.ncavps.toFixed(2) : "n/a" },
+      { label: "Graham Number", value: G.grahamNumber, color: "var(--green)", display: G.grahamNumber ? "$" + G.grahamNumber.toFixed(2) : "n/m" },
+    ].filter(a => a.value != null && a.value > 0);
+    const maxA = Math.max(...anchors.map(a => a.value)) * 1.05;
+
+    return `
+    <div class="note" style="margin-bottom:12px"><b style="color:var(--cyan)">Graham &amp; Dodd, Security Analysis (7th ed.).</b> Intrinsic value is “that value which is justified by the facts — assets, earnings, dividends, prospects — as distinct from market quotations.” You only need an approximate measure, and a <b>margin of safety</b> between that value and price. This is the classic asset-and-earning-power lens that complements the modern IV15/SBC view.</div>
+
+    <div class="grid g3">
+      <div class="card" style="grid-column:span 2;border-left:3px solid ${gc}">
+        <h3>INTRINSIC-VALUE ANCHORS <span class="unit">per share vs price — where does the market sit?</span></h3>
+        ${Chart.hbars(anchors, { max: maxA, labelW: 108 })}
+        <div class="sub" style="margin-top:6px">${G.grahamMOS != null
+          ? (G.grahamMOS >= 0 ? `Trading <b class="up">${(G.grahamMOS * 100).toFixed(0)}% below</b> the Graham Number — a margin of safety exists on the classic measure.`
+            : `Trading <b class="down">${(-G.grahamMOS * 100).toFixed(0)}% above</b> the Graham Number — no classic margin of safety.`)
+          : "Graham Number needs positive GAAP earnings and book value — n/m here (typical for growth or loss-making names)."}</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>DEFENSIVE GRADE</h3>
+        <div class="grade" style="font-size:34px;width:64px;height:64px;margin:8px auto;color:${gc};border-color:${gc}">${grade}</div>
+        <div class="stat sm" style="color:${gc}">${G.passed}/7</div>
+        <div class="sub">Graham criteria passed</div>
+        <div class="badge" style="display:inline-block;margin-top:8px;color:${G.isInvestment ? "var(--green)" : "var(--red)"};border-color:${G.isInvestment ? "var(--green)" : "var(--red)"}">${G.isInvestment ? "INVESTMENT" : "SPECULATIVE"}</div>
+        <div class="sub" style="margin-top:3px">safety of principal + satisfactory return?</div>
+      </div>
+    </div>
+
+    ${(G.netnet || G.deepNetnet) ? `<div class="note" style="margin-top:12px;border-left-color:var(--green)"><b style="color:var(--green)">★ NET-NET.</b> ${d.ticker} trades at ${(G.priceToNcav * 100).toFixed(0)}% of net current asset value (current assets − all liabilities). ${G.deepNetnet ? "Below Graham's classic two-thirds bargain threshold — the rarest signal in value investing." : "Below NCAV — you're getting the business for less than its liquid assets net of debt."}</div>` : ""}
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>THE 7-POINT DEFENSIVE CHECKLIST</h3>
+        ${G.checks.map(c => `<div class="kv"><span class="k">${c.pass ? "✅" : "❌"} ${c.k}</span><span class="v" style="color:${c.pass ? "var(--green)" : "var(--muted)"}">${c.detail}</span></div>`).join("")}
+      </div>
+      <div class="card">
+        <h3>FINANCIAL STRENGTH &amp; VALUE RATIOS</h3>
+        <div class="kv"><span class="k">Current ratio (want ≥2)</span><span class="v" style="color:${G.currentRatio == null ? "var(--muted)" : G.currentRatio >= 2 ? "var(--green)" : G.currentRatio >= 1.5 ? "var(--amber)" : "var(--red)"}">${G.currentRatio ? G.currentRatio.toFixed(2) : "n/a (financial)"}</span></div>
+        <div class="kv"><span class="k">LT debt vs working capital (want &lt;1)</span><span class="v" style="color:${G.ltdVsWC == null ? "var(--muted)" : G.ltdVsWC < 1 ? "var(--green)" : "var(--red)"}">${G.ltdVsWC != null ? G.ltdVsWC.toFixed(2) : "n/a"}</span></div>
+        <div class="kv"><span class="k">Debt / equity</span><span class="v" style="color:${G.de == null ? "var(--muted)" : G.de < 1 ? "var(--green)" : G.de < 2 ? "var(--amber)" : "var(--red)"}">${G.de != null ? G.de.toFixed(2) : "–"}</span></div>
+        <div class="kv"><span class="k">Price / book</span><span class="v">${G.pb ? G.pb.toFixed(2) + "×" : "n/a"}</span></div>
+        <div class="kv"><span class="k">Price / tangible book</span><span class="v">${G.ptbv ? G.ptbv.toFixed(2) + "×" : (G.tbvps <= 0 ? "neg. tangible book" : "n/a")}</span></div>
+        <div class="kv"><span class="k">Earning power (avg EPS)</span><span class="v">${G.avgEps ? "$" + G.avgEps.toFixed(2) + " · " + (G.earningPowerPE ? G.earningPowerPE.toFixed(0) + "× avg" : "") : "–"}</span></div>
+        <div class="kv"><span class="k">Dividend</span><span class="v" style="color:${G.paysDiv ? "var(--green)" : "var(--muted)"}">${G.paysDiv ? G.divYield.toFixed(2) + "% yield" : "none"}</span></div>
+        <div class="kv"><span class="k">Est. liquidating value / sh</span><span class="v">${G.liqps ? "$" + G.liqps.toFixed(2) : "n/a"}</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px"><h3>CLASSIC vs MODERN — THE DUAL VERDICT</h3>
+      ${(() => {
+        const L = ivLadder(d);
+        const modern = L ? (L.zone === "fat" ? "FAT PITCH (" + (L.impliedCAGR * 100).toFixed(0) + "%/yr IV15)" : L.zone === "just" ? "JUST OUTSIDE (" + (L.impliedCAGR * 100).toFixed(0) + "%/yr)" : "OUT FIELD (" + (L.impliedCAGR * 100).toFixed(0) + "%/yr)") : "no owner-earnings floor";
+        const modernGood = L && L.zone !== "out";
+        const classicGood = G.passed >= 5 || G.netnet;
+        const agree = modernGood === classicGood;
+        return `<div class="verdict">
+          <span class="pill ${classicGood ? "g" : "r"}">GRAHAM (classic): ${classicGood ? "passes value tests" : "fails value tests"} — ${G.passed}/7${G.netnet ? ", net-net" : ""}</span>
+          <span class="pill ${modernGood ? "g" : "r"}">IV15 (modern): ${modern}</span>
+          <span class="pill" style="color:${agree ? "var(--green)" : "var(--amber)"};border-color:${agree ? "rgba(38,208,124,.4)" : "rgba(255,176,0,.4)"}">${agree ? "✓ BOTH LENSES AGREE" : "⚠ LENSES DISAGREE — dig deeper"}</span>
+        </div>
+        <div class="sub" style="margin-top:8px">${agree
+          ? (classicGood ? "Both the classic margin-of-safety screen and the modern owner-earnings DCF like this — the strongest kind of setup." : "Both lenses are cautious — cheap-looking or not, neither the balance sheet nor the cash-flow math supports a buy here.")
+          : "Classic and modern disagree. Often this is a high-quality compounder that screens 'expensive' on book value (modern likes it, Graham doesn't), or an asset-cheap but low-growth/declining business (Graham likes it, modern doesn't). Graham himself noted quality can justify paying above simple asset value."}</div>`;
+      })()}
+    </div>`;
+  }
+
   /* ------------------------ IV15 ENGINE (Burry DCF buy targets) ------------------------ */
   // IVr = the price at which you'd expect r% CAGR over 15 years, built on
   // SBC-adjusted owner EPS, 3-stage growth (4th "inflection" stage for flagged
@@ -732,15 +883,16 @@
     { k: "headlinePE", label: "HDL P/E" },
     { k: "sbcPctRev", label: "SBC/REV" },
     { k: "ownersKeep", label: "OWNER ¢" },
+    { k: "graham", label: "GRAHAM /7" },
     { k: "mom", label: "SEC 3M" },
     { k: "mktCap", label: "MKT CAP" },
   ];
   const rankState = { sort: "composite", dir: -1 };
 
   function renderRankings() {
-    const rows = DATA.map(d => ({ d, r: rankOf(d) }));
+    const rows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d) }));
     const raw = (o, k) => k === "composite" ? o.r.composite : k === "cagr" ? o.r.cagr
-      : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : o.d[k];
+      : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : k === "graham" ? (o.G ? o.G.passed : null) : o.d[k];
     rows.sort((a, b) => {
       const va = raw(a, rankState.sort), vb = raw(b, rankState.sort);
       if (va == null && vb == null) return 0;
@@ -770,6 +922,7 @@
         <td class="sub">${d.headlinePE ? d.headlinePE.toFixed(0) + "x" : "n/m"}</td>
         <td class="${d.sbcPctRev == null ? "" : d.sbcPctRev < 5 ? "up" : d.sbcPctRev >= 15 ? "down" : ""}">${d.sbcPctRev == null ? "–" : d.sbcPctRev.toFixed(1) + "%"}</td>
         <td>${d.ownersKeep ? (d.ownersKeep * 100).toFixed(0) + "¢" : "–"}</td>
+        <td class="${x.G == null ? "" : x.G.passed >= 5 ? "up" : x.G.passed <= 2 ? "down" : ""}" style="color:#5aa9d6">${x.G ? x.G.passed + "/7" : "–"}</td>
         <td class="${r.mom >= 0 ? "up" : "down"}">${r.mom >= 0 ? "+" : ""}${r.mom.toFixed(1)}</td>
         <td class="sub">${money(d.mktCap)}</td>
       </tr>`;
@@ -818,6 +971,98 @@
       renderRankings();
     });
     el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+
+  /* ------------------------ 🛡 GRAHAM VALUE SCREENER ------------------------ */
+  const grahamState = { sort: "score", dir: -1 };
+  function renderGraham() {
+    const rows = DATA.map(d => ({ d, G: grahamOf(d) })).filter(x => x.G);
+    const netnets = rows.filter(x => x.G.netnet).sort((a, b) => a.G.priceToNcav - b.G.priceToNcav);
+    const stalwarts = rows.filter(x => x.G.passed >= 6).sort((a, b) => b.G.passed - a.G.passed || b.G.score - a.G.score);
+    const byMOS = rows.filter(x => x.G.grahamMOS != null).sort((a, b) => b.G.grahamMOS - a.G.grahamMOS);
+
+    const raw = (o, k) => k === "score" ? o.G.score : k === "mos" ? o.G.grahamMOS : k === "pb" ? o.G.pb
+      : k === "cr" ? o.G.currentRatio : k === "ncav" ? o.G.priceToNcav : k === "passed" ? o.G.passed
+      : k === "div" ? o.G.divYield : o.d[k];
+    const sorted = [...rows].sort((a, b) => {
+      const va = raw(a, grahamState.sort), vb = raw(b, grahamState.sort);
+      if (va == null && vb == null) return 0; if (va == null) return 1; if (vb == null) return -1;
+      return (va - vb) * grahamState.dir;
+    });
+
+    const COLS = [
+      { k: "score", label: "G-SCORE" }, { k: "passed", label: "CHECKS" },
+      { k: "mos", label: "GRAHAM MOS" }, { k: "pb", label: "P/B" },
+      { k: "cr", label: "CURR RATIO" }, { k: "ncav", label: "PRICE/NCAV" },
+      { k: "div", label: "DIV YLD" }, { k: "mktCap", label: "MKT CAP" },
+    ];
+    const th = COLS.map(c => `<th data-gsort="${c.k}" class="${grahamState.sort === c.k ? "sorted" : ""}">${c.label}${grahamState.sort === c.k ? (grahamState.dir < 0 ? " ▾" : " ▴") : ""}</th>`).join("");
+    const body = sorted.map((x, i) => {
+      const d = x.d, G = x.G;
+      const sc = G.score >= 60 ? "var(--green)" : G.score >= 45 ? "var(--amber)" : "var(--red)";
+      return `<tr data-tk="${d.ticker}">
+        <td><span class="rk-num">${i + 1}</span></td>
+        <td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
+        <td><span class="rk-score" style="color:${sc}">${G.score.toFixed(0)}</span></td>
+        <td class="${G.passed >= 5 ? "up" : G.passed <= 2 ? "down" : ""}">${G.passed}/7</td>
+        <td class="${G.grahamMOS == null ? "" : G.grahamMOS >= 0 ? "up" : "down"}">${G.grahamMOS == null ? "n/m" : (G.grahamMOS >= 0 ? "+" : "") + (G.grahamMOS * 100).toFixed(0) + "%"}</td>
+        <td class="${G.pb == null ? "" : G.pb <= 1.5 ? "up" : G.pb > 4 ? "down" : ""}">${G.pb ? G.pb.toFixed(2) + "×" : "–"}</td>
+        <td class="${G.currentRatio == null ? "" : G.currentRatio >= 2 ? "up" : G.currentRatio < 1 ? "down" : ""}">${G.currentRatio ? G.currentRatio.toFixed(2) : "–"}</td>
+        <td class="${G.netnet ? "up" : ""}">${G.priceToNcav != null ? (G.priceToNcav * 100).toFixed(0) + "%" : "–"}</td>
+        <td class="${G.paysDiv ? "up" : "sub"}">${G.paysDiv ? G.divYield.toFixed(1) + "%" : "–"}</td>
+        <td class="sub">${money(d.mktCap)}</td>
+      </tr>`;
+    }).join("");
+
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div>
+          <div class="tick" style="color:#5aa9d6">🛡 GRAHAM VALUE</div>
+          <div class="co">classic Security Analysis — margin of safety · net current asset value · defensive checklist</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">NET-NETS</div><div class="stat sm" style="color:var(--green)">${netnets.length}</div></div>
+        <div style="text-align:right;border-left:1px solid var(--line);padding-left:14px"><div class="sub">DEFENSIVE (6-7/7)</div><div class="stat sm" style="color:var(--cyan)">${stalwarts.length}</div></div>
+      </div>
+
+      <div class="note" style="margin-bottom:12px;border-left-color:#5aa9d6">
+        <b style="color:#5aa9d6">“The margin of safety is the central concept of investment.”</b> Graham valued a business by its assets, average earning power and dividends — not its story — then demanded a discount to that value. <b>Graham Number</b> = √(22.5 × EPS × book/share). <b>Net current asset value</b> = current assets − all liabilities; a stock under NCAV means you get the operating business for free. Tap a column to re-rank, a row to open.
+      </div>
+
+      ${netnets.length ? `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
+        <h3>★ NET-NET BARGAINS <span class="unit">trading below net current asset value — the rarest Graham signal</span></h3>
+        ${Chart.hbars(netnets.slice(0, 10).map(x => ({ label: x.d.ticker, value: x.G.priceToNcav * 100, color: x.G.deepNetnet ? "var(--green)" : "var(--amber)", display: (x.G.priceToNcav * 100).toFixed(0) + "% of NCAV" })), { max: 105, labelW: 52 })}
+        <div class="sub" style="margin-top:6px">Under 100% = below liquid assets net of all debt · under 67% (green) = Graham's deep two-thirds bargain.</div>
+      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 152-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
+
+      <div class="grid g2" style="margin-bottom:12px">
+        <div class="card" style="border-left:3px solid var(--green)"><h3>DEEPEST MARGIN OF SAFETY <span class="unit">discount to Graham Number</span></h3>
+          ${Chart.hbars(byMOS.slice(0, 10).map(x => ({ label: x.d.ticker, value: Math.max(0, x.G.grahamMOS * 100), color: "var(--green)", display: (x.G.grahamMOS >= 0 ? "+" : "") + (x.G.grahamMOS * 100).toFixed(0) + "%" })), { labelW: 52 })}</div>
+        <div class="card" style="border-left:3px solid var(--cyan)"><h3>DEFENSIVE STALWARTS <span class="unit">6–7 of 7 Graham criteria</span></h3>
+          ${stalwarts.length ? stalwarts.slice(0, 10).map(x => `<div class="pe-row" data-tk="${x.d.ticker}"><span class="pe-tk">${x.d.ticker}</span><span class="sub">${x.d.name}</span><span class="pe-val"><b style="color:var(--cyan)">${x.G.passed}/7</b> ${x.G.paysDiv ? x.G.divYield.toFixed(1) + "%" : ""}</span></div>`).join("") : `<div class="sub">None clear 6/7 — modern large caps rarely pass Graham's strict P/B ≤1.5 test.</div>`}</div>
+      </div>
+
+      <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:64vh;overflow-y:auto"><table class="rank">
+        <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
+        <tbody>${body}</tbody>
+      </table></div></div>`;
+
+    el("main").querySelectorAll("th[data-gsort]").forEach(h => h.onclick = () => {
+      const k = h.dataset.gsort;
+      if (grahamState.sort === k) grahamState.dir *= -1;
+      else { grahamState.sort = k; grahamState.dir = (k === "pb" || k === "ncav") ? 1 : -1; }
+      renderGraham();
+    });
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+  function showGraham() {
+    state.view = "graham";
+    setViewBtn("grahamBtn");
+    renderWatchlist();
+    renderGraham();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
   }
 
   /* ------------------------ TRUE P/E SCREENER view ------------------------ */
@@ -1340,6 +1585,9 @@
     if (["RANK", "RANKINGS", "RANKING", "LEADERBOARD", "SCORE", "BEST", "TOP"].includes(q)) {
       showRankings(); flash("Master rankings", "ok"); return;
     }
+    if (["GRAHAM", "VALUE", "NETNET", "NET-NET", "MOS", "SAFETY", "DEFENSIVE"].includes(q)) {
+      showGraham(); flash("Graham value screener", "ok"); return;
+    }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
       showValuation(); flash("True P/E screener", "ok"); return;
     }
@@ -1415,6 +1663,7 @@
     el("navPE").onclick = showValuation;
     el("navRank").onclick = showRankings;
     el("rankBtn").onclick = showRankings;
+    el("grahamBtn").onclick = showGraham;
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
     el("backdrop").onclick = closeDrawer;
 
