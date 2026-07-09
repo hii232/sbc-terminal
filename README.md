@@ -70,7 +70,7 @@ Every stock gets the 7-step check:
 6. **Valuation re-rate** — headline P/E ÷ owner-earnings retention = true P/E.
 7. **Management score** — A→F on SBC discipline, buyback honesty, share-count direction.
 
-## Tickers covered — 100 names across every sector (4 quality buckets)
+## Tickers covered — 650 names across every sector (4 quality buckets)
 - **Shareholder-friendly (56):** AAPL, MSFT, MU, CSCO, TXN, ADP, COST, GILD, HON, ASML,
   MELI, V, MA, JPM, GS, BLK, SPGI, LLY, UNH, JNJ, ABBV, MRK, TMO, XOM, CVX, COP, CAT,
   DE, GE, UNP, LMT, RTX, ETN, PG, KO, PEP, WMT, PM, HD, MCD, NKE, BKNG, LIN, SHW, PLD,

@@ -40,7 +40,11 @@
     "Staples": "XLP", "Beverages": "XLP", "Mega Retail": "XLP",
     "Industrial Gas": "XLB", "Materials": "XLB",
     "REIT": "XLRE", "Utilities": "XLU",
+    // GICS display strings used by the auto-derived expansion
+    "Technology": "XLK", "Financials": "XLF", "Health Care": "XLV",
+    "Consumer Disc": "XLY", "Comm Services": "XLC",
   };
+  const sectorETF = (sec) => SECTOR_MAP[sec] || "SPY"; // safe fallback
   const secByT = (t) => SECTORS.series.find(s => s.t === t);
   const perfSeries = (s) => s.closes.map(c => +(((c / s.closes[0]) - 1) * 100).toFixed(1));
   const retOver = (s, m) => { // % return over last m months
@@ -170,7 +174,7 @@
     const header = `
       <div class="hdr">
         <div>
-          <div class="tick">${d.ticker}</div>
+          <div class="tick">${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from filings">◐ auto</span>' : ""}</div>
           <div class="co">${d.name} · ${d.sector}</div>
         </div>
         <div>
@@ -527,7 +531,7 @@
 
   /* sector-context strip shown on each stock's overview */
   function sectorContextCard(d) {
-    const etf = SECTOR_MAP[d.sector];
+    const etf = sectorETF(d.sector);
     const s = etf && secByT(etf);
     if (!s) return "";
     const chip = (m, lbl) => {
@@ -854,7 +858,7 @@
     const cagr = L ? L.impliedCAGR : null;          // e.g. 0.12
     const truePE = d.truePE || null;
     // sector 3M momentum vs SPY
-    const etf = SECTOR_MAP[d.sector], s = etf && secByT(etf), spy = secByT("SPY");
+    const etf = sectorETF(d.sector), s = etf && secByT(etf), spy = secByT("SPY");
     const mom = s ? retOver(s, 3) - retOver(spy, 3) : 0;
 
     // sub-scores 0..100
@@ -1567,9 +1571,11 @@
 
   function refreshAllLive() {
     if (!state.keys.finnhub && !state.keys.fmp) return;
-    flash("Streaming live quotes…", "ok");
-    // quotes only, ~55/min stagger to respect the free-tier rate limit
-    DATA.forEach((d, i) => setTimeout(() => fetchLive(d.ticker, false), i * 1100));
+    // Only the currently-visible watchlist (bucket filter), capped — the free
+    // Finnhub tier is ~60 calls/min and the universe is 650+ names.
+    const visible = DATA.filter(d => state.bucket === "all" || d.bucket === state.bucket).slice(0, 45);
+    flash(`Streaming live quotes for ${visible.length} names…`, "ok");
+    visible.forEach((d, i) => setTimeout(() => fetchLive(d.ticker, false), i * 1100));
   }
 
   function updateLiveDot() {
@@ -1671,7 +1677,8 @@
     selectTicker("NVDA");
     updateLiveDot();
     tickClock(); setInterval(tickClock, 1000);
-    if (state.keys.finnhub || state.keys.fmp) refreshAllLive();
+    // On load only refresh the active name (selectTicker already did); the
+    // universe is 650+ so bulk live-refresh is opt-in via the ● live button.
     // PWA: offline/phone support (only when served over http(s), not file://)
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
