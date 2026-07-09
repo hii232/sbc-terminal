@@ -104,6 +104,19 @@
   table.rank tr[data-tk]:hover td{background:#0c141f}
   .derived-tag{font-size:10px;font-weight:400;letter-spacing:.5px;color:var(--dim);
     border:1px solid var(--line2);border-radius:4px;padding:1px 5px;vertical-align:middle}
+
+  /* revenue-by-segment bars ("where the money comes from") */
+  .seg-row{display:grid;grid-template-columns:170px 1fr 108px;gap:10px;align-items:center;padding:5px 0}
+  .seg-name{font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .seg-track{height:16px;background:#0b101b;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+  .seg-track > i{display:block;height:100%;border-radius:4px;transition:width .4s ease}
+  .seg-val{text-align:right;font-size:11px;font-weight:700;white-space:nowrap}
+  .seg-val .sub{font-weight:400}
+  @media(max-width:720px){
+    .seg-row{grid-template-columns:104px 1fr 74px;gap:7px}
+    .seg-name{font-size:10px}
+    .seg-val{font-size:10px}
+  }
   .rk-num{color:var(--dim);font-weight:700}
   .rk-tk{font-weight:700;color:var(--text)}
   .rk-score{font-weight:800}
@@ -395,9 +408,10 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="data.js?v=10"></script>
-<script src="sectors.js?v=10"></script>
-<script src="charts.js?v=10"></script>
-<script src="app.js?v=10"></script>
+<script src="data.js?v=11"></script>
+<script src="segments.js?v=11"></script>
+<script src="sectors.js?v=11"></script>
+<script src="charts.js?v=11"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>

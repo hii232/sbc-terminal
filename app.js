@@ -380,6 +380,28 @@
     return `<span class="unit" style="color:${good ? "var(--green)" : "var(--red)"};font-weight:700">${v >= 0 ? "▲" : "▼"} ${Math.abs(v).toFixed(1)}% YoY</span>`;
   };
 
+  const SEG_COLORS = ["var(--cyan)", "var(--amber)", "var(--green)", "var(--purple)", "var(--orange)", "#5aa9d6", "#ff6ec7", "#7d9be8", "#c9a86a", "#6fd8d8"];
+  const SEG_BASIS = { segment: "by reporting segment", product: "by product / drug", region: "by region", division: "by division" };
+  function segmentCard(d) {
+    const S = (typeof SEGMENTS !== "undefined") && SEGMENTS[d.ticker];
+    if (!S) return "";
+    const total = S.segs.reduce((a, s) => a + s[1], 0);
+    const sorted = [...S.segs].sort((a, b) => b[1] - a[1]);
+    const rows = sorted.map((s, i) => {
+      const [name, val] = s, pct = (val / total) * 100;
+      return `<div class="seg-row">
+        <div class="seg-name" title="${name}">${name}</div>
+        <div class="seg-track"><i style="width:${Math.max(pct, 1.5)}%;background:${SEG_COLORS[i % SEG_COLORS.length]}"></i></div>
+        <div class="seg-val">$${val >= 100 ? val.toFixed(0) : val.toFixed(1)}B <span class="sub">${pct.toFixed(0)}%</span></div>
+      </div>`;
+    }).join("");
+    return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
+      <h3>REVENUE BY SEGMENT — WHERE THE MONEY COMES FROM <span class="unit">${S.fy} · ${SEG_BASIS[S.basis] || "by segment"} · $B</span></h3>
+      ${rows}
+      <div class="note" style="margin-top:10px">${S.note}</div>
+    </div>`;
+  }
+
   function tabFinancials(d) {
     const hasQ = !!(d.qd && d.qd.revenue);
     const mode = hasQ ? finMode : "fy";
@@ -416,7 +438,7 @@
       </div>`;
     }
 
-    const html = `${toggle}<div class="grid g2">
+    const html = `${toggle}${segmentCard(d)}<div class="grid g2">
       ${ttmStrip}
       <div class="card"><h3>REVENUE <span class="unit">${unit}</span> ${q ? yoyChip(D.revenue) : ""}</h3>
         ${Chart.bars([{ name: "Revenue", values: D.revenue, color: "var(--cyan)" }], labels, { h: 180 })}</div>
