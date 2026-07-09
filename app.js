@@ -96,13 +96,26 @@
     return { ni, sbc, trueCost, owner, antiDil, withholding };
   }
 
+  /* ------------------------ favorites + portfolio (localStorage) ------------------------ */
+  const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
+  state.favs = new Set(loadJSON("sbc_favs", []));
+  state.portfolio = loadJSON("sbc_portfolio", {}); // ticker -> {shares, cost}
+  const saveFavs = () => localStorage.setItem("sbc_favs", JSON.stringify([...state.favs]));
+  const savePort = () => localStorage.setItem("sbc_portfolio", JSON.stringify(state.portfolio));
+  function toggleFav(tk) { state.favs.has(tk) ? state.favs.delete(tk) : state.favs.add(tk); saveFavs(); renderWatchlist(); }
+  const priceOf = (d) => state.live[d.ticker]?.quote?.price ?? d.price;
+
   /* ------------------------ watchlist ------------------------ */
   const BUCKET_ORDER = { clean: 0, middle: 1, high: 2, tragic: 3 };
   function renderWatchlist() {
-    const list = DATA.filter(d => state.bucket === "all" || d.bucket === state.bucket)
+    const list = DATA.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => BUCKET_ORDER[a.bucket] - BUCKET_ORDER[b.bucket] || b.mktCap - a.mktCap);
     el("wlCount").textContent = list.length + "/" + DATA.length;
     const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)" };
+    if (state.bucket === "fav" && !list.length) {
+      el("watchlist").innerHTML = `<div class="sub" style="padding:16px;text-align:center">No starred names yet.<br>Tap the ☆ on any stock to add it here.</div>`;
+      return;
+    }
     el("watchlist").innerHTML = list.map(d => {
       const lv = state.live[d.ticker];
       const price = lv?.quote?.price ?? d.price;
@@ -110,7 +123,7 @@
       return `<div class="row ${state.active === d.ticker && state.view === "stock" ? "sel" : ""}" data-tk="${d.ticker}">
         <div class="bucketbar" style="background:${bcol[d.bucket]}"></div>
         <div style="min-width:0">
-          <div class="tk">${d.ticker} <span style="font-size:9px;color:var(--dim)">${d.grade}</span></div>
+          <div class="tk"><span class="star ${state.favs.has(d.ticker) ? "on" : ""}" data-fav="${d.ticker}">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker} <span style="font-size:9px;color:var(--dim)">${d.grade}</span></div>
           <div class="nm">${d.name}</div>
         </div>
         <div>
@@ -120,13 +133,17 @@
       </div>`;
     }).join("");
     $("#watchlist").querySelectorAll(".row").forEach(r =>
-      r.onclick = () => selectTicker(r.dataset.tk));
+      r.onclick = (e) => { if (e.target.dataset.fav) { toggleFav(e.target.dataset.fav); e.stopPropagation(); } else selectTicker(r.dataset.tk); });
   }
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn"];
+  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
+  function showView(view, renderFn, btnId) {
+    state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
+    closeDrawer(); window.scrollTo({ top: 0 }); syncNav();
+  }
   function selectTicker(tk) {
     state.active = tk;
     state.view = "stock";
@@ -174,7 +191,7 @@
     const header = `
       <div class="hdr">
         <div>
-          <div class="tick">${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from filings">◐ auto</span>' : ""}</div>
+          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from filings">◐ auto</span>' : ""}</div>
           <div class="co">${d.name} · ${d.sector}</div>
         </div>
         <div>
@@ -210,13 +227,28 @@
     el("main").innerHTML = header + tabs + `<div id="tabBody"></div>`;
     el("main").querySelectorAll(".tabs button").forEach(btn =>
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); });
+    const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); render(); };
     renderTab(d);
   }
 
   /* ------------------------ tab bodies ------------------------ */
   function renderTab(d) {
     const body = el("tabBody");
-    if (currentTab === "overview") body.innerHTML = tabOverview(d);
+    if (currentTab === "overview") {
+      body.innerHTML = tabOverview(d);
+      const g1 = el("dcfG1"), ex = el("dcfEx");
+      if (g1 && ex) {
+        const apply = () => {
+          dcfState[d.ticker] = { g1: +g1.value / 100, exit: +ex.value };
+          el("dcfG1v").textContent = g1.value + "%"; el("dcfExv").textContent = ex.value + "×";
+          renderTab(d);
+        };
+        g1.oninput = () => el("dcfG1v").textContent = g1.value + "%";
+        ex.oninput = () => el("dcfExv").textContent = ex.value + "×";
+        g1.onchange = apply; ex.onchange = apply;
+        const rs = el("dcfReset"); if (rs) rs.onclick = () => { delete dcfState[d.ticker]; renderTab(d); };
+      }
+    }
     else if (currentTab === "sbc") body.innerHTML = tabSBC(d);
     else if (currentTab === "financials") {
       body.innerHTML = tabFinancials(d);
@@ -250,6 +282,10 @@
       <div class="card"><h3>TRUE SBC-ADJ EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">the number to value off</div></div>
 
       ${ivLadderCard(d)}
+
+      ${qualityCard(d)}
+
+      ${analystCard(d)}
 
       ${sectorContextCard(d)}
 
@@ -740,7 +776,7 @@
     high:   { cap: 0.11, exit: 12, hair: 0.70 },
     tragic: { cap: 0.09, exit: 10, hair: 0.55 },
   };
-  function ivLadder(d) {
+  function ivLadder(d, override) {
     const E0 = d.sbcAdjEPS;
     if (!E0 || E0 <= 0) return null; // GAAP-loss names: no owner earnings to price
     let gRecent = null, gCagr = null;
@@ -751,12 +787,14 @@
     const Q = IV_Q[d.bucket];
     let g1 = ((gRecent ?? gCagr ?? 0.06) * 0.6 + (gCagr ?? gRecent ?? 0.06) * 0.4) * Q.hair;
     g1 = clamp(g1, 0.01, d.inflecting ? 0.25 : Q.cap); // inflection: growth cap lifted
+    let exit = Q.exit;
+    if (override) { if (override.g1 != null) g1 = override.g1; if (override.exit != null) exit = override.exit; }
     const g2 = g1 * 0.6, g3 = Math.min(g2, 0.04);
     // owner-EPS stream for 15 years + exit value on year-15 earnings
     const stream = [];
     let e = E0;
     for (let y = 1; y <= 15; y++) { e *= 1 + (y <= 5 ? g1 : y <= 10 ? g2 : g3); stream.push(e); }
-    const FV = e * Q.exit;
+    const FV = e * exit;
     // IVr = full DCF: every year's owner earnings + terminal value, discounted at r
     const iv = (r) => stream.reduce((a, ey, i) => a + ey / Math.pow(1 + r, i + 1), 0) + FV / Math.pow(1 + r, 15);
     const price = state.live[d.ticker]?.quote?.price ?? d.price;
@@ -767,7 +805,7 @@
       impliedCAGR = (lo + hi) / 2;
     }
     return {
-      E0, g1, g2, g3, exit: Q.exit, FV, price, impliedCAGR,
+      E0, g1, g2, g3, exit, FV, price, impliedCAGR, defG1: clamp(((gRecent ?? gCagr ?? 0.06) * 0.6 + (gCagr ?? gRecent ?? 0.06) * 0.4) * Q.hair, 0.01, d.inflecting ? 0.25 : Q.cap), defExit: Q.exit,
       IV20: iv(0.20), IV18: iv(0.18), IV15: iv(0.15), IV12: iv(0.12), IV10: iv(0.10), IV8: iv(0.08),
       baseline: d.bucket === "clean" ? iv(0.08) : d.bucket === "middle" ? iv(0.09) : iv(0.10),
       zone: impliedCAGR >= 0.15 ? "fat" : impliedCAGR >= 0.10 ? "just" : "out",
@@ -787,8 +825,10 @@
       : `Buying back ABOVE baseline IV ($${L.baseline.toFixed(0)}) — pulls shares in but DILUTES intrinsic value per share. The depressing nuance of offsetting SBC at high prices.` };
   }
 
+  const dcfState = {}; // ticker -> {g1, exit} manual override
   function ivLadderCard(d) {
-    const L = ivLadder(d);
+    const ov = dcfState[d.ticker];
+    const L = ivLadder(d, ov);
     if (!L) return `<div class="card" style="grid-column:span 3">
       <h3>IV LADDER — BURRY DCF BUY TARGETS</h3>
       <div class="sub">No positive SBC-adjusted owner earnings — the IV ladder needs real owner earnings to price. GAAP-loss names live in the Out Field by default.</div></div>`;
@@ -819,6 +859,16 @@
           <div class="badge" style="color:${z.color};border-color:${z.color};display:inline-block;margin-top:8px">${z.label}</div>
           <div class="sub" style="margin-top:4px">${z.desc}</div>
           ${acc ? `<div class="note ${acc.acc ? "" : "callout"}" style="margin-top:10px;text-align:left;font-size:10.5px">${acc.txt}</div>` : ""}
+        </div>
+      </div>
+      <div style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px">
+        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+          <span class="sub" style="color:var(--amber)">✎ STRESS-TEST YOUR ASSUMPTIONS:</span>
+          <label class="sub">growth <b id="dcfG1v">${(L.g1 * 100).toFixed(0)}%</b>
+            <input type="range" id="dcfG1" min="0" max="30" value="${(L.g1 * 100).toFixed(0)}" style="vertical-align:middle;width:120px"></label>
+          <label class="sub">exit mult <b id="dcfExv">${L.exit}×</b>
+            <input type="range" id="dcfEx" min="8" max="35" value="${L.exit}" style="vertical-align:middle;width:120px"></label>
+          ${ov ? `<button class="scr-reset" id="dcfReset">reset to model</button>` : ""}
         </div>
       </div>
     </div>`;
@@ -1090,6 +1140,289 @@
     window.scrollTo({ top: 0 });
     syncNav();
   }
+
+  /* ============================================================================
+     QUALITY / COMPOUNDER + FCF ENGINE (uses qm:{} blocks when present)
+     ============================================================================ */
+  function qualityOf(d) {
+    const g = d.gd, qm = d.qm;
+    const sh = lastVal(d.shares);
+    const ni = lastVal(d.ni), rev = lastVal(d.revenue), sbc = lastVal(d.sbc);
+    const roe = g && g.eq > 0 && ni != null ? (ni / g.eq) * 100 : null;
+    const netMargin = rev && ni != null ? (ni / rev) * 100 : null;
+    const grossMargin = qm && qm.gross && rev ? (lastVal(qm.gross) / rev) * 100 : null;
+    const opMargin = qm && qm.opinc && rev ? (lastVal(qm.opinc) / rev) * 100 : null;
+    const investedCap = g ? (g.debt || 0) + (g.eq || 0) - (g.cash || 0) : null;
+    const nopat = qm && qm.opinc ? lastVal(qm.opinc) * 0.79 : ni;
+    const roic = investedCap && investedCap > 0 && nopat != null ? (nopat / investedCap) * 100 : null;
+    const shs = (d.shares || []).filter(x => x != null);
+    const shareCAGR = shs.length >= 2 && shs[0] > 0 ? (Math.pow(shs[shs.length - 1] / shs[0], 1 / (shs.length - 1)) - 1) * 100 : null;
+    const rv = (d.revenue || []).filter(x => x != null && x > 0);
+    const revCAGR = rv.length >= 2 ? (Math.pow(rv[rv.length - 1] / rv[0], 1 / (rv.length - 1)) - 1) * 100 : null;
+    const fcf = qm && qm.fcf ? lastVal(qm.fcf) : null;
+    const ocf = qm && qm.ocf ? lastVal(qm.ocf) : null;
+    const fcfYield = fcf != null && d.mktCap ? (fcf / d.mktCap) * 100 : null;
+    const fcfPerShare = fcf != null && sh ? fcf / sh : null;
+    const ocfToNi = ocf != null && ni && ni > 0 ? ocf / ni : null;
+    const fcfAfterSbc = fcf != null ? fcf - (sbc || 0) : null;
+    const fcfAfterSbcYield = fcfAfterSbc != null && d.mktCap ? (fcfAfterSbc / d.mktCap) * 100 : null;
+    const fcfMargin = fcf != null && rev ? (fcf / rev) * 100 : null;
+    return { roe, roic, netMargin, grossMargin, opMargin, shareCAGR, revCAGR, fcf, ocf, fcfYield, fcfPerShare, ocfToNi, fcfAfterSbc, fcfAfterSbcYield, fcfMargin, sbc, hasFcf: fcf != null };
+  }
+
+  /* small helpers shared by the tool views */
+  const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
+  const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
+  const toolHeader = (icon, title, sub, right = "") => `<div class="hdr"><div><div class="tick" style="color:var(--cyan)">${icon} ${title}</div><div class="co">${sub}</div></div><div class="spacer"></div>${right}</div>`;
+
+  function qualityCard(d) {
+    const Q = qualityOf(d);
+    const kv = (k, v, c) => `<div style="text-align:center;flex:1;min-width:84px"><div class="sub">${k}</div><div class="stat sm" ${c ? `style="color:${c}"` : ""}>${v}</div></div>`;
+    const roicC = Q.roic == null ? null : Q.roic >= 15 ? "var(--green)" : Q.roic >= 8 ? "var(--amber)" : "var(--red)";
+    const scagrC = Q.shareCAGR == null ? null : Q.shareCAGR < -1 ? "var(--green)" : Q.shareCAGR <= 1 ? "var(--amber)" : "var(--red)";
+    return `<div class="card" style="grid-column:span 3"><h3>QUALITY &amp; CASH — IS IT A COMPOUNDER? ${Q.hasFcf ? "" : '<span class="unit">FCF data n/a</span>'}</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        ${kv("ROIC", fmtPct(Q.roic, 0), roicC)}
+        ${kv("ROE", fmtPct(Q.roe, 0))}
+        ${kv("Gross mgn", fmtPct(Q.grossMargin, 0))}
+        ${kv("Oper. mgn", fmtPct(Q.opMargin, 0))}
+        ${kv("Net mgn", fmtPct(Q.netMargin, 0))}
+        ${kv("Rev CAGR", fmtPct(Q.revCAGR, 0))}
+        ${kv("Share CAGR", fmtPct(Q.shareCAGR, 1), scagrC)}
+        ${kv("FCF yield", fmtPct(Q.fcfYield, 1))}
+      </div>
+      ${Q.hasFcf ? `<div class="note" style="margin-top:10px">Reported FCF ${money(Q.fcf)} → after treating SBC as the real cash-equivalent cost it is, owner FCF ≈ <b>${money(Q.fcfAfterSbc)}</b> (${fmtPct(Q.fcfAfterSbcYield, 1)} yield). OCF/NI ${Q.ocfToNi ? Q.ocfToNi.toFixed(2) + "×" : "–"} — ${Q.ocfToNi >= 1.1 ? "earnings well-backed by cash" : "watch earnings quality"}. ${Q.shareCAGR != null && Q.shareCAGR < -1 ? "Falling share count + " : ""}${Q.roic != null && Q.roic >= 15 ? "high ROIC = a real compounder." : Q.roic != null && Q.roic < 8 ? "low ROIC — SBC isn't buying great returns." : ""}</div>` : ""}
+    </div>`;
+  }
+
+  function analystCard(d) {
+    if (!state.keys.finnhub) return "";
+    const lv = state.live[d.ticker] || {}, a = lv.analyst, ins = lv.insider;
+    const L = ivLadder(d), price = priceOf(d);
+    const tgt = a && a.targetMean ? (() => { const up = (a.targetMean / price - 1) * 100; return `<div style="flex:1;min-width:130px"><div class="sub">WALL ST TARGET (mean)</div><div class="stat sm">$${a.targetMean.toFixed(0)} <span class="${up >= 0 ? "up" : "down"}" style="font-size:11px">${up >= 0 ? "+" : ""}${up.toFixed(0)}%</span></div><div class="sub">range $${(a.targetLow || 0).toFixed(0)}–$${(a.targetHigh || 0).toFixed(0)}</div></div>`; })()
+      : `<div style="flex:1;min-width:130px"><div class="sub">WALL ST TARGET</div><div class="sub" style="margin-top:6px">loading…</div></div>`;
+    const iv = L ? `<div style="flex:1;min-width:130px"><div class="sub">YOUR IV15 BUY TARGET</div><div class="stat sm" style="color:var(--amber)">$${L.IV15.toFixed(0)}</div><div class="sub">${price <= L.IV15 ? "below IV15 — buy zone" : "above IV15"}</div></div>` : "";
+    const insH = ins ? `<div style="flex:1;min-width:140px"><div class="sub">INSIDER 6M (net)</div><div class="stat sm ${ins.net >= 0 ? "up" : "down"}">${ins.net >= 0 ? "+" : ""}${ins.net.toFixed(2)}M sh</div><div class="sub">${ins.buys} buys · ${ins.sells} sells</div></div>` : "";
+    return `<div class="card" style="grid-column:span 3"><h3>WALL STREET vs YOUR INTRINSIC VALUE · INSIDER ACTIVITY <span class="unit">live</span></h3>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start">${tgt}${iv}${insH}</div>
+      <div class="sub" style="margin-top:8px">Wall Street targets extrapolate price momentum; your IV15 is a return-based buy price on SBC-adjusted owner earnings. Insiders buying below IV15 is the highest-quality signal.</div>
+    </div>`;
+  }
+
+  /* ------------------------ 📊 CUSTOM SCREENER ------------------------ */
+  const screenState = { bucket: "all", zone: "all", gMin: 0, peMax: "", sbcMax: "", capMin: "", sector: "all", favOnly: false, divOnly: false, sort: "composite" };
+  function renderScreener() {
+    const sectors = [...new Set(DATA.map(d => sectorETF(d.sector)))];
+    const S = screenState;
+    const rows = DATA.filter(d => {
+      if (S.favOnly && !state.favs.has(d.ticker)) return false;
+      if (S.bucket !== "all" && d.bucket !== S.bucket) return false;
+      if (S.sector !== "all" && sectorETF(d.sector) !== S.sector) return false;
+      if (S.capMin && d.mktCap < +S.capMin) return false;
+      if (S.sbcMax !== "" && (d.sbcPctRev == null || d.sbcPctRev > +S.sbcMax)) return false;
+      if (S.peMax !== "" && (!d.truePE || d.truePE > +S.peMax)) return false;
+      const G = grahamOf(d);
+      if (S.gMin > 0 && (!G || G.passed < S.gMin)) return false;
+      if (S.divOnly && !(G && G.paysDiv)) return false;
+      const L = ivLadder(d);
+      if (S.zone !== "all" && (!L || L.zone !== S.zone)) return false;
+      return true;
+    }).map(d => ({ d, r: rankOf(d), G: grahamOf(d) }));
+    const raw = (o, k) => k === "composite" ? o.r.composite : k === "cagr" ? o.r.cagr : k === "truePE" ? o.r.truePE : k === "graham" ? (o.G ? o.G.passed : null) : o.d[k];
+    rows.sort((a, b) => { const va = raw(a, S.sort), vb = raw(b, S.sort); if (va == null) return 1; if (vb == null) return -1; return (vb - va); });
+
+    const sel = (id, val, opts) => `<select data-f="${id}" class="scr-input">${opts.map(o => `<option value="${o[0]}" ${o[0] == val ? "selected" : ""}>${o[1]}</option>`).join("")}</select>`;
+    const num = (id, val, ph) => `<input data-f="${id}" class="scr-input" type="number" value="${val}" placeholder="${ph}" style="width:74px" />`;
+    const controls = `<div class="scr-bar">
+      ${sel("bucket", S.bucket, [["all", "All buckets"], ["clean", "Clean"], ["middle", "Middle"], ["high", "High SBC"], ["tragic", "Tragic"]])}
+      ${sel("zone", S.zone, [["all", "Any IV zone"], ["fat", "Fat Pitch"], ["just", "Just Outside"], ["out", "Out Field"]])}
+      ${sel("sector", S.sector, [["all", "All sectors"], ...sectors.map(s => [s, s])])}
+      ${sel("gMin", S.gMin, [[0, "Graham ≥ any"], [4, "Graham ≥ 4/7"], [5, "Graham ≥ 5/7"], [6, "Graham ≥ 6/7"]])}
+      <span class="scr-lbl">True P/E ≤</span>${num("peMax", S.peMax, "any")}
+      <span class="scr-lbl">SBC/rev ≤</span>${num("sbcMax", S.sbcMax, "%")}
+      <span class="scr-lbl">Cap ≥</span>${num("capMin", S.capMin, "$B")}
+      <label class="scr-chk"><input type="checkbox" data-f="favOnly" ${S.favOnly ? "checked" : ""}/>★ only</label>
+      <label class="scr-chk"><input type="checkbox" data-f="divOnly" ${S.divOnly ? "checked" : ""}/>pays div</label>
+      <button class="scr-reset" id="scrReset">reset</button>
+    </div>`;
+    const body = rows.map((x, i) => {
+      const d = x.d, r = x.r, sc = r.composite >= 62 ? "var(--green)" : r.composite >= 48 ? "var(--amber)" : "var(--red)";
+      return `<tr data-tk="${d.ticker}"><td><span class="rk-num">${i + 1}</span></td>
+        <td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
+        <td><b style="color:${sc}">${r.composite.toFixed(0)}</b></td>
+        <td class="${r.cagr == null ? "" : r.cagr >= .15 ? "up" : r.cagr < .1 ? "down" : ""}">${r.cagr == null ? "n/m" : (r.cagr * 100).toFixed(1) + "%"}</td>
+        <td style="color:var(--amber)">${r.truePE ? r.truePE.toFixed(1) + "x" : "n/m"}</td>
+        <td class="${d.sbcPctRev == null ? "" : d.sbcPctRev < 5 ? "up" : d.sbcPctRev >= 15 ? "down" : ""}">${d.sbcPctRev == null ? "–" : d.sbcPctRev.toFixed(1) + "%"}</td>
+        <td style="color:#5aa9d6">${x.G ? x.G.passed + "/7" : "–"}</td>
+        <td class="sub">${money(d.mktCap)}</td></tr>`;
+    }).join("");
+    el("main").innerHTML = toolHeader("📊", "CUSTOM SCREENER", "query all " + DATA.length + " names by any combination of the frameworks",
+      `<div style="text-align:right"><div class="sub">MATCHES</div><div class="stat sm" style="color:#ff6ec7">${rows.length}</div></div>`)
+      + controls
+      + `<div class="card" style="padding:6px 8px"><div style="overflow:auto;max-height:66vh"><table class="rank">
+        <thead><tr><th>#</th><th>TICKER · SECTOR</th><th>SCORE</th><th>IV CAGR</th><th>TRUE P/E</th><th>SBC/REV</th><th>GRAHAM</th><th>MKT CAP</th></tr></thead>
+        <tbody>${body || `<tr><td colspan="8" style="padding:20px;text-align:center" class="sub">No matches — loosen the filters.</td></tr>`}</tbody></table></div></div>`;
+    el("main").querySelectorAll(".scr-input").forEach(inp => inp.onchange = () => { screenState[inp.dataset.f] = inp.value; renderScreener(); });
+    el("main").querySelectorAll('input[type=checkbox]').forEach(c => c.onchange = () => { screenState[c.dataset.f] = c.checked; renderScreener(); });
+    el("scrReset").onclick = () => { Object.assign(screenState, { bucket: "all", zone: "all", gMin: 0, peMax: "", sbcMax: "", capMin: "", sector: "all", favOnly: false, divOnly: false }); renderScreener(); };
+    el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+
+  /* ------------------------ ⚖ COMPARE ------------------------ */
+  const compareState = { tickers: ["NVDA", "AMD", "AVGO"] };
+  function renderCompare() {
+    const picks = compareState.tickers.map(t => DATA.find(d => d.ticker === t)).filter(Boolean);
+    const metrics = [
+      ["Price", d => "$" + priceOf(d).toFixed(2), null],
+      ["Market cap", d => money(d.mktCap), d => d.mktCap],
+      ["Bucket", d => d.bucket.toUpperCase(), null],
+      ["Mgmt grade", d => d.grade, null],
+      ["Headline P/E", d => d.headlinePE ? d.headlinePE.toFixed(1) + "x" : "n/m", d => -(d.headlinePE || 999)],
+      ["True P/E (SBC-adj)", d => d.truePE ? d.truePE.toFixed(1) + "x" : "n/m", d => -(d.truePE || 999)],
+      ["IV15 implied CAGR", d => { const L = ivLadder(d); return L ? (L.impliedCAGR * 100).toFixed(1) + "%" : "n/m"; }, d => { const L = ivLadder(d); return L ? L.impliedCAGR : -9; }],
+      ["SBC / revenue", d => d.sbcPctRev == null ? "–" : d.sbcPctRev.toFixed(1) + "%", d => d.sbcPctRev == null ? 999 : -d.sbcPctRev],
+      ["Owner earnings kept", d => (d.ownersKeep * 100).toFixed(0) + "¢", d => d.ownersKeep],
+      ["Graham checklist", d => { const G = grahamOf(d); return G ? G.passed + "/7" : "–"; }, d => { const G = grahamOf(d); return G ? G.passed : -1; }],
+      ["ROE", d => fmtPct(qualityOf(d).roe, 0), d => qualityOf(d).roe],
+      ["ROIC", d => fmtPct(qualityOf(d).roic, 0), d => qualityOf(d).roic],
+      ["Net margin", d => fmtPct(qualityOf(d).netMargin, 0), d => qualityOf(d).netMargin],
+      ["FCF yield", d => fmtPct(qualityOf(d).fcfYield, 1), d => qualityOf(d).fcfYield],
+      ["Share count 5y CAGR", d => fmtPct(qualityOf(d).shareCAGR, 1), d => { const v = qualityOf(d).shareCAGR; return v == null ? null : -v; }],
+      ["Dividend yield", d => { const G = grahamOf(d); return G && G.paysDiv ? G.divYield.toFixed(2) + "%" : "–"; }, d => { const G = grahamOf(d); return G ? G.divYield : 0; }],
+    ];
+    const best = (m) => { if (!m[2]) return null; let bi = -1, bv = -Infinity; picks.forEach((d, i) => { const v = m[2](d); if (v != null && !isNaN(v) && v > bv) { bv = v; bi = i; } }); return bi; };
+    const head = `<tr><th>METRIC</th>${picks.map(d => `<th style="text-align:right"><span class="rk-tk">${d.ticker}</span> <span class="rem" data-rem="${d.ticker}" style="cursor:pointer;color:var(--red)">✕</span></th>`).join("")}</tr>`;
+    const body = metrics.map(m => { const bi = best(m); return `<tr><td>${m[0]}</td>${picks.map((d, i) => `<td style="text-align:right;${i === bi ? "color:var(--green);font-weight:700" : ""}">${m[1](d)}</td>`).join("")}</tr>`; }).join("");
+    el("main").innerHTML = toolHeader("⚖", "COMPARE", "up to 4 names, head to head — best value in each row highlighted green")
+      + `<div class="scr-bar"><input id="cmpAdd" class="scr-input" placeholder="add ticker…" style="width:120px;text-transform:uppercase" />
+         <button class="scr-reset" id="cmpAddBtn">+ add</button>
+         <span class="sub" style="align-self:center">${picks.length}/4</span></div>
+      <div class="card" style="padding:6px 8px"><div style="overflow-x:auto"><table class="rank">
+        <thead>${head}</thead><tbody>${body}</tbody></table></div></div>`;
+    const add = () => { const t = el("cmpAdd").value.trim().toUpperCase(); if (t && DATA.find(d => d.ticker === t) && !compareState.tickers.includes(t) && compareState.tickers.length < 4) { compareState.tickers.push(t); renderCompare(); } else if (t) flash(DATA.find(d => d.ticker === t) ? "Already added / max 4" : t + " not found", "err"); };
+    el("cmpAddBtn").onclick = add;
+    el("cmpAdd").onkeydown = (e) => { if (e.key === "Enter") add(); };
+    el("main").querySelectorAll("[data-rem]").forEach(x => x.onclick = () => { compareState.tickers = compareState.tickers.filter(t => t !== x.dataset.rem); renderCompare(); });
+  }
+
+  /* ------------------------ 🎯 TRIGGERS TODAY ------------------------ */
+  function renderTriggers() {
+    const fats = [], belowGraham = [], netnets = [], nearLow = [];
+    DATA.forEach(d => {
+      const L = ivLadder(d), G = grahamOf(d);
+      if (L && L.zone === "fat") fats.push({ d, v: L.impliedCAGR });
+      if (G && G.grahamMOS != null && G.grahamMOS > 0.1) belowGraham.push({ d, v: G.grahamMOS });
+      if (G && G.netnet) netnets.push({ d, v: G.priceToNcav });
+    });
+    fats.sort((a, b) => b.v - a.v); belowGraham.sort((a, b) => b.v - a.v);
+    const section = (title, color, items, fmt, empty) => `<div class="card" style="border-left:3px solid ${color};margin-bottom:12px">
+      <h3>${title} <span class="unit">${items.length} names</span></h3>
+      ${items.length ? items.slice(0, 25).map(x => `<div class="pe-row" data-tk="${x.d.ticker}"><span class="pe-tk"><span class="star ${state.favs.has(x.d.ticker) ? "on" : ""}" data-fav="${x.d.ticker}">${state.favs.has(x.d.ticker) ? "★" : "☆"}</span> ${x.d.ticker}</span><span class="sub">${x.d.name}</span><span class="pe-val" style="color:${color}">${fmt(x.v)}</span></div>`).join("") : `<div class="sub">${empty}</div>`}</div>`;
+    el("main").innerHTML = toolHeader("🎯", "TRIGGERS TODAY", "where the frameworks say ACT right now — refreshes with live prices",
+      `<div style="text-align:right"><div class="sub">SIGNALS</div><div class="stat sm" style="color:var(--red)">${fats.length + belowGraham.length + netnets.length}</div></div>`)
+      + section("★ FAT PITCHES — priced for ≥15%/yr (IV15)", "var(--green)", fats, v => (v * 100).toFixed(1) + "%/yr", "Nothing priced for 15%+ right now — patience is a position.")
+      + section("BELOW GRAHAM NUMBER — classic margin of safety", "#5aa9d6", belowGraham, v => (v * 100).toFixed(0) + "% below fair", "Nothing trading meaningfully below its Graham Number.")
+      + section("NET-NETS — below net current asset value", "var(--amber)", netnets, v => (v * 100).toFixed(0) + "% of NCAV", "No large-cap net-nets — expected.");
+    el("main").querySelectorAll(".pe-row").forEach(r => r.onclick = (e) => { if (e.target.dataset.fav) { toggleFav(e.target.dataset.fav); e.stopPropagation(); renderTriggers(); } else selectTicker(r.dataset.tk); });
+  }
+
+  /* ------------------------ 💼 PORTFOLIO ------------------------ */
+  const usd = (n) => { // raw dollars -> $, K, M, B
+    if (n == null || isNaN(n)) return "–";
+    const s = n < 0 ? "-" : "", a = Math.abs(n);
+    if (a >= 1e9) return s + "$" + (a / 1e9).toFixed(2) + "B";
+    if (a >= 1e6) return s + "$" + (a / 1e6).toFixed(2) + "M";
+    if (a >= 1e3) return s + "$" + (a / 1e3).toFixed(1) + "K";
+    return s + "$" + a.toFixed(0);
+  };
+  function renderPortfolio() {
+    const rows = Object.entries(state.portfolio).map(([tk, p]) => {
+      const d = DATA.find(x => x.ticker === tk); if (!d) return null;
+      const price = priceOf(d), val = p.shares * price, cost = p.shares * p.cost, pl = val - cost;
+      return { d, p, price, val, cost, pl, plPct: cost ? (pl / cost) * 100 : 0 };
+    }).filter(Boolean);
+    const totVal = rows.reduce((a, r) => a + r.val, 0);
+    const totCost = rows.reduce((a, r) => a + r.cost, 0);
+    const totPL = totVal - totCost;
+    // framework exposure (value-weighted)
+    let wKeep = 0, wCagr = 0, wGraham = 0, tragicVal = 0, cagrDen = 0;
+    const buckAlloc = { clean: 0, middle: 0, high: 0, tragic: 0 };
+    rows.forEach(r => {
+      const w = totVal ? r.val / totVal : 0;
+      wKeep += w * r.d.ownersKeep;
+      const L = ivLadder(r.d); if (L) { wCagr += r.val * L.impliedCAGR; cagrDen += r.val; }
+      const G = grahamOf(r.d); if (G) wGraham += w * G.passed;
+      if (r.d.bucket === "tragic") tragicVal += r.val;
+      buckAlloc[r.d.bucket] += r.val;
+    });
+    const body = rows.map(r => `<tr data-tk="${r.d.ticker}">
+      <td><span class="rk-tk">${r.d.ticker}</span> <span class="sub">${r.d.bucket}</span></td>
+      <td>${r.p.shares}</td><td class="sub">$${r.p.cost.toFixed(2)}</td><td>$${r.price.toFixed(2)}</td>
+      <td>${usd(r.val)}</td>
+      <td class="${r.pl >= 0 ? "up" : "down"}">${r.pl >= 0 ? "+" : ""}${usd(r.pl)}</td>
+      <td class="${r.pl >= 0 ? "up" : "down"}">${r.plPct >= 0 ? "+" : ""}${r.plPct.toFixed(1)}%</td>
+      <td class="sub">${totVal ? (r.val / totVal * 100).toFixed(0) : 0}%</td>
+      <td><span class="rem" data-rem="${r.d.ticker}" style="cursor:pointer;color:var(--red)">✕</span></td></tr>`).join("");
+    const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)" };
+    const allocBar = totVal ? `<div class="seg-track" style="height:14px;display:flex">${["clean", "middle", "high", "tragic"].map(b => buckAlloc[b] ? `<i style="width:${buckAlloc[b] / totVal * 100}%;background:${bcol[b]}" title="${b}"></i>` : "").join("")}</div>` : "";
+    el("main").innerHTML = toolHeader("💼", "PORTFOLIO", "your positions x-rayed by the same frameworks — stored only in your browser")
+      + `<div class="grid g4" style="margin-bottom:12px">
+        <div class="card"><h3>MARKET VALUE</h3><div class="stat">${usd(totVal)}</div></div>
+        <div class="card"><h3>TOTAL P&L</h3><div class="stat ${totPL >= 0 ? "up" : "down"}">${totPL >= 0 ? "+" : ""}${usd(totPL)}</div><div class="sub ${totPL >= 0 ? "up" : "down"}">${totCost ? (totPL / totCost * 100).toFixed(1) + "%" : ""}</div></div>
+        <div class="card"><h3>OWNER-EARNINGS KEPT <span class="unit">wtd</span></h3><div class="stat" style="color:${wKeep >= .85 ? "var(--green)" : wKeep >= .7 ? "var(--amber)" : "var(--red)"}">${rows.length ? (wKeep * 100).toFixed(0) + "¢" : "–"}</div><div class="sub">per $1 GAAP across the book</div></div>
+        <div class="card"><h3>WTD IV15 CAGR · GRAHAM</h3><div class="stat">${cagrDen ? (wCagr / cagrDen * 100).toFixed(1) + "%" : "–"}</div><div class="sub">Graham ${rows.length ? (wGraham).toFixed(1) + "/7 avg" : "–"} · ${totVal ? (tragicVal / totVal * 100).toFixed(0) : 0}% in tragic-tier</div></div>
+      </div>
+      ${rows.length ? `<div class="card" style="margin-bottom:12px"><h3>QUALITY-BUCKET ALLOCATION</h3>${allocBar}<div class="chart-legend"><span><i style="background:var(--green)"></i>Clean</span><span><i style="background:var(--amber)"></i>Middle</span><span><i style="background:var(--orange)"></i>High</span><span><i style="background:var(--red)"></i>Tragic</span></div></div>` : ""}
+      <div class="scr-bar">
+        <input id="poTk" class="scr-input" placeholder="ticker" style="width:90px;text-transform:uppercase"/>
+        <input id="poSh" class="scr-input" type="number" placeholder="shares" style="width:90px"/>
+        <input id="poC" class="scr-input" type="number" placeholder="cost/share" style="width:100px"/>
+        <button class="scr-reset" id="poAdd">+ add / update position</button>
+      </div>
+      <div class="card" style="padding:6px 8px"><div style="overflow-x:auto"><table class="rank">
+        <thead><tr><th>TICKER</th><th>SHARES</th><th>COST</th><th>PRICE</th><th>VALUE</th><th>P&L $</th><th>P&L %</th><th>WT</th><th></th></tr></thead>
+        <tbody>${body || `<tr><td colspan="9" class="sub" style="padding:20px;text-align:center">No positions yet — add one above. Data stays in your browser.</td></tr>`}</tbody></table></div></div>`;
+    el("poAdd").onclick = () => {
+      const tk = el("poTk").value.trim().toUpperCase(), sh = +el("poSh").value, c = +el("poC").value;
+      if (!DATA.find(d => d.ticker === tk)) return flash(tk + " not in universe", "err");
+      if (!sh || sh <= 0) return flash("Enter share count", "err");
+      state.portfolio[tk] = { shares: sh, cost: c || priceOf(DATA.find(d => d.ticker === tk)) };
+      savePort(); renderPortfolio();
+    };
+    el("main").querySelectorAll("[data-rem]").forEach(x => x.onclick = (e) => { e.stopPropagation(); delete state.portfolio[x.dataset.rem]; savePort(); renderPortfolio(); });
+    el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = (e) => { if (!e.target.dataset.rem) selectTicker(r.dataset.tk); });
+  }
+
+  /* ------------------------ 📅 EARNINGS CALENDAR (live Finnhub) ------------------------ */
+  function renderCalendar() {
+    el("main").innerHTML = toolHeader("📅", "EARNINGS CALENDAR", "upcoming reports across your universe — with the framework verdict for each")
+      + `<div class="card" id="calBody"><div class="sub" style="padding:16px">Loading upcoming earnings…</div></div>`;
+    const key = state.keys.finnhub;
+    if (!key) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">Connect a free Finnhub key (⚙ gear) to load the live earnings calendar.</div>`; return; }
+    const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
+    const fmt = dt => dt.toISOString().slice(0, 10);
+    fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${fmt(today)}&to=${fmt(to)}&token=${key}`)
+      .then(r => r.json()).then(j => {
+        const uni = new Set(DATA.map(d => d.ticker));
+        const items = (j.earningsCalendar || []).filter(e => uni.has(e.symbol)).sort((a, b) => a.date.localeCompare(b.date));
+        if (!items.length) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</div>`; return; }
+        el("calBody").innerHTML = `<div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
+          <tbody>${items.slice(0, 60).map(e => { const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "n/m";
+            return `<tr data-tk="${e.symbol}"><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span></td>
+              <td>${e.epsEstimate != null ? "$" + e.epsEstimate.toFixed(2) : "–"}</td>
+              <td class="sub">${e.hour === "bmo" ? "pre-open" : e.hour === "amc" ? "after-close" : e.hour || ""}</td>
+              <td style="color:${d ? BUCKETS[d.bucket].color : "var(--muted)"}">${d ? d.bucket : "?"}</td>
+              <td style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${z}</td></tr>`; }).join("")}</tbody></table></div>`;
+        el("calBody").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+      }).catch(() => { el("calBody").innerHTML = `<div class="sub" style="padding:16px">Couldn't load the calendar (rate limit or network). Try again shortly.</div>`; });
+  }
+
+  const showScreener = () => showView("screener", renderScreener, "screenBtn");
+  const showCompare = () => showView("compare", renderCompare, "compareBtn");
+  const showTriggers = () => showView("triggers", renderTriggers, "trigBtn");
+  const showPortfolio = () => showView("portfolio", renderPortfolio, "portBtn");
+  const showCalendar = () => showView("calendar", renderCalendar, "calBtn");
 
   /* ------------------------ TRUE P/E SCREENER view ------------------------ */
   const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
@@ -1550,6 +1883,17 @@
         const td = new Date(to * 1000).toISOString().slice(0, 10);
         tasks.push(fetch(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${fd}&to=${td}&token=${k.finnhub}`)
           .then(r => r.json()).then(n => { if (Array.isArray(n)) state.live[tk].news = n; }).catch(() => {}));
+        // Wall Street price target
+        tasks.push(fetch(`https://finnhub.io/api/v1/stock/price-target?symbol=${tk}&token=${k.finnhub}`)
+          .then(r => r.json()).then(a => { if (a && (a.targetMean || a.targetMedian)) state.live[tk].analyst = { targetMean: a.targetMean || a.targetMedian, targetLow: a.targetLow, targetHigh: a.targetHigh }; }).catch(() => {}));
+        // insider transactions (last ~6 months, net shares)
+        const insFrom = new Date(Date.now() - 183 * 864e5).toISOString().slice(0, 10);
+        tasks.push(fetch(`https://finnhub.io/api/v1/stock/insider-transactions?symbol=${tk}&from=${insFrom}&token=${k.finnhub}`)
+          .then(r => r.json()).then(j => {
+            const arr = j && j.data || []; let net = 0, buys = 0, sells = 0;
+            arr.forEach(t => { const ch = t.change || 0; net += ch; if (ch > 0) buys++; else if (ch < 0) sells++; });
+            state.live[tk].insider = { net: net / 1e6, buys, sells };
+          }).catch(() => {}));
       }
     }
     if (k.fmp) {
@@ -1616,6 +1960,11 @@
     if (["GRAHAM", "VALUE", "NETNET", "NET-NET", "MOS", "SAFETY", "DEFENSIVE"].includes(q)) {
       showGraham(); flash("Graham value screener", "ok"); return;
     }
+    if (["SCREEN", "SCREENER", "FILTER"].includes(q)) { showScreener(); return; }
+    if (["COMPARE", "VS", "COMPARISON"].includes(q)) { showCompare(); return; }
+    if (["TRIGGERS", "TRIGGER", "ALERTS", "SIGNALS", "BUY"].includes(q)) { showTriggers(); return; }
+    if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
+    if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
       showValuation(); flash("True P/E screener", "ok"); return;
     }
@@ -1692,6 +2041,11 @@
     el("navRank").onclick = showRankings;
     el("rankBtn").onclick = showRankings;
     el("grahamBtn").onclick = showGraham;
+    el("screenBtn").onclick = showScreener;
+    el("compareBtn").onclick = showCompare;
+    el("trigBtn").onclick = showTriggers;
+    el("portBtn").onclick = showPortfolio;
+    el("calBtn").onclick = showCalendar;
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
     el("backdrop").onclick = closeDrawer;
 

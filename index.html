@@ -74,24 +74,38 @@
   aside{border-right:1px solid var(--line);background:var(--bg2);overflow-y:auto}
   main{overflow-y:auto;padding:14px 16px 60px}
 
-  /* ---------- watchlist ---------- */
-  .sector-btn{display:block;width:calc(100% - 20px);margin:10px;background:linear-gradient(135deg,#131a28,#0b101b);
-    border:1px solid var(--line2);color:var(--cyan);font-family:var(--mono);font-size:11px;font-weight:700;
-    letter-spacing:1.5px;padding:9px 10px;border-radius:7px;cursor:pointer;text-align:center}
-  .sector-btn:hover{border-color:var(--cyan);box-shadow:0 0 10px rgba(55,198,255,.18)}
-  .sector-btn.active{background:linear-gradient(135deg,rgba(55,198,255,.18),rgba(55,198,255,.05));border-color:var(--cyan)}
-  .sector-btn.narr{color:var(--amber);margin-top:0}
-  .sector-btn.narr:hover{border-color:var(--amber);box-shadow:0 0 10px rgba(255,176,0,.18)}
-  .sector-btn.narr.active{background:linear-gradient(135deg,rgba(255,176,0,.18),rgba(255,176,0,.05));border-color:var(--amber)}
-  .sector-btn.val{color:var(--green);margin-top:0}
-  .sector-btn.val:hover{border-color:var(--green);box-shadow:0 0 10px rgba(38,208,124,.18)}
-  .sector-btn.val.active{background:linear-gradient(135deg,rgba(38,208,124,.18),rgba(38,208,124,.05));border-color:var(--green)}
-  .sector-btn.rank{color:var(--purple);margin-bottom:0}
-  .sector-btn.rank:hover{border-color:var(--purple);box-shadow:0 0 10px rgba(180,140,255,.2)}
-  .sector-btn.rank.active{background:linear-gradient(135deg,rgba(180,140,255,.2),rgba(180,140,255,.05));border-color:var(--purple)}
-  .sector-btn.graham{color:#5aa9d6;margin-top:0;margin-bottom:0}
-  .sector-btn.graham:hover{border-color:#5aa9d6;box-shadow:0 0 10px rgba(90,169,214,.2)}
-  .sector-btn.graham.active{background:linear-gradient(135deg,rgba(90,169,214,.2),rgba(90,169,214,.05));border-color:#5aa9d6}
+  /* ---------- watchlist + nav grid ---------- */
+  .nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px}
+  .navbtn{background:linear-gradient(135deg,#131a28,#0b101b);border:1px solid var(--line2);
+    color:var(--muted);font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.3px;
+    padding:8px 6px;border-radius:7px;cursor:pointer;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .navbtn:hover{border-color:currentColor;filter:brightness(1.15)}
+  .navbtn.active{background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.02))}
+  .c-purple{color:var(--purple)} .c-purple.active{border-color:var(--purple);box-shadow:0 0 8px rgba(180,140,255,.25)}
+  .c-blue{color:#5aa9d6} .c-blue.active{border-color:#5aa9d6;box-shadow:0 0 8px rgba(90,169,214,.25)}
+  .c-green{color:var(--green)} .c-green.active{border-color:var(--green);box-shadow:0 0 8px rgba(38,208,124,.25)}
+  .c-cyan{color:var(--cyan)} .c-cyan.active{border-color:var(--cyan);box-shadow:0 0 8px rgba(55,198,255,.25)}
+  .c-amber{color:var(--amber)} .c-amber.active{border-color:var(--amber);box-shadow:0 0 8px rgba(255,176,0,.25)}
+  .c-pink{color:#ff6ec7} .c-pink.active{border-color:#ff6ec7;box-shadow:0 0 8px rgba(255,110,199,.25)}
+  .c-orange{color:var(--orange)} .c-orange.active{border-color:var(--orange);box-shadow:0 0 8px rgba(255,138,61,.25)}
+  .c-red{color:var(--red)} .c-red.active{border-color:var(--red);box-shadow:0 0 8px rgba(255,91,107,.25)}
+  .c-teal{color:#6fd8d8} .c-teal.active{border-color:#6fd8d8;box-shadow:0 0 8px rgba(111,216,216,.25)}
+  .c-gold{color:#e8c85a} .c-gold.active{border-color:#e8c85a;box-shadow:0 0 8px rgba(232,200,90,.25)}
+  .row .star{cursor:pointer;color:var(--dim);font-size:13px;line-height:1}
+  .row .star.on{color:var(--amber)}
+  .filter button[data-b=fav].active{background:var(--amber)}
+
+  /* screener / tool control bar */
+  .scr-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+  .scr-input{background:#0b101b;border:1px solid var(--line2);color:var(--text);font-family:var(--mono);
+    font-size:12px;padding:6px 9px;border-radius:6px;outline:none}
+  .scr-input:focus{border-color:var(--cyan)}
+  .scr-lbl{font-size:10.5px;color:var(--muted)}
+  .scr-chk{display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--muted);cursor:pointer}
+  .scr-reset{background:#151c2a;border:1px solid var(--line2);color:var(--muted);font-family:var(--mono);
+    font-size:11px;padding:6px 12px;border-radius:6px;cursor:pointer}
+  .scr-reset:hover{border-color:var(--cyan);color:var(--cyan)}
+  @media(max-width:720px){ .scr-input{font-size:16px} }
 
   /* rankings leaderboard table */
   table.rank{width:100%;border-collapse:collapse;font-size:11px}
@@ -357,14 +371,22 @@
 
 <div class="app">
   <aside>
-    <button class="sector-btn rank" id="rankBtn">⚡ RANKINGS</button>
-    <button class="sector-btn graham" id="grahamBtn">🛡 GRAHAM VALUE</button>
-    <button class="sector-btn" id="sectorBtn">◈ SECTOR FLOW</button>
-    <button class="sector-btn narr" id="narrBtn">◆ NARRATIVES</button>
-    <button class="sector-btn val" id="valBtn">⊞ TRUE P/E</button>
+    <div class="nav-grid">
+      <button class="navbtn c-purple" id="rankBtn">⚡ Rankings</button>
+      <button class="navbtn c-blue" id="grahamBtn">🛡 Graham</button>
+      <button class="navbtn c-green" id="valBtn">⊞ True P/E</button>
+      <button class="navbtn c-cyan" id="sectorBtn">◈ Sectors</button>
+      <button class="navbtn c-amber" id="narrBtn">◆ Narratives</button>
+      <button class="navbtn c-pink" id="screenBtn">📊 Screener</button>
+      <button class="navbtn c-orange" id="compareBtn">⚖ Compare</button>
+      <button class="navbtn c-red" id="trigBtn">🎯 Triggers</button>
+      <button class="navbtn c-teal" id="portBtn">💼 Portfolio</button>
+      <button class="navbtn c-gold" id="calBtn">📅 Calendar</button>
+    </div>
     <div class="wl-head"><span>WATCHLIST</span><span id="wlCount"></span></div>
     <div class="filter" id="filter">
       <button data-b="all" class="active">ALL</button>
+      <button data-b="fav" title="Your starred names">★</button>
       <button data-b="clean">CLEAN</button>
       <button data-b="middle">MID</button>
       <button data-b="high">HIGH</button>
@@ -408,10 +430,10 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="data.js?v=11"></script>
-<script src="segments.js?v=11"></script>
-<script src="sectors.js?v=11"></script>
-<script src="charts.js?v=11"></script>
-<script src="app.js?v=11"></script>
+<script src="data.js?v=12"></script>
+<script src="segments.js?v=12"></script>
+<script src="sectors.js?v=12"></script>
+<script src="charts.js?v=12"></script>
+<script src="app.js?v=12"></script>
 </body>
 </html>
