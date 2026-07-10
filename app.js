@@ -1324,9 +1324,12 @@
     sig.push({ k: "SBC X-RAY", w: 20, v, why: `keeps ${(keep * 100).toFixed(0)}¢/$ · SBC ${d.sbcPctRev == null ? "n/a" : d.sbcPctRev.toFixed(1) + "% of rev"} · shares ${trend.chg >= 0 ? "+" : ""}${(trend.chg || 0).toFixed(1)}% over the record` });
 
     // 2 · IV15 DCF — what return does today's price offer? (w25)
-    const cagr = L ? L.impliedCAGR : null;
+    // Prices the RANGE, not the dogma: 65% conservative + 35% AI-cycle growth
+    // case. Strictness still dominates, but a strong growth case is evidence.
+    const consCagr = L ? L.impliedCAGR : null;
+    const cagr = consCagr == null ? null : (L.gcCAGR != null ? consCagr * 0.65 + L.gcCAGR * 0.35 : consCagr);
     v = cagr == null ? -2 : cagr >= .15 ? 2 : cagr >= .12 ? 1 : cagr >= .09 ? 0 : cagr >= .05 ? -1 : -2;
-    sig.push({ k: "IV15 DCF", w: 25, v, why: cagr == null ? "no positive owner earnings to price — Out Field by default" : `priced for ${(cagr * 100).toFixed(1)}%/yr over 15y · buy target IV15 $${L.IV15.toFixed(L.IV15 >= 100 ? 0 : 2)} vs $${L.price.toFixed(2)} now` });
+    sig.push({ k: "IV15 DCF", w: 25, v, why: cagr == null ? "no positive owner earnings to price — Out Field by default" : `conservative ${(consCagr * 100).toFixed(1)}% · growth-case ${L.gcCAGR == null ? "n/a" : (L.gcCAGR * 100).toFixed(1) + "%"} → prices the range at ${(cagr * 100).toFixed(1)}%/yr · IV15 $${L.IV15.toFixed(L.IV15 >= 100 ? 0 : 2)} vs $${L.price.toFixed(2)}` });
 
     // 3 · Graham — classic asset-value margin of safety (w15)
     if (G) {
@@ -1350,13 +1353,18 @@
       sig.push({ k: "QUALITY & CASH", w: 20, v, why: `ROIC ${Q.roic == null ? "n/a" : Q.roic.toFixed(0) + "%"} · FCF-after-SBC ${Q.fcfAfterSbc == null ? "n/a" : money(Q.fcfAfterSbc) + " (" + fmtPct(Q.fcfAfterSbcYield, 1) + " yield)"} · OCF/NI ${Q.ocfToNi ? Q.ocfToNi.toFixed(2) + "×" : "n/a"}` });
     }
 
-    // 5 · Buyback integrity — real return or treadmill? (w10)
+    // 5 · Capital return — real buybacks, honest dividends, or a treadmill? (w10)
     const acc = L ? buybackAccretion(d, L) : null;
-    if (bq.anti === 0 && bq.real === 0) v = trend.chg > 3 ? -1 : 0;
-    else if (bq.real > bq.anti) v = acc && acc.acc ? 2 : 1;
-    else v = -1;
-    if (trend.chg > 12) v = -2;
-    sig.push({ k: "BUYBACK TRUTH", w: 10, v, why: bq.anti === 0 && bq.real === 0 ? (trend.chg > 3 ? "no buybacks and shares rising — pure dilution" : "no buybacks — judge on dividends/growth") : `${bq.t.toLowerCase()}${acc ? (acc.acc ? " · below baseline IV (accretive)" : " · above baseline IV (dilutes IV/share)") : ""}` });
+    const divY = d.gd ? (d.gd.divYield ? d.gd.divYield * 100 : (d.gd.divRate && L && L.price > 0 ? (d.gd.divRate / L.price) * 100 : 0)) : 0;
+    let bbWhy;
+    if (bq.anti === 0 && bq.real === 0) {
+      if (trend.chg > 3) { v = -1; bbWhy = "no buybacks and shares rising — pure dilution"; }
+      else if (divY >= 3) { v = 1; bbWhy = `no buybacks but a ${divY.toFixed(1)}% dividend does the returning`; }
+      else { v = 0; bbWhy = divY > 0.5 ? `no buybacks · ${divY.toFixed(1)}% dividend — modest capital return` : "no buybacks, no dividend — everything is reinvested (or diluted)"; }
+    } else if (bq.real > bq.anti) { v = acc && acc.acc ? 2 : 1; bbWhy = `${bq.t.toLowerCase()}${acc ? (acc.acc ? " · below baseline IV (accretive)" : " · above baseline IV (dilutes IV/share)") : ""}${divY >= 2 ? ` · plus a ${divY.toFixed(1)}% dividend` : ""}`; }
+    else { v = -1; bbWhy = `${bq.t.toLowerCase()}${acc ? (acc.acc ? " · below baseline IV (accretive)" : " · above baseline IV (dilutes IV/share)") : ""}`; }
+    if (trend.chg > 12) { v = -2; bbWhy += " · count exploding"; }
+    sig.push({ k: "CAPITAL RETURN", w: 10, v, why: bbWhy });
 
     // 6 · Sector flow — is money coming toward this name? (w10)
     v = mom >= 3 ? 2 : mom >= 1 ? 1 : mom >= -1 ? 0 : mom >= -3 ? -1 : -2;
@@ -1366,7 +1374,10 @@
     const CX = capexOf(d);
     if (CX && !CX.assetLight) {
       v = CX.score >= 80 ? 2 : CX.score >= 60 ? 1 : CX.score >= 35 ? 0 : CX.score >= 20 ? -1 : -2;
-      sig.push({ k: "CAPEX X-RAY", w: 8, v, why: `capex ${CX.intensity.toFixed(0)}% of revenue · $1 of capex bought $${CX.incRevPerDollar == null ? "n/a" : CX.incRevPerDollar.toFixed(2)} of new annual revenue · ${CX.verdict.split(" — ")[0]}` });
+      let cxWhy = `capex ${CX.intensity.toFixed(0)}% of revenue · $1 of capex bought $${CX.incRevPerDollar == null ? "n/a" : CX.incRevPerDollar.toFixed(2)} of new annual revenue · ${CX.verdict.split(" — ")[0]}`;
+      const de = d.gd && d.gd.eq > 0 ? (d.gd.debt || 0) / d.gd.eq : null;
+      if (CX.score < 35 && de != null && de > 1.5) { v = Math.max(-2, v - 1); cxWhy += ` · and it's debt-funded (D/E ${de.toFixed(1)})`; }
+      sig.push({ k: "CAPEX X-RAY", w: 8, v, why: cxWhy });
     }
 
     // 8 · Insiders — live bonus signal when loaded (w5)
@@ -1387,7 +1398,7 @@
     let call;
     if (looksCheap && (keep < 0.6 || (!finSector && Q.fcfAfterSbc != null && Q.fcfAfterSbc < 0))) call = "TRAP";
     else if (d.bucket === "tragic" && score < 45) call = "AVOID";
-    else if (L && L.zone === "fat" && keep >= 0.7 && qV >= 0) call = "SWING";
+    else if (L && (L.zone === "fat" || (cagr != null && cagr >= 0.15)) && keep >= 0.7 && qV >= 0) call = "SWING";
     else if (score >= 62 && ivV >= 0) call = "ACC";
     else if (sbcV >= 1 && qV >= 1 && ivV <= 0) call = "STALK";
     else if (score >= 48) call = "WATCH";
