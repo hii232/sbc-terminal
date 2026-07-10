@@ -158,3 +158,46 @@ identities, expired-chain exclusion, full-650 brain sweep). All passing.
   (Phase-5 share reconciliation: withholding cash, option/ESPP proceeds,
   acquisition shares, period-end share counts) needs SEC XBRL ingestion plus
   human reconciliation before any name can be marked FILING VERIFIED.
+
+---
+
+# v3.0 (2026-07) — response to external audit: owner-economics engine rebuilt
+
+**External-audit triage:** several flagged items (exposed key, synthetic chart,
+"True" labels, missing Options desk) were reviewed against a stale cache — the
+live main serves v19+ with all of them fixed (curl-verified). The following
+were VALID and are now fixed:
+
+1. **Pure-diluter failure (Critical 1) — FIXED.** Economic SBC cost is now
+   `max(GAAP SBC, market value of reconciled employee shares) + 25% withholding`.
+   A no-buyback diluter can never again show owner earnings above net income.
+   Regression-tested (fixtures 4.x).
+2. **Manual ownersKeep (Critical 2) — FIXED for 588/650.** Retention is now
+   COMPUTED at runtime: pooled multi-year Σowner/ΣNI with the latest year
+   share-reconciled (Δshares + buyback$/avg-price, capped at 1.5×SBC$/avg-price;
+   excess flagged as non-SBC issuance). Fallback names (pooled NI ≤ 0) keep the
+   seeded heuristic and are labeled `fallback`. Est-P/E and owner-EPS derive
+   from the computed value — recomputed after any live financials merge.
+3. **M&A share misclassification (Critical 3) — FIXED.** Issuance beyond what
+   SBC can explain is excluded from SBC cost and flagged; auto-derived names
+   bucketed "tragic" purely from such issuance are reclassified at runtime
+   (e.g. Smurfit Westrock: tragic/F → middle/C, flagged "non-SBC issuance").
+4. **Live data not recomputing the model (Critical 4) — FIXED.** One function
+   (`recomputeOwnerEconomics`) owns retention/est-P/E/owner-EPS; runs at load
+   and after FMP merges.
+5. **"Money flow" (Critical 7) — RENAMED** to TRADING-ACTIVITY SHARE with an
+   explicit "volume has a buyer and a seller" disclosure. Brain vote renamed
+   SECTOR MOMENTUM (it is price momentum).
+6. **Narrative "odds" (Critical 8) — RENAMED** to momentum scores "(heuristic,
+   not a probability)". The only remaining "odds" are Polymarket's real
+   market-implied odds, which is the correct term.
+7. **Brain false precision — FIXED.** Verdict shows a HEURISTIC SCORE BAND
+   (±6) plus DATA CONFIDENCE (LOW / MEDIUM / MEDIUM-HIGH; HIGH is reserved for
+   filing-verified data, which does not exist yet).
+8. **Fat Pitch language** — zone descriptions now say "model-implied … a
+   scenario, not a promise"; buyback accretion notes it compares against
+   today's model value, not historical purchase prices.
+
+Tests: 30 assertions, all passing (`node tests/run_tests.js`).
+Still open (unchanged): SEC XBRL filing verification, paid options chains,
+news intelligence, reverse DCF — see §4 above.

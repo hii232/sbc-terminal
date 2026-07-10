@@ -82,15 +82,24 @@ const ok = (cond, name, detail = "") => {
   const clean = { ni: [5, 5, 5, 5], sbc: [0, 0, 0, 0], buyback: [1, 1, 1, 1] };
   const oe = E.trueOwnerEarnings(clean);
   ok(Math.abs(oe.owner - 5) < 1e-9, "zero-SBC: owner earnings == net income", String(oe.owner));
-  // heavy SBC + no buyback: owner < NI, cost = withholding proxy only
+  // THE PURE-DILUTER TEST (v3): a company paying employees in stock with no
+  // buybacks must NEVER show owner earnings above net income.
   const diluter = { ni: [4], sbc: [2], buyback: [0] };
   const oe2 = E.trueOwnerEarnings(diluter);
-  ok(oe2.owner > oe2.ni && oe2.owner === oe2.ni + oe2.sbc - oe2.trueCost, "identity: NI + SBC - trueCost");
-  ok(oe2.trueCost === 0.5, "no-buyback: cost = 25% withholding proxy", String(oe2.trueCost));
-  // negative NI: engine must not fabricate positive owner earnings beyond identity
+  ok(oe2.owner < oe2.ni, "PURE DILUTER: owner earnings BELOW net income", `owner=${oe2.owner} ni=${oe2.ni}`);
+  ok(Math.abs(oe2.owner - (oe2.ni + oe2.sbc - oe2.trueCost)) < 1e-9, "identity: NI + SBC - trueCost");
+  ok(Math.abs(oe2.trueCost - 2.5) < 1e-9, "no-share-data: cost = GAAP SBC floor + 25% withholding", String(oe2.trueCost));
+  // diluter WITH share data: employee shares priced at market, capped at
+  // 1.5x SBC value; the excess is flagged as non-SBC issuance (M&A/raise)
+  const dil2 = { ni: [10, 10], sbc: [2, 2], buyback: [0, 0], shares: [1, 1.1], px: { v: [50, 50, 50] }, price: 50 };
+  const oe4 = E.trueOwnerEarnings(dil2);
+  ok(oe4.owner < 10, "share-reconciled diluter: owner < NI", String(oe4.owner));
+  ok(oe4.mnaShares > 0, "issuance beyond SBC cap flagged as non-SBC (M&A/raise)", String(oe4.mnaShares));
+  ok(Math.abs(oe4.shareCost - 3) < 1e-9, "employee share cost = capped shares x avg price", String(oe4.shareCost));
+  // negative NI: identity holds, GAAP-SBC floor applies, no fabricated positives
   const loser = { ni: [-2], sbc: [1], buyback: [0] };
   const oe3 = E.trueOwnerEarnings(loser);
-  ok(Math.abs(oe3.owner - (-2 + 1 - 0.25)) < 1e-9, "negative NI handled by identity");
+  ok(Math.abs(oe3.owner - (-2 + 1 - 1.25)) < 1e-9, "negative NI handled by identity (GAAP-SBC floor)");
 }
 
 // =============== 5. Options staleness (the real-money bug) ===============
@@ -131,6 +140,20 @@ const ok = (cond, name, detail = "") => {
     if (G && [G.score, G.passed].some(v => !Number.isFinite(v))) nanBad.push(DATA[i].ticker);
   }
   ok(nanBad.length === 0, "grahamOf outputs finite", nanBad.join(","));
+}
+
+// =============== 8. Runtime-computed retention (no manual ownersKeep) ===============
+{
+  let computed = 0, sane = 0, sampled = 0, consistent = 0;
+  for (let i = 0; i < DATA.length; i += 9) {
+    const d = DATA[i]; sampled++;
+    if (d.keepSource === "computed") computed++;
+    if (d.ownersKeep >= 0.30 && d.ownersKeep <= 0.98) sane++;
+    if (d.truePE == null || d.headlinePE == null || Math.abs(d.truePE - d.headlinePE / d.ownersKeep) < 0.15) consistent++;
+  }
+  ok(computed / sampled > 0.7, "retention COMPUTED (not manual) for >70% of sample", computed + "/" + sampled);
+  ok(sane === sampled, "retention within [0.30, 0.98] for all", sane + "/" + sampled);
+  ok(consistent === sampled, "est P/E == headline P/E / retention (single source)", consistent + "/" + sampled);
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

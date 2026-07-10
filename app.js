@@ -97,17 +97,78 @@
     return { anti, real, t, c, uncertain };
   }
   function trueOwnerEarnings(d) {
-    // simplified Burry: GAAP NI + GAAP SBC addback - true economic SBC cost
-    // true economic SBC cost ≈ anti-dilution buyback (offset) + a withholding proxy (~25% of SBC)
+    // v3 economics. GAAP expenses SBC at grant-date fair value; we REPLACE that
+    // with an estimate of the CURRENT economic cost of equity comp:
+    //   shareCost   = max(GAAP SBC, market value of employee shares issued)
+    //                 — floored at GAAP SBC, so a pure diluter can never show
+    //                   owner earnings above net income (the old model could)
+    //   withholding = 0.25 × SBC (vest-date tax-settlement proxy, financing CF)
+    // Employee shares are reconciled from the share count:
+    //   grossIssued ≈ Δ diluted shares + shares repurchased (buyback$ ÷ avg px)
+    //   capped at 1.5 × SBC$ ÷ avg px — the excess is issuance SBC cannot
+    //   explain (M&A, raises, converts): EXCLUDED from SBC cost and FLAGGED.
     const ni = lastVal(d.ni);
-    const sbc = lastVal(d.sbc);
-    const bb = lastVal(d.buyback);
-    const antiDil = Math.min(bb, sbc);
+    const sbc = lastVal(d.sbc) || 0;
+    const bb = lastVal(d.buyback) || 0;
+    const pxArr = d.px && d.px.v && d.px.v.length ? d.px.v : null;
+    const avgP = pxArr ? pxArr.reduce((a, v) => a + v, 0) / pxArr.length : (d.price || null);
+    const sh = (d.shares || []).filter(v => v != null);
+    let empShares = null, mnaShares = 0, shareCost = sbc; // floor = GAAP SBC
+    if (avgP && sh.length >= 2 && sbc > 0) {
+      const dSh = sh[sh.length - 1] - sh[sh.length - 2];   // latest-FY change (B)
+      const bought = bb > 0 ? bb / avgP : 0;               // B shares retired
+      const grossIssued = Math.max(0, dSh + bought);
+      const cap = (sbc * 1.5) / avgP;                      // most SBC can explain
+      empShares = Math.min(grossIssued, cap);
+      mnaShares = Math.max(0, grossIssued - cap);
+      shareCost = Math.max(sbc, empShares * avgP);
+    }
     const withholding = sbc * 0.25;
-    const trueCost = antiDil + withholding;
+    const trueCost = shareCost + withholding;
     const owner = ni + sbc - trueCost;
-    return { ni, sbc, trueCost, owner, antiDil, withholding };
+    return { ni, sbc, trueCost, owner, shareCost, withholding, empShares, mnaShares, avgP,
+             antiDil: Math.min(bb, sbc) };
   }
+
+  /* ---- runtime owner-retention: COMPUTED, never trusted from data.js ----
+     Pooled multi-year retention Σowner/ΣNI (per-year floor model; latest year
+     gets the full share-reconciled model). Overwrites the seeded heuristic
+     ownersKeep for every name where inputs exist; falls back (labeled) only
+     when they don't. Re-run after any live financials merge.               */
+  function recomputeOwnerEconomics(d) {
+    const yrs = (d.ni || []).length;
+    let sumNI = 0, sumOwner = 0, valid = 0;
+    for (let i = 0; i < yrs; i++) {
+      const ni = d.ni[i];
+      if (ni == null) continue;
+      const sbc = (d.sbc && d.sbc[i]) || 0;
+      sumNI += ni; sumOwner += ni - 0.25 * sbc; valid++;
+    }
+    const st = trueOwnerEarnings(d);
+    if (valid && st.ni != null) {
+      const lastNi = lastVal(d.ni), lastSbc = lastVal(d.sbc) || 0;
+      sumOwner += st.owner - (lastNi - 0.25 * lastSbc); // swap in reconciled latest year
+    }
+    let keep = null;
+    if (valid >= 2 && sumNI > 0) keep = Math.min(0.98, Math.max(0.30, sumOwner / sumNI));
+    if (keep != null && isFinite(keep)) {
+      d.ownersKeep = +keep.toFixed(2);
+      d.keepSource = "computed";
+    } else {
+      d.keepSource = "fallback"; // seeded heuristic stays, labeled as such
+    }
+    d.mnaFlag = st.mnaShares > 0.001;
+    // contradiction repair: auto-derived names bucketed "tragic" purely from a
+    // share-count explosion that reconciliation traces to NON-SBC issuance
+    if (d.derived && d.mnaFlag && d.bucket === "tragic" && (d.sbcPctRev == null || d.sbcPctRev < 9)) {
+      d.bucket = "middle";
+      if (d.grade === "F") d.grade = "C";
+      d.reclassified = true;
+    }
+    d.sbcAdjEPS = d.gaapEPS != null && d.ownersKeep ? +(d.gaapEPS * d.ownersKeep).toFixed(2) : d.sbcAdjEPS;
+    d.truePE = d.headlinePE && d.ownersKeep ? +(d.headlinePE / d.ownersKeep).toFixed(1) : d.truePE;
+  }
+  DATA.forEach(recomputeOwnerEconomics);
 
   /* ------------------------ favorites + portfolio (localStorage) ------------------------ */
   const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
@@ -280,7 +341,7 @@
     </div>`;
 
     el("main").innerHTML = header + tabs
-      + `<div class="sub" style="margin:-6px 0 10px;font-size:9px">source: Yahoo Finance aggregator (quotes, as-reported filings, chains) · formulas ${FORMULA_VERSION} · estimates carry model error — ${dataQualityOf(d).label.toLowerCase()}</div>`
+      + `<div class="sub" style="margin:-6px 0 10px;font-size:9px">source: Yahoo Finance aggregator (quotes, as-reported filings, chains) · formulas ${FORMULA_VERSION} · retention ${d.keepSource === "computed" ? "computed" : "fallback"} · estimates carry model error — ${dataQualityOf(d).label.toLowerCase()}</div>`
       + `<div id="tabBody"></div>`;
     el("main").querySelectorAll(".tabs button").forEach(btn =>
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
@@ -387,7 +448,7 @@
       <div class="card">
         <h3>② SHARE-COUNT TRUTH <span class="unit">diluted, B</span></h3>
         ${Chart.line([{ points: d.shares, color: trend.c.includes("green") ? "var(--green)" : trend.c.includes("red") ? "var(--red)" : "var(--amber)" }], yrs, { h: 130 })}
-        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg >= 0 ? "+" : ""}${trend.chg.toFixed(1)}%</b> over 5Y — ${trend.t}</div>
+        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg >= 0 ? "+" : ""}${trend.chg.toFixed(1)}%</b> over 5Y — ${trend.t}${d.mnaFlag ? " · includes issuance beyond SBC (M&A/raise) — not all employee dilution" : ""}</div>
       </div>
 
       <!-- STEP 4: buyback quality -->
@@ -408,7 +469,7 @@
       <div class="card">
         <h3>④ ESTIMATED OWNER EARNINGS <span class="unit">latest FY, $B</span></h3>
         ${waterfall}
-        <div class="sub" style="margin-top:6px">True cost = anti-dilution buyback (${money(st.antiDil)}) + est. tax-withholding on vesting (${money(st.withholding)}). Withholding often hides in <b>financing</b> cash flows (ASU 2016-09).</div>
+        <div class="sub" style="margin-top:6px">Est. cost = employee-share cost ${money(st.shareCost)} (${st.empShares != null ? "≈" + (st.empShares * 1000).toFixed(0) + "M shares reconciled from the count at avg $" + st.avgP.toFixed(0) + ", floored at GAAP SBC" : "GAAP SBC floor — share reconciliation unavailable"}) + est. vest-date tax withholding ${money(st.withholding)} (financing CF, ASU 2016-09).${st.mnaShares > 0.001 ? ` <b style=\"color:var(--amber)\">${(st.mnaShares * 1000).toFixed(0)}M shares of issuance exceed what SBC can explain (M&A/raise/converts) — excluded from SBC cost.</b>` : ""} Retention here is <b>${d.keepSource === "computed" ? "computed (pooled multi-year)" : "a heuristic fallback"}</b>, not filing-verified.</div>
       </div>
 
       <!-- STEP 6: valuation re-rate -->
@@ -663,7 +724,7 @@
         <div style="text-align:center;min-width:90px;border-left:1px solid var(--line);padding-left:14px">
           <div class="sub">vs S&P · 3M</div>
           <div class="stat sm ${rel >= 0 ? "up" : "down"}">${rel >= 0 ? "+" : ""}${rel.toFixed(1)}pp</div>
-          <div class="sub" style="color:${rel >= 0 ? "var(--green)" : "var(--red)"}">${rel >= 0 ? "money rotating IN" : "money rotating OUT"}</div>
+          <div class="sub" style="color:${rel >= 0 ? "var(--green)" : "var(--red)"}">${rel >= 0 ? "outperforming S&P" : "lagging S&P"}</div>
         </div>
       </div>
     </div>`;
@@ -885,7 +946,7 @@
     };
   }
   const ZONE = {
-    fat:  { label: "FAT PITCH",     color: "var(--green)", desc: "priced for 15%+ CAGR over 15y" },
+    fat:  { label: "FAT PITCH",     color: "var(--green)", desc: "model-implied 15%+ CAGR over 15y — a scenario, not a promise" },
     just: { label: "JUST OUTSIDE",  color: "var(--amber)", desc: "priced for 10–15% CAGR" },
     out:  { label: "THE OUT FIELD", color: "var(--red)",   desc: "priced for <10% CAGR" },
   };
@@ -894,7 +955,7 @@
     if (!bb || bb <= 0.05 || !L) return null;
     const acc = L.price <= L.baseline;
     return { acc, txt: acc
-      ? `Buying back BELOW baseline IV ($${L.baseline.toFixed(0)}) — accretive to intrinsic value per share.`
+      ? `Buying back BELOW baseline IV ($${L.baseline.toFixed(0)}) — accretive vs TODAY&#39;S model value (not the price actually paid historically).`
       : `Buying back ABOVE baseline IV ($${L.baseline.toFixed(0)}) — pulls shares in but DILUTES intrinsic value per share. The depressing nuance of offsetting SBC at high prices.` };
   }
 
@@ -1306,7 +1367,7 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
-  const FORMULA_VERSION = "v2.1 (2026-07)"; // bump when any engine formula changes
+  const FORMULA_VERSION = "v3.0 (2026-07)"; // bump when any engine formula changes
   // Data-quality per spec: nothing here is reconciled line-by-line to filings.
   //  PARTIALLY VERIFIED — curated names whose segment revenue was checked to the 10-K
   //  HEURISTIC        — aggregator (Yahoo) data + framework judgments/derivations
@@ -1391,7 +1452,7 @@
 
     // 6 · Sector flow — is money coming toward this name? (w10)
     v = mom >= 3 ? 2 : mom >= 1 ? 1 : mom >= -1 ? 0 : mom >= -3 ? -1 : -2;
-    sig.push({ k: "SECTOR FLOW", w: 10, v, why: `${s ? s.name : d.sector} ${mom >= 0 ? "+" : ""}${mom.toFixed(1)}pp vs S&P over 3M — money rotating ${mom >= 1 ? "IN" : mom <= -1 ? "OUT" : "sideways"}` });
+    sig.push({ k: "SECTOR MOMENTUM", w: 10, v, why: `${s ? s.name : d.sector} ${mom >= 0 ? "+" : ""}${mom.toFixed(1)}pp vs S&P over 3M — ${mom >= 1 ? "leading" : mom <= -1 ? "lagging" : "inline"} (price momentum, not fund flow)` });
 
     // 7 · Capex X-Ray — does revenue justify the spend? (w8, only when capex matters)
     const CX = capexOf(d);
@@ -1451,8 +1512,9 @@
       <h3>⚛ THE VERDICT — EVERY ENGINE, ONE CONCLUSION <span class="unit">${V.bulls} bullish · ${V.sig.length - V.bulls - V.bears} neutral · ${V.bears} bearish</span></h3>
       <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;margin-top:4px">
         <div style="text-align:center;min-width:150px">
-          <div class="stat" style="font-size:38px;color:${scoreColor}">${V.score.toFixed(0)}</div>
-          <div class="sub">BRAIN SCORE /100</div>
+          <div class="stat" style="font-size:34px;color:${scoreColor}">${Math.max(0, V.score - 6).toFixed(0)}–${Math.min(100, V.score + 6).toFixed(0)}</div>
+          <div class="sub">HEURISTIC SCORE BAND /100</div>
+          <div class="sub" style="margin-top:4px">DATA CONFIDENCE: <b style="color:${d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "var(--green)" : "var(--amber)") : "var(--red)"}">${d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "MEDIUM-HIGH" : "MEDIUM") : "LOW"}</b><br>retention ${d.keepSource === "computed" ? "computed from as-reported data" : "heuristic fallback"} · nothing filing-verified</div>
           <div class="badge" style="display:inline-block;margin-top:9px;font-size:11px;padding:5px 12px;color:${V.C.color};border-color:${V.C.color}">${V.C.label}</div>
         </div>
         <div style="flex:1;min-width:260px">
@@ -2097,7 +2159,7 @@
     const col = p >= 70 ? "var(--green)" : p >= 50 ? "var(--amber)" : "var(--red)";
     return `<div style="display:flex;align-items:center;gap:8px;margin-top:8px">
       <div class="meter" style="flex:1;margin-top:0"><i style="width:${p}%;background:${col}"></i></div>
-      <span style="font-size:11px;font-weight:800;color:${col};white-space:nowrap">${p.toFixed(0)}%</span>
+      <span style="font-size:11px;font-weight:800;color:${col};white-space:nowrap">${p.toFixed(0)}/100</span>
       <span class="sub" style="white-space:nowrap">${label}</span>
     </div>`;
   };
@@ -2122,25 +2184,25 @@
     const leadEdge = retOver(leader, 3) - spy3;
     const n1 = narrCard(
       `MARKET IS REWARDING ${leader.name.toUpperCase()} RIGHT NOW`,
-      `${leader.t} +${retOver(leader, 3).toFixed(1)}% over 3M vs S&P ${spy3 >= 0 ? "+" : ""}${spy3.toFixed(1)}% · money flow ${flowDelta(leader) >= 0 ? "confirms — dollars rotating in" : "diverges — price up but dollars leaving (fragile)"}`,
+      `${leader.t} +${retOver(leader, 3).toFixed(1)}% over 3M vs S&P ${spy3 >= 0 ? "+" : ""}${spy3.toFixed(1)}% · activity share ${flowDelta(leader) >= 0 ? "confirms — trading dollars concentrating here" : "diverges — price up but activity share falling (fragile)"}`,
       Chart.line([
         { points: perfSeries(leader), color: leader.color },
         { points: perfSeries(second), color: second.color },
         { points: perfSeries(spy), color: spy.color },
       ], SECTORS.labels, { h: 160, zero: true }) +
       `<div class="chart-legend"><span><i style="background:${leader.color}"></i>${leader.t}</span><span><i style="background:${second.color}"></i>${second.t}</span><span><i style="background:${spy.color}"></i>SPY</span></div>`,
-      50 + leadEdge * 2.5 + flowDelta(leader) * 8, "odds leadership holds", leader.color);
+      50 + leadEdge * 2.5 + flowDelta(leader) * 8, "leadership momentum score (heuristic, not a probability)", leader.color);
 
     // 2) money rotation
     const n2 = narrCard(
-      `MONEY IS ROTATING INTO ${rotIn.name.toUpperCase()}, OUT OF ${rotOut.name.toUpperCase()}`,
+      `TRADING ACTIVITY SHIFTING TOWARD ${rotIn.name.toUpperCase()}, AWAY FROM ${rotOut.name.toUpperCase()}`,
       `${rotIn.t} taking ${flowDelta(rotIn) >= 0 ? "+" : ""}${flowDelta(rotIn).toFixed(1)}pp more of all sector dollars vs its 6M average · ${rotOut.t} ${flowDelta(rotOut).toFixed(1)}pp`,
       Chart.line([
         { points: flowShareOf(rotIn), color: rotIn.color },
         { points: flowShareOf(rotOut), color: rotOut.color },
       ], SECTORS.labels, { h: 150 }) +
       `<div class="chart-legend"><span><i style="background:${rotIn.color}"></i>${rotIn.t} $-share</span><span><i style="background:${rotOut.color}"></i>${rotOut.t} $-share</span></div>`,
-      50 + flowDelta(rotIn) * 10, "odds rotation continues", rotIn.color);
+      50 + flowDelta(rotIn) * 10, "activity-shift momentum score (heuristic, not a probability)", rotIn.color);
 
     // 3) laggard
     const lagGap = retOver(laggard, 3) - spy3;
@@ -2152,7 +2214,7 @@
         { points: perfSeries(spy), color: spy.color },
       ], SECTORS.labels, { h: 150, zero: true }) +
       `<div class="chart-legend"><span><i style="background:${laggard.color}"></i>${laggard.t}</span><span><i style="background:${spy.color}"></i>SPY</span></div>`,
-      50 - lagGap * 2.5, "odds weakness persists", "var(--red)");
+      50 - lagGap * 2.5, "weakness momentum score (heuristic, not a probability)", "var(--red)");
 
     // 4) buyback mirage (across all tickers, TTM)
     let totBB = 0, totAnti = 0, totReal = 0;
@@ -2371,9 +2433,9 @@
         </div>
 
         <div class="card">
-          <h3>MONEY FLOW — SHARE OF SECTOR $ VOLUME <span class="unit">% of all sector-ETF dollars traded / month</span></h3>
+          <h3>TRADING-ACTIVITY SHARE <span class="unit">% of all sector-ETF dollars TRADED / month — activity, NOT net fund flow</span></h3>
           ${flowChart}
-          <div class="sub" style="margin-top:6px">Rising line = money rotating <b class="up">into</b> that sector; falling = rotating <b class="down">out</b>. Same chip toggles as above (SPY excluded).</div>
+          <div class="sub" style="margin-top:6px">Rising = a growing share of trading dollars. Volume has a buyer AND a seller — this measures attention, not net capital in or out. Same chip toggles as above (SPY excluded).</div>
         </div>
 
         <div class="card">
@@ -2483,6 +2545,7 @@
       if (latestNi > 0) d.sbcPctNI = +((latestSbc / latestNi) * 100).toFixed(0);
       state.live[d.ticker] = state.live[d.ticker] || {};
       state.live[d.ticker].financialsSource = "FMP";
+      recomputeOwnerEconomics(d); // derived metrics must never outlive their inputs
     }
   }
 

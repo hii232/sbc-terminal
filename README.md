@@ -24,7 +24,7 @@ Everything runs **standalone** — no Claude membership, no external service req
 |------|---------|
 | `index.html` | terminal shell, styling, command bar, PWA meta |
 | `charts.js`  | zero-dependency SVG charts (line, grouped bars, hbars, donut) |
-| `data.js`    | REAL quotes + 4 fiscal years of real filings for 34 tickers (Yahoo Finance) |
+| `data.js`    | REAL quotes + fundamentals for 650 tickers — 152 curated + 498 auto-derived (badged '◐ auto' in-app); owner-retention is COMPUTED at runtime, not stored |
 | `app.js`     | rendering, tabs, SBC math, live-data layer |
 | `scripts/update_data.py` | one-command refresh of all quotes & fundamentals |
 | `manifest.json` / `sw.js` / `icon.svg` | PWA: install on phone, works offline |
@@ -34,7 +34,7 @@ Bundled data is **real** (pulled from Yahoo Finance — quotes + as-reported ann
 filings: revenue, net income, SBC, buybacks, diluted shares). To refresh:
 
 ```
-python scripts/update_data.py           # all 34 tickers
+python scripts/update_data.py           # all 650 tickers
 python scripts/update_data.py NVDA PLTR # just these
 ```
 
@@ -57,7 +57,7 @@ Click the ⚙ gear (top-right) and paste **free** API keys — stored only in yo
   diluted share count, which overwrite the bundled arrays and recompute the SBC ratios.
 
 Without keys, the terminal is fully functional on bundled snapshots (clearly labeled
-`snapshot` / `illustrative`). With keys, the header flips to `● LIVE`.
+`snapshot <date> — not live`). With keys, the header flips to `● LIVE`.
 
 ## The SBC X-Ray (the point of the whole thing)
 Every stock gets the 7-step check:
@@ -84,13 +84,15 @@ Every stock gets the 7-step check:
 
 Watchlist is sorted quality-first (clean → tragic), then by market cap. Every stock
 shows a SECTOR CONTEXT strip tied to its sector ETF, and the ◈ SECTOR FLOW view
-tracks 12-month rotation and money flow across all 11 SPDR sectors + semis vs SPY.
+tracks 12-month rotation and trading-activity share (volume, not net fund flow) across all 11 SPDR sectors + semis vs SPY.
 
-## Note on the numbers
-Quotes and annual fundamentals (revenue, net income, SBC, buybacks, diluted shares)
-are **real Yahoo Finance data** as of the date stamped in the FINANCIALS tab — rerun
-`scripts/update_data.py` to refresh. Two things remain framework judgments, not data:
-`ownersKeep` (the ¢-per-GAAP-dollar retention, set per the post's quality tiers) and
-the true-owner-earnings calc's simplified economic SBC cost (anti-dilution buyback +
-~25% withholding proxy). Tighten both per-name with real 10-K financing-activity data
-when you go deep on a position.
+## Note on the numbers (v3.0)
+All fundamentals are **real Yahoo Finance as-reported data** — refresh with
+`scripts/update_data.py`. Owner-retention is **computed at runtime** for ~90% of
+names (pooled multi-year owner earnings ÷ net income, latest year share-
+reconciled with M&A/raise issuance excluded and flagged); the rest fall back to
+labeled heuristics. Every stock shows a data-quality badge (HEURISTIC /
+PARTIALLY VERIFIED — nothing is FILING VERIFIED yet) and the brain shows a
+score BAND plus a data-confidence level, not a false-precision point score.
+Full audit, formulas, limitations and tests: see `AUDIT.md` and
+`node tests/run_tests.js` (30 assertions against the production engines).
