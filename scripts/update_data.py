@@ -278,5 +278,17 @@ def main():
         print("Refreshing sectors…")
         update_sectors()
 
+def refresh_options():
+    """Refresh opt:{} blocks (~35d ATM IV, realized vol, put/call OI) for the
+    whole universe. Run separately (slow: ~15 min for 650 names):
+        python scripts/update_data.py --options
+    """
+    import subprocess, os
+    gen = os.path.join(os.path.dirname(os.path.abspath(__file__)), "gen_options.py")
+    subprocess.run([sys.executable, gen], check=True)
+
 if __name__ == "__main__":
-    main()
+    if "--options" in sys.argv:
+        refresh_options()
+    else:
+        main()

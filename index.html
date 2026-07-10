@@ -92,6 +92,16 @@
   .c-teal{color:#6fd8d8} .c-teal.active{border-color:#6fd8d8;box-shadow:0 0 8px rgba(111,216,216,.25)}
   .c-gold{color:#e8c85a} .c-gold.active{border-color:#e8c85a;box-shadow:0 0 8px rgba(232,200,90,.25)}
   .c-ice{color:#7da2ff} .c-ice.active{border-color:#7da2ff;box-shadow:0 0 8px rgba(125,162,255,.25)}
+  .c-lav{color:#d6a2ff} .c-lav.active{border-color:#d6a2ff;box-shadow:0 0 8px rgba(214,162,255,.25)}
+
+  /* options desk play rows */
+  .op-row{display:grid;grid-template-columns:66px 1fr auto;gap:10px;align-items:center;
+    padding:7px 0;border-bottom:1px solid #10151f;cursor:pointer}
+  .op-row:hover{background:#0c121d}
+  .op-row:last-of-type{border-bottom:none}
+  .op-strike{font-weight:800;font-size:12px;white-space:nowrap;text-align:right}
+  .op-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;
+    padding:2px 7px;border-radius:4px;border:1px solid;margin-right:6px;white-space:nowrap}
   .row .star{cursor:pointer;color:var(--dim);font-size:13px;line-height:1}
   .row .star.on{color:var(--amber)}
   .filter button[data-b=fav].active{background:var(--amber)}
@@ -375,7 +385,7 @@
     <div class="nav-grid">
       <button class="navbtn c-purple" id="rankBtn">⚡ Rankings</button>
       <button class="navbtn c-blue" id="grahamBtn">🛡 Graham</button>
-      <button class="navbtn c-green" id="valBtn">⊞ True P/E</button>
+      <button class="navbtn c-green" id="valBtn">⊞ Est P/E</button>
       <button class="navbtn c-cyan" id="sectorBtn">◈ Sectors</button>
       <button class="navbtn c-amber" id="narrBtn">◆ Narratives</button>
       <button class="navbtn c-pink" id="screenBtn">📊 Screener</button>
@@ -384,6 +394,7 @@
       <button class="navbtn c-teal" id="portBtn">💼 Portfolio</button>
       <button class="navbtn c-gold" id="calBtn">📅 Calendar</button>
       <button class="navbtn c-ice" id="techBtn" style="grid-column:span 2">⌬ TECH DESK</button>
+      <button class="navbtn c-lav" id="optBtn" style="grid-column:span 2">⚄ OPTIONS DESK</button>
     </div>
     <div class="wl-head"><span>WATCHLIST</span><span id="wlCount"></span></div>
     <div class="filter" id="filter">
@@ -404,7 +415,7 @@
 <div class="modal" id="modal">
   <div class="box">
     <h2>Connect Live Data</h2>
-    <p>The terminal works fully offline with bundled snapshots. Add a <b>free</b> API key to pull live quotes, news and financial statements. Keys stay in your browser (localStorage) — nothing is sent anywhere except the data provider.</p>
+    <p>The terminal works fully offline with bundled snapshots. Add a <b>free</b> API key to pull live quotes, news and financial statements. Keys are saved in this browser’s localStorage — convenient, but NOT secure storage — nothing is sent anywhere except the data provider.</p>
     <label>FINNHUB API KEY <span style="color:var(--dim)">— quotes + company news</span></label>
     <input id="finnhubKey" placeholder="paste key from finnhub.io" />
     <div class="hint">Free key: <a href="https://finnhub.io/register" target="_blank" rel="noopener">finnhub.io/register</a> · 60 calls/min</div>
@@ -432,10 +443,10 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="data.js?v=16"></script>
-<script src="segments.js?v=16"></script>
-<script src="sectors.js?v=16"></script>
-<script src="charts.js?v=16"></script>
-<script src="app.js?v=16"></script>
+<script src="data.js?v=18"></script>
+<script src="segments.js?v=18"></script>
+<script src="sectors.js?v=18"></script>
+<script src="charts.js?v=18"></script>
+<script src="app.js?v=18"></script>
 </body>
 </html>

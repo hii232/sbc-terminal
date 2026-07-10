@@ -10,7 +10,10 @@
   const signCls = (n) => n >= 0 ? "up" : "down";
   const arrow = (n) => (n >= 0 ? "▲" : "▼");
 
-  const DEFAULT_FINNHUB = "d977d8pr01qs09n8fingd977d8pr01qs09n8fio0"; // ships with terminal; replace in ⚙ if rate-limited
+  // No API keys ship in this codebase. Users supply their own via the ⚙ gear;
+  // they are kept in this browser's localStorage (convenient, NOT secure storage —
+  // anyone with access to this device/profile can read them).
+  const DEFAULT_FINNHUB = "";
   const state = {
     active: null,
     view: "stock", // 'stock' | 'sectors' | 'narratives'
@@ -138,7 +141,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn", "techBtn"];
+  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn", "techBtn", "optBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -205,7 +208,7 @@
       } else {
         const map = { sectors: showSectors, narratives: showNarratives, valuation: showValuation,
           rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare,
-          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech };
+          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
     } finally { navRestoring = false; }
@@ -233,7 +236,7 @@
     const header = `
       <div class="hdr">
         <div>
-          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from filings">◐ auto</span>' : ""}</div>
+          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span></div>
           <div class="co">${d.name} · ${d.sector}</div>
         </div>
         <div>
@@ -247,7 +250,7 @@
           <div class="sub">HEADLINE P/E</div><div class="stat sm">${d.headlinePE ?? "n/m"}</div>
         </div>
         <div>
-          <div class="sub" style="color:var(--amber)">TRUE P/E (SBC-adj)</div>
+          <div class="sub" style="color:var(--amber)">EST OWNER-EARNINGS P/E</div>
           <div class="stat sm" style="color:var(--amber)">${d.truePE ?? "n/m"}</div>
         </div>
         <div class="spacer"></div>
@@ -266,7 +269,9 @@
         .map(([k, l]) => `<button data-tab="${k}" class="${currentTab === k ? "active" : ""}">${l}</button>`).join("")}
     </div>`;
 
-    el("main").innerHTML = header + tabs + `<div id="tabBody"></div>`;
+    el("main").innerHTML = header + tabs
+      + `<div class="sub" style="margin:-6px 0 10px;font-size:9px">source: Yahoo Finance aggregator (quotes, as-reported filings, chains) · formulas ${FORMULA_VERSION} · estimates carry model error — ${dataQualityOf(d).label.toLowerCase()}</div>`
+      + `<div id="tabBody"></div>`;
     el("main").querySelectorAll(".tabs button").forEach(btn =>
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
     const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); render(); };
@@ -303,13 +308,14 @@
   }
 
   function tabOverview(d) {
-    const priceSeries = fakePricePath(d);
+    const px = d.px && d.px.v && d.px.v.length >= 10 ? d.px : null;
     return `<div class="grid g3">
       ${verdictCard(d)}
 
       <div class="card" style="grid-column:span 2">
-        <h3>PRICE · 12M INTRADAY PROXY <span class="unit">${state.live[d.ticker]?.quote ? "anchored to live px" : "illustrative"}</span></h3>
-        ${Chart.line([{ points: priceSeries, color: "var(--cyan)" }], priceLabels(), { area: true, h: 200 })}
+        <h3>PRICE — 12M WEEKLY CLOSES <span class="unit">${px ? "real Yahoo Finance data · " + px.from + " → " + px.to : "unavailable"}</span></h3>
+        ${px ? Chart.line([{ points: px.v, color: "var(--cyan)" }], px.v.map((_, i) => i === 0 ? px.from.slice(5) : i === px.v.length - 1 ? px.to.slice(5) : ""), { area: true, h: 200 })
+             : `<div class="sub" style="padding:28px 10px;text-align:center">Real price history not bundled for this name.<br>Run <b>python scripts/gen_prices.py</b> to fetch it — this terminal does not draw synthetic charts.</div>`}
       </div>
       <div class="card">
         <h3>OWNER-EARNINGS RETENTION</h3>
@@ -320,7 +326,7 @@
       <div class="card"><h3>GAAP EPS</h3><div class="stat">$${d.gaapEPS?.toFixed(2) ?? "–"}</div><div class="sub">what's actually reported</div></div>
       <div class="card"><h3>WALL ST ADJ EPS</h3><div class="stat" style="color:var(--orange)">$${d.nonGaapEPS?.toFixed(2) ?? "–"}</div>
         <div class="sub">${d.gaapEPS && d.nonGaapEPS ? "+" + (((d.nonGaapEPS - d.gaapEPS) / d.gaapEPS) * 100).toFixed(0) + "% above GAAP" : ""}</div></div>
-      <div class="card"><h3>TRUE SBC-ADJ EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">the number to value off</div></div>
+      <div class="card"><h3>EST OWNER EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">estimate — value off this, not adjusted EPS</div></div>
 
       ${ivLadderCard(d)}
 
@@ -390,7 +396,7 @@
     <div class="grid g2" style="margin-top:12px">
       <!-- STEP 5: true owner earnings waterfall -->
       <div class="card">
-        <h3>④ TRUE OWNER EARNINGS <span class="unit">latest FY, $B</span></h3>
+        <h3>④ ESTIMATED OWNER EARNINGS <span class="unit">latest FY, $B</span></h3>
         ${waterfall}
         <div class="sub" style="margin-top:6px">True cost = anti-dilution buyback (${money(st.antiDil)}) + est. tax-withholding on vesting (${money(st.withholding)}). Withholding often hides in <b>financing</b> cash flows (ASU 2016-09).</div>
       </div>
@@ -401,7 +407,7 @@
         ${Chart.hbars([
           { label: "Headline P/E", value: d.headlinePE || 0, color: "var(--cyan)", display: (d.headlinePE ?? "n/m") + "x" },
           { label: "Wall St adj", value: d.headlinePE || 0, color: "var(--orange)", display: (d.headlinePE ?? "n/m") + "x" },
-          { label: "TRUE P/E", value: d.truePE || 0, color: "var(--amber)", display: (d.truePE ?? "n/m") + "x" },
+          { label: "EST P/E", value: d.truePE || 0, color: "var(--amber)", display: (d.truePE ?? "n/m") + "x" },
         ], { max: (d.truePE || d.headlinePE || 1) * 1.15, labelW: 92 })}
         <div class="note ${d.truePE > (d.headlinePE || 0) * 1.25 ? "callout" : ""}" style="margin-top:10px">
           Headline ${d.headlinePE ?? "n/m"}x ÷ ${(d.ownersKeep * 100).toFixed(0)}¢ retention = <b>${d.truePE ?? "n/m"}x</b> on owner earnings.
@@ -576,7 +582,7 @@
             ["3 · Share-count truth", "Diluted shares over 1/3/5/10y — falling, flat, rising, or exploding?"],
             ["4 · Buyback quality", "Split anti-dilution (offsets SBC) vs real reduction; only bullish if shares fall AND price < intrinsic value."],
             ["5 · True owner earnings", "GAAP NI + SBC add-back − true economic SBC cost (offset buyback + withholding − option/ESPP inflows)."],
-            ["6 · Valuation re-rate", "Headline P/E ÷ owner-earnings retention = true P/E."],
+            ["6 · Valuation re-rate", "Headline P/E ÷ owner-earnings retention = est owner-earnings P/E."],
             ["7 · Management score", "A→F on SBC discipline, buyback honesty, share-count direction."],
           ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
         </div>
@@ -607,7 +613,7 @@
             ["Baseline intrinsic value", "Sits between IV8 and IV10 depending on quality — this terminal uses IV8 for clean names, IV9 middle, IV10 lower tiers."],
             ["The buyback nuance", "Buybacks BELOW baseline IV are accretive to intrinsic value per share. Above it, they pull shares in but DILUTE IV/share — which is what most tech companies do when offsetting SBC at high prices."],
             ["Inflecting companies", "Get a 4th DCF stage (growth cap lifted to 25%) — e.g. DKNG. The value is in the transition."],
-            ["The All Map", "Baseball-field view on the ⊞ TRUE P/E tab: Fat Pitches (≥15% implied), Just Outside (10–15%), The Out Field (<10%)."],
+            ["The All Map", "Baseball-field view on the ⊞ EST P/E tab: Fat Pitches (≥15% implied), Just Outside (10–15%), The Out Field (<10%)."],
           ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
         </div>
         <div>
@@ -996,7 +1002,7 @@
     { k: "composite", label: "BRAIN SCORE" },
     { k: "call", label: "CALL" },
     { k: "cagr", label: "IMPLIED CAGR" },
-    { k: "truePE", label: "TRUE P/E" },
+    { k: "truePE", label: "EST P/E" },
     { k: "sbcPctRev", label: "SBC/REV" },
     { k: "ownersKeep", label: "OWNER ¢" },
     { k: "graham", label: "GRAHAM /7" },
@@ -1068,7 +1074,7 @@
         <div class="card"><h3>TOP CAGR — ${byCagr[0]?.d.ticker || "–"}</h3>
           <div class="stat" style="color:var(--green)">${byCagr[0] ? (byCagr[0].r.cagr * 100).toFixed(1) + "%" : "–"}<span class="sub" style="font-weight:400">/yr</span></div>
           <div class="sub" style="margin-top:4px">highest IV15 implied 15-year compounded return</div></div>
-        <div class="card"><h3>CHEAPEST TRUE P/E — ${byCheap[0]?.d.ticker || "–"}</h3>
+        <div class="card"><h3>CHEAPEST EST P/E — ${byCheap[0]?.d.ticker || "–"}</h3>
           <div class="stat" style="color:var(--amber)">${byCheap[0] ? byCheap[0].r.truePE.toFixed(1) + "x" : "–"}</div>
           <div class="sub" style="margin-top:4px">${byCheap[0] ? byCheap[0].d.name : ""} — lowest SBC-adjusted multiple</div></div>
       </div>
@@ -1290,6 +1296,13 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
+  const FORMULA_VERSION = "v2.1 (2026-07)"; // bump when any engine formula changes
+  // Data-quality per spec: nothing here is reconciled line-by-line to filings.
+  //  PARTIALLY VERIFIED — curated names whose segment revenue was checked to the 10-K
+  //  HEURISTIC        — aggregator (Yahoo) data + framework judgments/derivations
+  const dataQualityOf = (d) => (!d.derived && typeof SEGMENTS !== "undefined" && SEGMENTS[d.ticker])
+    ? { label: "PARTIALLY VERIFIED", color: "var(--amber)", tip: "Segment revenue checked against the 10-K; other inputs are aggregator data (Yahoo Finance), not reconciled to filings." }
+    : { label: "HEURISTIC", color: "var(--dim)", tip: "Aggregator data (Yahoo Finance) + derived framework fields. Not reconciled to company filings — verify before sizing real money." };
   const toolHeader = (icon, title, sub, right = "") => `<div class="hdr"><div><div class="tick" style="color:var(--cyan)">${icon} ${title}</div><div class="co">${sub}</div></div><div class="spacer"></div>${right}</div>`;
 
   /* ============================================================================
@@ -1504,7 +1517,7 @@
       ${sel("zone", S.zone, [["all", "Any IV zone"], ["fat", "Fat Pitch"], ["just", "Just Outside"], ["out", "Out Field"]])}
       ${sel("sector", S.sector, [["all", "All sectors"], ...sectors.map(s => [s, s])])}
       ${sel("gMin", S.gMin, [[0, "Graham ≥ any"], [4, "Graham ≥ 4/7"], [5, "Graham ≥ 5/7"], [6, "Graham ≥ 6/7"]])}
-      <span class="scr-lbl">True P/E ≤</span>${num("peMax", S.peMax, "any")}
+      <span class="scr-lbl">Est owner-earnings P/E ≤</span>${num("peMax", S.peMax, "any")}
       <span class="scr-lbl">SBC/rev ≤</span>${num("sbcMax", S.sbcMax, "%")}
       <span class="scr-lbl">Cap ≥</span>${num("capMin", S.capMin, "$B")}
       <label class="scr-chk"><input type="checkbox" data-f="favOnly" ${S.favOnly ? "checked" : ""}/>★ only</label>
@@ -1526,7 +1539,7 @@
       `<div style="text-align:right"><div class="sub">MATCHES</div><div class="stat sm" style="color:#ff6ec7">${rows.length}</div></div>`)
       + controls
       + `<div class="card" style="padding:6px 8px"><div style="overflow:auto;max-height:66vh"><table class="rank">
-        <thead><tr><th>#</th><th>TICKER · SECTOR</th><th>SCORE</th><th>IV CAGR</th><th>TRUE P/E</th><th>SBC/REV</th><th>GRAHAM</th><th>MKT CAP</th></tr></thead>
+        <thead><tr><th>#</th><th>TICKER · SECTOR</th><th>SCORE</th><th>IV CAGR</th><th>EST P/E</th><th>SBC/REV</th><th>GRAHAM</th><th>MKT CAP</th></tr></thead>
         <tbody>${body || `<tr><td colspan="8" style="padding:20px;text-align:center" class="sub">No matches — loosen the filters.</td></tr>`}</tbody></table></div></div>`;
     el("main").querySelectorAll(".scr-input").forEach(inp => inp.onchange = () => { screenState[inp.dataset.f] = inp.value; renderScreener(); });
     el("main").querySelectorAll('input[type=checkbox]').forEach(c => c.onchange = () => { screenState[c.dataset.f] = c.checked; renderScreener(); });
@@ -1544,7 +1557,7 @@
       ["Bucket", d => d.bucket.toUpperCase(), null],
       ["Mgmt grade", d => d.grade, null],
       ["Headline P/E", d => d.headlinePE ? d.headlinePE.toFixed(1) + "x" : "n/m", d => -(d.headlinePE || 999)],
-      ["True P/E (SBC-adj)", d => d.truePE ? d.truePE.toFixed(1) + "x" : "n/m", d => -(d.truePE || 999)],
+      ["Est owner-earnings P/E (SBC-adj)", d => d.truePE ? d.truePE.toFixed(1) + "x" : "n/m", d => -(d.truePE || 999)],
       ["IV15 implied CAGR", d => { const L = ivLadder(d); return L ? (L.impliedCAGR * 100).toFixed(1) + "%" : "n/m"; }, d => { const L = ivLadder(d); return L ? L.impliedCAGR : -9; }],
       ["SBC / revenue", d => d.sbcPctRev == null ? "–" : d.sbcPctRev.toFixed(1) + "%", d => d.sbcPctRev == null ? 999 : -d.sbcPctRev],
       ["Owner earnings kept", d => (d.ownersKeep * 100).toFixed(0) + "¢", d => d.ownersKeep],
@@ -1684,6 +1697,151 @@
       }).catch(() => { el("calBody").innerHTML = `<div class="sub" style="padding:16px">Couldn't load the calendar (rate limit or network). Try again shortly.</div>`; });
   }
 
+  /* ============================================================================
+     ⚄ OPTIONS DESK — the frameworks turned into option plays.
+     Real ~35-day ATM implied vol + realized vol + put/call OI per name
+     (opt:{} blocks). Premium estimates are Black-Scholes on the stored ATM
+     vol — approximations for sizing the idea, not executable quotes.
+     ============================================================================ */
+  const normCdf = (x) => {
+    const t = 1 / (1 + 0.2316419 * Math.abs(x));
+    const dNorm = Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI);
+    const p = dNorm * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
+    return x >= 0 ? 1 - p : p;
+  };
+  function bsPrice(type, S, K, iv, dte, r = 0.04) {
+    if (!S || !K || !iv || !dte || dte <= 0) return null;
+    const T = dte / 365, sq = iv * Math.sqrt(T);
+    const d1 = (Math.log(S / K) + (r + iv * iv / 2) * T) / sq, d2 = d1 - sq;
+    return type === "put"
+      ? K * Math.exp(-r * T) * normCdf(-d2) - S * normCdf(-d1)
+      : S * normCdf(d1) - K * Math.exp(-r * T) * normCdf(d2);
+  }
+  const roundStrike = (p) => { const inc = p < 25 ? 2.5 : p < 100 ? 5 : p < 250 ? 10 : p < 500 ? 25 : 50; return Math.round(p / inc) * inc; };
+
+  // one stock -> its best option play (or null)
+  function optionPlayOf(d, V) {
+    V = V || verdictOf(d);
+    const L = V.L, o = d.opt;
+    const price = L ? L.price : (state.live[d.ticker]?.quote?.price ?? d.price);
+    if (!price || price <= 0) return null;
+    const iv = o ? o.iv : null, rv = o ? o.rv : null, dte = o ? o.dte : 35;
+    const rich = iv && rv ? iv / rv : null; // premium richness: IV vs realized
+    const keep = d.ownersKeep || 0;
+
+    // 1 · GET PAID TO WAIT — cash-secured put at the IV15 buy target
+    if (L && ["STALK", "WATCH", "ACC"].includes(V.call) && keep >= 0.8 && V.score >= 55
+        && price > L.IV15 && price <= L.IV15 * 1.5) {
+      const K = roundStrike(Math.min(L.IV15, price * 0.97));
+      if (K > 0 && K < price) {
+        const prem = iv ? bsPrice("put", price, K, iv, dte) : null;
+        const annYield = prem && K ? (prem / K) * (365 / dte) * 100 : null;
+        return { type: "csp", label: "SELL PUT — PAID TO WAIT", color: "var(--green)", K, prem, annYield, rich, iv, dte, exp: o && o.exp,
+          why: `${V.C.label.split(" — ")[0]} at $${price.toFixed(0)} · IV15 buy target $${L.IV15.toFixed(0)} — sell the $${K} put: collect ${annYield ? annYield.toFixed(0) + "%/yr" : "premium"} or get the entry you already wanted${rich ? (rich >= 1.15 ? " · premium RICH (IV " + (iv * 100).toFixed(0) + "% vs " + (rv * 100).toFixed(0) + "% realized)" : rich <= 0.9 ? " · premium thin — smaller edge" : "") : ""}` };
+      }
+    }
+    // 2 · FAT-PITCH CALLS — leverage the swing
+    if (L && (V.call === "SWING" || (V.call === "ACC" && V.cagr >= 0.13)) && keep >= 0.7) {
+      const K = roundStrike(price);
+      const prem = iv ? bsPrice("call", price, K, iv, dte) : null;
+      return { type: "call", label: "LONG CALLS / LEAPS — FAT PITCH", color: "#7dd87d", K, prem, rich, iv, dte, exp: o && o.exp,
+        why: `${V.C.label.split(" — ")[0]} · priced for ${(V.cagr * 100).toFixed(0)}%/yr on the range — ${rich != null ? (rich <= 1.05 ? "options fairly priced (IV " + (iv * 100).toFixed(0) + "% ≈ realized " + (rv * 100).toFixed(0) + "%) — leverage the pitch with LEAPS" : "premium rich — prefer stock, deep-ITM LEAPS or call spreads") : "prefer long-dated, deep-ITM strikes"}` };
+    }
+    // 3 · PREMIUM HARVEST — covered calls on clean, fully-priced names
+    if (L && keep >= 0.85 && V.cagr != null && V.cagr < 0.09 && rich != null && rich >= 1.15 && V.call !== "TRAP" && V.call !== "AVOID") {
+      const K = roundStrike(price * 1.08);
+      const prem = iv ? bsPrice("call", price, K, iv, dte) : null;
+      const annYield = prem ? (prem / price) * (365 / dte) * 100 : null;
+      return { type: "cc", label: "COVERED CALL — HARVEST", color: "var(--amber)", K, prem, annYield, rich, iv, dte, exp: o && o.exp,
+        why: `clean earnings but only ${(V.cagr * 100).toFixed(0)}%/yr at this price · IV ${(iv * 100).toFixed(0)}% vs ${(rv * 100).toFixed(0)}% realized — sell the $${K} call against stock for ${annYield ? "~" + annYield.toFixed(0) + "%/yr" : "premium"} while you wait` };
+    }
+    // 4 · BEARISH — dilution machines priced for negative returns
+    if ((V.call === "AVOID" || V.call === "TRAP") && V.cagr != null && V.cagr < 0.02) {
+      const K = roundStrike(price * 0.9);
+      const prem = iv ? bsPrice("put", price, K, iv, dte) : null;
+      return { type: "bear", label: "BEARISH — PUTS / SPREADS", color: "var(--red)", K, prem, rich, iv, dte, exp: o && o.exp,
+        why: `${V.C.label.split(" — ")[0]} · priced for ${(V.cagr * 100).toFixed(1)}%/yr even on the friendly case${rich != null ? (rich >= 1.2 ? " · IV already rich (" + (iv * 100).toFixed(0) + "%) — use put SPREADS, not naked longs" : " · downside not fully priced (IV " + (iv * 100).toFixed(0) + "%)") : ""} · momentum can run — size small, define risk` };
+    }
+    return null;
+  }
+
+  const optState = { earnings: {}, earnLoaded: false, sort: "iv", dir: -1 };
+  function renderOptions() {
+    const withOpt = DATA.filter(d => d.opt && d.opt.iv);
+    const plays = [];
+    DATA.forEach(d => { const p = optionPlayOf(d); if (p) plays.push({ d, p }); });
+    const buckets = { csp: [], call: [], cc: [], bear: [] };
+    plays.forEach(x => buckets[x.p.type].push(x));
+    buckets.csp.sort((a, b) => (b.p.annYield || 0) - (a.p.annYield || 0));
+    buckets.call.sort((a, b) => (a.p.rich || 9) - (b.p.rich || 9));
+    buckets.cc.sort((a, b) => (b.p.annYield || 0) - (a.p.annYield || 0));
+    buckets.bear.sort((a, b) => (a.p.rich || 9) - (b.p.rich || 9));
+
+    const earn = optState.earnings;
+    const row = (x) => {
+      const d = x.d, p = x.p;
+      const e = earn[d.ticker];
+      return `<div class="op-row" data-tk="${d.ticker}">
+        <span class="pe-tk">${d.ticker}${e ? ` <span title="earnings ${e}" style="color:var(--orange)">⚠</span>` : ""}</span>
+        <span class="sub">${p.why}${e ? ` · <b style="color:var(--orange)">earnings ${e} — premium juiced, expect a move</b>` : ""}</span>
+        <span class="op-strike" style="color:${p.color}">$${p.K}${p.exp ? `<br><span class="sub" style="font-weight:400">${p.exp.slice(5)} · ${p.prem != null ? "≈$" + p.prem.toFixed(2) : "est n/a"}${p.annYield ? " · " + p.annYield.toFixed(0) + "%/yr" : ""}</span>` : ""}</span>
+      </div>`;
+    };
+    const section = (title, color, arr, sub) => arr.length ? `<div class="card" style="margin-bottom:12px;border-left:3px solid ${color}">
+      <h3>${title} <span class="unit">${sub} · ${arr.length} names</span></h3>${arr.slice(0, 12).map(row).join("")}</div>` : "";
+
+    const sorted = [...withOpt].map(d => ({ d, r: d.opt.rv ? d.opt.iv / d.opt.rv : null }))
+      .sort((a, b) => {
+        const k = optState.sort;
+        const va = k === "iv" ? a.d.opt.iv : k === "rv" ? (a.d.opt.rv ?? -1) : k === "rich" ? (a.r ?? -1) : (a.d.opt.pcr ?? -1);
+        const vb = k === "iv" ? b.d.opt.iv : k === "rv" ? (b.d.opt.rv ?? -1) : k === "rich" ? (b.r ?? -1) : (b.d.opt.pcr ?? -1);
+        return (va - vb) * optState.dir;
+      });
+
+    el("main").innerHTML = toolHeader("⚄", "OPTIONS DESK", "the frameworks turned into trades — strikes from the IV ladder, direction from the brain, pricing vs realized vol",
+      `<div style="text-align:right"><div class="sub">PLAYS ON THE TAPE</div><div class="stat sm" style="color:#d6a2ff">${plays.length}</div></div>`)
+      + `<div class="note" style="margin-bottom:12px;border-left-color:#d6a2ff">Plays surface here automatically when a setup qualifies: <b style="color:var(--green)">sell puts</b> where you already want to own at the IV15 target · <b style="color:#7dd87d">long calls</b> on fat pitches with fair vol · <b style="color:var(--amber)">covered calls</b> on clean-but-priced names with rich premium · <b style="color:var(--red)">puts/spreads</b> on dilution machines. Premiums are Black-Scholes estimates on the stored ~35-day ATM vol — for sizing the idea, not executable quotes. ⚠ = earnings inside 3 weeks.</div>`
+      + section("🟢 GET PAID TO WAIT — CASH-SECURED PUTS AT YOUR BUY PRICE", "var(--green)", buckets.csp, "strike ≈ IV15 buy target · sorted by annualized yield")
+      + section("🚀 FAT-PITCH CALLS — LEVERAGE THE SWING", "#7dd87d", buckets.call, "brain says swing/accumulate · cheapest vol first")
+      + section("🌾 PREMIUM HARVEST — COVERED CALLS", "var(--amber)", buckets.cc, "clean earnings, fully priced, rich IV")
+      + section("🔻 BEARISH — DEFINED-RISK PUTS", "var(--red)", buckets.bear, "dilution machines priced for negative returns")
+      + (withOpt.length ? `<div class="card" style="padding:6px 8px"><h3 style="padding:6px 8px 0">THE VOL BOARD <span class="unit">${withOpt.length} names with live chains · tap a column to sort · IV/RV &gt; 1.15 = premium rich (sell) · &lt; 0.9 = cheap (buy)</span></h3>
+        <div style="overflow-x:auto;max-height:56vh;overflow-y:auto"><table class="rank">
+        <thead><tr><th>TICKER</th><th data-osort="iv" class="${optState.sort === "iv" ? "sorted" : ""}">ATM IV</th><th data-osort="rv" class="${optState.sort === "rv" ? "sorted" : ""}">REALIZED</th><th data-osort="rich" class="${optState.sort === "rich" ? "sorted" : ""}">IV/RV</th><th data-osort="pcr" class="${optState.sort === "pcr" ? "sorted" : ""}">PUT/CALL OI</th><th>EXPIRY</th><th>PLAY</th></tr></thead>
+        <tbody>${sorted.slice(0, 120).map((y) => { const d = y.d, r = y.r; const pl = plays.find(x => x.d.ticker === d.ticker); const p = pl && pl.p;
+          return `<tr data-tk="${d.ticker}"><td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
+          <td>${(d.opt.iv * 100).toFixed(0)}%</td><td class="sub">${d.opt.rv ? (d.opt.rv * 100).toFixed(0) + "%" : "–"}</td>
+          <td class="${r == null ? "" : r >= 1.15 ? "up" : r <= 0.9 ? "down" : ""}">${r ? r.toFixed(2) : "–"}</td>
+          <td class="${d.opt.pcr == null ? "" : d.opt.pcr >= 1.3 ? "down" : d.opt.pcr <= 0.6 ? "up" : ""}">${d.opt.pcr ?? "–"}</td>
+          <td class="sub">${d.opt.exp ? d.opt.exp.slice(5) + " (" + d.opt.dte + "d)" : "–"}</td>
+          <td>${p ? `<span class="op-badge" style="color:${p.color};border-color:${p.color}">${p.label.split(" — ")[0]}</span>` : ""}</td></tr>`; }).join("")}</tbody>
+        </table></div></div>`
+      : `<div class="note">Options data hasn't been baked in yet — ask me to refresh options and I'll pull ~35-day implied vol, realized vol and open interest for the whole universe. The play sections above still work off the frameworks.</div>`);
+
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("th[data-osort]").forEach(h => h.onclick = (ev) => {
+      ev.stopPropagation();
+      const k = h.dataset.osort;
+      if (optState.sort === k) optState.dir *= -1; else { optState.sort = k; optState.dir = -1; }
+      renderOptions();
+    });
+
+    // earnings flags (live, async — re-annotate once loaded)
+    const key = state.keys.finnhub;
+    if (key && !optState.earnLoaded) {
+      const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
+      const fmtD = dt => dt.toISOString().slice(0, 10);
+      fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${fmtD(today)}&to=${fmtD(to)}&token=${key}`)
+        .then(r => r.json()).then(j => {
+          const uni = new Set(DATA.map(d => d.ticker));
+          (j.earningsCalendar || []).forEach(e => { if (uni.has(e.symbol)) optState.earnings[e.symbol] = e.date; });
+          optState.earnLoaded = true;
+          if (state.view === "options") renderOptions();
+        }).catch(() => {});
+    }
+  }
+  const showOptions = () => showView("options", renderOptions, "optBtn");
+
   const showScreener = () => showView("screener", renderScreener, "screenBtn");
   const showCompare = () => showView("compare", renderCompare, "compareBtn");
   const showTriggers = () => showView("triggers", renderTriggers, "trigBtn");
@@ -1762,7 +1920,7 @@
           <div style="min-width:96px;text-align:center"><div class="sub" style="color:#7da2ff;font-weight:700;letter-spacing:1px">TECH vs<br>THE REST</div></div>
           ${cell("MEDIAN SBC / REVENUE", stat.sbcT, stat.sbcR, v => v == null ? "–" : v.toFixed(1) + "%", true)}
           ${cell("OWNER-¢ KEPT / $1", stat.keepT, stat.keepR, v => v == null ? "–" : (v * 100).toFixed(0) + "¢", false)}
-          ${cell("MEDIAN TRUE P/E", stat.peT, stat.peR, v => v == null ? "–" : v.toFixed(1) + "x", true)}
+          ${cell("MEDIAN EST P/E", stat.peT, stat.peR, v => v == null ? "–" : v.toFixed(1) + "x", true)}
           ${cell("NON-GAAP INFLATION", stat.gapT, stat.gapR, v => v == null ? "–" : "+" + v.toFixed(0) + "%", true)}
         </div>
         <div class="sub" style="padding:8px 12px 2px">This strip is the whole thesis in four numbers: tech pays more of your earnings to employees, keeps less per GAAP dollar, trades richer on true earnings, and inflates non-GAAP harder than the rest of the market.</div></div>`
@@ -1806,7 +1964,7 @@
   }
   const showTech = () => showView("tech", renderTech, "techBtn");
 
-  /* ------------------------ TRUE P/E SCREENER view ------------------------ */
+  /* ------------------------ EST OWNER-EARNINGS P/E SCREENER view ------------------------ */
   const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
   const bucketColor = (b) => BUCKETS[b].color;
 
@@ -1841,7 +1999,7 @@
       const r3 = g.s ? retOver(g.s, 3) : null;
       return `<div class="card">
         <h3>${(g.s ? g.s.name : g.etf).toUpperCase()} · ${g.etf}
-          <span class="unit">median TRUE P/E <b style="color:var(--amber)">${g.med ? g.med.toFixed(1) + "x" : "n/m"}</b>${r3 != null ? ` · 3M <b class="${r3 >= 0 ? "up" : "down"}">${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%</b>` : ""}</span></h3>
+          <span class="unit">median est P/E <b style="color:var(--amber)">${g.med ? g.med.toFixed(1) + "x" : "n/m"}</b>${r3 != null ? ` · 3M <b class="${r3 >= 0 ? "up" : "down"}">${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%</b>` : ""}</span></h3>
         ${g.withPE.map(d => peRow(d, cap)).join("")}
         ${g.noPE.length ? `<div class="sub" style="margin-top:6px">n/m (GAAP loss or no P/E): ${g.noPE.map(d => `<span class="tag" data-tk="${d.ticker}" style="cursor:pointer">${d.ticker}</span>`).join("")}</div>` : ""}
       </div>`;
@@ -1850,17 +2008,17 @@
     el("main").innerHTML = `
       <div class="hdr">
         <div>
-          <div class="tick" style="color:var(--green)">⊞ TRUE P/E SCREENER</div>
+          <div class="tick" style="color:var(--green)">⊞ EST OWNER-EARNINGS P/E SCREENER</div>
           <div class="co">SBC-adjusted valuation vs sector competitors · sectors & stocks ranked cheapest → most expensive</div>
         </div>
         <div class="spacer"></div>
         <div style="text-align:right">
-          <div class="sub">MEDIAN TRUE P/E · ALL ${all.length} NAMES</div>
+          <div class="sub">MEDIAN EST P/E · ALL ${all.length} NAMES</div>
           <div class="stat sm" style="color:var(--amber)">${medianOf(all.map(d => d.truePE)).toFixed(1)}x</div>
         </div>
       </div>
       <div class="note" style="margin-bottom:12px">
-        <b style="color:var(--cyan)">Cyan</b> = headline P/E · <b style="color:var(--red)">red</b> = the SBC dilution premium you actually pay · <b style="color:var(--amber)">amber number</b> = TRUE P/E (headline ÷ owner-earnings retention). Colored dot = quality bucket. Tap any row to open the stock.
+        <b style="color:var(--cyan)">Cyan</b> = headline P/E · <b style="color:var(--red)">red</b> = the SBC dilution premium you actually pay · <b style="color:var(--amber)">amber number</b> = EST P/E (headline ÷ owner-earnings retention). Colored dot = quality bucket. Tap any row to open the stock.
       </div>
       <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
         <h3>THE ALL MAP — WHERE EVERY PITCH LANDS <span class="unit">IV-ladder DCF on SBC-adj owner earnings · ${map.counts.fat} fat pitches · ${map.counts.just} just outside · ${map.counts.out} out field · tap a dot</span></h3>
@@ -1869,11 +2027,11 @@
       </div>
       <div class="grid g2" style="margin-bottom:12px">
         <div class="card" style="border-left:3px solid var(--green)">
-          <h3>CHEAPEST IN THE MARKET <span class="unit">true P/E, whole board</span></h3>
+          <h3>CHEAPEST IN THE MARKET <span class="unit">est owner-earnings P/E, whole board</span></h3>
           ${cheapest.map(d => peRow(d, globalCap)).join("")}
         </div>
         <div class="card" style="border-left:3px solid var(--red)">
-          <h3>MOST EXPENSIVE <span class="unit">true P/E, whole board</span></h3>
+          <h3>MOST EXPENSIVE <span class="unit">est owner-earnings P/E, whole board</span></h3>
           ${dearest.map(d => peRow(d, globalCap)).join("")}
         </div>
       </div>
@@ -2232,24 +2390,6 @@
   }
   function escapeHtml(s) { return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 
-  // deterministic pseudo price path anchored to current price
-  function fakePricePath(d) {
-    const price = state.live[d.ticker]?.quote?.price ?? d.price;
-    const n = 26; const out = []; let seed = 0;
-    for (let i = 0; i < d.ticker.length; i++) seed += d.ticker.charCodeAt(i);
-    let v = price * (0.72 + (d.bucket === "tragic" ? 0.05 : 0.18));
-    const drift = (price - v) / n;
-    for (let i = 0; i < n; i++) {
-      seed = (seed * 9301 + 49297) % 233280;
-      const noise = (seed / 233280 - 0.5) * price * 0.05;
-      v = v + drift + noise;
-      out.push(+v.toFixed(2));
-    }
-    out[n - 1] = price;
-    return out;
-  }
-  function priceLabels() { return ["12M", "", "", "9M", "", "", "6M", "", "", "3M", "", "", "NOW"].filter((_, i) => i % 2 === 0).concat().slice(0, 13); }
-
   /* ------------------------ LIVE DATA ------------------------ */
   async function fetchLive(tk, full = true) {
     const d = DATA.find(x => x.ticker === tk);
@@ -2260,7 +2400,14 @@
     if (k.finnhub) {
       tasks.push(fetch(`https://finnhub.io/api/v1/quote?symbol=${tk}&token=${k.finnhub}`)
         .then(r => r.json()).then(q => {
-          if (q && q.c) state.live[tk].quote = { price: q.c, changePct: q.dp ?? 0 };
+          if (q && q.c) {
+            state.live[tk].quote = { price: q.c, changePct: q.dp ?? 0 };
+            // recompute price-derived multiples so they never go stale vs live price
+            if (d.gaapEPS > 0) {
+              d.headlinePE = +(q.c / d.gaapEPS).toFixed(1);
+              d.truePE = d.ownersKeep ? +((q.c / d.gaapEPS) / d.ownersKeep).toFixed(1) : d.truePE;
+            }
+          }
         }).catch(() => {}));
       if (full) { // news only for the selected ticker — keeps the free key inside 60 calls/min
         const to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 30;
@@ -2351,8 +2498,9 @@
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
     if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
     if (["TECH", "SW50", "SOFTWARE", "SEMIS", "TECHDESK"].includes(q)) { showTech(); return; }
+    if (["OPTIONS", "OPTS", "PUTS", "CALLS", "VOL", "IV"].includes(q)) { showOptions(); return; }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
-      showValuation(); flash("True P/E screener", "ok"); return;
+      showValuation(); flash("Est owner-earnings P/E screener", "ok"); return;
     }
     if (["NARRATIVES", "NARRATIVE", "NARR", "STORIES", "STORY", "POLYMARKET"].includes(q)) {
       showNarratives(); flash("Narratives view", "ok"); return;
@@ -2433,6 +2581,7 @@
     el("portBtn").onclick = showPortfolio;
     el("calBtn").onclick = showCalendar;
     el("techBtn").onclick = showTech;
+    el("optBtn").onclick = showOptions;
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
     el("backdrop").onclick = closeDrawer;
 
