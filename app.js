@@ -142,7 +142,7 @@
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
-    closeDrawer(); window.scrollTo({ top: 0 }); syncNav();
+    closeDrawer(); window.scrollTo({ top: 0 }); syncNav(); pushNav();
   }
   function selectTicker(tk) {
     state.active = tk;
@@ -153,6 +153,7 @@
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
+    pushNav();
     if (state.keys.finnhub || state.keys.fmp) fetchLive(tk);
   }
   function showSectors() {
@@ -163,6 +164,7 @@
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
+    pushNav();
   }
 
   /* ------------------------ mobile drawer + bottom nav ------------------------ */
@@ -176,6 +178,46 @@
     el("navPE").classList.toggle("active", !drawerOpen && state.view === "valuation");
     el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
   }
+
+  /* ------------------------ phone back-button / history navigation ------------
+     Every navigation (stock, tab, tool view) becomes a history entry, so the
+     phone's back button moves back and forth INSIDE the app instead of
+     leaving it. Back also closes the drawer first if it's open. ------------- */
+  let navRestoring = false;
+  const navKey = (st) => st ? `${st.view}|${st.tk || ""}|${st.tab || ""}` : "";
+  function pushNav(force) {
+    if (navRestoring) return;
+    const st = state.view === "stock"
+      ? { view: "stock", tk: state.active, tab: currentTab }
+      : { view: state.view };
+    if (!force && navKey(history.state) === navKey(st)) return; // no duplicate entries
+    try {
+      if (history.state == null) history.replaceState(st, "", "");
+      else history.pushState(st, "", "");
+    } catch (e) { /* history API unavailable (file://) — ignore */ }
+  }
+  function restoreNav(st) {
+    navRestoring = true;
+    try {
+      if (!st || st.view === "stock") {
+        if (st && st.tab) currentTab = st.tab;
+        selectTicker((st && st.tk) || state.active || "NVDA");
+      } else {
+        const map = { sectors: showSectors, narratives: showNarratives, valuation: showValuation,
+          rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare,
+          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech };
+        (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
+      }
+    } finally { navRestoring = false; }
+  }
+  window.addEventListener("popstate", (e) => {
+    if ($("aside").classList.contains("open")) {
+      closeDrawer();
+      pushNav(true); // back only closed the drawer — keep the current view on the stack
+      return;
+    }
+    restoreNav(e.state);
+  });
 
   /* ------------------------ main render ------------------------ */
   function render() {
@@ -226,7 +268,7 @@
 
     el("main").innerHTML = header + tabs + `<div id="tabBody"></div>`;
     el("main").querySelectorAll(".tabs button").forEach(btn =>
-      btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); });
+      btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
     const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); render(); };
     renderTab(d);
   }
@@ -1139,6 +1181,7 @@
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
+    pushNav();
   }
 
   /* ============================================================================
@@ -1836,6 +1879,7 @@
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
+    pushNav();
   }
   function showRankings() {
     state.view = "rankings";
@@ -1846,6 +1890,7 @@
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
+    pushNav();
   }
 
   /* ------------------------ NARRATIVES view ------------------------ */
@@ -2059,6 +2104,7 @@
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
+    pushNav();
   }
 
   /* ------------------------ SECTOR FLOW view ------------------------ */
