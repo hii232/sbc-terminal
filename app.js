@@ -138,7 +138,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn"];
+  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn", "techBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -281,6 +281,8 @@
       <div class="card"><h3>TRUE SBC-ADJ EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">the number to value off</div></div>
 
       ${ivLadderCard(d)}
+
+      ${capexCard(d)}
 
       ${qualityCard(d)}
 
@@ -798,11 +800,30 @@
       for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; iv(mid) > price ? (lo = mid) : (hi = mid); }
       impliedCAGR = (lo + hi) / 2;
     }
+    // ---- GROWTH-CASE (AI-cycle) scenario: same DCF, strictness relaxed ----
+    // No quality haircut, growth cap lifted to 35%, exit multiple +3. This is
+    // the "what if I'm being too 1940 about this cycle" number — shown next to
+    // the conservative one so you see the RANGE, not a single dogma.
+    const rawG = (gRecent ?? gCagr ?? 0.06) * 0.6 + (gCagr ?? gRecent ?? 0.06) * 0.4;
+    const g1gc = clamp(rawG, 0.02, 0.35), g2gc = g1gc * 0.65, g3gc = 0.04;
+    const streamGc = [];
+    let egc = E0;
+    for (let y = 1; y <= 15; y++) { egc *= 1 + (y <= 5 ? g1gc : y <= 10 ? g2gc : g3gc); streamGc.push(egc); }
+    const FVgc = egc * (Q.exit + 3);
+    const ivgc = (r) => streamGc.reduce((a, ey, i) => a + ey / Math.pow(1 + r, i + 1), 0) + FVgc / Math.pow(1 + r, 15);
+    let gcCAGR = null;
+    if (price > 0) {
+      let lo = -0.5, hi = 1.2;
+      for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; ivgc(mid) > price ? (lo = mid) : (hi = mid); }
+      gcCAGR = (lo + hi) / 2;
+    }
     return {
       E0, g1, g2, g3, exit, FV, price, impliedCAGR, defG1: clamp(((gRecent ?? gCagr ?? 0.06) * 0.6 + (gCagr ?? gRecent ?? 0.06) * 0.4) * Q.hair, 0.01, d.inflecting ? 0.25 : Q.cap), defExit: Q.exit,
       IV20: iv(0.20), IV18: iv(0.18), IV15: iv(0.15), IV12: iv(0.12), IV10: iv(0.10), IV8: iv(0.08),
       baseline: d.bucket === "clean" ? iv(0.08) : d.bucket === "middle" ? iv(0.09) : iv(0.10),
       zone: impliedCAGR >= 0.15 ? "fat" : impliedCAGR >= 0.10 ? "just" : "out",
+      gcCAGR, gcIV15: ivgc(0.15), gcG1: g1gc,
+      gcZone: gcCAGR == null ? "out" : gcCAGR >= 0.15 ? "fat" : gcCAGR >= 0.10 ? "just" : "out",
     };
   }
   const ZONE = {
@@ -849,9 +870,15 @@
         <div style="flex:1;min-width:180px;text-align:center;border-left:1px solid var(--line);padding-left:16px">
           <div class="sub">AT TODAY'S PRICE THE MARKET OFFERS</div>
           <div class="stat" style="color:${z.color}">${(L.impliedCAGR * 100).toFixed(1)}%/yr</div>
-          <div class="sub">implied 15-year CAGR</div>
+          <div class="sub">implied 15-year CAGR · conservative</div>
           <div class="badge" style="color:${z.color};border-color:${z.color};display:inline-block;margin-top:8px">${z.label}</div>
           <div class="sub" style="margin-top:4px">${z.desc}</div>
+          ${L.gcCAGR != null ? `<div style="margin-top:10px;padding-top:9px;border-top:1px dashed var(--line)">
+            <div class="sub" style="color:#7da2ff;font-weight:700;letter-spacing:.5px">GROWTH-CASE (AI CYCLE)</div>
+            <div class="stat sm" style="color:${ZONE[L.gcZone].color}">${(L.gcCAGR * 100).toFixed(1)}%/yr</div>
+            <div class="sub">no quality haircut · growth to ${(L.gcG1 * 100).toFixed(0)}% · IV15 $${L.gcIV15.toFixed(L.gcIV15 >= 100 ? 0 : 2)}</div>
+            ${L.gcZone !== L.zone ? `<div class="sub" style="margin-top:4px;color:var(--amber)">the two lenses disagree — size the position off the conservative number, decide whether to stay at the table off this one</div>` : ""}
+          </div>` : ""}
           ${acc ? `<div class="note ${acc.acc ? "" : "callout"}" style="margin-top:10px;text-align:left;font-size:10.5px">${acc.txt}</div>` : ""}
         </div>
       </div>
@@ -931,15 +958,16 @@
     { k: "sbcPctRev", label: "SBC/REV" },
     { k: "ownersKeep", label: "OWNER ¢" },
     { k: "graham", label: "GRAHAM /7" },
+    { k: "capex", label: "CAPEX EFF" },
     { k: "mom", label: "SEC 3M" },
     { k: "mktCap", label: "MKT CAP" },
   ];
   const rankState = { sort: "composite", dir: -1 };
 
   function renderRankings() {
-    const rows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d) }));
+    const rows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d), X: capexOf(d) }));
     const raw = (o, k) => k === "composite" || k === "call" ? o.r.composite : k === "cagr" ? o.r.cagr
-      : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : k === "graham" ? (o.G ? o.G.passed : null) : o.d[k];
+      : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : k === "graham" ? (o.G ? o.G.passed : null) : k === "capex" ? (o.X ? o.X.score : null) : o.d[k];
     rows.sort((a, b) => {
       const va = raw(a, rankState.sort), vb = raw(b, rankState.sort);
       if (va == null && vb == null) return 0;
@@ -970,6 +998,7 @@
         <td class="${d.sbcPctRev == null ? "" : d.sbcPctRev < 5 ? "up" : d.sbcPctRev >= 15 ? "down" : ""}">${d.sbcPctRev == null ? "–" : d.sbcPctRev.toFixed(1) + "%"}</td>
         <td>${d.ownersKeep ? (d.ownersKeep * 100).toFixed(0) + "¢" : "–"}</td>
         <td class="${x.G == null ? "" : x.G.passed >= 5 ? "up" : x.G.passed <= 2 ? "down" : ""}" style="color:#5aa9d6">${x.G ? x.G.passed + "/7" : "–"}</td>
+        <td class="${x.X == null ? "" : x.X.score >= 60 ? "up" : x.X.score < 35 ? "down" : ""}">${x.X ? x.X.score + (x.X.assetLight ? "·AL" : "") : "–"}</td>
         <td class="${r.mom >= 0 ? "up" : "down"}">${r.mom >= 0 ? "+" : ""}${r.mom.toFixed(1)}</td>
         <td class="sub">${money(d.mktCap)}</td>
       </tr>`;
@@ -1141,6 +1170,80 @@
     return { roe, roic, netMargin, grossMargin, opMargin, shareCAGR, revCAGR, fcf, ocf, fcfYield, fcfPerShare, ocfToNi, fcfAfterSbc, fcfAfterSbcYield, fcfMargin, sbc, hasFcf: fcf != null };
   }
 
+  /* ============================================================================
+     CAPEX X-RAY — does revenue justify the spend?
+     Built for the AI-capex cycle: the score is incremental annual revenue
+     bought per cumulative capex dollar over the filing window. High capex is
+     NOT penalized if the revenue shows up (NVDA-style); it is penalized when
+     the spend runs far ahead of what it earns (buildout-on-faith).
+     ============================================================================ */
+  function capexOf(d) {
+    const qm = d.qm;
+    if (!qm || !qm.capex || !qm.capex.some(v => v != null)) return null;
+    const rev = d.revenue || [];
+    const lastRev = lastVal(rev), lastCapex = lastVal(qm.capex);
+    const lastOcf = qm.ocf ? lastVal(qm.ocf) : null, lastFcf = qm.fcf ? lastVal(qm.fcf) : null;
+    if (!lastRev || lastCapex == null) return null;
+    const intensity = (lastCapex / lastRev) * 100;                        // capex % of revenue
+    const capexToOcf = lastOcf > 0 ? (lastCapex / lastOcf) * 100 : null;  // % of cash flow consumed
+    const cV = qm.capex.filter(v => v != null), rV = rev.filter(v => v != null && v > 0);
+    const capexGrowth = cV.length >= 2 && cV[0] > 0.02 ? (cV[cV.length - 1] / cV[0] - 1) * 100 : null;
+    const revGrowth = rV.length >= 2 ? (rV[rV.length - 1] / rV[0] - 1) * 100 : null;
+    // THE SCORE INPUT: $ of new annual revenue per $1 of cumulative capex
+    let incRevPerDollar = null;
+    const sumCapex = cV.reduce((a, v) => a + v, 0);
+    if (rV.length >= 2 && sumCapex > 0.05) incRevPerDollar = (rV[rV.length - 1] - rV[0]) / sumCapex;
+    const assetLight = intensity < 4;
+    let score;
+    if (assetLight) score = incRevPerDollar == null ? 70 : clamp(60 + incRevPerDollar * 20, 55, 95);
+    else if (incRevPerDollar == null) score = 40;
+    else if (incRevPerDollar <= 0) score = clamp(15 + incRevPerDollar * 30, 0, 15);
+    else score = clamp(Math.pow(clamp01(incRevPerDollar / 1.5), 0.6) * 100, 5, 100);
+    if (lastFcf != null && lastFcf < 0 && intensity >= 8) score = Math.max(0, score - 18); // buildout eating FCF
+    score = Math.round(score);
+    let verdict, color;
+    if (assetLight) { verdict = "ASSET-LIGHT — capex isn't the story here"; color = "var(--cyan)"; }
+    else if (score >= 60) { verdict = "CAPEX BUYING GROWTH — the spend is justified by revenue"; color = "var(--green)"; }
+    else if (score >= 35) { verdict = "SPENDING AHEAD OF REVENUE — the buildout has to pay off"; color = "var(--amber)"; }
+    else { verdict = "CAPEX BLACK HOLE — the spend is not showing up in revenue"; color = "var(--red)"; }
+    return { intensity, capexToOcf, capexGrowth, revGrowth, incRevPerDollar, lastCapex, lastFcf, sumCapex, score, verdict, color, assetLight };
+  }
+
+  function capexCard(d) {
+    const C = capexOf(d);
+    if (!C) return "";
+    const labels = fyLabels(d);
+    const isRateBase = ["XLU", "XLRE", "XLE"].includes(sectorETF(d.sector));
+    const kv = (k, v, color) => `<div class="kv"><span class="k">${k}</span><span class="v" ${color ? `style="color:${color}"` : ""}>${v}</span></div>`;
+    return `<div class="card" style="grid-column:span 3;border-left:3px solid ${C.color}">
+      <h3>🏗 CAPEX X-RAY — DOES REVENUE JUSTIFY THE SPEND? <span class="unit">latest FY capex ${money(C.lastCapex)} · built for the AI-capex cycle</span></h3>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:2;min-width:260px">
+          ${Chart.bars([
+            { name: "Revenue", color: "var(--cyan)", values: d.revenue },
+            { name: "Capex", color: "var(--orange)", values: d.qm.capex },
+          ], labels, { h: 165 })}
+          <div class="chart-legend"><span><i style="background:var(--cyan)"></i>Revenue</span><span><i style="background:var(--orange)"></i>Capex</span></div>
+        </div>
+        <div style="flex:1;min-width:200px;text-align:center;border-left:1px solid var(--line);padding-left:16px">
+          <div class="stat" style="font-size:34px;color:${C.color}">${C.score}</div>
+          <div class="sub">CAPEX EFFICIENCY /100</div>
+          <div class="badge" style="display:inline-block;margin-top:8px;color:${C.color};border-color:${C.color}">${C.verdict.split(" — ")[0]}</div>
+          <div class="sub" style="margin-top:4px">${C.verdict.split(" — ")[1] || ""}</div>
+        </div>
+        <div style="flex:1;min-width:210px">
+          ${kv("Capex % of revenue", C.intensity.toFixed(1) + "%", C.intensity < 4 ? "var(--cyan)" : C.intensity > 20 ? "var(--orange)" : null)}
+          ${kv("$1 capex → new annual revenue", C.incRevPerDollar == null ? "n/a" : "$" + C.incRevPerDollar.toFixed(2), C.incRevPerDollar >= 0.8 ? "var(--green)" : C.incRevPerDollar != null && C.incRevPerDollar < 0.2 ? "var(--red)" : null)}
+          ${kv("Capex growth (window)", C.capexGrowth == null ? "–" : (C.capexGrowth >= 0 ? "+" : "") + C.capexGrowth.toFixed(0) + "%")}
+          ${kv("Revenue growth (window)", C.revGrowth == null ? "–" : (C.revGrowth >= 0 ? "+" : "") + C.revGrowth.toFixed(0) + "%", C.capexGrowth != null && C.revGrowth != null ? (C.revGrowth >= C.capexGrowth ? "var(--green)" : "var(--orange)") : null)}
+          ${kv("Capex eats % of cash flow", C.capexToOcf == null ? "–" : C.capexToOcf.toFixed(0) + "%", C.capexToOcf > 80 ? "var(--red)" : null)}
+          ${kv("FCF after all of it", C.lastFcf == null ? "–" : money(C.lastFcf), C.lastFcf >= 0 ? "var(--green)" : "var(--red)")}
+        </div>
+      </div>
+      <div class="sub" style="margin-top:8px">Score = new annual revenue per cumulative capex dollar over the filing window. High capex is fine <b>if the revenue shows up</b> — that's the whole question of this AI cycle.${isRateBase ? " Caveat: utilities/REITs/energy spend into a rate base or reserves by design — judge the trend, not the level." : ""}</div>
+    </div>`;
+  }
+
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
@@ -1216,7 +1319,14 @@
     v = mom >= 3 ? 2 : mom >= 1 ? 1 : mom >= -1 ? 0 : mom >= -3 ? -1 : -2;
     sig.push({ k: "SECTOR FLOW", w: 10, v, why: `${s ? s.name : d.sector} ${mom >= 0 ? "+" : ""}${mom.toFixed(1)}pp vs S&P over 3M — money rotating ${mom >= 1 ? "IN" : mom <= -1 ? "OUT" : "sideways"}` });
 
-    // 7 · Insiders — live bonus signal when loaded (w5)
+    // 7 · Capex X-Ray — does revenue justify the spend? (w8, only when capex matters)
+    const CX = capexOf(d);
+    if (CX && !CX.assetLight) {
+      v = CX.score >= 80 ? 2 : CX.score >= 60 ? 1 : CX.score >= 35 ? 0 : CX.score >= 20 ? -1 : -2;
+      sig.push({ k: "CAPEX X-RAY", w: 8, v, why: `capex ${CX.intensity.toFixed(0)}% of revenue · $1 of capex bought $${CX.incRevPerDollar == null ? "n/a" : CX.incRevPerDollar.toFixed(2)} of new annual revenue · ${CX.verdict.split(" — ")[0]}` });
+    }
+
+    // 8 · Insiders — live bonus signal when loaded (w5)
     if (lv.insider) {
       const ins = lv.insider;
       v = ins.net > 0.05 ? 2 : ins.net > 0 ? 1 : ins.net < -1 ? -1 : 0;
@@ -1247,9 +1357,10 @@
     bits.push(cagr == null ? "and there's no owner-earnings floor to value it on" : cagr >= .15 ? `today's price pays you ${(cagr * 100).toFixed(0)}%/yr — a genuine fat pitch` : cagr >= .10 ? `the price offers a decent ${(cagr * 100).toFixed(0)}%/yr, just outside the fat-pitch zone` : `the price only offers ${(cagr * 100).toFixed(1)}%/yr — you're paying for the story`);
     if (G) bits.push(G.netnet ? "Graham would buy it below liquidation value" : G.passed >= 5 ? `the classic lens agrees (${G.passed}/7 defensive)` : `the classic lens is unimpressed (${G.passed}/7)`);
     if (Q.roic != null) bits.push(Q.roic >= 15 ? `and at ${Q.roic.toFixed(0)}% ROIC the business earns its keep` : Q.roic < 8 ? `and ${Q.roic.toFixed(0)}% ROIC says capital isn't compounding here` : "");
+    if (CX && !CX.assetLight) bits.push(CX.score >= 60 ? `the heavy capex (${CX.intensity.toFixed(0)}% of revenue) is earning its way in` : CX.score < 35 ? `and the capex (${CX.intensity.toFixed(0)}% of revenue) is a black hole revenue hasn't justified yet` : `capex is running ahead of revenue — the buildout is a bet still being proven`);
     const thesis = bits.filter(Boolean).join("; ") + `. ${C.desc.charAt(0).toUpperCase() + C.desc.slice(1)}.`;
 
-    return { score, call, C, sig, bulls, bears, thesis, L, G, Q, cagr, mom, zone: L ? L.zone : "out" };
+    return { score, call, C, sig, bulls, bears, thesis, L, G, Q, CX, cagr, mom, zone: L ? L.zone : "out" };
   }
 
   function verdictCard(d) {
@@ -1524,6 +1635,122 @@
   const showTriggers = () => showView("triggers", renderTriggers, "trigBtn");
   const showPortfolio = () => showView("portfolio", renderPortfolio, "portBtn");
   const showCalendar = () => showView("calendar", renderCalendar, "calBtn");
+
+  /* ============================================================================
+     ⌬ TECH DESK — the whole framework pointed at tech only.
+     Tech is where SBC lives: software, semis, internet, payments/fintech.
+     ============================================================================ */
+  const TECH_EXTRA = new Set(["Social Media", "Streaming", "Gaming", "E-commerce", "E-commerce/Cloud",
+    "Payments", "Crypto Exchange", "Fintech Brokerage", "Gaming/Betting"]);
+  const isTech = (d) => ["XLK", "SMH"].includes(sectorETF(d.sector)) || TECH_EXTRA.has(d.sector);
+
+  function techScatter(items) {
+    // x = revenue CAGR %, y = SBC % of revenue → "is the SBC buying growth?"
+    const W = 700, H = 380, P = { t: 26, r: 16, b: 34, l: 44 };
+    const iw = W - P.l - P.r, ih = H - P.t - P.b;
+    const X = (g) => P.l + clamp((g + 10) / 50, 0, 1) * iw;      // -10%..+40%
+    const Y = (s) => P.t + ih - clamp(s / 30, 0, 1) * ih;        // 0..30%+
+    let g = "";
+    // quadrant shading (split at 15% growth, 10% SBC)
+    const mx = X(15), my = Y(10);
+    g += `<rect x="${P.l}" y="${P.t}" width="${mx - P.l}" height="${my - P.t}" fill="rgba(255,91,107,.06)"/>`;      // low growth, high SBC
+    g += `<rect x="${mx}" y="${my}" width="${P.l + iw - mx}" height="${P.t + ih - my}" fill="rgba(38,208,124,.06)"/>`; // high growth, low SBC
+    [0, 10, 20, 30].forEach(s => { const y = Y(s); g += `<line x1="${P.l}" y1="${y}" x2="${W - P.r}" y2="${y}" stroke="#1c2434"/><text x="${P.l - 5}" y="${y + 3}" fill="#7d8798" font-size="8.5" text-anchor="end">${s}%</text>`; });
+    [-10, 0, 10, 20, 30, 40].forEach(x => { const xx = X(x); g += `<text x="${xx}" y="${H - 16}" fill="#7d8798" font-size="8.5" text-anchor="middle">${x >= 0 ? "+" : ""}${x}%</text>`; });
+    g += `<text x="${P.l + 6}" y="${P.t + 12}" fill="var(--red)" font-size="9.5" font-weight="700">WORST: DILUTION WITHOUT GROWTH</text>`;
+    g += `<text x="${W - P.r - 6}" y="${P.t + ih - 8}" fill="var(--green)" font-size="9.5" font-weight="700" text-anchor="end">ELITE: GROWTH WITHOUT DILUTION</text>`;
+    g += `<text x="${W / 2}" y="${H - 4}" fill="#576072" font-size="9" text-anchor="middle">REVENUE CAGR →</text>`;
+    g += `<text x="12" y="${P.t + ih / 2}" fill="#576072" font-size="9" text-anchor="middle" transform="rotate(-90 12 ${P.t + ih / 2})">SBC % OF REVENUE →</text>`;
+    const bcol = { clean: "#26d07c", middle: "#ffb000", high: "#ff8a3d", tragic: "#ff5b6b" };
+    const byCap = [...items].sort((a, b) => b.d.mktCap - a.d.mktCap);
+    const labeled = new Set(byCap.slice(0, 22).map(x => x.d.ticker));
+    let dots = "";
+    items.forEach(({ d, q }) => {
+      if (q.revCAGR == null || d.sbcPctRev == null) return;
+      const x = X(q.revCAGR), y = Y(d.sbcPctRev);
+      dots += `<g data-tk="${d.ticker}" style="cursor:pointer">
+        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${labeled.has(d.ticker) ? 5 : 3.5}" fill="${bcol[d.bucket]}" stroke="#05070c" stroke-width="1"><title>${d.ticker} — rev CAGR ${q.revCAGR.toFixed(0)}%, SBC ${d.sbcPctRev.toFixed(1)}% of rev</title></circle>
+        ${labeled.has(d.ticker) ? `<text x="${x.toFixed(1)}" y="${(y - 7).toFixed(1)}" fill="${bcol[d.bucket]}" font-size="8.5" font-weight="700" text-anchor="middle">${d.ticker}</text>` : ""}</g>`;
+    });
+    return `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">${g}${dots}</svg>`;
+  }
+
+  function renderTech() {
+    const tech = DATA.filter(isTech);
+    const rest = DATA.filter(d => !isTech(d));
+    const items = tech.map(d => ({ d, q: qualityOf(d), r: rankOf(d), X: capexOf(d) }));
+    const med = (arr) => medianOf(arr);
+    const stat = {
+      sbcT: med(tech.map(d => d.sbcPctRev)), sbcR: med(rest.map(d => d.sbcPctRev)),
+      keepT: med(tech.map(d => d.ownersKeep)), keepR: med(rest.map(d => d.ownersKeep)),
+      peT: med(tech.map(d => d.truePE)), peR: med(rest.map(d => d.truePE)),
+      gapT: med(tech.filter(d => d.gaapEPS > 0 && d.nonGaapEPS > 0).map(d => (d.nonGaapEPS / d.gaapEPS - 1) * 100)),
+      gapR: med(rest.filter(d => d.gaapEPS > 0 && d.nonGaapEPS > 0).map(d => (d.nonGaapEPS / d.gaapEPS - 1) * 100)),
+    };
+    const fats = items.filter(x => x.r.zone === "fat").length;
+    const worst = [...tech].filter(d => d.sbcPctRev != null).sort((a, b) => b.sbcPctRev - a.sbcPctRev).slice(0, 12);
+    const cleanest = [...tech].filter(d => d.sbcPctRev != null && d.mktCap > 20).sort((a, b) => a.sbcPctRev - b.sbcPctRev).slice(0, 12);
+    const board = [...items].sort((a, b) => b.r.composite - a.r.composite).slice(0, 15);
+    const smh = secByT("SMH"), xlk = secByT("XLK"), spy = secByT("SPY");
+    const relSemis = +(retOver(smh, 3) - retOver(xlk, 3)).toFixed(1);
+
+    const cell = (k, vT, vR, fmt, goodLow) => {
+      const better = vT != null && vR != null ? (goodLow ? vT < vR : vT > vR) : null;
+      return `<div style="flex:1;min-width:118px;text-align:center;border-right:1px solid var(--line)">
+        <div class="sub">${k}</div>
+        <div class="stat sm" style="color:${better == null ? "var(--text)" : better ? "var(--green)" : "var(--red)"}">${fmt(vT)}</div>
+        <div class="sub">rest of market: ${fmt(vR)}</div></div>`;
+    };
+
+    el("main").innerHTML = toolHeader("⌬", "TECH DESK", `the whole framework pointed at ${tech.length} tech names — software · semis · internet · payments`,
+      `<div style="text-align:right"><div class="sub">FAT PITCHES IN TECH</div><div class="stat sm" style="color:${fats ? "var(--green)" : "var(--red)"}">${fats}</div></div>`)
+      + `<div class="card" style="margin-bottom:12px;padding:10px 6px"><div style="display:flex;flex-wrap:wrap;align-items:center">
+          <div style="min-width:96px;text-align:center"><div class="sub" style="color:#7da2ff;font-weight:700;letter-spacing:1px">TECH vs<br>THE REST</div></div>
+          ${cell("MEDIAN SBC / REVENUE", stat.sbcT, stat.sbcR, v => v == null ? "–" : v.toFixed(1) + "%", true)}
+          ${cell("OWNER-¢ KEPT / $1", stat.keepT, stat.keepR, v => v == null ? "–" : (v * 100).toFixed(0) + "¢", false)}
+          ${cell("MEDIAN TRUE P/E", stat.peT, stat.peR, v => v == null ? "–" : v.toFixed(1) + "x", true)}
+          ${cell("NON-GAAP INFLATION", stat.gapT, stat.gapR, v => v == null ? "–" : "+" + v.toFixed(0) + "%", true)}
+        </div>
+        <div class="sub" style="padding:8px 12px 2px">This strip is the whole thesis in four numbers: tech pays more of your earnings to employees, keeps less per GAAP dollar, trades richer on true earnings, and inflates non-GAAP harder than the rest of the market.</div></div>`
+      + `<div class="card" style="margin-bottom:12px;border-left:3px solid #7da2ff">
+          <h3>DILUTION vs GROWTH — IS THE SBC BUYING ANYTHING? <span class="unit">each dot a tech name · tap to open · quadrants split at 15% growth / 10% SBC</span></h3>
+          ${techScatter(items)}
+          <div class="sub" style="margin-top:6px">The framework's one allowance: high SBC can be rational <i>if</i> it buys elite growth (top-right). Top-left — heavy dilution with slowing growth — is where shareholder value goes to die.</div></div>`
+      + `<div class="grid g2" style="margin-bottom:12px">
+        <div class="card" style="border-left:3px solid var(--red)"><h3>THE DILUTION LEAGUE — WORST SBC/REVENUE</h3>
+          ${Chart.hbars(worst.map(d => ({ label: d.ticker, value: d.sbcPctRev, color: d.sbcPctRev >= 20 ? "var(--red)" : "var(--orange)", display: d.sbcPctRev.toFixed(1) + "%" })), { labelW: 52 })}</div>
+        <div class="card" style="border-left:3px solid var(--green)"><h3>CLEANEST BIG TECH — LOWEST SBC/REVENUE <span class="unit">&gt;$20B cap</span></h3>
+          ${Chart.hbars(cleanest.map(d => ({ label: d.ticker, value: Math.max(d.sbcPctRev, 0.1), color: "var(--green)", display: d.sbcPctRev.toFixed(1) + "%" })), { labelW: 52 })}</div>
+      </div>`
+      + (() => {
+        const spenders = items.filter(x => x.X && x.X.lastCapex > 1).sort((a, b) => b.X.lastCapex - a.X.lastCapex).slice(0, 10);
+        const holes = items.filter(x => x.X && !x.X.assetLight && x.X.score < 35).length;
+        const paying = items.filter(x => x.X && !x.X.assetLight && x.X.score >= 60).length;
+        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--orange)">
+          <h3>🏗 THE AI CAPEX CYCLE — WHO'S SPENDING, AND IS IT WORKING? <span class="unit">top tech capex budgets · bar = latest-FY capex · color = efficiency score</span></h3>
+          ${Chart.hbars(spenders.map(x => ({
+            label: x.d.ticker, value: x.X.lastCapex,
+            color: x.X.score >= 60 ? "var(--green)" : x.X.score >= 35 ? "var(--amber)" : "var(--red)",
+            display: "$" + x.X.lastCapex.toFixed(0) + "B · " + x.X.score,
+          })), { labelW: 52 })}
+          <div class="sub" style="margin-top:6px"><b class="up">${paying}</b> tech names' capex is paying for itself in revenue · <b class="down">${holes}</b> are spending into a hole. Green = revenue justifies the spend, red = buildout on faith. Tap a stock and open its 🏗 CAPEX X-RAY for the full picture.</div>
+        </div>`;
+      })()
+      + `<div class="grid g2" style="margin-bottom:12px">
+        <div class="card"><h3>SEMIS vs SOFTWARE — WHERE'S TECH'S MONEY GOING? <span class="unit">12M cumulative return</span></h3>
+          ${Chart.line([{ points: perfSeries(smh), color: "#ffb000" }, { points: perfSeries(xlk), color: "#37c6ff" }, { points: perfSeries(spy), color: "#d8e0ea" }], SECTORS.labels, { h: 190, zero: true })}
+          <div class="chart-legend"><span><i style="background:#ffb000"></i>SMH semis</span><span><i style="background:#37c6ff"></i>XLK software/tech</span><span><i style="background:#d8e0ea"></i>SPY</span></div>
+          <div class="sub" style="margin-top:5px">Semis ${relSemis >= 0 ? "+" : ""}${relSemis}pp vs software over 3M — ${relSemis >= 2 ? "the AI-hardware trade is still leading tech." : relSemis <= -2 ? "leadership has rotated from chips back to software." : "semis and software roughly in step."}</div></div>
+        <div class="card"><h3>⚛ TECH BRAIN BOARD — TOP 15 <span class="unit">by unified brain score</span></h3>
+          ${board.map((x, i) => `<div class="pe-row" data-tk="${x.d.ticker}">
+            <span class="pe-tk"><span class="rk-num">${i + 1}</span> ${x.d.ticker}</span>
+            <span class="sub">${x.d.sector} · ${x.r.cagr == null ? "n/m" : (x.r.cagr * 100).toFixed(0) + "%/yr"} · SBC ${x.d.sbcPctRev == null ? "–" : x.d.sbcPctRev.toFixed(1) + "%"}</span>
+            <span class="pe-val"><b style="color:${x.r.composite >= 62 ? "var(--green)" : x.r.composite >= 48 ? "var(--amber)" : "var(--red)"}">${x.r.composite.toFixed(0)}</b> <span style="color:${x.r.C.color};font-size:9px;font-weight:700">${x.r.C.label.split(" — ")[0]}</span></span>
+          </div>`).join("")}</div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+  const showTech = () => showView("tech", renderTech, "techBtn");
 
   /* ------------------------ TRUE P/E SCREENER view ------------------------ */
   const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
@@ -2066,6 +2293,7 @@
     if (["TRIGGERS", "TRIGGER", "ALERTS", "SIGNALS", "BUY"].includes(q)) { showTriggers(); return; }
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
     if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
+    if (["TECH", "SW50", "SOFTWARE", "SEMIS", "TECHDESK"].includes(q)) { showTech(); return; }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
       showValuation(); flash("True P/E screener", "ok"); return;
     }
@@ -2147,6 +2375,7 @@
     el("trigBtn").onclick = showTriggers;
     el("portBtn").onclick = showPortfolio;
     el("calBtn").onclick = showCalendar;
+    el("techBtn").onclick = showTech;
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
     el("backdrop").onclick = closeDrawer;
 
