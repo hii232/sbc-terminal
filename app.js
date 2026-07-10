@@ -82,9 +82,19 @@
     if (bb <= 0.05) return { anti: 0, real: 0, t: "No buybacks", c: "var(--muted)" };
     const anti = Math.min(bb, sbc);
     const real = Math.max(0, bb - sbc);
-    const t = real > bb * 0.4 ? "Mostly REAL reduction" : real > 0 ? "Hybrid" : "Pure anti-dilution treadmill";
-    const c = real > bb * 0.4 ? "var(--green)" : real > 0 ? "var(--amber)" : "var(--red)";
-    return { anti, real, t, c };
+    let t = real > bb * 0.4 ? "Mostly REAL reduction" : real > 0 ? "Hybrid" : "Pure anti-dilution treadmill";
+    let c = real > bb * 0.4 ? "var(--green)" : real > 0 ? "var(--amber)" : "var(--red)";
+    // Cross-check vs the actual share count: if buyback $ exceeded SBC $ but
+    // shares did NOT fall, issuance beyond SBC (M&A, raises, converts) is in
+    // play and the dollar-based split is unreliable. Never claim "real
+    // reduction" that the share count itself contradicts.
+    let uncertain = false;
+    const shArr = (d.shares || []).filter(v => v != null);
+    if (real > 0 && shArr.length >= 2 && shArr[shArr.length - 1] >= shArr[0] * 0.998) {
+      t += " — but share count didn't fall: issuance beyond SBC (M&A/raise?) — split uncertain";
+      c = "var(--amber)"; uncertain = true;
+    }
+    return { anti, real, t, c, uncertain };
   }
   function trueOwnerEarnings(d) {
     // simplified Burry: GAAP NI + GAAP SBC addback - true economic SBC cost
@@ -241,7 +251,7 @@
         </div>
         <div>
           <div class="pxbig">$${price.toFixed(2)}</div>
-          <div class="chbig ${signCls(change)}">${arrow(change)} ${Math.abs(change).toFixed(2)}% ${lv.quote ? '<span style="color:var(--green);font-size:9px">● LIVE</span>' : '<span style="color:var(--dim);font-size:9px">snapshot</span>'}</div>
+          <div class="chbig ${signCls(change)}">${arrow(change)} ${Math.abs(change).toFixed(2)}% ${lv.quote ? '<span style="color:var(--green);font-size:9px">● LIVE</span>' : `<span style="color:var(--dim);font-size:9px">snapshot ${((d.snapshot || "").match(/\d{4}-\d{2}-\d{2}/) || [""])[0]} — not live</span>`}</div>
         </div>
         <div style="border-left:1px solid var(--line);padding-left:16px">
           <div class="sub">MKT CAP</div><div class="stat sm">${money(d.mktCap)}</div>
@@ -313,7 +323,7 @@
       ${verdictCard(d)}
 
       <div class="card" style="grid-column:span 2">
-        <h3>PRICE — 12M WEEKLY CLOSES <span class="unit">${px ? "real Yahoo Finance data · " + px.from + " → " + px.to : "unavailable"}</span></h3>
+        <h3>PRICE — 12M WEEKLY CLOSES <span class="unit">${px ? "real Yahoo Finance data · " + px.from + " → " + px.to + ((Date.now() - Date.parse(px.to)) / 864e5 > 14 ? " · <b style=&quot;color:var(--orange)&quot;>STALE — refresh gen_prices.py</b>" : "") : "unavailable"}</span></h3>
         ${px ? Chart.line([{ points: px.v, color: "var(--cyan)" }], px.v.map((_, i) => i === 0 ? px.from.slice(5) : i === px.v.length - 1 ? px.to.slice(5) : ""), { area: true, h: 200 })
              : `<div class="sub" style="padding:28px 10px;text-align:center">Real price history not bundled for this name.<br>Run <b>python scripts/gen_prices.py</b> to fetch it — this terminal does not draw synthetic charts.</div>`}
       </div>
@@ -749,7 +759,7 @@
     const maxA = Math.max(...anchors.map(a => a.value)) * 1.05;
 
     return `
-    <div class="note" style="margin-bottom:12px"><b style="color:var(--cyan)">Graham &amp; Dodd, Security Analysis (7th ed.).</b> Intrinsic value is “that value which is justified by the facts — assets, earnings, dividends, prospects — as distinct from market quotations.” You only need an approximate measure, and a <b>margin of safety</b> between that value and price. This is the classic asset-and-earning-power lens that complements the modern IV15/SBC view.</div>
+    <div class="note" style="margin-bottom:12px"><b style="color:var(--cyan)">Graham &amp; Dodd, Security Analysis (7th ed.).</b> Intrinsic value is “that value which is justified by the facts — assets, earnings, dividends, prospects — as distinct from market quotations.” You only need an approximate measure, and a <b>margin of safety</b> between that value and price. This is the classic asset-and-earning-power lens that complements the modern IV15/SBC view. <b>Share-basis caveat:</b> per-share anchors divide by diluted <i>weighted-average</i> shares (aggregator limit), not period-end actual shares — figures can differ a few percent from filing-exact values.</div>
 
     <div class="grid g3">
       <div class="card" style="grid-column:span 2;border-left:3px solid ${gc}">
@@ -1725,7 +1735,14 @@
     const L = V.L, o = d.opt;
     const price = L ? L.price : (state.live[d.ticker]?.quote?.price ?? d.price);
     if (!price || price <= 0) return null;
-    const iv = o ? o.iv : null, rv = o ? o.rv : null, dte = o ? o.dte : 35;
+    // dte recomputed from stored expiry so it can never silently age; chains
+    // inside 7 days (or expired) are excluded from premium estimates.
+    let dte = 35, chainStale = false;
+    if (o && o.exp) {
+      dte = Math.round((Date.parse(o.exp + "T21:00:00Z") - Date.now()) / 864e5);
+      if (dte < 7) chainStale = true;
+    }
+    const iv = o && !chainStale ? o.iv : null, rv = o ? o.rv : null;
     const rich = iv && rv ? iv / rv : null; // premium richness: IV vs realized
     const keep = d.ownersKeep || 0;
 
@@ -1765,8 +1782,11 @@
     return null;
   }
 
-  const optState = { earnings: {}, earnLoaded: false, sort: "iv", dir: -1 };
+  const optDteNow = (o) => o && o.exp ? Math.round((Date.parse(o.exp + "T21:00:00Z") - Date.now()) / 864e5) : null;
+  const optAsOf = (o) => o && o.exp && o.dte != null ? new Date(Date.parse(o.exp + "T21:00:00Z") - o.dte * 864e5) : null;
+  const optState = { earnings: {}, earnLoaded: false, earnFailed: false, sort: "iv", dir: -1 };
   function renderOptions() {
+    const key = state.keys.finnhub;
     const withOpt = DATA.filter(d => d.opt && d.opt.iv);
     const plays = [];
     DATA.forEach(d => { const p = optionPlayOf(d); if (p) plays.push({ d, p }); });
@@ -1800,12 +1820,12 @@
 
     el("main").innerHTML = toolHeader("⚄", "OPTIONS DESK", "the frameworks turned into trades — strikes from the IV ladder, direction from the brain, pricing vs realized vol",
       `<div style="text-align:right"><div class="sub">PLAYS ON THE TAPE</div><div class="stat sm" style="color:#d6a2ff">${plays.length}</div></div>`)
-      + `<div class="note" style="margin-bottom:12px;border-left-color:#d6a2ff">Plays surface here automatically when a setup qualifies: <b style="color:var(--green)">sell puts</b> where you already want to own at the IV15 target · <b style="color:#7dd87d">long calls</b> on fat pitches with fair vol · <b style="color:var(--amber)">covered calls</b> on clean-but-priced names with rich premium · <b style="color:var(--red)">puts/spreads</b> on dilution machines. Premiums are Black-Scholes estimates on the stored ~35-day ATM vol — for sizing the idea, not executable quotes. ⚠ = earnings inside 3 weeks.</div>`
-      + section("🟢 GET PAID TO WAIT — CASH-SECURED PUTS AT YOUR BUY PRICE", "var(--green)", buckets.csp, "strike ≈ IV15 buy target · sorted by annualized yield")
-      + section("🚀 FAT-PITCH CALLS — LEVERAGE THE SWING", "#7dd87d", buckets.call, "brain says swing/accumulate · cheapest vol first")
+      + `<div class="note" style="margin-bottom:12px;border-left-color:#d6a2ff">Plays surface here automatically when a setup qualifies: <b style="color:var(--green)">sell puts</b> where you already want to own at the IV15 target · <b style="color:#7dd87d">long calls</b> on fat pitches with fair vol · <b style="color:var(--amber)">covered calls</b> on clean-but-priced names with rich premium · <b style="color:var(--red)">puts/spreads</b> on dilution machines. Premiums are Black-Scholes estimates on the stored ~35-day ATM vol — for sizing the idea, not executable quotes. ⚠ = earnings inside 3 weeks. ${!key ? '<b style="color:var(--orange)">No Finnhub key — earnings dates are NOT being checked; verify before trading premium.</b>' : optState.earnFailed ? '<b style="color:var(--orange)">Earnings-calendar check FAILED — verify earnings dates yourself.</b>' : !optState.earnLoaded ? "Checking earnings calendar…" : "Earnings dates checked live."}</div>`
+      + section("🟢 GET PAID TO WAIT — CASH-SECURED PUTS AT YOUR BUY PRICE", "var(--green)", buckets.csp, "strike ≈ IV15 buy target · EST. annualized yield · capital at risk = strike × 100/contract — highest yields carry the highest assignment risk")
+      + section("🚀 FAT-PITCH CALLS — LEVERAGE THE SWING", "#7dd87d", buckets.call, "brain says swing/accumulate · cheapest vol first · max loss = 100% of premium paid")
       + section("🌾 PREMIUM HARVEST — COVERED CALLS", "var(--amber)", buckets.cc, "clean earnings, fully priced, rich IV")
       + section("🔻 BEARISH — DEFINED-RISK PUTS", "var(--red)", buckets.bear, "dilution machines priced for negative returns")
-      + (withOpt.length ? `<div class="card" style="padding:6px 8px"><h3 style="padding:6px 8px 0">THE VOL BOARD <span class="unit">${withOpt.length} names with live chains · tap a column to sort · IV/RV &gt; 1.15 = premium rich (sell) · &lt; 0.9 = cheap (buy)</span></h3>
+      + (withOpt.length ? `<div class="card" style="padding:6px 8px"><h3 style="padding:6px 8px 0">THE VOL BOARD <span class="unit">${withOpt.length} names · IV snapshot ${(() => { const a = optAsOf(withOpt[0] && withOpt[0].opt); if (!a) return "date unknown"; const days = Math.round((Date.now() - a.getTime()) / 864e5); return a.toISOString().slice(0, 10) + (days > 7 ? " · <b style=&quot;color:var(--orange)&quot;>⚠ " + days + "d OLD — refresh --options before trading</b>" : ""); })()} · tap a column to sort · IV/RV &gt; 1.15 = premium rich (sell) · &lt; 0.9 = cheap (buy)</span></h3>
         <div style="overflow-x:auto;max-height:56vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>TICKER</th><th data-osort="iv" class="${optState.sort === "iv" ? "sorted" : ""}">ATM IV</th><th data-osort="rv" class="${optState.sort === "rv" ? "sorted" : ""}">REALIZED</th><th data-osort="rich" class="${optState.sort === "rich" ? "sorted" : ""}">IV/RV</th><th data-osort="pcr" class="${optState.sort === "pcr" ? "sorted" : ""}">PUT/CALL OI</th><th>EXPIRY</th><th>PLAY</th></tr></thead>
         <tbody>${sorted.slice(0, 120).map((y) => { const d = y.d, r = y.r; const pl = plays.find(x => x.d.ticker === d.ticker); const p = pl && pl.p;
@@ -1813,7 +1833,7 @@
           <td>${(d.opt.iv * 100).toFixed(0)}%</td><td class="sub">${d.opt.rv ? (d.opt.rv * 100).toFixed(0) + "%" : "–"}</td>
           <td class="${r == null ? "" : r >= 1.15 ? "up" : r <= 0.9 ? "down" : ""}">${r ? r.toFixed(2) : "–"}</td>
           <td class="${d.opt.pcr == null ? "" : d.opt.pcr >= 1.3 ? "down" : d.opt.pcr <= 0.6 ? "up" : ""}">${d.opt.pcr ?? "–"}</td>
-          <td class="sub">${d.opt.exp ? d.opt.exp.slice(5) + " (" + d.opt.dte + "d)" : "–"}</td>
+          <td class="${(optDteNow(d.opt) ?? 99) < 7 ? "down" : "sub"}">${d.opt.exp ? d.opt.exp.slice(5) + " (" + (optDteNow(d.opt) ?? "?") + "d)" + ((optDteNow(d.opt) ?? 99) < 7 ? " ⚠" : "") : "–"}</td>
           <td>${p ? `<span class="op-badge" style="color:${p.color};border-color:${p.color}">${p.label.split(" — ")[0]}</span>` : ""}</td></tr>`; }).join("")}</tbody>
         </table></div></div>`
       : `<div class="note">Options data hasn't been baked in yet — ask me to refresh options and I'll pull ~35-day implied vol, realized vol and open interest for the whole universe. The play sections above still work off the frameworks.</div>`);
@@ -1827,8 +1847,7 @@
     });
 
     // earnings flags (live, async — re-annotate once loaded)
-    const key = state.keys.finnhub;
-    if (key && !optState.earnLoaded) {
+    if (key && !optState.earnLoaded && !optState.earnFailed) {
       const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
       const fmtD = dt => dt.toISOString().slice(0, 10);
       fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${fmtD(today)}&to=${fmtD(to)}&token=${key}`)
@@ -1837,7 +1856,7 @@
           (j.earningsCalendar || []).forEach(e => { if (uni.has(e.symbol)) optState.earnings[e.symbol] = e.date; });
           optState.earnLoaded = true;
           if (state.view === "options") renderOptions();
-        }).catch(() => {});
+        }).catch(() => { optState.earnFailed = true; if (state.view === "options") renderOptions(); });
     }
   }
   const showOptions = () => showView("options", renderOptions, "optBtn");
@@ -2596,5 +2615,8 @@
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
   }
+  // regression-test / console handle: production engines, read-only
+  window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
+    buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings };
   document.addEventListener("DOMContentLoaded", init);
 })();

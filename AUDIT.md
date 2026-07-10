@@ -87,3 +87,74 @@ Views: stock page (7 tabs) + 12 tool views, all reading one verdict engine.
   `gh api repos/<owner>/sbc-terminal/pages/builds -X POST`.
 - Users must supply their own Finnhub key via ⚙ (the previously shipped key is
   removed and should be rotated).
+
+---
+
+# Adversarial self-audit (v2.2, 2026-07) — assuming real money
+
+Regression harness: `node tests/run_tests.js` — loads the **production**
+`app.js`/`data.js` in Node and tests the live engines (23 assertions: put-call
+parity, ladder monotonicity, buyback fixtures incl. M&A trap, owner-earnings
+identities, expired-chain exclusion, full-650 brain sweep). All passing.
+
+## FIXED (this pass)
+
+1. **Options staleness (worst find).** `dte` was frozen at fetch time — a week
+   later every annualized yield, expiry label, and premium estimate was silently
+   wrong. Now: days-to-expiry recomputed from the stored expiry at runtime;
+   chains <7 days out are excluded from premium estimates; the Vol Board shows
+   the IV snapshot date and a loud ⚠ when it is >7 days old.
+2. **Buyback misclassification (M&A trap).** Buyback-vs-SBC dollar split could
+   label a company "real reduction" while the share count *rose* (acquisition/
+   raise issuance, e.g. AVGO-style). Now cross-checked against the actual share
+   count; contradictions are flagged "split uncertain" and never shown green.
+   Regression-tested with a fixture.
+3. **Silent earnings-check failure.** If the earnings-calendar fetch failed (or
+   no key), option plays showed no earnings warnings at all — the most dangerous
+   silent failure in the desk. Now a loud banner states whether earnings dates
+   were checked, are being checked, failed, or cannot be checked.
+4. **Snapshot age invisible.** Header said "snapshot" without a date. Now shows
+   the snapshot date and "— not live".
+5. **Risk disclosure.** CSP section states capital at risk = strike × 100 and
+   that the highest yields carry the highest assignment risk (yield-sorting
+   otherwise rewards the junkiest vol). Calls section states max loss = 100% of
+   premium.
+6. **Stale price history.** 12-month chart flags itself STALE if its last close
+   is >14 days old.
+7. **Graham share-basis.** Disclosed that per-share anchors use diluted
+   weighted-average shares, not period-end actual (aggregator limit).
+8. **No-fabrication guards verified by test:** negative-EPS names get NO fair
+   value ladder; zero-DTE options price as null, never 0-or-fake.
+
+## PARTIALLY FIXED
+
+- **Stale quotes**: snapshot date now shown and live quotes recompute derived
+  multiples; but bundled prices still age between refreshes — refresh cadence is
+  manual (`update_data.py`). Mitigated, not eliminated.
+- **Derived judgments stored in data** (`ownersKeep`, buckets): labeled HEURISTIC
+  with provenance; still not recomputed from raw inputs at runtime.
+- **Lottery-option risk**: gates (quality ≥ thresholds, IV/RV, brain call) plus
+  new assignment-risk warning; but there is still no per-contract liquidity/
+  spread scoring (needs chain-level data — see paid).
+
+## NOT YET IMPLEMENTED (from the 29-phase spec)
+
+- Reverse DCF / scenario DCF UI; multiyear pooled retention selector; one-time-
+  item normalization bridge; sector engines beyond financials guards; IV-crush
+  matrix; shares-vs-call-vs-spread comparator; portfolio Greeks & sizing
+  warnings; thesis journal event reviews; news intelligence pipeline; alerts
+  engine; virtualized lists.
+
+## REQUIRES PAID DATA
+
+- Live full options chains, per-contract bid/ask/OI/volume and Greeks, IV rank/
+  percentile history (Polygon/Tradier/ORATS-class). Current options layer is a
+  real but single ~35-day ATM snapshot per name, refreshed by script.
+- Intraday/tick prices; transcripts; institutional news wires.
+
+## REQUIRES MANUAL FILING VERIFICATION
+
+- Everything labeled HEURISTIC/PARTIALLY VERIFIED. Filing-grade owner earnings
+  (Phase-5 share reconciliation: withholding cash, option/ESPP proceeds,
+  acquisition shares, period-end share counts) needs SEC XBRL ingestion plus
+  human reconciliation before any name can be marked FILING VERIFIED.
