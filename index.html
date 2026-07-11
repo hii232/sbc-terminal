@@ -154,7 +154,7 @@
   .rk-pill{display:inline-block;min-width:38px;padding:1px 6px;border-radius:4px;font-size:9.5px;font-weight:700;text-align:center}
   .zone-fat{color:var(--green)} .zone-just{color:var(--amber)} .zone-out{color:var(--red)}
 
-  /* true P/E screener rows */
+  /* owner P/E screener rows */
   .pe-row{display:grid;grid-template-columns:66px 1fr 96px;gap:8px;align-items:center;
     padding:5px 0;border-bottom:1px solid #10151f;cursor:pointer}
   .pe-row:hover{background:#0c121d}
@@ -440,7 +440,7 @@
     <div class="nav-grid">
       <button class="navbtn c-purple" id="rankBtn">⚡ Rankings</button>
       <button class="navbtn c-blue" id="grahamBtn">🛡 Graham</button>
-      <button class="navbtn c-green" id="valBtn">⊞ Est P/E</button>
+      <button class="navbtn c-green" id="valBtn">⊞ Owner P/E</button>
       <button class="navbtn c-cyan" id="sectorBtn">◈ Sectors</button>
       <button class="navbtn c-amber" id="narrBtn">◆ Narratives</button>
       <button class="navbtn c-pink" id="screenBtn">📊 Screener</button>
@@ -471,11 +471,11 @@
 <div class="modal" id="modal">
   <div class="box">
     <h2>Connect Live Data</h2>
-    <p>The terminal works fully offline with bundled snapshots. Add a <b>free</b> API key to pull live quotes, news and financial statements. Keys are saved in this browser’s localStorage — convenient, but NOT secure storage — nothing is sent anywhere except the data provider.</p>
+    <p>The terminal works fully offline with SEC-first bundled snapshots. Add a <b>free</b> API key to pull live quotes, news, estimates and fallback checks. Keys are saved in this browser’s localStorage — convenient, but NOT secure storage — nothing is sent anywhere except the data provider.</p>
     <label>FINNHUB API KEY <span style="color:var(--dim)">— quotes + company news</span></label>
     <input id="finnhubKey" placeholder="paste key from finnhub.io" />
     <div class="hint">Free key: <a href="https://finnhub.io/register" target="_blank" rel="noopener">finnhub.io/register</a> · 60 calls/min</div>
-    <label>FMP API KEY <span style="color:var(--dim)">— income statement, cash flow, SBC, share count</span></label>
+    <label>FMP API KEY <span style="color:var(--dim)">— secondary fallback checks, never SEC overwrite</span></label>
     <input id="fmpKey" placeholder="paste key from financialmodelingprep.com" />
     <div class="hint">Free key: <a href="https://site.financialmodelingprep.com/developer/docs" target="_blank" rel="noopener">financialmodelingprep.com</a> · 250 calls/day</div>
     <div class="actions">
@@ -493,18 +493,18 @@
   <button id="navNarr" type="button" aria-label="Open thesis narratives"><span class="ni">◆</span>THESIS</button>
   <button id="navSectors" type="button" aria-label="Open sector flows"><span class="ni">◈</span>SECTORS</button>
   <button id="navRank" type="button" aria-label="Open rankings"><span class="ni">⚡</span>RANK</button>
-  <button id="navPE" type="button" aria-label="Open true P/E"><span class="ni">⊞</span>TRUE P/E</button>
+  <button id="navPE" type="button" aria-label="Open owner-earnings P/E"><span class="ni">⊞</span>OWNER P/E</button>
   <button id="navSearch" type="button" aria-label="Search ticker"><span class="ni">⌕</span>SEARCH</button>
 </nav>
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=26"></script>
-<script src="data.js?v=26"></script>
-<script src="sec.js?v=26"></script>
-<script src="segments.js?v=26"></script>
-<script src="sectors.js?v=26"></script>
-<script src="charts.js?v=26"></script>
-<script src="app.js?v=26"></script>
+<script src="universe.js?v=27"></script>
+<script src="data.js?v=27"></script>
+<script src="sec.js?v=27"></script>
+<script src="segments.js?v=27"></script>
+<script src="sectors.js?v=27"></script>
+<script src="charts.js?v=27"></script>
+<script src="app.js?v=27"></script>
 </body>
 </html>

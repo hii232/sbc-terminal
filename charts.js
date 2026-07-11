@@ -107,7 +107,7 @@
     return `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">${g}${rects}</svg>`;
   }
 
-  /* ---------- HORIZONTAL COMPARISON BAR (headline vs true P/E etc) ---------- */
+  /* ---------- HORIZONTAL COMPARISON BAR (headline vs owner P/E etc) ---------- */
   function hbars(items, opts = {}) {
     // items: [{label, value, color, max?}]
     const W = opts.w || 260, rowH = 26, pad = 8;

@@ -1,11 +1,9 @@
 /* =========================================================================
    SBC TERMINAL — bundled dataset
    -------------------------------------------------------------------------
-   Quotes AND annual fundamentals are REAL data pulled from Yahoo Finance on
-   2026-07-08 (last 4 fiscal years per company, as-reported filings). Refresh
-   anytime by re-running scripts/update_data.py.
-   Connect a Finnhub / FMP key (gear icon) to overwrite quotes, news and the
-   financial arrays with live data.
+   SEC filings are the primary financial layer. The bundled arrays are checked
+   against SEC XBRL and optional Finnhub/FMP keys add quotes, news, estimates and
+   fallback checks. Live fallback data must never overwrite valid SEC facts.
 
    Units:
      price/change  -> USD / %
@@ -20,13 +18,16 @@
    Grades:  A B C D F
    ========================================================================= */
 
+const SBC_MODEL_VERSION = "4.0.0";
 const YEARS = [2021, 2022, 2023, 2024, 2025];
 
 /* helper: build a company record with sane defaults */
 function co(o) {
-  o.truePE = o.headlinePE && o.ownersKeep ? +(o.headlinePE / o.ownersKeep).toFixed(1) : null;
-  o.sbcAdjEPS = o.gaapEPS != null && o.ownersKeep != null ? +(o.gaapEPS * o.ownersKeep).toFixed(2) : null;
-  o.snapshot = "quotes + annual fundamentals: Yahoo Finance · 2026-07-11";
+  o.modelVersion = SBC_MODEL_VERSION;
+  o.truePE = null; // app.js computes owner P/E directly from owner EPS.
+  o.ownerEps = null;
+  o.sbcAdjEPS = null;
+  o.snapshot = "SEC-first bundled fundamentals + secondary quote/history snapshots · 2026-07-11";
   return o;
 }
 
@@ -230,7 +231,7 @@ const DATA = [
     qm:{ocf:[1.242,1.349,1.261,1.729], fcf:[1.118,1.247,1.118,1.587], capex:[0.124,0.103,0.143,0.142], gross:[3.19,3.655,3.994,4.575], opinc:[1.074,1.262,1.383,1.65]},
     opt:{iv:0.585, rv:0.348, pcr:null, exp:"2026-08-14", dte:35},
     px:{v:[320.60,315.57,332.19,356.97,352.06,349.88,349.63,350.43,351.01,343.48,373.35,350.11,347.27,327.00,326.12,345.10,338.69,325.05,314.93,300.58,311.84,337.53,323.22,314.91,318.89,310.40,327.31,317.45,318.32,296.36,283.52,299.46,296.28,301.40,296.94,287.03,283.90,271.77,278.72,265.66,311.03,332.89,340.94,362.70,347.24,373.59,374.93,376.19,384.96,387.39,377.27,373.14,384.17,384.17], from:"2025-07-07", to:"2026-07-10"},
-    note:"Great business, rich multiple. SBC meaningful; true P/E well above headline." }),
+    note:"Great business, rich multiple. SBC meaningful; owner-earnings P/E sits well above headline." }),
 
   co({ ticker:"SNPS", name:"Synopsys", sector:"EDA Software", bucket:"middle", grade:"C",
     price:428.93, change:-1.76, mktCap:82.1, headlinePE:98.2, ownersKeep:0.77,
@@ -330,7 +331,7 @@ const DATA = [
     gaapEPS:0.89, nonGaapEPS:1.51,
     fy:["2022","2023","2024","2025"], sbcPctRev:15.3, sbcPctOCF:32.0, sbcPctNI:42,
     revenue:[1.91,2.23,2.87,4.48], ni:[-0.37,0.21,0.46,1.63], sbc:[0.565,0.476,0.692,0.684],
-    buyback:[0,0,0.06,0.07], shares:[2.061,2.295,2.447,2.565],
+    buyback:[0,0,0.06,0.075], shares:[2.061,2.295,2.447,2.565],
     qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[0.88,1,1.18,1.41,1.63], ni:[0.21,0.33,0.48,0.61,0.87], sbc:[0.155,0.16,0.172,0.196,0.202], buyback:[0.02,0.02,0.02,0.02,null], shares:[2.549,2.559,2.567,2.573,2.571]},
     gd:{ca:8.358, cl:1.176, ta:8.9, tl:1.412, eq:7.387, tbv:7.387, debt:0.229, ltd:null, cash:7.177, inv:null, rec:1.042, divPaid:null, divRate:0, divYield:0},
     qm:{ocf:[0.224,0.712,1.154,2.134], fcf:[0.184,0.697,1.141,2.101], capex:[0.04,0.015,0.013,0.034], gross:[1.497,1.794,2.3,3.686], opinc:[-0.161,0.12,0.31,1.414]},
@@ -343,10 +344,10 @@ const DATA = [
     gaapEPS:-0.04, nonGaapEPS:0.97,
     fy:["2023","2024","2025","2026"], sbcPctRev:22.8, sbcPctOCF:68.0, sbcPctNI:null,
     revenue:[2.24,3.06,3.95,4.81], ni:[-0.18,0.07,-0.02,-0.16], sbc:[0.527,0.649,0.861,1.097],
-    buyback:[0,0,0,0], shares:[0.933,0.975,0.979,1.002],
+    buyback:[0,0,0,0], shares:[0.227,0.233,0.245,0.251],
     qd:{labels:["Apr'25","Jul'25","Oct'25","Jan'26","Apr'26"], revenue:[1.1,1.17,1.23,1.31,1.39], ni:[-0.1,-0.08,-0.03,0.06,0.03], sbc:[0.248,0.293,0.282,0.274,0.298], buyback:[0,null,null,null,0.18], shares:[0.994,1,1.005,1.033,1.032]},
     gd:{ca:7.419, cl:4.184, ta:11.087, tl:6.614, eq:4.428, tbv:2.928, debt:0.82, ltd:0.745, cash:5.23, inv:null, rec:1.362, divPaid:null, divRate:0, divYield:0},
-    qm:{ocf:[0.941,1.166,1.382,1.612], fcf:[0.675,0.929,1.068,1.241], capex:[0.266,0.237,0.314,0.371], gross:[1.64,2.297,2.963,3.593], opinc:[-0.19,-0.019,-0.116,-0.293]},
+    qm:{ocf:[0.941,1.166,1.382,1.612], fcf:[0.706,0.989,1.127,1.31], capex:[0.235,0.177,0.255,0.302], gross:[1.64,2.297,2.963,3.593], opinc:[-0.19,-0.019,-0.116,-0.293]},
     opt:{iv:0.591, rv:0.567, pcr:0.88, exp:"2026-08-21", dte:42},
     px:{v:[119.61,118.99,116.98,111.67,106.12,106.97,105.14,105.93,104.41,109.03,125.64,120.36,122.47,123.42,121.16,131.83,135.75,134.95,134.39,122.67,127.29,128.01,126.19,120.32,120.30,113.39,117.65,113.47,113.12,110.35,98.88,107.41,97.15,93.00,107.25,110.44,102.25,92.39,99.78,94.75,105.99,112.03,113.91,131.94,148.52,165.87,182.75,167.76,170.70,171.21,175.27,193.98,187.18,187.18], from:"2025-07-07", to:"2026-07-10"},
     note:"Non-GAAP EPS ~7x GAAP. SBC ~23% of revenue, rising shares, zero buybacks. Definition of adjusted-EPS distortion." }),
@@ -667,7 +668,7 @@ const DATA = [
     buyback:[0,0,0,0.79], shares:[0.222,0.254,0.273,0.287],
     qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[2.03,1.5,1.87,1.78,1.41], ni:[0.07,1.43,0.43,-0.67,-0.39], sbc:[0.191,0.196,0.222,0.23,0.248], buyback:[0,null,null,null,1.06], shares:[0.271,0.279,0.292,0.268,0.265]},
     gd:{ca:20.388, cl:8.701, ta:29.672, tl:14.879, eq:14.793, tbv:9.226, debt:7.831, ltd:5.937, cash:11.914, inv:null, rec:1.726, divPaid:null, divRate:0, divYield:0},
-    qm:{ocf:[-1.585,0.673,3.104,2.426], fcf:[-1.585,0.673,3.104,2.426], capex:[0.064,0.063,null,null], gross:[2.564,1.973,4.909,5.36], opinc:[-1.947,-0.054,2.235,1.456]},
+    qm:{ocf:[-1.585,0.673,3.104,2.426], fcf:[-1.588,null,null,null], capex:[0.003,null,null,null], gross:[2.564,1.973,4.909,5.36], opinc:[-1.947,-0.054,2.235,1.456]},
     opt:{iv:0.751, rv:0.675, pcr:1.48, exp:"2026-08-14", dte:35},
     px:{v:[387.06,419.78,391.66,314.69,310.54,317.55,319.85,304.54,299.07,323.04,342.46,312.59,380.02,357.01,336.02,354.46,343.78,309.14,284.00,240.41,272.82,269.73,267.46,245.12,236.90,236.53,240.78,241.15,216.95,194.74,165.12,164.32,171.35,175.85,197.22,195.53,197.50,161.14,171.46,167.85,206.33,199.77,191.25,201.16,195.43,184.99,189.03,152.40,159.78,163.26,149.06,165.48,159.07,159.07], from:"2025-07-07", to:"2026-07-10"},
     note:"Cycle-dependent earnings plus chunky SBC; owner earnings whipsaw with crypto." }),
@@ -781,18 +782,6 @@ const DATA = [
     opt:{iv:0.484, rv:0.499, pcr:0.25, exp:"2026-08-14", dte:35},
     px:{v:[71.36,74.17,77.98,67.11,67.65,69.23,69.90,70.19,68.26,66.89,68.22,67.30,69.25,69.84,67.41,69.77,69.27,66.22,62.81,60.57,62.69,62.28,61.66,59.81,59.97,58.14,57.66,56.89,56.62,52.69,40.42,40.29,41.65,46.21,46.97,44.90,44.01,43.59,45.34,45.24,50.81,50.48,50.44,45.37,44.41,44.23,44.75,41.29,41.53,42.51,44.29,45.47,46.32,46.32], from:"2025-07-07", to:"2026-07-10"},
     note:"Classic buyback-treadmill fintech: big repurchases mostly offsetting SBC; non-GAAP well above GAAP." }),
-
-  co({ ticker:"FLUT", name:"Flutter Entertainment", sector:"Gaming/iGaming", bucket:"middle", grade:"C",
-    price:110.66, change:-0.12, mktCap:19.2, headlinePE:null, ownersKeep:0.74,
-    gaapEPS:-2.10, nonGaapEPS:null,
-    fy:["2022","2023","2024","2025"], sbcPctRev:1.6, sbcPctOCF:22.0, sbcPctNI:null,
-    revenue:[9.46,11.79,14.05,16.38], ni:[-0.37,-1.22,0.11,-0.38], sbc:[0.181,0.19,0.202,0.26],
-    buyback:[0,0.21,0.22,1.12], shares:[0.177,0.177,0.18,0.177],
-    qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[3.67,4.19,3.79,4.74,4.3], ni:[0.33,0.03,-0.76,0.02,0.22], sbc:[0.057,0.072,0.071,0.06,0.049], buyback:[0.24,0.35,0.24,0.28,0.14], shares:[0.18,0.179,0.176,0.176,0.177]},
-    gd:{ca:4.796, cl:5.043, ta:29.28, tl:19.582, eq:9.038, tbv:-13.806, debt:12.872, ltd:12.157, cash:3.783, inv:null, rec:null, divPaid:null, divRate:0, divYield:0},
-    opt:{iv:0.573, rv:0.489, pcr:0.69, exp:"2026-08-21", dte:40},
-    px:{v:[289.89,306.79,304.97,299.62,280.59,293.31,299.42,307.17,295.28,281.09,284.50,280.17,256.30,242.18,251.86,243.92,232.59,223.03,198.58,193.31,208.81,208.50,223.04,222.11,220.65,218.27,215.30,188.46,174.91,165.15,152.53,125.17,121.02,106.14,112.25,108.37,104.81,100.50,106.38,102.38,110.08,111.57,106.13,101.19,92.38,97.38,96.98,100.49,110.65,101.83,104.19,106.03,110.66,110.66], from:"2025-07-07", to:"2026-07-10"},
-    note:"Online sports betting and iGaming operator. GAAP losses make trailing P/E n/m; watch cash conversion, debt, US share gains and buyback discipline." }),
 
   co({ ticker:"NBIS", name:"Nebius Group N.V.", sector:"Comm Services", bucket:"high", grade:"C", derived:true,
     price:216.48, change:10.91, mktCap:55.0, headlinePE:83.3, ownersKeep:0.53,

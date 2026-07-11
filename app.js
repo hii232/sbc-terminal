@@ -1,6 +1,6 @@
 /* =========================================================================
    SBC TERMINAL — application logic
-   Bundled data + live layer (Finnhub quotes/news, FMP financials).
+   SEC-first bundled data + live layer (Finnhub quotes/news, FMP fallback checks).
    ========================================================================= */
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
@@ -56,7 +56,12 @@
   };
 
   /* ------------------------ SBC math helpers ------------------------ */
-  const lastVal = (arr) => { for (let i = arr.length - 1; i >= 0; i--) if (arr[i] != null) return arr[i]; return 0; };
+  const hasNum = (v) => v != null && Number.isFinite(+v);
+  const lastVal = (arr) => {
+    const a = Array.isArray(arr) ? arr : [];
+    for (let i = a.length - 1; i >= 0; i--) if (hasNum(a[i])) return +a[i];
+    return null;
+  };
   const fyLabels = (d) => d.fy || YEARS.map(String);
   function sbcSeverity(p) { // % of revenue -> label/color
     if (p == null) return { t: "n/a", c: "var(--muted)" };
@@ -66,7 +71,9 @@
     return { t: "RED FLAG", c: "var(--red)" };
   }
   function shareTrend(shares) {
-    const a = shares[0], b = shares[shares.length - 1];
+    const s = (shares || []).filter(hasNum);
+    if (s.length < 2 || !s[0]) return { chg: null, t: "Insufficient data", c: "var(--dim)" };
+    const a = s[0], b = s[s.length - 1];
     const chg = ((b - a) / a) * 100;
     let t, c;
     if (chg < -3) { t = "FALLING — real buybacks"; c = "var(--green)"; }
@@ -79,6 +86,7 @@
     // classify last-year buyback vs sbc
     const bb = lastVal(d.buyback);
     const sbc = lastVal(d.sbc);
+    if (bb == null || sbc == null) return { anti: null, real: null, t: "Insufficient data — buybacks or SBC missing", c: "var(--dim)", uncertain: true, insufficientData: true };
     if (bb <= 0.05) return { anti: 0, real: 0, t: "No buybacks", c: "var(--muted)" };
     const anti = Math.min(bb, sbc);
     const real = Math.max(0, bb - sbc);
@@ -108,8 +116,18 @@
     //   capped at 1.5 × SBC$ ÷ avg px — the excess is issuance SBC cannot
     //   explain (M&A, raises, converts): EXCLUDED from SBC cost and FLAGGED.
     const ni = lastVal(d.ni);
-    const sbc = lastVal(d.sbc) || 0;
-    const bb = lastVal(d.buyback) || 0;
+    const sbc = lastVal(d.sbc);
+    const bb = lastVal(d.buyback);
+    const missing = [];
+    if (ni == null) missing.push("net income");
+    if (sbc == null) missing.push("SBC");
+    if (bb == null) missing.push("buybacks");
+    if (missing.length) {
+      return { ni, sbc, bb, trueCost: null, owner: null, shareCost: null, withholding: null,
+        withholdingSource: "missing", sbcMissing: sbc == null, buybackMissing: bb == null,
+        empShares: null, mnaShares: 0, avgP: null, antiDil: null, cases: null,
+        insufficientData: true, reason: "Insufficient data: missing " + missing.join(", ") };
+    }
     const pxArr = d.px && d.px.v && d.px.v.length ? d.px.v : null;
     const avgP = pxArr ? pxArr.reduce((a, v) => a + v, 0) / pxArr.length : (d.price || null);
     const sh = (d.shares || []).filter(v => v != null);
@@ -128,12 +146,18 @@
     const secW = (typeof SEC !== "undefined" && SEC[d.ticker] && SEC[d.ticker].f && SEC[d.ticker].f.taxWithholding)
       ? SEC[d.ticker].f.taxWithholding.v / 1e9 : null;
     const withholding = secW != null ? secW : sbc * 0.25;
-    const withholdingSource = secW != null ? "SEC-reported" : "estimated (25% of SBC proxy)";
+    const withholdingSource = secW != null ? "SEC-reported employee tax withholding" : "low-confidence estimate (25% of SBC proxy)";
     const sbcMissing = !(d.sbc || []).some(v => v != null);
     const trueCost = shareCost + withholding;
     const owner = ni + sbc - trueCost;
+    const conservativeCost = Math.max(trueCost * 1.15, sbc * 1.35 + withholding);
     return { ni, sbc, trueCost, owner, shareCost, withholding, withholdingSource, sbcMissing,
-             empShares, mnaShares, avgP, antiDil: Math.min(bb, sbc) };
+             empShares, mnaShares, avgP, antiDil: Math.min(bb, sbc), insufficientData: false,
+             cases: {
+               accounting: { label: "Accounting case", cost: sbc, owner: ni },
+               base: { label: "Base economic case", cost: trueCost, owner },
+               conservative: { label: "Conservative case", cost: conservativeCost, owner: ni + sbc - conservativeCost },
+             } };
   }
 
   /* ---- runtime owner-retention: COMPUTED, never trusted from data.js ----
@@ -146,13 +170,23 @@
     let sumNI = 0, sumOwner = 0, valid = 0;
     for (let i = 0; i < yrs; i++) {
       const ni = d.ni[i];
-      if (ni == null) continue;
-      const sbc = (d.sbc && d.sbc[i]) || 0;
+      const sbc = d.sbc && d.sbc[i];
+      if (!hasNum(ni) || !hasNum(sbc)) continue;
       sumNI += ni; sumOwner += ni - 0.25 * sbc; valid++;
     }
     const st = trueOwnerEarnings(d);
+    if (st.insufficientData) {
+      d.ownersKeep = null;
+      d.keepSource = "insufficient";
+      d.sbcAdjEPS = null;
+      d.ownerEps = null;
+      d.truePE = null;
+      d.dataBlocked = true;
+      d.dataBlockReason = st.reason;
+      return;
+    }
     if (valid && st.ni != null) {
-      const lastNi = lastVal(d.ni), lastSbc = lastVal(d.sbc) || 0;
+      const lastNi = lastVal(d.ni), lastSbc = lastVal(d.sbc);
       sumOwner += st.owner - (lastNi - 0.25 * lastSbc); // swap in reconciled latest year
     }
     let keep = null;
@@ -162,7 +196,8 @@
       d.ownersKeep = +keep.toFixed(2);
       d.keepSource = "computed";
     } else {
-      d.keepSource = "fallback"; // seeded heuristic stays, labeled as such
+      d.ownersKeep = null;
+      d.keepSource = "insufficient";
     }
     d.mnaFlag = st.mnaShares > 0.001;
     // contradiction repair: auto-derived names bucketed "tragic" purely from a
@@ -172,8 +207,12 @@
       if (d.grade === "F") d.grade = "C";
       d.reclassified = true;
     }
-    d.sbcAdjEPS = d.gaapEPS != null && d.ownersKeep ? +(d.gaapEPS * d.ownersKeep).toFixed(2) : d.sbcAdjEPS;
-    d.truePE = d.headlinePE && d.ownersKeep ? +(d.headlinePE / d.ownersKeep).toFixed(1) : d.truePE;
+    const sh = lastVal(d.shares);
+    d.ownerEps = st.owner != null && sh && sh > 0 ? +(st.owner / sh).toFixed(2) : null;
+    d.sbcAdjEPS = d.ownerEps;
+    d.truePE = d.ownerEps && d.ownerEps > 0 && d.price ? +(d.price / d.ownerEps).toFixed(1) : null;
+    d.dataBlocked = d.keepSource === "insufficient" || d.ownerEps == null;
+    d.dataBlockReason = d.dataBlocked ? "Insufficient data for direct owner-EPS valuation" : "";
   }
   /* ---------- OFFICIAL STOCK UNIVERSE VALIDATION (fatal on failure) ---------- */
   (function validateUniverse() {
@@ -187,7 +226,7 @@
     if (typeof UNIVERSE_LIST === "undefined") fail("universe.js not loaded");
     const uni = UNIVERSE_LIST.map(u => u.ticker);
     const expected = uni.length;
-    if (expected < 60) fail("universe has " + expected + " tickers, expected at least 60");
+    if (expected !== 60) fail("universe has " + expected + " tickers, expected exactly 60");
     if (new Set(uni).size !== expected) fail("duplicate tickers in universe");
     if (UNIVERSE_LIST.some(u => !u.cik || !u.name)) fail("ticker missing identity/CIK");
     const have = DATA.map(d => d.ticker);
@@ -212,8 +251,14 @@
     const pick = (k) => {
       const f = S.f[k];
       if (!f) return null;
-      if (yr && f.hist) { const m = f.hist.find(h => h[0] === yr); if (m) return m[1]; }
-      return f.v; // fall back to latest filed period
+      if (yr && f.hist) {
+        const m = f.hist.find(h => Array.isArray(h)
+          ? String(h[0]) === yr
+          : String(h.fiscalYear || (h.periodEnd || "").slice(0, 4)) === yr);
+        if (m) return Array.isArray(m) ? m[1] : m.value;
+      }
+      if (!yr && f.v != null) return f.v;
+      return null; // no latest-period fallback; mismatched periods are not comparable
     };
     const cmp = (k, local, scale, tol) => {
       const sec = pick(k);
@@ -232,6 +277,45 @@
     return res;
   }
 
+  function secValueForDisplay(d, k) {
+    const S = (typeof SEC !== "undefined") && SEC[d.ticker];
+    const f = S && S.f && S.f[k];
+    if (!f) return null;
+    const yr = d.fy && d.fy.length ? String(d.fy[d.fy.length - 1]) : null;
+    if (yr && f.hist) {
+      const m = f.hist.find(h => Array.isArray(h)
+        ? String(h[0]) === yr
+        : String(h.fiscalYear || (h.periodEnd || "").slice(0, 4)) === yr);
+      if (m) return { value: Array.isArray(m) ? m[1] : m.value, meta: Array.isArray(m) ? { fiscalYear: m[0] } : m };
+    }
+    if (!yr && f.v != null) return { value: f.v, meta: f };
+    return null;
+  }
+
+  function applySecPrimary(d) {
+    const map = [
+      ["revenue", "revenue", 1e9, 2],
+      ["netIncome", "ni", 1e9, 2],
+      ["sbc", "sbc", 1e9, 3],
+      ["buyback", "buyback", 1e9, 2],
+      ["dilShares", "shares", 1e9, 3],
+    ];
+    const idx = d.fy && d.fy.length ? d.fy.length - 1 : -1;
+    d.secPrimary = {};
+    if (idx < 0) return;
+    map.forEach(([secKey, localKey, scale, digits]) => {
+      const hit = secValueForDisplay(d, secKey);
+      if (!hit || !hasNum(hit.value)) return;
+      if (!Array.isArray(d[localKey])) d[localKey] = [];
+      d[localKey][idx] = +(hit.value / scale).toFixed(digits);
+      d.secPrimary[localKey] = hit.meta;
+    });
+    const rev = lastVal(d.revenue), sbc = lastVal(d.sbc), ni = lastVal(d.ni);
+    d.sbcPctRev = rev && sbc != null ? +((sbc / rev) * 100).toFixed(1) : null;
+    d.sbcPctNI = ni && ni > 0 && sbc != null ? +((sbc / ni) * 100).toFixed(0) : null;
+  }
+
+  DATA.forEach(applySecPrimary);
   DATA.forEach(recomputeOwnerEconomics);
   DATA.forEach(d => { d.secv = secCheckOf(d); });
 
@@ -425,7 +509,7 @@
     </div>`;
 
     el("main").innerHTML = header + tabs
-      + `<div class="sub" style="margin:-6px 0 10px;font-size:9px">source: Yahoo Finance aggregator (quotes, as-reported filings, chains) · latest SEC filing: ${d.secv && d.secv.latest && d.secv.latest.form ? d.secv.latest.form + " filed " + d.secv.latest.filed : "none on record"} · formulas ${FORMULA_VERSION} · retention ${d.keepSource === "computed" ? "computed" : "fallback"} · estimates carry model error — ${dataQualityOf(d).label.toLowerCase()}</div>`
+      + `<div class="sub" style="margin:-6px 0 10px;font-size:9px">source priority: SEC filing facts -> company filings -> secondary checks -> estimates -> missing · latest SEC filing: ${d.secv && d.secv.latest && d.secv.latest.form ? d.secv.latest.form + " filed " + d.secv.latest.filed : "none on record"} · model ${SBC_MODEL_VERSION} / ${FORMULA_VERSION} · retention is explanation only (${d.keepSource === "computed" ? "computed" : "insufficient/fallback"}) · ${dataQualityOf(d).label.toLowerCase()}</div>`
       + `<div id="tabBody"></div>`;
     el("main").querySelectorAll(".tabs button").forEach(btn =>
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
@@ -511,6 +595,9 @@
     const trend = shareTrend(d.shares);
     const bq = buybackQuality(d);
     const yrs = fyLabels(d);
+    if (st.insufficientData) {
+      return `<div class="note callout" style="margin-bottom:12px"><b>Insufficient data.</b> ${st.reason}. Owner earnings, adjusted valuation, quality score and terminal verdict are intentionally unavailable until those fields are verified.</div>`;
+    }
 
     // step 5 waterfall as horizontal bars
     const waterfall = Chart.hbars([
@@ -519,6 +606,12 @@
       { label: "− true SBC cost", value: st.trueCost, color: "var(--red)", display: "−" + money(st.trueCost) },
       { label: "= OWNER EARN", value: Math.max(st.owner, 0), color: "var(--amber)", display: money(st.owner) },
     ], { max: Math.max(st.ni + st.sbc, st.sbc) * 1.05, labelW: 96 });
+    const caseRows = st.cases ? Object.values(st.cases).map(c => {
+      const sh = lastVal(d.shares);
+      const eps = c.owner != null && sh ? c.owner / sh : null;
+      const pe = eps && eps > 0 && d.price ? d.price / eps : null;
+      return `<tr><td>${c.label}</td><td>${money(c.cost)}</td><td>${money(c.owner)}</td><td>${eps == null ? "n/m" : "$" + eps.toFixed(2)}</td><td>${pe == null ? "n/m" : pe.toFixed(1) + "x"}</td></tr>`;
+    }).join("") : "";
 
     return `
     <div class="note" style="margin-bottom:12px"><b style="color:var(--amber)">★ MANDATORY SECTION.</b> Every analysis runs the 7-step Burry SBC / dilution / true-owner-earnings check. A stock is not truly cheap until it is cheap on SBC-adjusted owner earnings per share — not Wall Street adjusted EPS.</div>
@@ -537,7 +630,7 @@
       <div class="card">
         <h3>② SHARE-COUNT TRUTH <span class="unit">diluted, B</span></h3>
         ${Chart.line([{ points: d.shares, color: trend.c.includes("green") ? "var(--green)" : trend.c.includes("red") ? "var(--red)" : "var(--amber)" }], yrs, { h: 130 })}
-        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg >= 0 ? "+" : ""}${trend.chg.toFixed(1)}%</b> over 5Y — ${trend.t}${d.mnaFlag ? " · includes issuance beyond SBC (M&A/raise) — not all employee dilution" : ""}</div>
+        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg == null ? "n/a" : (trend.chg >= 0 ? "+" : "") + trend.chg.toFixed(1) + "%"}</b> over 5Y — ${trend.t}${d.mnaFlag ? " · includes issuance beyond SBC (M&A/raise) — not all employee dilution" : ""}</div>
       </div>
 
       <!-- STEP 4: buyback quality -->
@@ -558,6 +651,10 @@
       <div class="card">
         <h3>④ ESTIMATED OWNER EARNINGS <span class="unit">latest FY, $B</span></h3>
         ${waterfall}
+        <div style="overflow-x:auto;margin-top:8px"><table class="rank mini">
+          <thead><tr><th>CASE</th><th>SBC COST</th><th>OWNER EARN</th><th>OWNER EPS</th><th>OWNER P/E</th></tr></thead>
+          <tbody>${caseRows}</tbody>
+        </table></div>
         <div class="sub" style="margin-top:6px">Est. cost = employee-share cost ${money(st.shareCost)} (${st.empShares != null ? "≈" + (st.empShares * 1000).toFixed(0) + "M shares reconciled from the count at avg $" + st.avgP.toFixed(0) + ", floored at GAAP SBC" : "GAAP SBC floor — share reconciliation unavailable"}) + vest-date tax withholding ${money(st.withholding)} <b>(${st.withholdingSource})</b>.${st.mnaShares > 0.001 ? ` <b style=\"color:var(--amber)\">${(st.mnaShares * 1000).toFixed(0)}M shares of issuance exceed what SBC can explain (M&A/raise/converts) — excluded from SBC cost.</b>` : ""} Retention here is <b>${d.keepSource === "computed" ? "computed (pooled multi-year)" : "a heuristic fallback"}</b>, not filing-verified.</div>
       </div>
 
@@ -567,10 +664,10 @@
         ${Chart.hbars([
           { label: "Headline P/E", value: d.headlinePE || 0, color: "var(--cyan)", display: (d.headlinePE ?? "n/m") + "x" },
           { label: "Wall St adj", value: d.headlinePE || 0, color: "var(--orange)", display: (d.headlinePE ?? "n/m") + "x" },
-          { label: "EST P/E", value: d.truePE || 0, color: "var(--amber)", display: (d.truePE ?? "n/m") + "x" },
+          { label: "OWNER P/E", value: d.truePE || 0, color: "var(--amber)", display: (d.truePE ?? "n/m") + "x" },
         ], { max: (d.truePE || d.headlinePE || 1) * 1.15, labelW: 92 })}
         <div class="note ${d.truePE > (d.headlinePE || 0) * 1.25 ? "callout" : ""}" style="margin-top:10px">
-          Headline ${d.headlinePE ?? "n/m"}x ÷ ${(d.ownersKeep * 100).toFixed(0)}¢ retention = <b>${d.truePE ?? "n/m"}x</b> on owner earnings.
+          Owner EPS ${d.ownerEps != null ? "$" + d.ownerEps.toFixed(2) : "n/a"} = adjusted owner earnings divided by diluted weighted-average shares; owner P/E = current price divided by owner EPS. Retention (${d.ownersKeep == null ? "n/a" : (d.ownersKeep * 100).toFixed(0) + "¢/$"}) is explanation only.
           ${d.truePE > (d.headlinePE || 0) * 1.25 ? "The stock is materially more expensive than it screens." : "Reasonably close — earnings quality holds up."}
         </div>
       </div>
@@ -776,16 +873,16 @@
     if (fh) {
       const from = new Date(Date.now() - 45 * 864e5).toISOString().slice(0, 10);
       const to = new Date(Date.now() + 180 * 864e5).toISOString().slice(0, 10);
-      tasks.push(fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${from}&to=${to}&symbol=${tk}&token=${fh}`)
-        .then(r => r.json()).then(j => {
+      tasks.push(fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${from}&to=${to}&symbol=${tk}&token=${fh}`, { provider: "Finnhub earnings", ticker: tk })
+        .then(j => {
           const rows = (j.earningsCalendar || []).filter(e => !e.symbol || e.symbol === tk)
             .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
           live.earningsCalendar = rows;
         }).catch(() => { live.earningsError = "Finnhub earnings calendar unavailable"; }));
     }
     if (fmp) {
-      const get = (period) => fetch(`https://financialmodelingprep.com/stable/analyst-estimates?symbol=${tk}&period=${period}&page=0&limit=8&apikey=${fmp}`)
-        .then(r => r.json()).then(j => Array.isArray(j) ? j : (Array.isArray(j?.data) ? j.data : []));
+      const get = (period) => fetchJsonWithRetry(`https://financialmodelingprep.com/stable/analyst-estimates?symbol=${tk}&period=${period}&page=0&limit=8&apikey=${fmp}`, { provider: `FMP ${period} estimates`, ticker: tk })
+        .then(j => Array.isArray(j) ? j : (Array.isArray(j?.data) ? j.data : []));
       tasks.push(Promise.all([get("annual"), get("quarter")])
         .then(([annual, quarter]) => { live.streetEstimates = { annual, quarter }; })
         .catch(() => { live.estimatesError = "FMP analyst estimates unavailable"; }));
@@ -1100,7 +1197,7 @@
             ["3 · Share-count truth", "Diluted shares over 1/3/5/10y — falling, flat, rising, or exploding?"],
             ["4 · Buyback quality", "Split anti-dilution (offsets SBC) vs real reduction; only bullish if shares fall AND price < intrinsic value."],
             ["5 · True owner earnings", "GAAP NI + SBC add-back − true economic SBC cost (offset buyback + withholding − option/ESPP inflows)."],
-            ["6 · Valuation re-rate", "Headline P/E ÷ owner-earnings retention = est owner-earnings P/E."],
+            ["6 · Valuation re-rate", "Owner EPS = adjusted owner earnings / diluted shares; owner P/E = price / owner EPS."],
             ["7 · Management score", "A→F on SBC discipline, buyback honesty, share-count direction."],
           ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
         </div>
@@ -1471,7 +1568,7 @@
       return `<path d="M${ax} ${ay} L${bx} ${by} A${r2} ${r2} 0 0 1 ${cx2} ${cy2} L${dx} ${dy} A${r1} ${r1} 0 0 0 ${ax} ${ay}" fill="${fill}"/>`;
     };
     const zones = { fat: [], just: [], out: [] };
-    DATA.forEach(d => { const L = ivLadder(d); zones[L ? L.zone : "out"].push({ d, L }); });
+    DATA.filter(d => dataConfidenceOf(d).rankable).forEach(d => { const L = ivLadder(d); zones[L ? L.zone : "out"].push({ d, L }); });
     Object.values(zones).forEach(z => z.sort((a, b) => (b.L?.impliedCAGR ?? -1) - (a.L?.impliedCAGR ?? -1)));
     const RB = { fat: [70, 155], just: [168, 248], out: [260, 345] };
     let dots = "";
@@ -1511,6 +1608,8 @@
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function rankOf(d) {
     const V = verdictOf(d);
+    if (V.noRank) return { noRank: true, dataConfidence: V.dataConfidence, composite: null, truePE: null,
+      cagr: null, mom: V.mom, zone: "out", call: V.call, C: V.C, thesis: V.thesis };
     return { L: V.L, cagr: V.cagr, truePE: d.truePE || null, mom: V.mom,
              composite: V.score, zone: V.zone, call: V.call, C: V.C, thesis: V.thesis };
   }
@@ -1531,7 +1630,9 @@
   const rankState = { sort: "composite", dir: -1 };
 
   function renderRankings() {
-    const rows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d), X: capexOf(d) }));
+    const allRows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d), X: capexOf(d) }));
+    const blocked = allRows.filter(x => x.r.noRank);
+    const rows = allRows.filter(x => !x.r.noRank);
     const raw = (o, k) => k === "composite" || k === "call" ? o.r.composite : k === "cagr" ? o.r.cagr
       : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : k === "graham" ? (o.G ? o.G.passed : null) : k === "capex" ? (o.X ? o.X.score : null) : o.d[k];
     rows.sort((a, b) => {
@@ -1581,14 +1682,14 @@
           <div class="sub">FAT PITCHES</div><div class="stat sm" style="color:var(--green)">${fats}</div>
         </div>
         <div style="text-align:right;border-left:1px solid var(--line);padding-left:14px">
-          <div class="sub">UNIVERSE</div><div class="stat sm">${DATA.length}</div>
+          <div class="sub">RANKED / UNIVERSE</div><div class="stat sm">${rows.length}/${DATA.length}</div>
         </div>
       </div>
 
       <div class="grid g3" style="margin-bottom:12px">
-        <div class="card" style="border-left:3px solid var(--green)"><h3>#1 BY SCORE — ${best.d.ticker}</h3>
-          <div class="stat" style="color:var(--green)">${best.r.composite.toFixed(0)}<span class="sub" style="font-weight:400">/100</span></div>
-          <div class="sub" style="margin-top:4px">${thesisOf(best.d, best.r)}</div></div>
+        <div class="card" style="border-left:3px solid var(--green)"><h3>#1 BY SCORE — ${best ? best.d.ticker : "–"}</h3>
+          <div class="stat" style="color:var(--green)">${best ? best.r.composite.toFixed(0) : "–"}<span class="sub" style="font-weight:400">/100</span></div>
+          <div class="sub" style="margin-top:4px">${best ? thesisOf(best.d, best.r) : "No companies passed the data-confidence gate."}</div></div>
         <div class="card"><h3>TOP CAGR — ${byCagr[0]?.d.ticker || "–"}</h3>
           <div class="stat" style="color:var(--green)">${byCagr[0] ? (byCagr[0].r.cagr * 100).toFixed(1) + "%" : "–"}<span class="sub" style="font-weight:400">/yr</span></div>
           <div class="sub" style="margin-top:4px">highest IV15 implied 15-year compounded return</div></div>
@@ -1601,10 +1702,12 @@
         <b style="color:var(--purple)">The brain score</b> merges every engine's weighted vote: IV15 DCF 25% · SBC x-ray 20% · quality &amp; cash (ROIC + FCF-after-SBC) 20% · Graham 15% · buyback truth 10% · sector flow 10% (+ insiders when live). The CALL column is the one-line conclusion — open any stock to see the full vote breakdown and written thesis on ⚛ THE VERDICT card. Tap a column to re-rank, a row to open.
       </div>
 
+      <div class="note" style="margin-bottom:12px">Only companies with data confidence 80+ enter the main ranking. Low-confidence names remain visible below, but receive no precise valuation and no final buy/avoid verdict.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
         <tbody>${body}</tbody>
-      </table></div></div>`;
+      </table></div></div>
+      ${blocked.length ? `<div class="card" style="padding:6px 8px;margin-top:12px;border-left:3px solid var(--dim)"><h3>NOT RANKED — MORE FILING DATA NEEDED <span class="unit">${blocked.length} names</span></h3><div style="overflow-x:auto"><table class="rank"><thead><tr><th>TICKER</th><th>DATA CONF.</th><th>REASON</th></tr></thead><tbody>${blocked.map(x => `<tr data-tk="${x.d.ticker}"><td><span class="rk-tk">${x.d.ticker}</span> <span class="sub">${x.d.sector}</span></td><td>${x.r.dataConfidence.score}/100</td><td class="sub">${x.r.dataConfidence.reason}</td></tr>`).join("")}</tbody></table></div></div>` : ""}`;
 
     el("main").querySelectorAll("th[data-sort]").forEach(h => h.onclick = () => {
       const k = h.dataset.sort;
@@ -1715,6 +1818,7 @@
     const g = d.gd, qm = d.qm;
     const sh = lastVal(d.shares);
     const ni = lastVal(d.ni), rev = lastVal(d.revenue), sbc = lastVal(d.sbc);
+    const hasCore = ni != null && rev != null && sbc != null;
     const roe = g && g.eq > 0 && ni != null ? (ni / g.eq) * 100 : null;
     const netMargin = rev && ni != null ? (ni / rev) * 100 : null;
     const grossMargin = qm && qm.gross && rev ? (lastVal(qm.gross) / rev) * 100 : null;
@@ -1731,10 +1835,10 @@
     const fcfYield = fcf != null && d.mktCap ? (fcf / d.mktCap) * 100 : null;
     const fcfPerShare = fcf != null && sh ? fcf / sh : null;
     const ocfToNi = ocf != null && ni && ni > 0 ? ocf / ni : null;
-    const fcfAfterSbc = fcf != null ? fcf - (sbc || 0) : null;
+    const fcfAfterSbc = fcf != null && sbc != null ? fcf - sbc : null;
     const fcfAfterSbcYield = fcfAfterSbc != null && d.mktCap ? (fcfAfterSbc / d.mktCap) * 100 : null;
     const fcfMargin = fcf != null && rev ? (fcf / rev) * 100 : null;
-    return { roe, roic, netMargin, grossMargin, opMargin, shareCAGR, revCAGR, fcf, ocf, fcfYield, fcfPerShare, ocfToNi, fcfAfterSbc, fcfAfterSbcYield, fcfMargin, sbc, hasFcf: fcf != null };
+    return { roe, roic, netMargin, grossMargin, opMargin, shareCAGR, revCAGR, fcf, ocf, fcfYield, fcfPerShare, ocfToNi, fcfAfterSbc, fcfAfterSbcYield, fcfMargin, sbc, hasFcf: fcf != null, hasCore, unavailable: !hasCore };
   }
 
   /* ============================================================================
@@ -1823,7 +1927,8 @@
   //  HEURISTIC           — insufficient SEC comparability; verify before sizing
   const dataQualityOf = (d) => {
     const sv = d.secv;
-    if (sv && sv.conflict.length === 0 && sv.verified.length >= 5)
+    const coreConflict = sv ? sv.conflict.filter(c => !["ocf", "capex"].includes(c.k)) : [];
+    if (sv && coreConflict.length === 0 && sv.verified.length >= 5)
       return { label: "FILING VERIFIED*", color: "var(--green)",
         tip: `${sv.verified.length} core fields reconciled to SEC XBRL facts (latest: ${sv.latest ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : "n/a"}). *Automated reconciliation within tolerance — see 🧾 DATA AUDIT; not a manual line-by-line audit.` };
     if (sv && sv.verified.length >= 2)
@@ -1831,6 +1936,23 @@
         tip: `${sv.verified.length} fields matched SEC filings · ${sv.conflict.length} conflicts flagged · ${sv.missing.length} not comparable. See the SEC FILING CHECK card on FINANCIALS.` };
     return { label: "HEURISTIC", color: "var(--dim)", tip: "Insufficient SEC reconciliation — aggregator data + derived fields. Verify before sizing real money." };
   };
+  function dataConfidenceOf(d) {
+    const sv = d.secv || { verified: [], conflict: [], missing: [] };
+    const dq = dataQualityOf(d);
+    const coreConflict = sv.conflict.filter(c => !["ocf", "capex"].includes(c.k));
+    const supplementalConflict = sv.conflict.length - coreConflict.length;
+    let score = 20 + sv.verified.length * 12 - coreConflict.length * 20 - supplementalConflict * 5 - sv.missing.length * 3;
+    if (dq.label === "FILING VERIFIED*") score = Math.max(score, 85);
+    if (dq.label === "PARTIALLY VERIFIED") score = Math.min(score, 79);
+    if (dq.label === "HEURISTIC") score = Math.min(score, 55);
+    if (d.keepSource === "insufficient" || d.dataBlocked) score = Math.min(score, 50);
+    score = Math.max(0, Math.min(100, Math.round(score)));
+    const rankable = score >= 80 && !d.dataBlocked;
+    const reason = rankable
+      ? "Rankable: core filing facts reconcile to SEC and owner-EPS can be computed."
+      : (d.dataBlockReason || "Not ranked: more filing data is needed.");
+    return { score, rankable, label: rankable ? "RANKABLE" : "LOW CONFIDENCE", reason };
+  }
   const toolHeader = (icon, title, sub, right = "") => `<div class="hdr"><div><div class="tick" style="color:var(--cyan)">${icon} ${title}</div><div class="co">${sub}</div></div><div class="spacer"></div>${right}</div>`;
 
   /* ============================================================================
@@ -1847,8 +1969,10 @@
     PASS:   { label: "PASS",                     color: "var(--orange)", desc: "not enough return for the risk — better pitches elsewhere" },
     TRAP:   { label: "VALUE TRAP",               color: "var(--red)",    desc: "screens cheap but the earnings aren't real — the cheapness is the bait" },
     AVOID:  { label: "AVOID — DILUTION MACHINE", color: "var(--red)",    desc: "run for employees, not shareholders — not investable until SBC discipline changes" },
+    NOTRANK: { label: "NOT RANKED — MORE FILING DATA NEEDED", color: "var(--dim)", desc: "no precise valuation or final buy/avoid verdict until the source proof is strong enough" },
   };
   function verdictOf(d) {
+    const dc = dataConfidenceOf(d);
     const L = ivLadder(d);
     const G = grahamOf(d);
     const Q = qualityOf(d);
@@ -1859,6 +1983,17 @@
     const lv = state.live[d.ticker] || {};
     const keep = d.ownersKeep || 0;
     const sig = [];
+    if (!dc.rankable) {
+      const C = CALLS.NOTRANK;
+      return {
+        score: null, call: "NOTRANK", C,
+        sig: [{ k: "DATA CONFIDENCE", w: 100, v: -2, why: `${dc.score}/100 · ${dc.reason}` }],
+        bulls: 0, bears: 1,
+        thesis: "Not ranked — more filing data is needed. The terminal will not issue a precise valuation or final buy/avoid verdict for this company yet.",
+        L: null, G, Q, CX: null, cagr: null, mom, zone: "out",
+        noRank: true, noVerdict: true, dataConfidence: dc,
+      };
+    }
 
     // 1 · SBC X-Ray — is the earnings dollar real? (w20)
     let v = keep >= .9 ? 2 : keep >= .8 ? 1 : keep >= .65 ? 0 : keep >= .5 ? -1 : -2;
@@ -1964,6 +2099,18 @@
     const sv = d.secv || { verified: [], conflict: [], missing: [] };
     const modelConf = d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "MEDIUM-HIGH" : "MEDIUM") : "LOW";
     const modelColor = d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "var(--green)" : "var(--amber)") : "var(--red)";
+    if (V.noRank) {
+      return `<div class="card" style="grid-column:span 3;border:1px solid var(--line)">
+        <h3>THE VERDICT — NOT RANKED <span class="unit">data confidence ${V.dataConfidence.score}/100</span></h3>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;margin-top:4px">
+          <div style="text-align:center;min-width:170px">
+            <div class="stat" style="font-size:28px;color:var(--dim)">Insufficient data</div>
+            <div class="sub">No main ranking · no precise valuation · no final buy/avoid verdict</div>
+          </div>
+          <div class="note" style="flex:1;min-width:260px">${V.dataConfidence.reason}<br>SEC cross-check: <b style="color:${dq.color}">${dq.label}</b> · ${sv.verified.length} matched · ${sv.conflict.length} conflicts · ${sv.missing.length} missing/not comparable.</div>
+        </div>
+      </div>`;
+    }
     const secLine = `${sv.verified.length} SEC-matched field${sv.verified.length === 1 ? "" : "s"} · ${sv.conflict.length} conflict${sv.conflict.length === 1 ? "" : "s"} · ${sv.missing.length} missing/not comparable`;
     const votePill = (v) => {
       const m = { "2": ["▲▲", "var(--green)"], "1": ["▲", "#7dd87d"], "0": ["·", "var(--dim)"], "-1": ["▼", "var(--orange)"], "-2": ["▼▼", "var(--red)"] }[String(v)];
@@ -2042,7 +2189,7 @@
       const L = ivLadder(d);
       if (S.zone !== "all" && (!L || L.zone !== S.zone)) return false;
       return true;
-    }).map(d => ({ d, r: rankOf(d), G: grahamOf(d) }));
+    }).map(d => ({ d, r: rankOf(d), G: grahamOf(d) })).filter(x => !x.r.noRank);
     const raw = (o, k) => k === "composite" ? o.r.composite : k === "cagr" ? o.r.cagr : k === "truePE" ? o.r.truePE : k === "graham" ? (o.G ? o.G.passed : null) : o.d[k];
     rows.sort((a, b) => { const va = raw(a, S.sort), vb = raw(b, S.sort); if (va == null) return 1; if (vb == null) return -1; return (vb - va); });
 
@@ -2216,8 +2363,8 @@
     if (!key) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">Connect a free Finnhub key (⚙ gear) to load the live earnings calendar.</div>`; return; }
     const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
     const fmt = dt => dt.toISOString().slice(0, 10);
-    fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${fmt(today)}&to=${fmt(to)}&token=${key}`)
-      .then(r => r.json()).then(j => {
+    fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${fmt(today)}&to=${fmt(to)}&token=${key}`, { provider: "Finnhub calendar", ticker: "UNIVERSE" })
+      .then(j => {
         const uni = new Set(DATA.map(d => d.ticker));
         const items = (j.earningsCalendar || []).filter(e => uni.has(e.symbol)).sort((a, b) => a.date.localeCompare(b.date));
         if (!items.length) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</div>`; return; }
@@ -2258,6 +2405,7 @@
   // one stock -> its best option play (or null)
   function optionPlayOf(d, V) {
     V = V || verdictOf(d);
+    if (V.noRank) return null;
     const L = V.L, o = d.opt;
     const price = L ? L.price : (state.live[d.ticker]?.quote?.price ?? d.price);
     if (!price || price <= 0) return null;
@@ -2376,8 +2524,8 @@
     if (key && !optState.earnLoaded && !optState.earnFailed) {
       const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
       const fmtD = dt => dt.toISOString().slice(0, 10);
-      fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${fmtD(today)}&to=${fmtD(to)}&token=${key}`)
-        .then(r => r.json()).then(j => {
+      fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${fmtD(today)}&to=${fmtD(to)}&token=${key}`, { provider: "Finnhub options earnings", ticker: "UNIVERSE" })
+        .then(j => {
           const uni = new Set(DATA.map(d => d.ticker));
           (j.earningsCalendar || []).forEach(e => { if (uni.has(e.symbol)) optState.earnings[e.symbol] = e.date; });
           optState.earnLoaded = true;
@@ -2576,7 +2724,7 @@
   function peRow(d, cap) {
     const hw = clamp((d.headlinePE / cap) * 100, 1, 100);
     const xw = clamp(((d.truePE - d.headlinePE) / cap) * 100, 0, 100 - hw);
-    return `<div class="pe-row" data-tk="${d.ticker}" title="${d.name} — headline ${d.headlinePE}x → true ${d.truePE}x (keeps ${(d.ownersKeep * 100).toFixed(0)}¢/$)">
+    return `<div class="pe-row" data-tk="${d.ticker}" title="${d.name} — headline ${d.headlinePE}x → owner ${d.truePE}x (keeps ${d.ownersKeep == null ? "n/a" : (d.ownersKeep * 100).toFixed(0) + "¢/$"})">
       <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(d.bucket)}"></i>${d.ticker}</span>
       <div class="pe-bar"><i style="width:${hw}%;background:var(--cyan)"></i><i style="width:${xw}%;background:var(--red)"></i></div>
       <span class="pe-val"><b style="color:var(--amber)">${d.truePE.toFixed(1)}x</b> <span class="sub">${d.headlinePE.toFixed(0)}x hdl</span></span>
@@ -2585,17 +2733,18 @@
 
   function renderValuation() {
     const groups = {};
+    const rankableUniverse = DATA.filter(d => dataConfidenceOf(d).rankable);
     DATA.forEach(d => { const etf = SECTOR_MAP[d.sector] || "XLK"; (groups[etf] = groups[etf] || []).push(d); });
     const secs = Object.entries(groups).map(([etf, ds]) => {
-      const withPE = ds.filter(d => d.truePE && d.headlinePE).sort((a, b) => a.truePE - b.truePE);
-      const noPE = ds.filter(d => !d.truePE || !d.headlinePE);
+      const withPE = ds.filter(d => dataConfidenceOf(d).rankable && d.truePE && d.headlinePE).sort((a, b) => a.truePE - b.truePE);
+      const noPE = ds.filter(d => !dataConfidenceOf(d).rankable || !d.truePE || !d.headlinePE);
       return { etf, s: secByT(etf), withPE, noPE, med: medianOf(withPE.map(d => d.truePE)) };
     }).filter(g => g.withPE.length || g.noPE.length)
       .sort((a, b) => (a.med ?? 1e9) - (b.med ?? 1e9));
 
-    const all = DATA.filter(d => d.truePE && d.headlinePE);
+    const all = rankableUniverse.filter(d => d.truePE && d.headlinePE);
     const map = allMapSVG();
-    const globalCap = Math.min(120, Math.max(...all.map(d => d.truePE)));
+    const globalCap = all.length ? Math.min(120, Math.max(...all.map(d => d.truePE))) : 30;
     const cheapest = [...all].sort((a, b) => a.truePE - b.truePE).slice(0, 10);
     const dearest = [...all].sort((a, b) => b.truePE - a.truePE).slice(0, 10);
 
@@ -2618,12 +2767,12 @@
         </div>
         <div class="spacer"></div>
         <div style="text-align:right">
-          <div class="sub">MEDIAN EST P/E · ALL ${all.length} NAMES</div>
-          <div class="stat sm" style="color:var(--amber)">${medianOf(all.map(d => d.truePE)).toFixed(1)}x</div>
+          <div class="sub">MEDIAN EST P/E · RANKED ${all.length}/${DATA.length}</div>
+          <div class="stat sm" style="color:var(--amber)">${medianOf(all.map(d => d.truePE)) == null ? "n/m" : medianOf(all.map(d => d.truePE)).toFixed(1) + "x"}</div>
         </div>
       </div>
       <div class="note" style="margin-bottom:12px">
-        <b style="color:var(--cyan)">Cyan</b> = headline P/E · <b style="color:var(--red)">red</b> = the SBC dilution premium you actually pay · <b style="color:var(--amber)">amber number</b> = EST P/E (headline ÷ owner-earnings retention). Colored dot = quality bucket. Tap any row to open the stock.
+        <b style="color:var(--cyan)">Cyan</b> = headline P/E · <b style="color:var(--red)">red</b> = the owner-economics premium you actually pay · <b style="color:var(--amber)">amber number</b> = owner P/E (price ÷ owner EPS). Colored dot = quality bucket. Tap any row to open the stock.
       </div>
       <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
         <h3>THE ALL MAP — WHERE EVERY PITCH LANDS <span class="unit">IV-ladder DCF on SBC-adj owner earnings · ${map.counts.fat} fat pitches · ${map.counts.just} just outside · ${map.counts.out} out field · tap a dot</span></h3>
@@ -2835,8 +2984,8 @@
     try {
       const base = "https://gamma-api.polymarket.com/events?closed=false&order=volume24hr&ascending=false&limit=6&tag_slug=";
       const [eco, cry] = await Promise.all([
-        fetch(base + "economy").then(r => r.json()).catch(() => []),
-        fetch(base + "crypto").then(r => r.json()).catch(() => []),
+        fetchJsonWithRetry(base + "economy", { provider: "Polymarket economy", ticker: "NARRATIVE", cacheMs: 10 * 60 * 1000 }).catch(() => []),
+        fetchJsonWithRetry(base + "crypto", { provider: "Polymarket crypto", ticker: "NARRATIVE", cacheMs: 10 * 60 * 1000 }).catch(() => []),
       ]);
       const events = [...(Array.isArray(eco) ? eco : []), ...(Array.isArray(cry) ? cry : [])]
         .sort((a, b) => (+b.volume24hr || 0) - (+a.volume24hr || 0)).slice(0, 7);
@@ -2996,6 +3145,66 @@
   function escapeHtml(s) { return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 
   /* ------------------------ LIVE DATA ------------------------ */
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+  const requestCache = new Map();
+  function noteRequest(meta, status, ageMs, message) {
+    const tk = meta && meta.ticker;
+    if (!tk || tk === "UNIVERSE" || !DATA.some(d => d.ticker === tk)) return;
+    state.live[tk] = state.live[tk] || {};
+    state.live[tk].requests = state.live[tk].requests || [];
+    state.live[tk].requests.unshift({
+      provider: meta.provider || "provider",
+      status,
+      ageMs: Math.max(0, ageMs || 0),
+      message: message || "",
+      at: Date.now(),
+    });
+    state.live[tk].requests = state.live[tk].requests.slice(0, 8);
+  }
+  async function fetchJsonWithRetry(url, meta = {}) {
+    const { provider = "provider", ticker = "", timeoutMs = 8000, retries = 2, cacheMs = 5 * 60 * 1000 } = meta;
+    const cached = requestCache.get(url);
+    if (cached && cacheMs > 0 && Date.now() - cached.ts < cacheMs) {
+      noteRequest({ provider, ticker }, "cache", Date.now() - cached.ts, "fresh cached response");
+      return cached.data;
+    }
+    let lastErr;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+      const timer = ctrl ? setTimeout(() => ctrl.abort(), timeoutMs) : null;
+      try {
+        const r = await fetch(url, ctrl ? { signal: ctrl.signal } : undefined);
+        if (timer) clearTimeout(timer);
+        if (r.status === 429) { const e = new Error(`${provider} ${ticker} HTTP 429`); e.rateLimited = true; throw e; }
+        if (!r.ok) throw new Error(`${provider} ${ticker} HTTP ${r.status}`);
+        const data = await r.json();
+        requestCache.set(url, { ts: Date.now(), data });
+        noteRequest({ provider, ticker }, "network", 0, "fresh response");
+        return data;
+      } catch (e) {
+        if (timer) clearTimeout(timer);
+        lastErr = e;
+        if (attempt === retries) break;
+        await sleep((e && e.rateLimited ? 1400 : 450) * Math.pow(2, attempt));
+      }
+    }
+    noteRequest({ provider, ticker }, "error", cached ? Date.now() - cached.ts : 0, (lastErr && lastErr.message) || "request failed");
+    throw new Error(`${provider} ${ticker}: ${(lastErr && lastErr.message) || "request failed"}`);
+  }
+  async function fetchQuoteOnly(tk) { return fetchLive(tk, false); }
+  async function fetchNews(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${new Date(Date.now() - 30 * 864e5).toISOString().slice(0,10)}&to=${new Date().toISOString().slice(0,10)}&token=${state.keys.finnhub}`, { provider: "Finnhub news", ticker: tk }) : null; }
+  async function fetchAnalystData(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/stock/price-target?symbol=${tk}&token=${state.keys.finnhub}`, { provider: "Finnhub analyst", ticker: tk }) : null; }
+  async function fetchInsiderData(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/stock/insider-transactions?symbol=${tk}&from=${new Date(Date.now() - 183 * 864e5).toISOString().slice(0,10)}&token=${state.keys.finnhub}`, { provider: "Finnhub insider", ticker: tk }) : null; }
+  async function fetchFundamentalsFallback(tk) {
+    if (!state.keys.fmp) return null;
+    const d = DATA.find(x => x.ticker === tk); if (!d) return null;
+    const [inc, cf] = await Promise.all([
+      fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/income-statement/${tk}?limit=5&apikey=${state.keys.fmp}`, { provider: "FMP income fallback", ticker: tk }),
+      fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/cash-flow-statement/${tk}?limit=5&apikey=${state.keys.fmp}`, { provider: "FMP cash-flow fallback", ticker: tk }),
+    ]);
+    return mergeFmp(d, inc, cf);
+  }
+
   async function fetchLive(tk, full = true) {
     const d = DATA.find(x => x.ticker === tk);
     if (!d) return;
@@ -3003,14 +3212,14 @@
     const k = state.keys;
     const tasks = [];
     if (k.finnhub) {
-      tasks.push(fetch(`https://finnhub.io/api/v1/quote?symbol=${tk}&token=${k.finnhub}`)
-        .then(r => r.json()).then(q => {
+      tasks.push(fetchJsonWithRetry(`https://finnhub.io/api/v1/quote?symbol=${tk}&token=${k.finnhub}`, { provider: "Finnhub quote", ticker: tk, cacheMs: 30 * 1000 })
+        .then(q => {
           if (q && q.c) {
             state.live[tk].quote = { price: q.c, changePct: q.dp ?? 0 };
             // recompute price-derived multiples so they never go stale vs live price
             if (d.gaapEPS > 0) {
               d.headlinePE = +(q.c / d.gaapEPS).toFixed(1);
-              d.truePE = d.ownersKeep ? +((q.c / d.gaapEPS) / d.ownersKeep).toFixed(1) : d.truePE;
+              d.truePE = d.ownerEps > 0 ? +(q.c / d.ownerEps).toFixed(1) : null;
             }
           }
         }).catch(() => {}));
@@ -3018,25 +3227,25 @@
         const to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 30;
         const fd = new Date(from * 1000).toISOString().slice(0, 10);
         const td = new Date(to * 1000).toISOString().slice(0, 10);
-        tasks.push(fetch(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${fd}&to=${td}&token=${k.finnhub}`)
-          .then(r => r.json()).then(n => { if (Array.isArray(n)) state.live[tk].news = n; }).catch(() => {}));
+        tasks.push(fetchJsonWithRetry(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${fd}&to=${td}&token=${k.finnhub}`, { provider: "Finnhub news", ticker: tk })
+          .then(n => { if (Array.isArray(n)) state.live[tk].news = n; }).catch(() => {}));
         // Wall Street price target
-        tasks.push(fetch(`https://finnhub.io/api/v1/stock/price-target?symbol=${tk}&token=${k.finnhub}`)
-          .then(r => r.json()).then(a => { if (a && (a.targetMean || a.targetMedian)) state.live[tk].analyst = { targetMean: a.targetMean || a.targetMedian, targetLow: a.targetLow, targetHigh: a.targetHigh }; }).catch(() => {}));
+        tasks.push(fetchJsonWithRetry(`https://finnhub.io/api/v1/stock/price-target?symbol=${tk}&token=${k.finnhub}`, { provider: "Finnhub analyst", ticker: tk })
+          .then(a => { if (a && (a.targetMean || a.targetMedian)) state.live[tk].analyst = { targetMean: a.targetMean || a.targetMedian, targetLow: a.targetLow, targetHigh: a.targetHigh }; }).catch(() => {}));
         // insider transactions (last ~6 months, net shares)
         const insFrom = new Date(Date.now() - 183 * 864e5).toISOString().slice(0, 10);
-        tasks.push(fetch(`https://finnhub.io/api/v1/stock/insider-transactions?symbol=${tk}&from=${insFrom}&token=${k.finnhub}`)
-          .then(r => r.json()).then(j => {
+        tasks.push(fetchJsonWithRetry(`https://finnhub.io/api/v1/stock/insider-transactions?symbol=${tk}&from=${insFrom}&token=${k.finnhub}`, { provider: "Finnhub insider", ticker: tk })
+          .then(j => {
             const arr = j && j.data || []; let net = 0, buys = 0, sells = 0;
             arr.forEach(t => { const ch = t.change || 0; net += ch; if (ch > 0) buys++; else if (ch < 0) sells++; });
             state.live[tk].insider = { net: net / 1e6, buys, sells };
           }).catch(() => {}));
       }
     }
-    if (k.fmp) {
+    if (full && k.fmp) {
       tasks.push(Promise.all([
-        fetch(`https://financialmodelingprep.com/api/v3/income-statement/${tk}?limit=5&apikey=${k.fmp}`).then(r => r.json()).catch(() => null),
-        fetch(`https://financialmodelingprep.com/api/v3/cash-flow-statement/${tk}?limit=5&apikey=${k.fmp}`).then(r => r.json()).catch(() => null),
+        fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/income-statement/${tk}?limit=5&apikey=${k.fmp}`, { provider: "FMP income fallback", ticker: tk }).catch(() => null),
+        fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/cash-flow-statement/${tk}?limit=5&apikey=${k.fmp}`, { provider: "FMP cash-flow fallback", ticker: tk }).catch(() => null),
       ]).then(([inc, cf]) => mergeFmp(d, inc, cf)));
     }
     await Promise.all(tasks);
@@ -3060,25 +3269,24 @@
       sbc.push(c ? +((c.stockBasedCompensation || 0) / B).toFixed(2) : (d.sbc[i] ?? 0));
       buyback.push(c ? +((Math.abs(c.commonStockRepurchased || 0)) / B).toFixed(2) : (d.buyback[i] ?? 0));
     });
-    // only overwrite if we got a full-ish series
+    // FMP is a secondary fallback/check only. It must never overwrite SEC-backed arrays.
     if (rev.length >= 3) {
-      d.revenue = rev; d.ni = ni; d.shares = shares;
-      d.sbc = sbc; d.buyback = buyback;
-      const latestRev = rev[rev.length - 1], latestNi = ni[ni.length - 1], latestSbc = sbc[sbc.length - 1];
-      if (latestRev) d.sbcPctRev = +((latestSbc / latestRev) * 100).toFixed(1);
-      if (latestNi > 0) d.sbcPctNI = +((latestSbc / latestNi) * 100).toFixed(0);
       state.live[d.ticker] = state.live[d.ticker] || {};
-      state.live[d.ticker].financialsSource = "FMP";
-      recomputeOwnerEconomics(d); // derived metrics must never outlive their inputs
+      state.live[d.ticker].fundamentalsFallback = {
+        source: "FMP fallback (not applied over SEC filing facts)",
+        fetchedAt: Date.now(),
+        revenue: rev, ni, shares, sbc, buyback,
+      };
+      state.live[d.ticker].financialsSource = "FMP fallback stored; SEC display unchanged";
+      return state.live[d.ticker].fundamentalsFallback;
     }
+    return null;
   }
 
   function refreshAllLive() {
     if (!state.keys.finnhub && !state.keys.fmp) return;
-    // Only the currently-visible watchlist (bucket filter), capped — the free
-    // Finnhub tier is ~60 calls/min and the universe is 650+ names.
-    // full official universe, quotes only, sequential with progress; one
-    // failure never stops the rest
+    // Full official 60-stock universe, quotes only, sequential with progress;
+    // one failure never stops the rest.
     const all = DATA.slice();
     let done = 0, fails = 0;
     flash(`Prices updated: 0 / ${all.length}…`, "ok");
@@ -3213,8 +3421,8 @@
     syncMobileChrome();
     updateLiveDot();
     tickClock(); setInterval(tickClock, 1000);
-    // On load only refresh the active name (selectTicker already did); the
-    // universe is 650+ so bulk live-refresh is opt-in via the ● live button.
+    // On load only refresh the active name (selectTicker already did); bulk
+    // 60-name live refresh is opt-in via the live button.
     // PWA: offline/phone support (only when served over http(s), not file://)
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -3223,6 +3431,8 @@
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
     buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings,
-    tabFinancials, renderAudit, secCheckOf, dataQualityOf, analyzeNews };
+    tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
+    lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
+    fetchJsonWithRetry, SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();

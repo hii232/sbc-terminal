@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 
 UNIVERSE_VERSION = "1.0.0"
+REQUIRED_UNIVERSE_SIZE = 60
 
 GROUPS = [
     ("Large technology and internet platforms",
@@ -21,14 +22,13 @@ GROUPS = [
      ["CRM", "NOW", "ADBE", "INTU", "PLTR", "CRWD", "PANW", "SNOW", "DDOG", "NET",
       "ZS", "WDAY", "MDB", "SHOP", "APP", "AXON", "IBM", "ACN"]),
     ("Internet, payments and fintech",
-     ["UBER", "ABNB", "COIN", "HOOD", "MELI", "V", "MA", "PYPL", "BKNG", "RBLX", "FLUT"]),
+     ["UBER", "ABNB", "COIN", "HOOD", "MELI", "V", "MA", "PYPL", "BKNG", "RBLX"]),
     ("New AI and computing companies",
      ["IREN", "CRWV", "NBIS", "SMCI"]),
     ("High-quality comparison companies",
      ["CSCO", "ADP", "SPGI", "ISRG"]),
 ]
 COUNTRY = {"ASML": "NL", "ARM": "GB", "SHOP": "CA", "MELI": "AR/UY (US filer)",
-           "FLUT": "IE",
            "IREN": "AU", "NBIS": "NL", "SPGI": "US"}
 
 def get(url):
@@ -76,7 +76,7 @@ for e in entries:
 # validation
 tks = [e["ticker"] for e in entries]
 count = len(tks)
-assert count >= 60, f"universe has {count} tickers; expected at least 60: {errors}"
+assert count == REQUIRED_UNIVERSE_SIZE, f"universe has {count} tickers; expected exactly {REQUIRED_UNIVERSE_SIZE}: {errors}"
 assert len(set(tks)) == count, "duplicate tickers"
 assert all(e["cik"] for e in entries), "missing CIK"
 assert not errors, errors

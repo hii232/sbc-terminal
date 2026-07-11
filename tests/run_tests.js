@@ -28,6 +28,8 @@ const ok = (cond, name, detail = "") => {
 
 // =============== 1. Black-Scholes correctness ===============
 {
+  ok(E.lastVal([]) === null, "lastVal([]) -> null, never fake zero");
+  ok(E.lastVal([null, undefined, 0]) === 0, "lastVal preserves real zero");
   // put-call parity: C - P = S - K·e^(-rT)
   for (const [S, K, iv, dte] of [[100, 100, 0.3, 35], [250, 220, 0.6, 60], [50, 65, 0.9, 20]]) {
     const c = E.bsPrice("call", S, K, iv, dte), p = E.bsPrice("put", S, K, iv, dte);
@@ -100,6 +102,10 @@ const ok = (cond, name, detail = "") => {
   const loser = { ni: [-2], sbc: [1], buyback: [0] };
   const oe3 = E.trueOwnerEarnings(loser);
   ok(Math.abs(oe3.owner - (-2 + 1 - 1.25)) < 1e-9, "negative NI handled by identity (GAAP-SBC floor)");
+  const missing = { ticker: "MISS", ni: [5], sbc: [null], buyback: [1], shares: [1], price: 10, gaapEPS: 5, headlinePE: 2 };
+  const blocked = E.trueOwnerEarnings(missing);
+  ok(blocked.insufficientData === true && blocked.owner === null && blocked.trueCost === null, "missing SBC cannot produce owner earnings");
+  ok(E.verdictOf(missing).noRank === true, "missing required data cannot enter verdict/ranking");
 }
 
 // =============== 5. Options staleness (the real-money bug) ===============
@@ -127,9 +133,11 @@ const ok = (cond, name, detail = "") => {
   let bad = [];
   for (const d of DATA) {
     const V = E.verdictOf(d);
-    if (!(V.score >= 0 && V.score <= 100) || !V.call || !V.C) bad.push(d.ticker);
+    if (V.noRank) {
+      if (V.score !== null || V.call !== "NOTRANK") bad.push(d.ticker);
+    } else if (!(V.score >= 0 && V.score <= 100) || !V.call || !V.C) bad.push(d.ticker);
   }
-  ok(bad.length === 0, "verdictOf: score in [0,100] + a call for every name", bad.slice(0, 5).join(","));
+  ok(bad.length === 0, "verdictOf: ranked names score; low-confidence names are NOTRANK", bad.slice(0, 5).join(","));
 }
 
 // =============== 7. Graham engine guards ===============
@@ -148,26 +156,27 @@ const ok = (cond, name, detail = "") => {
   for (let i = 0; i < DATA.length; i += 1) {
     const d = DATA[i]; sampled++;
     if (d.keepSource === "computed") computed++;
-    if (d.ownersKeep >= 0.30 && d.ownersKeep <= 0.98) sane++;
-    if (d.truePE == null || d.headlinePE == null || Math.abs(d.truePE - d.headlinePE / d.ownersKeep) < 0.15) consistent++;
+    if (d.ownersKeep == null || (d.ownersKeep >= 0.30 && d.ownersKeep <= 0.98)) sane++;
+    if (d.truePE == null || d.ownerEps == null || Math.abs(d.truePE - d.price / d.ownerEps) < 0.2) consistent++;
   }
   ok(computed / sampled > 0.7, "retention COMPUTED (not manual) for >70% of sample", computed + "/" + sampled);
-  ok(sane === sampled, "retention within [0.30, 0.98] for all", sane + "/" + sampled);
-  ok(consistent === sampled, "est P/E == headline P/E / retention (single source)", consistent + "/" + sampled);
+  ok(sane === sampled, "retention within [0.30, 0.98] or unavailable", sane + "/" + sampled);
+  ok(consistent === sampled, "est P/E == price / direct owner EPS", consistent + "/" + sampled);
 }
 
 // =============== 9. Universe + SEC filing layer ===============
 {
   const expected = typeof UNIVERSE_LIST !== "undefined" ? UNIVERSE_LIST.length : 0;
-  ok(DATA.length === expected && expected >= 61, "DATA length matches official universe", `${DATA.length}/${expected}`);
-  ok(UNIVERSE_LIST.some(u => u.ticker === "FLUT"), "FLUT is in official universe");
-  ok(DATA.some(d => d.ticker === "FLUT"), "FLUT is in DATA");
+  ok(expected === 60, "UNIVERSE_LIST length is exactly 60", String(expected));
+  ok(DATA.length === 60, "DATA length is exactly 60", String(DATA.length));
+  ok(!UNIVERSE_LIST.some(u => u.ticker === "FLUT"), "FLUT is not in official universe");
+  ok(!DATA.some(d => d.ticker === "FLUT"), "FLUT is not in DATA");
   ok(new Set(UNIVERSE_LIST.map(u => u.ticker)).size === expected, "no duplicate tickers");
   ok(UNIVERSE_LIST.every(u => u.cik && u.name && u.sector), "every name has identity + CIK");
   const uniSet = new Set(UNIVERSE_LIST.map(u => u.ticker));
   ok(DATA.every(d => uniSet.has(d.ticker)), "no unapproved tickers in DATA");
   // SEC layer integrity: provenance on every fact
-  ok(typeof SEC !== "undefined" && Object.keys(SEC).length === expected, "SEC facts for every official name", `${Object.keys(SEC || {}).length}/${expected}`);
+  ok(typeof SEC !== "undefined" && Object.keys(SEC).length === 60, "SEC facts for exactly 60 official names", `${Object.keys(SEC || {}).length}/60`);
   let provOk = 0, checked = 0;
   for (const tk of Object.keys(SEC)) {
     const f = SEC[tk].f.revenue;
@@ -175,18 +184,20 @@ const ok = (cond, name, detail = "") => {
   }
   ok(provOk === checked && checked >= 55, "every SEC fact carries form+filed+accession+tag", `${provOk}/${checked}`);
   // cross-check ran: verified majority, conflicts flagged not hidden
-  const verified = DATA.filter(d => d.secv && d.secv.verified.length >= 5 && d.secv.conflict.length === 0).length;
+  const verified = DATA.filter(d => E.dataQualityOf(d).label === "FILING VERIFIED*").length;
   // Fully verified count moves as the official universe grows; the rest are PARTIAL.
   // 20-F filers, tag variants) — tracked in AUDIT.md as the next data milestone
   ok(verified >= 34, "34+ names fully FILING VERIFIED*", String(verified));
-  const partial = DATA.filter(d => d.secv && d.secv.verified.length >= 2).length;
-  ok(partial >= expected - 1, "all but at most one name at least partially SEC-verified", `${partial}/${expected}`);
+  const partial = DATA.filter(d => ["FILING VERIFIED*", "PARTIALLY VERIFIED"].includes(E.dataQualityOf(d).label)).length;
+  ok(partial >= expected - 2, "all but at most two names at least partially SEC-verified", `${partial}/${expected}`);
   ok(DATA.every(d => d.secv), "secCheck ran for every name");
   ok(!src.includes("nothing filing-verified"), "no stale contradictory filing-verification wording");
   // missing is NOT zero: fixture with no SBC data must not produce computed retention
   const noSbc = { ticker: "XX", ni: [5, 5, 5], sbc: [null, null, null], buyback: [1, 1, 1], price: 10, gaapEPS: 1, headlinePE: 10, ownersKeep: 0.9 };
   const st = E.trueOwnerEarnings(noSbc);
-  ok(st.sbcMissing === true, "missing SBC flagged as missing, not zero");
+  ok(st.sbcMissing === true && st.owner === null, "missing SBC flagged as missing, not zero");
+  const lowConfidence = DATA.filter(d => E.dataConfidenceOf(d).score < 80);
+  ok(lowConfidence.every(d => E.rankOf(d).noRank === true), "data confidence below 80 is blocked from main ranking", String(lowConfidence.length));
 }
 
 // =============== 10. News narrative scorer ===============

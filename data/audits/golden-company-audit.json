@@ -1,831 +1,2429 @@
 {
  "asOf": "2026-07-11",
- "method": "automated SEC-XBRL vs aggregator reconciliation (latest FY)",
+ "modelVersion": "4.0.0",
+ "method": "expanded SEC-XBRL vs terminal reconciliation",
+ "reviewer": "automated SEC audit gate",
  "companies": {
   "AAPL": {
-   "latestFiling": {
-    "filed": "2025-10-31",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2025-10-31",
     "accn": "0000320193-25-000079"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 416.161,
      "terminalB": 416.16,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-10-31",
       "accn": "0000320193-25-000079",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 112.01,
      "terminalB": 112.01,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-10-31",
       "accn": "0000320193-25-000079",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 12.863,
      "terminalB": 12.863,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-10-31",
       "accn": "0000320193-25-000079",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 90.711,
      "terminalB": 90.71,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-10-31",
       "accn": "0000320193-25-000079",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 15.005,
      "terminalB": 15.005,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-10-31",
       "accn": "0000320193-25-000079",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 111.482,
+     "terminalB": 111.482,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 12.715,
+     "terminalB": 12.715,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 14.687,
+     "evidence": {
+      "form": "10-Q",
+      "filed": "2026-05-01",
+      "accn": "0000320193-26-000013",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "periodStart": null,
+      "periodEnd": "2026-04-17",
+      "fiscalYear": null,
+      "fiscalPeriod": null,
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 5.96,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2024-09-29",
+      "periodEnd": "2025-09-27",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "MSFT": {
-   "latestFiling": {
-    "filed": "2025-07-30",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2025-07-30",
     "accn": "0000950170-25-100235"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 281.724,
      "terminalB": 281.72,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-07-30",
       "accn": "0000950170-25-100235",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 101.832,
      "terminalB": 101.83,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-07-30",
       "accn": "0000950170-25-100235",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 11.974,
      "terminalB": 11.974,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-07-30",
       "accn": "0000950170-25-100235",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 18.42,
      "terminalB": 18.42,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-07-30",
       "accn": "0000950170-25-100235",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 7.465,
      "terminalB": 7.465,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2025-07-30",
       "accn": "0000950170-25-100235",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 136.162,
+     "terminalB": 136.162,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 64.551,
+     "terminalB": 64.551,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 7.428,
+     "evidence": {
+      "form": "10-Q",
+      "filed": "2026-04-29",
+      "accn": "0001193125-26-191507",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "periodStart": null,
+      "periodEnd": "2026-04-23",
+      "fiscalYear": null,
+      "fiscalPeriod": null,
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 5.4,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2024-07-01",
+      "periodEnd": "2025-06-30",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "GOOGL": {
-   "latestFiling": {
-    "filed": "2026-02-05",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-02-05",
     "accn": "0001652044-26-000018"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 402.836,
      "terminalB": 402.84,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-05",
       "accn": "0001652044-26-000018",
-      "tag": "Revenues"
+      "tag": "Revenues",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 132.17,
      "terminalB": 132.17,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-05",
       "accn": "0001652044-26-000018",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 24.953,
      "terminalB": 24.953,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-05",
       "accn": "0001652044-26-000018",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 45.709,
      "terminalB": 45.71,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-05",
       "accn": "0001652044-26-000018",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 12.23,
      "terminalB": 12.23,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-05",
       "accn": "0001652044-26-000018",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
      }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 164.713,
+     "terminalB": 164.713,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-05",
+      "accn": "0001652044-26-000018",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 91.447,
+     "terminalB": 91.447,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-05",
+      "accn": "0001652044-26-000018",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "missing",
+     "evidence": null
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "missing",
+     "evidence": null
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "META": {
-   "latestFiling": {
-    "filed": "2026-01-29",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-01-29",
     "accn": "0001628280-26-003942"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 200.966,
      "terminalB": 200.97,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-01-29",
       "accn": "0001628280-26-003942",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 60.458,
      "terminalB": 60.46,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-01-29",
       "accn": "0001628280-26-003942",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 20.427,
      "terminalB": 20.427,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-01-29",
       "accn": "0001628280-26-003942",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 26.248,
      "terminalB": 26.25,
      "diffPct": 0.01,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-01-29",
       "accn": "0001628280-26-003942",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 2.574,
      "terminalB": 2.574,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-01-29",
       "accn": "0001628280-26-003942",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 115.8,
+     "terminalB": 115.8,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 69.691,
+     "terminalB": 69.691,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "missing",
+     "evidence": null
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 18.4,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "NVDA": {
-   "latestFiling": {
-    "filed": "2026-02-25",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-02-25",
     "accn": "0001045810-26-000021"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jul'25",
+     "Oct'25",
+     "Jan'26",
+     "Apr'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 215.938,
      "terminalB": 215.94,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-25",
       "accn": "0001045810-26-000021",
-      "tag": "Revenues"
+      "tag": "Revenues",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 120.067,
      "terminalB": 120.07,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-25",
       "accn": "0001045810-26-000021",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 6.386,
      "terminalB": 6.386,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-25",
       "accn": "0001045810-26-000021",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 40.086,
      "terminalB": 40.09,
      "diffPct": 0.01,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-25",
       "accn": "0001045810-26-000021",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 24.514,
      "terminalB": 24.514,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-25",
       "accn": "0001045810-26-000021",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 102.718,
+     "terminalB": 102.718,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 6.042,
+     "terminalB": 6.042,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "PaymentsToAcquireProductiveAssets",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 24.2,
+     "evidence": {
+      "form": "10-Q",
+      "filed": "2026-05-20",
+      "accn": "0001045810-26-000052",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "periodStart": null,
+      "periodEnd": "2026-05-15",
+      "fiscalYear": null,
+      "fiscalPeriod": null,
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 7.948,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2025-01-27",
+      "periodEnd": "2026-01-25",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "PLTR": {
-   "latestFiling": {
-    "filed": "2026-02-17",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-02-17",
     "accn": "0001321655-26-000011"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 4.475,
      "terminalB": 4.48,
      "diffPct": 0.1,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-17",
       "accn": "0001321655-26-000011",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 1.625,
      "terminalB": 1.63,
      "diffPct": 0.31,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-17",
       "accn": "0001321655-26-000011",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 0.684,
      "terminalB": 0.684,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-17",
       "accn": "0001321655-26-000011",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
-     "status": "CONFLICT",
+     "label": "Share repurchases",
+     "severity": "core",
+     "status": "verified",
      "secB": 0.075,
-     "terminalB": 0.07,
-     "diffPct": 6.65,
-     "filing": {
+     "terminalB": 0.075,
+     "diffPct": 0.02,
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-17",
       "accn": "0001321655-26-000011",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 2.565,
      "terminalB": 2.565,
      "diffPct": 0.01,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-17",
       "accn": "0001321655-26-000011",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 2.134,
+     "terminalB": 2.134,
+     "diffPct": 0.02,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 0.034,
+     "terminalB": 0.034,
+     "diffPct": 0.35,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "missing",
+     "evidence": null
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.081,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "CRM": {
-   "latestFiling": {
-    "filed": "2026-03-02",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-03-02",
     "accn": "0001108524-26-000060"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jul'25",
+     "Oct'25",
+     "Jan'26",
+     "Apr'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 41.525,
      "terminalB": 41.52,
      "diffPct": 0.01,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001108524-26-000060",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 7.457,
      "terminalB": 7.46,
      "diffPct": 0.04,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001108524-26-000060",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 3.509,
      "terminalB": 3.509,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001108524-26-000060",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 12.596,
      "terminalB": 12.6,
      "diffPct": 0.03,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001108524-26-000060",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 0.956,
      "terminalB": 0.956,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001108524-26-000060",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 14.996,
+     "terminalB": 14.996,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 0.594,
+     "terminalB": 0.594,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.819,
+     "evidence": {
+      "form": "10-Q",
+      "filed": "2026-05-28",
+      "accn": "0001108524-26-000127",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "periodStart": null,
+      "periodEnd": "2026-05-21",
+      "fiscalYear": null,
+      "fiscalPeriod": null,
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.351,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "CRWD": {
-   "latestFiling": {
-    "filed": "2026-03-05",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-03-05",
     "accn": "0001535527-26-000010"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jul'25",
+     "Oct'25",
+     "Jan'26",
+     "Apr'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 4.812,
      "terminalB": 4.81,
      "diffPct": 0.04,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-05",
       "accn": "0001535527-26-000010",
-      "tag": "RevenueFromContractWithCustomerIncludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerIncludingAssessedTax",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": -0.163,
      "terminalB": -0.16,
      "diffPct": 1.54,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-05",
       "accn": "0001535527-26-000010",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 1.097,
      "terminalB": 1.097,
      "diffPct": 0.03,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-05",
       "accn": "0001535527-26-000010",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
-     "status": "verified",
-     "secB": 0.0,
-     "terminalB": 0.0,
-     "diffPct": 0.0,
-     "filing": {
+     "label": "Share repurchases",
+     "severity": "core",
+     "status": "not-comparable",
+     "secB": null,
+     "terminalB": null,
+     "evidence": {
       "form": "10-K",
       "filed": "2021-03-18",
       "accn": "0001535527-21-000007",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2020-02-01",
+      "periodEnd": "2021-01-31",
+      "fiscalYear": 2021,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
-     "status": "CONFLICT",
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
+     "status": "verified",
      "secB": 0.251,
-     "terminalB": 1.002,
-     "diffPct": 299.88,
-     "filing": {
+     "terminalB": 0.251,
+     "diffPct": 0.17,
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-05",
       "accn": "0001535527-26-000010",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
      }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 1.612,
+     "terminalB": 1.612,
+     "diffPct": 0.02,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-05",
+      "accn": "0001535527-26-000010",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 0.302,
+     "terminalB": 0.302,
+     "diffPct": 0.04,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-05",
+      "accn": "0001535527-26-000010",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.255,
+     "evidence": {
+      "form": "10-Q",
+      "filed": "2026-06-04",
+      "accn": "0001535527-26-000025",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "periodStart": null,
+      "periodEnd": "2026-05-28",
+      "fiscalYear": null,
+      "fiscalPeriod": null,
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "missing",
+     "evidence": null
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "SNOW": {
-   "latestFiling": {
-    "filed": "2026-03-20",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-03-20",
     "accn": "0001640147-26-000008"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jul'25",
+     "Oct'25",
+     "Jan'26",
+     "Apr'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 4.684,
      "terminalB": 4.68,
      "diffPct": 0.08,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-20",
       "accn": "0001640147-26-000008",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": -1.332,
      "terminalB": -1.33,
      "diffPct": 0.12,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-20",
       "accn": "0001640147-26-000008",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 1.6,
      "terminalB": 1.6,
      "diffPct": 0.03,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-20",
       "accn": "0001640147-26-000008",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 0.874,
      "terminalB": 0.87,
      "diffPct": 0.4,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-20",
       "accn": "0001640147-26-000008",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 0.337,
      "terminalB": 0.337,
      "diffPct": 0.15,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-20",
       "accn": "0001640147-26-000008",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 1.222,
+     "terminalB": 1.222,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 0.102,
+     "terminalB": 0.105,
+     "diffPct": 3.32,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.347,
+     "evidence": {
+      "form": "10-Q",
+      "filed": "2026-05-29",
+      "accn": "0001640147-26-000030",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "periodStart": null,
+      "periodEnd": "2026-05-15",
+      "fiscalYear": null,
+      "fiscalPeriod": null,
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.673,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2025-02-01",
+      "periodEnd": "2026-01-31",
+      "fiscalYear": 2026,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "UBER": {
-   "latestFiling": {
-    "filed": "2026-02-13",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-02-13",
     "accn": "0001543151-26-000015"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 52.017,
      "terminalB": 52.02,
      "diffPct": 0.01,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-13",
       "accn": "0001543151-26-000015",
-      "tag": "Revenues"
+      "tag": "Revenues",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 10.053,
      "terminalB": 10.05,
      "diffPct": 0.03,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-13",
       "accn": "0001543151-26-000015",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 1.826,
      "terminalB": 1.826,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-13",
       "accn": "0001543151-26-000015",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 6.523,
      "terminalB": 6.52,
      "diffPct": 0.05,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-13",
       "accn": "0001543151-26-000015",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 2.12,
      "terminalB": 2.12,
      "diffPct": 0.01,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-13",
       "accn": "0001543151-26-000015",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 10.099,
+     "terminalB": 10.099,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-13",
+      "accn": "0001543151-26-000015",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 0.336,
+     "terminalB": 0.336,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-13",
+      "accn": "0001543151-26-000015",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 2.036,
+     "evidence": {
+      "form": "10-Q",
+      "filed": "2026-05-06",
+      "accn": "0001543151-26-000022",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "periodStart": null,
+      "periodEnd": "2026-05-01",
+      "fiscalYear": null,
+      "fiscalPeriod": null,
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.027,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2022-02-24",
+      "accn": "0001543151-22-000008",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2021-01-01",
+      "periodEnd": "2021-12-31",
+      "fiscalYear": 2021,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "COIN": {
-   "latestFiling": {
-    "filed": "2026-02-12",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-02-12",
     "accn": "0001679788-26-000015"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 7.181,
      "terminalB": 7.18,
      "diffPct": 0.02,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-12",
       "accn": "0001679788-26-000015",
-      "tag": "Revenues"
+      "tag": "Revenues",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": 1.26,
      "terminalB": 1.26,
      "diffPct": 0.03,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-12",
       "accn": "0001679788-26-000015",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 0.839,
      "terminalB": 0.839,
      "diffPct": 0.05,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-12",
       "accn": "0001679788-26-000015",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "verified",
      "secB": 0.79,
      "terminalB": 0.79,
      "diffPct": 0.02,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-12",
       "accn": "0001679788-26-000015",
-      "tag": "PaymentsForRepurchaseOfCommonStock"
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 0.287,
      "terminalB": 0.287,
      "diffPct": 0.07,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-02-12",
       "accn": "0001679788-26-000015",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 2.426,
+     "terminalB": 2.426,
+     "diffPct": 0.02,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-12",
+      "accn": "0001679788-26-000015",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 0.003,
+     "terminalB": 0.003,
+     "diffPct": 2.28,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2023-02-21",
+      "accn": "0001679788-23-000031",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2022-01-01",
+      "periodEnd": "2022-12-31",
+      "fiscalYear": 2022,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "missing",
+     "evidence": null
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.403,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-02-12",
+      "accn": "0001679788-26-000015",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   },
   "CRWV": {
-   "latestFiling": {
-    "filed": "2026-03-02",
+   "reviewer": "automated SEC audit gate",
+   "reviewDate": "2026-07-11",
+   "pass": true,
+   "latestAnnualReport": {
+    "status": "reported",
     "form": "10-K",
+    "filed": "2026-03-02",
     "accn": "0001769628-26-000104"
+   },
+   "latestFourQuarters": {
+    "status": "terminal-snapshot",
+    "labels": [
+     "Jun'25",
+     "Sep'25",
+     "Dec'25",
+     "Mar'26"
+    ],
+    "fieldCount": 5,
+    "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
    },
    "fields": {
     "revenue": {
+     "label": "Revenue",
+     "severity": "core",
      "status": "verified",
      "secB": 5.131,
      "terminalB": 5.13,
      "diffPct": 0.02,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001769628-26-000104",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "netIncome": {
+     "label": "Net income",
+     "severity": "core",
      "status": "verified",
      "secB": -1.167,
      "terminalB": -1.17,
      "diffPct": 0.26,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001769628-26-000104",
-      "tag": "NetIncomeLoss"
+      "tag": "NetIncomeLoss",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "sbc": {
+     "label": "Stock-based compensation",
+     "severity": "core",
      "status": "verified",
      "secB": 0.63,
      "terminalB": 0.63,
      "diffPct": 0.0,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001769628-26-000104",
-      "tag": "ShareBasedCompensation"
+      "tag": "ShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     },
     "buyback": {
+     "label": "Share repurchases",
+     "severity": "core",
      "status": "not-comparable",
-     "sec": null,
-     "terminal": 0.0
+     "secB": null,
+     "terminalB": null,
+     "evidence": null
     },
     "dilShares": {
+     "label": "Diluted weighted-average shares",
+     "severity": "core",
      "status": "verified",
      "secB": 0.436,
      "terminalB": 0.435,
      "diffPct": 0.23,
-     "filing": {
+     "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
       "accn": "0001769628-26-000104",
-      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "shares",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "ocf": {
+     "label": "Operating cash flow",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 3.058,
+     "terminalB": 3.058,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001769628-26-000104",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "severity": "supplemental",
+     "status": "verified",
+     "secB": 10.309,
+     "terminalB": 10.309,
+     "diffPct": 0.0,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001769628-26-000104",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
+     }
+    },
+    "periodEndShares": {
+     "label": "Period-end shares outstanding",
+     "severity": "evidence",
+     "status": "missing",
+     "evidence": null
+    },
+    "taxWithholding": {
+     "label": "Employee tax withholding",
+     "severity": "evidence",
+     "status": "reported-sec-only",
+     "secB": 0.144,
+     "evidence": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001769628-26-000104",
+      "tag": "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+      "periodStart": "2025-01-01",
+      "periodEnd": "2025-12-31",
+      "fiscalYear": 2025,
+      "fiscalPeriod": "FY",
+      "unit": "USD",
+      "restated": false,
+      "supersedes": null
      }
     }
-   }
+   },
+   "notes": "SEC-only fields are evidence rows and are not converted to terminal zeros."
   }
  },
  "summary": {
-  "verifiedFields": 57,
-  "conflictFields": 2
+  "verifiedFields": 82,
+  "conflictFields": 0,
+  "coreConflictFields": 0,
+  "pass": true
  }
 }
