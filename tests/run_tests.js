@@ -14,7 +14,7 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network in tests"));
 
 const root = path.join(__dirname, "..");
-const src = ["data.js", "segments.js", "sectors.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -44,7 +44,7 @@ const ok = (cond, name, detail = "") => {
 // =============== 2. IV ladder invariants (production data) ===============
 {
   let checked = 0, monotonic = 0, nanFree = 0;
-  for (let i = 0; i < DATA.length; i += 13) {
+  for (let i = 0; i < DATA.length; i += 2) {
     const d = DATA[i], L = E.ivLadder(d);
     if (!L) continue;
     checked++;
@@ -129,13 +129,13 @@ const ok = (cond, name, detail = "") => {
     const V = E.verdictOf(d);
     if (!(V.score >= 0 && V.score <= 100) || !V.call || !V.C) bad.push(d.ticker);
   }
-  ok(bad.length === 0, "verdictOf: score in [0,100] + a call for ALL 650 names", bad.slice(0, 5).join(","));
+  ok(bad.length === 0, "verdictOf: score in [0,100] + a call for ALL 60 names", bad.slice(0, 5).join(","));
 }
 
 // =============== 7. Graham engine guards ===============
 {
   let nanBad = [];
-  for (let i = 0; i < DATA.length; i += 7) {
+  for (let i = 0; i < DATA.length; i += 2) {
     const G = E.grahamOf(DATA[i]);
     if (G && [G.score, G.passed].some(v => !Number.isFinite(v))) nanBad.push(DATA[i].ticker);
   }
@@ -145,7 +145,7 @@ const ok = (cond, name, detail = "") => {
 // =============== 8. Runtime-computed retention (no manual ownersKeep) ===============
 {
   let computed = 0, sane = 0, sampled = 0, consistent = 0;
-  for (let i = 0; i < DATA.length; i += 9) {
+  for (let i = 0; i < DATA.length; i += 1) {
     const d = DATA[i]; sampled++;
     if (d.keepSource === "computed") computed++;
     if (d.ownersKeep >= 0.30 && d.ownersKeep <= 0.98) sane++;
@@ -154,6 +154,36 @@ const ok = (cond, name, detail = "") => {
   ok(computed / sampled > 0.7, "retention COMPUTED (not manual) for >70% of sample", computed + "/" + sampled);
   ok(sane === sampled, "retention within [0.30, 0.98] for all", sane + "/" + sampled);
   ok(consistent === sampled, "est P/E == headline P/E / retention (single source)", consistent + "/" + sampled);
+}
+
+// =============== 9. Universe + SEC filing layer ===============
+{
+  ok(DATA.length === 60, "DATA.length === 60 (official universe)", String(DATA.length));
+  ok(typeof UNIVERSE_LIST !== "undefined" && UNIVERSE_LIST.length === 60, "universe.js has exactly 60");
+  ok(new Set(UNIVERSE_LIST.map(u => u.ticker)).size === 60, "no duplicate tickers");
+  ok(UNIVERSE_LIST.every(u => u.cik && u.name && u.sector), "every name has identity + CIK");
+  const uniSet = new Set(UNIVERSE_LIST.map(u => u.ticker));
+  ok(DATA.every(d => uniSet.has(d.ticker)), "no unapproved tickers in DATA");
+  // SEC layer integrity: provenance on every fact
+  ok(typeof SEC !== "undefined" && Object.keys(SEC).length === 60, "SEC facts for all 60", String(Object.keys(SEC || {}).length));
+  let provOk = 0, checked = 0;
+  for (const tk of Object.keys(SEC)) {
+    const f = SEC[tk].f.revenue;
+    if (f) { checked++; if (f.form && f.filed && f.accn && f.tag) provOk++; }
+  }
+  ok(provOk === checked && checked >= 55, "every SEC fact carries form+filed+accession+tag", `${provOk}/${checked}`);
+  // cross-check ran: verified majority, conflicts flagged not hidden
+  const verified = DATA.filter(d => d.secv && d.secv.verified.length >= 5 && d.secv.conflict.length === 0).length;
+  // 27/60 fully verify today; the rest are PARTIAL (fiscal-Jan year labels,
+  // 20-F filers, tag variants) — tracked in AUDIT.md as the next data milestone
+  ok(verified >= 25, "25+ names fully FILING VERIFIED*", String(verified));
+  const partial = DATA.filter(d => d.secv && d.secv.verified.length >= 2).length;
+  ok(partial >= 50, "50+ names at least partially SEC-verified", String(partial));
+  ok(DATA.every(d => d.secv), "secCheck ran for every name");
+  // missing is NOT zero: fixture with no SBC data must not produce computed retention
+  const noSbc = { ticker: "XX", ni: [5, 5, 5], sbc: [null, null, null], buyback: [1, 1, 1], price: 10, gaapEPS: 1, headlinePE: 10, ownersKeep: 0.9 };
+  const st = E.trueOwnerEarnings(noSbc);
+  ok(st.sbcMissing === true, "missing SBC flagged as missing, not zero");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

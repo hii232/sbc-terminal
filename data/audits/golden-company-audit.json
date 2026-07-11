@@ -1,0 +1,831 @@
+{
+ "asOf": "2026-07-11",
+ "method": "automated SEC-XBRL vs aggregator reconciliation (latest FY)",
+ "companies": {
+  "AAPL": {
+   "latestFiling": {
+    "filed": "2025-10-31",
+    "form": "10-K",
+    "accn": "0000320193-25-000079"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 416.161,
+     "terminalB": 416.16,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 112.01,
+     "terminalB": 112.01,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 12.863,
+     "terminalB": 12.863,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 90.711,
+     "terminalB": 90.71,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 15.005,
+     "terminalB": 15.005,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-10-31",
+      "accn": "0000320193-25-000079",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "MSFT": {
+   "latestFiling": {
+    "filed": "2025-07-30",
+    "form": "10-K",
+    "accn": "0000950170-25-100235"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 281.724,
+     "terminalB": 281.72,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 101.832,
+     "terminalB": 101.83,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 11.974,
+     "terminalB": 11.974,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 18.42,
+     "terminalB": 18.42,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 7.465,
+     "terminalB": 7.465,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2025-07-30",
+      "accn": "0000950170-25-100235",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "GOOGL": {
+   "latestFiling": {
+    "filed": "2026-02-05",
+    "form": "10-K",
+    "accn": "0001652044-26-000018"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 402.836,
+     "terminalB": 402.84,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-05",
+      "accn": "0001652044-26-000018",
+      "tag": "Revenues"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 132.17,
+     "terminalB": 132.17,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-05",
+      "accn": "0001652044-26-000018",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 24.953,
+     "terminalB": 24.953,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-05",
+      "accn": "0001652044-26-000018",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 45.709,
+     "terminalB": 45.71,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-05",
+      "accn": "0001652044-26-000018",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 12.23,
+     "terminalB": 12.23,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-05",
+      "accn": "0001652044-26-000018",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "META": {
+   "latestFiling": {
+    "filed": "2026-01-29",
+    "form": "10-K",
+    "accn": "0001628280-26-003942"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 200.966,
+     "terminalB": 200.97,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 60.458,
+     "terminalB": 60.46,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 20.427,
+     "terminalB": 20.427,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 26.248,
+     "terminalB": 26.25,
+     "diffPct": 0.01,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 2.574,
+     "terminalB": 2.574,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-01-29",
+      "accn": "0001628280-26-003942",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "NVDA": {
+   "latestFiling": {
+    "filed": "2026-02-25",
+    "form": "10-K",
+    "accn": "0001045810-26-000021"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 215.938,
+     "terminalB": 215.94,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "Revenues"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 120.067,
+     "terminalB": 120.07,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 6.386,
+     "terminalB": 6.386,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 40.086,
+     "terminalB": 40.09,
+     "diffPct": 0.01,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 24.514,
+     "terminalB": 24.514,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-25",
+      "accn": "0001045810-26-000021",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "PLTR": {
+   "latestFiling": {
+    "filed": "2026-02-17",
+    "form": "10-K",
+    "accn": "0001321655-26-000011"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 4.475,
+     "terminalB": 4.48,
+     "diffPct": 0.1,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 1.625,
+     "terminalB": 1.63,
+     "diffPct": 0.31,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 0.684,
+     "terminalB": 0.684,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "CONFLICT",
+     "secB": 0.075,
+     "terminalB": 0.07,
+     "diffPct": 6.65,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 2.565,
+     "terminalB": 2.565,
+     "diffPct": 0.01,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-17",
+      "accn": "0001321655-26-000011",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "CRM": {
+   "latestFiling": {
+    "filed": "2026-03-02",
+    "form": "10-K",
+    "accn": "0001108524-26-000060"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 41.525,
+     "terminalB": 41.52,
+     "diffPct": 0.01,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 7.457,
+     "terminalB": 7.46,
+     "diffPct": 0.04,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 3.509,
+     "terminalB": 3.509,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 12.596,
+     "terminalB": 12.6,
+     "diffPct": 0.03,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 0.956,
+     "terminalB": 0.956,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001108524-26-000060",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "CRWD": {
+   "latestFiling": {
+    "filed": "2026-03-05",
+    "form": "10-K",
+    "accn": "0001535527-26-000010"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 4.812,
+     "terminalB": 4.81,
+     "diffPct": 0.04,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-05",
+      "accn": "0001535527-26-000010",
+      "tag": "RevenueFromContractWithCustomerIncludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": -0.163,
+     "terminalB": -0.16,
+     "diffPct": 1.54,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-05",
+      "accn": "0001535527-26-000010",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 1.097,
+     "terminalB": 1.097,
+     "diffPct": 0.03,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-05",
+      "accn": "0001535527-26-000010",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 0.0,
+     "terminalB": 0.0,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2021-03-18",
+      "accn": "0001535527-21-000007",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "CONFLICT",
+     "secB": 0.251,
+     "terminalB": 1.002,
+     "diffPct": 299.88,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-05",
+      "accn": "0001535527-26-000010",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "SNOW": {
+   "latestFiling": {
+    "filed": "2026-03-20",
+    "form": "10-K",
+    "accn": "0001640147-26-000008"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 4.684,
+     "terminalB": 4.68,
+     "diffPct": 0.08,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": -1.332,
+     "terminalB": -1.33,
+     "diffPct": 0.12,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 1.6,
+     "terminalB": 1.6,
+     "diffPct": 0.03,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 0.874,
+     "terminalB": 0.87,
+     "diffPct": 0.4,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 0.337,
+     "terminalB": 0.337,
+     "diffPct": 0.15,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-20",
+      "accn": "0001640147-26-000008",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "UBER": {
+   "latestFiling": {
+    "filed": "2026-02-13",
+    "form": "10-K",
+    "accn": "0001543151-26-000015"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 52.017,
+     "terminalB": 52.02,
+     "diffPct": 0.01,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-13",
+      "accn": "0001543151-26-000015",
+      "tag": "Revenues"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 10.053,
+     "terminalB": 10.05,
+     "diffPct": 0.03,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-13",
+      "accn": "0001543151-26-000015",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 1.826,
+     "terminalB": 1.826,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-13",
+      "accn": "0001543151-26-000015",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 6.523,
+     "terminalB": 6.52,
+     "diffPct": 0.05,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-13",
+      "accn": "0001543151-26-000015",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 2.12,
+     "terminalB": 2.12,
+     "diffPct": 0.01,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-13",
+      "accn": "0001543151-26-000015",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "COIN": {
+   "latestFiling": {
+    "filed": "2026-02-12",
+    "form": "10-K",
+    "accn": "0001679788-26-000015"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 7.181,
+     "terminalB": 7.18,
+     "diffPct": 0.02,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-12",
+      "accn": "0001679788-26-000015",
+      "tag": "Revenues"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": 1.26,
+     "terminalB": 1.26,
+     "diffPct": 0.03,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-12",
+      "accn": "0001679788-26-000015",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 0.839,
+     "terminalB": 0.839,
+     "diffPct": 0.05,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-12",
+      "accn": "0001679788-26-000015",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "verified",
+     "secB": 0.79,
+     "terminalB": 0.79,
+     "diffPct": 0.02,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-12",
+      "accn": "0001679788-26-000015",
+      "tag": "PaymentsForRepurchaseOfCommonStock"
+     }
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 0.287,
+     "terminalB": 0.287,
+     "diffPct": 0.07,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-02-12",
+      "accn": "0001679788-26-000015",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  },
+  "CRWV": {
+   "latestFiling": {
+    "filed": "2026-03-02",
+    "form": "10-K",
+    "accn": "0001769628-26-000104"
+   },
+   "fields": {
+    "revenue": {
+     "status": "verified",
+     "secB": 5.131,
+     "terminalB": 5.13,
+     "diffPct": 0.02,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001769628-26-000104",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax"
+     }
+    },
+    "netIncome": {
+     "status": "verified",
+     "secB": -1.167,
+     "terminalB": -1.17,
+     "diffPct": 0.26,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001769628-26-000104",
+      "tag": "NetIncomeLoss"
+     }
+    },
+    "sbc": {
+     "status": "verified",
+     "secB": 0.63,
+     "terminalB": 0.63,
+     "diffPct": 0.0,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001769628-26-000104",
+      "tag": "ShareBasedCompensation"
+     }
+    },
+    "buyback": {
+     "status": "not-comparable",
+     "sec": null,
+     "terminal": 0.0
+    },
+    "dilShares": {
+     "status": "verified",
+     "secB": 0.436,
+     "terminalB": 0.435,
+     "diffPct": 0.23,
+     "filing": {
+      "form": "10-K",
+      "filed": "2026-03-02",
+      "accn": "0001769628-26-000104",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding"
+     }
+    }
+   }
+  }
+ },
+ "summary": {
+  "verifiedFields": 57,
+  "conflictFields": 2
+ }
+}

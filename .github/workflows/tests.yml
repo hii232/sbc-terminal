@@ -1,0 +1,15 @@
+name: tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Regression tests (production engines)
+        run: node tests/run_tests.js
+      - name: Universe + security checks
+        run: |
+          node -e "const u=require('./data/universe.json'); if(u.count!==60||u.companies.length!==60) process.exit(1); console.log('universe OK')"
+          ! grep -rE "api_key=|token=[A-Za-z0-9]{20}" --include="*.js" --include="*.html" . || (echo 'possible key leak' && exit 1)

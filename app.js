@@ -123,11 +123,17 @@
       mnaShares = Math.max(0, grossIssued - cap);
       shareCost = Math.max(sbc, empShares * avgP);
     }
-    const withholding = sbc * 0.25;
+    // Withholding: use the company's SEC-REPORTED vest-date tax withholding
+    // when filed; only fall back to the 25%-of-SBC proxy when it is not.
+    const secW = (typeof SEC !== "undefined" && SEC[d.ticker] && SEC[d.ticker].f && SEC[d.ticker].f.taxWithholding)
+      ? SEC[d.ticker].f.taxWithholding.v / 1e9 : null;
+    const withholding = secW != null ? secW : sbc * 0.25;
+    const withholdingSource = secW != null ? "SEC-reported" : "estimated (25% of SBC proxy)";
+    const sbcMissing = !(d.sbc || []).some(v => v != null);
     const trueCost = shareCost + withholding;
     const owner = ni + sbc - trueCost;
-    return { ni, sbc, trueCost, owner, shareCost, withholding, empShares, mnaShares, avgP,
-             antiDil: Math.min(bb, sbc) };
+    return { ni, sbc, trueCost, owner, shareCost, withholding, withholdingSource, sbcMissing,
+             empShares, mnaShares, avgP, antiDil: Math.min(bb, sbc) };
   }
 
   /* ---- runtime owner-retention: COMPUTED, never trusted from data.js ----
@@ -150,7 +156,8 @@
       sumOwner += st.owner - (lastNi - 0.25 * lastSbc); // swap in reconciled latest year
     }
     let keep = null;
-    if (valid >= 2 && sumNI > 0) keep = Math.min(0.98, Math.max(0.30, sumOwner / sumNI));
+    const sbcAllMissing = !(d.sbc || []).some(v => v != null);
+    if (valid >= 2 && sumNI > 0 && !sbcAllMissing) keep = Math.min(0.98, Math.max(0.30, sumOwner / sumNI));
     if (keep != null && isFinite(keep)) {
       d.ownersKeep = +keep.toFixed(2);
       d.keepSource = "computed";
@@ -168,7 +175,64 @@
     d.sbcAdjEPS = d.gaapEPS != null && d.ownersKeep ? +(d.gaapEPS * d.ownersKeep).toFixed(2) : d.sbcAdjEPS;
     d.truePE = d.headlinePE && d.ownersKeep ? +(d.headlinePE / d.ownersKeep).toFixed(1) : d.truePE;
   }
+  /* ---------- OFFICIAL 60-STOCK UNIVERSE VALIDATION (fatal on failure) ---------- */
+  (function validateUniverse() {
+    const fail = (msg) => {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.innerHTML = '<div style="padding:40px;font-family:monospace;color:#ff5b6b;background:#05070c;min-height:100vh">' +
+          "<h2>UNIVERSE VALIDATION FAILED</h2><p>" + msg + "</p><p>The terminal refuses to run with an invalid universe.</p></div>";
+      });
+      throw new Error("UNIVERSE: " + msg);
+    };
+    if (typeof UNIVERSE_LIST === "undefined") fail("universe.js not loaded");
+    const uni = UNIVERSE_LIST.map(u => u.ticker);
+    if (uni.length !== 60) fail("universe has " + uni.length + " tickers, expected exactly 60");
+    if (new Set(uni).size !== 60) fail("duplicate tickers in universe");
+    if (UNIVERSE_LIST.some(u => !u.cik || !u.name)) fail("ticker missing identity/CIK");
+    const have = DATA.map(d => d.ticker);
+    if (have.length !== 60) fail("DATA has " + have.length + " companies, expected exactly 60");
+    const haveSet = new Set(have);
+    const missing = uni.filter(t => !haveSet.has(t));
+    const extra = have.filter(t => !new Set(uni).has(t));
+    if (missing.length) fail("approved tickers missing from data: " + missing.join(", "));
+    if (extra.length) fail("unapproved tickers present: " + extra.join(", "));
+  })();
+
+  /* ---------- SEC FILING CROSS-CHECK (primary-source layer) ----------
+     Compares each company's latest-FY aggregator values against SEC XBRL
+     facts (sec.js, with accession numbers). A lower-quality source never
+     overwrites SEC silently: matches -> verified, differences -> CONFLICT
+     flagged for review, absent SEC facts -> missing (never zero).        */
+  function secCheckOf(d) {
+    const S = (typeof SEC !== "undefined") && SEC[d.ticker];
+    const res = { verified: [], conflict: [], missing: [], latest: S ? S.latest : null };
+    if (!S || !S.f) { res.missing.push({ k: "all" }); return res; }
+    const yr = d.fy && d.fy.length ? String(d.fy[d.fy.length - 1]) : null;
+    const pick = (k) => {
+      const f = S.f[k];
+      if (!f) return null;
+      if (yr && f.hist) { const m = f.hist.find(h => h[0] === yr); if (m) return m[1]; }
+      return f.v; // fall back to latest filed period
+    };
+    const cmp = (k, local, scale, tol) => {
+      const sec = pick(k);
+      if (sec == null || local == null) { res.missing.push({ k }); return; }
+      const lv = local * scale;
+      const diff = Math.abs(lv - sec) / Math.max(Math.abs(sec), 1e-9);
+      (diff <= tol ? res.verified : res.conflict).push({ k, sec, local: lv, diffPct: +(diff * 100).toFixed(1) });
+    };
+    const lastNZ = (arr) => { const a = (arr || []).filter(v => v != null); return a.length ? a[a.length - 1] : null; };
+    cmp("revenue", lastNZ(d.revenue), 1e9, 0.02);
+    cmp("netIncome", lastNZ(d.ni), 1e9, 0.02);
+    cmp("sbc", lastNZ(d.sbc), 1e9, 0.03);
+    cmp("buyback", lastNZ(d.buyback), 1e9, 0.05);
+    cmp("dilShares", lastNZ(d.shares), 1e9, 0.01);
+    if (d.qm) { cmp("ocf", lastNZ(d.qm.ocf), 1e9, 0.03); cmp("capex", lastNZ(d.qm.capex), 1e9, 0.05); }
+    return res;
+  }
+
   DATA.forEach(recomputeOwnerEconomics);
+  DATA.forEach(d => { d.secv = secCheckOf(d); });
 
   /* ------------------------ favorites + portfolio (localStorage) ------------------------ */
   const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
@@ -212,7 +276,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn", "techBtn", "optBtn"];
+  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn", "techBtn", "optBtn", "auditBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -279,7 +343,7 @@
       } else {
         const map = { sectors: showSectors, narratives: showNarratives, valuation: showValuation,
           rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare,
-          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions };
+          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
     } finally { navRestoring = false; }
@@ -307,7 +371,7 @@
     const header = `
       <div class="hdr">
         <div>
-          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span></div>
+          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span>${d.secv && d.secv.conflict.length ? ` <span class="derived-tag" style="color:var(--red);border-color:var(--red)" title="${d.secv.conflict.map(c => c.k + ": SEC vs terminal differ " + c.diffPct + "%").join(" · ")}">⚠ ${d.secv.conflict.length} SOURCE CONFLICT${d.secv.conflict.length > 1 ? "S" : ""}</span>` : ""}</div>
           <div class="co">${d.name} · ${d.sector}</div>
         </div>
         <div>
@@ -341,7 +405,7 @@
     </div>`;
 
     el("main").innerHTML = header + tabs
-      + `<div class="sub" style="margin:-6px 0 10px;font-size:9px">source: Yahoo Finance aggregator (quotes, as-reported filings, chains) · formulas ${FORMULA_VERSION} · retention ${d.keepSource === "computed" ? "computed" : "fallback"} · estimates carry model error — ${dataQualityOf(d).label.toLowerCase()}</div>`
+      + `<div class="sub" style="margin:-6px 0 10px;font-size:9px">source: Yahoo Finance aggregator (quotes, as-reported filings, chains) · latest SEC filing: ${d.secv && d.secv.latest && d.secv.latest.form ? d.secv.latest.form + " filed " + d.secv.latest.filed : "none on record"} · formulas ${FORMULA_VERSION} · retention ${d.keepSource === "computed" ? "computed" : "fallback"} · estimates carry model error — ${dataQualityOf(d).label.toLowerCase()}</div>`
       + `<div id="tabBody"></div>`;
     el("main").querySelectorAll(".tabs button").forEach(btn =>
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
@@ -469,7 +533,7 @@
       <div class="card">
         <h3>④ ESTIMATED OWNER EARNINGS <span class="unit">latest FY, $B</span></h3>
         ${waterfall}
-        <div class="sub" style="margin-top:6px">Est. cost = employee-share cost ${money(st.shareCost)} (${st.empShares != null ? "≈" + (st.empShares * 1000).toFixed(0) + "M shares reconciled from the count at avg $" + st.avgP.toFixed(0) + ", floored at GAAP SBC" : "GAAP SBC floor — share reconciliation unavailable"}) + est. vest-date tax withholding ${money(st.withholding)} (financing CF, ASU 2016-09).${st.mnaShares > 0.001 ? ` <b style=\"color:var(--amber)\">${(st.mnaShares * 1000).toFixed(0)}M shares of issuance exceed what SBC can explain (M&A/raise/converts) — excluded from SBC cost.</b>` : ""} Retention here is <b>${d.keepSource === "computed" ? "computed (pooled multi-year)" : "a heuristic fallback"}</b>, not filing-verified.</div>
+        <div class="sub" style="margin-top:6px">Est. cost = employee-share cost ${money(st.shareCost)} (${st.empShares != null ? "≈" + (st.empShares * 1000).toFixed(0) + "M shares reconciled from the count at avg $" + st.avgP.toFixed(0) + ", floored at GAAP SBC" : "GAAP SBC floor — share reconciliation unavailable"}) + vest-date tax withholding ${money(st.withholding)} <b>(${st.withholdingSource})</b>.${st.mnaShares > 0.001 ? ` <b style=\"color:var(--amber)\">${(st.mnaShares * 1000).toFixed(0)}M shares of issuance exceed what SBC can explain (M&A/raise/converts) — excluded from SBC cost.</b>` : ""} Retention here is <b>${d.keepSource === "computed" ? "computed (pooled multi-year)" : "a heuristic fallback"}</b>, not filing-verified.</div>
       </div>
 
       <!-- STEP 6: valuation re-rate -->
@@ -589,7 +653,23 @@
       </div>`;
     }
 
-    const html = `${toggle}${segmentCard(d)}<div class="grid g2">
+    const secCard = (() => {
+      const sv = d.secv, S = (typeof SEC !== "undefined") && SEC[d.ticker];
+      if (!S || !S.f) return `<div class="card" style="margin-bottom:12px"><h3>SEC FILING CHECK</h3><div class="sub">No SEC facts on record for this name — run scripts/sec_ingest.py.</div></div>`;
+      const NAMES = { revenue: "Revenue", netIncome: "Net income", sbc: "Stock-based comp", buyback: "Buybacks", dilShares: "Diluted shares", ocf: "Operating cash flow", capex: "Capex", taxWithholding: "SBC tax withholding", esppProceeds: "Stock-plan proceeds", periodEndShares: "Period-end shares" };
+      const fmtSec = (k, v) => k === "dilShares" || k === "periodEndShares" ? (v / 1e9).toFixed(3) + "B sh" : "$" + (v / 1e9).toFixed(2) + "B";
+      const row = (st, cls, k, sec, local, extra) => `<tr><td>${NAMES[k] || k}</td><td class="${cls}">${st}</td><td>${sec != null ? fmtSec(k, sec) : "–"}</td><td class="sub">${local != null ? fmtSec(k, local) : "–"}</td><td class="sub">${extra || ""}</td></tr>`;
+      let rows = "";
+      (sv.verified || []).forEach(c => rows += row("✓ verified", "up", c.k, c.sec, c.local, "Δ " + c.diffPct + "%"));
+      (sv.conflict || []).forEach(c => rows += row("⚠ CONFLICT — review", "down", c.k, c.sec, c.local, "Δ " + c.diffPct + "% — no source auto-wins"));
+      ["taxWithholding", "esppProceeds", "periodEndShares"].forEach(k => { const f = S.f[k]; if (f) rows += row("reported (SEC only)", "up", k, f.v, null, f.form + " " + f.filed); });
+      (sv.missing || []).forEach(c => { if (c.k !== "all") rows += row("missing — NOT zero", "sub", c.k, null, null, ""); });
+      return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : "var(--green)"}">
+        <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten</span></h3>
+        <div style="overflow-x:auto"><table class="fin"><tr><th style="text-align:left">FIELD</th><th style="text-align:left">STATUS</th><th>SEC FILING</th><th>TERMINAL</th><th>NOTE</th></tr>${rows}</table></div>
+      </div>`;
+    })();
+    const html = `${toggle}${secCard}${segmentCard(d)}<div class="grid g2">
       ${ttmStrip}
       <div class="card"><h3>REVENUE <span class="unit">${unit}</span> ${q ? yoyChip(D.revenue) : ""}</h3>
         ${Chart.bars([{ name: "Revenue", values: D.revenue, color: "var(--cyan)" }], labels, { h: 180 })}</div>
@@ -1367,13 +1447,21 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
-  const FORMULA_VERSION = "v3.0 (2026-07)"; // bump when any engine formula changes
+  const FORMULA_VERSION = "v4.0 (2026-07)";
+  const SBC_MODEL_VERSION = "4.0.0"; // bump when any engine formula changes
   // Data-quality per spec: nothing here is reconciled line-by-line to filings.
   //  PARTIALLY VERIFIED — curated names whose segment revenue was checked to the 10-K
   //  HEURISTIC        — aggregator (Yahoo) data + framework judgments/derivations
-  const dataQualityOf = (d) => (!d.derived && typeof SEGMENTS !== "undefined" && SEGMENTS[d.ticker])
-    ? { label: "PARTIALLY VERIFIED", color: "var(--amber)", tip: "Segment revenue checked against the 10-K; other inputs are aggregator data (Yahoo Finance), not reconciled to filings." }
-    : { label: "HEURISTIC", color: "var(--dim)", tip: "Aggregator data (Yahoo Finance) + derived framework fields. Not reconciled to company filings — verify before sizing real money." };
+  const dataQualityOf = (d) => {
+    const sv = d.secv;
+    if (sv && sv.conflict.length === 0 && sv.verified.length >= 5)
+      return { label: "FILING VERIFIED*", color: "var(--green)",
+        tip: `${sv.verified.length} core fields reconciled to SEC XBRL facts (latest: ${sv.latest ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : "n/a"}). *Automated reconciliation within tolerance — see 🧾 DATA AUDIT; not a manual line-by-line audit.` };
+    if (sv && sv.verified.length >= 2)
+      return { label: "PARTIALLY VERIFIED", color: "var(--amber)",
+        tip: `${sv.verified.length} fields matched SEC filings · ${sv.conflict.length} conflicts flagged · ${sv.missing.length} not comparable. See the SEC FILING CHECK card on FINANCIALS.` };
+    return { label: "HEURISTIC", color: "var(--dim)", tip: "Insufficient SEC reconciliation — aggregator data + derived fields. Verify before sizing real money." };
+  };
   const toolHeader = (icon, title, sub, right = "") => `<div class="hdr"><div><div class="tick" style="color:var(--cyan)">${icon} ${title}</div><div class="co">${sub}</div></div><div class="spacer"></div>${right}</div>`;
 
   /* ============================================================================
@@ -1922,6 +2010,57 @@
     }
   }
   const showOptions = () => showView("options", renderOptions, "optBtn");
+
+  /* ============ 🧾 DATA AUDIT — can this terminal be trusted? ============ */
+  function renderAudit() {
+    const tiers = { "FILING VERIFIED*": 0, "PARTIALLY VERIFIED": 0, "HEURISTIC": 0 };
+    let conflicts = 0;
+    DATA.forEach(d => { tiers[dataQualityOf(d).label]++; conflicts += d.secv ? d.secv.conflict.length : 0; });
+    const rows = [...DATA].sort((a, b) => a.ticker.localeCompare(b.ticker)).map(d => {
+      const q = dataQualityOf(d), sv = d.secv || { verified: [], conflict: [], missing: [], latest: null };
+      return `<tr data-tk="${d.ticker}"><td><span class="rk-tk">${d.ticker}</span></td>
+        <td style="color:${q.color}">${q.label}</td>
+        <td class="sub">${sv.latest && sv.latest.form ? sv.latest.form + " · " + sv.latest.filed : "–"}</td>
+        <td class="up">${sv.verified.length}</td>
+        <td class="${sv.conflict.length ? "down" : "sub"}">${sv.conflict.length}</td>
+        <td class="sub">${sv.missing.length}</td>
+        <td class="sub">${d.keepSource === "computed" ? "computed" : "fallback"}</td></tr>`;
+    }).join("");
+    el("main").innerHTML = toolHeader("🧾", "DATA AUDIT", "provenance, versions and verification status — judge for yourself whether to trust the numbers",
+      `<div style="text-align:right"><div class="sub">FILING VERIFIED*</div><div class="stat sm" style="color:var(--green)">${tiers["FILING VERIFIED*"]}/60</div></div>`)
+      + `<div class="grid g3" style="margin-bottom:12px">
+        <div class="card"><h3>VERSIONS</h3>
+          <div class="kv"><span class="k">Universe</span><span class="v">${typeof UNIVERSE_VERSION !== "undefined" ? UNIVERSE_VERSION : "?"} (${DATA.length} names)</span></div>
+          <div class="kv"><span class="k">SBC model</span><span class="v">${SBC_MODEL_VERSION}</span></div>
+          <div class="kv"><span class="k">Formulas</span><span class="v">${FORMULA_VERSION}</span></div>
+          <div class="kv"><span class="k">SEC data generated</span><span class="v">${typeof SEC_META !== "undefined" ? SEC_META.generated.slice(0, 10) : "n/a"}</span></div></div>
+        <div class="card"><h3>VERIFICATION</h3>
+          <div class="kv"><span class="k">Filing verified*</span><span class="v up">${tiers["FILING VERIFIED*"]}</span></div>
+          <div class="kv"><span class="k">Partially verified</span><span class="v" style="color:var(--amber)">${tiers["PARTIALLY VERIFIED"]}</span></div>
+          <div class="kv"><span class="k">Heuristic</span><span class="v sub">${tiers["HEURISTIC"]}</span></div>
+          <div class="kv"><span class="k">Open source conflicts</span><span class="v ${conflicts ? "down" : "up"}">${conflicts}</span></div></div>
+        <div class="card"><h3>FRESHNESS</h3>
+          <div class="kv"><span class="k">Fundamentals snapshot</span><span class="v">${((DATA[0].snapshot || "").match(/\d{4}-\d{2}-\d{2}/) || ["?"])[0]}</span></div>
+          <div class="kv"><span class="k">Regression tests</span><span class="v">node tests/run_tests.js</span></div>
+          <button class="scr-reset" id="checkUpdate" style="margin-top:8px">Check for data update</button></div>
+      </div>
+      <div class="note" style="margin-bottom:12px">*FILING VERIFIED = core fields automatically reconciled to SEC XBRL facts (form + filed date + accession number saved per value; see data/companies/*.json). It is NOT a manual line-by-line audit. Conflicts are flagged, never silently resolved. Missing SEC facts stay missing — never zero.</div>
+      <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:62vh;overflow-y:auto"><table class="rank">
+        <thead><tr><th>TICKER</th><th>BADGE</th><th>LATEST FILING</th><th>VERIFIED</th><th>CONFLICTS</th><th>N/A</th><th>RETENTION</th></tr></thead>
+        <tbody>${rows}</tbody></table></div></div>`;
+    el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    const cu = el("checkUpdate");
+    if (cu) cu.onclick = () => {
+      fetch("sec.js?cb=" + Date.now(), { cache: "no-store" }).then(r => r.text()).then(t => {
+        const m = t.match(/"generated": ?"([^"]+)"/);
+        if (m && typeof SEC_META !== "undefined" && m[1] !== SEC_META.generated) {
+          flash("Newer data available — reloading…", "ok");
+          setTimeout(() => location.reload(), 800);
+        } else flash("You have the newest data (" + (m ? m[1].slice(0, 10) : "?") + ")", "ok");
+      }).catch(() => flash("Update check failed — network?", "err"));
+    };
+  }
+  const showAudit = () => showView("audit", renderAudit, "auditBtn");
 
   const showScreener = () => showView("screener", renderScreener, "screenBtn");
   const showCompare = () => showView("compare", renderCompare, "compareBtn");
@@ -2553,9 +2692,17 @@
     if (!state.keys.finnhub && !state.keys.fmp) return;
     // Only the currently-visible watchlist (bucket filter), capped — the free
     // Finnhub tier is ~60 calls/min and the universe is 650+ names.
-    const visible = DATA.filter(d => state.bucket === "all" || d.bucket === state.bucket).slice(0, 45);
-    flash(`Streaming live quotes for ${visible.length} names…`, "ok");
-    visible.forEach((d, i) => setTimeout(() => fetchLive(d.ticker, false), i * 1100));
+    // full 60-stock universe, quotes only, sequential with progress; one
+    // failure never stops the rest
+    const all = DATA.slice();
+    let done = 0, fails = 0;
+    flash(`Prices updated: 0 / ${all.length}…`, "ok");
+    all.forEach((d, i) => setTimeout(async () => {
+      try { await fetchLive(d.ticker, false); } catch (e) { fails++; }
+      done++;
+      if (done % 5 === 0 || done === all.length)
+        flash(`Prices updated: ${done - fails} / ${all.length}${fails ? ` · ${fails} failed` : ""}${done === all.length ? " · done" : "…"}`, "ok");
+    }, i * 1100));
   }
 
   function updateLiveDot() {
@@ -2581,6 +2728,7 @@
     if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
     if (["TECH", "SW50", "SOFTWARE", "SEMIS", "TECHDESK"].includes(q)) { showTech(); return; }
     if (["OPTIONS", "OPTS", "PUTS", "CALLS", "VOL", "IV"].includes(q)) { showOptions(); return; }
+    if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
       showValuation(); flash("Est owner-earnings P/E screener", "ok"); return;
     }
@@ -2664,6 +2812,7 @@
     el("calBtn").onclick = showCalendar;
     el("techBtn").onclick = showTech;
     el("optBtn").onclick = showOptions;
+    el("auditBtn").onclick = showAudit;
     el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
     el("backdrop").onclick = closeDrawer;
 
@@ -2680,6 +2829,7 @@
   }
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
-    buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings };
+    buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings,
+    tabFinancials, renderAudit, secCheckOf, dataQualityOf };
   document.addEventListener("DOMContentLoaded", init);
 })();
