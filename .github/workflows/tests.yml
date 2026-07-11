@@ -11,5 +11,5 @@ jobs:
         run: node tests/run_tests.js
       - name: Universe + security checks
         run: |
-          node -e "const u=require('./data/universe.json'); if(u.count!==60||u.companies.length!==60) process.exit(1); console.log('universe OK')"
+          node -e "const u=require('./data/universe.json'); const t=u.companies.map(c=>c.ticker); if(u.count!==u.companies.length||u.count<61||!t.includes('FLUT')) process.exit(1); console.log('universe OK', u.count)"
           ! grep -rE "api_key=|token=[A-Za-z0-9]{20}" --include="*.js" --include="*.html" . || (echo 'possible key leak' && exit 1)
