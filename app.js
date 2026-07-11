@@ -419,7 +419,7 @@
       </div>`;
 
     const tabs = `<div class="tabs">
-      ${[["overview", "OVERVIEW"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
+      ${[["overview", "OVERVIEW"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["earnings", "EARNINGS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
         .map(([k, l]) => `<button data-tab="${k}" class="${currentTab === k ? "active" : ""}">${l}</button>`).join("")}
     </div>`;
 
@@ -457,6 +457,7 @@
         b.onclick = () => { finMode = b.dataset.m; renderTab(d); });
     }
     else if (currentTab === "graham") body.innerHTML = tabGraham(d);
+    else if (currentTab === "earnings") body.innerHTML = tabEarnings(d);
     else if (currentTab === "news") body.innerHTML = tabNews(d);
     else if (currentTab === "framework") body.innerHTML = tabFramework(d);
   }
@@ -717,6 +718,196 @@
       </div>
     </div>`;
     return html;
+  }
+
+  const numFrom = (o, keys) => {
+    if (!o) return null;
+    for (const k of keys) {
+      const v = o[k];
+      if (v !== null && v !== undefined && v !== "" && Number.isFinite(+v)) return +v;
+    }
+    return null;
+  };
+  const dateFrom = (o) => o ? (o.date || o.fiscalDateEnding || o.period || o.calendarDate || o.reportDate || o.fillingDate || "") : "";
+  const revToB = (v) => v == null ? null : (Math.abs(v) > 10000 ? v / 1e9 : v);
+  const fmtDollar = (n, d = 2) => n == null || isNaN(n) ? "-" : "$" + n.toFixed(d);
+  const fmtRevEst = (n) => n == null || isNaN(n) ? "-" : money(revToB(n));
+  const shortDate = (s) => {
+    if (!s) return "-";
+    const dt = new Date(s + "T12:00:00");
+    return isNaN(dt) ? s : dt.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  };
+  const daysTo = (s) => {
+    if (!s) return null;
+    const dt = new Date(s + "T12:00:00");
+    if (isNaN(dt)) return null;
+    return Math.round((dt - new Date()) / 864e5);
+  };
+  const estRow = (r) => ({
+    date: dateFrom(r),
+    epsAvg: numFrom(r, ["epsAvg", "estimatedEpsAvg", "epsEstimate", "estimatedEps", "eps"]),
+    epsLow: numFrom(r, ["epsLow", "estimatedEpsLow"]),
+    epsHigh: numFrom(r, ["epsHigh", "estimatedEpsHigh"]),
+    revAvg: revToB(numFrom(r, ["revenueAvg", "estimatedRevenueAvg", "revenueEstimate", "estimatedRevenue", "revenue"])),
+    revLow: revToB(numFrom(r, ["revenueLow", "estimatedRevenueLow"])),
+    revHigh: revToB(numFrom(r, ["revenueHigh", "estimatedRevenueHigh"])),
+    analystsEps: numFrom(r, ["numberAnalystsEstimatedEps", "numAnalystsEps", "analystsEps"]),
+    analystsRev: numFrom(r, ["numberAnalystsEstimatedRevenue", "numAnalystsRevenue", "analystsRevenue"]),
+    raw: r
+  });
+  const cleanEstRows = (rows) => (Array.isArray(rows) ? rows.map(estRow)
+    .filter(r => r.date || r.epsAvg != null || r.revAvg != null)
+    .sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999")) : []);
+
+  async function loadEarningsIntel(tk) {
+    const live = state.live[tk] = state.live[tk] || {};
+    if (live.earningsLoading) return;
+    if (live.earningsFetchedAt && Date.now() - live.earningsFetchedAt < 10 * 60 * 1000) return;
+    const fh = state.keys.finnhub, fmp = state.keys.fmp;
+    if (!fh && !fmp) return;
+    live.earningsLoading = true;
+    live.earningsError = "";
+    const tasks = [];
+    if (fh) {
+      const from = new Date(Date.now() - 45 * 864e5).toISOString().slice(0, 10);
+      const to = new Date(Date.now() + 180 * 864e5).toISOString().slice(0, 10);
+      tasks.push(fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${from}&to=${to}&symbol=${tk}&token=${fh}`)
+        .then(r => r.json()).then(j => {
+          const rows = (j.earningsCalendar || []).filter(e => !e.symbol || e.symbol === tk)
+            .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+          live.earningsCalendar = rows;
+        }).catch(() => { live.earningsError = "Finnhub earnings calendar unavailable"; }));
+    }
+    if (fmp) {
+      const get = (period) => fetch(`https://financialmodelingprep.com/stable/analyst-estimates?symbol=${tk}&period=${period}&page=0&limit=8&apikey=${fmp}`)
+        .then(r => r.json()).then(j => Array.isArray(j) ? j : (Array.isArray(j?.data) ? j.data : []));
+      tasks.push(Promise.all([get("annual"), get("quarter")])
+        .then(([annual, quarter]) => { live.streetEstimates = { annual, quarter }; })
+        .catch(() => { live.estimatesError = "FMP analyst estimates unavailable"; }));
+    }
+    await Promise.all(tasks);
+    live.earningsLoading = false;
+    live.earningsFetchedAt = Date.now();
+    if (state.active === tk && currentTab === "earnings") render();
+  }
+
+  function tabEarnings(d) {
+    loadEarningsIntel(d.ticker);
+    const live = state.live[d.ticker] || {};
+    const calRows = (live.earningsCalendar || []).slice().sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+    const today = new Date().toISOString().slice(0, 10);
+    const nextCal = calRows.find(e => (e.date || "") >= today) || null;
+    const lastCal = calRows.filter(e => (e.date || "") < today).slice(-1)[0] || null;
+    const annual = cleanEstRows(live.streetEstimates?.annual);
+    const quarter = cleanEstRows(live.streetEstimates?.quarter);
+    const nextQ = quarter.find(e => !e.date || e.date >= today) || quarter[0] || null;
+    const nextFY = annual.find(e => !e.date || e.date >= today) || annual[0] || null;
+    const hasQ = !!(d.qd && d.qd.revenue && d.qd.revenue.length);
+    const qd = hasQ ? d.qd : null;
+    const qLabels = qd ? qd.labels.slice() : [];
+    const qRev = qd ? qd.revenue.slice() : [];
+    const qEps = qd ? qd.ni.map((n, i) => n == null || !qd.shares[i] ? null : +(n / qd.shares[i]).toFixed(2)) : [];
+    const qOwnerEps = qEps.map(v => v == null ? null : +(v * d.ownersKeep).toFixed(2));
+    const lastRev = qRev.length ? qRev[qRev.length - 1] : null;
+    const lastEps = qEps.length ? qEps[qEps.length - 1] : null;
+    const lastOwnerEps = qOwnerEps.length ? qOwnerEps[qOwnerEps.length - 1] : null;
+    const ttmRev = qd ? ttm(qd.revenue) : null;
+    const revYoy = qd ? yoyPct(qd.revenue) : null;
+    const epsYoy = qd ? yoyPct(qEps) : null;
+    const streetRev = nextQ?.revAvg ?? revToB(numFrom(nextCal, ["revenueEstimate"]));
+    const streetEps = nextQ?.epsAvg ?? numFrom(nextCal, ["epsEstimate"]);
+    const fyStreetRev = nextFY?.revAvg;
+    const fyStreetEps = nextFY?.epsAvg;
+    const qRevGrowthNeed = streetRev != null && lastRev ? (streetRev / lastRev - 1) * 100 : null;
+    const fyRevGrowthNeed = fyStreetRev != null && ttmRev ? (fyStreetRev / ttmRev - 1) * 100 : null;
+    const epsPremium = streetEps != null && lastOwnerEps ? (streetEps / lastOwnerEps - 1) * 100 : null;
+    const L = ivLadder(d);
+    const eventDays = nextCal ? daysTo(nextCal.date) : null;
+    const riskBits = [];
+    let risk = 0;
+    if (eventDays != null && eventDays <= 21) { risk += 2; riskBits.push("earnings inside 3 weeks"); }
+    if (qRevGrowthNeed != null && revYoy != null && qRevGrowthNeed > revYoy + 8) { risk += 2; riskBits.push("Street revenue asks for acceleration"); }
+    if (epsPremium != null && epsPremium > 20) { risk += 2; riskBits.push("Street EPS sits far above owner EPS"); }
+    if (d.truePE && d.truePE > 45) { risk += 1; riskBits.push("valuation leaves little room"); }
+    if (L && priceOf(d) > L.IV15) { risk += 1; riskBits.push("price is above IV15 buy target"); }
+    if (!state.keys.finnhub && !state.keys.fmp) riskBits.push("connect keys for live consensus");
+    const riskLabel = risk >= 5 ? "HIGH EXPECTATION RISK" : risk >= 3 ? "MEDIUM EXPECTATION RISK" : "LOWER EXPECTATION RISK";
+    const riskColor = risk >= 5 ? "var(--red)" : risk >= 3 ? "var(--orange)" : "var(--green)";
+    const cardStat = (label, val, sub, color = "var(--text)") => `<div style="flex:1;min-width:145px">
+      <div class="sub">${label}</div><div class="stat sm" style="color:${color}">${val}</div><div class="sub">${sub || ""}</div></div>`;
+    const estTable = (rows, title) => rows.length ? `<div class="card">
+      <h3>${title} <span class="unit">FMP analyst estimates · not filing facts</span></h3>
+      <div style="overflow-x:auto"><table class="fin">
+        <tr><th>period</th><th>rev avg</th><th>rev range</th><th>eps avg</th><th>eps range</th><th>analysts</th></tr>
+        ${rows.slice(0, 6).map(r => `<tr>
+          <td>${r.date || "-"}</td>
+          <td>${money(r.revAvg)}</td>
+          <td class="sub">${r.revLow != null || r.revHigh != null ? `${money(r.revLow)}-${money(r.revHigh)}` : "-"}</td>
+          <td>${fmtDollar(r.epsAvg)}</td>
+          <td class="sub">${r.epsLow != null || r.epsHigh != null ? `${fmtDollar(r.epsLow)}-${fmtDollar(r.epsHigh)}` : "-"}</td>
+          <td class="sub">${r.analystsRev || r.analystsEps || "-"}</td>
+        </tr>`).join("")}
+      </table></div>
+    </div>` : "";
+    const revChartVals = streetRev != null ? qRev.concat([streetRev]) : qRev;
+    const revChartLabels = streetRev != null ? qLabels.concat(["Street"]) : qLabels;
+    const epsChartVals = streetEps != null ? qEps.concat([streetEps]) : qEps;
+    const epsOwnerVals = streetEps != null ? qOwnerEps.concat([null]) : qOwnerEps;
+    const epsChartLabels = streetEps != null ? qLabels.concat(["Street"]) : qLabels;
+    const keyNote = !state.keys.finnhub && !state.keys.fmp
+      ? `<div class="note callout" style="margin-bottom:12px">Connect Finnhub/FMP keys with the gear to unlock live earnings dates, EPS estimates, revenue estimates and analyst forecast tables. Offline, this tab uses the bundled quarterly filing trend only.</div>`
+      : live.earningsLoading ? `<div class="note" style="margin-bottom:12px">Loading live Street estimates...</div>`
+      : "";
+    return `${keyNote}
+    <div class="grid g3">
+      <div class="card" style="grid-column:span 2;border-left:3px solid ${riskColor}">
+        <h3>EARNINGS SETUP <span class="unit">consensus vs actual trend</span></h3>
+        <div style="display:flex;flex-wrap:wrap;gap:14px">
+          ${cardStat("Next report", nextCal ? shortDate(nextCal.date) : "-", nextCal ? `${eventDays} days · ${nextCal.hour || "time n/a"} · Finnhub` : "connect Finnhub or wait for calendar")}
+          ${cardStat("Street next EPS", streetEps != null ? fmtDollar(streetEps) : "-", epsPremium != null ? `${epsPremium >= 0 ? "+" : ""}${epsPremium.toFixed(0)}% vs latest owner EPS` : "consensus / non-GAAP", epsPremium != null && epsPremium > 20 ? "var(--orange)" : "var(--text)")}
+          ${cardStat("Street next revenue", streetRev != null ? money(streetRev) : "-", qRevGrowthNeed != null ? `${qRevGrowthNeed >= 0 ? "+" : ""}${qRevGrowthNeed.toFixed(1)}% vs latest qtr` : "consensus revenue")}
+          ${cardStat("FY street revenue", fyStreetRev != null ? money(fyStreetRev) : "-", fyRevGrowthNeed != null ? `${fyRevGrowthNeed >= 0 ? "+" : ""}${fyRevGrowthNeed.toFixed(1)}% vs TTM` : "annual consensus")}
+        </div>
+        <div class="note" style="margin-top:12px;border-left-color:${riskColor}">
+          <b style="color:${riskColor}">${riskLabel}.</b> ${riskBits.length ? riskBits.join(" · ") : "Street bar looks reachable against the recent trend."}
+        </div>
+      </div>
+      <div class="card">
+        <h3>WHAT HAS TO HAPPEN</h3>
+        <div class="kv"><span class="k">Recent revenue YoY</span><span class="v ${revYoy == null ? "" : revYoy >= 0 ? "up" : "down"}">${pct(revYoy)}</span></div>
+        <div class="kv"><span class="k">Street qtr rev ask</span><span class="v">${pct(qRevGrowthNeed)}</span></div>
+        <div class="kv"><span class="k">Recent EPS YoY</span><span class="v ${epsYoy == null ? "" : epsYoy >= 0 ? "up" : "down"}">${pct(epsYoy)}</span></div>
+        <div class="kv"><span class="k">Latest owner EPS</span><span class="v">${fmtDollar(lastOwnerEps)}</span></div>
+        <div class="kv"><span class="k">SBC / revenue</span><span class="v" style="color:${sbcSeverity(d.sbcPctRev).c}">${pct(d.sbcPctRev)}</span></div>
+        <div class="sub" style="margin-top:8px">If the Street EPS beat comes from adding SBC back while shares keep rising, it is not a clean beat in this framework.</div>
+      </div>
+      <div class="card" style="grid-column:span 2">
+        <h3>REVENUE: ACTUAL QUARTERS vs STREET <span class="unit">$B · estimate is provider consensus</span></h3>
+        ${revChartVals.length ? Chart.bars([{ name: "Revenue", values: revChartVals, color: "var(--cyan)" }], revChartLabels, { h: 180 }) : `<div class="sub">No quarterly revenue trend bundled.</div>`}
+      </div>
+      <div class="card">
+        <h3>EPS: GAAP vs OWNER vs STREET</h3>
+        ${epsChartVals.length ? Chart.bars([
+          { name: "GAAP EPS", values: epsChartVals, color: "var(--green)" },
+          { name: "Owner EPS", values: epsOwnerVals, color: "var(--amber)" }
+        ], epsChartLabels, { h: 180 }) : `<div class="sub">No quarterly EPS trend bundled.</div>`}
+        <div class="chart-legend"><span><i style="background:var(--green)"></i>GAAP / Street EPS</span><span><i style="background:var(--amber)"></i>SBC-adj owner EPS</span></div>
+      </div>
+      <div class="card">
+        <h3>LAST REPORTED RESULT <span class="unit">${lastCal ? "Finnhub" : "filing trend"}</span></h3>
+        <div class="kv"><span class="k">Report date</span><span class="v">${lastCal ? shortDate(lastCal.date) : qLabels[qLabels.length - 1] || "-"}</span></div>
+        <div class="kv"><span class="k">Actual EPS</span><span class="v">${fmtDollar(numFrom(lastCal, ["epsActual"]) ?? lastEps)}</span></div>
+        <div class="kv"><span class="k">Estimate EPS</span><span class="v">${fmtDollar(numFrom(lastCal, ["epsEstimate"]))}</span></div>
+        <div class="kv"><span class="k">Actual revenue</span><span class="v">${fmtRevEst(numFrom(lastCal, ["revenueActual"]) ?? lastRev)}</span></div>
+        <div class="kv"><span class="k">Estimate revenue</span><span class="v">${fmtRevEst(numFrom(lastCal, ["revenueEstimate"]))}</span></div>
+      </div>
+      ${estTable(quarter, "QUARTERLY STREET ESTIMATES")}
+      ${estTable(annual, "ANNUAL STREET ESTIMATES")}
+      <div class="card" style="grid-column:span 3">
+        <h3>SOURCE DISCIPLINE</h3>
+        <div class="sub">Earnings dates and EPS/revenue estimate fields come from live market-data providers when keys are connected. They are <b>Street consensus / non-GAAP expectation data</b>, not SEC filing facts. Filing history, SBC burden, share count and owner EPS come from the terminal's bundled filing/SEC layer.</div>
+      </div>
+    </div>`;
   }
 
   function tabNews(d) {
