@@ -306,15 +306,34 @@
   }
 
   /* ------------------------ mobile drawer + bottom nav ------------------------ */
-  function openDrawer() { $("aside").classList.add("open"); el("backdrop").classList.add("show"); syncNav(); }
-  function closeDrawer() { $("aside").classList.remove("open"); el("backdrop").classList.remove("show"); syncNav(); }
+  function openDrawer() {
+    const drawer = $("aside");
+    drawer.classList.add("open");
+    drawer.scrollTop = 0;
+    el("backdrop").classList.add("show");
+    syncNav();
+  }
+  function closeDrawer() {
+    $("aside").classList.remove("open");
+    el("backdrop").classList.remove("show");
+    syncNav();
+  }
   function syncNav() {
     const drawerOpen = $("aside").classList.contains("open");
+    const drawerMode = window.matchMedia("(max-width:720px)").matches;
     el("navList").classList.toggle("active", drawerOpen);
+    el("navList").setAttribute("aria-expanded", drawerOpen ? "true" : "false");
+    $("aside").setAttribute("aria-hidden", drawerMode && !drawerOpen ? "true" : "false");
     el("navSectors").classList.toggle("active", !drawerOpen && state.view === "sectors");
     el("navNarr").classList.toggle("active", !drawerOpen && state.view === "narratives");
     el("navPE").classList.toggle("active", !drawerOpen && state.view === "valuation");
     el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
+  }
+  function syncMobileChrome() {
+    el("cmdInput").placeholder = window.matchMedia("(max-width:720px)").matches
+      ? "Ticker / command"
+      : "Type a ticker (e.g. NVDA) and press GO / Enter";
+    syncNav();
   }
 
   /* ------------------------ phone back-button / history navigation ------------
@@ -2813,11 +2832,19 @@
     el("techBtn").onclick = showTech;
     el("optBtn").onclick = showOptions;
     el("auditBtn").onclick = showAudit;
-    el("navSearch").onclick = () => { closeDrawer(); window.scrollTo({ top: 0 }); el("cmdInput").focus(); };
+    el("drawerClose").onclick = closeDrawer;
+    el("navSearch").onclick = () => {
+      closeDrawer();
+      window.scrollTo({ top: 0 });
+      el("cmdInput").focus();
+      flash("Ticker search ready", "ok");
+    };
     el("backdrop").onclick = closeDrawer;
+    window.addEventListener("resize", syncMobileChrome);
 
     renderWatchlist();
     selectTicker("NVDA");
+    syncMobileChrome();
     updateLiveDot();
     tickClock(); setInterval(tickClock, 1000);
     // On load only refresh the active name (selectTicker already did); the
