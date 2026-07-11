@@ -1,7 +1,7 @@
 {
  "universeVersion": "1.0.0",
  "asOf": "2026-07-11",
- "count": 60,
+ "count": 61,
  "companies": [
   {
    "ticker": "AAPL",
@@ -776,6 +776,21 @@
    "sector": "Gaming",
    "industry": "Internet, payments and fintech",
    "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Internet, payments and fintech",
+   "universeVersion": "1.0.0",
+   "dateAdded": "2026-07-11",
+   "status": "active"
+  },
+  {
+   "ticker": "FLUT",
+   "name": "Flutter Entertainment plc",
+   "cik": 1635327,
+   "cik10": "0001635327",
+   "sector": "Gaming/iGaming",
+   "industry": "Internet, payments and fintech",
+   "country": "IE",
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",

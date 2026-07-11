@@ -175,7 +175,7 @@
     d.sbcAdjEPS = d.gaapEPS != null && d.ownersKeep ? +(d.gaapEPS * d.ownersKeep).toFixed(2) : d.sbcAdjEPS;
     d.truePE = d.headlinePE && d.ownersKeep ? +(d.headlinePE / d.ownersKeep).toFixed(1) : d.truePE;
   }
-  /* ---------- OFFICIAL 60-STOCK UNIVERSE VALIDATION (fatal on failure) ---------- */
+  /* ---------- OFFICIAL STOCK UNIVERSE VALIDATION (fatal on failure) ---------- */
   (function validateUniverse() {
     const fail = (msg) => {
       document.addEventListener("DOMContentLoaded", () => {
@@ -186,11 +186,12 @@
     };
     if (typeof UNIVERSE_LIST === "undefined") fail("universe.js not loaded");
     const uni = UNIVERSE_LIST.map(u => u.ticker);
-    if (uni.length !== 60) fail("universe has " + uni.length + " tickers, expected exactly 60");
-    if (new Set(uni).size !== 60) fail("duplicate tickers in universe");
+    const expected = uni.length;
+    if (expected < 60) fail("universe has " + expected + " tickers, expected at least 60");
+    if (new Set(uni).size !== expected) fail("duplicate tickers in universe");
     if (UNIVERSE_LIST.some(u => !u.cik || !u.name)) fail("ticker missing identity/CIK");
     const have = DATA.map(d => d.ticker);
-    if (have.length !== 60) fail("DATA has " + have.length + " companies, expected exactly 60");
+    if (have.length !== expected) fail("DATA has " + have.length + " companies, expected " + expected);
     const haveSet = new Set(have);
     const missing = uni.filter(t => !haveSet.has(t));
     const extra = have.filter(t => !new Set(uni).has(t));
@@ -469,6 +470,8 @@
     return `<div class="grid g3">
       ${verdictCard(d)}
 
+      ${newsBrainCard(d)}
+
       <div class="card" style="grid-column:span 2">
         <h3>PRICE — 12M WEEKLY CLOSES <span class="unit">${px ? "real Yahoo Finance data · " + px.from + " → " + px.to + ((Date.now() - Date.parse(px.to)) / 864e5 > 14 ? " · <b style=&quot;color:var(--orange)&quot;>STALE — refresh gen_prices.py</b>" : "") : "unavailable"}</span></h3>
         ${px ? Chart.line([{ points: px.v, color: "var(--cyan)" }], px.v.map((_, i) => i === 0 ? px.from.slice(5) : i === px.v.length - 1 ? px.to.slice(5) : ""), { area: true, h: 200 })
@@ -492,8 +495,6 @@
       ${qualityCard(d)}
 
       ${analystCard(d)}
-
-      ${newsBrainCard(d)}
 
       ${sectorContextCard(d)}
 
@@ -1815,9 +1816,11 @@
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
   const FORMULA_VERSION = "v4.0 (2026-07)";
   const SBC_MODEL_VERSION = "4.0.0"; // bump when any engine formula changes
-  // Data-quality per spec: nothing here is reconciled line-by-line to filings.
-  //  PARTIALLY VERIFIED — curated names whose segment revenue was checked to the 10-K
-  //  HEURISTIC        — aggregator (Yahoo) data + framework judgments/derivations
+  // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
+  // line-by-line audit. Retention/owner-earnings remain model estimates.
+  //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts
+  //  PARTIALLY VERIFIED  — 2+ fields match SEC XBRL, or conflicts/missing fields remain
+  //  HEURISTIC           — insufficient SEC comparability; verify before sizing
   const dataQualityOf = (d) => {
     const sv = d.secv;
     if (sv && sv.conflict.length === 0 && sv.verified.length >= 5)
@@ -1957,6 +1960,11 @@
 
   function verdictCard(d) {
     const V = verdictOf(d);
+    const dq = dataQualityOf(d);
+    const sv = d.secv || { verified: [], conflict: [], missing: [] };
+    const modelConf = d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "MEDIUM-HIGH" : "MEDIUM") : "LOW";
+    const modelColor = d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "var(--green)" : "var(--amber)") : "var(--red)";
+    const secLine = `${sv.verified.length} SEC-matched field${sv.verified.length === 1 ? "" : "s"} · ${sv.conflict.length} conflict${sv.conflict.length === 1 ? "" : "s"} · ${sv.missing.length} missing/not comparable`;
     const votePill = (v) => {
       const m = { "2": ["▲▲", "var(--green)"], "1": ["▲", "#7dd87d"], "0": ["·", "var(--dim)"], "-1": ["▼", "var(--orange)"], "-2": ["▼▼", "var(--red)"] }[String(v)];
       return `<span style="color:${m[1]};font-weight:800;width:26px;display:inline-block;text-align:center">${m[0]}</span>`;
@@ -1968,7 +1976,9 @@
         <div style="text-align:center;min-width:150px">
           <div class="stat" style="font-size:34px;color:${scoreColor}">${Math.max(0, V.score - 6).toFixed(0)}–${Math.min(100, V.score + 6).toFixed(0)}</div>
           <div class="sub">HEURISTIC SCORE BAND /100</div>
-          <div class="sub" style="margin-top:4px">DATA CONFIDENCE: <b style="color:${d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "var(--green)" : "var(--amber)") : "var(--red)"}">${d.keepSource === "computed" ? ((d.qm && d.gd && d.px) ? "MEDIUM-HIGH" : "MEDIUM") : "LOW"}</b><br>retention ${d.keepSource === "computed" ? "computed from as-reported data" : "heuristic fallback"} · nothing filing-verified</div>
+          <div class="sub" style="margin-top:4px">MODEL CONFIDENCE: <b style="color:${modelColor}">${modelConf}</b><br>
+            SEC CROSS-CHECK: <b style="color:${dq.color}">${dq.label}</b> · ${secLine}<br>
+            retention ${d.keepSource === "computed" ? "computed from as-reported data" : "heuristic fallback"} · not itself a filing fact</div>
           <div class="badge" style="display:inline-block;margin-top:9px;font-size:11px;padding:5px 12px;color:${V.C.color};border-color:${V.C.color}">${V.C.label}</div>
         </div>
         <div style="flex:1;min-width:260px">
@@ -2380,8 +2390,16 @@
   /* ============ 🧾 DATA AUDIT — can this terminal be trusted? ============ */
   function renderAudit() {
     const tiers = { "FILING VERIFIED*": 0, "PARTIALLY VERIFIED": 0, "HEURISTIC": 0 };
-    let conflicts = 0;
-    DATA.forEach(d => { tiers[dataQualityOf(d).label]++; conflicts += d.secv ? d.secv.conflict.length : 0; });
+    let conflicts = 0, verifiedFields = 0, missingFields = 0;
+    const total = DATA.length;
+    DATA.forEach(d => {
+      const sv = d.secv || { verified: [], conflict: [], missing: [] };
+      tiers[dataQualityOf(d).label]++;
+      conflicts += sv.conflict.length;
+      verifiedFields += sv.verified.length;
+      missingFields += sv.missing.length;
+    });
+    const atLeastPartial = tiers["FILING VERIFIED*"] + tiers["PARTIALLY VERIFIED"];
     const rows = [...DATA].sort((a, b) => a.ticker.localeCompare(b.ticker)).map(d => {
       const q = dataQualityOf(d), sv = d.secv || { verified: [], conflict: [], missing: [], latest: null };
       return `<tr data-tk="${d.ticker}"><td><span class="rk-tk">${d.ticker}</span></td>
@@ -2393,7 +2411,7 @@
         <td class="sub">${d.keepSource === "computed" ? "computed" : "fallback"}</td></tr>`;
     }).join("");
     el("main").innerHTML = toolHeader("🧾", "DATA AUDIT", "provenance, versions and verification status — judge for yourself whether to trust the numbers",
-      `<div style="text-align:right"><div class="sub">FILING VERIFIED*</div><div class="stat sm" style="color:var(--green)">${tiers["FILING VERIFIED*"]}/60</div></div>`)
+      `<div style="text-align:right"><div class="sub">FILING VERIFIED*</div><div class="stat sm" style="color:var(--green)">${tiers["FILING VERIFIED*"]}/${total}</div><div class="sub">${atLeastPartial}/${total} at least partial</div></div>`)
       + `<div class="grid g3" style="margin-bottom:12px">
         <div class="card"><h3>VERSIONS</h3>
           <div class="kv"><span class="k">Universe</span><span class="v">${typeof UNIVERSE_VERSION !== "undefined" ? UNIVERSE_VERSION : "?"} (${DATA.length} names)</span></div>
@@ -2404,13 +2422,14 @@
           <div class="kv"><span class="k">Filing verified*</span><span class="v up">${tiers["FILING VERIFIED*"]}</span></div>
           <div class="kv"><span class="k">Partially verified</span><span class="v" style="color:var(--amber)">${tiers["PARTIALLY VERIFIED"]}</span></div>
           <div class="kv"><span class="k">Heuristic</span><span class="v sub">${tiers["HEURISTIC"]}</span></div>
+          <div class="kv"><span class="k">SEC-matched fields</span><span class="v up">${verifiedFields}</span></div>
           <div class="kv"><span class="k">Open source conflicts</span><span class="v ${conflicts ? "down" : "up"}">${conflicts}</span></div></div>
         <div class="card"><h3>FRESHNESS</h3>
           <div class="kv"><span class="k">Fundamentals snapshot</span><span class="v">${((DATA[0].snapshot || "").match(/\d{4}-\d{2}-\d{2}/) || ["?"])[0]}</span></div>
           <div class="kv"><span class="k">Regression tests</span><span class="v">node tests/run_tests.js</span></div>
           <button class="scr-reset" id="checkUpdate" style="margin-top:8px">Check for data update</button></div>
       </div>
-      <div class="note" style="margin-bottom:12px">*FILING VERIFIED = core fields automatically reconciled to SEC XBRL facts (form + filed date + accession number saved per value; see data/companies/*.json). It is NOT a manual line-by-line audit. Conflicts are flagged, never silently resolved. Missing SEC facts stay missing — never zero.</div>
+      <div class="note" style="margin-bottom:12px">*FILING VERIFIED = 5+ core fields automatically reconciled to SEC XBRL facts with no open conflicts. PARTIALLY VERIFIED = at least 2 SEC matches, but conflicts or missing/non-comparable fields remain. This is NOT a manual line-by-line audit. Conflicts are flagged, never silently resolved. Missing SEC facts stay missing — never zero. Current coverage: <b>${tiers["FILING VERIFIED*"]}/${total} filing verified*</b>, <b>${atLeastPartial}/${total} at least partially verified</b>, <b>${missingFields}</b> missing/non-comparable field checks.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:62vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>TICKER</th><th>BADGE</th><th>LATEST FILING</th><th>VERIFIED</th><th>CONFLICTS</th><th>N/A</th><th>RETENTION</th></tr></thead>
         <tbody>${rows}</tbody></table></div></div>`;
@@ -3058,7 +3077,7 @@
     if (!state.keys.finnhub && !state.keys.fmp) return;
     // Only the currently-visible watchlist (bucket filter), capped — the free
     // Finnhub tier is ~60 calls/min and the universe is 650+ names.
-    // full 60-stock universe, quotes only, sequential with progress; one
+    // full official universe, quotes only, sequential with progress; one
     // failure never stops the rest
     const all = DATA.slice();
     let done = 0, fails = 0;

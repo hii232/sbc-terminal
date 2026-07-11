@@ -1,4 +1,4 @@
-"""Build the official 60-stock universe: data/universe.json + universe.js.
+"""Build the official stock universe: data/universe.json + universe.js.
 CIK/name/exchange come from the SEC's own company_tickers mapping.
     python scripts/build_universe.py
 """
@@ -21,13 +21,14 @@ GROUPS = [
      ["CRM", "NOW", "ADBE", "INTU", "PLTR", "CRWD", "PANW", "SNOW", "DDOG", "NET",
       "ZS", "WDAY", "MDB", "SHOP", "APP", "AXON", "IBM", "ACN"]),
     ("Internet, payments and fintech",
-     ["UBER", "ABNB", "COIN", "HOOD", "MELI", "V", "MA", "PYPL", "BKNG", "RBLX"]),
+     ["UBER", "ABNB", "COIN", "HOOD", "MELI", "V", "MA", "PYPL", "BKNG", "RBLX", "FLUT"]),
     ("New AI and computing companies",
      ["IREN", "CRWV", "NBIS", "SMCI"]),
     ("High-quality comparison companies",
      ["CSCO", "ADP", "SPGI", "ISRG"]),
 ]
 COUNTRY = {"ASML": "NL", "ARM": "GB", "SHOP": "CA", "MELI": "AR/UY (US filer)",
+           "FLUT": "IE",
            "IREN": "AU", "NBIS": "NL", "SPGI": "US"}
 
 def get(url):
@@ -74,23 +75,24 @@ for e in entries:
 
 # validation
 tks = [e["ticker"] for e in entries]
-assert len(tks) == 60, f"universe has {len(tks)} not 60: {errors}"
-assert len(set(tks)) == 60, "duplicate tickers"
+count = len(tks)
+assert count >= 60, f"universe has {count} tickers; expected at least 60: {errors}"
+assert len(set(tks)) == count, "duplicate tickers"
 assert all(e["cik"] for e in entries), "missing CIK"
 assert not errors, errors
 
 (ROOT / "data").mkdir(exist_ok=True)
 (ROOT / "data" / "universe.json").write_text(
-    json.dumps({"universeVersion": UNIVERSE_VERSION, "asOf": today, "count": 60,
+    json.dumps({"universeVersion": UNIVERSE_VERSION, "asOf": today, "count": count,
                 "companies": entries}, indent=1), encoding="utf-8")
 
-js = ("/* OFFICIAL 60-STOCK UNIVERSE — the only file controlling terminal membership.\n"
+js = ("/* OFFICIAL STOCK UNIVERSE — the only file controlling terminal membership.\n"
       "   Regenerate with scripts/build_universe.py (CIKs from SEC company_tickers). */\n"
       f'const UNIVERSE_VERSION = "{UNIVERSE_VERSION}";\n'
       f'const UNIVERSE_ASOF = "{today}";\n'
       "const UNIVERSE_LIST = " + json.dumps(entries) + ";\n"
       'if (typeof window !== "undefined") { window.UNIVERSE_VERSION = UNIVERSE_VERSION; window.UNIVERSE_LIST = UNIVERSE_LIST; window.UNIVERSE_ASOF = UNIVERSE_ASOF; }\n')
 (ROOT / "universe.js").write_text(js, encoding="utf-8")
-print(f"universe.json + universe.js written: 60 companies, version {UNIVERSE_VERSION}")
+print(f"universe.json + universe.js written: {count} companies, version {UNIVERSE_VERSION}")
 for e in entries[:3]:
     print(" ", e["ticker"], e["cik10"], e["name"])

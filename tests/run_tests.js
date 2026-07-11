@@ -129,7 +129,7 @@ const ok = (cond, name, detail = "") => {
     const V = E.verdictOf(d);
     if (!(V.score >= 0 && V.score <= 100) || !V.call || !V.C) bad.push(d.ticker);
   }
-  ok(bad.length === 0, "verdictOf: score in [0,100] + a call for ALL 60 names", bad.slice(0, 5).join(","));
+  ok(bad.length === 0, "verdictOf: score in [0,100] + a call for every name", bad.slice(0, 5).join(","));
 }
 
 // =============== 7. Graham engine guards ===============
@@ -158,14 +158,16 @@ const ok = (cond, name, detail = "") => {
 
 // =============== 9. Universe + SEC filing layer ===============
 {
-  ok(DATA.length === 60, "DATA.length === 60 (official universe)", String(DATA.length));
-  ok(typeof UNIVERSE_LIST !== "undefined" && UNIVERSE_LIST.length === 60, "universe.js has exactly 60");
-  ok(new Set(UNIVERSE_LIST.map(u => u.ticker)).size === 60, "no duplicate tickers");
+  const expected = typeof UNIVERSE_LIST !== "undefined" ? UNIVERSE_LIST.length : 0;
+  ok(DATA.length === expected && expected >= 61, "DATA length matches official universe", `${DATA.length}/${expected}`);
+  ok(UNIVERSE_LIST.some(u => u.ticker === "FLUT"), "FLUT is in official universe");
+  ok(DATA.some(d => d.ticker === "FLUT"), "FLUT is in DATA");
+  ok(new Set(UNIVERSE_LIST.map(u => u.ticker)).size === expected, "no duplicate tickers");
   ok(UNIVERSE_LIST.every(u => u.cik && u.name && u.sector), "every name has identity + CIK");
   const uniSet = new Set(UNIVERSE_LIST.map(u => u.ticker));
   ok(DATA.every(d => uniSet.has(d.ticker)), "no unapproved tickers in DATA");
   // SEC layer integrity: provenance on every fact
-  ok(typeof SEC !== "undefined" && Object.keys(SEC).length === 60, "SEC facts for all 60", String(Object.keys(SEC || {}).length));
+  ok(typeof SEC !== "undefined" && Object.keys(SEC).length === expected, "SEC facts for every official name", `${Object.keys(SEC || {}).length}/${expected}`);
   let provOk = 0, checked = 0;
   for (const tk of Object.keys(SEC)) {
     const f = SEC[tk].f.revenue;
@@ -174,12 +176,13 @@ const ok = (cond, name, detail = "") => {
   ok(provOk === checked && checked >= 55, "every SEC fact carries form+filed+accession+tag", `${provOk}/${checked}`);
   // cross-check ran: verified majority, conflicts flagged not hidden
   const verified = DATA.filter(d => d.secv && d.secv.verified.length >= 5 && d.secv.conflict.length === 0).length;
-  // 27/60 fully verify today; the rest are PARTIAL (fiscal-Jan year labels,
+  // Fully verified count moves as the official universe grows; the rest are PARTIAL.
   // 20-F filers, tag variants) — tracked in AUDIT.md as the next data milestone
-  ok(verified >= 25, "25+ names fully FILING VERIFIED*", String(verified));
+  ok(verified >= 34, "34+ names fully FILING VERIFIED*", String(verified));
   const partial = DATA.filter(d => d.secv && d.secv.verified.length >= 2).length;
-  ok(partial >= 50, "50+ names at least partially SEC-verified", String(partial));
+  ok(partial >= expected - 1, "all but at most one name at least partially SEC-verified", `${partial}/${expected}`);
   ok(DATA.every(d => d.secv), "secCheck ran for every name");
+  ok(!src.includes("nothing filing-verified"), "no stale contradictory filing-verification wording");
   // missing is NOT zero: fixture with no SBC data must not produce computed retention
   const noSbc = { ticker: "XX", ni: [5, 5, 5], sbc: [null, null, null], buyback: [1, 1, 1], price: 10, gaapEPS: 1, headlinePE: 10, ownersKeep: 0.9 };
   const st = E.trueOwnerEarnings(noSbc);
