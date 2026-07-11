@@ -186,5 +186,26 @@ const ok = (cond, name, detail = "") => {
   ok(st.sbcMissing === true, "missing SBC flagged as missing, not zero");
 }
 
+// =============== 10. News narrative scorer ===============
+{
+  const metaCompute = E.analyzeNews({
+    headline: "Meta plans to sell excess AI compute capacity to outside customers",
+    summary: "The move could add GPU supply to the market.",
+    source: "fixture",
+    datetime: Math.floor(Date.now() / 1000)
+  }, "META");
+  ok(metaCompute.score < -40, "META compute resale -> bearish impact score", String(metaCompute.score));
+  ok(metaCompute.industries.includes("Semis/AI") && metaCompute.industries.includes("Neocloud"),
+    "compute resale maps to semis + neocloud", metaCompute.industries.join(","));
+  ok(metaCompute.tickers.includes("NVDA") && metaCompute.tickers.includes("CRWV"),
+    "compute resale names affected semis/neocloud tickers", metaCompute.tickers.join(","));
+
+  const capexUp = E.analyzeNews({
+    headline: "Hyperscaler raises AI data center capex and places new GPU orders",
+    source: "fixture"
+  }, "MSFT");
+  ok(capexUp.score > 30, "AI capex raise -> bullish infrastructure score", String(capexUp.score));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

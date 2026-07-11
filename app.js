@@ -460,6 +460,8 @@
     else if (currentTab === "earnings") body.innerHTML = tabEarnings(d);
     else if (currentTab === "news") body.innerHTML = tabNews(d);
     else if (currentTab === "framework") body.innerHTML = tabFramework(d);
+    body.querySelectorAll("[data-news-tk]").forEach(x =>
+      x.onclick = (e) => { e.preventDefault(); e.stopPropagation(); selectTicker(x.dataset.newsTk); });
   }
 
   function tabOverview(d) {
@@ -490,6 +492,8 @@
       ${qualityCard(d)}
 
       ${analystCard(d)}
+
+      ${newsBrainCard(d)}
 
       ${sectorContextCard(d)}
 
@@ -910,18 +914,170 @@
     </div>`;
   }
 
+  const NEWS_RULES = [
+    {
+      id: "compute-resale", narrative: "AI compute supply hits the market", score: -72,
+      industries: ["Semis/AI", "Neocloud", "AI Infrastructure"], tickers: ["NVDA", "AMD", "AVGO", "MRVL", "ARM", "SMCI", "CRWV", "NBIS", "IREN", "ANET", "ASML", "AMAT", "LRCX"],
+      why: "extra compute supply can pressure GPU scarcity, cloud pricing and the AI capex story",
+      patterns: [/\b(sell|selling|resell|rent|lease|offer|market)\b.*\b(compute|gpu|ai capacity|data center capacity)\b/i, /\b(excess|unused|spare|surplus)\b.*\b(compute|gpu|ai capacity)\b/i]
+    },
+    {
+      id: "ai-capex-up", narrative: "AI capex wave accelerating", score: 58,
+      industries: ["Semis/AI", "Semi Equip", "Neocloud", "Power/Data Centers"], tickers: ["NVDA", "AVGO", "AMD", "ASML", "AMAT", "LRCX", "KLAC", "SMCI", "CRWV", "NBIS", "IREN", "ANET"],
+      why: "more data-center and GPU spending supports the upstream AI infrastructure chain",
+      patterns: [/\b(raise|boost|increase|accelerate|expand|spend|invest|build)\b.*\b(ai|gpu|data center|datacenter|compute|capex|capital expenditure)\b/i, /\b(gpu|ai chip|accelerator)\b.*\b(order|orders|demand|shortage|sold out)\b/i]
+    },
+    {
+      id: "ai-capex-cut", narrative: "AI capex digestion risk", score: -64,
+      industries: ["Semis/AI", "Semi Equip", "Neocloud", "AI Infrastructure"], tickers: ["NVDA", "AMD", "AVGO", "ASML", "AMAT", "LRCX", "KLAC", "SMCI", "CRWV", "NBIS", "IREN", "ANET"],
+      why: "capex delays or digestion break the extrapolation that every AI supplier keeps compounding",
+      patterns: [/\b(cut|cuts|reduce|pause|delay|defer|cancel|slow|digest)\b.*\b(ai|gpu|data center|datacenter|compute|capex|capital expenditure)\b/i]
+    },
+    {
+      id: "export-controls", narrative: "Export-control shock", score: -55,
+      industries: ["Semis/AI", "Semi Equip"], tickers: ["NVDA", "AMD", "ASML", "AMAT", "LRCX", "KLAC", "QCOM", "MRVL"],
+      why: "new restrictions can remove revenue, raise compliance risk and compress multiples",
+      patterns: [/\b(export control|export ban|china restriction|license requirement|entity list|sanction)\b/i]
+    },
+    {
+      id: "guidance-up", narrative: "Fundamental bar lifted", score: 48,
+      industries: ["Company / peers"], tickers: [],
+      why: "guidance raises move the benchmark that investors will compare future quarters against",
+      patterns: [/\b(raise|raises|raised|boost|lifts|increase)\b.*\b(guidance|outlook|forecast|revenue|eps|profit)\b/i, /\b(beat|beats|tops|exceeds)\b.*\b(estimates|expectations|consensus)\b/i]
+    },
+    {
+      id: "guidance-down", narrative: "Earnings revision risk", score: -58,
+      industries: ["Company / peers"], tickers: [],
+      why: "guide-downs and misses often matter more than valuation screens in the next trading window",
+      patterns: [/\b(cut|cuts|lower|lowers|slashed|miss|misses|below)\b.*\b(guidance|outlook|forecast|revenue|eps|profit|estimates|consensus)\b/i]
+    },
+    {
+      id: "regulatory", narrative: "Regulatory overhang", score: -42,
+      industries: ["Mega-cap platforms", "Payments", "AI platforms"], tickers: ["AAPL", "GOOGL", "META", "AMZN", "MSFT", "V", "MA", "PYPL", "COIN", "HOOD"],
+      why: "antitrust, privacy and platform rules can cap margins or force model changes",
+      patterns: [/\b(antitrust|doj|ftc|eu probe|probe|investigation|lawsuit|privacy|fine|regulator|regulatory)\b/i]
+    },
+    {
+      id: "buyback", narrative: "Capital return headline", score: 22,
+      industries: ["Shareholder yield"], tickers: [],
+      why: "buybacks only matter if they reduce the share count and are done below intrinsic value",
+      patterns: [/\b(buyback|repurchase|share repurchase|dividend|capital return)\b/i]
+    },
+    {
+      id: "cost-cut", narrative: "Margin defense / growth question", score: 14,
+      industries: ["Operating leverage"], tickers: [],
+      why: "cost cuts can help margins, but they may also signal weaker demand",
+      patterns: [/\b(layoff|layoffs|job cuts|restructuring|cost cuts|cost reduction|efficiency)\b/i]
+    },
+    {
+      id: "deal", narrative: "Demand validation", score: 34,
+      industries: ["Company / suppliers"], tickers: [],
+      why: "large deals and partnerships can validate demand, but only if they convert to revenue and cash",
+      patterns: [/\b(partnership|contract|deal|customer win|agreement|strategic alliance)\b/i]
+    }
+  ];
+
+  const impactColor = (s) => s >= 35 ? "var(--green)" : s <= -35 ? "var(--red)" : Math.abs(s) >= 15 ? "var(--amber)" : "var(--muted)";
+  const impactTone = (s) => s >= 35 ? "BULLISH" : s <= -35 ? "BEARISH" : Math.abs(s) >= 15 ? "WATCH" : "LOW SIGNAL";
+  function analyzeNews(n, sourceTicker) {
+    const d = DATA.find(x => x.ticker === sourceTicker);
+    const text = `${n.headline || n.title || ""} ${n.summary || n.description || ""}`;
+    const matches = [];
+    let score = 0;
+    const industries = new Set(d ? [d.sector] : []);
+    const tickers = new Set(sourceTicker ? [sourceTicker] : []);
+    NEWS_RULES.forEach(rule => {
+      if (rule.patterns.some(rx => rx.test(text))) {
+        matches.push(rule);
+        score += rule.score;
+        rule.industries.forEach(x => industries.add(x));
+        rule.tickers.forEach(x => tickers.add(x));
+      }
+    });
+    score = Math.max(-100, Math.min(100, Math.round(score)));
+    const main = matches[0] || { narrative: "Company headline", why: "not enough structured signal for a sector call", industries: [], tickers: [] };
+    return {
+      ticker: sourceTicker,
+      headline: n.headline || n.title || "",
+      summary: n.summary || "",
+      url: n.url || "",
+      source: n.source || "",
+      datetime: n.datetime || 0,
+      score,
+      tone: impactTone(score),
+      color: impactColor(score),
+      narrative: main.narrative,
+      why: matches.length ? matches.map(m => m.why).join(" · ") : main.why,
+      industries: [...industries].slice(0, 6),
+      tickers: [...tickers].filter(Boolean).slice(0, 12),
+      tags: matches.map(m => m.id)
+    };
+  }
+  const analyzedNewsForTicker = (tk) => ((state.live[tk] && state.live[tk].news) || [])
+    .map(n => analyzeNews(n, tk))
+    .sort((a, b) => Math.abs(b.score) - Math.abs(a.score) || (b.datetime || 0) - (a.datetime || 0));
+
+  function impactTickerChips(tickers) {
+    return tickers.map(tk => `<span class="impact-chip impact-tk" data-news-tk="${tk}">${tk}</span>`).join("");
+  }
+  function newsAnalysisRow(a) {
+    const dt = a.datetime ? new Date(a.datetime * 1000).toLocaleString() : "";
+    return `<div class="news-impact-grid">
+      <div class="impact-score" style="color:${a.color}">${a.score > 0 ? "+" : ""}${a.score}<small>${a.tone}</small></div>
+      <div>
+        <div class="nt">${escapeHtml(a.headline)}</div>
+        <div class="nm"><span class="news-src">${escapeHtml(a.source)}</span>${dt ? " · " + dt : ""} · ${escapeHtml(a.narrative)}</div>
+        <div style="margin-top:5px">${a.industries.map(x => `<span class="impact-chip hot">${escapeHtml(x)}</span>`).join("")}</div>
+      </div>
+      <div style="text-align:right;min-width:130px">
+        <div class="sub">AFFECTED</div>
+        <div>${impactTickerChips(a.tickers)}</div>
+      </div>
+    </div>`;
+  }
+
+  function newsBrainCard(d) {
+    const rows = analyzedNewsForTicker(d.ticker);
+    if (!state.keys.finnhub) {
+      return `<div class="card news-impact" style="grid-column:span 3">
+        <h3>NEWS BRAIN — NARRATIVE IMPACT SCORER <span class="unit">connect Finnhub for live headlines</span></h3>
+        <div class="note" style="border-left-color:var(--cyan)">When news hits, this card scores the headline, tags the affected industry, and turns it into a trading narrative. Example rule: if META sells or leases excess AI compute, the terminal flags <b>AI compute supply hits the market</b> and marks semis/neocloud names like NVDA, SMCI, CRWV, NBIS and IREN as affected.</div>
+      </div>`;
+    }
+    if (!rows.length) {
+      return `<div class="card news-impact" style="grid-column:span 3">
+        <h3>NEWS BRAIN — ${d.ticker} <span class="unit">live narrative layer</span></h3>
+        <div class="sub">No scored headlines loaded yet. Use the live button or reopen this ticker after connecting Finnhub.</div>
+      </div>`;
+    }
+    const top = rows[0];
+    return `<div class="card news-impact" style="grid-column:span 3;border-left-color:${top.color}">
+      <h3>NEWS BRAIN — ${top.narrative.toUpperCase()} <span class="unit">top live headline · impact score ${top.score > 0 ? "+" : ""}${top.score}</span></h3>
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+        <div class="impact-score" style="color:${top.color};min-width:86px">${top.score > 0 ? "+" : ""}${top.score}<small>${top.tone}</small></div>
+        <div style="flex:1;min-width:220px">
+          <div style="font-size:13px;color:var(--text);font-weight:700">${escapeHtml(top.headline)}</div>
+          <div class="sub" style="margin-top:5px">${escapeHtml(top.why)}</div>
+          <div style="margin-top:8px">${top.industries.map(x => `<span class="impact-chip hot">${escapeHtml(x)}</span>`).join("")}</div>
+        </div>
+        <div style="min-width:160px"><div class="sub">AFFECTED STOCKS</div>${impactTickerChips(top.tickers)}</div>
+      </div>
+      ${rows.slice(1, 3).map(a => `<div class="sub" style="margin-top:8px;color:${a.color}">${a.score > 0 ? "+" : ""}${a.score} · ${escapeHtml(a.narrative)} · ${escapeHtml(a.headline).slice(0, 110)}</div>`).join("")}
+    </div>`;
+  }
+
   function tabNews(d) {
     const lv = state.live[d.ticker];
     if (lv?.news?.length) {
-      return `<div class="card"><h3>LIVE NEWS · ${d.ticker} <span class="unit">via Finnhub</span></h3>` +
-        lv.news.slice(0, 20).map(n => `<a class="news-item" href="${n.url}" target="_blank" rel="noopener">
-          <div class="nt">${escapeHtml(n.headline)}</div>
-          <div class="nm"><span class="news-src">${escapeHtml(n.source || "")}</span> · ${new Date(n.datetime * 1000).toLocaleString()}</div>
-        </a>`).join("") + `</div>`;
+      const rows = analyzedNewsForTicker(d.ticker);
+      return `${newsBrainCard(d)}
+        <div class="card" style="margin-top:12px"><h3>LIVE NEWS ANALYSIS · ${d.ticker} <span class="unit">via Finnhub · model-scored, not investment advice</span></h3>
+          ${rows.slice(0, 20).map(a => `<a class="news-item" href="${a.url}" target="_blank" rel="noopener">${newsAnalysisRow(a)}</a>`).join("")}
+        </div>`;
     }
-    return `<div class="card">
+    return `${newsBrainCard(d)}<div class="card" style="margin-top:12px">
       <h3>NEWS · ${d.ticker}</h3>
-      <div class="note" style="margin-bottom:10px">Live headlines require a free Finnhub key. Click the ⚙ gear (top-right) to connect — then news for <b>every</b> ticker streams in automatically.</div>
+      <div class="note" style="margin:12px 0 10px">Live headlines require a free Finnhub key. Click the ⚙ gear (top-right) to connect — then news for <b>every</b> ticker streams in automatically.</div>
       <div class="sub">While disconnected, use the SBC X-RAY and FINANCIALS tabs — those run entirely on bundled snapshots.</div>
       <div style="margin-top:12px">
         <span class="tag">Check: is any headline about a buyback?</span>
@@ -3048,6 +3204,6 @@
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
     buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings,
-    tabFinancials, renderAudit, secCheckOf, dataQualityOf };
+    tabFinancials, renderAudit, secCheckOf, dataQualityOf, analyzeNews };
   document.addEventListener("DOMContentLoaded", init);
 })();

@@ -330,6 +330,22 @@
   .news-item .nt{font-size:12.5px;color:var(--text);margin-bottom:3px}
   .news-item .nm{font-size:10px;color:var(--dim)}
   .news-src{color:var(--cyan)}
+  .news-impact{border-left:3px solid var(--amber)}
+  .news-impact-grid{display:grid;grid-template-columns:92px 1fr auto;gap:10px;align-items:center;
+    padding:9px 0;border-bottom:1px solid #111827}
+  .news-impact-grid:last-child{border-bottom:none}
+  .impact-score{font-size:19px;font-weight:800;text-align:center}
+  .impact-score small{display:block;font-size:8.5px;color:var(--dim);font-weight:600;letter-spacing:.8px}
+  .impact-chip{display:inline-block;font-size:9px;letter-spacing:.4px;padding:2px 7px;border-radius:4px;
+    border:1px solid var(--line2);color:var(--muted);margin:2px 4px 2px 0}
+  .impact-chip.hot{color:var(--amber);border-color:rgba(255,176,0,.45);background:rgba(255,176,0,.07)}
+  .impact-tk{cursor:pointer;color:var(--cyan)}
+  .impact-tk:hover{color:var(--amber)}
+  @media(max-width:720px){
+    .news-impact-grid{grid-template-columns:72px 1fr;gap:8px}
+    .news-impact-grid > div:last-child{grid-column:1 / -1}
+    .impact-score{font-size:17px}
+  }
 
   /* verdict pills */
   .verdict{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
@@ -483,12 +499,12 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=23"></script>
-<script src="data.js?v=23"></script>
-<script src="sec.js?v=23"></script>
-<script src="segments.js?v=23"></script>
-<script src="sectors.js?v=23"></script>
-<script src="charts.js?v=23"></script>
-<script src="app.js?v=23"></script>
+<script src="universe.js?v=24"></script>
+<script src="data.js?v=24"></script>
+<script src="sec.js?v=24"></script>
+<script src="segments.js?v=24"></script>
+<script src="sectors.js?v=24"></script>
+<script src="charts.js?v=24"></script>
+<script src="app.js?v=24"></script>
 </body>
 </html>
