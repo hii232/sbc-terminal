@@ -200,6 +200,10 @@ const ok = (cond, name, detail = "") => {
   ok(st.sbcMissing === true && st.owner === null, "missing SBC flagged as missing, not zero");
   const lowConfidence = DATA.filter(d => E.dataConfidenceOf(d).score < 80);
   ok(lowConfidence.every(d => E.rankOf(d).noRank === true), "data confidence below 80 is blocked from main ranking", String(lowConfidence.length));
+  const verifiedYoung = ["CRWD", "PLTR", "UBER"].map(t => DATA.find(d => d.ticker === t));
+  ok(verifiedYoung.every(d => d && E.dataConfidenceOf(d).score >= 80 && E.rankOf(d).noRank !== true),
+    "verified owner-EPS names rank even when retention history is unavailable",
+    verifiedYoung.map(d => d && `${d.ticker}:${E.dataConfidenceOf(d).score}/${E.rankOf(d).noRank ? "blocked" : "ranked"}`).join(","));
 }
 
 // =============== 10. SEC period alignment ===============

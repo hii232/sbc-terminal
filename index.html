@@ -258,10 +258,13 @@
   /* ============ MOBILE ============ */
   @media(max-width:720px){
     body{font-size:13.5px}
-    .g2,.g3,.g4{grid-template-columns:1fr}
-    .card[style*="span 2"],.card[style*="span 3"]{grid-column:span 1 !important}
+    html,body,.app,main{max-width:100%;overflow-x:hidden}
+    .grid,.g2,.g3,.g4{grid-template-columns:minmax(0,1fr) !important;width:100%;max-width:100%}
+    .grid > *{grid-column:1 / -1 !important;min-width:0;max-width:100%}
+    .card{min-width:0;max-width:100%;overflow:hidden}
+    .card,.note,.reason-list div,.sub{overflow-wrap:anywhere}
     .app{display:block;height:auto}
-    main{padding:12px 10px calc(92px + env(safe-area-inset-bottom))}
+    main{padding:12px 10px calc(104px + env(safe-area-inset-bottom));scroll-padding-bottom:110px}
 
     /* header: brand + search only */
     header{gap:8px;padding:8px 10px}

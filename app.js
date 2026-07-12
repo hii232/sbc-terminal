@@ -212,8 +212,10 @@
     d.ownerEps = st.owner != null && sh && sh > 0 ? +(st.owner / sh).toFixed(2) : null;
     d.sbcAdjEPS = d.ownerEps;
     d.truePE = d.ownerEps && d.ownerEps > 0 && d.price ? +(d.price / d.ownerEps).toFixed(1) : null;
-    d.dataBlocked = d.keepSource === "insufficient" || d.ownerEps == null;
-    d.dataBlockReason = d.dataBlocked ? "Insufficient data for direct owner-EPS valuation" : "";
+    d.dataBlocked = d.ownerEps == null;
+    d.dataBlockReason = d.dataBlocked
+      ? "Insufficient data for direct owner-EPS valuation"
+      : (d.keepSource === "insufficient" ? "Owner-EPS computed; multi-year retention unavailable." : "");
   }
   /* ---------- OFFICIAL STOCK UNIVERSE VALIDATION (fatal on failure) ---------- */
   (function validateUniverse() {
@@ -2367,7 +2369,7 @@
     if (dq.label === "CORE FILING VERIFIED") score += 8;
     if (dq.label === "PARTIALLY VERIFIED") score = Math.min(score, 79);
     if (dq.label === "NOT VERIFIED") score = Math.min(score, 55);
-    if (d.keepSource === "insufficient" || d.dataBlocked) score = Math.min(score, 50);
+    if (d.dataBlocked) score = Math.min(score, 50);
     score = Math.max(0, Math.min(100, Math.round(score)));
     const rankable = score >= 80 && !d.dataBlocked;
     const reason = rankable

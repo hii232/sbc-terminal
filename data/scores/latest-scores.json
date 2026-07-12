@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-12T06:39:37.713Z",
+  "asOf": "2026-07-12T12:39:14.185Z",
   "modelVersion": "4.1.0",
   "count": 60,
   "methodology": "Current snapshot scores. Data Confidence is a separate trust gate and is not additive.",
@@ -337,7 +337,7 @@
       "marketReward": 17,
       "shareholderEconomics": 74,
       "valuation": 87,
-      "dataConfidence": 50,
+      "dataConfidence": 100,
       "expectationsGap": "Large positive gap",
       "whatChanged": "Mostly unchanged",
       "whyRise": [
@@ -725,7 +725,7 @@
       "marketReward": 29,
       "shareholderEconomics": 27,
       "valuation": 12,
-      "dataConfidence": 50,
+      "dataConfidence": 100,
       "expectationsGap": "Extreme expectations risk",
       "whatChanged": "Better",
       "whyRise": [
@@ -879,7 +879,7 @@
       "marketReward": 50,
       "shareholderEconomics": 9,
       "valuation": 26,
-      "dataConfidence": 50,
+      "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
       "whatChanged": "Worse",
       "whyRise": [
@@ -929,7 +929,7 @@
       "marketReward": 76,
       "shareholderEconomics": 9,
       "valuation": 10,
-      "dataConfidence": 50,
+      "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
       "whatChanged": "Worse",
       "whyRise": [
@@ -955,7 +955,7 @@
       "marketReward": 25,
       "shareholderEconomics": 2,
       "valuation": 26,
-      "dataConfidence": 50,
+      "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
       "whatChanged": "Worse",
       "whyRise": [
@@ -1032,7 +1032,7 @@
       "marketReward": 82,
       "shareholderEconomics": 14,
       "valuation": 12,
-      "dataConfidence": 50,
+      "dataConfidence": 100,
       "expectationsGap": "Insufficient data",
       "whatChanged": "Mostly unchanged",
       "whyRise": [
@@ -1058,7 +1058,7 @@
       "marketReward": 42,
       "shareholderEconomics": 55,
       "valuation": 30,
-      "dataConfidence": 50,
+      "dataConfidence": 85,
       "expectationsGap": "Large positive gap",
       "whatChanged": "Worse",
       "whyRise": [
@@ -1083,7 +1083,7 @@
       "marketReward": 57,
       "shareholderEconomics": 32,
       "valuation": 0,
-      "dataConfidence": 50,
+      "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
       "whatChanged": "Mostly unchanged",
       "whyRise": [
@@ -1181,7 +1181,7 @@
       "marketReward": 65,
       "shareholderEconomics": 10,
       "valuation": 11,
-      "dataConfidence": 50,
+      "dataConfidence": 100,
       "expectationsGap": "Insufficient data",
       "whatChanged": "Better",
       "whyRise": [
@@ -1207,7 +1207,7 @@
       "marketReward": 52,
       "shareholderEconomics": 36,
       "valuation": 23,
-      "dataConfidence": 50,
+      "dataConfidence": 89,
       "expectationsGap": "Large positive gap",
       "whatChanged": "Mostly unchanged",
       "whyRise": [
@@ -1257,7 +1257,7 @@
       "marketReward": 52,
       "shareholderEconomics": 4,
       "valuation": 17,
-      "dataConfidence": 50,
+      "dataConfidence": 100,
       "expectationsGap": "Insufficient data",
       "whatChanged": "Worse",
       "whyRise": [
