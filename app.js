@@ -500,6 +500,21 @@
     if (key === "mktCap") return d.mktCap || 0;
     return scoreVal(d, key) ?? -1;
   };
+  function miniSpark(d) {
+    const vals = (d.px?.v || []).filter(v => v != null).slice(-22);
+    if (vals.length < 2) return "";
+    const W = 104, H = 38, P = 3;
+    const lo = Math.min(...vals), hi = Math.max(...vals), rng = hi - lo || 1;
+    const x = i => P + (i / (vals.length - 1)) * (W - P * 2);
+    const y = v => P + (H - P * 2) - ((v - lo) / rng) * (H - P * 2);
+    const base = vals[0];
+    const line = vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const col = vals.at(-1) >= base ? "var(--green)" : "var(--red)";
+    return `<svg class="spark" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+      <line x1="${P}" y1="${y(base).toFixed(1)}" x2="${W - P}" y2="${y(base).toFixed(1)}" stroke="rgba(154,168,187,.42)" stroke-width="1" stroke-dasharray="5 4"/>
+      <path d="${line}" fill="none" stroke="${col}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+  }
   const watchScoreText = (s) => s == null ? "--" : String(Math.round(s));
   function renderWatchlist() {
     const list = DATA.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
@@ -516,6 +531,7 @@
       const ch = lv?.quote?.changePct ?? d.change;
       const ms = marketScoreOf(d);
       const warn = ms?.whatCouldGoWrong?.[0] || "";
+      const scoreDelta = (ms?.marketReward?.score ?? 0) - 50;
       return `<div class="row ${state.active === d.ticker && state.view === "stock" ? "sel" : ""}" data-tk="${d.ticker}">
         <div class="bucketbar" style="background:${bcol[d.bucket]}"></div>
         <div style="min-width:0">
@@ -529,9 +545,11 @@
           </div>
           ${warn ? `<div class="warn-line">${warn}</div>` : ""}
         </div>
+        <div class="spark-wrap">${miniSpark(d)}</div>
         <div>
           <div class="px">${price.toFixed(2)}</div>
           <div class="ch ${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</div>
+          <div class="mr-chip ${scoreDelta >= 0 ? "up" : "down"}">MR ${scoreDelta >= 0 ? "+" : ""}${scoreDelta.toFixed(0)}</div>
         </div>
       </div>`;
     }).join("");
@@ -4019,7 +4037,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=30").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=31").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only

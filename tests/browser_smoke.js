@@ -118,6 +118,17 @@ async function main() {
     }));
     ok(mobile.nav.includes("OWNER P/E"), "mobile owner P/E nav missing");
     ok(!mobile.overflow, "mobile viewport has horizontal overflow");
+    await page.click("#navList");
+    await page.waitForSelector("#watchlist .spark", { timeout: 10000 });
+    const mobileList = await page.evaluate(() => ({
+      sparks: document.querySelectorAll("#watchlist .spark").length,
+      mrPills: document.querySelectorAll("#watchlist .mr-chip").length,
+      rowHeight: Math.round(document.querySelector("#watchlist .row")?.getBoundingClientRect().height || 0),
+    }));
+    ok(mobileList.sparks >= 50, "mobile market-list sparklines missing");
+    ok(mobileList.mrPills >= 50, "mobile market-list reward pills missing");
+    ok(mobileList.rowHeight >= 80, "mobile market-list rows too cramped");
+    await page.click("#drawerClose");
     await page.click("#navPE");
     await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Forward P/E"), { timeout: 3000 });
 
