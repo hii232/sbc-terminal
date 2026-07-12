@@ -16,7 +16,7 @@
   const DEFAULT_FINNHUB = "";
   const state = {
     active: null,
-    view: "stock", // 'stock' | 'sectors' | 'narratives'
+    view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
     bucket: "all",
     watchSort: localStorage.getItem("sbc_watch_sort") || "longTermView",
     keys: { finnhub: localStorage.getItem("finnhubKey") || DEFAULT_FINNHUB, fmp: localStorage.getItem("fmpKey") || "" },
@@ -559,7 +559,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "auditBtn"];
+  const VIEW_BTNS = ["homeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "auditBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -643,7 +643,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { sectors: showSectors, narratives: showNarratives, valuation: showValuation,
+        const map = { home: showHome, sectors: showSectors, narratives: showNarratives, valuation: showValuation,
           rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
           triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -3398,6 +3398,69 @@
   function showQualityMap() {
     showView("qualityMap", renderQualityMap, "mapBtn");
   }
+  function renderHome() {
+    const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
+    const ranked = scored.filter(x => !x.r.noRank);
+    const combo = (x) => Math.round(((x.m?.businessQuality?.score || 0) + (x.m?.marketReward?.score || 0)) / 2);
+    const leaders = [...ranked].sort((a, b) => combo(b) - combo(a)).slice(0, 6);
+    const cheap = [...ranked].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE).slice(0, 6);
+    const hot = [...ranked].filter(x => x.r.truePE).sort((a, b) => (b.r.truePE || 0) - (a.r.truePE || 0)).slice(0, 6);
+    const movers = [...DATA].sort((a, b) => Math.abs(b.change || 0) - Math.abs(a.change || 0)).slice(0, 6);
+    const sectors = SECTORS.series.filter(s => s.t !== "SPY").map(s => ({ s, r3: retOver(s, 3), fd: flowDelta(s) }))
+      .sort((a, b) => b.r3 - a.r3).slice(0, 5);
+    const medianPE = medianOf(ranked.map(x => x.r.truePE).filter(Boolean));
+    const fat = ranked.filter(x => x.r.zone === "fat").length;
+    const row = (x, right, sub = "") => `<div class="home-row" data-tk="${x.d.ticker}">
+      <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
+      <div class="sub">${sub || x.m?.finalLabel?.label || ""}</div>
+      <strong>${right}</strong>
+    </div>`;
+    const moverRow = (d) => `<div class="home-row" data-tk="${d.ticker}">
+      <div><b>${d.ticker}</b><span>${d.sector}</span></div>
+      <div class="sub">${d.name}</div>
+      <strong class="${signCls(d.change || 0)}">${arrow(d.change || 0)}${Math.abs(d.change || 0).toFixed(2)}%</strong>
+    </div>`;
+    el("main").innerHTML = `
+      <div class="hdr home-hero">
+        <div>
+          <div class="tick" style="color:var(--amber)">HOME DASHBOARD</div>
+          <div class="co">market reward + business quality command center · ${DATA.length} official names · ${ranked.length} ranked</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right">
+          <div class="sub">BEST SETUP</div>
+          <div class="stat sm" style="color:var(--green)">${leaders[0]?.d.ticker || "--"}</div>
+        </div>
+      </div>
+      <div class="grid g4" style="margin-bottom:12px">
+        <div class="card"><h3>RANKED UNIVERSE</h3><div class="stat" style="color:var(--green)">${ranked.length}/${DATA.length}</div><div class="sub">all official names scored</div></div>
+        <div class="card"><h3>FAT PITCHES</h3><div class="stat" style="color:var(--green)">${fat}</div><div class="sub">IV ladder in the zone</div></div>
+        <div class="card"><h3>MEDIAN OWNER P/E</h3><div class="stat" style="color:var(--amber)">${medianPE ? medianPE.toFixed(1) + "x" : "--"}</div><div class="sub">ranked positive owner EPS</div></div>
+        <div class="card"><h3>TOP COMBO</h3><div class="stat" style="color:var(--cyan)">${leaders[0] ? combo(leaders[0]) : "--"}</div><div class="sub">business quality + market reward</div></div>
+      </div>
+      <div class="grid g2">
+        <div class="card"><h3>BEST BUSINESS + MARKET REWARD</h3>${leaders.map(x => row(x, combo(x) + "/100", `BQ ${x.m.businessQuality.score} · MR ${x.m.marketReward.score}`)).join("")}</div>
+        <div class="card"><h3>CHEAPEST OWNER P/E</h3>${cheap.map(x => row(x, x.r.truePE.toFixed(1) + "x", x.m.finalLabel.label)).join("")}</div>
+        <div class="card"><h3>OVERHEATED WATCH</h3>${hot.map(x => row(x, x.r.truePE.toFixed(1) + "x", `Valuation ${x.m.valuation.score}/100`)).join("")}</div>
+        <div class="card"><h3>BIGGEST MOVES</h3>${movers.map(moverRow).join("")}</div>
+        <div class="card"><h3>SECTOR PULSE</h3>${sectors.map(x => `<div class="home-row" data-sector="${x.s.t}"><div><b>${x.s.t}</b><span>${x.s.name}</span></div><div class="sub">flow ${x.fd >= 0 ? "+" : ""}${x.fd.toFixed(1)}pp</div><strong class="${signCls(x.r3)}">${x.r3 >= 0 ? "+" : ""}${x.r3.toFixed(1)}%</strong></div>`).join("")}</div>
+        <div class="card"><h3>OPEN NEXT</h3>
+          <div class="note">Start with the combo leaders, then compare them against Cheapest Owner P/E and Overheated Watch. Use Sector Pulse to decide whether the market is confirming the thesis or fighting it.</div>
+        </div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = showSectors);
+  }
+  function showHome() {
+    state.view = "home";
+    setViewBtn("homeBtn");
+    renderWatchlist();
+    renderHome();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
+    pushNav();
+  }
   function showRankings() {
     state.view = "rankings";
     setViewBtn("rankBtn");
@@ -3990,6 +4053,7 @@
       refreshAllLive();
     };
     el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) refreshAllLive(); else el("gearBtn").click(); };
+    el("homeBtn").onclick = showHome;
     el("sectorBtn").onclick = showSectors;
     el("narrBtn").onclick = showNarratives;
     el("valBtn").onclick = showValuation;
@@ -4021,8 +4085,7 @@
     el("backdrop").onclick = closeDrawer;
     window.addEventListener("resize", syncMobileChrome);
 
-    renderWatchlist();
-    selectTicker("NVDA");
+    showHome();
     syncMobileChrome();
     updateLiveDot();
     tickClock(); setInterval(tickClock, 1000);
@@ -4037,7 +4100,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=31").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=32").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
