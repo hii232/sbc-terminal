@@ -3403,6 +3403,10 @@
     const ranked = scored.filter(x => !x.r.noRank);
     const combo = (x) => Math.round(((x.m?.businessQuality?.score || 0) + (x.m?.marketReward?.score || 0)) / 2);
     const leaders = [...ranked].sort((a, b) => combo(b) - combo(a)).slice(0, 6);
+    const buyList = [...ranked].map(x => ({ ...x, L: ivLadder(x.d) }))
+      .filter(x => x.L && (x.m?.businessQuality?.score || 0) >= 60)
+      .sort((a, b) => (b.m.businessQuality.score - a.m.businessQuality.score) || ((b.L.IV15 / b.L.price) - (a.L.IV15 / a.L.price)))
+      .slice(0, 8);
     const cheap = [...ranked].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE).slice(0, 6);
     const hot = [...ranked].filter(x => x.r.truePE).sort((a, b) => (b.r.truePE || 0) - (a.r.truePE || 0)).slice(0, 6);
     const movers = [...DATA].sort((a, b) => Math.abs(b.change || 0) - Math.abs(a.change || 0)).slice(0, 6);
@@ -3415,6 +3419,15 @@
       <div class="sub">${sub || x.m?.finalLabel?.label || ""}</div>
       <strong>${right}</strong>
     </div>`;
+    const buyRow = (x) => {
+      const great = x.L.IV15, starter = x.L.IV12, px = x.L.price;
+      const gap = great / px - 1;
+      return `<div class="home-row buy-row" data-tk="${x.d.ticker}">
+        <div><b>${x.d.ticker}</b><span>BQ ${x.m.businessQuality.score} · ${x.d.sector}</span></div>
+        <div class="sub">now $${px.toFixed(px >= 100 ? 0 : 2)} · starter $${starter.toFixed(starter >= 100 ? 0 : 2)}</div>
+        <strong class="${gap >= 0 ? "up" : "down"}">$${great.toFixed(great >= 100 ? 0 : 2)}</strong>
+      </div>`;
+    };
     const moverRow = (d) => `<div class="home-row" data-tk="${d.ticker}">
       <div><b>${d.ticker}</b><span>${d.sector}</span></div>
       <div class="sub">${d.name}</div>
@@ -3439,6 +3452,10 @@
         <div class="card"><h3>TOP COMBO</h3><div class="stat" style="color:var(--cyan)">${leaders[0] ? combo(leaders[0]) : "--"}</div><div class="sub">business quality + market reward</div></div>
       </div>
       <div class="grid g2">
+        <div class="card" style="border-left:3px solid var(--green)"><h3>GREAT BUSINESSES — BUY PRICES <span class="unit">great buy = IV15 · starter = IV12</span></h3>
+          <div class="note" style="margin-bottom:8px">These are model watch prices, not automatic orders. <b style="color:var(--green)">Great buy</b> means the IV ladder estimates a 15% required-return entry; <b style="color:var(--amber)">starter</b> is the 12% zone for scaling/watching.</div>
+          ${buyList.map(buyRow).join("")}
+        </div>
         <div class="card"><h3>BEST BUSINESS + MARKET REWARD</h3>${leaders.map(x => row(x, combo(x) + "/100", `BQ ${x.m.businessQuality.score} · MR ${x.m.marketReward.score}`)).join("")}</div>
         <div class="card"><h3>CHEAPEST OWNER P/E</h3>${cheap.map(x => row(x, x.r.truePE.toFixed(1) + "x", x.m.finalLabel.label)).join("")}</div>
         <div class="card"><h3>OVERHEATED WATCH</h3>${hot.map(x => row(x, x.r.truePE.toFixed(1) + "x", `Valuation ${x.m.valuation.score}/100`)).join("")}</div>
@@ -4100,7 +4117,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=32").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=33").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
