@@ -28,6 +28,10 @@ Financial data follows this order:
 
 Missing values must stay missing. They are not converted to zero. If SBC, buybacks, net income, shares, or another required field is unavailable, owner earnings, adjusted valuation, quality score, and main ranking are blocked.
 
+SEC annual facts are aligned by exact `periodEnd`, not fiscalYear labels. The runtime builds annual rows from SEC history so revenue, net income, SBC, diluted shares, operating cash flow and capex belong to the same filing period. Free cash flow is calculated from aligned SEC operating cash flow minus aligned SEC capex.
+
+Conflict labels are separated: true conflicts, period mismatches, definition mismatches, unit mismatches, stale/missing facts and missing SEC facts are tracked separately. The red source-conflict badge is reserved for same-period, same-definition disagreements.
+
 Finnhub and FMP are optional browser keys. Finnhub is used for quotes, news, analyst targets and insider data. FMP is stored only as fallback/second-source information and must never overwrite valid SEC-backed financial arrays.
 
 ## Market / Business Model
@@ -77,9 +81,10 @@ node tests/run_tests.js
 python scripts/golden_audit.py
 node tests/browser_smoke.js
 node scripts/export_score_report.js
+node scripts/sec_alignment_report.js
 ```
 
-Current local result: 64 regression assertions passed, golden audit 82 verified fields and 0 conflicts, browser smoke passed across all 60 companies plus mobile/offline reload, and the score/backtest export wrote all 60 score rows.
+Current local result: 74 regression assertions passed, golden audit 83 verified fields and 0 conflicts, browser smoke passed across all 60 companies plus mobile/offline reload, the score/backtest export wrote all 60 score rows, and the SEC alignment report shows 0 true conflicts, 0 period mismatches and 43 rankable companies.
 
 GitHub Actions also checks exact universe size, required SEC source files, calculation regressions, browser smoke coverage, the golden audit, and simple secret patterns.
 

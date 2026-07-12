@@ -1510,9 +1510,10 @@
     "buyback": {
      "label": "Share repurchases",
      "severity": "core",
-     "status": "not-comparable",
-     "secB": null,
-     "terminalB": null,
+     "status": "verified",
+     "secB": 0.0,
+     "terminalB": 0.0,
+     "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
       "filed": "2021-03-18",
@@ -2421,7 +2422,7 @@
   }
  },
  "summary": {
-  "verifiedFields": 82,
+  "verifiedFields": 83,
   "conflictFields": 0,
   "coreConflictFields": 0,
   "pass": true

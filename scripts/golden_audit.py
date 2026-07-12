@@ -116,17 +116,10 @@ def matched_pair(S, L, key):
     f = (S.get("f") or {}).get(key)
     hist = (f or {}).get("hist") or []
     series = L.get(key) or []
-    years = L.get("fy") or []
-    for i in range(min(len(series), len(years)) - 1, -1, -1):
-        lv = series[i]
-        if lv is None:
-            continue
-        yr = str(years[i])
-        candidates = [h for h in hist if str(h.get("periodEnd", ""))[:4] == yr]
-        if not candidates:
-            candidates = [h for h in hist if str(h.get("fiscalYear")) == yr]
-        if candidates:
-            h = sorted(candidates, key=lambda x: x.get("filed", ""))[-1]
+    if hist and series:
+        h = sorted([x for x in hist if x.get("periodEnd")], key=lambda x: (x.get("periodEnd", ""), x.get("filed", "")))[-1]
+        lv = next((v for v in reversed(series) if v is not None), None)
+        if lv is not None:
             return h.get("value"), lv, h
     return None, None, f
 

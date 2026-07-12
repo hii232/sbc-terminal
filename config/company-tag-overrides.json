@@ -1,0 +1,20 @@
+{
+  "ASML": {
+    "revenue": {
+      "taxonomy": "ifrs-full",
+      "tag": "Revenue"
+    },
+    "netIncome": {
+      "taxonomy": "ifrs-full",
+      "tag": "ProfitLoss"
+    },
+    "ocf": {
+      "taxonomy": "ifrs-full",
+      "tag": "CashFlowsFromUsedInOperatingActivities"
+    },
+    "capex": {
+      "taxonomy": "ifrs-full",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities"
+    }
+  }
+}

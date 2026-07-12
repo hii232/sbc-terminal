@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-12T05:35:06.568Z",
+  "asOf": "2026-07-12T06:39:37.713Z",
   "status": "partial",
   "noLookaheadPolicy": "Historical tests must rank using only data known at the historical date.",
   "pointInTimeFactorBacktest": {

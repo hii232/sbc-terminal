@@ -184,11 +184,13 @@ const ok = (cond, name, detail = "") => {
   }
   ok(provOk === checked && checked >= 55, "every SEC fact carries form+filed+accession+tag", `${provOk}/${checked}`);
   // cross-check ran: verified majority, conflicts flagged not hidden
-  const verified = DATA.filter(d => E.dataQualityOf(d).label === "FILING VERIFIED*").length;
+  const full = DATA.filter(d => E.dataQualityOf(d).label === "FULL FILING VERIFIED").length;
+  const core = DATA.filter(d => E.dataQualityOf(d).label === "CORE FILING VERIFIED").length;
   // Fully verified count moves as the official universe grows; the rest are PARTIAL.
   // 20-F filers, tag variants) — tracked in AUDIT.md as the next data milestone
-  ok(verified >= 34, "34+ names fully FILING VERIFIED*", String(verified));
-  const partial = DATA.filter(d => ["FILING VERIFIED*", "PARTIALLY VERIFIED"].includes(E.dataQualityOf(d).label)).length;
+  ok(full >= 34, "34+ names FULL FILING VERIFIED", String(full));
+  ok(full + core >= 40, "40+ names full/core filing verified", `${full + core}/${expected}`);
+  const partial = DATA.filter(d => ["FULL FILING VERIFIED", "CORE FILING VERIFIED", "PARTIALLY VERIFIED"].includes(E.dataQualityOf(d).label)).length;
   ok(partial >= expected - 2, "all but at most two names at least partially SEC-verified", `${partial}/${expected}`);
   ok(DATA.every(d => d.secv), "secCheck ran for every name");
   ok(!src.includes("nothing filing-verified"), "no stale contradictory filing-verification wording");
@@ -200,7 +202,24 @@ const ok = (cond, name, detail = "") => {
   ok(lowConfidence.every(d => E.rankOf(d).noRank === true), "data confidence below 80 is blocked from main ranking", String(lowConfidence.length));
 }
 
-// =============== 10. News narrative scorer ===============
+// =============== 10. SEC period alignment ===============
+{
+  const n = DATA.find(d => d.ticker === "NVDA");
+  ok(n.annualPeriods.at(-1).periodEnd === "2026-01-25", "NVDA latest SEC period is FY ended 2026-01-25", n.annualPeriods.at(-1).periodEnd);
+  ok(n.secPrimary.ocf.at(-1).periodEnd === "2026-01-25", "NVDA OCF uses exact latest periodEnd", n.secPrimary.ocf.at(-1).periodEnd);
+  ok(n.secPrimary.capex.at(-1).periodEnd === "2026-01-25", "NVDA capex uses exact latest periodEnd", n.secPrimary.capex.at(-1).periodEnd);
+  ok(n.secPrimary.revenue.at(-1).periodEnd === n.secPrimary.ocf.at(-1).periodEnd, "NVDA revenue and OCF periods align");
+  ok(n.secv.periodMismatch.length === 0, "NVDA has no period mismatch after aligned SEC rebuild", JSON.stringify(n.secv.periodMismatch));
+  ok(n.secv.conflict.length === 0, "NVDA period issues are not labelled source conflicts", JSON.stringify(n.secv.conflict));
+
+  const crm = DATA.find(d => d.ticker === "CRM");
+  const crmEnd = crm.annualPeriods.at(-1).periodEnd;
+  ok(crmEnd === crm.secPrimary.revenue.at(-1).periodEnd, "CRM revenue matched by periodEnd, not fiscalYear label", crmEnd);
+  ok(crm.secPrimary.ocf.at(-1).periodEnd === crm.secPrimary.revenue.at(-1).periodEnd, "CRM OCF aligns to same period as revenue");
+  ok(crm.secPrimary.capex.at(-1).periodEnd === crm.secPrimary.revenue.at(-1).periodEnd, "CRM capex aligns to same period as revenue");
+}
+
+// =============== 11. News narrative scorer ===============
 {
   const metaCompute = E.analyzeNews({
     headline: "Meta plans to sell excess AI compute capacity to outside customers",

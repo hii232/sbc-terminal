@@ -14,8 +14,7 @@ from datetime import date, datetime
 ROOT = Path(__file__).resolve().parent.parent
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 
-# tag -> (our key, preferred us-gaap tags in priority order, unit)
-FIELDS = {
+US_GAAP_FIELDS = {
     "revenue":   (["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues",
                    "RevenueFromContractWithCustomerIncludingAssessedTax",
                    "SalesRevenueNet"], "USD"),
@@ -34,6 +33,19 @@ FIELDS = {
     "esppProceeds": (["ProceedsFromIssuanceOfSharesUnderIncentiveAndShareBasedCompensationPlansIncludingStockOptions",
                       "ProceedsFromStockPlans", "ProceedsFromIssuanceOfCommonStock"], "USD"),
 }
+IFRS_FIELDS = {
+    "revenue": (["Revenue", "RevenueFromContractsWithCustomers"], "USD"),
+    "netIncome": (["ProfitLoss", "ProfitLossAttributableToOwnersOfParent"], "USD"),
+    "ocf": (["CashFlowsFromUsedInOperatingActivities", "NetCashFlowsFromUsedInOperatingActivities"], "USD"),
+    "capex": (["PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+               "PaymentsToAcquirePropertyPlantAndEquipment"], "USD"),
+    "sbc": (["ShareBasedPaymentExpense", "ExpenseArisingFromShareBasedPaymentTransactions"], "USD"),
+    "buyback": (["PaymentsToAcquireOrRedeemEntitysShares", "PurchaseOfTreasuryShares"], "USD"),
+    "dilShares": (["DilutedWeightedAverageNumberOfOrdinaryShares"], "shares"),
+    "taxWithholding": (["PaymentsRelatedToTaxWithholdingForShareBasedCompensation"], "USD"),
+    "esppProceeds": (["ProceedsFromIssueOfOrdinaryShares"], "USD"),
+}
+TAXONOMIES = {"us-gaap": US_GAAP_FIELDS, "ifrs-full": IFRS_FIELDS}
 ANNUAL_FORMS = {"10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A"}
 
 def get(url):
@@ -60,7 +72,7 @@ def annual_facts(units_list):
         elif not end:
             continue
         fy = f.get("fy") or int(end[:4])
-        key = end[:7]  # period-end month key beats fy label mismatches
+        key = end  # exact period-end beats fiscalYear label mismatches and comparative periods
         prev = by_year.get(key)
         if prev is None or (f.get("filed", "") > prev.get("filed", "")):
             if prev is not None:
@@ -71,41 +83,56 @@ def annual_facts(units_list):
 
 def extract(tk, cik10):
     raw = json.loads(get(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik10}.json"))
-    gaap = raw.get("facts", {}).get("us-gaap", {})
+    facts = raw.get("facts", {})
     dei = raw.get("facts", {}).get("dei", {})
     company = {"ticker": tk, "cik": cik10, "entityName": raw.get("entityName"),
                "retrievedAt": datetime.utcnow().isoformat() + "Z", "fields": {}}
     raw_extract = {}
     latest = {"filed": "", "form": "", "accn": ""}
-    for key, (tags, unit) in FIELDS.items():
+    override_path = ROOT / "config" / "company-tag-overrides.json"
+    overrides = json.loads(override_path.read_text(encoding="utf-8")) if override_path.exists() else {}
+    company_overrides = overrides.get(tk, {})
+    all_keys = sorted(set().union(*[set(m.keys()) for m in TAXONOMIES.values()]))
+    for key in all_keys:
         # MERGE annual facts across ALL candidate tags: companies switch XBRL
         # tags over time (first-tag-wins truncated NVDA history at FY2022).
         # Per period, the higher-priority tag wins; periods union across tags.
         by_period = {}
-        for pri, tag in enumerate(tags):
-            node = gaap.get(tag)
-            if not node:
-                continue
-            units = node.get("units", {})
-            arr = units.get(unit) or units.get("USD") or units.get("shares") or []
-            ann = annual_facts(arr)
-            if ann:
-                raw_extract[tag] = arr  # verbatim
-            for f in ann:
-                k = f["end"][:7]
-                prev = by_period.get(k)
-                if prev is None or pri < prev[0]:
-                    by_period[k] = (pri, tag, f)
+        search_specs = []
+        if key in company_overrides:
+            o = company_overrides[key]
+            search_specs.append((o.get("taxonomy", "company-extension"), [o["tag"]], o.get("unit", "USD")))
+        for taxonomy, mapping in TAXONOMIES.items():
+            if key in mapping:
+                tags, unit = mapping[key]
+                search_specs.append((taxonomy, tags, unit))
+        for tax_pri, (taxonomy, tags, unit) in enumerate(search_specs):
+            source = facts.get(taxonomy, {}) if taxonomy != "company-extension" else next((facts.get(t, {}) for t in facts if company_overrides.get(key, {}).get("tag") in facts.get(t, {})), {})
+            for pri, tag in enumerate(tags):
+                node = source.get(tag)
+                if not node:
+                    continue
+                units = node.get("units", {})
+                arr = units.get(unit) or units.get("USD") or units.get("shares") or []
+                ann = annual_facts(arr)
+                if ann:
+                    raw_extract[f"{taxonomy}:{tag}"] = arr  # verbatim
+                for f in ann:
+                    k = f["end"]
+                    prev = by_period.get(k)
+                    rank = tax_pri * 100 + pri
+                    if prev is None or rank < prev[0]:
+                        by_period[k] = (rank, f"{taxonomy}:{tag}", unit, f)
         got = None; used_tag = None
         if by_period:
-            merged = sorted(by_period.values(), key=lambda x: x[2]["end"])[-10:]
-            got = [dict(f, _tag=tag) for (pri, tag, f) in merged]
-            used_tag = "multi" if len({t for (_, t, _) in merged}) > 1 else merged[0][1]
+            merged = sorted(by_period.values(), key=lambda x: x[3]["end"])[-10:]
+            got = [dict(f, _tag=tag, _unit=got_unit) for (pri, tag, got_unit, f) in merged]
+            used_tag = "multi" if len({t for (_, t, _, _) in merged}) > 1 else merged[0][1]
         if got:
             vals = []
             for f in got:
                 vals.append({
-                    "value": f["val"], "unit": unit, "periodStart": f.get("start"),
+                    "value": f["val"], "unit": f.get("_unit", "USD"), "periodStart": f.get("start"),
                     "periodEnd": f["end"], "fiscalYear": f.get("fy"),
                     "fiscalPeriod": f.get("fp"), "form": f.get("form"),
                     "filedDate": f.get("filed"), "accessionNumber": f.get("accn"),

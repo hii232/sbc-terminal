@@ -244,76 +244,149 @@
      facts (sec.js, with accession numbers). A lower-quality source never
      overwrites SEC silently: matches -> verified, differences -> CONFLICT
      flagged for review, absent SEC facts -> missing (never zero).        */
+  const SEC_CORE_FIELDS = ["revenue", "netIncome", "sbc", "buyback", "dilShares"];
+  const SEC_CASH_FIELDS = ["ocf", "capex"];
+  const SEC_FIELD_TO_LOCAL = {
+    revenue: ["revenue", 1e9, 2],
+    netIncome: ["ni", 1e9, 2],
+    sbc: ["sbc", 1e9, 3],
+    buyback: ["buyback", 1e9, 2],
+    dilShares: ["shares", 1e9, 3],
+    ocf: ["ocf", 1e9, 2],
+    capex: ["capex", 1e9, 2],
+  };
+  const annualSecHist = (ticker, field) => {
+    const hist = (typeof SEC !== "undefined" && SEC[ticker] && SEC[ticker].f && SEC[ticker].f[field] && SEC[ticker].f[field].hist) || [];
+    return hist.filter(x => x && x.periodEnd && hasNum(x.value) && /^(10-K|10-K\/A|20-F|20-F\/A|40-F|40-F\/A)$/.test(x.form || ""));
+  };
+  const factDurationDays = (x) => {
+    if (!x || !x.periodStart || !x.periodEnd) return null;
+    const a = Date.parse(x.periodStart), b = Date.parse(x.periodEnd);
+    return Number.isFinite(a) && Number.isFinite(b) ? Math.round((b - a) / 864e5) : null;
+  };
+  const sameAnnualDefinition = (a, b) => {
+    if (!a || !b) return false;
+    if (a.periodEnd !== b.periodEnd) return false;
+    if ((a.unit || "") !== (b.unit || "")) return false;
+    const da = factDurationDays(a), db = factDurationDays(b);
+    if (da != null && db != null && Math.abs(da - db) > 10) return false;
+    return true;
+  };
+  function latestSecFact(ticker, field) {
+    const hist = annualSecHist(ticker, field);
+    return hist.slice().sort((a, b) =>
+      String(a.periodEnd).localeCompare(String(b.periodEnd)) ||
+      String(a.filed || "").localeCompare(String(b.filed || "")) ||
+      String(a.accn || "").localeCompare(String(b.accn || ""))
+    ).at(-1) || null;
+  }
+  function secFactForPeriod(ticker, field, targetPeriodEnd) {
+    if (!targetPeriodEnd) return null;
+    const hist = annualSecHist(ticker, field).filter(x => x.periodEnd === targetPeriodEnd);
+    return hist.slice().sort((a, b) =>
+      String(a.filed || "").localeCompare(String(b.filed || "")) ||
+      String(a.accn || "").localeCompare(String(b.accn || ""))
+    ).at(-1) || null;
+  }
+  function secAnnualPeriods(d) {
+    const ends = new Set();
+    ["revenue", "netIncome", "sbc", "ocf", "capex", "dilShares", "buyback"].forEach(k =>
+      annualSecHist(d.ticker, k).forEach(x => ends.add(x.periodEnd)));
+    return [...ends].sort().map(periodEnd => {
+      const row = { periodEnd };
+      ["revenue", "netIncome", "sbc", "buyback", "dilShares", "ocf", "capex"].forEach(k => { row[k] = secFactForPeriod(d.ticker, k, periodEnd); });
+      const anchor = row.revenue || row.netIncome || row.ocf || row.capex || row.dilShares;
+      row.periodStart = anchor && anchor.periodStart || null;
+      row.form = anchor && anchor.form || null;
+      row.filed = anchor && anchor.filed || null;
+      row.accn = anchor && anchor.accn || null;
+      row.fiscalLabel = anchor && anchor.fiscalYear ? "FY" + anchor.fiscalYear : "FY ended " + periodEnd;
+      row.completeCore = SEC_CORE_FIELDS.every(k => !!row[k]);
+      row.completeCash = SEC_CASH_FIELDS.every(k => !!row[k]);
+      return row;
+    }).filter(row => row.revenue || row.netIncome || row.ocf || row.capex || row.dilShares).slice(-10);
+  }
+  function rebuildSecAlignedAnnuals(d) {
+    const rows = secAnnualPeriods(d);
+    d.annualPeriods = rows;
+    if (!rows.length) return;
+    d.secPrimary = {};
+    d.fy = rows.map(r => r.periodEnd.slice(0, 4));
+    const setSeries = (secKey, localKey, scale, digits) => {
+      const vals = rows.map(r => r[secKey] ? +(r[secKey].value / scale).toFixed(digits) : null);
+      if (vals.some(v => v != null)) {
+        d[localKey] = vals;
+        d.secPrimary[localKey] = rows.map(r => r[secKey] || null);
+      }
+    };
+    setSeries("revenue", "revenue", 1e9, 2);
+    setSeries("netIncome", "ni", 1e9, 2);
+    setSeries("sbc", "sbc", 1e9, 3);
+    setSeries("buyback", "buyback", 1e9, 2);
+    setSeries("dilShares", "shares", 1e9, 3);
+    if (!d.qm) d.qm = {};
+    const ocf = rows.map(r => r.ocf ? +(r.ocf.value / 1e9).toFixed(2) : null);
+    const capex = rows.map(r => r.capex ? +(r.capex.value / 1e9).toFixed(2) : null);
+    if (ocf.some(v => v != null)) { d.qm.ocf = ocf; d.secPrimary.ocf = rows.map(r => r.ocf || null); }
+    if (capex.some(v => v != null)) { d.qm.capex = capex; d.secPrimary.capex = rows.map(r => r.capex || null); }
+    if (ocf.some(v => v != null) || capex.some(v => v != null)) {
+      d.qm.fcf = rows.map((r, i) => ocf[i] != null && capex[i] != null ? +(ocf[i] - capex[i]).toFixed(2) : null);
+      d.secPrimary.fcf = rows.map((r, i) => r.ocf && r.capex ? { value: r.ocf.value - r.capex.value, periodEnd: r.periodEnd, source: "SEC ocf minus SEC capex" } : null);
+    }
+    d.buybackStatus = rows.map(r => r.buyback ? "reported-value" : "parser-missing");
+    const rev = lastVal(d.revenue), sbc = lastVal(d.sbc), ni = lastVal(d.ni);
+    d.sbcPctRev = rev && sbc != null ? +((sbc / rev) * 100).toFixed(1) : null;
+    d.sbcPctNI = ni && ni > 0 && sbc != null ? +((sbc / ni) * 100).toFixed(0) : null;
+  }
   function secCheckOf(d) {
     const S = (typeof SEC !== "undefined") && SEC[d.ticker];
-    const res = { verified: [], conflict: [], missing: [], latest: S ? S.latest : null };
+    const res = { verified: [], conflict: [], periodMismatch: [], definitionMismatch: [], unitMismatch: [], staleSecondary: [], missing: [], details: [], latest: S ? S.latest : null };
     if (!S || !S.f) { res.missing.push({ k: "all" }); return res; }
-    const yr = d.fy && d.fy.length ? String(d.fy[d.fy.length - 1]) : null;
-    const pick = (k) => {
-      const f = S.f[k];
-      if (!f) return null;
-      if (yr && f.hist) {
-        const m = f.hist.find(h => Array.isArray(h)
-          ? String(h[0]) === yr
-          : String(h.fiscalYear || (h.periodEnd || "").slice(0, 4)) === yr);
-        if (m) return Array.isArray(m) ? m[1] : m.value;
+    const latestPeriod = d.annualPeriods && d.annualPeriods.length ? d.annualPeriods[d.annualPeriods.length - 1].periodEnd : null;
+    const cmp = (k, local, scale, tol, digits) => {
+      const fact = secFactForPeriod(d.ticker, k, latestPeriod);
+      if (!fact || local == null) {
+        res.missing.push({ k, type: fact ? "missing local value" : "MISSING SEC FACT", periodEnd: latestPeriod });
+        res.details.push({ k, status: fact ? "missing local value" : "MISSING SEC FACT", secFact: fact, localValue: local, valueUsed: fact ? "SEC" : "local/unavailable" });
+        return;
       }
-      if (!yr && f.v != null) return f.v;
-      return null; // no latest-period fallback; mismatched periods are not comparable
-    };
-    const cmp = (k, local, scale, tol) => {
-      const sec = pick(k);
-      if (sec == null || local == null) { res.missing.push({ k }); return; }
+      const sec = fact.value;
+      const comparableSec = digits != null ? +(sec / scale).toFixed(digits) * scale : sec;
       const lv = local * scale;
-      const diff = Math.abs(lv - sec) / Math.max(Math.abs(sec), 1e-9);
-      (diff <= tol ? res.verified : res.conflict).push({ k, sec, local: lv, diffPct: +(diff * 100).toFixed(1) });
+      const diff = Math.abs(lv - comparableSec) / Math.max(Math.abs(comparableSec), 1e-9);
+      const detail = {
+        k, sec, local: lv, diffPct: +(diff * 100).toFixed(1),
+        secPeriod: fact.periodEnd, localPeriod: latestPeriod, form: fact.form,
+        filed: fact.filed, accn: fact.accn, tag: fact.tag, valueUsed: "SEC primary",
+      };
+      if (diff <= tol) {
+        res.verified.push(detail);
+        res.details.push({ ...detail, status: "verified" });
+      } else {
+        const latest = latestSecFact(d.ticker, k);
+        const type = latest && latest.periodEnd !== latestPeriod ? "PERIOD MISMATCH" : "TRUE CONFLICT";
+        (type === "PERIOD MISMATCH" ? res.periodMismatch : res.conflict).push({ ...detail, type });
+        res.details.push({ ...detail, status: type });
+      }
     };
-    const lastNZ = (arr) => { const a = (arr || []).filter(v => v != null); return a.length ? a[a.length - 1] : null; };
-    cmp("revenue", lastNZ(d.revenue), 1e9, 0.02);
-    cmp("netIncome", lastNZ(d.ni), 1e9, 0.02);
-    cmp("sbc", lastNZ(d.sbc), 1e9, 0.03);
-    cmp("buyback", lastNZ(d.buyback), 1e9, 0.05);
-    cmp("dilShares", lastNZ(d.shares), 1e9, 0.01);
-    if (d.qm) { cmp("ocf", lastNZ(d.qm.ocf), 1e9, 0.03); cmp("capex", lastNZ(d.qm.capex), 1e9, 0.05); }
+    const latestAligned = (arr) => Array.isArray(arr) && arr.length ? arr[arr.length - 1] : null;
+    cmp("revenue", latestAligned(d.revenue), 1e9, 0.02, 2);
+    cmp("netIncome", latestAligned(d.ni), 1e9, 0.02, 2);
+    cmp("sbc", latestAligned(d.sbc), 1e9, 0.03, 3);
+    cmp("buyback", latestAligned(d.buyback), 1e9, 0.05, 2);
+    cmp("dilShares", latestAligned(d.shares), 1e9, 0.01, 3);
+    if (d.qm) { cmp("ocf", latestAligned(d.qm.ocf), 1e9, 0.03, 2); cmp("capex", latestAligned(d.qm.capex), 1e9, 0.05, 2); }
     return res;
   }
 
   function secValueForDisplay(d, k) {
-    const S = (typeof SEC !== "undefined") && SEC[d.ticker];
-    const f = S && S.f && S.f[k];
-    if (!f) return null;
-    const yr = d.fy && d.fy.length ? String(d.fy[d.fy.length - 1]) : null;
-    if (yr && f.hist) {
-      const m = f.hist.find(h => Array.isArray(h)
-        ? String(h[0]) === yr
-        : String(h.fiscalYear || (h.periodEnd || "").slice(0, 4)) === yr);
-      if (m) return { value: Array.isArray(m) ? m[1] : m.value, meta: Array.isArray(m) ? { fiscalYear: m[0] } : m };
-    }
-    if (!yr && f.v != null) return { value: f.v, meta: f };
-    return null;
+    const periodEnd = d.annualPeriods && d.annualPeriods.length ? d.annualPeriods[d.annualPeriods.length - 1].periodEnd : null;
+    const fact = secFactForPeriod(d.ticker, k, periodEnd) || latestSecFact(d.ticker, k);
+    return fact ? { value: fact.value, meta: fact } : null;
   }
 
   function applySecPrimary(d) {
-    const map = [
-      ["revenue", "revenue", 1e9, 2],
-      ["netIncome", "ni", 1e9, 2],
-      ["sbc", "sbc", 1e9, 3],
-      ["buyback", "buyback", 1e9, 2],
-      ["dilShares", "shares", 1e9, 3],
-    ];
-    const idx = d.fy && d.fy.length ? d.fy.length - 1 : -1;
-    d.secPrimary = {};
-    if (idx < 0) return;
-    map.forEach(([secKey, localKey, scale, digits]) => {
-      const hit = secValueForDisplay(d, secKey);
-      if (!hit || !hasNum(hit.value)) return;
-      if (!Array.isArray(d[localKey])) d[localKey] = [];
-      d[localKey][idx] = +(hit.value / scale).toFixed(digits);
-      d.secPrimary[localKey] = hit.meta;
-    });
-    const rev = lastVal(d.revenue), sbc = lastVal(d.sbc), ni = lastVal(d.ni);
-    d.sbcPctRev = rev && sbc != null ? +((sbc / rev) * 100).toFixed(1) : null;
-    d.sbcPctNI = ni && ni > 0 && sbc != null ? +((sbc / ni) * 100).toFixed(0) : null;
+    rebuildSecAlignedAnnuals(d);
   }
 
   DATA.forEach(applySecPrimary);
@@ -517,13 +590,18 @@
     const ms = marketScoreOf(d);
     const mainLabel = ms?.finalLabel?.label || "Not scored";
     const mainScore = ms?.longTermView?.score;
+    const conflictBadge = d.secv && d.secv.conflict.length
+      ? ` <span class="derived-tag" style="color:var(--red);border-color:var(--red)" title="${d.secv.conflict.map(c => c.k + ": SEC vs terminal differ " + c.diffPct + "%").join(" · ")}">⚠ ${d.secv.conflict.length} TRUE SOURCE CONFLICT${d.secv.conflict.length > 1 ? "S" : ""}</span>`
+      : d.secv && d.secv.periodMismatch.length
+        ? ` <span class="derived-tag" style="color:var(--orange);border-color:var(--orange)" title="${d.secv.periodMismatch.map(c => c.k + ": " + c.secPeriod + " vs " + c.localPeriod).join(" · ")}">${d.secv.periodMismatch.length} PERIOD MISMATCH${d.secv.periodMismatch.length > 1 ? "ES" : ""}</span>`
+        : "";
     const gradeColors = { A: "var(--green)", B: "var(--cyan)", C: "var(--amber)", D: "var(--orange)", F: "var(--red)" };
     const gc = gradeColors[d.grade];
 
     const header = `
       <div class="hdr">
         <div>
-          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span>${d.secv && d.secv.conflict.length ? ` <span class="derived-tag" style="color:var(--red);border-color:var(--red)" title="${d.secv.conflict.map(c => c.k + ": SEC vs terminal differ " + c.diffPct + "%").join(" · ")}">⚠ ${d.secv.conflict.length} SOURCE CONFLICT${d.secv.conflict.length > 1 ? "S" : ""}</span>` : ""}</div>
+          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span>${conflictBadge}</div>
           <div class="co">${d.name} · ${d.sector}</div>
         </div>
         <div>
@@ -1061,11 +1139,21 @@
       let rows = "";
       (sv.verified || []).forEach(c => rows += row("✓ verified", "up", c.k, c.sec, c.local, "Δ " + c.diffPct + "%"));
       (sv.conflict || []).forEach(c => rows += row("⚠ CONFLICT — review", "down", c.k, c.sec, c.local, "Δ " + c.diffPct + "% — no source auto-wins"));
+      (sv.periodMismatch || []).forEach(c => rows += row("PERIOD MISMATCH", "down", c.k, c.sec, c.local, `${c.secPeriod || "SEC ?"} vs ${c.localPeriod || "terminal ?"}`));
       ["taxWithholding", "esppProceeds", "periodEndShares"].forEach(k => { const f = S.f[k]; if (f) rows += row("reported (SEC only)", "up", k, f.v, null, f.form + " " + f.filed); });
       (sv.missing || []).forEach(c => { if (c.k !== "all") rows += row("missing — NOT zero", "sub", c.k, null, null, ""); });
-      return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : "var(--green)"}">
+      const detailRows = (sv.details || []).map(c => `<tr>
+        <td>${NAMES[c.k] || c.k}</td><td class="${c.status === "verified" ? "up" : c.status === "TRUE CONFLICT" ? "down" : "sub"}">${c.status}</td>
+        <td>${c.sec != null ? fmtSec(c.k, c.sec) : "—"}</td><td>${c.local != null ? fmtSec(c.k, c.local) : "—"}</td>
+        <td class="sub">${c.secPeriod || c.secFact?.periodEnd || "—"}</td><td class="sub">${c.localPeriod || "—"}</td>
+        <td class="sub">${c.form || c.secFact?.form || "—"} ${c.filed || c.secFact?.filed || ""}</td>
+        <td class="sub">${c.accn || c.secFact?.accn || "—"}</td><td class="sub">${c.tag || c.secFact?.tag || "—"}</td><td class="sub">${c.valueUsed || "SEC primary"}</td>
+      </tr>`).join("");
+      return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : sv.periodMismatch.length ? "var(--orange)" : "var(--green)"}">
         <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th style="text-align:left">FIELD</th><th style="text-align:left">STATUS</th><th>SEC FILING</th><th>TERMINAL</th><th>NOTE</th></tr>${rows}</table></div>
+        <h3 style="margin-top:12px">CONFLICT / PERIOD DETAILS <span class="unit">same-period facts only become true conflicts</span></h3>
+        <div style="overflow-x:auto"><table class="fin"><tr><th>FIELD</th><th>REASON</th><th>SEC VALUE</th><th>OTHER VALUE</th><th>SEC PERIOD</th><th>OTHER PERIOD</th><th>FILING</th><th>ACCESSION</th><th>TAG</th><th>MODEL USES</th></tr>${detailRows}</table></div>
       </div>`;
     })();
     const html = `${toggle}${secCard}${segmentCard(d)}<div class="grid g2">
@@ -2232,7 +2320,7 @@
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts
   //  PARTIALLY VERIFIED  — 2+ fields match SEC XBRL, or conflicts/missing fields remain
   //  HEURISTIC           — insufficient SEC comparability; verify before sizing
-  const dataQualityOf = (d) => {
+  const legacyDataQualityOf = (d) => {
     const sv = d.secv;
     const coreConflict = sv ? sv.conflict.filter(c => !["ocf", "capex"].includes(c.k)) : [];
     if (sv && coreConflict.length === 0 && sv.verified.length >= 5)
@@ -2243,15 +2331,42 @@
         tip: `${sv.verified.length} fields matched SEC filings · ${sv.conflict.length} conflicts flagged · ${sv.missing.length} not comparable. See the SEC FILING CHECK card on FINANCIALS.` };
     return { label: "HEURISTIC", color: "var(--dim)", tip: "Insufficient SEC reconciliation — aggregator data + derived fields. Verify before sizing real money." };
   };
+  const dataQualityOf = (d) => {
+    const sv = d.secv;
+    const coreConflict = sv ? sv.conflict.filter(c => !["ocf", "capex"].includes(c.k)) : [];
+    const coreVerified = sv ? ["revenue", "netIncome", "sbc", "dilShares"].every(k => sv.verified.some(x => x.k === k)) : false;
+    const cashVerified = sv ? ["ocf", "capex"].every(k => sv.verified.some(x => x.k === k)) : false;
+    const unresolved = sv ? sv.conflict.length + sv.periodMismatch.length + sv.definitionMismatch.length + sv.unitMismatch.length : 0;
+    if (sv && coreVerified && cashVerified && unresolved === 0) {
+      return { label: "FULL FILING VERIFIED", color: "var(--green)",
+        tip: `${sv.verified.length} fields aligned to exact SEC period-end facts (latest: ${sv.latest ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : "n/a"}).` };
+    }
+    if (sv && coreVerified && coreConflict.length === 0) {
+      return { label: "CORE FILING VERIFIED", color: "var(--cyan)",
+        tip: "Core income/share fields align by exact SEC periodEnd. Cash-flow, buyback or supplemental fields may still need review." };
+    }
+    if (sv && sv.verified.length >= 2) {
+      return { label: "PARTIALLY VERIFIED", color: "var(--amber)",
+        tip: `${sv.verified.length} fields matched exact SEC periods · ${sv.conflict.length} true conflicts · ${sv.periodMismatch.length} period mismatches · ${sv.missing.length} missing/not comparable.` };
+    }
+    return { label: "NOT VERIFIED", color: "var(--dim)", tip: "Parser coverage is weak, IFRS/custom-tag mapping may be needed, or public history is insufficient." };
+  };
   function dataConfidenceOf(d) {
     const sv = d.secv || { verified: [], conflict: [], missing: [] };
     const dq = dataQualityOf(d);
     const coreConflict = sv.conflict.filter(c => !["ocf", "capex"].includes(c.k));
     const supplementalConflict = sv.conflict.length - coreConflict.length;
-    let score = 20 + sv.verified.length * 12 - coreConflict.length * 20 - supplementalConflict * 5 - sv.missing.length * 3;
-    if (dq.label === "FILING VERIFIED*") score = Math.max(score, 85);
+    let score = 20 + sv.verified.length * 10
+      - coreConflict.length * 24
+      - supplementalConflict * 10
+      - (sv.periodMismatch || []).length * 7
+      - (sv.definitionMismatch || []).length * 5
+      - (sv.unitMismatch || []).length * 15
+      - sv.missing.length * 3;
+    if (dq.label === "FULL FILING VERIFIED") score += 12;
+    if (dq.label === "CORE FILING VERIFIED") score += 8;
     if (dq.label === "PARTIALLY VERIFIED") score = Math.min(score, 79);
-    if (dq.label === "HEURISTIC") score = Math.min(score, 55);
+    if (dq.label === "NOT VERIFIED") score = Math.min(score, 55);
     if (d.keepSource === "insufficient" || d.dataBlocked) score = Math.min(score, 50);
     score = Math.max(0, Math.min(100, Math.round(score)));
     const rankable = score >= 80 && !d.dataBlocked;

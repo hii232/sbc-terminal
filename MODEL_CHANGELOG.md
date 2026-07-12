@@ -1,5 +1,16 @@
 # SBC Model Changelog
 
+## 4.1.1 - 2026-07-12
+
+- Fixed SEC period alignment: runtime matching now uses exact `periodEnd`, not fiscalYear labels.
+- Rebuilt annual financial arrays from SEC-aligned annual rows instead of replacing only the latest array element.
+- Made SEC operating cash flow and capex primary runtime fields and calculates FCF from aligned SEC OCF minus SEC capex.
+- Added conflict classification buckets for true conflicts, period mismatches, definition mismatches, unit mismatches, stale/missing facts and detailed SEC evidence rows.
+- Replaced old `FILING VERIFIED*` badge logic with `FULL FILING VERIFIED`, `CORE FILING VERIFIED`, `PARTIALLY VERIFIED`, and `NOT VERIFIED`.
+- Removed forced minimum data-confidence score from the filing badge; confidence now reflects actual coverage and unresolved issue severity.
+- Hardened `scripts/sec_ingest.py` to key annual facts by exact period-end date and added initial `ifrs-full` taxonomy support plus `config/company-tag-overrides.json`.
+- Added `data/audits/sec-period-alignment-report.json` and NVDA/CRM regression tests.
+
 ## 4.1.0 - 2026-07-12
 
 - Added `scores.js`, a separate market/business score engine.
