@@ -166,6 +166,34 @@
      gets the full share-reconciled model). Overwrites the seeded heuristic
      ownersKeep for every name where inputs exist; falls back (labeled) only
      when they don't. Re-run after any live financials merge.               */
+  function ttmOwnerEarnings(d) {
+    const q = d.qd || {};
+    const ni = Array.isArray(q.ni) ? q.ni.filter(hasNum).slice(-4) : [];
+    const sbc = Array.isArray(q.sbc) ? q.sbc.filter(hasNum).slice(-4) : [];
+    const shares = Array.isArray(q.shares) ? q.shares.filter(hasNum) : [];
+    if (ni.length < 4 || sbc.length < 4 || !shares.length) return null;
+    const sum = a => a.reduce((x, y) => x + y, 0);
+    const ttmNI = sum(ni), ttmSbc = sum(sbc);
+    const latestShares = shares[shares.length - 1];
+    const pxArr = d.px && d.px.v && d.px.v.length ? d.px.v.slice(-26) : null;
+    const avgP = pxArr ? pxArr.reduce((a, v) => a + v, 0) / pxArr.length : (d.price || null);
+    let shareCost = ttmSbc, mnaShares = 0;
+    const bb = Array.isArray(q.buyback) ? q.buyback.filter(hasNum).slice(-4) : [];
+    const ttmBuyback = bb.length ? sum(bb) : 0;
+    if (avgP && shares.length >= 5 && ttmSbc > 0) {
+      const dSh = shares[shares.length - 1] - shares[shares.length - 5];
+      const bought = ttmBuyback > 0 ? ttmBuyback / avgP : 0;
+      const grossIssued = Math.max(0, dSh + bought);
+      const cap = (ttmSbc * 1.5) / avgP;
+      const empShares = Math.min(grossIssued, cap);
+      mnaShares = Math.max(0, grossIssued - cap);
+      shareCost = Math.max(ttmSbc, empShares * avgP);
+    }
+    const withholding = ttmSbc * 0.25;
+    const owner = ttmNI + ttmSbc - shareCost - withholding;
+    return { owner, ownerEps: latestShares > 0 ? +(owner / latestShares).toFixed(2) : null,
+      ni: ttmNI, sbc: ttmSbc, shareCost, withholding, mnaShares, source: "TTM quarterly owner EPS" };
+  }
   function recomputeOwnerEconomics(d) {
     const yrs = (d.ni || []).length;
     let sumNI = 0, sumOwner = 0, valid = 0;
@@ -209,7 +237,11 @@
       d.reclassified = true;
     }
     const sh = lastVal(d.shares);
-    d.ownerEps = st.owner != null && sh && sh > 0 ? +(st.owner / sh).toFixed(2) : null;
+    const ttm = ttmOwnerEarnings(d);
+    d.ownerEps = ttm && ttm.ownerEps != null ? ttm.ownerEps
+      : st.owner != null && sh && sh > 0 ? +(st.owner / sh).toFixed(2) : null;
+    d.ownerEpsSource = ttm && ttm.ownerEps != null ? ttm.source : "latest annual owner EPS";
+    d.ownerTtm = ttm || null;
     d.sbcAdjEPS = d.ownerEps;
     d.truePE = d.ownerEps && d.ownerEps > 0 && d.price ? +(d.price / d.ownerEps).toFixed(1) : null;
     d.dataBlocked = d.ownerEps == null;
@@ -927,7 +959,7 @@
       <div class="card"><h3>GAAP EPS</h3><div class="stat">$${d.gaapEPS?.toFixed(2) ?? "–"}</div><div class="sub">what's actually reported</div></div>
       <div class="card"><h3>WALL ST ADJ EPS</h3><div class="stat" style="color:var(--orange)">$${d.nonGaapEPS?.toFixed(2) ?? "–"}</div>
         <div class="sub">${d.gaapEPS && d.nonGaapEPS ? "+" + (((d.nonGaapEPS - d.gaapEPS) / d.gaapEPS) * 100).toFixed(0) + "% above GAAP" : ""}</div></div>
-      <div class="card"><h3>EST OWNER EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">estimate — value off this, not adjusted EPS</div></div>
+      <div class="card"><h3>EST OWNER EPS</h3><div class="stat" style="color:var(--amber)">$${d.sbcAdjEPS?.toFixed(2) ?? "–"}</div><div class="sub">${d.ownerEpsSource || "owner EPS estimate"} — value off this, not adjusted EPS</div></div>
 
       ${ivLadderCard(d)}
 
@@ -1024,7 +1056,7 @@
           { label: "OWNER P/E", value: d.truePE || 0, color: "var(--amber)", display: (d.truePE ?? "n/m") + "x" },
         ], { max: (d.truePE || d.headlinePE || 1) * 1.15, labelW: 92 })}
         <div class="note ${d.truePE > (d.headlinePE || 0) * 1.25 ? "callout" : ""}" style="margin-top:10px">
-          Owner EPS ${d.ownerEps != null ? "$" + d.ownerEps.toFixed(2) : "n/a"} = adjusted owner earnings divided by diluted weighted-average shares; owner P/E = current price divided by owner EPS. Retention (${d.ownersKeep == null ? "n/a" : (d.ownersKeep * 100).toFixed(0) + "¢/$"}) is explanation only.
+          Owner EPS ${d.ownerEps != null ? "$" + d.ownerEps.toFixed(2) : "n/a"} (${d.ownerEpsSource || "owner EPS estimate"}) = adjusted owner earnings divided by diluted weighted-average shares; owner P/E = current price divided by owner EPS. Retention (${d.ownersKeep == null ? "n/a" : (d.ownersKeep * 100).toFixed(0) + "¢/$"}) is explanation only.
           ${d.truePE > (d.headlinePE || 0) * 1.25 ? "The stock is materially more expensive than it screens." : "Reasonably close — earnings quality holds up."}
         </div>
       </div>

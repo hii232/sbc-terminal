@@ -162,6 +162,10 @@ const ok = (cond, name, detail = "") => {
   ok(computed / sampled > 0.7, "retention COMPUTED (not manual) for >70% of sample", computed + "/" + sampled);
   ok(sane === sampled, "retention within [0.30, 0.98] or unavailable", sane + "/" + sampled);
   ok(consistent === sampled, "est P/E == price / direct owner EPS", consistent + "/" + sampled);
+  const mu = DATA.find(d => d.ticker === "MU");
+  ok(mu && /TTM quarterly/.test(mu.ownerEpsSource) && mu.truePE < 35,
+    "MU owner P/E uses comparable TTM owner EPS, not stale annual EPS",
+    mu ? `${mu.truePE}x from ${mu.ownerEpsSource}` : "MU missing");
 }
 
 // =============== 9. Universe + SEC filing layer ===============
