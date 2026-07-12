@@ -4007,7 +4007,14 @@
     // 60-name live refresh is opt-in via the live button.
     // PWA: offline/phone support (only when served over http(s), not file://)
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-      navigator.serviceWorker.register("sw.js").catch(() => {});
+      const hadController = !!navigator.serviceWorker.controller;
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!hadController || refreshing) return;
+        refreshing = true;
+        location.reload();
+      });
+      navigator.serviceWorker.register("sw.js?v=29").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
