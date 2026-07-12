@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-12T13:36:55.196Z",
+  "asOf": "2026-07-12T13:45:38.209Z",
   "universe": 60,
   "trueConflicts": 0,
   "periodMismatches": 0,
@@ -13,9 +13,9 @@
   "coreFilingVerified": 5,
   "partiallyVerified": 5,
   "notVerified": 1,
-  "rankableCompanies": 54,
+  "rankableCompanies": 60,
   "rankableBeforeFix": null,
-  "rankableAfterFix": 54,
+  "rankableAfterFix": 60,
   "note": "Before-fix rankable count was not recomputed because the old fiscalYear matcher has been removed. This report is generated from exact periodEnd matching.",
   "byTicker": {
     "AAPL": {
@@ -77,7 +77,7 @@
     "ASML": {
       "label": "NOT VERIFIED",
       "dataConfidence": 12,
-      "rankable": false,
+      "rankable": true,
       "latestPeriodEnd": "2025-12-31",
       "trueConflicts": [],
       "periodMismatches": [],
@@ -118,7 +118,7 @@
     "MELI": {
       "label": "PARTIALLY VERIFIED",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "latestPeriodEnd": "2025-12-31",
       "trueConflicts": [],
       "periodMismatches": [],
@@ -230,7 +230,7 @@
     "AVGO": {
       "label": "PARTIALLY VERIFIED",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "latestPeriodEnd": "2025-11-02",
       "trueConflicts": [],
       "periodMismatches": [],
@@ -424,7 +424,7 @@
     "V": {
       "label": "PARTIALLY VERIFIED",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "latestPeriodEnd": "2025-09-30",
       "trueConflicts": [],
       "periodMismatches": [],
@@ -440,7 +440,7 @@
     "MA": {
       "label": "PARTIALLY VERIFIED",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "latestPeriodEnd": "2025-12-31",
       "trueConflicts": [],
       "periodMismatches": [],
@@ -466,7 +466,7 @@
     "BKNG": {
       "label": "PARTIALLY VERIFIED",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "latestPeriodEnd": "2025-12-31",
       "trueConflicts": [],
       "periodMismatches": [],

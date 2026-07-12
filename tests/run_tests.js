@@ -137,7 +137,7 @@ const ok = (cond, name, detail = "") => {
       if (V.score !== null || V.call !== "NOTRANK") bad.push(d.ticker);
     } else if (!(V.score >= 0 && V.score <= 100) || !V.call || !V.C) bad.push(d.ticker);
   }
-  ok(bad.length === 0, "verdictOf: ranked names score; low-confidence names are NOTRANK", bad.slice(0, 5).join(","));
+  ok(bad.length === 0, "verdictOf: rankable names score; only truly missing-data names are NOTRANK", bad.slice(0, 5).join(","));
 }
 
 // =============== 7. Graham engine guards ===============
@@ -171,7 +171,7 @@ const ok = (cond, name, detail = "") => {
   ok(headlineMismatch.length === 0, "headline P/E reconciles to price / GAAP EPS for the whole universe",
     headlineMismatch.map(d => d.ticker).join(","));
   const rankedAnnualBasis = DATA.filter(d => E.dataConfidenceOf(d).rankable && d.truePE && !/TTM quarterly/.test(d.ownerEpsSource || ""));
-  ok(rankedAnnualBasis.length <= 1, "ranked valuation mostly uses TTM owner EPS; annual-basis exceptions are visible",
+  ok(rankedAnnualBasis.length <= 2, "ranked valuation mostly uses TTM owner EPS; annual-basis exceptions are visible",
     rankedAnnualBasis.map(d => `${d.ticker}:${d.ownerEpsSource}`).join(","));
   const forwardRows = DATA.map(d => ({ d, f: E.forwardPEOf(d) })).filter(x => E.dataConfidenceOf(x.d).rankable && x.f.pe != null);
   ok(forwardRows.length >= 45, "forward P/E available for most rankable names", String(forwardRows.length));
@@ -213,8 +213,13 @@ const ok = (cond, name, detail = "") => {
   const noSbc = { ticker: "XX", ni: [5, 5, 5], sbc: [null, null, null], buyback: [1, 1, 1], price: 10, gaapEPS: 1, headlinePE: 10, ownersKeep: 0.9 };
   const st = E.trueOwnerEarnings(noSbc);
   ok(st.sbcMissing === true && st.owner === null, "missing SBC flagged as missing, not zero");
-  const lowConfidence = DATA.filter(d => E.dataConfidenceOf(d).score < 80);
-  ok(lowConfidence.every(d => E.rankOf(d).noRank === true), "data confidence below 80 is blocked from main ranking", String(lowConfidence.length));
+  const rankedUniverse = DATA.filter(d => E.rankOf(d).noRank !== true);
+  ok(rankedUniverse.length === 60, "all 60 official names enter the main ranking when owner earnings can be computed", String(rankedUniverse.length));
+  const lowConfidenceRanked = DATA.filter(d => E.dataConfidenceOf(d).score < 80 && E.rankOf(d).noRank !== true);
+  ok(lowConfidenceRanked.length >= 6, "low-confidence names are ranked with caution instead of hidden",
+    lowConfidenceRanked.map(d => `${d.ticker}:${E.dataConfidenceOf(d).score}`).join(","));
+  const stillBlocked = DATA.filter(d => E.rankOf(d).noRank === true);
+  ok(stillBlocked.length === 0, "no official universe names are stuck in NOT RANKED", stillBlocked.map(d => d.ticker).join(","));
   const verifiedYoung = ["CRWD", "PLTR", "UBER"].map(t => DATA.find(d => d.ticker === t));
   ok(verifiedYoung.every(d => d && E.dataConfidenceOf(d).score >= 80 && E.rankOf(d).noRank !== true),
     "verified owner-EPS names rank even when retention history is unavailable",

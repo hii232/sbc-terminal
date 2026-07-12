@@ -2031,7 +2031,7 @@
     const V = verdictOf(d);
     if (V.noRank) return { noRank: true, dataConfidence: V.dataConfidence, composite: null, truePE: null,
       cagr: null, mom: V.mom, zone: "out", call: V.call, C: V.C, thesis: V.thesis };
-    return { L: V.L, cagr: V.cagr, truePE: d.truePE || null, mom: V.mom,
+    return { L: V.L, cagr: V.cagr, truePE: d.truePE || null, mom: V.mom, dataConfidence: V.dataConfidence,
              composite: V.score, zone: V.zone, call: V.call, C: V.C, thesis: V.thesis };
   }
   function thesisOf(d, r) { return r.thesis || ""; }
@@ -2153,7 +2153,7 @@
         <b style="color:var(--purple)">The brain score</b> merges every engine's weighted vote: IV15 DCF 25% · SBC x-ray 20% · quality &amp; cash (ROIC + FCF-after-SBC) 20% · Graham 15% · buyback truth 10% · sector flow 10% (+ insiders when live). The CALL column is the one-line conclusion — open any stock to see the full vote breakdown and written thesis on ⚛ THE VERDICT card. Tap a column to re-rank, a row to open.
       </div>
 
-      <div class="note" style="margin-bottom:12px">Only companies with data confidence 80+ enter the main ranking. Low-confidence names remain visible below, but receive no precise valuation and no final buy/avoid verdict.</div>
+      <div class="note" style="margin-bottom:12px">All 60 official names enter the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
         <tbody>${body}</tbody>
@@ -2425,11 +2425,14 @@
     if (dq.label === "NOT VERIFIED") score = Math.min(score, 55);
     if (d.dataBlocked) score = Math.min(score, 50);
     score = Math.max(0, Math.min(100, Math.round(score)));
-    const rankable = score >= 80 && !d.dataBlocked;
+    const hasOwnerValuation = d.ownerEps != null && Number.isFinite(d.ownerEps);
+    const rankable = hasOwnerValuation && !d.dataBlocked;
     const reason = rankable
-      ? "Rankable: core filing facts reconcile to SEC and owner-EPS can be computed."
+      ? (score >= 80
+        ? "Rankable: core filing facts reconcile to SEC and owner-EPS can be computed."
+        : "Ranked with caution: owner-EPS can be computed, but filing cross-check coverage is incomplete.")
       : (d.dataBlockReason || "Not ranked: more filing data is needed.");
-    return { score, rankable, label: rankable ? "RANKABLE" : "LOW CONFIDENCE", reason };
+    return { score, rankable, label: rankable ? (score >= 80 ? "RANKABLE" : "LOW CONFIDENCE RANKED") : "LOW CONFIDENCE", reason };
   }
   refreshMarketScores();
   const toolHeader = (icon, title, sub, right = "") => `<div class="hdr"><div><div class="tick" style="color:var(--cyan)">${icon} ${title}</div><div class="co">${sub}</div></div><div class="spacer"></div>${right}</div>`;
