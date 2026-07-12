@@ -76,6 +76,7 @@ async function main() {
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");
+    ok(await page.locator('#wlSort option[value="qualityReward"]').count() === 1, "quality + market reward watchlist sort missing");
 
     for (const ticker of globals.tickers) {
       await page.fill("#cmdInput", ticker);

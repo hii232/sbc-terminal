@@ -473,6 +473,11 @@
   const scoreVal = (d, key) => {
     const s = marketScoreOf(d);
     if (!s) return null;
+    if (key === "qualityReward") {
+      const bq = s.businessQuality?.score;
+      const mr = s.marketReward?.score;
+      return bq == null || mr == null ? null : Math.round((bq + mr) / 2);
+    }
     return key === "longTermView" || key === "marketRewardView"
       ? s[key]?.score
       : s[key]?.score;
@@ -4014,7 +4019,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=29").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=30").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
