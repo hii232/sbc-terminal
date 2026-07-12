@@ -37,6 +37,7 @@ const asOf = new Date().toISOString();
 
 function scoreRow(d) {
   const s = ScoreEngine.scoreCompany(d, ctx);
+  const fwd = E.forwardPEOf(d);
   return {
     ticker: d.ticker,
     name: d.name,
@@ -45,6 +46,9 @@ function scoreRow(d) {
     ownerPE: d.truePE,
     ownerEPS: d.ownerEps,
     ownerEPSSource: d.ownerEpsSource || null,
+    forwardPE: fwd.pe,
+    forwardEPS: fwd.eps,
+    forwardPESource: fwd.source,
     finalLabel: s.finalLabel.label,
     longTermView: s.longTermView.score,
     marketRewardView: s.marketRewardView.score,

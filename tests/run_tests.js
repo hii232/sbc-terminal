@@ -173,6 +173,10 @@ const ok = (cond, name, detail = "") => {
   const rankedAnnualBasis = DATA.filter(d => E.dataConfidenceOf(d).rankable && d.truePE && !/TTM quarterly/.test(d.ownerEpsSource || ""));
   ok(rankedAnnualBasis.length <= 1, "ranked valuation mostly uses TTM owner EPS; annual-basis exceptions are visible",
     rankedAnnualBasis.map(d => `${d.ticker}:${d.ownerEpsSource}`).join(","));
+  const forwardRows = DATA.map(d => ({ d, f: E.forwardPEOf(d) })).filter(x => E.dataConfidenceOf(x.d).rankable && x.f.pe != null);
+  ok(forwardRows.length >= 45, "forward P/E available for most rankable names", String(forwardRows.length));
+  const muFwd = E.forwardPEOf(mu);
+  ok(muFwd.pe > 0 && muFwd.pe < mu.truePE, "MU forward P/E appears beside owner P/E and is finite", `${muFwd.pe}x`);
 }
 
 // =============== 9. Universe + SEC filing layer ===============

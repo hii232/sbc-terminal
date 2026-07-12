@@ -118,7 +118,7 @@ async function main() {
     ok(mobile.nav.includes("OWNER P/E"), "mobile owner P/E nav missing");
     ok(!mobile.overflow, "mobile viewport has horizontal overflow");
     await page.click("#navPE");
-    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("owner P/E (price ÷ owner EPS)"), { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Forward P/E"), { timeout: 3000 });
 
     const swSupported = await page.evaluate(() => "serviceWorker" in navigator);
     if (swSupported) {

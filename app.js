@@ -454,6 +454,22 @@
     }
     return d.marketScores;
   }
+  function forwardPEOf(d) {
+    const hist = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY[d.ticker] && ESTIMATE_HISTORY[d.ticker].snapshots) || [];
+    const snap = hist.length ? hist[hist.length - 1] : null;
+    const eps = snap && hasNum(snap.nextYearEps) ? +snap.nextYearEps
+      : hasNum(d.forwardEPS) ? +d.forwardEPS
+      : hasNum(d.nonGaapEPS) ? +d.nonGaapEPS
+      : null;
+    const pe = hasNum(d.forwardPE) ? +d.forwardPE
+      : eps && eps > 0 && d.price ? +(d.price / eps).toFixed(1)
+      : null;
+    const source = snap && hasNum(snap.nextYearEps) ? "next-year consensus EPS"
+      : hasNum(d.forwardEPS) || hasNum(d.forwardPE) ? "forward estimate"
+      : hasNum(d.nonGaapEPS) ? "Street adjusted EPS proxy"
+      : "unavailable";
+    return { pe, eps, source };
+  }
   const scoreVal = (d, key) => {
     const s = marketScoreOf(d);
     if (!s) return null;
@@ -3259,12 +3275,13 @@
   const bucketColor = (b) => BUCKETS[b].color;
 
   function peRow(d, cap) {
+    const fwd = forwardPEOf(d);
     const hw = clamp((d.headlinePE / cap) * 100, 1, 100);
     const xw = clamp(((d.truePE - d.headlinePE) / cap) * 100, 0, 100 - hw);
-    return `<div class="pe-row" data-tk="${d.ticker}" title="${d.name} — headline ${d.headlinePE}x → owner ${d.truePE}x (keeps ${d.ownersKeep == null ? "n/a" : (d.ownersKeep * 100).toFixed(0) + "¢/$"})">
+    return `<div class="pe-row" data-tk="${d.ticker}" title="${d.name} — headline ${d.headlinePE}x to owner ${d.truePE}x · forward ${fwd.pe == null ? "n/m" : fwd.pe.toFixed(1) + "x"} (${fwd.source})">
       <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(d.bucket)}"></i>${d.ticker}</span>
       <div class="pe-bar"><i style="width:${hw}%;background:var(--cyan)"></i><i style="width:${xw}%;background:var(--red)"></i></div>
-      <span class="pe-val"><b style="color:var(--amber)">${d.truePE.toFixed(1)}x</b> <span class="sub">${d.headlinePE.toFixed(0)}x hdl</span></span>
+      <span class="pe-val"><b style="color:var(--amber)">${d.truePE.toFixed(1)}x</b> <span class="sub">${d.headlinePE.toFixed(0)}x hdl</span><br><span class="sub"><b style="color:var(--cyan)">${fwd.pe == null ? "n/m" : fwd.pe.toFixed(1) + "x"}</b> fwd</span></span>
     </div>`;
   }
 
@@ -3284,13 +3301,20 @@
     const globalCap = all.length ? Math.min(120, Math.max(...all.map(d => d.truePE))) : 30;
     const cheapest = [...all].sort((a, b) => a.truePE - b.truePE).slice(0, 10);
     const dearest = [...all].sort((a, b) => b.truePE - a.truePE).slice(0, 10);
+    const fwdAll = rankableUniverse.map(d => ({ d, f: forwardPEOf(d) })).filter(x => x.f.pe != null);
+    const fwdCheap = [...fwdAll].sort((a, b) => a.f.pe - b.f.pe).slice(0, 10);
+    const fwdRow = (x) => `<div class="pe-row" data-tk="${x.d.ticker}" title="${x.d.name} — forward P/E ${x.f.pe.toFixed(1)}x (${x.f.source})">
+      <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(x.d.bucket)}"></i>${x.d.ticker}</span>
+      <span class="sub">${x.d.sector} · owner ${x.d.truePE ? x.d.truePE.toFixed(1) + "x" : "n/m"} · ${x.f.source}</span>
+      <span class="pe-val"><b style="color:var(--cyan)">${x.f.pe.toFixed(1)}x</b> <span class="sub">fwd</span></span>
+    </div>`;
 
     const secCards = secs.map(g => {
       const cap = Math.min(120, Math.max(...(g.withPE.length ? g.withPE.map(d => d.truePE) : [30])) * 1.05);
       const r3 = g.s ? retOver(g.s, 3) : null;
       return `<div class="card">
         <h3>${(g.s ? g.s.name : g.etf).toUpperCase()} · ${g.etf}
-          <span class="unit">median est P/E <b style="color:var(--amber)">${g.med ? g.med.toFixed(1) + "x" : "n/m"}</b>${r3 != null ? ` · 3M <b class="${r3 >= 0 ? "up" : "down"}">${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%</b>` : ""}</span></h3>
+          <span class="unit">median owner P/E <b style="color:var(--amber)">${g.med ? g.med.toFixed(1) + "x" : "n/m"}</b>${r3 != null ? ` · 3M <b class="${r3 >= 0 ? "up" : "down"}">${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%</b>` : ""}</span></h3>
         ${g.withPE.map(d => peRow(d, cap)).join("")}
         ${g.noPE.length ? `<div class="sub" style="margin-top:6px">n/m (GAAP loss or no P/E): ${g.noPE.map(d => `<span class="tag" data-tk="${d.ticker}" style="cursor:pointer">${d.ticker}</span>`).join("")}</div>` : ""}
       </div>`;
@@ -3300,16 +3324,16 @@
       <div class="hdr">
         <div>
           <div class="tick" style="color:var(--green)">⊞ EST OWNER-EARNINGS P/E SCREENER</div>
-          <div class="co">SBC-adjusted valuation vs sector competitors · sectors & stocks ranked cheapest → most expensive</div>
+          <div class="co">SBC-adjusted owner valuation + Forward P/E vs sector competitors</div>
         </div>
         <div class="spacer"></div>
         <div style="text-align:right">
-          <div class="sub">MEDIAN EST P/E · RANKED ${all.length}/${DATA.length}</div>
+          <div class="sub">MEDIAN OWNER P/E · RANKED ${all.length}/${DATA.length}</div>
           <div class="stat sm" style="color:var(--amber)">${medianOf(all.map(d => d.truePE)) == null ? "n/m" : medianOf(all.map(d => d.truePE)).toFixed(1) + "x"}</div>
         </div>
       </div>
       <div class="note" style="margin-bottom:12px">
-        <b style="color:var(--cyan)">Cyan</b> = headline P/E · <b style="color:var(--red)">red</b> = the owner-economics premium you actually pay · <b style="color:var(--amber)">amber number</b> = owner P/E (price ÷ owner EPS). Colored dot = quality bucket. Tap any row to open the stock.
+        <b style="color:var(--cyan)">Cyan</b> = headline / forward P/E · <b style="color:var(--red)">red</b> = the owner-economics premium you actually pay · <b style="color:var(--amber)">amber number</b> = owner P/E. Forward P/E uses next-year consensus when collected; otherwise Street adjusted EPS proxy. Tap any row to open the stock.
       </div>
       <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
         <h3>THE ALL MAP — WHERE EVERY PITCH LANDS <span class="unit">IV-ladder DCF on SBC-adj owner earnings · ${map.counts.fat} fat pitches · ${map.counts.just} just outside · ${map.counts.out} out field · tap a dot</span></h3>
@@ -3320,6 +3344,10 @@
         <div class="card" style="border-left:3px solid var(--green)">
           <h3>CHEAPEST IN THE MARKET <span class="unit">est owner-earnings P/E, whole board</span></h3>
           ${cheapest.map(d => peRow(d, globalCap)).join("")}
+        </div>
+        <div class="card" style="border-left:3px solid var(--cyan)">
+          <h3>CHEAPEST FORWARD P/E <span class="unit">Street EPS / forward estimate view</span></h3>
+          ${fwdCheap.map(fwdRow).join("")}
         </div>
         <div class="card" style="border-left:3px solid var(--red)">
           <h3>MOST EXPENSIVE <span class="unit">est owner-earnings P/E, whole board</span></h3>
@@ -3984,7 +4012,7 @@
     buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings,
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
-    fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores,
+    fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();
