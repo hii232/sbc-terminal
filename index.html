@@ -174,6 +174,10 @@
   .filter button[data-b=middle].active{background:var(--amber)}
   .filter button[data-b=high].active{background:var(--orange)}
   .filter button[data-b=tragic].active{background:var(--red)}
+  .wl-tools{display:grid;grid-template-columns:1fr;gap:6px;padding:8px 10px;border-bottom:1px solid var(--line);background:#080d16}
+  .wl-select{width:100%;background:#0b101b;border:1px solid var(--line2);color:var(--text);font-family:var(--mono);
+    font-size:10.5px;padding:7px 8px;border-radius:6px;outline:none}
+  .wl-select:focus{border-color:var(--amber)}
   .row{display:grid;grid-template-columns:8px 1fr auto;gap:9px;align-items:center;
     padding:7px 12px;border-bottom:1px solid #10151f;cursor:pointer}
   .row:hover{background:var(--panel)}
@@ -183,6 +187,10 @@
   .row .nm{font-size:9.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .row .px{text-align:right;font-size:11px}
   .row .ch{font-size:9.5px;text-align:right}
+  .row .mini-scores{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
+  .mini-score{font-size:8.5px;color:var(--muted);border:1px solid #202a3d;border-radius:4px;padding:1px 4px;background:#090e17}
+  .mini-score b{color:var(--text)}
+  .warn-line{font-size:8.5px;color:var(--orange);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;max-width:180px}
   .up{color:var(--green)} .down{color:var(--red)}
 
   /* ---------- header block ---------- */
@@ -204,6 +212,36 @@
     font-family:var(--mono);font-size:11.5px;padding:8px 14px;cursor:pointer;letter-spacing:.5px;white-space:nowrap;flex-shrink:0}
   .tabs button:hover{color:var(--text)}
   .tabs button.active{color:var(--amber);border-color:var(--amber)}
+
+  /* market/business score layer */
+  .score-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:12px}
+  .score-card{border:1px solid var(--line2);background:#0b101b;border-radius:8px;padding:10px 9px;min-height:84px}
+  .score-card .lab{font-size:9px;color:var(--muted);letter-spacing:.7px;min-height:25px}
+  .score-card .num{font-size:24px;font-weight:800;line-height:1.1;margin:4px 0}
+  .score-card .cov{font-size:9px;color:var(--dim)}
+  .view-strip{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .view-card{border:1px solid var(--line2);background:linear-gradient(180deg,#111827,#0b101b);border-radius:8px;padding:12px}
+  .view-card .big{font-size:30px;font-weight:800;line-height:1}
+  .reason-list{display:grid;gap:6px;margin-top:8px}
+  .reason-list div{border-top:1px dashed #1b2434;padding-top:6px;color:var(--muted);font-size:11px}
+  .map-wrap{position:relative;height:520px;background:#07101b;border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+  .map-axis{position:absolute;color:var(--dim);font-size:10px;letter-spacing:.5px}
+  .map-dot{position:absolute;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+    border:1px solid rgba(255,255,255,.28);background:#111827;color:#fff;font-size:8px;font-weight:800;
+    transform:translate(-50%,-50%);cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.35)}
+  .map-dot:hover{border-color:var(--amber);z-index:3}
+  .case-grid,.thesis-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .case-box{border:1px solid var(--line);border-radius:8px;background:#090e17;padding:10px}
+  .case-box b{display:block;font-size:12px;margin-bottom:5px}
+  .thesis-grid label{font-size:10px;color:var(--muted);letter-spacing:.5px}
+  .thesis-grid input{width:100%;margin-top:4px;background:#0b101b;border:1px solid var(--line2);color:var(--text);
+    border-radius:6px;font-family:var(--mono);font-size:12px;padding:8px}
+  .action-btn{background:var(--amber);border:none;color:#111;border-radius:6px;font-family:var(--mono);
+    font-size:11px;font-weight:800;padding:8px 12px;cursor:pointer}
+  .ghost-btn{background:#0b101b;border:1px solid var(--line2);color:var(--muted);border-radius:6px;
+    font-family:var(--mono);font-size:11px;padding:8px 12px;cursor:pointer}
+  @media(max-width:980px){.score-strip{grid-template-columns:repeat(3,minmax(0,1fr))}.case-grid{grid-template-columns:1fr}.thesis-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:720px){.score-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.score-card{min-height:76px;padding:8px}.score-card .num{font-size:21px}.view-strip{grid-template-columns:1fr}.map-wrap{height:440px}.thesis-grid{grid-template-columns:1fr}.warn-line{max-width:132px}}
 
   /* ---------- panels/grid ---------- */
   .grid{display:grid;gap:12px}
@@ -446,6 +484,7 @@
       <button class="navbtn c-pink" id="screenBtn">📊 Screener</button>
       <button class="navbtn c-orange" id="compareBtn">⚖ Compare</button>
       <button class="navbtn c-red" id="trigBtn">🎯 Triggers</button>
+      <button class="navbtn c-cyan" id="mapBtn" style="grid-column:span 2">QUALITY x MARKET MAP</button>
       <button class="navbtn c-teal" id="portBtn">💼 Portfolio</button>
       <button class="navbtn c-gold" id="calBtn">📅 Calendar</button>
       <button class="navbtn c-ice" id="techBtn" style="grid-column:span 2">⌬ TECH DESK</button>
@@ -453,13 +492,26 @@
       <button class="navbtn c-gold" id="auditBtn" style="grid-column:span 2">🧾 DATA AUDIT — sources &amp; trust</button>
     </div>
     <div class="wl-head"><span>WATCHLIST</span><span id="wlCount"></span></div>
+    <div class="wl-tools">
+      <select id="wlSort" class="wl-select" aria-label="Sort watchlist">
+        <option value="longTermView">Long-term score</option>
+        <option value="marketRewardView">Market reward score</option>
+        <option value="businessQuality">Business quality</option>
+        <option value="growthExecution">Growth and execution</option>
+        <option value="marketReward">Market reward</option>
+        <option value="shareholderEconomics">Shareholder economics</option>
+        <option value="valuation">Valuation</option>
+        <option value="truePE">Lowest owner P/E</option>
+        <option value="mktCap">Market cap</option>
+      </select>
+    </div>
     <div class="filter" id="filter">
       <button data-b="all" class="active">ALL</button>
       <button data-b="fav" title="Your starred names">★</button>
-      <button data-b="clean">CLEAN</button>
-      <button data-b="middle">MID</button>
-      <button data-b="high">HIGH</button>
-      <button data-b="tragic">TRAGIC</button>
+      <button data-b="clean" title="SBC-only filter">SBC CLEAN</button>
+      <button data-b="middle" title="SBC-only filter">SBC MID</button>
+      <button data-b="high" title="SBC-only filter">SBC HIGH</button>
+      <button data-b="tragic" title="SBC-only filter">SBC RISK</button>
     </div>
     <div id="watchlist"></div>
   </aside>
@@ -499,12 +551,14 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=27"></script>
-<script src="data.js?v=27"></script>
-<script src="sec.js?v=27"></script>
-<script src="segments.js?v=27"></script>
-<script src="sectors.js?v=27"></script>
-<script src="charts.js?v=27"></script>
-<script src="app.js?v=27"></script>
+<script src="universe.js?v=28"></script>
+<script src="data.js?v=28"></script>
+<script src="sec.js?v=28"></script>
+<script src="segments.js?v=28"></script>
+<script src="sectors.js?v=28"></script>
+<script src="estimates.js?v=28"></script>
+<script src="scores.js?v=28"></script>
+<script src="charts.js?v=28"></script>
+<script src="app.js?v=28"></script>
 </body>
 </html>

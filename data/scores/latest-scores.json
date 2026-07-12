@@ -1,0 +1,1515 @@
+{
+  "asOf": "2026-07-12T05:35:06.568Z",
+  "modelVersion": "4.1.0",
+  "count": 60,
+  "methodology": "Current snapshot scores. Data Confidence is a separate trust gate and is not additive.",
+  "rows": [
+    {
+      "ticker": "BKNG",
+      "name": "Booking Holdings",
+      "sector": "Travel",
+      "price": 173.32,
+      "ownerPE": 1.3,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 80,
+      "marketRewardView": 69,
+      "businessQuality": 70,
+      "growthExecution": 79,
+      "marketReward": 55,
+      "shareholderEconomics": 99,
+      "valuation": 92,
+      "dataConfidence": 23,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "KLAC",
+      "name": "KLA Corp",
+      "sector": "Semi Equip",
+      "price": 218.5,
+      "ownerPE": 9.4,
+      "finalLabel": "Improving business, market noticing",
+      "longTermView": 75,
+      "marketRewardView": 73,
+      "businessQuality": 82,
+      "growthExecution": 71,
+      "marketReward": 72,
+      "shareholderEconomics": 100,
+      "valuation": 51,
+      "dataConfidence": 87,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "sector": "Semis/AI",
+      "price": 199.27,
+      "ownerPE": 249.1,
+      "finalLabel": "Elite business, expensive stock",
+      "longTermView": 73,
+      "marketRewardView": 66,
+      "businessQuality": 86,
+      "growthExecution": 88,
+      "marketReward": 52,
+      "shareholderEconomics": 85,
+      "valuation": 35,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "ADP",
+      "name": "Automatic Data Processing",
+      "sector": "HR Tech",
+      "price": 242.45,
+      "ownerPE": 31.1,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 72,
+      "marketRewardView": 77,
+      "businessQuality": 77,
+      "growthExecution": 64,
+      "marketReward": 87,
+      "shareholderEconomics": 82,
+      "valuation": 59,
+      "dataConfidence": 85,
+      "expectationsGap": "Moderate expectations risk",
+      "whatChanged": "Much better",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "ABNB",
+      "name": "Airbnb",
+      "sector": "Travel",
+      "price": 142.06,
+      "ownerPE": 25.6,
+      "finalLabel": "Improving business, market noticing",
+      "longTermView": 71,
+      "marketRewardView": 71,
+      "businessQuality": 76,
+      "growthExecution": 72,
+      "marketReward": 71,
+      "shareholderEconomics": 68,
+      "valuation": 66,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "name": "Super Micro Computer",
+      "sector": "Hardware",
+      "price": 28.17,
+      "ownerPE": 31.7,
+      "finalLabel": "Value trap risk",
+      "longTermView": 71,
+      "marketRewardView": 48,
+      "businessQuality": 70,
+      "growthExecution": 67,
+      "marketReward": 17,
+      "shareholderEconomics": 93,
+      "valuation": 89,
+      "dataConfidence": 55,
+      "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "ADBE",
+      "name": "Adobe",
+      "sector": "Software",
+      "price": 220.1,
+      "ownerPE": 24.7,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 70,
+      "marketRewardView": 58,
+      "businessQuality": 82,
+      "growthExecution": 55,
+      "marketReward": 44,
+      "shareholderEconomics": 68,
+      "valuation": 83,
+      "dataConfidence": 85,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "V",
+      "name": "Visa",
+      "sector": "Payments",
+      "price": 348.01,
+      "ownerPE": 45,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 69,
+      "marketRewardView": 64,
+      "businessQuality": 81,
+      "growthExecution": 59,
+      "marketReward": 61,
+      "shareholderEconomics": 93,
+      "valuation": 48,
+      "dataConfidence": 55,
+      "expectationsGap": "Fairly priced",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "MELI",
+      "name": "MercadoLibre",
+      "sector": "E-commerce",
+      "price": 1778.66,
+      "ownerPE": 104.9,
+      "finalLabel": "Value trap risk",
+      "longTermView": 68,
+      "marketRewardView": 49,
+      "businessQuality": 71,
+      "growthExecution": 66,
+      "marketReward": 23,
+      "shareholderEconomics": 87,
+      "valuation": 75,
+      "dataConfidence": 55,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "ACN",
+      "name": "Accenture",
+      "sector": "IT Services",
+      "price": 139.05,
+      "ownerPE": 16.3,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 68,
+      "marketRewardView": 63,
+      "businessQuality": 68,
+      "growthExecution": 51,
+      "marketReward": 61,
+      "shareholderEconomics": 72,
+      "valuation": 88,
+      "dataConfidence": 85,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Much better",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "ANET",
+      "name": "Arista Networks",
+      "sector": "Networking",
+      "price": 174.52,
+      "ownerPE": 108.4,
+      "finalLabel": "Elite business, expensive stock",
+      "longTermView": 68,
+      "marketRewardView": 71,
+      "businessQuality": 88,
+      "growthExecution": 75,
+      "marketReward": 73,
+      "shareholderEconomics": 71,
+      "valuation": 23,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "PYPL",
+      "name": "PayPal",
+      "sector": "Payments",
+      "price": 44.53,
+      "ownerPE": 15.7,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 68,
+      "marketRewardView": 45,
+      "businessQuality": 77,
+      "growthExecution": 47,
+      "marketReward": 19,
+      "shareholderEconomics": 75,
+      "valuation": 98,
+      "dataConfidence": 85,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "INTU",
+      "name": "Intuit",
+      "sector": "Software",
+      "price": 272.14,
+      "ownerPE": 55.1,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 67,
+      "marketRewardView": 64,
+      "businessQuality": 74,
+      "growthExecution": 65,
+      "marketReward": 61,
+      "shareholderEconomics": 56,
+      "valuation": 68,
+      "dataConfidence": 85,
+      "expectationsGap": "Moderate expectations risk",
+      "whatChanged": "Much better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "CRM",
+      "name": "Salesforce",
+      "sector": "Software",
+      "price": 165.68,
+      "ownerPE": 29.6,
+      "finalLabel": "Value trap risk",
+      "longTermView": 67,
+      "marketRewardView": 48,
+      "businessQuality": 68,
+      "growthExecution": 64,
+      "marketReward": 20,
+      "shareholderEconomics": 80,
+      "valuation": 83,
+      "dataConfidence": 0,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "MA",
+      "name": "Mastercard",
+      "sector": "Payments",
+      "price": 519.68,
+      "ownerPE": 34,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 66,
+      "marketRewardView": 50,
+      "businessQuality": 81,
+      "growthExecution": 56,
+      "marketReward": 29,
+      "shareholderEconomics": 85,
+      "valuation": 62,
+      "dataConfidence": 55,
+      "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "LRCX",
+      "name": "Lam Research",
+      "sector": "Semi Equip",
+      "price": 330.92,
+      "ownerPE": 104.7,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 65,
+      "marketRewardView": 75,
+      "businessQuality": 79,
+      "growthExecution": 66,
+      "marketReward": 91,
+      "shareholderEconomics": 78,
+      "valuation": 19,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Much better",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Broadcom",
+      "sector": "Semis",
+      "price": 387.25,
+      "ownerPE": 85.9,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 64,
+      "marketRewardView": 67,
+      "businessQuality": 61,
+      "growthExecution": 76,
+      "marketReward": 69,
+      "shareholderEconomics": 88,
+      "valuation": 31,
+      "dataConfidence": 55,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Much better",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "ASML",
+      "name": "ASML Holding",
+      "sector": "Semi Equip",
+      "price": 1758.42,
+      "ownerPE": 73.2,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 62,
+      "marketRewardView": 55,
+      "businessQuality": 78,
+      "growthExecution": 58,
+      "marketReward": 47,
+      "shareholderEconomics": 89,
+      "valuation": 30,
+      "dataConfidence": 14,
+      "expectationsGap": "Fairly priced",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "SPGI",
+      "name": "S&P Global",
+      "sector": "Financial Data",
+      "price": 432.98,
+      "ownerPE": 56.7,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 62,
+      "marketRewardView": 63,
+      "businessQuality": 62,
+      "growthExecution": 63,
+      "marketReward": 65,
+      "shareholderEconomics": 74,
+      "valuation": 51,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "name": "Applied Materials",
+      "sector": "Semi Equip",
+      "price": 568.68,
+      "ownerPE": 75.5,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 62,
+      "marketRewardView": 73,
+      "businessQuality": 73,
+      "growthExecution": 55,
+      "marketReward": 94,
+      "shareholderEconomics": 80,
+      "valuation": 23,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Netflix",
+      "sector": "Streaming",
+      "price": 75.91,
+      "ownerPE": 65.4,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 61,
+      "marketRewardView": 42,
+      "businessQuality": 80,
+      "growthExecution": 60,
+      "marketReward": 15,
+      "shareholderEconomics": 80,
+      "valuation": 43,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms",
+      "sector": "Social Media",
+      "price": 604.51,
+      "ownerPE": 116,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 61,
+      "marketRewardView": 46,
+      "businessQuality": 83,
+      "growthExecution": 66,
+      "marketReward": 22,
+      "shareholderEconomics": 66,
+      "valuation": 38,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "PANW",
+      "name": "Palo Alto Networks",
+      "sector": "Cybersecurity",
+      "price": 321.11,
+      "ownerPE": 867.9,
+      "finalLabel": "Improving business, market noticing",
+      "longTermView": 61,
+      "marketRewardView": 79,
+      "businessQuality": 74,
+      "growthExecution": 77,
+      "marketReward": 100,
+      "shareholderEconomics": 45,
+      "valuation": 12,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "WDAY",
+      "name": "Workday",
+      "sector": "Software",
+      "price": 138.21,
+      "ownerPE": 48,
+      "finalLabel": "Shareholder leakage problem",
+      "longTermView": 60,
+      "marketRewardView": 58,
+      "businessQuality": 71,
+      "growthExecution": 63,
+      "marketReward": 52,
+      "shareholderEconomics": 37,
+      "valuation": 62,
+      "dataConfidence": 85,
+      "expectationsGap": "Fairly priced",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "NOW",
+      "name": "ServiceNow",
+      "sector": "Software",
+      "price": 106.62,
+      "ownerPE": 114.6,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 60,
+      "marketRewardView": 63,
+      "businessQuality": 74,
+      "growthExecution": 71,
+      "marketReward": 63,
+      "shareholderEconomics": 45,
+      "valuation": 37,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "UBER",
+      "name": "Uber",
+      "sector": "Ride-Hailing",
+      "price": 72.81,
+      "ownerPE": 81.8,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 60,
+      "marketRewardView": 42,
+      "businessQuality": 69,
+      "growthExecution": 60,
+      "marketReward": 17,
+      "shareholderEconomics": 65,
+      "valuation": 62,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "MPWR",
+      "name": "Monolithic Power",
+      "sector": "Semis",
+      "price": 1295.18,
+      "ownerPE": 161.7,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 59,
+      "marketRewardView": 60,
+      "businessQuality": 82,
+      "growthExecution": 66,
+      "marketReward": 59,
+      "shareholderEconomics": 52,
+      "valuation": 23,
+      "dataConfidence": 38,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qualcomm",
+      "sector": "Semis",
+      "price": 184.28,
+      "ownerPE": 33.9,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 59,
+      "marketRewardView": 50,
+      "businessQuality": 77,
+      "growthExecution": 33,
+      "marketReward": 45,
+      "shareholderEconomics": 59,
+      "valuation": 70,
+      "dataConfidence": 85,
+      "expectationsGap": "Moderate expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corp.",
+      "sector": "Software",
+      "price": 382.64,
+      "ownerPE": 46,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 58,
+      "marketRewardView": 46,
+      "businessQuality": 78,
+      "growthExecution": 46,
+      "marketReward": 32,
+      "shareholderEconomics": 72,
+      "valuation": 45,
+      "dataConfidence": 85,
+      "expectationsGap": "Fairly priced",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "CDNS",
+      "name": "Cadence Design",
+      "sector": "EDA Software",
+      "price": 369.17,
+      "ownerPE": 121.8,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 57,
+      "marketRewardView": 54,
+      "businessQuality": 82,
+      "growthExecution": 53,
+      "marketReward": 52,
+      "shareholderEconomics": 69,
+      "valuation": 18,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "name": "IBM",
+      "sector": "IT Services",
+      "price": 302.14,
+      "ownerPE": 43,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 57,
+      "marketRewardView": 51,
+      "businessQuality": 53,
+      "growthExecution": 53,
+      "marketReward": 44,
+      "shareholderEconomics": 81,
+      "valuation": 55,
+      "dataConfidence": 55,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "APP",
+      "name": "AppLovin",
+      "sector": "AdTech",
+      "price": 513.5,
+      "ownerPE": null,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 56,
+      "marketRewardView": 50,
+      "businessQuality": 76,
+      "growthExecution": 55,
+      "marketReward": 41,
+      "shareholderEconomics": 59,
+      "valuation": 31,
+      "dataConfidence": 85,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "ZS",
+      "name": "Zscaler",
+      "sector": "Cybersecurity",
+      "price": 143.78,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 55,
+      "marketRewardView": 56,
+      "businessQuality": 68,
+      "growthExecution": 76,
+      "marketReward": 50,
+      "shareholderEconomics": 34,
+      "valuation": 26,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "ISRG",
+      "name": "Intuitive Surgical",
+      "sector": "Medical Devices",
+      "price": 417.37,
+      "ownerPE": 107.8,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 55,
+      "marketRewardView": 41,
+      "businessQuality": 81,
+      "growthExecution": 61,
+      "marketReward": 18,
+      "shareholderEconomics": 65,
+      "valuation": 19,
+      "dataConfidence": 50,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet",
+      "sector": "Software",
+      "price": 361.02,
+      "ownerPE": 80.6,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 54,
+      "marketRewardView": 45,
+      "businessQuality": 77,
+      "growthExecution": 51,
+      "marketReward": 34,
+      "shareholderEconomics": 70,
+      "valuation": 21,
+      "dataConfidence": 85,
+      "expectationsGap": "Moderate expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "PLTR",
+      "name": "Palantir",
+      "sector": "Software/AI",
+      "price": 129.01,
+      "ownerPE": 2150.2,
+      "finalLabel": "Elite business, expensive stock",
+      "longTermView": 54,
+      "marketRewardView": 46,
+      "businessQuality": 85,
+      "growthExecution": 69,
+      "marketReward": 29,
+      "shareholderEconomics": 42,
+      "valuation": 11,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Cisco Systems",
+      "sector": "Networking",
+      "price": 113.15,
+      "ownerPE": 45.4,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 53,
+      "marketRewardView": 59,
+      "businessQuality": 52,
+      "growthExecution": 41,
+      "marketReward": 74,
+      "shareholderEconomics": 69,
+      "valuation": 46,
+      "dataConfidence": 85,
+      "expectationsGap": "Fairly priced",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "SHOP",
+      "name": "Shopify",
+      "sector": "E-commerce",
+      "price": 116.47,
+      "ownerPE": null,
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 53,
+      "marketRewardView": 40,
+      "businessQuality": 81,
+      "growthExecution": 65,
+      "marketReward": 17,
+      "shareholderEconomics": 56,
+      "valuation": 14,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "DDOG",
+      "name": "Datadog",
+      "sector": "Software",
+      "price": 255.53,
+      "ownerPE": 1825.2,
+      "finalLabel": "Improving business, market noticing",
+      "longTermView": 52,
+      "marketRewardView": 65,
+      "businessQuality": 68,
+      "growthExecution": 71,
+      "marketReward": 77,
+      "shareholderEconomics": 32,
+      "valuation": 9,
+      "dataConfidence": 23,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "SNOW",
+      "name": "Snowflake",
+      "sector": "Software",
+      "price": 258.88,
+      "ownerPE": null,
+      "finalLabel": "Improving business, market noticing",
+      "longTermView": 52,
+      "marketRewardView": 67,
+      "businessQuality": 61,
+      "growthExecution": 73,
+      "marketReward": 82,
+      "shareholderEconomics": 29,
+      "valuation": 13,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm Holdings",
+      "sector": "Semis/IP",
+      "price": 292.31,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 50,
+      "marketRewardView": 68,
+      "businessQuality": 69,
+      "growthExecution": 58,
+      "marketReward": 91,
+      "shareholderEconomics": 23,
+      "valuation": 11,
+      "dataConfidence": 55,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Much better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "CRWD",
+      "name": "CrowdStrike",
+      "sector": "Cybersecurity",
+      "price": 188.43,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 50,
+      "marketRewardView": 63,
+      "businessQuality": 65,
+      "growthExecution": 66,
+      "marketReward": 76,
+      "shareholderEconomics": 31,
+      "valuation": 11,
+      "dataConfidence": 23,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "RBLX",
+      "name": "Roblox",
+      "sector": "Gaming",
+      "price": 53.84,
+      "ownerPE": null,
+      "finalLabel": "Shareholder leakage problem",
+      "longTermView": 50,
+      "marketRewardView": 42,
+      "businessQuality": 74,
+      "growthExecution": 60,
+      "marketReward": 25,
+      "shareholderEconomics": 33,
+      "valuation": 27,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Consumer Tech",
+      "price": 313.39,
+      "ownerPE": 57.9,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 49,
+      "marketRewardView": 46,
+      "businessQuality": 62,
+      "growthExecution": 31,
+      "marketReward": 49,
+      "shareholderEconomics": 75,
+      "valuation": 31,
+      "dataConfidence": 87,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "CRWV",
+      "name": "CoreWeave",
+      "sector": "Neocloud",
+      "price": 85.16,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 49,
+      "marketRewardView": 56,
+      "businessQuality": 37,
+      "growthExecution": 82,
+      "marketReward": 57,
+      "shareholderEconomics": 76,
+      "valuation": 0,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices",
+      "sector": "Semis",
+      "price": 507.02,
+      "ownerPE": 3380.1,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 47,
+      "marketRewardView": 49,
+      "businessQuality": 65,
+      "growthExecution": 47,
+      "marketReward": 53,
+      "shareholderEconomics": 55,
+      "valuation": 10,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell Technology",
+      "sector": "Semis",
+      "price": 227.35,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 47,
+      "marketRewardView": 59,
+      "businessQuality": 52,
+      "growthExecution": 55,
+      "marketReward": 75,
+      "shareholderEconomics": 50,
+      "valuation": 13,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "NET",
+      "name": "Cloudflare",
+      "sector": "Software",
+      "price": 264.43,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 47,
+      "marketRewardView": 57,
+      "businessQuality": 63,
+      "growthExecution": 63,
+      "marketReward": 65,
+      "shareholderEconomics": 27,
+      "valuation": 11,
+      "dataConfidence": 6,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "MDB",
+      "name": "MongoDB",
+      "sector": "Software",
+      "price": 356.26,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 47,
+      "marketRewardView": 51,
+      "businessQuality": 68,
+      "growthExecution": 57,
+      "marketReward": 52,
+      "shareholderEconomics": 28,
+      "valuation": 14,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle",
+      "sector": "Software",
+      "price": 138.16,
+      "ownerPE": 37.6,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 46,
+      "marketRewardView": 47,
+      "businessQuality": 43,
+      "growthExecution": 52,
+      "marketReward": 48,
+      "shareholderEconomics": 62,
+      "valuation": 30,
+      "dataConfidence": 85,
+      "expectationsGap": "Fairly priced",
+      "whatChanged": "Better",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron Technology",
+      "sector": "Semis",
+      "price": 948.8,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 44,
+      "marketRewardView": 52,
+      "businessQuality": 43,
+      "growthExecution": 40,
+      "marketReward": 67,
+      "shareholderEconomics": 69,
+      "valuation": 18,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "HOOD",
+      "name": "Robinhood",
+      "sector": "Fintech Brokerage",
+      "price": 110.49,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 43,
+      "marketRewardView": 44,
+      "businessQuality": 53,
+      "growthExecution": 56,
+      "marketReward": 42,
+      "shareholderEconomics": 39,
+      "valuation": 16,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "sector": "E-commerce/Cloud",
+      "price": 241.31,
+      "ownerPE": 103.6,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 42,
+      "marketRewardView": 34,
+      "businessQuality": 57,
+      "growthExecution": 48,
+      "marketReward": 20,
+      "shareholderEconomics": 47,
+      "valuation": 17,
+      "dataConfidence": 55,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "IREN",
+      "name": "IREN Ltd",
+      "sector": "AI Infrastructure",
+      "price": 40.81,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 39,
+      "marketRewardView": 46,
+      "businessQuality": 41,
+      "growthExecution": 54,
+      "marketReward": 52,
+      "shareholderEconomics": 44,
+      "valuation": 5,
+      "dataConfidence": 23,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Better",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "SNPS",
+      "name": "Synopsys",
+      "sector": "EDA Software",
+      "price": 428.93,
+      "ownerPE": 82.5,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 38,
+      "marketRewardView": 31,
+      "businessQuality": 42,
+      "growthExecution": 38,
+      "marketReward": 21,
+      "shareholderEconomics": 61,
+      "valuation": 25,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet.",
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "sector": "Auto/AI",
+      "price": 394.06,
+      "ownerPE": 100.8,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 36,
+      "marketRewardView": 42,
+      "businessQuality": 40,
+      "growthExecution": 38,
+      "marketReward": 50,
+      "shareholderEconomics": 50,
+      "valuation": 12,
+      "dataConfidence": 85,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "AXON",
+      "name": "Axon Enterprise",
+      "sector": "Public Safety Tech",
+      "price": 598.89,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 33,
+      "marketRewardView": 37,
+      "businessQuality": 38,
+      "growthExecution": 37,
+      "marketReward": 41,
+      "shareholderEconomics": 43,
+      "valuation": 11,
+      "dataConfidence": 23,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "The market is not rewarding the business yet.",
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "NBIS",
+      "name": "Nebius Group N.V.",
+      "sector": "Comm Services",
+      "price": 216.48,
+      "ownerPE": 1804,
+      "finalLabel": "Weak business, strong speculation",
+      "longTermView": 33,
+      "marketRewardView": 52,
+      "businessQuality": 32,
+      "growthExecution": 41,
+      "marketReward": 77,
+      "shareholderEconomics": 31,
+      "valuation": 3,
+      "dataConfidence": 23,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intel",
+      "sector": "Semis",
+      "price": 106.04,
+      "ownerPE": 353.5,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 28,
+      "marketRewardView": 43,
+      "businessQuality": 28,
+      "growthExecution": 22,
+      "marketReward": 68,
+      "shareholderEconomics": 42,
+      "valuation": 6,
+      "dataConfidence": 50,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "name": "Coinbase",
+      "sector": "Crypto Exchange",
+      "price": 159.9,
+      "ownerPE": null,
+      "finalLabel": "Mixed evidence",
+      "longTermView": 27,
+      "marketRewardView": 21,
+      "businessQuality": 40,
+      "growthExecution": 31,
+      "marketReward": 12,
+      "shareholderEconomics": 32,
+      "valuation": 4,
+      "dataConfidence": 40,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
+        "The market is not rewarding the business yet.",
+        "Growth or execution is weakening."
+      ]
+    }
+  ]
+}

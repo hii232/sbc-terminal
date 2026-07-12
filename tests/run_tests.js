@@ -14,7 +14,7 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network in tests"));
 
 const root = path.join(__dirname, "..");
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -219,6 +219,40 @@ const ok = (cond, name, detail = "") => {
     source: "fixture"
   }, "MSFT");
   ok(capexUp.score > 30, "AI capex raise -> bullish infrastructure score", String(capexUp.score));
+}
+
+// =============== 11. Market/business score engine ===============
+{
+  const S = global.window.ScoreEngine;
+  ok(!!S, "ScoreEngine exported on window");
+  ok(S.MARKET_TERMINAL_VERSION === "4.1.0", "market terminal version 4.1.0");
+  ok(!Object.prototype.hasOwnProperty.call(S.SCORE_WEIGHTS.longTermView, "dataConfidence"), "Data Confidence is not additive in long-term score");
+  ok(!Object.prototype.hasOwnProperty.call(S.SCORE_WEIGHTS.marketRewardView, "dataConfidence"), "Data Confidence is not additive in market reward score");
+  const ctx = { data: DATA, sectors: SECTORS, estimates: ESTIMATE_HISTORY };
+  let scoreOk = 0, sixOk = 0, confidenceOk = 0;
+  for (const d of DATA) {
+    const s = S.scoreCompany(d, ctx);
+    const keys = ["businessQuality", "growthExecution", "marketReward", "shareholderEconomics", "valuation", "dataConfidence", "longTermView", "marketRewardView"];
+    const inRange = keys.every(k => s[k] && (s[k].score == null || (s[k].score >= 0 && s[k].score <= 100)));
+    if (inRange) scoreOk++;
+    if (["businessQuality", "growthExecution", "marketReward", "shareholderEconomics", "valuation", "dataConfidence"].every(k => s[k])) sixOk++;
+    if (s.dataConfidence.score === E.dataConfidenceOf(d).score) confidenceOk++;
+  }
+  ok(scoreOk === DATA.length, "all market/business scores are bounded 0..100 or null", `${scoreOk}/${DATA.length}`);
+  ok(sixOk === DATA.length, "six-score dashboard available for every ticker", `${sixOk}/${DATA.length}`);
+  ok(confidenceOk === DATA.length, "ScoreEngine uses production Data Confidence gate", `${confidenceOk}/${DATA.length}`);
+
+  const noHist = DATA.find(d => ESTIMATE_HISTORY[d.ticker] && ESTIMATE_HISTORY[d.ticker].snapshots.length === 0);
+  if (noHist) {
+    const mr = S.scoreCompany(noHist, ctx).marketReward;
+    const epsRev = mr.details.find(x => x.k === "EPS estimate revisions");
+    const revRev = mr.details.find(x => x.k === "Revenue estimate revisions");
+    ok(epsRev.score === null && /unavailable/i.test(epsRev.why), "missing EPS revision history stays unavailable, not zero");
+    ok(revRev.score === null && /unavailable/i.test(revRev.why), "missing revenue revision history stays unavailable, not zero");
+  }
+  const map = S.qualityMarketMap(DATA, ctx);
+  ok(map.length === 60, "quality x market map covers exactly 60 tickers", String(map.length));
+  ok(map.every(p => p.ticker && p.label), "quality map rows have ticker and label");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

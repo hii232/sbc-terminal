@@ -1,0 +1,39 @@
+{
+  "asOf": "2026-07-12T05:35:06.568Z",
+  "status": "partial",
+  "noLookaheadPolicy": "Historical tests must rank using only data known at the historical date.",
+  "pointInTimeFactorBacktest": {
+    "status": "blocked",
+    "reason": "Full score factors require point-in-time fundamentals, analyst revisions, guidance, surprise history and earnings-reaction snapshots. The repo only has current bundled fundamentals today, so a full historical score backtest would be lookahead-biased.",
+    "nextStep": "The estimate-history workflow and future fundamentals snapshots create the dataset needed for full no-lookahead tests."
+  },
+  "availableNoLookaheadPilot": [
+    {
+      "factor": "13-week price relative strength",
+      "horizonWeeks": 4,
+      "method": "At each historical week, rank only by information available at that week, then measure later returns.",
+      "observations": 37,
+      "averageTopForwardReturnPct": 7.193265267125846,
+      "averageBottomForwardReturnPct": -0.343063807562241,
+      "averageSpreadPct": 7.536329074688086
+    },
+    {
+      "factor": "13-week price relative strength",
+      "horizonWeeks": 13,
+      "method": "At each historical week, rank only by information available at that week, then measure later returns.",
+      "observations": 28,
+      "averageTopForwardReturnPct": 30.49476454174083,
+      "averageBottomForwardReturnPct": -0.9985472049245085,
+      "averageSpreadPct": 31.493311746665338
+    },
+    {
+      "factor": "13-week price relative strength",
+      "horizonWeeks": 26,
+      "method": "At each historical week, rank only by information available at that week, then measure later returns.",
+      "observations": 15,
+      "averageTopForwardReturnPct": 62.857587920957805,
+      "averageBottomForwardReturnPct": -4.624723147044494,
+      "averageSpreadPct": 67.4823110680023
+    }
+  ]
+}

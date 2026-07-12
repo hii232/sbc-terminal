@@ -18,6 +18,7 @@
     active: null,
     view: "stock", // 'stock' | 'sectors' | 'narratives'
     bucket: "all",
+    watchSort: localStorage.getItem("sbc_watch_sort") || "longTermView",
     keys: { finnhub: localStorage.getItem("finnhubKey") || DEFAULT_FINNHUB, fmp: localStorage.getItem("fmpKey") || "" },
     live: {}, // ticker -> {quote, news}
     secOn: new Set(["XLK", "SMH", "XLF", "XLV", "XLE", "SPY"]), // default sector lines
@@ -319,20 +320,56 @@
   DATA.forEach(recomputeOwnerEconomics);
   DATA.forEach(d => { d.secv = secCheckOf(d); });
 
+  function marketContext() {
+    return {
+      data: DATA,
+      sectors: typeof SECTORS !== "undefined" ? SECTORS : { series: [] },
+      estimates: typeof ESTIMATE_HISTORY !== "undefined" ? ESTIMATE_HISTORY : {},
+    };
+  }
+  function refreshMarketScores() {
+    if (!window.ScoreEngine) return;
+    DATA.forEach(d => {
+      d.dataConfidence = dataConfidenceOf(d);
+      d.marketScores = window.ScoreEngine.scoreCompany(d, marketContext());
+    });
+  }
+  function marketScoreOf(d) {
+    if (!d.marketScores && window.ScoreEngine) {
+      d.dataConfidence = dataConfidenceOf(d);
+      d.marketScores = window.ScoreEngine.scoreCompany(d, marketContext());
+    }
+    return d.marketScores;
+  }
+  const scoreVal = (d, key) => {
+    const s = marketScoreOf(d);
+    if (!s) return null;
+    return key === "longTermView" || key === "marketRewardView"
+      ? s[key]?.score
+      : s[key]?.score;
+  };
+  const scoreColorOf = (v) => v == null ? "var(--dim)" : v >= 75 ? "var(--green)" : v >= 58 ? "var(--amber)" : v >= 42 ? "var(--orange)" : "var(--red)";
   /* ------------------------ favorites + portfolio (localStorage) ------------------------ */
   const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
   state.favs = new Set(loadJSON("sbc_favs", []));
   state.portfolio = loadJSON("sbc_portfolio", {}); // ticker -> {shares, cost}
+  state.thesisRules = loadJSON("sbc_thesis_rules", {});
   const saveFavs = () => localStorage.setItem("sbc_favs", JSON.stringify([...state.favs]));
   const savePort = () => localStorage.setItem("sbc_portfolio", JSON.stringify(state.portfolio));
+  const saveThesis = () => localStorage.setItem("sbc_thesis_rules", JSON.stringify(state.thesisRules));
   function toggleFav(tk) { state.favs.has(tk) ? state.favs.delete(tk) : state.favs.add(tk); saveFavs(); renderWatchlist(); }
   const priceOf = (d) => state.live[d.ticker]?.quote?.price ?? d.price;
 
   /* ------------------------ watchlist ------------------------ */
-  const BUCKET_ORDER = { clean: 0, middle: 1, high: 2, tragic: 3 };
+  const watchMetric = (d, key) => {
+    if (key === "truePE") return d.truePE != null ? -d.truePE : -9999;
+    if (key === "mktCap") return d.mktCap || 0;
+    return scoreVal(d, key) ?? -1;
+  };
+  const watchScoreText = (s) => s == null ? "--" : String(Math.round(s));
   function renderWatchlist() {
     const list = DATA.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
-      .sort((a, b) => BUCKET_ORDER[a.bucket] - BUCKET_ORDER[b.bucket] || b.mktCap - a.mktCap);
+      .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap);
     el("wlCount").textContent = list.length + "/" + DATA.length;
     const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)" };
     if (state.bucket === "fav" && !list.length) {
@@ -343,11 +380,20 @@
       const lv = state.live[d.ticker];
       const price = lv?.quote?.price ?? d.price;
       const ch = lv?.quote?.changePct ?? d.change;
+      const ms = marketScoreOf(d);
+      const warn = ms?.whatCouldGoWrong?.[0] || "";
       return `<div class="row ${state.active === d.ticker && state.view === "stock" ? "sel" : ""}" data-tk="${d.ticker}">
         <div class="bucketbar" style="background:${bcol[d.bucket]}"></div>
         <div style="min-width:0">
           <div class="tk"><span class="star ${state.favs.has(d.ticker) ? "on" : ""}" data-fav="${d.ticker}">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker} <span style="font-size:9px;color:var(--dim)">${d.grade}</span></div>
           <div class="nm">${d.name}</div>
+          <div class="mini-scores">
+            <span class="mini-score">LT <b>${watchScoreText(ms?.longTermView?.score)}</b></span>
+            <span class="mini-score">MR <b>${watchScoreText(ms?.marketReward?.score)}</b></span>
+            <span class="mini-score">BQ <b>${watchScoreText(ms?.businessQuality?.score)}</b></span>
+            <span class="mini-score">VAL <b>${watchScoreText(ms?.valuation?.score)}</b></span>
+          </div>
+          ${warn ? `<div class="warn-line">${warn}</div>` : ""}
         </div>
         <div>
           <div class="px">${price.toFixed(2)}</div>
@@ -361,7 +407,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "portBtn", "calBtn", "techBtn", "optBtn", "auditBtn"];
+  const VIEW_BTNS = ["sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "auditBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -446,7 +492,7 @@
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
         const map = { sectors: showSectors, narratives: showNarratives, valuation: showValuation,
-          rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare,
+          rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
           triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
@@ -468,7 +514,9 @@
     const lv = state.live[d.ticker] || {};
     const price = lv.quote?.price ?? d.price;
     const change = lv.quote?.changePct ?? d.change;
-    const b = BUCKETS[d.bucket];
+    const ms = marketScoreOf(d);
+    const mainLabel = ms?.finalLabel?.label || "Not scored";
+    const mainScore = ms?.longTermView?.score;
     const gradeColors = { A: "var(--green)", B: "var(--cyan)", C: "var(--amber)", D: "var(--orange)", F: "var(--red)" };
     const gc = gradeColors[d.grade];
 
@@ -498,13 +546,13 @@
           <div class="grade" style="color:${gc};border-color:${gc}">${d.grade}</div>
         </div>
         <div style="text-align:right">
-          <span class="badge" style="color:${b.color};border-color:${b.color}">${b.label.toUpperCase()}</span>
-          <div class="sub" style="margin-top:5px">${b.desc}</div>
+          <span class="badge" style="color:${scoreColorOf(mainScore)};border-color:${scoreColorOf(mainScore)}">${mainLabel.toUpperCase()}</span>
+          <div class="sub" style="margin-top:5px">Long-term score ${mainScore == null ? "--" : mainScore}/100 · Data confidence ${ms?.dataConfidence?.score ?? "--"}/100</div>
         </div>
       </div>`;
 
     const tabs = `<div class="tabs">
-      ${[["overview", "OVERVIEW"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["earnings", "EARNINGS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
+      ${[["overview", "OVERVIEW"], ["quality", "QUALITY"], ["gap", "EXPECTATIONS"], ["alerts", "ALERTS"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["earnings", "EARNINGS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
         .map(([k, l]) => `<button data-tab="${k}" class="${currentTab === k ? "active" : ""}">${l}</button>`).join("")}
     </div>`;
 
@@ -536,6 +584,12 @@
       }
     }
     else if (currentTab === "sbc") body.innerHTML = tabSBC(d);
+    else if (currentTab === "quality") body.innerHTML = tabQuality(d);
+    else if (currentTab === "gap") body.innerHTML = tabGap(d);
+    else if (currentTab === "alerts") {
+      body.innerHTML = tabAlerts(d);
+      wireThesisForm(d);
+    }
     else if (currentTab === "financials") {
       body.innerHTML = tabFinancials(d);
       body.querySelectorAll(".fin-toggle").forEach(b =>
@@ -549,10 +603,233 @@
       x.onclick = (e) => { e.preventDefault(); e.stopPropagation(); selectTicker(x.dataset.newsTk); });
   }
 
+  const SCORE_LABELS = {
+    businessQuality: "Business Quality",
+    growthExecution: "Growth + Execution",
+    marketReward: "Market Reward",
+    shareholderEconomics: "Shareholder Economics",
+    valuation: "Valuation",
+    dataConfidence: "Data Confidence",
+  };
+  const fmtScore = (v) => v == null ? "--" : Math.round(v);
+  function scoreTile(label, part) {
+    const score = part?.score;
+    return `<div class="score-card">
+      <div class="lab">${label}</div>
+      <div class="num" style="color:${scoreColorOf(score)}">${fmtScore(score)}</div>
+      <div class="cov">${part?.coverage != null ? "coverage " + part.coverage + "%" : "separate gate"}</div>
+    </div>`;
+  }
+  function scoreDetails(part) {
+    if (!part || !part.details) return `<div class="sub">No component details available.</div>`;
+    return part.details.map(x => `<div class="kv"><span class="k">${x.k}</span><span class="v" style="color:${scoreColorOf(x.score)}">${fmtScore(x.score)}</span></div>
+      <div class="sub" style="margin:-1px 0 5px">${x.why || (x.status === "missing" ? "missing, not counted as zero" : "")}</div>`).join("");
+  }
+  function marketDashboard(d) {
+    const ms = marketScoreOf(d);
+    if (!ms) return `<div class="note callout">Market/business scores did not load. Check scores.js.</div>`;
+    return `
+      <div class="score-strip">
+        ${scoreTile(SCORE_LABELS.businessQuality, ms.businessQuality)}
+        ${scoreTile(SCORE_LABELS.growthExecution, ms.growthExecution)}
+        ${scoreTile(SCORE_LABELS.marketReward, ms.marketReward)}
+        ${scoreTile(SCORE_LABELS.shareholderEconomics, ms.shareholderEconomics)}
+        ${scoreTile(SCORE_LABELS.valuation, ms.valuation)}
+        ${scoreTile(SCORE_LABELS.dataConfidence, ms.dataConfidence)}
+      </div>
+      <div class="view-strip">
+        <div class="view-card">
+          <div class="sub">LONG-TERM INVESTMENT VIEW</div>
+          <div class="big" style="color:${scoreColorOf(ms.longTermView.score)}">${fmtScore(ms.longTermView.score)}</div>
+          <div class="sub">Quality 30% · Growth 25% · Valuation 20% · Shareholder economics 15% · Market reward 10%</div>
+        </div>
+        <div class="view-card">
+          <div class="sub">MARKET REWARD VIEW</div>
+          <div class="big" style="color:${scoreColorOf(ms.marketRewardView.score)}">${fmtScore(ms.marketRewardView.score)}</div>
+          <div class="sub">Market reward 45% · Growth 25% · Quality 15% · Valuation 10% · Shareholder economics 5%</div>
+        </div>
+      </div>`;
+  }
+  function marketConclusionCard(d) {
+    const ms = marketScoreOf(d);
+    const labelColor = scoreColorOf(ms?.longTermView?.score);
+    const rs = (ms?.finalLabel?.reasons || []).join(" · ");
+    return `<div class="card" style="grid-column:span 3;border-color:${labelColor}">
+      <h3>COMPANY VIEW — BUSINESS, MARKET, PRICE <span class="unit">SBC is one input, not the main label</span></h3>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+        <div style="min-width:220px">
+          <div class="stat" style="font-size:28px;color:${labelColor}">${ms?.finalLabel?.label || "Not scored"}</div>
+          <div class="sub">${rs}</div>
+        </div>
+        <div style="flex:1;min-width:240px">
+          <div class="note" style="border-left-color:${labelColor}">
+            <b>Plain English:</b> ${plainEnglishView(d, ms)}
+          </div>
+        </div>
+      </div>
+      <div class="grid g2" style="margin-top:10px">
+        <div class="case-box"><b style="color:var(--green)">Why it can rise</b><div class="reason-list">${(ms?.whyRise || []).map(x => `<div>${x}</div>`).join("")}</div></div>
+        <div class="case-box"><b style="color:var(--orange)">What can go wrong</b><div class="reason-list">${(ms?.whatCouldGoWrong || []).map(x => `<div>${x}</div>`).join("")}</div></div>
+      </div>
+    </div>`;
+  }
+  function plainEnglishView(d, ms) {
+    if (!ms) return "The score engine is unavailable.";
+    const b = ms.businessQuality.score, g = ms.growthExecution.score, m = ms.marketReward.score, s = ms.shareholderEconomics.score, v = ms.valuation.score;
+    const bits = [
+      b >= 70 ? "the business quality is strong" : b < 45 ? "the business quality is weak" : "business quality is mixed",
+      g >= 65 ? "execution is improving" : g < 45 ? "execution is slowing" : "execution is not decisive",
+      m >= 65 ? "the market is rewarding it" : m < 45 ? "the market is not rewarding it yet" : "market reward is neutral",
+      s >= 65 ? "shareholder economics are clean enough" : s < 45 ? "SBC/dilution leakage needs attention" : "shareholder economics are mixed",
+      v >= 65 ? "valuation is supportive" : v < 45 ? "valuation is demanding" : "valuation is fair-to-mixed",
+    ];
+    return `${d.ticker}: ${bits.join("; ")}. Data Confidence is ${fmtScore(ms.dataConfidence.score)}/100 and is a separate trust gate, not a bullish point.`;
+  }
+  function valuationCases(d) {
+    const ms = marketScoreOf(d), gap = ms?.expectationsGap;
+    const owner = d.ownerEps || 0, price = priceOf(d), exit = gap?.marketImplied?.exitMultiple || 22;
+    const baseGrowth = gap?.terminalBase?.ownerEpsGrowth ?? gap?.terminalBase?.revenueGrowth ?? 5;
+    return [
+      { label: "Bear", growth: Math.max(-15, baseGrowth - 9), multiple: Math.max(8, exit - 8) },
+      { label: "Base", growth: baseGrowth, multiple: exit },
+      { label: "Bull", growth: Math.min(35, baseGrowth + 8), multiple: Math.min(45, exit + 8) },
+    ].map(c => {
+      const future = owner > 0 ? owner * Math.pow(1 + c.growth / 100, 5) : null;
+      const value = future != null ? future * c.multiple : null;
+      const fiveYr = value && price ? (Math.pow(value / price, 1 / 5) - 1) * 100 : null;
+      return { ...c, futureOwnerEps: future, value, fiveYr };
+    });
+  }
+  function expectationsGapCard(d) {
+    const g = marketScoreOf(d)?.expectationsGap;
+    if (!g) return "";
+    const cell = (title, x) => `<div class="case-box">
+      <b>${title}</b>
+      <div class="kv"><span class="k">Revenue growth</span><span class="v">${x.revenueGrowth == null ? "--" : x.revenueGrowth + "%"}</span></div>
+      <div class="kv"><span class="k">Owner EPS growth</span><span class="v">${x.ownerEpsGrowth == null ? "--" : x.ownerEpsGrowth + "%"}</span></div>
+      <div class="kv"><span class="k">FCF margin</span><span class="v">${x.futureFcfMargin == null ? "--" : x.futureFcfMargin + "%"}</span></div>
+      ${x.exitMultiple ? `<div class="kv"><span class="k">Exit owner P/E</span><span class="v">${x.exitMultiple}x</span></div>` : ""}
+    </div>`;
+    return `<div class="card" style="grid-column:span 3">
+      <h3>EXPECTATIONS GAP <span class="unit">${g.label} · gap ${g.gapPct == null ? "--" : g.gapPct + "pp"}</span></h3>
+      <div class="case-grid">
+        ${cell("Market-implied", g.marketImplied)}
+        ${cell("Street consensus", g.consensus)}
+        ${cell("Terminal base", g.terminalBase)}
+      </div>
+      <div class="sub" style="margin-top:8px">Consensus uses stored analyst-estimate snapshots only. If history is missing, it stays unavailable instead of inventing a trend. Assumptions: ${g.assumptions.join(" · ")}.</div>
+    </div>`;
+  }
+  function valuationCasesCard(d) {
+    return `<div class="card" style="grid-column:span 3">
+      <h3>VALUATION CASES <span class="unit">bear / base / bull, owner-EPS driven</span></h3>
+      <div class="case-grid">${valuationCases(d).map(c => `<div class="case-box">
+        <b style="color:${c.label === "Bull" ? "var(--green)" : c.label === "Bear" ? "var(--red)" : "var(--amber)"}">${c.label}</b>
+        <div class="kv"><span class="k">5Y owner EPS growth</span><span class="v">${c.growth.toFixed(1)}%</span></div>
+        <div class="kv"><span class="k">Exit owner P/E</span><span class="v">${c.multiple.toFixed(1)}x</span></div>
+        <div class="kv"><span class="k">5Y value</span><span class="v">${c.value == null ? "--" : "$" + c.value.toFixed(0)}</span></div>
+        <div class="kv"><span class="k">Implied return</span><span class="v" style="color:${scoreColorOf(c.fiveYr == null ? null : c.fiveYr + 50)}">${c.fiveYr == null ? "--" : c.fiveYr.toFixed(1) + "%/yr"}</span></div>
+      </div>`).join("")}</div>
+    </div>`;
+  }
+  function whatChangedCard(d) {
+    const w = marketScoreOf(d)?.whatChanged;
+    if (!w) return "";
+    return `<div class="card" style="grid-column:span 3">
+      <h3>WHAT CHANGED? <span class="unit">${w.label} · ${w.score == null ? "--" : w.score + "/100"}</span></h3>
+      <div class="reason-list">${w.sentences.map(x => `<div>${x}</div>`).join("")}</div>
+    </div>`;
+  }
+  function scoreDetailCard(title, part, span = 1) {
+    return `<div class="card" style="grid-column:span ${span}">
+      <h3>${title} <span class="unit">${fmtScore(part?.score)}/100 · coverage ${part?.coverage ?? "--"}%</span></h3>
+      ${scoreDetails(part)}
+    </div>`;
+  }
+  function tabQuality(d) {
+    const ms = marketScoreOf(d);
+    return `${marketDashboard(d)}
+      <div class="grid g3">
+        ${marketConclusionCard(d)}
+        ${scoreDetailCard("BUSINESS QUALITY", ms.businessQuality)}
+        ${scoreDetailCard("GROWTH + EXECUTION", ms.growthExecution)}
+        ${scoreDetailCard("MARKET REWARD", ms.marketReward)}
+        ${scoreDetailCard("SHAREHOLDER ECONOMICS", ms.shareholderEconomics)}
+        ${scoreDetailCard("VALUATION", ms.valuation)}
+        ${scoreDetailCard("DATA CONFIDENCE", { score: ms.dataConfidence.score, coverage: 100, details: [{ k: "Separate trust gate", score: ms.dataConfidence.score, why: ms.dataConfidence.reason }] })}
+      </div>`;
+  }
+  function tabGap(d) {
+    return `<div class="grid g3">
+      ${expectationsGapCard(d)}
+      ${valuationCasesCard(d)}
+      ${whatChangedCard(d)}
+    </div>`;
+  }
+  function thesisRuleFor(d) {
+    return state.thesisRules[d.ticker] || {};
+  }
+  function tabAlerts(d) {
+    const t = thesisRuleFor(d);
+    const out = window.ScoreEngine ? window.ScoreEngine.thesisAlerts(d, t, marketContext()) : { alerts: [] };
+    const alertHtml = out.alerts.length
+      ? out.alerts.map(a => `<div class="note callout" style="margin-top:8px">${a}</div>`).join("")
+      : `<div class="note" style="margin-top:8px;border-left-color:var(--green)">No thesis-breaking alerts fired for the saved rules.</div>`;
+    return `<div class="grid g2">
+      <div class="card">
+        <h3>THESIS-BREAKING ALERTS <span class="unit">saved per ticker on this device</span></h3>
+        <div class="thesis-grid">
+          <label>Min revenue growth %<input id="thMinRev" type="number" value="${t.minRevenueGrowth ?? ""}" placeholder="e.g. 10"></label>
+          <label>Min operating margin %<input id="thMinOp" type="number" value="${t.minOperatingMargin ?? ""}" placeholder="e.g. 20"></label>
+          <label>Max SBC / revenue %<input id="thMaxSbc" type="number" value="${t.maxSbcRevenue ?? ""}" placeholder="e.g. 12"></label>
+          <label>Min 3M RS vs sector pp<input id="thMinRs" type="number" value="${t.minRelativeStrength ?? ""}" placeholder="e.g. -5"></label>
+          <label>Max owner P/E<input id="thMaxPe" type="number" value="${t.maxOwnerPE ?? ""}" placeholder="e.g. 35"></label>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="action-btn" id="saveThesis">SAVE ALERTS</button>
+          <button class="ghost-btn" id="clearThesis">CLEAR</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>ALERT STATUS <span class="unit">${out.broken || 0} fired</span></h3>
+        ${alertHtml}
+      </div>
+      ${whatChangedCard(d)}
+    </div>`;
+  }
+  function wireThesisForm(d) {
+    const val = (id) => {
+      const raw = el(id)?.value;
+      return raw === "" || raw == null ? null : +raw;
+    };
+    const cleanRule = (r) => Object.fromEntries(Object.entries(r).filter(([, v]) => v != null && Number.isFinite(v)));
+    const save = () => {
+      state.thesisRules[d.ticker] = cleanRule({
+        minRevenueGrowth: val("thMinRev"),
+        minOperatingMargin: val("thMinOp"),
+        maxSbcRevenue: val("thMaxSbc"),
+        minRelativeStrength: val("thMinRs"),
+        maxOwnerPE: val("thMaxPe"),
+      });
+      if (!Object.keys(state.thesisRules[d.ticker]).length) delete state.thesisRules[d.ticker];
+      saveThesis();
+      flash("Thesis alerts saved for " + d.ticker, "ok");
+      renderTab(d);
+    };
+    const s = el("saveThesis"); if (s) s.onclick = save;
+    const c = el("clearThesis"); if (c) c.onclick = () => { delete state.thesisRules[d.ticker]; saveThesis(); flash("Thesis alerts cleared", "ok"); renderTab(d); };
+  }
+
   function tabOverview(d) {
     const px = d.px && d.px.v && d.px.v.length >= 10 ? d.px : null;
     return `<div class="grid g3">
-      ${verdictCard(d)}
+      <div style="grid-column:span 3">${marketDashboard(d)}</div>
+
+      ${marketConclusionCard(d)}
+
+      ${expectationsGapCard(d)}
+
+      ${whatChangedCard(d)}
 
       ${newsBrainCard(d)}
 
@@ -1627,14 +1904,30 @@
     { k: "mom", label: "SEC 3M" },
     { k: "mktCap", label: "MKT CAP" },
   ];
-  const rankState = { sort: "composite", dir: -1 };
+  const rankState = { sort: "longTerm", dir: -1 };
 
   function renderRankings() {
-    const allRows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d), X: capexOf(d) }));
+    const rankCols = [
+      { k: "longTerm", label: "LONG TERM" },
+      { k: "marketView", label: "MKT REWARD VIEW" },
+      { k: "label", label: "LABEL" },
+      { k: "businessQuality", label: "BUSINESS" },
+      { k: "growthExecution", label: "GROWTH" },
+      { k: "marketReward", label: "MKT REWARD" },
+      { k: "valuation", label: "VALUATION" },
+      { k: "shareholderEconomics", label: "SH ECON" },
+      { k: "dataConfidence", label: "DATA" },
+      { k: "truePE", label: "EST P/E" },
+      { k: "mktCap", label: "MKT CAP" },
+    ];
+    const allRows = DATA.map(d => ({ d, r: rankOf(d), G: grahamOf(d), X: capexOf(d), m: marketScoreOf(d) }));
     const blocked = allRows.filter(x => x.r.noRank);
     const rows = allRows.filter(x => !x.r.noRank);
-    const raw = (o, k) => k === "composite" || k === "call" ? o.r.composite : k === "cagr" ? o.r.cagr
-      : k === "truePE" ? o.r.truePE : k === "mom" ? o.r.mom : k === "graham" ? (o.G ? o.G.passed : null) : k === "capex" ? (o.X ? o.X.score : null) : o.d[k];
+    const raw = (o, k) => k === "longTerm" ? o.m?.longTermView?.score
+      : k === "marketView" ? o.m?.marketRewardView?.score
+      : k === "label" ? o.m?.longTermView?.score
+      : ["businessQuality", "growthExecution", "marketReward", "valuation", "shareholderEconomics", "dataConfidence"].includes(k) ? o.m?.[k]?.score
+      : k === "truePE" ? o.r.truePE : k === "mktCap" ? o.d.mktCap : o.d[k];
     rows.sort((a, b) => {
       const va = raw(a, rankState.sort), vb = raw(b, rankState.sort);
       if (va == null && vb == null) return 0;
@@ -1644,14 +1937,14 @@
     });
 
     // headline cards computed independently of the current table sort
-    const byScore = [...rows].sort((a, b) => b.r.composite - a.r.composite);
+    const byScore = [...rows].sort((a, b) => (b.m?.longTermView?.score || -1) - (a.m?.longTermView?.score || -1));
     const byCagr = [...rows].filter(x => x.r.cagr != null).sort((a, b) => b.r.cagr - a.r.cagr);
     const byCheap = [...rows].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE);
     const best = byScore[0];
     const fats = rows.filter(x => x.r.zone === "fat").length;
 
-    const th = RANK_COLS.map(c => `<th data-sort="${c.k}" class="${rankState.sort === c.k ? "sorted" : ""}">${c.label}${rankState.sort === c.k ? (rankState.dir < 0 ? " ▾" : " ▴") : ""}</th>`).join("");
-    const body = rows.map((x, i) => {
+    const th = rankCols.map(c => `<th data-sort="${c.k}" class="${rankState.sort === c.k ? "sorted" : ""}">${c.label}${rankState.sort === c.k ? (rankState.dir < 0 ? " ▾" : " ▴") : ""}</th>`).join("");
+    let body = rows.map((x, i) => {
       const d = x.d, r = x.r;
       const zc = { fat: "var(--green)", just: "var(--amber)", out: "var(--red)" }[r.zone];
       const sc = r.composite >= 62 ? "var(--green)" : r.composite >= 48 ? "var(--amber)" : "var(--red)";
@@ -1670,6 +1963,20 @@
         <td class="sub">${money(d.mktCap)}</td>
       </tr>`;
     }).join("");
+
+    const rankCell = (x, k) => {
+      const m = x.m;
+      if (k === "label") return `<td>${m?.finalLabel?.label || "--"}</td>`;
+      if (k === "truePE") return `<td style="color:var(--amber)">${x.r.truePE ? x.r.truePE.toFixed(1) + "x" : "n/m"}</td>`;
+      if (k === "mktCap") return `<td class="sub">${money(x.d.mktCap)}</td>`;
+      const v = raw(x, k);
+      return `<td style="color:${scoreColorOf(v)};font-weight:700">${fmtScore(v)}</td>`;
+    };
+    body = rows.map((x, i) => `<tr data-tk="${x.d.ticker}">
+      <td><span class="rk-num">${i + 1}</span></td>
+      <td><span class="rk-tk">${x.d.ticker}</span> <span class="sub">${x.d.sector}</span></td>
+      ${rankCols.map(c => rankCell(x, c.k)).join("")}
+    </tr>`).join("");
 
     el("main").innerHTML = `
       <div class="hdr">
@@ -1953,6 +2260,7 @@
       : (d.dataBlockReason || "Not ranked: more filing data is needed.");
     return { score, rankable, label: rankable ? "RANKABLE" : "LOW CONFIDENCE", reason };
   }
+  refreshMarketScores();
   const toolHeader = (icon, title, sub, right = "") => `<div class="hdr"><div><div class="tick" style="color:var(--cyan)">${icon} ${title}</div><div class="co">${sub}</div></div><div class="spacer"></div>${right}</div>`;
 
   /* ============================================================================
@@ -2173,6 +2481,56 @@
 
   /* ------------------------ 📊 CUSTOM SCREENER ------------------------ */
   const screenState = { bucket: "all", zone: "all", gMin: 0, peMax: "", sbcMax: "", capMin: "", sector: "all", favOnly: false, divOnly: false, sort: "composite" };
+  function renderQualityMap() {
+    const points = window.ScoreEngine ? window.ScoreEngine.qualityMarketMap(DATA, marketContext()) : [];
+    const count = points.length;
+    const dots = points.map(p => {
+      const x = Math.max(6, Math.min(94, 8 + (p.businessQuality || 0) * 0.84));
+      const y = Math.max(6, Math.min(94, 92 - (p.marketReward || 0) * 0.84));
+      const val = p.valuation == null ? 50 : p.valuation;
+      const bg = val >= 70 ? "var(--green)" : val >= 55 ? "var(--amber)" : val >= 40 ? "var(--orange)" : "var(--red)";
+      const fg = val >= 55 ? "#081019" : "#fff";
+      const size = Math.max(28, Math.min(44, 28 + ((p.longTermView || 0) / 100) * 16));
+      return `<button class="map-dot" data-tk="${p.ticker}" title="${p.ticker} · BQ ${fmtScore(p.businessQuality)} · MR ${fmtScore(p.marketReward)} · Val ${fmtScore(p.valuation)} · ${p.label}"
+        style="left:${x}%;top:${y}%;width:${size}px;height:${size}px;background:${bg};color:${fg}">${p.ticker}</button>`;
+    }).join("");
+    el("main").innerHTML = toolHeader("◎", "QUALITY x MARKET MAP", "Business Quality on X axis, Market Reward on Y axis, dot color is valuation support",
+      `<div style="text-align:right"><div class="sub">UNIVERSE</div><div class="stat sm" style="color:var(--cyan)">${count}</div></div>`)
+      + `<div class="grid g3">
+        <div class="card" style="grid-column:span 3">
+          <h3>QUALITY VS MARKET REWARD <span class="unit">click any ticker</span></h3>
+          <div class="map-wrap">
+            <div class="map-axis" style="left:10px;top:8px">Market Reward ↑</div>
+            <div class="map-axis" style="right:12px;bottom:8px">Business Quality →</div>
+            <div class="map-axis" style="left:50%;top:50%;transform:translate(-50%,-50%);color:#263145">50 / 50</div>
+            <div style="position:absolute;left:50%;top:0;bottom:0;border-left:1px dashed #263145"></div>
+            <div style="position:absolute;left:0;right:0;top:50%;border-top:1px dashed #263145"></div>
+            ${dots}
+          </div>
+          <div class="chart-legend">
+            <span><i style="background:var(--green)"></i>valuation supportive</span>
+            <span><i style="background:var(--amber)"></i>fair/mixed</span>
+            <span><i style="background:var(--orange)"></i>demanding</span>
+            <span><i style="background:var(--red)"></i>expensive/risky</span>
+          </div>
+        </div>
+        <div class="card" style="grid-column:span 3">
+          <h3>TOP QUADRANTS <span class="unit">sorted by long-term score</span></h3>
+          <div style="overflow:auto"><table class="rank">
+            <thead><tr><th>TICKER</th><th>LABEL</th><th>BUSINESS</th><th>MARKET</th><th>VALUATION</th><th>LONG TERM</th></tr></thead>
+            <tbody>${points.slice().sort((a, b) => (b.longTermView || 0) - (a.longTermView || 0)).slice(0, 25).map(p => `<tr data-tk="${p.ticker}">
+              <td><span class="rk-tk">${p.ticker}</span> <span class="sub">${p.sector}</span></td>
+              <td>${p.label}</td>
+              <td style="color:${scoreColorOf(p.businessQuality)}">${fmtScore(p.businessQuality)}</td>
+              <td style="color:${scoreColorOf(p.marketReward)}">${fmtScore(p.marketReward)}</td>
+              <td style="color:${scoreColorOf(p.valuation)}">${fmtScore(p.valuation)}</td>
+              <td style="color:${scoreColorOf(p.longTermView)}">${fmtScore(p.longTermView)}</td>
+            </tr>`).join("")}</tbody>
+          </table></div>
+        </div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
   function renderScreener() {
     const sectors = [...new Set(DATA.map(d => sectorETF(d.sector)))];
     const S = screenState;
@@ -2804,10 +3162,13 @@
     syncNav();
     pushNav();
   }
+  function showQualityMap() {
+    showView("qualityMap", renderQualityMap, "mapBtn");
+  }
   function showRankings() {
     state.view = "rankings";
     setViewBtn("rankBtn");
-    rankState.sort = "composite"; rankState.dir = -1; // always land on the harmony ranking
+    rankState.sort = "longTerm"; rankState.dir = -1; // always land on the business/market ranking
     renderWatchlist();
     renderRankings();
     closeDrawer();
@@ -3316,6 +3677,7 @@
     }
     if (["SCREEN", "SCREENER", "FILTER"].includes(q)) { showScreener(); return; }
     if (["COMPARE", "VS", "COMPARISON"].includes(q)) { showCompare(); return; }
+    if (["MAP", "QUALITY", "QUALITY MAP", "MARKET MAP", "BUSINESS QUALITY"].includes(q)) { showQualityMap(); flash("Quality x Market map", "ok"); return; }
     if (["TRIGGERS", "TRIGGER", "ALERTS", "SIGNALS", "BUY"].includes(q)) { showTriggers(); return; }
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
     if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
@@ -3355,6 +3717,15 @@
 
   /* ------------------------ init ------------------------ */
   function init() {
+    const ws = el("wlSort");
+    if (ws) {
+      ws.value = state.watchSort;
+      ws.onchange = () => {
+        state.watchSort = ws.value;
+        localStorage.setItem("sbc_watch_sort", state.watchSort);
+        renderWatchlist();
+      };
+    }
     // filter buttons
     el("filter").querySelectorAll("button").forEach(b => b.onclick = () => {
       state.bucket = b.dataset.b;
@@ -3401,6 +3772,7 @@
     el("screenBtn").onclick = showScreener;
     el("compareBtn").onclick = showCompare;
     el("trigBtn").onclick = showTriggers;
+    el("mapBtn").onclick = showQualityMap;
     el("portBtn").onclick = showPortfolio;
     el("calBtn").onclick = showCalendar;
     el("techBtn").onclick = showTech;
@@ -3433,6 +3805,7 @@
     buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings,
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
-    fetchJsonWithRetry, SBC_MODEL_VERSION, FORMULA_VERSION };
+    fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores,
+    SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();

@@ -30,9 +30,21 @@ Missing values must stay missing. They are not converted to zero. If SBC, buybac
 
 Finnhub and FMP are optional browser keys. Finnhub is used for quotes, news, analyst targets and insider data. FMP is stored only as fallback/second-source information and must never overwrite valid SEC-backed financial arrays.
 
-## Model
+## Market / Business Model
 
-Current model version: `SBC_MODEL_VERSION = "4.0.0"`.
+Current SBC model version: `SBC_MODEL_VERSION = "4.0.0"`.
+Current market/business model version: `MARKET_TERMINAL_VERSION = "4.1.0"`.
+
+The main company view no longer uses Clean/Middle/High/Tragic as the whole-stock opinion. Those labels remain inside the SBC X-Ray only. The top-level dashboard answers six separate questions:
+
+1. Business Quality
+2. Growth and Execution
+3. Market Reward
+4. Shareholder Economics
+5. Valuation
+6. Data Confidence
+
+Data Confidence is a separate trust gate. It is shown beside the score, but it is not added to Long-Term View or Market Reward View.
 
 The valuation formula is direct:
 
@@ -43,7 +55,14 @@ Owner-earnings P/E = current price / owner earnings per share
 
 Retention percentage is kept as an explanation of the SBC haircut, not as the main P/E shortcut.
 
-Ranking requires data confidence of at least 80. Below 80, the app shows:
+The terminal includes two main combined views:
+
+- Long-Term Investment View: quality, growth, valuation, shareholder economics, and market reward.
+- Market Reward View: estimate revisions, relative strength, acceleration, surprise/guidance placeholders, sector strength, and post-earnings reaction when point-in-time history exists.
+
+Analyst estimate history lives under `data/estimates/history/*.json` and is generated into `estimates.js`. The GitHub Action `.github/workflows/estimate-history.yml` runs daily on weekdays. Without an `FMP_API_KEY` secret, histories remain explicitly empty and revision fields stay unavailable rather than being invented.
+
+Legacy SBC ranking requires data confidence of at least 80. Below 80, the app shows:
 
 ```text
 Not ranked - more filing data is needed
@@ -57,9 +76,10 @@ Run the full local gate:
 node tests/run_tests.js
 python scripts/golden_audit.py
 node tests/browser_smoke.js
+node scripts/export_score_report.js
 ```
 
-Current local result: 53 regression assertions passed, golden audit 82 verified fields and 0 conflicts, and browser smoke passed across all 60 companies plus mobile/offline reload.
+Current local result: 64 regression assertions passed, golden audit 82 verified fields and 0 conflicts, browser smoke passed across all 60 companies plus mobile/offline reload, and the score/backtest export wrote all 60 score rows.
 
 GitHub Actions also checks exact universe size, required SEC source files, calculation regressions, browser smoke coverage, the golden audit, and simple secret patterns.
 
@@ -70,3 +90,5 @@ Open the production link on your phone and use Add to Home Screen. Because it is
 ## Known Limits
 
 This is a research terminal, not investment advice. Some supplemental cash-flow/capex comparisons remain visible as source conflicts when provider presentation differs from SEC facts. Full manual filing review is tracked in `AUDIT.md`.
+
+Full historical factor backtesting is intentionally blocked until point-in-time fundamentals, estimate revisions, guidance, surprise history and earnings-reaction snapshots accumulate. The current backtest report includes a no-lookahead price-momentum pilot only and refuses to treat current snapshot fundamentals as historical evidence.

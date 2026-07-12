@@ -1,0 +1,33 @@
+name: Estimate history
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "35 22 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Collect analyst estimate snapshots
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python scripts/collect_estimates.py
+      - name: Commit changed histories
+        run: |
+          git config user.name "sbc-terminal-bot"
+          git config user.email "actions@github.com"
+          git add data/estimates/history estimates.js
+          if git diff --cached --quiet; then
+            echo "No estimate changes"
+          else
+            git commit -m "Update analyst estimate history"
+            git push
+          fi

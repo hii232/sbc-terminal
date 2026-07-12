@@ -41,7 +41,12 @@ async function main() {
   const server = await serveStatic();
   const port = server.address().port;
   const base = `http://127.0.0.1:${port}`;
-  const browser = await chromium.launch();
+  let browser;
+  try {
+    browser = await chromium.launch();
+  } catch (err) {
+    browser = await chromium.launch({ channel: "chrome" });
+  }
   const context = await browser.newContext();
   const page = await context.newPage();
   const errors = [];
@@ -59,6 +64,7 @@ async function main() {
       secMetaCompanies: SEC_META.companies,
       secMetaModel: SEC_META.modelVersion,
       model: window.__engines.SBC_MODEL_VERSION,
+      marketModel: window.ScoreEngine && window.ScoreEngine.MARKET_TERMINAL_VERSION,
       hasFlut: DATA.some((d) => d.ticker === "FLUT"),
       tickers: DATA.map((d) => d.ticker),
       oldPhrase: document.body.textContent.includes(["Headline P/E", "owner-earnings retention"].join(" ÷ ")),
@@ -67,6 +73,7 @@ async function main() {
     ok(globals.universeLen === 60, `UNIVERSE length ${globals.universeLen}`);
     ok(globals.secCount === 60 && globals.secMetaCompanies === 60, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0" && globals.model === "4.0.0", "model version missing");
+    ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");
 
@@ -80,6 +87,8 @@ async function main() {
     await page.click(".cmd .go");
     await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("AAPL"), { timeout: 3000 });
     ok((await page.textContent("#main")).includes("source priority: SEC filing facts"), "SEC-first source line missing");
+    ok((await page.textContent("#main")).includes("Business Quality"), "six-score dashboard missing");
+    ok((await page.textContent("#main")).includes("EXPECTATIONS GAP"), "expectations gap card missing");
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');
@@ -92,6 +101,7 @@ async function main() {
       ["#screenBtn", "CUSTOM SCREENER"],
       ["#valBtn", "OWNER-EARNINGS P/E"],
       ["#sectorBtn", "SECTOR FLOW"],
+      ["#mapBtn", "QUALITY x MARKET MAP"],
     ];
     for (const [selector, expected] of views) {
       await page.click(selector);
