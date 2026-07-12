@@ -31,7 +31,7 @@ const src = files.map((f) => fs.readFileSync(path.join(ROOT, f), "utf8")).join("
 vm.runInThisContext(`${src}
 globalThis.__SBC_EXPORT = { DATA, UNIVERSE_LIST, SEC, SECTORS, ESTIMATE_HISTORY, ScoreEngine: window.ScoreEngine, E: window.__engines };`, { filename: "score-export-bundle.js" });
 
-const { DATA, SECTORS, ESTIMATE_HISTORY, ScoreEngine } = global.__SBC_EXPORT;
+const { DATA, SECTORS, ESTIMATE_HISTORY, ScoreEngine, E } = global.__SBC_EXPORT;
 const ctx = { data: DATA, sectors: SECTORS, estimates: ESTIMATE_HISTORY };
 const asOf = new Date().toISOString();
 
@@ -43,6 +43,8 @@ function scoreRow(d) {
     sector: d.sector,
     price: d.price,
     ownerPE: d.truePE,
+    ownerEPS: d.ownerEps,
+    ownerEPSSource: d.ownerEpsSource || null,
     finalLabel: s.finalLabel.label,
     longTermView: s.longTermView.score,
     marketRewardView: s.marketRewardView.score,
@@ -99,6 +101,45 @@ function noLookaheadMomentumPilot(horizonWeeks) {
 }
 
 const rows = DATA.map(scoreRow).sort((a, b) => (b.longTermView || -1) - (a.longTermView || -1));
+function valuationAuditRow(d) {
+  const dc = E.dataConfidenceOf(d);
+  const impliedHeadlinePE = d.gaapEPS && d.gaapEPS > 0 && d.price ? +(d.price / d.gaapEPS).toFixed(1) : null;
+  const headlineGap = impliedHeadlinePE != null && d.headlinePE != null ? +(d.headlinePE - impliedHeadlinePE).toFixed(2) : null;
+  const flags = [];
+  if (headlineGap != null && Math.abs(headlineGap) > 0.6) flags.push("headline-pe-price-eps-mismatch");
+  if (dc.rankable && d.truePE && !/TTM quarterly/.test(d.ownerEpsSource || "")) flags.push("annual-owner-eps-basis");
+  if (dc.rankable && d.truePE == null && d.ownerEps != null && d.ownerEps <= 0) flags.push("negative-owner-eps-no-pe");
+  else if (dc.rankable && d.truePE == null) flags.push("missing-owner-pe");
+  if (d.truePE != null && d.truePE > 80) flags.push("high-owner-pe-check-expectations");
+  return {
+    ticker: d.ticker,
+    name: d.name,
+    sector: d.sector,
+    price: d.price,
+    gaapEPS: d.gaapEPS,
+    headlinePE: d.headlinePE,
+    impliedHeadlinePE,
+    headlineGap,
+    ownerEPS: d.ownerEps,
+    ownerPE: d.truePE,
+    ownerEPSSource: d.ownerEpsSource || null,
+    dataConfidence: dc.score,
+    rankable: dc.rankable,
+    flags,
+  };
+}
+const valuationRows = DATA.map(valuationAuditRow).sort((a, b) => a.ticker.localeCompare(b.ticker));
+const valuationAudit = {
+  asOf,
+  universe: DATA.length,
+  headlinePriceEpsMismatches: valuationRows.filter(r => r.flags.includes("headline-pe-price-eps-mismatch")).length,
+  rankedAnnualOwnerEpsBasis: valuationRows.filter(r => r.flags.includes("annual-owner-eps-basis")).length,
+  missingOwnerPE: valuationRows.filter(r => r.flags.includes("missing-owner-pe")).length,
+  negativeOwnerEpsNoPE: valuationRows.filter(r => r.flags.includes("negative-owner-eps-no-pe")).length,
+  highOwnerPE: valuationRows.filter(r => r.flags.includes("high-owner-pe-check-expectations")).length,
+  note: "Valuation audit checks period-basis consistency. Headline P/E must match price / GAAP EPS. Owner P/E uses TTM quarterly owner EPS when available; annual owner EPS is flagged so it is visible, not silent.",
+  rows: valuationRows,
+};
 const scoreOut = {
   asOf,
   modelVersion: ScoreEngine.MARKET_TERMINAL_VERSION,
@@ -125,6 +166,8 @@ const backtest = {
 
 fs.mkdirSync(path.join(ROOT, "data", "scores"), { recursive: true });
 fs.mkdirSync(path.join(ROOT, "data", "backtests"), { recursive: true });
+fs.mkdirSync(path.join(ROOT, "data", "audits"), { recursive: true });
 fs.writeFileSync(path.join(ROOT, "data", "scores", "latest-scores.json"), `${JSON.stringify(scoreOut, null, 2)}\n`);
 fs.writeFileSync(path.join(ROOT, "data", "backtests", "score-backtest.json"), `${JSON.stringify(backtest, null, 2)}\n`);
+fs.writeFileSync(path.join(ROOT, "data", "audits", "valuation-audit.json"), `${JSON.stringify(valuationAudit, null, 2)}\n`);
 console.log(`wrote ${rows.length} scores and no-lookahead backtest report`);

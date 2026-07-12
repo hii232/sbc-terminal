@@ -166,6 +166,13 @@ const ok = (cond, name, detail = "") => {
   ok(mu && /TTM quarterly/.test(mu.ownerEpsSource) && mu.truePE < 35,
     "MU owner P/E uses comparable TTM owner EPS, not stale annual EPS",
     mu ? `${mu.truePE}x from ${mu.ownerEpsSource}` : "MU missing");
+  const headlineMismatch = DATA.filter(d => d.gaapEPS > 0 && d.headlinePE && d.price &&
+    Math.abs(d.headlinePE - d.price / d.gaapEPS) > 0.6);
+  ok(headlineMismatch.length === 0, "headline P/E reconciles to price / GAAP EPS for the whole universe",
+    headlineMismatch.map(d => d.ticker).join(","));
+  const rankedAnnualBasis = DATA.filter(d => E.dataConfidenceOf(d).rankable && d.truePE && !/TTM quarterly/.test(d.ownerEpsSource || ""));
+  ok(rankedAnnualBasis.length <= 1, "ranked valuation mostly uses TTM owner EPS; annual-basis exceptions are visible",
+    rankedAnnualBasis.map(d => `${d.ticker}:${d.ownerEpsSource}`).join(","));
 }
 
 // =============== 9. Universe + SEC filing layer ===============

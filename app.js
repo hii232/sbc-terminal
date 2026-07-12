@@ -168,20 +168,26 @@
      when they don't. Re-run after any live financials merge.               */
   function ttmOwnerEarnings(d) {
     const q = d.qd || {};
-    const ni = Array.isArray(q.ni) ? q.ni.filter(hasNum).slice(-4) : [];
-    const sbc = Array.isArray(q.sbc) ? q.sbc.filter(hasNum).slice(-4) : [];
-    const shares = Array.isArray(q.shares) ? q.shares.filter(hasNum) : [];
-    if (ni.length < 4 || sbc.length < 4 || !shares.length) return null;
+    const niArr = Array.isArray(q.ni) ? q.ni : [];
+    const sbcArr = Array.isArray(q.sbc) ? q.sbc : [];
+    const shareArr = Array.isArray(q.shares) ? q.shares : [];
+    const bbArr = Array.isArray(q.buyback) ? q.buyback : [];
+    const rows = [];
+    for (let i = 0; i < Math.max(niArr.length, sbcArr.length, shareArr.length); i++) {
+      rows.push({ ni: niArr[i], sbc: sbcArr[i], shares: shareArr[i], buyback: bbArr[i] });
+    }
+    const usable = rows.filter(r => hasNum(r.ni) && hasNum(r.sbc) && hasNum(r.shares));
+    if (usable.length < 4) return null;
+    const ttmRows = usable.slice(-4);
     const sum = a => a.reduce((x, y) => x + y, 0);
-    const ttmNI = sum(ni), ttmSbc = sum(sbc);
-    const latestShares = shares[shares.length - 1];
+    const ttmNI = sum(ttmRows.map(r => +r.ni)), ttmSbc = sum(ttmRows.map(r => +r.sbc));
+    const latestShares = +ttmRows[ttmRows.length - 1].shares;
     const pxArr = d.px && d.px.v && d.px.v.length ? d.px.v.slice(-26) : null;
     const avgP = pxArr ? pxArr.reduce((a, v) => a + v, 0) / pxArr.length : (d.price || null);
     let shareCost = ttmSbc, mnaShares = 0;
-    const bb = Array.isArray(q.buyback) ? q.buyback.filter(hasNum).slice(-4) : [];
-    const ttmBuyback = bb.length ? sum(bb) : 0;
-    if (avgP && shares.length >= 5 && ttmSbc > 0) {
-      const dSh = shares[shares.length - 1] - shares[shares.length - 5];
+    const ttmBuyback = sum(ttmRows.map(r => hasNum(r.buyback) ? +r.buyback : 0));
+    if (avgP && usable.length >= 5 && ttmSbc > 0) {
+      const dSh = +usable[usable.length - 1].shares - +usable[usable.length - 5].shares;
       const bought = ttmBuyback > 0 ? ttmBuyback / avgP : 0;
       const grossIssued = Math.max(0, dSh + bought);
       const cap = (ttmSbc * 1.5) / avgP;
@@ -3054,6 +3060,24 @@
       verifiedFields += sv.verified.length;
       missingFields += sv.missing.length;
     });
+    const valuationAudit = DATA.map(d => {
+      const dc = dataConfidenceOf(d);
+      const impliedHeadlinePE = d.gaapEPS > 0 && d.price ? +(d.price / d.gaapEPS).toFixed(1) : null;
+      const flags = [];
+      if (impliedHeadlinePE != null && d.headlinePE != null && Math.abs(d.headlinePE - impliedHeadlinePE) > 0.6) flags.push("headline mismatch");
+      if (dc.rankable && d.truePE && !/TTM quarterly/.test(d.ownerEpsSource || "")) flags.push("annual basis");
+      if (dc.rankable && d.truePE == null && d.ownerEps != null && d.ownerEps <= 0) flags.push("negative owner EPS");
+      else if (dc.rankable && d.truePE == null) flags.push("missing owner P/E");
+      if (d.truePE != null && d.truePE > 80) flags.push("high owner P/E");
+      return { d, dc, impliedHeadlinePE, flags };
+    });
+    const valCounts = {
+      mismatch: valuationAudit.filter(x => x.flags.includes("headline mismatch")).length,
+      annual: valuationAudit.filter(x => x.flags.includes("annual basis")).length,
+      missing: valuationAudit.filter(x => x.flags.includes("missing owner P/E")).length,
+      negative: valuationAudit.filter(x => x.flags.includes("negative owner EPS")).length,
+      high: valuationAudit.filter(x => x.flags.includes("high owner P/E")).length,
+    };
     const atLeastPartial = tiers["FILING VERIFIED*"] + tiers["PARTIALLY VERIFIED"];
     const rows = [...DATA].sort((a, b) => a.ticker.localeCompare(b.ticker)).map(d => {
       const q = dataQualityOf(d), sv = d.secv || { verified: [], conflict: [], missing: [], latest: null };
@@ -3083,6 +3107,12 @@
           <div class="kv"><span class="k">Fundamentals snapshot</span><span class="v">${((DATA[0].snapshot || "").match(/\d{4}-\d{2}-\d{2}/) || ["?"])[0]}</span></div>
           <div class="kv"><span class="k">Regression tests</span><span class="v">node tests/run_tests.js</span></div>
           <button class="scr-reset" id="checkUpdate" style="margin-top:8px">Check for data update</button></div>
+        <div class="card"><h3>VALUATION AUDIT</h3>
+          <div class="kv"><span class="k">Headline P/E mismatches</span><span class="v ${valCounts.mismatch ? "down" : "up"}">${valCounts.mismatch}</span></div>
+          <div class="kv"><span class="k">Annual-basis exceptions</span><span class="v ${valCounts.annual ? "sub" : "up"}">${valCounts.annual}</span></div>
+          <div class="kv"><span class="k">Missing owner P/E</span><span class="v ${valCounts.missing ? "down" : "up"}">${valCounts.missing}</span></div>
+          <div class="kv"><span class="k">Negative owner EPS</span><span class="v ${valCounts.negative ? "down" : "up"}">${valCounts.negative}</span></div>
+          <div class="kv"><span class="k">High owner P/E checks</span><span class="v" style="color:var(--amber)">${valCounts.high}</span></div></div>
       </div>
       <div class="note" style="margin-bottom:12px">*FILING VERIFIED = 5+ core fields automatically reconciled to SEC XBRL facts with no open conflicts. PARTIALLY VERIFIED = at least 2 SEC matches, but conflicts or missing/non-comparable fields remain. This is NOT a manual line-by-line audit. Conflicts are flagged, never silently resolved. Missing SEC facts stay missing — never zero. Current coverage: <b>${tiers["FILING VERIFIED*"]}/${total} filing verified*</b>, <b>${atLeastPartial}/${total} at least partially verified</b>, <b>${missingFields}</b> missing/non-comparable field checks.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:62vh;overflow-y:auto"><table class="rank">
