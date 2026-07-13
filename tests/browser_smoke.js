@@ -98,7 +98,7 @@ async function main() {
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');
-    await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim() === "1/60", { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim().startsWith("1/60"), { timeout: 3000 });
 
     const views = [
       ["#rankBtn", "MASTER RANKINGS"],

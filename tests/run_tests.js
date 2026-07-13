@@ -321,5 +321,18 @@ const ok = (cond, name, detail = "") => {
   ok(merged.find(e => e.symbol === "ASML").epsEstimate === 7.01, "live earnings row overrides bundled estimate when available");
 }
 
+// =============== 14. Live quote tape ===============
+{
+  ok(E.isMarketHours(new Date("2026-07-13T14:00:00Z")) === true, "market-hours detector true during regular session");
+  ok(E.isMarketHours(new Date("2026-07-13T22:00:00Z")) === false, "market-hours detector false after close");
+  ok(E.isMarketHours(new Date("2026-07-12T14:00:00Z")) === false, "market-hours detector false on Sunday");
+  const aapl = DATA.find(d => d.ticker === "AAPL");
+  const oldPe = aapl.truePE;
+  const okQuote = E.applyLiveQuote("AAPL", aapl.price + 10, 1.23, "fixture");
+  ok(okQuote === true, "applyLiveQuote accepts valid live price");
+  ok(aapl.truePE !== oldPe, "live quote recomputes price-derived owner P/E");
+  ok(E.applyLiveQuote("AAPL", 0, 0, "bad") === false, "applyLiveQuote rejects zero/invalid price");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

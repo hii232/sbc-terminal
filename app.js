@@ -21,6 +21,9 @@
     watchSort: localStorage.getItem("sbc_watch_sort") || "longTermView",
     keys: { finnhub: localStorage.getItem("finnhubKey") || DEFAULT_FINNHUB, fmp: localStorage.getItem("fmpKey") || "" },
     live: {}, // ticker -> {quote, news}
+    liveTimer: null,
+    quoteRefreshing: false,
+    liveStatus: { lastFullRefresh: null, lastCount: 0, source: "snapshot" },
     secOn: new Set(["XLK", "SMH", "XLF", "XLV", "XLE", "SPY"]), // default sector lines
   };
 
@@ -595,10 +598,15 @@
     </svg>`;
   }
   const watchScoreText = (s) => s == null ? "--" : String(Math.round(s));
+  function liveHeaderStatus() {
+    if (!state.keys.finnhub && !state.keys.fmp) return "snapshot";
+    const age = state.liveStatus.lastFullRefresh ? Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000) : null;
+    return `${isMarketHours() ? "live" : "stale"} ${state.liveStatus.lastCount || 0}${age == null ? "" : `/${age}s`}`;
+  }
   function renderWatchlist() {
     const list = DATA.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap);
-    el("wlCount").textContent = list.length + "/" + DATA.length;
+    el("wlCount").textContent = `${list.length}/${DATA.length} · ${liveHeaderStatus()}`;
     const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)" };
     if (state.bucket === "fav" && !list.length) {
       el("watchlist").innerHTML = `<div class="sub" style="padding:16px;text-align:center">No starred names yet.<br>Tap the ☆ on any stock to add it here.</div>`;
@@ -4072,6 +4080,37 @@
     return mergeFmp(d, inc, cf);
   }
 
+  function applyLiveQuote(tk, price, changePct, source) {
+    const d = DATA.find(x => x.ticker === tk);
+    if (!d || !price || price <= 0) return false;
+    state.live[tk] = state.live[tk] || {};
+    state.live[tk].quote = { price: +price, changePct: changePct ?? 0, source: source || "live", ts: Date.now() };
+    state.live[tk].fetchedAt = Date.now();
+    // Recompute price-derived multiples and score tiles whenever live price moves.
+    if (d.gaapEPS > 0) {
+      d.headlinePE = +(price / d.gaapEPS).toFixed(1);
+      d.truePE = d.ownerEps > 0 ? +(price / d.ownerEps).toFixed(1) : null;
+    }
+    delete d.marketScores;
+    return true;
+  }
+
+  async function fetchFmpQuoteBatch(tickers) {
+    if (!state.keys.fmp || !tickers.length) return 0;
+    const symbols = tickers.join(",");
+    const rows = await fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/quote/${symbols}?apikey=${state.keys.fmp}`, {
+      provider: "FMP quote batch", ticker: "UNIVERSE", cacheMs: 15 * 1000
+    });
+    if (!Array.isArray(rows)) return 0;
+    let ok = 0;
+    rows.forEach(q => {
+      const tk = q.symbol || q.ticker;
+      const ch = q.changesPercentage ?? q.changePercentage ?? q.changePercent;
+      if (applyLiveQuote(tk, q.price, ch, "FMP batch")) ok++;
+    });
+    return ok;
+  }
+
   async function fetchLive(tk, full = true) {
     const d = DATA.find(x => x.ticker === tk);
     if (!d) return;
@@ -4081,14 +4120,7 @@
     if (k.finnhub) {
       tasks.push(fetchJsonWithRetry(`https://finnhub.io/api/v1/quote?symbol=${tk}&token=${k.finnhub}`, { provider: "Finnhub quote", ticker: tk, cacheMs: 30 * 1000 })
         .then(q => {
-          if (q && q.c) {
-            state.live[tk].quote = { price: q.c, changePct: q.dp ?? 0 };
-            // recompute price-derived multiples so they never go stale vs live price
-            if (d.gaapEPS > 0) {
-              d.headlinePE = +(q.c / d.gaapEPS).toFixed(1);
-              d.truePE = d.ownerEps > 0 ? +(q.c / d.ownerEps).toFixed(1) : null;
-            }
-          }
+          if (q && q.c) applyLiveQuote(tk, q.c, q.dp ?? 0, "Finnhub");
         }).catch(() => {}));
       if (full) { // news only for the selected ticker — keeps the free key inside 60 calls/min
         const to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 30;
@@ -4108,6 +4140,9 @@
             state.live[tk].insider = { net: net / 1e6, buys, sells };
           }).catch(() => {}));
       }
+    }
+    if (!k.finnhub && k.fmp) {
+      tasks.push(fetchFmpQuoteBatch([tk]).catch(() => 0));
     }
     if (full && k.fmp) {
       tasks.push(Promise.all([
@@ -4169,6 +4204,66 @@
     const on = !!(state.keys.finnhub || state.keys.fmp);
     el("liveDot").classList.toggle("on", on);
     el("liveBtn").title = on ? "LIVE data connected" : "Bundled snapshots (click gear to connect)";
+  }
+
+  function etParts(now = new Date()) {
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/New_York", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
+    }).formatToParts(now).reduce((a, p) => (a[p.type] = p.value, a), {});
+    return { day: parts.weekday, mins: (+parts.hour) * 60 + (+parts.minute) };
+  }
+  function isMarketHours(now = new Date()) {
+    const p = etParts(now);
+    return !["Sat", "Sun"].includes(p.day) && p.mins >= 570 && p.mins <= 960;
+  }
+  function liveStatusText() {
+    if (!state.keys.finnhub && !state.keys.fmp) return "snapshot mode - add Finnhub/FMP key";
+    const age = state.liveStatus.lastFullRefresh ? Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000) : null;
+    const open = isMarketHours() ? "market open" : "market closed";
+    return `${open} - ${state.liveStatus.source || "live"} - ${state.liveStatus.lastCount || 0}/60${age == null ? "" : ` - ${age}s ago`}`;
+  }
+  async function refreshAllLive(opts = {}) {
+    const silent = !!opts.silent;
+    if (!state.keys.finnhub && !state.keys.fmp) { updateLiveDot(); return 0; }
+    if (state.quoteRefreshing) return state.liveStatus.lastCount || 0;
+    state.quoteRefreshing = true;
+    const all = DATA.map(d => d.ticker);
+    let ok = 0, fails = 0, source = state.keys.fmp ? "FMP batch" : "Finnhub rotation";
+    if (!silent) flash("Live prices updating...", "ok");
+    try {
+      if (state.keys.fmp) {
+        ok = await fetchFmpQuoteBatch(all);
+      } else {
+        for (const tk of all) {
+          try { await fetchLive(tk, false); if (state.live[tk]?.quote) ok++; }
+          catch (e) { fails++; }
+          await sleep(1050);
+        }
+      }
+      state.liveStatus = { lastFullRefresh: Date.now(), lastCount: ok, source };
+      if (state.active && state.live[state.active]?.quote) render();
+      renderWatchlist();
+      updateLiveDot();
+      if (!silent) flash(`Live prices updated: ${ok}/60${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
+      return ok;
+    } finally {
+      state.quoteRefreshing = false;
+    }
+  }
+  function startLiveTape() {
+    if (state.liveTimer) clearInterval(state.liveTimer);
+    if (!state.keys.finnhub && !state.keys.fmp) { updateLiveDot(); return; }
+    refreshAllLive({ silent: false });
+    state.liveTimer = setInterval(() => {
+      if (document.hidden) return;
+      if (isMarketHours()) refreshAllLive({ silent: true });
+      else if (!state.liveStatus.lastFullRefresh || Date.now() - state.liveStatus.lastFullRefresh > 10 * 60 * 1000) refreshAllLive({ silent: true });
+    }, state.keys.fmp ? 30 * 1000 : 70 * 1000);
+  }
+  function updateLiveDot() {
+    const on = !!(state.keys.finnhub || state.keys.fmp);
+    el("liveDot").classList.toggle("on", on);
+    el("liveBtn").title = on ? liveStatusText() : "Bundled snapshots (click gear to connect)";
   }
 
   /* ------------------------ command / search ------------------------ */
@@ -4252,6 +4347,8 @@
     el("clearKeys").onclick = () => {
       localStorage.removeItem("finnhubKey"); localStorage.removeItem("fmpKey");
       state.keys = { finnhub: "", fmp: "" }; el("finnhubKey").value = ""; el("fmpKey").value = "";
+      if (state.liveTimer) clearInterval(state.liveTimer);
+      state.liveTimer = null;
       updateLiveDot(); flash("Keys cleared — back to snapshots", "ok");
     };
     el("saveKeys").onclick = () => {
@@ -4261,9 +4358,9 @@
       localStorage.setItem("fmpKey", state.keys.fmp);
       el("modal").classList.remove("open");
       updateLiveDot();
-      refreshAllLive();
+      startLiveTape();
     };
-    el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) refreshAllLive(); else el("gearBtn").click(); };
+    el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) startLiveTape(); else el("gearBtn").click(); };
     el("homeBtn").onclick = showHome;
     el("sectorBtn").onclick = showSectors;
     el("narrBtn").onclick = showNarratives;
@@ -4301,8 +4398,9 @@
     syncMobileChrome();
     updateLiveDot();
     tickClock(); setInterval(tickClock, 1000);
-    // On load only refresh the active name (selectTicker already did); bulk
-    // 60-name live refresh is opt-in via the live button.
+    startLiveTape();
+    document.addEventListener("visibilitychange", () => { if (!document.hidden && (state.keys.finnhub || state.keys.fmp)) refreshAllLive({ silent: true }); });
+    setInterval(updateLiveDot, 15 * 1000);
     // PWA: offline/phone support (only when served over http(s), not file://)
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
       const hadController = !!navigator.serviceWorker.controller;
@@ -4312,7 +4410,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=35").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=36").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4322,6 +4420,7 @@
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    applyLiveQuote, fetchFmpQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();
