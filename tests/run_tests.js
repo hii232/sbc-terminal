@@ -298,5 +298,15 @@ const ok = (cond, name, detail = "") => {
   ok(map.every(p => p.ticker && p.label), "quality map rows have ticker and label");
 }
 
+// =============== 12. Inflation desk ===============
+{
+  ok(E.INFLATION && E.INFLATION.series.length >= 6, "inflation macro snapshot includes CPI/PPI drivers");
+  const rows = DATA.map(d => ({ d, x: E.inflationOf(d) }));
+  ok(rows.length === 60, "inflation model covers exactly 60 tickers", String(rows.length));
+  ok(rows.every(r => r.x.score >= 0 && r.x.score <= 100 && r.x.profile && r.x.label), "inflation scores are bounded and labelled");
+  const nvda = rows.find(r => r.d.ticker === "NVDA");
+  ok(nvda && nvda.x.bits.some(b => /multiple|pricing|input|demand/i.test(b)), "NVDA inflation x-ray explains the stock-price channel");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

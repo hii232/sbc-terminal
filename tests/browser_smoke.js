@@ -94,6 +94,7 @@ async function main() {
     ok((await page.textContent("#main")).includes("source priority: SEC filing facts"), "SEC-first source line missing");
     ok((await page.textContent("#main")).includes("Business Quality"), "six-score dashboard missing");
     ok((await page.textContent("#main")).includes("EXPECTATIONS GAP"), "expectations gap card missing");
+    ok((await page.textContent("#main")).includes("INFLATION X-RAY"), "ticker-level inflation x-ray missing");
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');
@@ -107,6 +108,7 @@ async function main() {
       ["#valBtn", "OWNER-EARNINGS P/E"],
       ["#sectorBtn", "SECTOR FLOW"],
       ["#mapBtn", "QUALITY x MARKET MAP"],
+      ["#macroBtn", "INFLATION DESK"],
     ];
     for (const [selector, expected] of views) {
       await page.click(selector);

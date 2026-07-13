@@ -49,6 +49,32 @@
     "Consumer Disc": "XLY", "Comm Services": "XLC",
   };
   const sectorETF = (sec) => SECTOR_MAP[sec] || "SPY"; // safe fallback
+  const INFLATION = {
+    asOf: "May 2026", nextRelease: "June CPI scheduled July 14, 2026 8:30 ET",
+    source: "BLS CPI/PPI public data snapshot bundled 2026-07-13",
+    series: [
+      { k: "Headline CPI", yoy: 4.2, latest: 335.123, heat: "hot", why: "all-items inflation is still above the Fed comfort zone" },
+      { k: "Core CPI", yoy: 2.9, latest: 336.846, heat: "sticky", why: "core excludes food/energy and drives rate expectations" },
+      { k: "Shelter", yoy: 3.4, latest: 428.677, heat: "sticky", why: "rent/OER lag keeps services inflation slow to cool" },
+      { k: "Energy", yoy: 23.5, latest: 346.042, heat: "shock", why: "energy shock hits transports, consumers and input costs first" },
+      { k: "Food", yoy: 3.1, latest: 349.032, heat: "warm", why: "food pressure hits staples volumes and low-income consumer spend" },
+      { k: "PPI Final Demand", yoy: 6.5, latest: 158.012, heat: "margin", why: "producer prices lead margin pressure unless pricing power holds" },
+    ],
+  };
+  const INFLATION_SECTORS = {
+    SMH: { name: "Semis / AI", multiple: 3, input: 2, demand: 1, pass: 1, note: "long-duration multiples and capex cycles are vulnerable to sticky rates; energy/input shocks pressure fabs and equipment." },
+    XLK: { name: "Software / Tech", multiple: 3, input: 1, demand: 1, pass: 2, note: "high multiples re-rate when inflation keeps rates high; best software offsets with pricing power and low physical input costs." },
+    XLY: { name: "Consumer Discretionary", multiple: 2, input: 2, demand: 3, pass: 1, note: "inflation taxes the consumer; weak pass-through names lose volume or margin." },
+    XLP: { name: "Staples", multiple: 1, input: 2, demand: 0, pass: 2, note: "defensive demand helps, but food/freight inflation tests gross margin and private-label trade-down." },
+    XLE: { name: "Energy", multiple: 0, input: 0, demand: 1, pass: 3, note: "energy inflation is usually a revenue tailwind, unless demand destruction appears." },
+    XLF: { name: "Financials", multiple: 1, input: 0, demand: 2, pass: 2, note: "higher rates can help net interest income, but credit losses and weaker asset prices are the offset." },
+    XLV: { name: "Health Care", multiple: 1, input: 1, demand: 0, pass: 2, note: "defensive demand and regulated/reimbursed pricing make the sector less cyclical." },
+    XLI: { name: "Industrials", multiple: 1, input: 3, demand: 1, pass: 1, note: "labor, freight, metals and energy feed directly into margins unless backlog pricing resets." },
+    XLC: { name: "Comms / Media", multiple: 2, input: 1, demand: 2, pass: 1, note: "ad budgets and subscriptions weaken if inflation squeezes consumers and SMBs." },
+    XLB: { name: "Materials", multiple: 1, input: 2, demand: 1, pass: 2, note: "commodity inflation can help revenue, but spread businesses need pricing over input costs." },
+    XLRE: { name: "Real Estate", multiple: 3, input: 2, demand: 2, pass: 1, note: "rate-sensitive cap rates and financing costs dominate; rent escalators help only with a lag." },
+    SPY: { name: "Market", multiple: 2, input: 2, demand: 1, pass: 1, note: "sticky inflation raises discount rates and compresses multiples first." },
+  };
   const secByT = (t) => SECTORS.series.find(s => s.t === t);
   const perfSeries = (s) => s.closes.map(c => +(((c / s.closes[0]) - 1) * 100).toFixed(1));
   const retOver = (s, m) => { // % return over last m months
@@ -483,6 +509,32 @@
       : s[key]?.score;
   };
   const scoreColorOf = (v) => v == null ? "var(--dim)" : v >= 75 ? "var(--green)" : v >= 58 ? "var(--amber)" : v >= 42 ? "var(--orange)" : "var(--red)";
+  function inflationOf(d) {
+    const etf = sectorETF(d.sector);
+    const p = INFLATION_SECTORS[etf] || INFLATION_SECTORS.SPY;
+    const m = marketScoreOf(d) || {};
+    const bq = m.businessQuality?.score ?? 50;
+    const val = m.valuation?.score ?? 50;
+    const margin = d.revenue?.length && d.ni?.length ? (lastVal(d.ni) / Math.max(0.001, lastVal(d.revenue))) * 100 : null;
+    const duration = d.truePE == null ? 3 : d.truePE > 70 ? 3 : d.truePE > 40 ? 2 : d.truePE > 25 ? 1 : 0;
+    const pricing = bq >= 75 ? 3 : bq >= 62 ? 2 : bq >= 48 ? 1 : 0;
+    const marginShield = margin == null ? 1 : margin >= 25 ? 2 : margin >= 12 ? 1 : 0;
+    const inputCost = p.input + (d.bucket === "tragic" ? 1 : d.bucket === "high" ? 0.5 : 0);
+    const demandHit = p.demand + (["Retail", "Travel", "Restaurants", "Apparel", "Auto/AI", "Ride-Hailing", "Gaming"].includes(d.sector) ? 1 : 0);
+    const rateHit = p.multiple + duration + (val < 35 ? 1 : 0);
+    const passThrough = p.pass + pricing + marginShield;
+    const raw = passThrough - inputCost - demandHit - rateHit;
+    const score = Math.max(0, Math.min(100, Math.round(50 + raw * 8)));
+    const label = score >= 68 ? "inflation resilient" : score >= 52 ? "mixed" : score >= 38 ? "pressured" : "high risk";
+    const color = score >= 68 ? "var(--green)" : score >= 52 ? "var(--amber)" : score >= 38 ? "var(--orange)" : "var(--red)";
+    const bits = [];
+    if (rateHit >= 5) bits.push("multiple pressure from sticky rates");
+    if (inputCost >= 3) bits.push("input-cost margin pressure");
+    if (demandHit >= 3) bits.push("consumer/demand squeeze");
+    if (passThrough >= 5) bits.push("pricing power offsets inflation");
+    if (etf === "XLE") bits.push("energy inflation can be a revenue tailwind");
+    return { etf, profile: p, score, label, color, rateHit, inputCost, demandHit, passThrough, margin, bits };
+  }
   /* ------------------------ favorites + portfolio (localStorage) ------------------------ */
   const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
   state.favs = new Set(loadJSON("sbc_favs", []));
@@ -559,7 +611,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "auditBtn"];
+  const VIEW_BTNS = ["homeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -643,7 +695,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, sectors: showSectors, narratives: showNarratives, valuation: showValuation,
+        const map = { home: showHome, sectors: showSectors, narratives: showNarratives, valuation: showValuation, inflation: showInflation,
           rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
           triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -1013,6 +1065,8 @@
       ${qualityCard(d)}
 
       ${analystCard(d)}
+
+      ${inflationCard(d)}
 
       ${sectorContextCard(d)}
 
@@ -1453,6 +1507,25 @@
         <h3>SOURCE DISCIPLINE</h3>
         <div class="sub">Earnings dates and EPS/revenue estimate fields come from live market-data providers when keys are connected. They are <b>Street consensus / non-GAAP expectation data</b>, not SEC filing facts. Filing history, SBC burden, share count and owner EPS come from the terminal's bundled filing/SEC layer.</div>
       </div>
+    </div>`;
+  }
+
+  function inflationCard(d) {
+    const x = inflationOf(d);
+    const bits = x.bits.length ? x.bits.join(" · ") : x.profile.note;
+    const channel = x.rateHit >= 5 ? "multiple compression first" :
+      x.inputCost >= 3 ? "margin pressure first" :
+      x.demandHit >= 3 ? "revenue pressure first" :
+      x.passThrough >= 5 ? "pricing power can defend EPS" : "mixed EPS and multiple effects";
+    return `<div class="card" style="border-left:3px solid ${x.color}">
+      <h3>INFLATION X-RAY <span class="unit">${x.profile.name}</span></h3>
+      <div class="stat" style="color:${x.color}">${x.score}</div>
+      <div class="sub">${x.label} · ${channel}</div>
+      <div class="kv"><span class="k">Stock-price channel</span><span class="v">${bits}</span></div>
+      <div class="kv"><span class="k">Rates / P/E pressure</span><span class="v">${x.rateHit.toFixed(1)} / 7</span></div>
+      <div class="kv"><span class="k">Input-cost pressure</span><span class="v">${x.inputCost.toFixed(1)} / 4</span></div>
+      <div class="kv"><span class="k">Consumer demand hit</span><span class="v">${x.demandHit.toFixed(1)} / 4</span></div>
+      <div class="kv"><span class="k">Pricing-power shield</span><span class="v">${x.passThrough.toFixed(1)} / 8</span></div>
     </div>`;
   }
 
@@ -3090,6 +3163,39 @@
   }
   const showOptions = () => showView("options", renderOptions, "optBtn");
 
+  function renderInflation() {
+    const rows = DATA.map(d => ({ d, inf: inflationOf(d), m: marketScoreOf(d), L: ivLadder(d) }));
+    const resilient = [...rows].sort((a, b) => b.inf.score - a.inf.score || (b.m?.businessQuality?.score || 0) - (a.m?.businessQuality?.score || 0)).slice(0, 10);
+    const pressured = [...rows].sort((a, b) => a.inf.score - b.inf.score || (b.d.truePE || 0) - (a.d.truePE || 0)).slice(0, 10);
+    const sectorRows = Object.entries(INFLATION_SECTORS).filter(([k]) => k !== "SPY").map(([k, p]) => {
+      const names = rows.filter(x => x.inf.etf === k);
+      const avg = names.length ? names.reduce((a, x) => a + x.inf.score, 0) / names.length : 50;
+      return { k, p, avg };
+    }).sort((a, b) => a.avg - b.avg);
+    const macroCard = (s) => `<div class="card"><h3>${s.k}</h3><div class="stat" style="color:${s.yoy >= 6 ? "var(--red)" : s.yoy >= 4 ? "var(--orange)" : s.yoy >= 3 ? "var(--amber)" : "var(--green)"}">${s.yoy.toFixed(1)}%</div><div class="sub">YoY · ${s.heat}</div><div class="sub" style="margin-top:6px">${s.why}</div></div>`;
+    const stockRow = (x) => `<div class="home-row" data-tk="${x.d.ticker}"><div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div><div class="sub">${x.inf.bits.slice(0, 2).join(" · ") || x.inf.profile.note}</div><strong style="color:${x.inf.color}">${x.inf.score}</strong></div>`;
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick" style="color:var(--orange)">INFLATION DESK</div><div class="co">CPI · Core CPI · Shelter · Energy · Food · PPI -> sector pressure -> ticker impact</div></div>
+        <div class="spacer"></div><div style="text-align:right"><div class="sub">SNAPSHOT</div><div class="stat sm">${INFLATION.asOf}</div></div>
+      </div>
+      <div class="note" style="margin-bottom:12px">Bundled official macro snapshot: ${INFLATION.source}. ${INFLATION.nextRelease}. This desk estimates how inflation can affect stock prices through <b>valuation multiples</b>, <b>margins</b>, <b>consumer demand</b>, and <b>sector pass-through</b>.</div>
+      <div class="grid g3" style="margin-bottom:12px">${INFLATION.series.map(macroCard).join("")}</div>
+      <div class="grid g2">
+        <div class="card"><h3>SECTOR INFLATION PRESSURE <span class="unit">higher score = more resilient</span></h3>${sectorRows.map(x => `<div class="home-row"><div><b>${x.k}</b><span>${x.p.name}</span></div><div class="sub">${x.p.note}</div><strong style="color:${scoreColorOf(x.avg)}">${x.avg.toFixed(0)}</strong></div>`).join("")}</div>
+        <div class="card"><h3>INFLATION RESILIENT WATCHLIST</h3>${resilient.map(stockRow).join("")}</div>
+        <div class="card"><h3>INFLATION PRESSURED WATCHLIST</h3>${pressured.map(stockRow).join("")}</div>
+        <div class="card"><h3>HOW TO READ IT</h3>
+          <div class="note" style="margin-bottom:8px"><b style="color:var(--red)">Sticky core/shelter</b> raises discount rates and hurts long-duration P/E. <b style="color:var(--orange)">PPI/energy</b> hits margins first. <b style="color:var(--green)">Pricing power</b> and high margins are the shield.</div>
+          <div class="kv"><span class="k">Stock price path</span><span class="v">multiple compression + EPS revisions</span></div>
+          <div class="kv"><span class="k">Best defense</span><span class="v">pricing power, low input cost, clean balance sheet</span></div>
+          <div class="kv"><span class="k">Worst setup</span><span class="v">high P/E, weak margins, consumer sensitivity</span></div>
+        </div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+  function showInflation() { showView("inflation", renderInflation, "macroBtn"); }
+
   /* ============ 🧾 DATA AUDIT — can this terminal be trusted? ============ */
   function renderAudit() {
     const tiers = { "FILING VERIFIED*": 0, "PARTIALLY VERIFIED": 0, "HEURISTIC": 0 };
@@ -3996,6 +4102,7 @@
     if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
     if (["TECH", "SW50", "SOFTWARE", "SEMIS", "TECHDESK"].includes(q)) { showTech(); return; }
     if (["OPTIONS", "OPTS", "PUTS", "CALLS", "VOL", "IV"].includes(q)) { showOptions(); return; }
+    if (["INFLATION", "CPI", "PPI", "MACRO", "RATES", "FED"].includes(q)) { showInflation(); flash("Inflation desk", "ok"); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
       showValuation(); flash("Est owner-earnings P/E screener", "ok"); return;
@@ -4091,6 +4198,7 @@
     el("calBtn").onclick = showCalendar;
     el("techBtn").onclick = showTech;
     el("optBtn").onclick = showOptions;
+    el("macroBtn").onclick = showInflation;
     el("auditBtn").onclick = showAudit;
     el("drawerClose").onclick = closeDrawer;
     el("navSearch").onclick = () => {
@@ -4117,7 +4225,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=33").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=34").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4126,6 +4234,7 @@
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
+    inflationOf, INFLATION,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();
