@@ -109,11 +109,16 @@ async function main() {
       ["#sectorBtn", "SECTOR FLOW"],
       ["#mapBtn", "QUALITY x MARKET MAP"],
       ["#macroBtn", "INFLATION DESK"],
+      ["#calBtn", "THIS WEEK'S MARKET EARNINGS TAPE"],
     ];
     for (const [selector, expected] of views) {
       await page.click(selector);
       await page.waitForFunction((txt) => document.querySelector("#main")?.textContent.includes(txt), expected, { timeout: 3000 });
     }
+    await page.waitForFunction(() => {
+      const t = document.querySelector("#main")?.textContent || "";
+      return t.includes("ASML") && t.includes("NFLX") && t.includes("2026-07-15");
+    }, { timeout: 3000 });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "domcontentloaded" });

@@ -75,6 +75,33 @@
     XLRE: { name: "Real Estate", multiple: 3, input: 2, demand: 2, pass: 1, note: "rate-sensitive cap rates and financing costs dominate; rent escalators help only with a lag." },
     SPY: { name: "Market", multiple: 2, input: 2, demand: 1, pass: 1, note: "sticky inflation raises discount rates and compresses multiples first." },
   };
+  const EARNINGS_FOCUS = {
+    asOf: "2026-07-13",
+    source: "Earnings Whispers most-anticipated week + market-calendar cross-check",
+    note: "July 13-17, 2026 earnings week: banks test credit/NII, ASML/TSM test AI capex, NFLX tests consumer and ads.",
+    rows: [
+      { date: "2026-07-14", symbol: "JPM", name: "JPMorgan Chase", hour: "bmo", theme: "Banks / credit" },
+      { date: "2026-07-14", symbol: "BAC", name: "Bank of America", hour: "bmo", theme: "Banks / credit" },
+      { date: "2026-07-14", symbol: "C", name: "Citigroup", hour: "bmo", theme: "Banks / credit" },
+      { date: "2026-07-14", symbol: "GS", name: "Goldman Sachs", hour: "bmo", theme: "Capital markets" },
+      { date: "2026-07-14", symbol: "WFC", name: "Wells Fargo", hour: "bmo", theme: "Banks / credit" },
+      { date: "2026-07-15", symbol: "ASML", name: "ASML", hour: "bmo", theme: "AI capex / semi equipment", epsEstimate: 6.88 },
+      { date: "2026-07-15", symbol: "BLK", name: "BlackRock", hour: "bmo", theme: "Asset management" },
+      { date: "2026-07-15", symbol: "JNJ", name: "Johnson & Johnson", hour: "bmo", theme: "Health care" },
+      { date: "2026-07-15", symbol: "MS", name: "Morgan Stanley", hour: "bmo", theme: "Capital markets" },
+      { date: "2026-07-15", symbol: "PGR", name: "Progressive", hour: "bmo", theme: "Insurance" },
+      { date: "2026-07-16", symbol: "TSM", name: "Taiwan Semiconductor", hour: "bmo", theme: "AI semis / foundry" },
+      { date: "2026-07-16", symbol: "UNH", name: "UnitedHealth", hour: "bmo", theme: "Health care / managed care" },
+      { date: "2026-07-16", symbol: "GE", name: "GE Aerospace", hour: "bmo", theme: "Industrials / aerospace" },
+      { date: "2026-07-16", symbol: "NFLX", name: "Netflix", hour: "amc", theme: "Consumer / ads", epsEstimate: 0.79 },
+      { date: "2026-07-16", symbol: "AA", name: "Alcoa", hour: "amc", theme: "Materials / aluminum" },
+      { date: "2026-07-17", symbol: "AXP", name: "American Express", hour: "bmo", theme: "Consumer credit" },
+      { date: "2026-07-17", symbol: "FITB", name: "Fifth Third", hour: "bmo", theme: "Regional banks" },
+      { date: "2026-07-17", symbol: "RF", name: "Regions Financial", hour: "bmo", theme: "Regional banks" },
+      { date: "2026-07-17", symbol: "TRV", name: "Travelers", hour: "bmo", theme: "Insurance" },
+      { date: "2026-07-17", symbol: "ERIC", name: "Ericsson", hour: "bmo", theme: "Telecom equipment" },
+    ],
+  };
   const secByT = (t) => SECTORS.series.find(s => s.t === t);
   const perfSeries = (s) => s.closes.map(c => +(((c / s.closes[0]) - 1) * 100).toFixed(1));
   const retOver = (s, m) => { // % return over last m months
@@ -3284,6 +3311,66 @@
   const showCompare = () => showView("compare", renderCompare, "compareBtn");
   const showTriggers = () => showView("triggers", renderTriggers, "trigBtn");
   const showPortfolio = () => showView("portfolio", renderPortfolio, "portBtn");
+  const fmtEarningsDate = (dt) => dt.toISOString().slice(0, 10);
+  const earningsWhen = (hour) => hour === "bmo" ? "pre-open" : hour === "amc" ? "after-close" : hour || "";
+  function bundledEarningsRows(fromDate, toDate, universeOnly = false) {
+    const uni = new Set(DATA.map(d => d.ticker));
+    const from = fmtEarningsDate(fromDate), to = fmtEarningsDate(toDate);
+    return EARNINGS_FOCUS.rows
+      .filter(e => e.date >= from && e.date <= to && (!universeOnly || uni.has(e.symbol)))
+      .map(e => ({ ...e, bundled: true, focus: true }));
+  }
+  function mergeEarningsRows(liveRows, bundledRows) {
+    const map = new Map();
+    bundledRows.forEach(e => map.set(`${e.symbol}|${e.date}`, { ...e }));
+    liveRows.forEach(e => {
+      const symbol = e.symbol, date = e.date, k = `${symbol}|${date}`;
+      map.set(k, { ...(map.get(k) || {}), ...e, symbol, date, live: true });
+    });
+    return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
+  }
+  function renderCalendar() {
+    el("main").innerHTML = toolHeader("📅", "EARNINGS CALENDAR", "market focus + upcoming reports across your universe")
+      + `<div class="card" id="calBody"><div class="sub" style="padding:16px">Loading upcoming earnings...</div></div>`;
+    const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
+    const uni = new Set(DATA.map(d => d.ticker));
+    const focusRows = bundledEarningsRows(today, to, false);
+    const bundledUniRows = bundledEarningsRows(today, to, true);
+    const rowHtml = (e, showTheme = false) => {
+      const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "market focus";
+      const src = e.live ? "live" : e.bundled ? "focus" : "";
+      return `<tr ${d ? `data-tk="${e.symbol}"` : ""}><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span>${!d ? ` <span class="unit">${e.name || ""}</span>` : ""}</td>
+        <td>${e.epsEstimate != null ? "$" + (+e.epsEstimate).toFixed(2) : "-"}</td>
+        <td class="sub">${earningsWhen(e.hour)}</td>
+        ${showTheme ? `<td class="sub">${e.theme || src}</td>` : `<td style="color:${d ? BUCKETS[d.bucket].color : "var(--muted)"}">${d ? d.bucket : src}</td><td style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${z}</td>`}
+      </tr>`;
+    };
+    const renderBody = (items, sourceLine) => {
+      const focus = focusRows.length ? `<div class="card" style="margin-bottom:12px">
+        <h3>THIS WEEK'S MARKET EARNINGS TAPE <span class="unit">${EARNINGS_FOCUS.source}</span></h3>
+        <div class="note" style="margin-bottom:10px">${EARNINGS_FOCUS.note}</div>
+        <div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>WHY IT MATTERS</th></tr></thead>
+          <tbody>${focusRows.map(e => rowHtml(e, true)).join("")}</tbody>
+        </table></div>
+      </div>` : "";
+      el("calBody").outerHTML = focus + `<div class="card" id="calBody">
+        <h3>YOUR 60-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
+        <div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
+          <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>
+        </table></div>
+      </div>`;
+      el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    };
+    const key = state.keys.finnhub;
+    if (!key) { renderBody(bundledUniRows, "bundled focus week; connect Finnhub for the full live feed"); return; }
+    fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${fmtEarningsDate(today)}&to=${fmtEarningsDate(to)}&token=${key}`, { provider: "Finnhub calendar", ticker: "UNIVERSE" })
+      .then(j => {
+        const live = (j.earningsCalendar || []).filter(e => uni.has(e.symbol));
+        renderBody(mergeEarningsRows(live, bundledUniRows), "bundled focus week merged with live Finnhub");
+      }).catch(() => { renderBody(bundledUniRows, "Finnhub unavailable; showing bundled focus week"); });
+  }
   const showCalendar = () => showView("calendar", renderCalendar, "calBtn");
 
   /* ============================================================================
@@ -4225,7 +4312,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=34").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=35").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4234,7 +4321,7 @@
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
-    inflationOf, INFLATION,
+    inflationOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();

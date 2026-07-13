@@ -308,5 +308,18 @@ const ok = (cond, name, detail = "") => {
   ok(nvda && nvda.x.bits.some(b => /multiple|pricing|input|demand/i.test(b)), "NVDA inflation x-ray explains the stock-price channel");
 }
 
+// =============== 13. Earnings focus calendar ===============
+{
+  ok(E.EARNINGS_FOCUS && E.EARNINGS_FOCUS.rows.length >= 18, "earnings focus week is bundled");
+  const from = new Date("2026-07-13T12:00:00Z"), to = new Date("2026-08-03T12:00:00Z");
+  const all = E.bundledEarningsRows(from, to, false);
+  const uni = E.bundledEarningsRows(from, to, true);
+  ok(all.some(e => e.symbol === "ASML" && e.date === "2026-07-15"), "ASML is on the bundled earnings week");
+  ok(all.some(e => e.symbol === "NFLX" && e.date === "2026-07-16"), "NFLX is on the bundled earnings week");
+  ok(uni.every(e => DATA.some(d => d.ticker === e.symbol)), "universe-only earnings rows stay inside official 60");
+  const merged = E.mergeEarningsRows([{ symbol: "ASML", date: "2026-07-15", epsEstimate: 7.01, hour: "bmo" }], uni);
+  ok(merged.find(e => e.symbol === "ASML").epsEstimate === 7.01, "live earnings row overrides bundled estimate when available");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
