@@ -332,6 +332,11 @@ const ok = (cond, name, detail = "") => {
   ok(okQuote === true, "applyLiveQuote accepts valid live price");
   ok(aapl.truePE !== oldPe, "live quote recomputes price-derived owner P/E");
   ok(E.applyLiveQuote("AAPL", 0, 0, "bad") === false, "applyLiveQuote rejects zero/invalid price");
+  ok(typeof E.fetchYahooQuote === "function" && typeof E.fetchYahooQuoteBatch === "function", "no-key Yahoo quote fallback is exported");
+  const panw = DATA.find(d => d.ticker === "PANW");
+  const panwOldHeadline = panw.headlinePE;
+  ok(E.applyLiveQuote("PANW", panw.price * 1.25, 1.35, "Yahoo") === true, "PANW can update from no-key quote fallback");
+  ok(panw.headlinePE !== panwOldHeadline, "PANW headline P/E recomputes from live fallback price");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

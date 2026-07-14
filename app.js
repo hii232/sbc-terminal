@@ -599,9 +599,10 @@
   }
   const watchScoreText = (s) => s == null ? "--" : String(Math.round(s));
   function liveHeaderStatus() {
-    if (!state.keys.finnhub && !state.keys.fmp) return "snapshot";
+    if (!state.liveStatus.lastFullRefresh) return state.keys.finnhub || state.keys.fmp ? "live pending" : "yahoo pending";
     const age = state.liveStatus.lastFullRefresh ? Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000) : null;
-    return `${isMarketHours() ? "live" : "stale"} ${state.liveStatus.lastCount || 0}${age == null ? "" : `/${age}s`}`;
+    const src = state.liveStatus.source === "Yahoo" ? "YH" : state.liveStatus.source === "FMP batch" ? "FMP" : state.liveStatus.source === "Finnhub rotation" ? "FH" : "live";
+    return `${isMarketHours() ? "live" : "stale"} ${src} ${state.liveStatus.lastCount || 0}${age == null ? "" : `/${age}s`}`;
   }
   function renderWatchlist() {
     const list = DATA.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
@@ -662,7 +663,7 @@
     window.scrollTo({ top: 0 });
     syncNav();
     pushNav();
-    if (state.keys.finnhub || state.keys.fmp) fetchLive(tk);
+    fetchLive(tk);
   }
   function showSectors() {
     state.view = "sectors";
@@ -4087,10 +4088,8 @@
     state.live[tk].quote = { price: +price, changePct: changePct ?? 0, source: source || "live", ts: Date.now() };
     state.live[tk].fetchedAt = Date.now();
     // Recompute price-derived multiples and score tiles whenever live price moves.
-    if (d.gaapEPS > 0) {
-      d.headlinePE = +(price / d.gaapEPS).toFixed(1);
-      d.truePE = d.ownerEps > 0 ? +(price / d.ownerEps).toFixed(1) : null;
-    }
+    if (d.gaapEPS > 0) d.headlinePE = +(price / d.gaapEPS).toFixed(1);
+    if (d.ownerEps > 0) d.truePE = +(price / d.ownerEps).toFixed(1);
     delete d.marketScores;
     return true;
   }
@@ -4108,6 +4107,31 @@
       const ch = q.changesPercentage ?? q.changePercentage ?? q.changePercent;
       if (applyLiveQuote(tk, q.price, ch, "FMP batch")) ok++;
     });
+    return ok;
+  }
+
+  async function fetchYahooQuote(tk) {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(tk)}?range=1d&interval=1m&includePrePost=true`;
+    const j = await fetchJsonWithRetry(url, { provider: "Yahoo chart quote", ticker: tk, cacheMs: 10 * 1000, timeoutMs: 4500, retries: 1 });
+    const r = j?.chart?.result?.[0];
+    const m = r?.meta || {};
+    const q = r?.indicators?.quote?.[0] || {};
+    const closes = (q.close || []).filter(v => v != null && Number.isFinite(+v));
+    const price = +(m.regularMarketPrice ?? closes.at(-1));
+    const prev = +(m.previousClose ?? m.chartPreviousClose);
+    const changePct = Number.isFinite(price) && Number.isFinite(prev) && prev > 0 ? ((price - prev) / prev) * 100 : 0;
+    return applyLiveQuote(tk, price, changePct, "Yahoo");
+  }
+
+  async function fetchYahooQuoteBatch(tickers) {
+    let ok = 0;
+    const batch = 8;
+    for (let i = 0; i < tickers.length; i += batch) {
+      const chunk = tickers.slice(i, i + batch);
+      const results = await Promise.all(chunk.map(tk => fetchYahooQuote(tk).catch(() => false)));
+      ok += results.filter(Boolean).length;
+      if (i + batch < tickers.length) await sleep(350);
+    }
     return ok;
   }
 
@@ -4143,6 +4167,9 @@
     }
     if (!k.finnhub && k.fmp) {
       tasks.push(fetchFmpQuoteBatch([tk]).catch(() => 0));
+    }
+    if (!k.finnhub && !k.fmp) {
+      tasks.push(fetchYahooQuote(tk).catch(() => false));
     }
     if (full && k.fmp) {
       tasks.push(Promise.all([
@@ -4217,28 +4244,34 @@
     return !["Sat", "Sun"].includes(p.day) && p.mins >= 570 && p.mins <= 960;
   }
   function liveStatusText() {
-    if (!state.keys.finnhub && !state.keys.fmp) return "snapshot mode - add Finnhub/FMP key";
     const age = state.liveStatus.lastFullRefresh ? Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000) : null;
     const open = isMarketHours() ? "market open" : "market closed";
-    return `${open} - ${state.liveStatus.source || "live"} - ${state.liveStatus.lastCount || 0}/60${age == null ? "" : ` - ${age}s ago`}`;
+    const src = state.liveStatus.source || (state.keys.finnhub ? "Finnhub rotation" : state.keys.fmp ? "FMP batch" : "Yahoo fallback");
+    return `${open} - ${src} - ${state.liveStatus.lastCount || 0}/60${age == null ? "" : ` - ${age}s ago`}`;
   }
   async function refreshAllLive(opts = {}) {
     const silent = !!opts.silent;
-    if (!state.keys.finnhub && !state.keys.fmp) { updateLiveDot(); return 0; }
+    if (!state.keys.finnhub && !state.keys.fmp && typeof navigator !== "undefined" && navigator.onLine === false) {
+      state.liveStatus = { lastFullRefresh: state.liveStatus.lastFullRefresh, lastCount: state.liveStatus.lastCount || 0, source: "offline" };
+      updateLiveDot();
+      return 0;
+    }
     if (state.quoteRefreshing) return state.liveStatus.lastCount || 0;
     state.quoteRefreshing = true;
     const all = DATA.map(d => d.ticker);
-    let ok = 0, fails = 0, source = state.keys.fmp ? "FMP batch" : "Finnhub rotation";
+    let ok = 0, fails = 0, source = state.keys.fmp ? "FMP batch" : state.keys.finnhub ? "Finnhub rotation" : "Yahoo";
     if (!silent) flash("Live prices updating...", "ok");
     try {
       if (state.keys.fmp) {
         ok = await fetchFmpQuoteBatch(all);
-      } else {
+      } else if (state.keys.finnhub) {
         for (const tk of all) {
           try { await fetchLive(tk, false); if (state.live[tk]?.quote) ok++; }
           catch (e) { fails++; }
           await sleep(1050);
         }
+      } else {
+        ok = await fetchYahooQuoteBatch(all);
       }
       state.liveStatus = { lastFullRefresh: Date.now(), lastCount: ok, source };
       if (state.active && state.live[state.active]?.quote) render();
@@ -4252,18 +4285,17 @@
   }
   function startLiveTape() {
     if (state.liveTimer) clearInterval(state.liveTimer);
-    if (!state.keys.finnhub && !state.keys.fmp) { updateLiveDot(); return; }
     refreshAllLive({ silent: false });
     state.liveTimer = setInterval(() => {
       if (document.hidden) return;
       if (isMarketHours()) refreshAllLive({ silent: true });
       else if (!state.liveStatus.lastFullRefresh || Date.now() - state.liveStatus.lastFullRefresh > 10 * 60 * 1000) refreshAllLive({ silent: true });
-    }, state.keys.fmp ? 30 * 1000 : 70 * 1000);
+    }, state.keys.fmp ? 30 * 1000 : state.keys.finnhub ? 70 * 1000 : 45 * 1000);
   }
   function updateLiveDot() {
-    const on = !!(state.keys.finnhub || state.keys.fmp);
+    const on = !!state.liveStatus.lastFullRefresh || !!(state.keys.finnhub || state.keys.fmp);
     el("liveDot").classList.toggle("on", on);
-    el("liveBtn").title = on ? liveStatusText() : "Bundled snapshots (click gear to connect)";
+    el("liveBtn").title = liveStatusText();
   }
 
   /* ------------------------ command / search ------------------------ */
@@ -4349,6 +4381,8 @@
       state.keys = { finnhub: "", fmp: "" }; el("finnhubKey").value = ""; el("fmpKey").value = "";
       if (state.liveTimer) clearInterval(state.liveTimer);
       state.liveTimer = null;
+      state.liveStatus = { lastFullRefresh: null, lastCount: 0, source: "Yahoo" };
+      startLiveTape();
       updateLiveDot(); flash("Keys cleared — back to snapshots", "ok");
     };
     el("saveKeys").onclick = () => {
@@ -4360,7 +4394,7 @@
       updateLiveDot();
       startLiveTape();
     };
-    el("liveBtn").onclick = () => { if (state.keys.finnhub || state.keys.fmp) startLiveTape(); else el("gearBtn").click(); };
+    el("liveBtn").onclick = () => startLiveTape();
     el("homeBtn").onclick = showHome;
     el("sectorBtn").onclick = showSectors;
     el("narrBtn").onclick = showNarratives;
@@ -4399,7 +4433,7 @@
     updateLiveDot();
     tickClock(); setInterval(tickClock, 1000);
     startLiveTape();
-    document.addEventListener("visibilitychange", () => { if (!document.hidden && (state.keys.finnhub || state.keys.fmp)) refreshAllLive({ silent: true }); });
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshAllLive({ silent: true }); });
     setInterval(updateLiveDot, 15 * 1000);
     // PWA: offline/phone support (only when served over http(s), not file://)
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
@@ -4410,7 +4444,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=36").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=37").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4420,7 +4454,7 @@
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
-    applyLiveQuote, fetchFmpQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
+    applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();
