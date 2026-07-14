@@ -4067,6 +4067,30 @@
     noteRequest({ provider, ticker }, "error", cached ? Date.now() - cached.ts : 0, (lastErr && lastErr.message) || "request failed");
     throw new Error(`${provider} ${ticker}: ${(lastErr && lastErr.message) || "request failed"}`);
   }
+  async function fetchTextWithRetry(url, meta = {}) {
+    const { provider = "provider", ticker = "", timeoutMs = 8000, retries = 1, cacheMs = 60 * 1000 } = meta;
+    const cached = requestCache.get(url);
+    if (cached && cacheMs > 0 && Date.now() - cached.ts < cacheMs) return cached.data;
+    let lastErr;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+      const timer = ctrl ? setTimeout(() => ctrl.abort(), timeoutMs) : null;
+      try {
+        const r = await fetch(url, ctrl ? { signal: ctrl.signal } : undefined);
+        if (timer) clearTimeout(timer);
+        if (!r.ok) throw new Error(`${provider} ${ticker} HTTP ${r.status}`);
+        const data = await r.text();
+        requestCache.set(url, { ts: Date.now(), data });
+        return data;
+      } catch (e) {
+        if (timer) clearTimeout(timer);
+        lastErr = e;
+        if (attempt === retries) break;
+        await sleep(450 * Math.pow(2, attempt));
+      }
+    }
+    throw new Error(`${provider} ${ticker}: ${(lastErr && lastErr.message) || "request failed"}`);
+  }
   async function fetchQuoteOnly(tk) { return fetchLive(tk, false); }
   async function fetchNews(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${new Date(Date.now() - 30 * 864e5).toISOString().slice(0,10)}&to=${new Date().toISOString().slice(0,10)}&token=${state.keys.finnhub}`, { provider: "Finnhub news", ticker: tk }) : null; }
   async function fetchAnalystData(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/stock/price-target?symbol=${tk}&token=${state.keys.finnhub}`, { provider: "Finnhub analyst", ticker: tk }) : null; }
@@ -4111,8 +4135,13 @@
   }
 
   async function fetchYahooQuote(tk) {
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(tk)}?range=1d&interval=1m&includePrePost=true`;
-    const j = await fetchJsonWithRetry(url, { provider: "Yahoo chart quote", ticker: tk, cacheMs: 10 * 1000, timeoutMs: 4500, retries: 1 });
+    const target = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(tk)}?range=1d&interval=1m&includePrePost=true`;
+    const url = `https://r.jina.ai/http://${target}`;
+    const txt = await fetchTextWithRetry(url, { provider: "Jina/Yahoo chart quote", ticker: tk, cacheMs: 10 * 1000, timeoutMs: 6500, retries: 1 });
+    const start = txt.indexOf("{\"chart\"");
+    const end = txt.lastIndexOf("}");
+    if (start < 0 || end <= start) throw new Error("Yahoo chart JSON not found");
+    const j = JSON.parse(txt.slice(start, end + 1));
     const r = j?.chart?.result?.[0];
     const m = r?.meta || {};
     const q = r?.indicators?.quote?.[0] || {};
@@ -4125,12 +4154,12 @@
 
   async function fetchYahooQuoteBatch(tickers) {
     let ok = 0;
-    const batch = 8;
+    const batch = 2;
     for (let i = 0; i < tickers.length; i += batch) {
       const chunk = tickers.slice(i, i + batch);
       const results = await Promise.all(chunk.map(tk => fetchYahooQuote(tk).catch(() => false)));
       ok += results.filter(Boolean).length;
-      if (i + batch < tickers.length) await sleep(350);
+      if (i + batch < tickers.length) await sleep(900);
     }
     return ok;
   }
@@ -4138,6 +4167,7 @@
   async function fetchLive(tk, full = true) {
     const d = DATA.find(x => x.ticker === tk);
     if (!d) return;
+    if (location.search.includes("ci=")) return;
     state.live[tk] = state.live[tk] || {};
     const k = state.keys;
     const tasks = [];
@@ -4247,10 +4277,24 @@
     const age = state.liveStatus.lastFullRefresh ? Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000) : null;
     const open = isMarketHours() ? "market open" : "market closed";
     const src = state.liveStatus.source || (state.keys.finnhub ? "Finnhub rotation" : state.keys.fmp ? "FMP batch" : "Yahoo fallback");
-    return `${open} - ${src} - ${state.liveStatus.lastCount || 0}/60${age == null ? "" : ` - ${age}s ago`}`;
+    const denom = state.keys.finnhub || state.keys.fmp ? 60 : "visible";
+    return `${open} - ${src} - ${state.liveStatus.lastCount || 0}/${denom}${age == null ? "" : ` - ${age}s ago`}`;
+  }
+  function noKeyQuoteTickers() {
+    const seen = new Set();
+    const out = [];
+    const add = (tk) => { if (tk && !seen.has(tk)) { seen.add(tk); out.push(tk); } };
+    add(state.active);
+    DATA
+      .filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
+      .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap)
+      .slice(0, 10)
+      .forEach(d => add(d.ticker));
+    return out;
   }
   async function refreshAllLive(opts = {}) {
     const silent = !!opts.silent;
+    if (location.search.includes("ci=")) return 0;
     if (!state.keys.finnhub && !state.keys.fmp && typeof navigator !== "undefined" && navigator.onLine === false) {
       state.liveStatus = { lastFullRefresh: state.liveStatus.lastFullRefresh, lastCount: state.liveStatus.lastCount || 0, source: "offline" };
       updateLiveDot();
@@ -4258,7 +4302,7 @@
     }
     if (state.quoteRefreshing) return state.liveStatus.lastCount || 0;
     state.quoteRefreshing = true;
-    const all = DATA.map(d => d.ticker);
+    const all = state.keys.finnhub || state.keys.fmp ? DATA.map(d => d.ticker) : noKeyQuoteTickers();
     let ok = 0, fails = 0, source = state.keys.fmp ? "FMP batch" : state.keys.finnhub ? "Finnhub rotation" : "Yahoo";
     if (!silent) flash("Live prices updating...", "ok");
     try {
@@ -4277,7 +4321,7 @@
       if (state.active && state.live[state.active]?.quote) render();
       renderWatchlist();
       updateLiveDot();
-      if (!silent) flash(`Live prices updated: ${ok}/60${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
+      if (!silent) flash(`Live prices updated: ${ok}/${state.keys.finnhub || state.keys.fmp ? 60 : all.length}${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
       return ok;
     } finally {
       state.quoteRefreshing = false;
