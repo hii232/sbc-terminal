@@ -575,9 +575,27 @@
   const saveThesis = () => localStorage.setItem("sbc_thesis_rules", JSON.stringify(state.thesisRules));
   function toggleFav(tk) { state.favs.has(tk) ? state.favs.delete(tk) : state.favs.add(tk); saveFavs(); renderWatchlist(); }
   const priceOf = (d) => state.live[d.ticker]?.quote?.price ?? d.price;
+  const extendedData = () => (typeof EXTENDED_DATA !== "undefined" && Array.isArray(EXTENDED_DATA)) ? EXTENDED_DATA : [];
+  const allCompanies = () => DATA.concat(extendedData());
+  const companyOf = (tk) => DATA.find(d => d.ticker === tk) || extendedData().find(d => d.ticker === tk);
+  const isExtended = (d) => !!(d && d.extended);
+  const quotePriceOf = (d) => {
+    const p = state.live[d.ticker]?.quote?.price ?? d.price;
+    return p != null && Number.isFinite(+p) && +p > 0 ? +p : null;
+  };
+  const quoteChangeOf = (d) => state.live[d.ticker]?.quote?.changePct ?? (Number.isFinite(+d.change) ? +d.change : 0);
+  const priceTextOf = (d) => {
+    const p = quotePriceOf(d);
+    return p == null ? "--" : p.toFixed(2);
+  };
 
   /* ------------------------ watchlist ------------------------ */
   const watchMetric = (d, key) => {
+    if (isExtended(d)) {
+      if (key === "mktCap") return d.mktCap || 0;
+      if (key === "marketReward" || key === "marketRewardView") return quoteChangeOf(d);
+      return -1;
+    }
     if (key === "truePE") return d.truePE != null ? -d.truePE : -9999;
     if (key === "mktCap") return d.mktCap || 0;
     return scoreVal(d, key) ?? -1;
@@ -605,39 +623,40 @@
     return `${isMarketHours() ? "live" : "stale"} ${src} ${state.liveStatus.lastCount || 0}${age == null ? "" : `/${age}s`}`;
   }
   function renderWatchlist() {
-    const list = DATA.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
+    const universe = allCompanies();
+    const list = universe.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap);
-    el("wlCount").textContent = `${list.length}/${DATA.length} · ${liveHeaderStatus()}`;
-    const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)" };
+    el("wlCount").textContent = `${list.length}/${universe.length} - core ${DATA.length} + ext ${extendedData().length} - ${liveHeaderStatus()}`;
+    const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)", extended: "var(--cyan)" };
     if (state.bucket === "fav" && !list.length) {
       el("watchlist").innerHTML = `<div class="sub" style="padding:16px;text-align:center">No starred names yet.<br>Tap the ☆ on any stock to add it here.</div>`;
       return;
     }
     el("watchlist").innerHTML = list.map(d => {
-      const lv = state.live[d.ticker];
-      const price = lv?.quote?.price ?? d.price;
-      const ch = lv?.quote?.changePct ?? d.change;
-      const ms = marketScoreOf(d);
-      const warn = ms?.whatCouldGoWrong?.[0] || "";
+      const ch = quoteChangeOf(d);
+      const ms = isExtended(d) ? null : marketScoreOf(d);
+      const warn = isExtended(d) ? "Extended live-only: not SBC ranked yet" : (ms?.whatCouldGoWrong?.[0] || "");
       const scoreDelta = (ms?.marketReward?.score ?? 0) - 50;
       return `<div class="row ${state.active === d.ticker && state.view === "stock" ? "sel" : ""}" data-tk="${d.ticker}">
-        <div class="bucketbar" style="background:${bcol[d.bucket]}"></div>
+        <div class="bucketbar" style="background:${bcol[d.bucket] || "var(--cyan)"}"></div>
         <div style="min-width:0">
           <div class="tk"><span class="star ${state.favs.has(d.ticker) ? "on" : ""}" data-fav="${d.ticker}">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker} <span style="font-size:9px;color:var(--dim)">${d.grade}</span></div>
           <div class="nm">${d.name}</div>
           <div class="mini-scores">
-            <span class="mini-score">LT <b>${watchScoreText(ms?.longTermView?.score)}</b></span>
-            <span class="mini-score">MR <b>${watchScoreText(ms?.marketReward?.score)}</b></span>
-            <span class="mini-score">BQ <b>${watchScoreText(ms?.businessQuality?.score)}</b></span>
-            <span class="mini-score">VAL <b>${watchScoreText(ms?.valuation?.score)}</b></span>
+            ${isExtended(d)
+              ? `<span class="mini-score">EXT <b>LIVE</b></span><span class="mini-score">CORE <b>NO</b></span>`
+              : `<span class="mini-score">LT <b>${watchScoreText(ms?.longTermView?.score)}</b></span>
+                 <span class="mini-score">MR <b>${watchScoreText(ms?.marketReward?.score)}</b></span>
+                 <span class="mini-score">BQ <b>${watchScoreText(ms?.businessQuality?.score)}</b></span>
+                 <span class="mini-score">VAL <b>${watchScoreText(ms?.valuation?.score)}</b></span>`}
           </div>
           ${warn ? `<div class="warn-line">${warn}</div>` : ""}
         </div>
         <div class="spark-wrap">${miniSpark(d)}</div>
         <div>
-          <div class="px">${price.toFixed(2)}</div>
+          <div class="px">${priceTextOf(d)}</div>
           <div class="ch ${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</div>
-          <div class="mr-chip ${scoreDelta >= 0 ? "up" : "down"}">MR ${scoreDelta >= 0 ? "+" : ""}${scoreDelta.toFixed(0)}</div>
+          <div class="mr-chip ${isExtended(d) || scoreDelta >= 0 ? "up" : "down"}">${isExtended(d) ? "EXT" : `MR ${scoreDelta >= 0 ? "+" : ""}${scoreDelta.toFixed(0)}`}</div>
         </div>
       </div>`;
     }).join("");
@@ -749,8 +768,9 @@
 
   /* ------------------------ main render ------------------------ */
   function render() {
-    const d = DATA.find(x => x.ticker === state.active);
+    const d = companyOf(state.active);
     if (!d) return;
+    if (isExtended(d)) { renderExtendedTicker(d); return; }
     const lv = state.live[d.ticker] || {};
     const price = lv.quote?.price ?? d.price;
     const change = lv.quote?.changePct ?? d.change;
@@ -808,6 +828,63 @@
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
     const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); render(); };
     renderTab(d);
+  }
+
+  function renderExtendedTicker(d) {
+    const q = state.live[d.ticker]?.quote;
+    const price = priceTextOf(d);
+    const change = quoteChangeOf(d);
+    const etf = sectorETF(d.sector);
+    const source = q ? `${q.source || "live"} - ${Math.round((Date.now() - q.ts) / 1000)}s ago` : "waiting for live quote";
+    const extCount = extendedData().length;
+    const header = `
+      <div class="hdr">
+        <div>
+          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker} <span class="derived-tag" style="color:var(--cyan);border-color:var(--cyan)">EXTENDED 60</span></div>
+          <div class="co">${d.name} - ${d.sector}</div>
+        </div>
+        <div>
+          <div class="pxbig">${price === "--" ? "--" : "$" + price}</div>
+          <div class="chbig ${signCls(change)}">${arrow(change)} ${Math.abs(change).toFixed(2)}% ${q ? '<span style="color:var(--green);font-size:9px">LIVE</span>' : '<span style="color:var(--dim);font-size:9px">not refreshed yet</span>'}</div>
+        </div>
+        <div style="border-left:1px solid var(--line);padding-left:16px">
+          <div class="sub">COVERAGE</div><div class="stat sm">EXT ${extCount}</div>
+        </div>
+        <div>
+          <div class="sub">SECTOR ETF</div><div class="stat sm">${etf}</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right">
+          <span class="badge" style="color:var(--cyan);border-color:var(--cyan)">LIVE-ONLY WATCHLIST</span>
+          <div class="sub" style="margin-top:5px">${source}</div>
+        </div>
+      </div>`;
+    el("main").innerHTML = header + `
+      <div class="grid g2">
+        <div class="card">
+          <h3>WHY IT IS HERE</h3>
+          <div class="note">${escapeHtml(d.reason || "Extended market coverage.")}</div>
+        </div>
+        <div class="card">
+          <h3>DATA STATUS</h3>
+          <div class="kv"><span class="k">Core SBC ranking</span><span class="v" style="color:var(--dim)">Not yet</span></div>
+          <div class="kv"><span class="k">SEC/owner-earnings audit</span><span class="v" style="color:var(--dim)">Research queue</span></div>
+          <div class="kv"><span class="k">Live quote tape</span><span class="v" style="color:${q ? "var(--green)" : "var(--amber)"}">${q ? "Connected" : "Pending"}</span></div>
+        </div>
+        <div class="card">
+          <h3>HOW TO USE IT</h3>
+          <div class="sub">Use this name for live price, watchlist monitoring, sector context, earnings/news awareness, and manual thesis tracking. Promote it into Core only after SEC/SBC filings are built and tested.</div>
+          <div style="margin-top:10px">
+            <span class="tag">extended</span><span class="tag">${d.sector}</span><span class="tag">${etf}</span><span class="tag">not SBC ranked</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>QUOTE HEALTH</h3>
+          <div class="stat" style="color:${q ? "var(--green)" : "var(--amber)"}">${price === "--" ? "Pending" : "$" + price}</div>
+          <div class="sub">If this stays pending, tap the live-dot button or add an FMP/Finnhub key in settings. The no-key Yahoo fallback refreshes the active ticker and top visible rows first.</div>
+        </div>
+      </div>`;
+    const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); renderExtendedTicker(d); };
   }
 
   /* ------------------------ tab bodies ------------------------ */
@@ -3277,7 +3354,8 @@
       `<div style="text-align:right"><div class="sub">FILING VERIFIED*</div><div class="stat sm" style="color:var(--green)">${tiers["FILING VERIFIED*"]}/${total}</div><div class="sub">${atLeastPartial}/${total} at least partial</div></div>`)
       + `<div class="grid g3" style="margin-bottom:12px">
         <div class="card"><h3>VERSIONS</h3>
-          <div class="kv"><span class="k">Universe</span><span class="v">${typeof UNIVERSE_VERSION !== "undefined" ? UNIVERSE_VERSION : "?"} (${DATA.length} names)</span></div>
+          <div class="kv"><span class="k">Core universe</span><span class="v">${typeof UNIVERSE_VERSION !== "undefined" ? UNIVERSE_VERSION : "?"} (${DATA.length} names)</span></div>
+          <div class="kv"><span class="k">Extended live-only</span><span class="v">${typeof EXTENDED_VERSION !== "undefined" ? EXTENDED_VERSION : "?"} (${extendedData().length} names)</span></div>
           <div class="kv"><span class="k">SBC model</span><span class="v">${SBC_MODEL_VERSION}</span></div>
           <div class="kv"><span class="k">Formulas</span><span class="v">${FORMULA_VERSION}</span></div>
           <div class="kv"><span class="k">SEC data generated</span><span class="v">${typeof SEC_META !== "undefined" ? SEC_META.generated.slice(0, 10) : "n/a"}</span></div></div>
@@ -3323,7 +3401,7 @@
   const fmtEarningsDate = (dt) => dt.toISOString().slice(0, 10);
   const earningsWhen = (hour) => hour === "bmo" ? "pre-open" : hour === "amc" ? "after-close" : hour || "";
   function bundledEarningsRows(fromDate, toDate, universeOnly = false) {
-    const uni = new Set(DATA.map(d => d.ticker));
+    const uni = new Set(allCompanies().map(d => d.ticker));
     const from = fmtEarningsDate(fromDate), to = fmtEarningsDate(toDate);
     return EARNINGS_FOCUS.rows
       .filter(e => e.date >= from && e.date <= to && (!universeOnly || uni.has(e.symbol)))
@@ -3342,16 +3420,17 @@
     el("main").innerHTML = toolHeader("📅", "EARNINGS CALENDAR", "market focus + upcoming reports across your universe")
       + `<div class="card" id="calBody"><div class="sub" style="padding:16px">Loading upcoming earnings...</div></div>`;
     const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
-    const uni = new Set(DATA.map(d => d.ticker));
+    const uni = new Set(allCompanies().map(d => d.ticker));
     const focusRows = bundledEarningsRows(today, to, false);
     const bundledUniRows = bundledEarningsRows(today, to, true);
     const rowHtml = (e, showTheme = false) => {
-      const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "market focus";
+      const d = companyOf(e.symbol), core = d && !isExtended(d), L = core ? ivLadder(d) : null, z = L ? ZONE[L.zone].label : (isExtended(d) ? "extended" : "market focus");
       const src = e.live ? "live" : e.bundled ? "focus" : "";
-      return `<tr ${d ? `data-tk="${e.symbol}"` : ""}><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span>${!d ? ` <span class="unit">${e.name || ""}</span>` : ""}</td>
+      const bucketColor = isExtended(d) ? "var(--cyan)" : d ? BUCKETS[d.bucket].color : "var(--muted)";
+      return `<tr ${d ? `data-tk="${e.symbol}"` : ""}><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span>${!d ? ` <span class="unit">${e.name || ""}</span>` : ""}${isExtended(d) ? ` <span class="unit">EXT</span>` : ""}</td>
         <td>${e.epsEstimate != null ? "$" + (+e.epsEstimate).toFixed(2) : "-"}</td>
         <td class="sub">${earningsWhen(e.hour)}</td>
-        ${showTheme ? `<td class="sub">${e.theme || src}</td>` : `<td style="color:${d ? BUCKETS[d.bucket].color : "var(--muted)"}">${d ? d.bucket : src}</td><td style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${z}</td>`}
+        ${showTheme ? `<td class="sub">${e.theme || src}</td>` : `<td style="color:${bucketColor}">${d ? d.bucket : src}</td><td style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${z}</td>`}
       </tr>`;
     };
     const renderBody = (items, sourceLine) => {
@@ -3364,7 +3443,7 @@
         </table></div>
       </div>` : "";
       el("calBody").outerHTML = focus + `<div class="card" id="calBody">
-        <h3>YOUR 60-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
+        <h3>YOUR 120-TICKER EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
         <div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
           <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>
@@ -4025,7 +4104,7 @@
   const requestCache = new Map();
   function noteRequest(meta, status, ageMs, message) {
     const tk = meta && meta.ticker;
-    if (!tk || tk === "UNIVERSE" || !DATA.some(d => d.ticker === tk)) return;
+    if (!tk || tk === "UNIVERSE" || !companyOf(tk)) return;
     state.live[tk] = state.live[tk] || {};
     state.live[tk].requests = state.live[tk].requests || [];
     state.live[tk].requests.unshift({
@@ -4106,15 +4185,17 @@
   }
 
   function applyLiveQuote(tk, price, changePct, source) {
-    const d = DATA.find(x => x.ticker === tk);
+    const d = companyOf(tk);
     if (!d || !price || price <= 0) return false;
     state.live[tk] = state.live[tk] || {};
     state.live[tk].quote = { price: +price, changePct: changePct ?? 0, source: source || "live", ts: Date.now() };
     state.live[tk].fetchedAt = Date.now();
     // Recompute price-derived multiples and score tiles whenever live price moves.
-    if (d.gaapEPS > 0) d.headlinePE = +(price / d.gaapEPS).toFixed(1);
-    if (d.ownerEps > 0) d.truePE = +(price / d.ownerEps).toFixed(1);
-    delete d.marketScores;
+    if (!isExtended(d)) {
+      if (d.gaapEPS > 0) d.headlinePE = +(price / d.gaapEPS).toFixed(1);
+      if (d.ownerEps > 0) d.truePE = +(price / d.ownerEps).toFixed(1);
+      delete d.marketScores;
+    }
     return true;
   }
 
@@ -4165,7 +4246,7 @@
   }
 
   async function fetchLive(tk, full = true) {
-    const d = DATA.find(x => x.ticker === tk);
+    const d = companyOf(tk);
     if (!d) return;
     if (location.search.includes("ci=")) return;
     state.live[tk] = state.live[tk] || {};
@@ -4201,7 +4282,7 @@
     if (!k.finnhub && !k.fmp) {
       tasks.push(fetchYahooQuote(tk).catch(() => false));
     }
-    if (full && k.fmp) {
+    if (full && k.fmp && !isExtended(d)) {
       tasks.push(Promise.all([
         fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/income-statement/${tk}?limit=5&apikey=${k.fmp}`, { provider: "FMP income fallback", ticker: tk }).catch(() => null),
         fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/cash-flow-statement/${tk}?limit=5&apikey=${k.fmp}`, { provider: "FMP cash-flow fallback", ticker: tk }).catch(() => null),
@@ -4244,7 +4325,7 @@
 
   function refreshAllLive() {
     if (!state.keys.finnhub && !state.keys.fmp) return;
-    // Full official 60-stock universe, quotes only, sequential with progress;
+    // Full official Core universe, quotes only, sequential with progress;
     // one failure never stops the rest.
     const all = DATA.slice();
     let done = 0, fails = 0;
@@ -4277,7 +4358,7 @@
     const age = state.liveStatus.lastFullRefresh ? Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000) : null;
     const open = isMarketHours() ? "market open" : "market closed";
     const src = state.liveStatus.source || (state.keys.finnhub ? "Finnhub rotation" : state.keys.fmp ? "FMP batch" : "Yahoo fallback");
-    const denom = state.keys.finnhub || state.keys.fmp ? 60 : "visible";
+    const denom = state.keys.finnhub || state.keys.fmp ? allCompanies().length : "visible";
     return `${open} - ${src} - ${state.liveStatus.lastCount || 0}/${denom}${age == null ? "" : ` - ${age}s ago`}`;
   }
   function noKeyQuoteTickers() {
@@ -4285,7 +4366,7 @@
     const out = [];
     const add = (tk) => { if (tk && !seen.has(tk)) { seen.add(tk); out.push(tk); } };
     add(state.active);
-    DATA
+    allCompanies()
       .filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap)
       .slice(0, 10)
@@ -4302,7 +4383,7 @@
     }
     if (state.quoteRefreshing) return state.liveStatus.lastCount || 0;
     state.quoteRefreshing = true;
-    const all = state.keys.finnhub || state.keys.fmp ? DATA.map(d => d.ticker) : noKeyQuoteTickers();
+    const all = state.keys.finnhub || state.keys.fmp ? allCompanies().map(d => d.ticker) : noKeyQuoteTickers();
     let ok = 0, fails = 0, source = state.keys.fmp ? "FMP batch" : state.keys.finnhub ? "Finnhub rotation" : "Yahoo";
     if (!silent) flash("Live prices updating...", "ok");
     try {
@@ -4321,7 +4402,7 @@
       if (state.active && state.live[state.active]?.quote) render();
       renderWatchlist();
       updateLiveDot();
-      if (!silent) flash(`Live prices updated: ${ok}/${state.keys.finnhub || state.keys.fmp ? 60 : all.length}${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
+      if (!silent) flash(`Live prices updated: ${ok}/${state.keys.finnhub || state.keys.fmp ? allCompanies().length : all.length}${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
       return ok;
     } finally {
       state.quoteRefreshing = false;
@@ -4374,8 +4455,9 @@
       flash("Sector flow view", "ok");
       return;
     }
-    const hit = DATA.find(d => d.ticker === q) || DATA.find(d => d.ticker.startsWith(q)) ||
-      DATA.find(d => d.name.toUpperCase().includes(q));
+    const searchable = allCompanies();
+    const hit = searchable.find(d => d.ticker === q) || searchable.find(d => d.ticker.startsWith(q)) ||
+      searchable.find(d => d.name.toUpperCase().includes(q));
     if (hit) { selectTicker(hit.ticker); flash("Loaded " + hit.ticker, "ok"); }
     else flash(`"${q}" not in watchlist. Add a key & it will fetch, or pick from the list.`, "err");
   }
@@ -4488,7 +4570,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=37").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=38").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4499,6 +4581,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
+    extendedData, allCompanies, companyOf,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();

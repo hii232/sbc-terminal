@@ -1,8 +1,8 @@
 {
-  "asOf": "2026-07-12T13:08:45.806Z",
+  "asOf": "2026-07-15T04:36:27.232Z",
   "universe": 60,
   "headlinePriceEpsMismatches": 0,
-  "rankedAnnualOwnerEpsBasis": 1,
+  "rankedAnnualOwnerEpsBasis": 2,
   "missingOwnerPE": 0,
   "negativeOwnerEpsNoPE": 11,
   "highOwnerPE": 14,
@@ -203,7 +203,7 @@
       "ownerPE": 67.7,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "dataConfidence": 12,
-      "rankable": false,
+      "rankable": true,
       "flags": []
     },
     {
@@ -219,7 +219,7 @@
       "ownerPE": 83.1,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "flags": [
         "high-owner-pe-check-expectations"
       ]
@@ -255,7 +255,7 @@
       "ownerPE": 28,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "flags": []
     },
     {
@@ -539,7 +539,7 @@
       "ownerPE": 30.9,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "flags": []
     },
     {
@@ -573,8 +573,10 @@
       "ownerPE": 45.5,
       "ownerEPSSource": "latest annual owner EPS",
       "dataConfidence": 77,
-      "rankable": false,
-      "flags": []
+      "rankable": true,
+      "flags": [
+        "annual-owner-eps-basis"
+      ]
     },
     {
       "ticker": "META",
@@ -981,7 +983,7 @@
       "ownerPE": 34.6,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "dataConfidence": 77,
-      "rankable": false,
+      "rankable": true,
       "flags": []
     },
     {

@@ -2,7 +2,7 @@
 
 Date: 2026-07-11
 Model: `SBC_MODEL_VERSION = "4.0.0"`
-Universe: exactly 60 companies
+Universe: exactly 60 Core companies + 60 Extended live-only tickers
 
 ## Current Gate
 
@@ -11,7 +11,7 @@ Passing local checks:
 - `node tests/run_tests.js` - 53 passed, 0 failed
 - `python scripts/golden_audit.py` - 82 verified fields, 0 conflicts
 - `node tests/browser_smoke.js` - opens all 60 companies, core tools, mobile layout, and offline reload
-- universe/security gate - exactly 60 companies, no FLUT, no duplicate tickers, SEC source files present, simple secret scan clean
+- universe/security gate - exactly 60 Core companies, exactly 60 Extended live-only tickers, no FLUT in Core, no duplicate tickers, SEC source files present, simple secret scan clean
 
 ## Data Rules
 
@@ -67,7 +67,8 @@ The machine-readable output is in `data/audits/golden-company-audit.json`.
 
 Do not deploy unless:
 
-- universe is exactly 60
+- Core universe is exactly 60
+- Extended live-only coverage is exactly 60 and does not overlap Core
 - `DATA.length === 60`
 - `Object.keys(SEC).length === 60`
 - golden audit passes

@@ -63,6 +63,7 @@ async function main() {
 
     const globals = await page.evaluate(() => ({
       dataLen: DATA.length,
+      extendedLen: window.EXTENDED_DATA ? window.EXTENDED_DATA.length : 0,
       universeLen: UNIVERSE_LIST.length,
       secCount: Object.keys(SEC).length,
       secMetaCompanies: SEC_META.companies,
@@ -74,6 +75,7 @@ async function main() {
       oldPhrase: document.body.textContent.includes(["Headline P/E", "owner-earnings retention"].join(" ÷ ")),
     }));
     ok(globals.dataLen === 60, `DATA length ${globals.dataLen}`);
+    ok(globals.extendedLen === 60, `EXTENDED_DATA length ${globals.extendedLen}`);
     ok(globals.universeLen === 60, `UNIVERSE length ${globals.universeLen}`);
     ok(globals.secCount === 60 && globals.secMetaCompanies === 60, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0" && globals.model === "4.0.0", "model version missing");
@@ -88,6 +90,11 @@ async function main() {
       await page.waitForFunction((t) => document.querySelector("#main")?.textContent.includes(t), ticker, { timeout: 3000 });
     }
 
+    await page.fill("#cmdInput", "JPM");
+    await page.click(".cmd .go");
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("EXTENDED 60"), { timeout: 3000 });
+    ok((await page.textContent("#main")).includes("not SBC ranked"), "extended ticker status label missing");
+
     await page.fill("#cmdInput", "AAPL");
     await page.click(".cmd .go");
     await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("AAPL"), { timeout: 3000 });
@@ -98,7 +105,7 @@ async function main() {
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');
-    await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim().startsWith("1/60"), { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim().startsWith("1/120"), { timeout: 3000 });
 
     const views = [
       ["#rankBtn", "MASTER RANKINGS"],
@@ -155,7 +162,7 @@ async function main() {
     }
 
     ok(errors.length === 0, `browser console errors:\n${errors.join("\n")}`);
-    console.log("browser smoke OK: 60 companies, core views, mobile, offline reload");
+    console.log("browser smoke OK: Core 60 + Extended 60, core views, mobile, offline reload");
   } finally {
     await context.setOffline(false).catch(() => {});
     await browser.close().catch(() => {});

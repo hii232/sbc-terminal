@@ -14,7 +14,7 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network in tests"));
 
 const root = path.join(__dirname, "..");
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "scores.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "extended.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -190,6 +190,13 @@ const ok = (cond, name, detail = "") => {
   ok(UNIVERSE_LIST.every(u => u.cik && u.name && u.sector), "every name has identity + CIK");
   const uniSet = new Set(UNIVERSE_LIST.map(u => u.ticker));
   ok(DATA.every(d => uniSet.has(d.ticker)), "no unapproved tickers in DATA");
+  const extended = typeof EXTENDED_DATA !== "undefined" ? EXTENDED_DATA : [];
+  const extSet = new Set(extended.map(d => d.ticker));
+  ok(extended.length === 60, "EXTENDED_DATA length is exactly 60", String(extended.length));
+  ok(extSet.size === 60, "no duplicate extended tickers", String(extSet.size));
+  ok(extended.every(d => d.extended === true && d.ticker && d.name && d.sector && d.reason), "extended names carry live-only metadata");
+  ok(!extended.some(d => uniSet.has(d.ticker)), "extended tickers do not overlap the Core 60", extended.filter(d => uniSet.has(d.ticker)).map(d => d.ticker).join(","));
+  ok(new Set([...uniSet, ...extSet]).size === 120, "Core 60 + Extended 60 produces 120 unique tickers");
   // SEC layer integrity: provenance on every fact
   ok(typeof SEC !== "undefined" && Object.keys(SEC).length === 60, "SEC facts for exactly 60 official names", `${Object.keys(SEC || {}).length}/60`);
   let provOk = 0, checked = 0;
@@ -316,7 +323,8 @@ const ok = (cond, name, detail = "") => {
   const uni = E.bundledEarningsRows(from, to, true);
   ok(all.some(e => e.symbol === "ASML" && e.date === "2026-07-15"), "ASML is on the bundled earnings week");
   ok(all.some(e => e.symbol === "NFLX" && e.date === "2026-07-16"), "NFLX is on the bundled earnings week");
-  ok(uni.every(e => DATA.some(d => d.ticker === e.symbol)), "universe-only earnings rows stay inside official 60");
+  const coverage = new Set([...DATA.map(d => d.ticker), ...EXTENDED_DATA.map(d => d.ticker)]);
+  ok(uni.every(e => coverage.has(e.symbol)), "coverage-only earnings rows stay inside Core 60 + Extended 60");
   const merged = E.mergeEarningsRows([{ symbol: "ASML", date: "2026-07-15", epsEstimate: 7.01, hour: "bmo" }], uni);
   ok(merged.find(e => e.symbol === "ASML").epsEstimate === 7.01, "live earnings row overrides bundled estimate when available");
 }
@@ -337,6 +345,8 @@ const ok = (cond, name, detail = "") => {
   const panwOldHeadline = panw.headlinePE;
   ok(E.applyLiveQuote("PANW", panw.price * 1.25, 1.35, "Yahoo") === true, "PANW can update from no-key quote fallback");
   ok(panw.headlinePE !== panwOldHeadline, "PANW headline P/E recomputes from live fallback price");
+  ok(E.applyLiveQuote("JPM", 250.12, 0.42, "fixture") === true, "extended tickers accept live quote updates");
+  ok(E.companyOf("JPM") && E.companyOf("JPM").extended === true, "extended ticker lookup is available to the app");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
