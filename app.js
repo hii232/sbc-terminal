@@ -2753,7 +2753,7 @@
           <div class="badge" style="display:inline-block;margin-top:9px;font-size:11px;padding:5px 12px;color:${V.C.color};border-color:${V.C.color}">${V.C.label}</div>
         </div>
         <div style="flex:1;min-width:260px">
-          ${V.sig.map(x => `<div style="display:grid;grid-template-columns:26px 118px 1fr;gap:8px;align-items:baseline;padding:3px 0;border-bottom:1px dashed #141b28">
+          ${V.sig.map(x => `<div style="display:grid;grid-template-columns:26px 118px 1fr;gap:8px;align-items:baseline;padding:3px 0;border-bottom:1px dashed rgba(132,158,194,.16)">
             ${votePill(x.v)}<span class="sub" style="font-weight:700;letter-spacing:.5px">${x.k}</span><span class="sub">${x.why}</span></div>`).join("")}
         </div>
       </div>
@@ -3649,7 +3649,7 @@
     el("main").innerHTML = `
       <div class="hdr home-hero">
         <div>
-          <div class="tick" style="color:var(--amber)">HOME DASHBOARD</div>
+          <div class="tick gradient-title">HOME DASHBOARD</div>
           <div class="co">market reward + business quality command center · ${DATA.length} official names · ${ranked.length} ranked</div>
         </div>
         <div class="spacer"></div>
@@ -3658,7 +3658,7 @@
           <div class="stat sm" style="color:var(--green)">${leaders[0]?.d.ticker || "--"}</div>
         </div>
       </div>
-      <div class="grid g4" style="margin-bottom:12px">
+      <div class="grid g4 home-metrics" style="margin-bottom:12px">
         <div class="card"><h3>RANKED UNIVERSE</h3><div class="stat" style="color:var(--green)">${ranked.length}/${DATA.length}</div><div class="sub">all official names scored</div></div>
         <div class="card"><h3>FAT PITCHES</h3><div class="stat" style="color:var(--green)">${fat}</div><div class="sub">IV ladder in the zone</div></div>
         <div class="card"><h3>MEDIAN OWNER P/E</h3><div class="stat" style="color:var(--amber)">${medianPE ? medianPE.toFixed(1) + "x" : "--"}</div><div class="sub">ranked positive owner EPS</div></div>
@@ -4502,7 +4502,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=40").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=41").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
