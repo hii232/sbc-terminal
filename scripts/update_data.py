@@ -280,7 +280,7 @@ def main():
 
 def refresh_options():
     """Refresh opt:{} blocks (~35d ATM IV, realized vol, put/call OI) for the
-    whole universe. Run separately (slow for the official 60-name universe):
+    whole universe. Run separately (slow for the official 120-name universe):
         python scripts/update_data.py --options
     """
     import subprocess, os

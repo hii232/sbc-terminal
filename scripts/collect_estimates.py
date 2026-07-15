@@ -1,4 +1,4 @@
-"""Collect daily analyst estimate snapshots for the 60-stock universe.
+"""Collect daily analyst estimate snapshots for the 120-stock universe.
 
 The terminal uses these files only as point-in-time history. If no API key is
 available, the script still creates explicit empty histories so the UI can say

@@ -1,21 +1,21 @@
 {
-  "asOf": "2026-07-15T04:36:27.225Z",
-  "universe": 60,
+  "asOf": "2026-07-15T05:10:59.993Z",
+  "universe": 120,
   "trueConflicts": 0,
   "periodMismatches": 0,
   "definitionMismatches": 0,
   "unitMismatches": 0,
-  "missingFacts": 31,
-  "missingStandardTags": 31,
-  "customTagMappingsNeeded": 26,
+  "missingFacts": 63,
+  "missingStandardTags": 63,
+  "customTagMappingsNeeded": 50,
   "ifrsCompaniesNeedingReview": 1,
-  "fullFilingVerified": 49,
-  "coreFilingVerified": 5,
-  "partiallyVerified": 5,
+  "fullFilingVerified": 90,
+  "coreFilingVerified": 12,
+  "partiallyVerified": 17,
   "notVerified": 1,
-  "rankableCompanies": 60,
+  "rankableCompanies": 116,
   "rankableBeforeFix": null,
-  "rankableAfterFix": 60,
+  "rankableAfterFix": 116,
   "note": "Before-fix rankable count was not recomputed because the old fiscalYear matcher has been removed. This report is generated from exact periodEnd matching.",
   "byTicker": {
     "AAPL": {
@@ -798,6 +798,790 @@
         }
       ],
       "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "JPM": {
+      "label": "CORE FILING VERIFIED",
+      "dataConfidence": 85,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "BAC": {
+      "label": "CORE FILING VERIFIED",
+      "dataConfidence": 85,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "WFC": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 64,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "revenue",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "C": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 50,
+      "rankable": false,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "sbc",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "GS": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 77,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "revenue",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "MS": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 51,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "revenue",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "BLK": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 89,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "SCHW": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "AXP": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "COF": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "LLY": {
+      "label": "CORE FILING VERIFIED",
+      "dataConfidence": 85,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "JNJ": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-28",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "UNH": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "ABBV": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "MRK": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "PFE": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 89,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "TMO": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "DHR": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "ABT": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "MDT": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2026-04-24",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "WMT": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2026-01-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "COST": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-08-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "HD": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2026-02-01",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "LOW": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2026-01-30",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "MCD": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "SBUX": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-09-28",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "NKE": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-05-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "DIS": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-09-27",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "CMG": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "TGT": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2026-01-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "CAT": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 77,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "netIncome",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "DE": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-11-02",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "GE": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "BA": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 89,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "RTX": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "LMT": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "HON": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "ETN": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 77,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "sbc",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "GEV": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "CEG": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "XOM": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 50,
+      "rankable": false,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "sbc",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "dilShares",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "CVX": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 50,
+      "rankable": false,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "sbc",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "COP": {
+      "label": "CORE FILING VERIFIED",
+      "dataConfidence": 85,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "SLB": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 89,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "LNG": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "EOG": {
+      "label": "CORE FILING VERIFIED",
+      "dataConfidence": 85,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "OXY": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 77,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "netIncome",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "MPC": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "VLO": {
+      "label": "CORE FILING VERIFIED",
+      "dataConfidence": 85,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "NEE": {
+      "label": "CORE FILING VERIFIED",
+      "dataConfidence": 72,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "capex",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "LIN": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "FCX": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 77,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "netIncome",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "NUE": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "SCCO": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 50,
+      "rankable": false,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "netIncome",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "sbc",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "VST": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "NRG": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "SO": {
+      "label": "PARTIALLY VERIFIED",
+      "dataConfidence": 64,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "sbc",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        },
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "DUK": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 89,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2025-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
+    },
+    "UPS": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
+    },
+    "FDX": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 100,
+      "rankable": true,
+      "latestPeriodEnd": "2025-05-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [],
+      "missingReason": null
     }
   }
 }

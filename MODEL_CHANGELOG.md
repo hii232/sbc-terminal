@@ -18,7 +18,7 @@
 - Removed Clean/Middle/High/Tragic as the main company opinion; those labels remain inside SBC-only analysis.
 - Added Long-Term Investment View and Market Reward View with explicit weights. Data Confidence is not additive.
 - Added Expectations Gap, bear/base/bull valuation cases, What Changed?, and thesis-breaking alert tabs.
-- Added Quality x Market Map for the full 60-stock universe.
+- Added Quality x Market Map for the full official universe.
 - Changed watchlist sorting to new metrics instead of bucket order and added compact score columns plus warnings.
 - Added daily analyst-estimate history workflow and per-ticker `data/estimates/history/*.json` files.
 - Added score export and no-lookahead backtest report. Full factor backtesting is blocked until point-in-time fundamentals and estimate histories exist; current report includes only an honest price-momentum pilot.

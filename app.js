@@ -323,7 +323,7 @@
     if (typeof UNIVERSE_LIST === "undefined") fail("universe.js not loaded");
     const uni = UNIVERSE_LIST.map(u => u.ticker);
     const expected = uni.length;
-    if (expected !== 60) fail("universe has " + expected + " tickers, expected exactly 60");
+    if (expected !== 120) fail("universe has " + expected + " tickers, expected exactly 120");
     if (new Set(uni).size !== expected) fail("duplicate tickers in universe");
     if (UNIVERSE_LIST.some(u => !u.cik || !u.name)) fail("ticker missing identity/CIK");
     const have = DATA.map(d => d.ticker);
@@ -575,10 +575,8 @@
   const saveThesis = () => localStorage.setItem("sbc_thesis_rules", JSON.stringify(state.thesisRules));
   function toggleFav(tk) { state.favs.has(tk) ? state.favs.delete(tk) : state.favs.add(tk); saveFavs(); renderWatchlist(); }
   const priceOf = (d) => state.live[d.ticker]?.quote?.price ?? d.price;
-  const extendedData = () => (typeof EXTENDED_DATA !== "undefined" && Array.isArray(EXTENDED_DATA)) ? EXTENDED_DATA : [];
-  const allCompanies = () => DATA.concat(extendedData());
-  const companyOf = (tk) => DATA.find(d => d.ticker === tk) || extendedData().find(d => d.ticker === tk);
-  const isExtended = (d) => !!(d && d.extended);
+  const allCompanies = () => DATA;
+  const companyOf = (tk) => DATA.find(d => d.ticker === tk);
   const quotePriceOf = (d) => {
     const p = state.live[d.ticker]?.quote?.price ?? d.price;
     return p != null && Number.isFinite(+p) && +p > 0 ? +p : null;
@@ -591,11 +589,6 @@
 
   /* ------------------------ watchlist ------------------------ */
   const watchMetric = (d, key) => {
-    if (isExtended(d)) {
-      if (key === "mktCap") return d.mktCap || 0;
-      if (key === "marketReward" || key === "marketRewardView") return quoteChangeOf(d);
-      return -1;
-    }
     if (key === "truePE") return d.truePE != null ? -d.truePE : -9999;
     if (key === "mktCap") return d.mktCap || 0;
     return scoreVal(d, key) ?? -1;
@@ -626,16 +619,16 @@
     const universe = allCompanies();
     const list = universe.filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap);
-    el("wlCount").textContent = `${list.length}/${universe.length} - core ${DATA.length} + ext ${extendedData().length} - ${liveHeaderStatus()}`;
-    const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)", extended: "var(--cyan)" };
+    el("wlCount").textContent = `${list.length}/${universe.length} - ${liveHeaderStatus()}`;
+    const bcol = { clean: "var(--green)", middle: "var(--amber)", high: "var(--orange)", tragic: "var(--red)" };
     if (state.bucket === "fav" && !list.length) {
       el("watchlist").innerHTML = `<div class="sub" style="padding:16px;text-align:center">No starred names yet.<br>Tap the ☆ on any stock to add it here.</div>`;
       return;
     }
     el("watchlist").innerHTML = list.map(d => {
       const ch = quoteChangeOf(d);
-      const ms = isExtended(d) ? null : marketScoreOf(d);
-      const warn = isExtended(d) ? "Extended live-only: not SBC ranked yet" : (ms?.whatCouldGoWrong?.[0] || "");
+      const ms = marketScoreOf(d);
+      const warn = ms?.whatCouldGoWrong?.[0] || "";
       const scoreDelta = (ms?.marketReward?.score ?? 0) - 50;
       return `<div class="row ${state.active === d.ticker && state.view === "stock" ? "sel" : ""}" data-tk="${d.ticker}">
         <div class="bucketbar" style="background:${bcol[d.bucket] || "var(--cyan)"}"></div>
@@ -643,12 +636,10 @@
           <div class="tk"><span class="star ${state.favs.has(d.ticker) ? "on" : ""}" data-fav="${d.ticker}">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker} <span style="font-size:9px;color:var(--dim)">${d.grade}</span></div>
           <div class="nm">${d.name}</div>
           <div class="mini-scores">
-            ${isExtended(d)
-              ? `<span class="mini-score">EXT <b>LIVE</b></span><span class="mini-score">CORE <b>NO</b></span>`
-              : `<span class="mini-score">LT <b>${watchScoreText(ms?.longTermView?.score)}</b></span>
+            <span class="mini-score">LT <b>${watchScoreText(ms?.longTermView?.score)}</b></span>
                  <span class="mini-score">MR <b>${watchScoreText(ms?.marketReward?.score)}</b></span>
                  <span class="mini-score">BQ <b>${watchScoreText(ms?.businessQuality?.score)}</b></span>
-                 <span class="mini-score">VAL <b>${watchScoreText(ms?.valuation?.score)}</b></span>`}
+                 <span class="mini-score">VAL <b>${watchScoreText(ms?.valuation?.score)}</b></span>
           </div>
           ${warn ? `<div class="warn-line">${warn}</div>` : ""}
         </div>
@@ -656,7 +647,7 @@
         <div>
           <div class="px">${priceTextOf(d)}</div>
           <div class="ch ${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</div>
-          <div class="mr-chip ${isExtended(d) || scoreDelta >= 0 ? "up" : "down"}">${isExtended(d) ? "EXT" : `MR ${scoreDelta >= 0 ? "+" : ""}${scoreDelta.toFixed(0)}`}</div>
+          <div class="mr-chip ${scoreDelta >= 0 ? "up" : "down"}">MR ${scoreDelta >= 0 ? "+" : ""}${scoreDelta.toFixed(0)}</div>
         </div>
       </div>`;
     }).join("");
@@ -770,7 +761,6 @@
   function render() {
     const d = companyOf(state.active);
     if (!d) return;
-    if (isExtended(d)) { renderExtendedTicker(d); return; }
     const lv = state.live[d.ticker] || {};
     const price = lv.quote?.price ?? d.price;
     const change = lv.quote?.changePct ?? d.change;
@@ -828,63 +818,6 @@
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
     const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); render(); };
     renderTab(d);
-  }
-
-  function renderExtendedTicker(d) {
-    const q = state.live[d.ticker]?.quote;
-    const price = priceTextOf(d);
-    const change = quoteChangeOf(d);
-    const etf = sectorETF(d.sector);
-    const source = q ? `${q.source || "live"} - ${Math.round((Date.now() - q.ts) / 1000)}s ago` : "waiting for live quote";
-    const extCount = extendedData().length;
-    const header = `
-      <div class="hdr">
-        <div>
-          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker} <span class="derived-tag" style="color:var(--cyan);border-color:var(--cyan)">EXTENDED 60</span></div>
-          <div class="co">${d.name} - ${d.sector}</div>
-        </div>
-        <div>
-          <div class="pxbig">${price === "--" ? "--" : "$" + price}</div>
-          <div class="chbig ${signCls(change)}">${arrow(change)} ${Math.abs(change).toFixed(2)}% ${q ? '<span style="color:var(--green);font-size:9px">LIVE</span>' : '<span style="color:var(--dim);font-size:9px">not refreshed yet</span>'}</div>
-        </div>
-        <div style="border-left:1px solid var(--line);padding-left:16px">
-          <div class="sub">COVERAGE</div><div class="stat sm">EXT ${extCount}</div>
-        </div>
-        <div>
-          <div class="sub">SECTOR ETF</div><div class="stat sm">${etf}</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right">
-          <span class="badge" style="color:var(--cyan);border-color:var(--cyan)">LIVE-ONLY WATCHLIST</span>
-          <div class="sub" style="margin-top:5px">${source}</div>
-        </div>
-      </div>`;
-    el("main").innerHTML = header + `
-      <div class="grid g2">
-        <div class="card">
-          <h3>WHY IT IS HERE</h3>
-          <div class="note">${escapeHtml(d.reason || "Extended market coverage.")}</div>
-        </div>
-        <div class="card">
-          <h3>DATA STATUS</h3>
-          <div class="kv"><span class="k">Core SBC ranking</span><span class="v" style="color:var(--dim)">Not yet</span></div>
-          <div class="kv"><span class="k">SEC/owner-earnings audit</span><span class="v" style="color:var(--dim)">Research queue</span></div>
-          <div class="kv"><span class="k">Live quote tape</span><span class="v" style="color:${q ? "var(--green)" : "var(--amber)"}">${q ? "Connected" : "Pending"}</span></div>
-        </div>
-        <div class="card">
-          <h3>HOW TO USE IT</h3>
-          <div class="sub">Use this name for live price, watchlist monitoring, sector context, earnings/news awareness, and manual thesis tracking. Promote it into Core only after SEC/SBC filings are built and tested.</div>
-          <div style="margin-top:10px">
-            <span class="tag">extended</span><span class="tag">${d.sector}</span><span class="tag">${etf}</span><span class="tag">not SBC ranked</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>QUOTE HEALTH</h3>
-          <div class="stat" style="color:${q ? "var(--green)" : "var(--amber)"}">${price === "--" ? "Pending" : "$" + price}</div>
-          <div class="sub">If this stays pending, tap the live-dot button or add an FMP/Finnhub key in settings. The no-key Yahoo fallback refreshes the active ticker and top visible rows first.</div>
-        </div>
-      </div>`;
-    const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); renderExtendedTicker(d); };
   }
 
   /* ------------------------ tab bodies ------------------------ */
@@ -2362,7 +2295,7 @@
         <b style="color:var(--purple)">The brain score</b> merges every engine's weighted vote: IV15 DCF 25% · SBC x-ray 20% · quality &amp; cash (ROIC + FCF-after-SBC) 20% · Graham 15% · buyback truth 10% · sector flow 10% (+ insiders when live). The CALL column is the one-line conclusion — open any stock to see the full vote breakdown and written thesis on ⚛ THE VERDICT card. Tap a column to re-rank, a row to open.
       </div>
 
-      <div class="note" style="margin-bottom:12px">All 60 official names enter the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete.</div>
+      <div class="note" style="margin-bottom:12px">The official 120-name universe enters the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete. If required SBC/share facts are missing, the ticker stays in Not Ranked instead of getting fake numbers.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
         <tbody>${body}</tbody>
@@ -2438,7 +2371,7 @@
         <h3>★ NET-NET BARGAINS <span class="unit">trading below net current asset value — the rarest Graham signal</span></h3>
         ${Chart.hbars(netnets.slice(0, 10).map(x => ({ label: x.d.ticker, value: x.G.priceToNcav * 100, color: x.G.deepNetnet ? "var(--green)" : "var(--amber)", display: (x.G.priceToNcav * 100).toFixed(0) + "% of NCAV" })), { max: 105, labelW: 52 })}
         <div class="sub" style="margin-top:6px">Under 100% = below liquid assets net of all debt · under 67% (green) = Graham's deep two-thirds bargain.</div>
-      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 152-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
+      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 120-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
 
       <div class="grid g2" style="margin-bottom:12px">
         <div class="card" style="border-left:3px solid var(--green)"><h3>DEEPEST MARGIN OF SAFETY <span class="unit">discount to Graham Number</span></h3>
@@ -3111,7 +3044,7 @@
         if (!items.length) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</div>`; return; }
         el("calBody").innerHTML = `<div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
-          <tbody>${items.slice(0, 60).map(e => { const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "n/m";
+          <tbody>${items.slice(0, 120).map(e => { const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "n/m";
             return `<tr data-tk="${e.symbol}"><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span></td>
               <td>${e.epsEstimate != null ? "$" + e.epsEstimate.toFixed(2) : "–"}</td>
               <td class="sub">${e.hour === "bmo" ? "pre-open" : e.hour === "amc" ? "after-close" : e.hour || ""}</td>
@@ -3354,8 +3287,7 @@
       `<div style="text-align:right"><div class="sub">FILING VERIFIED*</div><div class="stat sm" style="color:var(--green)">${tiers["FILING VERIFIED*"]}/${total}</div><div class="sub">${atLeastPartial}/${total} at least partial</div></div>`)
       + `<div class="grid g3" style="margin-bottom:12px">
         <div class="card"><h3>VERSIONS</h3>
-          <div class="kv"><span class="k">Core universe</span><span class="v">${typeof UNIVERSE_VERSION !== "undefined" ? UNIVERSE_VERSION : "?"} (${DATA.length} names)</span></div>
-          <div class="kv"><span class="k">Extended live-only</span><span class="v">${typeof EXTENDED_VERSION !== "undefined" ? EXTENDED_VERSION : "?"} (${extendedData().length} names)</span></div>
+          <div class="kv"><span class="k">Official universe</span><span class="v">${typeof UNIVERSE_VERSION !== "undefined" ? UNIVERSE_VERSION : "?"} (${DATA.length} names)</span></div>
           <div class="kv"><span class="k">SBC model</span><span class="v">${SBC_MODEL_VERSION}</span></div>
           <div class="kv"><span class="k">Formulas</span><span class="v">${FORMULA_VERSION}</span></div>
           <div class="kv"><span class="k">SEC data generated</span><span class="v">${typeof SEC_META !== "undefined" ? SEC_META.generated.slice(0, 10) : "n/a"}</span></div></div>
@@ -3424,10 +3356,10 @@
     const focusRows = bundledEarningsRows(today, to, false);
     const bundledUniRows = bundledEarningsRows(today, to, true);
     const rowHtml = (e, showTheme = false) => {
-      const d = companyOf(e.symbol), core = d && !isExtended(d), L = core ? ivLadder(d) : null, z = L ? ZONE[L.zone].label : (isExtended(d) ? "extended" : "market focus");
+      const d = companyOf(e.symbol), L = d ? ivLadder(d) : null, z = L ? ZONE[L.zone].label : "market focus";
       const src = e.live ? "live" : e.bundled ? "focus" : "";
-      const bucketColor = isExtended(d) ? "var(--cyan)" : d ? BUCKETS[d.bucket].color : "var(--muted)";
-      return `<tr ${d ? `data-tk="${e.symbol}"` : ""}><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span>${!d ? ` <span class="unit">${e.name || ""}</span>` : ""}${isExtended(d) ? ` <span class="unit">EXT</span>` : ""}</td>
+      const bucketColor = d ? BUCKETS[d.bucket].color : "var(--muted)";
+      return `<tr ${d ? `data-tk="${e.symbol}"` : ""}><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span>${!d ? ` <span class="unit">${e.name || ""}</span>` : ""}</td>
         <td>${e.epsEstimate != null ? "$" + (+e.epsEstimate).toFixed(2) : "-"}</td>
         <td class="sub">${earningsWhen(e.hour)}</td>
         ${showTheme ? `<td class="sub">${e.theme || src}</td>` : `<td style="color:${bucketColor}">${d ? d.bucket : src}</td><td style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${z}</td>`}
@@ -3443,7 +3375,7 @@
         </table></div>
       </div>` : "";
       el("calBody").outerHTML = focus + `<div class="card" id="calBody">
-        <h3>YOUR 120-TICKER EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
+        <h3>YOUR 120-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
         <div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
           <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>
@@ -4191,11 +4123,9 @@
     state.live[tk].quote = { price: +price, changePct: changePct ?? 0, source: source || "live", ts: Date.now() };
     state.live[tk].fetchedAt = Date.now();
     // Recompute price-derived multiples and score tiles whenever live price moves.
-    if (!isExtended(d)) {
-      if (d.gaapEPS > 0) d.headlinePE = +(price / d.gaapEPS).toFixed(1);
-      if (d.ownerEps > 0) d.truePE = +(price / d.ownerEps).toFixed(1);
-      delete d.marketScores;
-    }
+    if (d.gaapEPS > 0) d.headlinePE = +(price / d.gaapEPS).toFixed(1);
+    if (d.ownerEps > 0) d.truePE = +(price / d.ownerEps).toFixed(1);
+    delete d.marketScores;
     return true;
   }
 
@@ -4282,7 +4212,7 @@
     if (!k.finnhub && !k.fmp) {
       tasks.push(fetchYahooQuote(tk).catch(() => false));
     }
-    if (full && k.fmp && !isExtended(d)) {
+    if (full && k.fmp) {
       tasks.push(Promise.all([
         fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/income-statement/${tk}?limit=5&apikey=${k.fmp}`, { provider: "FMP income fallback", ticker: tk }).catch(() => null),
         fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/cash-flow-statement/${tk}?limit=5&apikey=${k.fmp}`, { provider: "FMP cash-flow fallback", ticker: tk }).catch(() => null),
@@ -4369,7 +4299,7 @@
     allCompanies()
       .filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap)
-      .slice(0, 10)
+      .slice(0, 30)
       .forEach(d => add(d.ticker));
     return out;
   }
@@ -4484,6 +4414,7 @@
         state.watchSort = ws.value;
         localStorage.setItem("sbc_watch_sort", state.watchSort);
         renderWatchlist();
+        refreshAllLive({ silent: true });
       };
     }
     // filter buttons
@@ -4491,6 +4422,7 @@
       state.bucket = b.dataset.b;
       el("filter").querySelectorAll("button").forEach(x => x.classList.toggle("active", x === b));
       renderWatchlist();
+      refreshAllLive({ silent: true });
     });
     // command bar
     el("cmdForm").onsubmit = (e) => { e.preventDefault(); runCommand(el("cmdInput").value); el("cmdInput").value = ""; };
@@ -4570,7 +4502,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=38").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=40").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4581,7 +4513,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
-    extendedData, allCompanies, companyOf,
+    allCompanies, companyOf,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();

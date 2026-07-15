@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-15T04:36:27.232Z",
+  "asOf": "2026-07-15T05:11:00.207Z",
   "status": "partial",
   "noLookaheadPolicy": "Historical tests must rank using only data known at the historical date.",
   "pointInTimeFactorBacktest": {
@@ -13,27 +13,27 @@
       "horizonWeeks": 4,
       "method": "At each historical week, rank only by information available at that week, then measure later returns.",
       "observations": 37,
-      "averageTopForwardReturnPct": 7.193265267125846,
-      "averageBottomForwardReturnPct": -0.343063807562241,
-      "averageSpreadPct": 7.536329074688086
+      "averageTopForwardReturnPct": 3.5327744017022473,
+      "averageBottomForwardReturnPct": 0.6049881590102003,
+      "averageSpreadPct": 2.9277862426920476
     },
     {
       "factor": "13-week price relative strength",
       "horizonWeeks": 13,
       "method": "At each historical week, rank only by information available at that week, then measure later returns.",
       "observations": 28,
-      "averageTopForwardReturnPct": 30.49476454174083,
-      "averageBottomForwardReturnPct": -0.9985472049245085,
-      "averageSpreadPct": 31.493311746665338
+      "averageTopForwardReturnPct": 13.704664655960084,
+      "averageBottomForwardReturnPct": 2.747079098181346,
+      "averageSpreadPct": 10.957585557778739
     },
     {
       "factor": "13-week price relative strength",
       "horizonWeeks": 26,
       "method": "At each historical week, rank only by information available at that week, then measure later returns.",
       "observations": 15,
-      "averageTopForwardReturnPct": 62.857587920957805,
-      "averageBottomForwardReturnPct": -4.624723147044494,
-      "averageSpreadPct": 67.4823110680023
+      "averageTopForwardReturnPct": 40.372566966042044,
+      "averageBottomForwardReturnPct": 3.670809851671899,
+      "averageSpreadPct": 36.70175711437015
     }
   ]
 }

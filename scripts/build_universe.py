@@ -9,8 +9,8 @@ from datetime import date
 ROOT = Path(__file__).resolve().parent.parent
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 
-UNIVERSE_VERSION = "1.0.0"
-REQUIRED_UNIVERSE_SIZE = 60
+UNIVERSE_VERSION = "1.1.0"
+REQUIRED_UNIVERSE_SIZE = 120
 
 GROUPS = [
     ("Large technology and internet platforms",
@@ -27,9 +27,41 @@ GROUPS = [
      ["IREN", "CRWV", "NBIS", "SMCI"]),
     ("High-quality comparison companies",
      ["CSCO", "ADP", "SPGI", "ISRG"]),
+    ("Financials, credit and market structure",
+     ["JPM", "BAC", "WFC", "C", "GS", "MS", "BLK", "SCHW", "AXP", "COF"]),
+    ("Healthcare, pharma and medical devices",
+     ["LLY", "JNJ", "UNH", "ABBV", "MRK", "PFE", "TMO", "DHR", "ABT", "MDT"]),
+    ("Consumer, retail, restaurants and media",
+     ["WMT", "COST", "HD", "LOW", "MCD", "SBUX", "NKE", "DIS", "CMG", "TGT"]),
+    ("Industrials, aerospace, defense and power",
+     ["CAT", "DE", "GE", "BA", "RTX", "LMT", "HON", "ETN", "GEV", "CEG"]),
+    ("Energy, utilities and commodity cyclicals",
+     ["XOM", "CVX", "COP", "SLB", "LNG", "EOG", "OXY", "MPC", "VLO", "NEE"]),
+    ("Materials, power, utilities and logistics",
+     ["LIN", "FCX", "NUE", "SCCO", "VST", "NRG", "SO", "DUK", "UPS", "FDX"]),
 ]
 COUNTRY = {"ASML": "NL", "ARM": "GB", "SHOP": "CA", "MELI": "AR/UY (US filer)",
-           "IREN": "AU", "NBIS": "NL", "SPGI": "US"}
+           "IREN": "AU", "NBIS": "NL", "SPGI": "US", "LIN": "IE/UK (US filer)",
+           "SCCO": "PE/US filer"}
+SECTOR_OVERRIDE = {
+    "JPM": "Banks", "BAC": "Banks", "WFC": "Banks", "C": "Banks", "GS": "Banks",
+    "MS": "Banks", "BLK": "Asset Mgmt", "SCHW": "Asset Mgmt", "AXP": "Payments", "COF": "Payments",
+    "LLY": "Pharma", "JNJ": "Pharma", "UNH": "Managed Care", "ABBV": "Pharma", "MRK": "Pharma",
+    "PFE": "Pharma", "TMO": "Life Sciences", "DHR": "Life Sciences", "ABT": "Medical Devices", "MDT": "Medical Devices",
+    "WMT": "Retail", "COST": "Retail", "HD": "Home Improvement", "LOW": "Home Improvement", "MCD": "Restaurants",
+    "SBUX": "Restaurants", "NKE": "Apparel", "DIS": "Media", "CMG": "Restaurants", "TGT": "Retail",
+    "CAT": "Machinery", "DE": "Machinery", "GE": "Aerospace", "BA": "Aerospace", "RTX": "Defense",
+    "LMT": "Defense", "HON": "Industrials", "ETN": "Industrials", "GEV": "Industrials", "CEG": "Utilities",
+    "XOM": "Energy", "CVX": "Energy", "COP": "Energy", "SLB": "Energy", "LNG": "Energy",
+    "EOG": "Energy", "OXY": "Energy", "MPC": "Energy", "VLO": "Energy", "NEE": "Utilities",
+    "LIN": "Industrial Gas", "FCX": "Materials", "NUE": "Materials", "SCCO": "Materials", "VST": "Utilities",
+    "NRG": "Utilities", "SO": "Utilities", "DUK": "Utilities", "UPS": "Industrials", "FDX": "Industrials",
+}
+CIK_OVERRIDE = {
+    # SEC company_tickers can map XOM to a newer holding-company shell. Use the
+    # long-running Exxon Mobil Corporation filer for full historical companyfacts.
+    "XOM": {"cik": 34088, "name": "EXXON MOBIL CORP"},
+}
 
 def get(url):
     req = urllib.request.Request(url, headers=UA)
@@ -47,6 +79,9 @@ today = date.today().isoformat()
 for group, tks in GROUPS:
     for tk in tks:
         row = by_ticker.get(tk)
+        override = CIK_OVERRIDE.get(tk)
+        if override:
+            row = {"ticker": tk, "title": override["name"], "cik_str": override["cik"]}
         if not row:
             errors.append(f"{tk}: not in SEC ticker map")
             continue
@@ -71,7 +106,7 @@ import re
 src = (ROOT / "data.js").read_text(encoding="utf-8")
 sectors = dict(re.findall(r'ticker:"([A-Z]+)", name:"[^"]*", sector:"([^"]*)"', src))
 for e in entries:
-    e["sector"] = sectors.get(e["ticker"], "Unknown")
+    e["sector"] = sectors.get(e["ticker"], SECTOR_OVERRIDE.get(e["ticker"], "Unknown"))
 
 # validation
 tks = [e["ticker"] for e in entries]
