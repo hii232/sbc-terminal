@@ -171,6 +171,28 @@
   .home-metrics .card:nth-child(2){border-color:rgba(77,227,247,.3);background:linear-gradient(180deg,rgba(28,49,59,.72),rgba(15,23,33,.98))}
   .home-metrics .card:nth-child(3){border-color:rgba(247,200,95,.32);background:linear-gradient(180deg,rgba(58,45,28,.7),rgba(15,23,33,.98))}
   .home-metrics .card:nth-child(4){border-color:rgba(169,140,255,.32);background:linear-gradient(180deg,rgba(43,36,61,.7),rgba(15,23,33,.98))}
+  .daily-review-card{background:linear-gradient(180deg,rgba(26,42,58,.98),rgba(12,18,27,.98))}
+  .daily-headline{font-size:18px;line-height:1.35;font-weight:800;color:var(--text);margin:7px 0 10px}
+  .daily-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+  .daily-mini-grid div{border:1px solid rgba(132,158,194,.18);border-radius:8px;background:rgba(7,10,16,.28);padding:8px 10px;min-width:0}
+  .daily-mini-grid span{display:block;color:var(--dim);font-size:10px;letter-spacing:.7px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .daily-mini-grid b{display:block;margin-top:3px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .daily-sector{display:grid;grid-template-columns:minmax(0,1fr) minmax(130px,auto);gap:12px;align-items:center;
+    padding:11px 0 11px 12px;border-bottom:1px solid rgba(132,158,194,.13);border-left:3px solid var(--cyan);cursor:pointer}
+  .daily-sector:last-child{border-bottom:none}
+  .daily-sector:hover{background:rgba(77,227,247,.055)}
+  .daily-sector-title{font-size:14px;font-weight:850;color:var(--text)}
+  .daily-sector-title span{color:var(--dim);font-size:11px;font-weight:700;margin-left:5px}
+  .daily-move{text-align:right;font-size:22px;font-weight:850;line-height:1}
+  .daily-move span{display:block;margin-top:5px;color:var(--dim);font-size:9.5px;font-weight:600;line-height:1.35;max-width:210px}
+  @media(max-width:720px){
+    .daily-headline{font-size:16px}
+    .daily-mini-grid{grid-template-columns:1fr 1fr}
+    .daily-sector{grid-template-columns:1fr;gap:7px;padding:12px 0 12px 10px}
+    .daily-move{text-align:left;font-size:19px}
+    .daily-move span{max-width:none}
+    .daily-review-card .action-btn,.daily-review-card .ghost-btn{width:100%}
+  }
 
   /* owner P/E screener rows */
   .pe-row{display:grid;grid-template-columns:66px 1fr 96px;gap:8px;align-items:center;
@@ -529,6 +551,7 @@
     </div>
     <div class="nav-grid">
       <button class="navbtn c-amber" id="homeBtn" style="grid-column:span 2">HOME DASHBOARD</button>
+      <button class="navbtn c-cyan" id="dailyBtn" style="grid-column:span 2">DAILY REVIEW</button>
       <button class="navbtn c-purple" id="rankBtn">⚡ Rankings</button>
       <button class="navbtn c-blue" id="grahamBtn">🛡 Graham</button>
       <button class="navbtn c-green" id="valBtn">⊞ Owner P/E</button>
@@ -606,14 +629,14 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=41"></script>
-<script src="data.js?v=41"></script>
-<script src="sec.js?v=41"></script>
-<script src="segments.js?v=41"></script>
-<script src="sectors.js?v=41"></script>
-<script src="estimates.js?v=41"></script>
-<script src="scores.js?v=41"></script>
-<script src="charts.js?v=41"></script>
-<script src="app.js?v=41"></script>
+<script src="universe.js?v=42"></script>
+<script src="data.js?v=42"></script>
+<script src="sec.js?v=42"></script>
+<script src="segments.js?v=42"></script>
+<script src="sectors.js?v=42"></script>
+<script src="estimates.js?v=42"></script>
+<script src="scores.js?v=42"></script>
+<script src="charts.js?v=42"></script>
+<script src="app.js?v=42"></script>
 </body>
 </html>

@@ -106,6 +106,7 @@ async function main() {
     await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim().startsWith("1/120"), { timeout: 3000 });
 
     const views = [
+      ["#dailyBtn", "DAILY REVIEW"],
       ["#rankBtn", "MASTER RANKINGS"],
       ["#auditBtn", "DATA AUDIT"],
       ["#compareBtn", "COMPARE"],
@@ -122,7 +123,7 @@ async function main() {
     }
     await page.waitForFunction(() => {
       const t = document.querySelector("#main")?.textContent || "";
-      return t.includes("ASML") && t.includes("NFLX") && t.includes("2026-07-15");
+      return t.includes("ASML/TSM test AI capex") && t.includes("NFLX") && t.includes("July 13-17, 2026");
     }, { timeout: 3000 });
 
     await page.setViewportSize({ width: 390, height: 844 });

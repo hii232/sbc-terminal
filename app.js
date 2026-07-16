@@ -24,6 +24,8 @@
     liveTimer: null,
     quoteRefreshing: false,
     liveStatus: { lastFullRefresh: null, lastCount: 0, source: "snapshot" },
+    dailyReviewLoading: false,
+    dailyReviewFetchedAt: null,
     secOn: new Set(["XLK", "SMH", "XLF", "XLV", "XLE", "SPY"]), // default sector lines
   };
 
@@ -31,7 +33,7 @@
   const SECTOR_MAP = {
     "Consumer Tech": "XLK", "Software": "XLK", "Software/AI": "XLK", "HR Tech": "XLK",
     "Networking": "XLK", "Cybersecurity": "XLK", "AdTech": "XLK", "IT Services": "XLK",
-    "AI Infrastructure": "XLK", "Neocloud": "XLK", "EDA Software": "SMH",
+    "AI Infrastructure": "XLK", "Neocloud": "XLK", "Hardware": "SMH", "EDA Software": "SMH",
     "Semis": "SMH", "Semis/AI": "SMH", "Semi Equip": "SMH", "Semis/IP": "SMH",
     "E-commerce": "XLY", "E-commerce/Cloud": "XLY", "Auto/AI": "XLY", "Retail": "XLP",
     "Home Improvement": "XLY", "Restaurants": "XLY", "Apparel": "XLY", "Travel": "XLY",
@@ -657,7 +659,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn"];
+  const VIEW_BTNS = ["homeBtn", "dailyBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -741,7 +743,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, sectors: showSectors, narratives: showNarratives, valuation: showValuation, inflation: showInflation,
+        const map = { home: showHome, dailyReview: showDailyReview, sectors: showSectors, narratives: showNarratives, valuation: showValuation, inflation: showInflation,
           rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
           triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -3611,6 +3613,219 @@
   function showQualityMap() {
     showView("qualityMap", renderQualityMap, "mapBtn");
   }
+
+  const DAILY_SECTOR_LENS = {
+    SMH: { watch: "AI capex, compute supply, export controls, memory/equipment read-through", tickers: ["NVDA", "AMD", "AVGO", "ASML", "AMAT", "LRCX", "SMCI", "NBIS", "IREN"] },
+    XLK: { watch: "rate pressure, software budgets, cloud demand, AI monetization", tickers: ["MSFT", "ORCL", "ADBE", "CRM", "NOW", "PLTR", "CRWD"] },
+    XLC: { watch: "ads, engagement, AI platform spend, regulation", tickers: ["META", "GOOGL", "NFLX", "DIS"] },
+    XLY: { watch: "consumer demand, credit stress, autos, travel, restaurants", tickers: ["AMZN", "TSLA", "BKNG", "UBER", "MCD", "CMG"] },
+    XLP: { watch: "food inflation, private-label trade-down, margin pass-through", tickers: ["WMT", "COST", "KO", "PG", "PEP"] },
+    XLF: { watch: "rates, credit, capital markets, consumer charge-offs", tickers: ["JPM", "GS", "MS", "WFC", "AXP", "V", "MA"] },
+    XLV: { watch: "managed-care margins, trial/regulatory headlines, defensive rotation", tickers: ["UNH", "JNJ", "LLY", "ABBV", "ISRG"] },
+    XLE: { watch: "oil/gas move, inflation impulse, demand destruction risk", tickers: ["XOM", "CVX"] },
+    XLI: { watch: "orders, backlog, labor/freight inflation, capex cycle", tickers: ["CAT", "GE", "AXON"] },
+    XLB: { watch: "commodity spreads, China demand, input-cost pass-through", tickers: [] },
+    XLRE: { watch: "rates, cap rates, financing stress", tickers: [] },
+    XLU: { watch: "rates, power demand, AI data-center load growth", tickers: [] },
+  };
+
+  function dailySectorTape() {
+    const groups = {};
+    DATA.forEach(d => {
+      const etf = sectorETF(d.sector);
+      const s = secByT(etf) || { t: etf, name: etf, color: "var(--cyan)" };
+      groups[etf] = groups[etf] || { etf, name: s.name || etf, color: s.color || "var(--cyan)", members: [] };
+      groups[etf].members.push({ d, ch: quoteChangeOf(d), weight: Math.max(1, d.mktCap || 1) });
+    });
+    return Object.values(groups).map(g => {
+      const totalW = g.members.reduce((a, x) => a + x.weight, 0) || g.members.length || 1;
+      const avg = g.members.reduce((a, x) => a + x.ch, 0) / (g.members.length || 1);
+      const weighted = g.members.reduce((a, x) => a + x.ch * x.weight, 0) / totalW;
+      const up = g.members.filter(x => x.ch >= 0).length;
+      const sorted = [...g.members].sort((a, b) => Math.abs(b.ch) - Math.abs(a.ch));
+      return {
+        ...g,
+        avg: +avg.toFixed(2),
+        weighted: +weighted.toFixed(2),
+        move: +weighted.toFixed(2),
+        breadth: Math.round((up / (g.members.length || 1)) * 100),
+        top: sorted.slice(0, 5),
+        sectors: new Set(g.members.map(x => x.d.sector)),
+      };
+    }).sort((a, b) => Math.abs(b.move) - Math.abs(a.move));
+  }
+
+  function dailyHeadlineRows() {
+    const seen = new Set();
+    return Object.keys(state.live).flatMap(tk => analyzedNewsForTicker(tk).map(a => ({ ...a, sourceTicker: tk })))
+      .filter(a => {
+        const key = (a.url || a.headline || "") + "|" + a.sourceTicker;
+        if (!a.headline || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .sort((a, b) => Math.abs(b.score) - Math.abs(a.score) || (b.datetime || 0) - (a.datetime || 0));
+  }
+
+  function dailyDriverForSector(sec) {
+    const sectorTickers = new Set(sec.members.map(x => x.d.ticker));
+    const sectorNames = sec.sectors || new Set();
+    const rows = dailyHeadlineRows().filter(a => {
+      const sourceHit = sectorTickers.has(a.sourceTicker) || sectorTickers.has(a.ticker);
+      const affectedHit = a.tickers.some(tk => sectorTickers.has(tk));
+      const industryHit = a.industries.some(ind => sectorNames.has(ind));
+      return sourceHit || affectedHit || industryHit;
+    });
+    const signAligned = (a) => (sec.move < 0 && a.score < 0) || (sec.move > 0 && a.score > 0) ? 1 : 0;
+    return rows.sort((a, b) => signAligned(b) - signAligned(a) || Math.abs(b.score) - Math.abs(a.score) || (b.datetime || 0) - (a.datetime || 0))[0] || null;
+  }
+
+  function dailyReviewFocusTickers() {
+    const seen = new Set();
+    const out = [];
+    const add = (tk) => { if (companyOf(tk) && !seen.has(tk)) { seen.add(tk); out.push(tk); } };
+    dailySectorTape().slice(0, 3).forEach(s => {
+      s.top.slice(0, 4).forEach(x => add(x.d.ticker));
+      (DAILY_SECTOR_LENS[s.etf]?.tickers || []).slice(0, 3).forEach(add);
+    });
+    [...DATA].sort((a, b) => Math.abs(quoteChangeOf(b)) - Math.abs(quoteChangeOf(a))).slice(0, 8).forEach(d => add(d.ticker));
+    return out.slice(0, 12);
+  }
+
+  function dailyReviewModel() {
+    const sectors = dailySectorTape();
+    const worst = [...sectors].sort((a, b) => a.move - b.move)[0] || null;
+    const best = [...sectors].sort((a, b) => b.move - a.move)[0] || null;
+    const focus = worst && best ? (Math.abs(worst.move) >= Math.abs(best.move) ? worst : best) : (worst || best);
+    const driver = focus ? dailyDriverForSector(focus) : null;
+    const moveWord = !focus ? "mixed" : focus.move < -0.15 ? "fell" : focus.move > 0.15 ? "rose" : "was flat";
+    const why = driver
+      ? `because ${driver.narrative.toLowerCase()} hit the tape`
+      : state.keys.finnhub
+        ? state.dailyReviewLoading ? "while headline scan is still running" : "with no scored headline driver loaded yet"
+        : "from price tape only; connect Finnhub for headline drivers";
+    const headline = focus ? `${focus.name} ${moveWord} ${focus.move >= 0 ? "+" : ""}${focus.move.toFixed(2)}% ${why}.` : "Market tape is unavailable.";
+    const marketMove = DATA.reduce((a, d) => a + quoteChangeOf(d) * Math.max(1, d.mktCap || 1), 0) /
+      (DATA.reduce((a, d) => a + Math.max(1, d.mktCap || 1), 0) || 1);
+    return {
+      sectors, worst, best, focus, driver, headline,
+      marketMove: +marketMove.toFixed(2),
+      newsRows: dailyHeadlineRows(),
+      asOf: new Date().toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }),
+    };
+  }
+
+  function dailyTickerChips(tickers) {
+    const seen = new Set();
+    return (tickers || []).filter(tk => companyOf(tk) && !seen.has(tk) && seen.add(tk)).slice(0, 10)
+      .map(tk => `<span class="impact-chip impact-tk" data-tk="${tk}">${tk}</span>`).join("");
+  }
+
+  function dailySectorRow(s) {
+    const driver = dailyDriverForSector(s);
+    const lens = DAILY_SECTOR_LENS[s.etf] || { watch: "confirm whether news, rates, earnings or positioning drove the move", tickers: [] };
+    const affected = driver ? driver.tickers : s.top.map(x => x.d.ticker).concat(lens.tickers || []);
+    const tone = s.move < -0.15 ? "Pressure" : s.move > 0.15 ? "Strength" : "Flat";
+    return `<div class="daily-sector" data-sector="${s.etf}" style="border-left-color:${s.color}">
+      <div>
+        <div class="daily-sector-title">${escapeHtml(s.name)} <span>${s.etf}</span></div>
+        <div class="sub">${tone} - breadth ${s.breadth}% up - watch ${escapeHtml(lens.watch)}</div>
+        ${driver ? `<div class="sub" style="margin-top:5px;color:${driver.color}">${driver.score > 0 ? "+" : ""}${driver.score} ${escapeHtml(driver.narrative)} - ${escapeHtml(driver.headline).slice(0, 130)}</div>` : `<div class="sub" style="margin-top:5px">No scored headline attached yet. The move is coming from the price tape.</div>`}
+        <div style="margin-top:7px">${dailyTickerChips(affected)}</div>
+      </div>
+      <div class="daily-move ${signCls(s.move)}">${s.move >= 0 ? "+" : ""}${s.move.toFixed(2)}%<span>${s.top.map(x => x.d.ticker + " " + (x.ch >= 0 ? "+" : "") + x.ch.toFixed(1) + "%").join(" / ")}</span></div>
+    </div>`;
+  }
+
+  function dailyReviewPreviewCard() {
+    const R = dailyReviewModel();
+    const f = R.focus;
+    const color = f?.color || "var(--cyan)";
+    return `<div class="card daily-review-card" style="grid-column:span 2;border-left:3px solid ${color}">
+      <h3>DAILY REVIEW <span class="unit">${R.asOf} - ${liveHeaderStatus()}</span></h3>
+      <div class="daily-headline">${escapeHtml(R.headline)}</div>
+      <div class="daily-mini-grid">
+        <div><span>Market tape</span><b class="${signCls(R.marketMove)}">${R.marketMove >= 0 ? "+" : ""}${R.marketMove.toFixed(2)}%</b></div>
+        <div><span>Strongest</span><b class="${signCls(R.best?.move || 0)}">${R.best ? `${R.best.etf} ${R.best.move >= 0 ? "+" : ""}${R.best.move.toFixed(1)}%` : "--"}</b></div>
+        <div><span>Weakest</span><b class="${signCls(R.worst?.move || 0)}">${R.worst ? `${R.worst.etf} ${R.worst.move >= 0 ? "+" : ""}${R.worst.move.toFixed(1)}%` : "--"}</b></div>
+      </div>
+      <button class="action-btn" id="openDailyReview" type="button">OPEN DAILY REVIEW</button>
+    </div>`;
+  }
+
+  function renderDailyReview() {
+    const R = dailyReviewModel();
+    const focusColor = R.focus?.color || "var(--cyan)";
+    const newsStatus = !state.keys.finnhub
+      ? "Connect Finnhub to attach live headline drivers"
+      : state.dailyReviewLoading
+        ? "Scanning focused movers for headline drivers..."
+        : state.dailyReviewFetchedAt
+          ? `Headline scan ${Math.round((Date.now() - state.dailyReviewFetchedAt) / 60000)}m ago`
+          : "Headlines not scanned yet";
+    const drivers = R.newsRows.slice(0, 8).map(a => `<a class="news-item" href="${a.url}" target="_blank" rel="noopener">${newsAnalysisRow(a)}</a>`).join("");
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div>
+          <div class="tick gradient-title">DAILY REVIEW</div>
+          <div class="co">market recap - sector moves - headline drivers - affected tickers</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right">
+          <div class="sub">AS OF</div>
+          <div class="stat sm" style="color:var(--cyan)">${R.asOf}</div>
+        </div>
+      </div>
+      <div class="card daily-review-card" style="margin-bottom:12px;border-left:3px solid ${focusColor}">
+        <h3>TODAY'S TAPE <span class="unit">${liveStatusText()}</span></h3>
+        <div class="daily-headline">${escapeHtml(R.headline)}</div>
+        <div class="daily-mini-grid">
+          <div><span>Market tape</span><b class="${signCls(R.marketMove)}">${R.marketMove >= 0 ? "+" : ""}${R.marketMove.toFixed(2)}%</b></div>
+          <div><span>Strongest sector</span><b class="${signCls(R.best?.move || 0)}">${R.best ? `${R.best.name} ${R.best.move >= 0 ? "+" : ""}${R.best.move.toFixed(2)}%` : "--"}</b></div>
+          <div><span>Weakest sector</span><b class="${signCls(R.worst?.move || 0)}">${R.worst ? `${R.worst.name} ${R.worst.move >= 0 ? "+" : ""}${R.worst.move.toFixed(2)}%` : "--"}</b></div>
+          <div><span>News layer</span><b style="color:${state.keys.finnhub ? "var(--cyan)" : "var(--orange)"}">${escapeHtml(newsStatus)}</b></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button class="action-btn" id="scanDailyNews" type="button">SCAN HEADLINES</button>
+          <button class="ghost-btn" id="dailyRefreshPrices" type="button">REFRESH PRICES</button>
+        </div>
+      </div>
+      <div class="grid g2">
+        <div class="card" style="border-left:3px solid var(--cyan)">
+          <h3>SECTOR RECAP <span class="unit">grouped by terminal universe, market-cap weighted</span></h3>
+          ${R.sectors.map(dailySectorRow).join("")}
+        </div>
+        <div class="card news-impact">
+          <h3>HEADLINE DRIVERS <span class="unit">${R.newsRows.length ? "scored live headlines" : "none loaded"}</span></h3>
+          ${drivers || `<div class="note">No live headline drivers are loaded for the recap. Connect Finnhub or press SCAN HEADLINES; the price tape still shows which sectors moved.</div>`}
+        </div>
+    </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-news-tk]").forEach(r => r.onclick = (e) => { e.preventDefault(); e.stopPropagation(); selectTicker(r.dataset.newsTk); });
+    el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = () => { state.secOn.add(r.dataset.sector); showSectors(); });
+    el("scanDailyNews").onclick = () => {
+      if (!state.keys.finnhub) {
+        flash("Connect Finnhub to scan headline drivers", "err");
+        el("gearBtn").click();
+        return;
+      }
+      loadDailyReviewNews(true);
+    };
+    el("dailyRefreshPrices").onclick = () => refreshAllLive({ silent: false });
+  }
+
+  function showDailyReview() {
+    state.view = "dailyReview";
+    setViewBtn("dailyBtn");
+    renderWatchlist();
+    renderDailyReview();
+    closeDrawer();
+    window.scrollTo({ top: 0 });
+    syncNav();
+    pushNav();
+    loadDailyReviewNews(false);
+  }
+
   function renderHome() {
     const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
     const ranked = scored.filter(x => !x.r.noRank);
@@ -3664,6 +3879,9 @@
         <div class="card"><h3>MEDIAN OWNER P/E</h3><div class="stat" style="color:var(--amber)">${medianPE ? medianPE.toFixed(1) + "x" : "--"}</div><div class="sub">ranked positive owner EPS</div></div>
         <div class="card"><h3>TOP COMBO</h3><div class="stat" style="color:var(--cyan)">${leaders[0] ? combo(leaders[0]) : "--"}</div><div class="sub">business quality + market reward</div></div>
       </div>
+      <div class="grid g2" style="margin-bottom:12px">
+        ${dailyReviewPreviewCard()}
+      </div>
       <div class="grid g2">
         <div class="card" style="border-left:3px solid var(--green)"><h3>GREAT BUSINESSES — BUY PRICES <span class="unit">great buy = IV15 · starter = IV12</span></h3>
           <div class="note" style="margin-bottom:8px">These are model watch prices, not automatic orders. <b style="color:var(--green)">Great buy</b> means the IV ladder estimates a 15% required-return entry; <b style="color:var(--amber)">starter</b> is the 12% zone for scaling/watching.</div>
@@ -3680,6 +3898,8 @@
       </div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
     el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = showSectors);
+    const openDaily = el("openDailyReview");
+    if (openDaily) openDaily.onclick = showDailyReview;
   }
   function showHome() {
     state.view = "home";
@@ -4104,6 +4324,34 @@
   }
   async function fetchQuoteOnly(tk) { return fetchLive(tk, false); }
   async function fetchNews(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/company-news?symbol=${tk}&from=${new Date(Date.now() - 30 * 864e5).toISOString().slice(0,10)}&to=${new Date().toISOString().slice(0,10)}&token=${state.keys.finnhub}`, { provider: "Finnhub news", ticker: tk }) : null; }
+  async function loadDailyReviewNews(force = false) {
+    if (location.search.includes("ci=") || !state.keys.finnhub || state.dailyReviewLoading) return 0;
+    if (!force && state.dailyReviewFetchedAt && Date.now() - state.dailyReviewFetchedAt < 20 * 60 * 1000) return 0;
+    state.dailyReviewLoading = true;
+    if (state.view === "dailyReview") renderDailyReview();
+    const tickers = dailyReviewFocusTickers();
+    let ok = 0;
+    try {
+      for (const tk of tickers) {
+        try {
+          const n = await fetchNews(tk);
+          if (Array.isArray(n)) {
+            state.live[tk] = state.live[tk] || {};
+            state.live[tk].news = n;
+            ok++;
+          }
+        } catch (e) { /* one bad ticker should not kill the recap */ }
+        await sleep(850);
+      }
+      state.dailyReviewFetchedAt = Date.now();
+      return ok;
+    } finally {
+      state.dailyReviewLoading = false;
+      if (state.view === "dailyReview") renderDailyReview();
+      else if (state.view === "home") renderHome();
+      if (ok) flash(`Daily review headlines scanned: ${ok}/${tickers.length}`, "ok");
+    }
+  }
   async function fetchAnalystData(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/stock/price-target?symbol=${tk}&token=${state.keys.finnhub}`, { provider: "Finnhub analyst", ticker: tk }) : null; }
   async function fetchInsiderData(tk) { return state.keys.finnhub ? fetchJsonWithRetry(`https://finnhub.io/api/v1/stock/insider-transactions?symbol=${tk}&from=${new Date(Date.now() - 183 * 864e5).toISOString().slice(0,10)}&token=${state.keys.finnhub}`, { provider: "Finnhub insider", ticker: tk }) : null; }
   async function fetchFundamentalsFallback(tk) {
@@ -4360,6 +4608,9 @@
     if (["RANK", "RANKINGS", "RANKING", "LEADERBOARD", "SCORE", "BEST", "TOP"].includes(q)) {
       showRankings(); flash("Master rankings", "ok"); return;
     }
+    if (["DAILY", "RECAP", "REVIEW", "DAILY REVIEW", "MARKET REVIEW", "MARKET RECAP", "TODAY"].includes(q)) {
+      showDailyReview(); flash("Daily review", "ok"); return;
+    }
     if (["GRAHAM", "VALUE", "NETNET", "NET-NET", "MOS", "SAFETY", "DEFENSIVE"].includes(q)) {
       showGraham(); flash("Graham value screener", "ok"); return;
     }
@@ -4454,6 +4705,7 @@
     };
     el("liveBtn").onclick = () => startLiveTape();
     el("homeBtn").onclick = showHome;
+    el("dailyBtn").onclick = showDailyReview;
     el("sectorBtn").onclick = showSectors;
     el("narrBtn").onclick = showNarratives;
     el("valBtn").onclick = showValuation;
@@ -4502,7 +4754,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=41").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=42").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
