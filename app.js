@@ -5234,7 +5234,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=45").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=46").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
