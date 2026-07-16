@@ -4207,7 +4207,6 @@
     const gainers = [...DATA].filter(d => quoteChangeOf(d) > 0).sort((a, b) => quoteChangeOf(b) - quoteChangeOf(a)).slice(0, 3);
     const losers = [...DATA].filter(d => quoteChangeOf(d) < 0).sort((a, b) => quoteChangeOf(a) - quoteChangeOf(b)).slice(0, 3);
     const stockDay = leaders[0] || ranked[0];
-    const topBuy = buyList[0];
     const eFrom = new Date(today.getTime() - 3 * 864e5);
     const eTo = new Date(today.getTime() + 21 * 864e5);
     let earningsRows = bundledEarningsRows(eFrom, eTo, true);
@@ -4329,11 +4328,6 @@
           <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: best combined business quality and market reward setup on the board.` : "No ranked setup loaded."}</p></div>
           <button type="button">Open</button>
         </section>
-        <section class="bz-panel bz-edge-report">
-          <h2>SBC Edge Insider Report</h2>
-          <p>${topBuy ? `${topBuy.d.ticker} has the cleanest high-quality buy-price setup: great buy $${topBuy.L.IV15.toFixed(topBuy.L.IV15 >= 100 ? 0 : 2)}, starter $${topBuy.L.IV12.toFixed(topBuy.L.IV12 >= 100 ? 0 : 2)}.` : "No high-quality buy-price setup is in range yet."}</p>
-          <button id="openDirectionEdgeTop" type="button">Open Direction Edge</button>
-        </section>
         <section class="bz-panel bz-why">
           <h2>Why Is It Moving?</h2>
           ${stories.length ? stories.map(storyCard).join("") : `<div class="note">No news driver loaded yet. Open Daily Review to scan headlines.</div>`}
@@ -4373,8 +4367,6 @@
     if (openDaily) openDaily.onclick = showDailyReview;
     const openMovers = el("openAllMovers");
     if (openMovers) openMovers.onclick = showRankings;
-    const openEdge = el("openDirectionEdgeTop");
-    if (openEdge) openEdge.onclick = showDirectionEdge;
   }
 
   function showHome() {
@@ -5234,7 +5226,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=46").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=47").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
