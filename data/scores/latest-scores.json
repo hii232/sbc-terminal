@@ -1,7 +1,7 @@
 {
-  "asOf": "2026-07-15T05:11:00.207Z",
+  "asOf": "2026-07-16T05:17:14.516Z",
   "modelVersion": "4.1.0",
-  "count": 120,
+  "count": 121,
   "methodology": "Current snapshot scores. Data Confidence is a separate trust gate and is not additive.",
   "rows": [
     {
@@ -620,6 +620,36 @@
       "shareholderEconomics": 97,
       "valuation": 30,
       "dataConfidence": 100,
+      "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing",
+      "sector": "Semis/Foundry",
+      "price": 419.48,
+      "ownerPE": 35.2,
+      "ownerEPS": 11.92,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 20.7,
+      "forwardEPS": 20.29,
+      "forwardPESource": "forward estimate",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 63,
+      "marketRewardView": 65,
+      "businessQuality": 72,
+      "growthExecution": 70,
+      "marketReward": 65,
+      "shareholderEconomics": 73,
+      "valuation": 33,
+      "dataConfidence": 89,
       "expectationsGap": "Moderate positive gap",
       "whatChanged": "Better",
       "whyRise": [

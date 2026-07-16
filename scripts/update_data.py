@@ -35,6 +35,11 @@ FUND_TYPES = ("annualTotalRevenue,annualNetIncome,annualStockBasedCompensation,"
               "annualCashCashEquivalentsAndShortTermInvestments,annualInventory,"
               "annualReceivables,annualCashDividendsPaid")
 
+# Yahoo reports TSM's statement line items in TWD while the terminal stores
+# company financial arrays in USD billions. Keep annual/quarterly/gd blocks on
+# SEC-translated USD facts until an explicit FX normalizer is added.
+SEC_USD_ONLY_TICKERS = {"TSM"}
+
 # maps Yahoo field -> short key used in the gd:{} block
 GD_FIELDS = [
     ("annualCurrentAssets", "ca"), ("annualCurrentLiabilities", "cl"),
@@ -224,7 +229,7 @@ def main():
                     block = re.sub(r"nonGaapEPS:-?[\d.]+", f"nonGaapEPS:{ng:.2f}", block)
                 block = re.sub(r"gaapEPS:-?[\d.]+", f"gaapEPS:{eps:.2f}", block)
         f = funds.get(tk)
-        if f and f.get("annualTotalRevenue"):
+        if f and f.get("annualTotalRevenue") and tk not in SEC_USD_ONLY_TICKERS:
             years = sorted(f["annualTotalRevenue"].keys())
             B = 1e9
             def series(key, absval=False, fill=None):
@@ -253,13 +258,13 @@ def main():
                 block = re.sub(r"sbcPctNI:(?:[\d.]+|null)", f"sbcPctNI:{ls/ln*100:.0f}", block)
             if ls is not None and lo:
                 block = re.sub(r"sbcPctOCF:[\d.]+", f"sbcPctOCF:{ls/lo*100:.1f}", block)
-        qd = f and build_qd(f)
+        qd = f and tk not in SEC_USD_ONLY_TICKERS and build_qd(f)
         if qd:
             if "qd:{" in block:
                 block = re.sub(r"qd:\{[^}]*\},", qd, block)
             else:
                 block = block.replace("    note:", "    " + qd + "\n    note:")
-        gd = build_gd(f, q)
+        gd = None if tk in SEC_USD_ONLY_TICKERS else build_gd(f, q)
         if gd:
             if "gd:{" in block:
                 block = re.sub(r"gd:\{[^}]*\},", gd, block)
@@ -280,7 +285,7 @@ def main():
 
 def refresh_options():
     """Refresh opt:{} blocks (~35d ATM IV, realized vol, put/call OI) for the
-    whole universe. Run separately (slow for the official 120-name universe):
+    whole universe. Run separately (slow for the official 121-name universe):
         python scripts/update_data.py --options
     """
     import subprocess, os

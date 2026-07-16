@@ -1,6 +1,6 @@
 {
-  "asOf": "2026-07-15T05:11:00.207Z",
-  "universe": 120,
+  "asOf": "2026-07-16T05:17:14.516Z",
+  "universe": 121,
   "headlinePriceEpsMismatches": 0,
   "rankedAnnualOwnerEpsBasis": 16,
   "missingOwnerPE": 0,
@@ -1829,6 +1829,22 @@
       "flags": [
         "high-owner-pe-check-expectations"
       ]
+    },
+    {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing",
+      "sector": "Semis/Foundry",
+      "price": 419.48,
+      "gaapEPS": 11.49,
+      "headlinePE": 36.5,
+      "impliedHeadlinePE": 36.5,
+      "headlineGap": 0,
+      "ownerEPS": 11.92,
+      "ownerPE": 35.2,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "dataConfidence": 89,
+      "rankable": true,
+      "flags": []
     },
     {
       "ticker": "UBER",

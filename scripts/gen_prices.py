@@ -24,7 +24,10 @@ def fetch_px(tk):
     return f'px:{{v:[{vals}], from:"{d0}", to:"{d1}"}},'
 
 src = DATA_JS.read_text(encoding="utf-8")
+only = {t.upper() for t in sys.argv[1:]}
 tickers = re.findall(r'co\(\{ ticker:"([A-Z]+)"', src)
+if only:
+    tickers = [t for t in tickers if t in only]
 print(f"{len(tickers)} tickers", flush=True)
 
 out, fails = {}, []

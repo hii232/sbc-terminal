@@ -1,7 +1,7 @@
 {
  "universeVersion": "1.1.0",
- "asOf": "2026-07-15",
- "count": 120,
+ "asOf": "2026-07-16",
+ "count": 121,
  "companies": [
   {
    "ticker": "AAPL",
@@ -211,6 +211,21 @@
    "reason": "Semiconductors and AI infrastructure",
    "universeVersion": "1.1.0",
    "dateAdded": "2026-07-15",
+   "status": "active"
+  },
+  {
+   "ticker": "TSM",
+   "name": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+   "cik": 1046179,
+   "cik10": "0001046179",
+   "sector": "Semis/Foundry",
+   "industry": "Semiconductors and AI infrastructure",
+   "country": "TW",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Semiconductors and AI infrastructure",
+   "universeVersion": "1.1.0",
+   "dateAdded": "2026-07-16",
    "status": "active"
   },
   {

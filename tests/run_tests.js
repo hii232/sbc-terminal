@@ -200,18 +200,20 @@ const ok = (cond, name, detail = "") => {
 // =============== 9. Universe + SEC filing layer ===============
 {
   const expected = typeof UNIVERSE_LIST !== "undefined" ? UNIVERSE_LIST.length : 0;
-  ok(expected === 120, "UNIVERSE_LIST length is exactly 120", String(expected));
-  ok(DATA.length === 120, "DATA length is exactly 120", String(DATA.length));
+  ok(expected === 121, "UNIVERSE_LIST length is exactly 121", String(expected));
+  ok(DATA.length === 121, "DATA length is exactly 121", String(DATA.length));
   ok(!UNIVERSE_LIST.some(u => u.ticker === "FLUT"), "FLUT is not in official universe");
   ok(!DATA.some(d => d.ticker === "FLUT"), "FLUT is not in DATA");
+  ok(UNIVERSE_LIST.some(u => u.ticker === "TSM" && u.cik10 === "0001046179"), "TSM is in official universe with SEC CIK");
+  ok(DATA.some(d => d.ticker === "TSM" && d.sector === "Semis/Foundry"), "TSM has a DATA financial row");
   ok(new Set(UNIVERSE_LIST.map(u => u.ticker)).size === expected, "no duplicate tickers");
   ok(UNIVERSE_LIST.every(u => u.cik && u.name && u.sector), "every name has identity + CIK");
   const uniSet = new Set(UNIVERSE_LIST.map(u => u.ticker));
   ok(DATA.every(d => uniSet.has(d.ticker)), "no unapproved tickers in DATA");
-  ok(DATA.every(d => d.ticker && d.name && d.sector && d.price != null), "all 120 official names carry identity and quote snapshot");
+  ok(DATA.every(d => d.ticker && d.name && d.sector && d.price != null), "all 121 official names carry identity and quote snapshot");
   ok(UNIVERSE_LIST.every(u => DATA.some(d => d.ticker === u.ticker)), "every approved universe ticker has a DATA financial row");
   // SEC layer integrity: provenance on every fact
-  ok(typeof SEC !== "undefined" && Object.keys(SEC).length === 120, "SEC facts for exactly 120 official names", `${Object.keys(SEC || {}).length}/120`);
+  ok(typeof SEC !== "undefined" && Object.keys(SEC).length === 121, "SEC facts for exactly 121 official names", `${Object.keys(SEC || {}).length}/121`);
   let provOk = 0, checked = 0;
   for (const tk of Object.keys(SEC)) {
     const f = SEC[tk].f.revenue;
@@ -246,6 +248,9 @@ const ok = (cond, name, detail = "") => {
   ok(verifiedYoung.every(d => d && E.dataConfidenceOf(d).score >= 80 && E.rankOf(d).noRank !== true),
     "verified owner-EPS names rank even when retention history is unavailable",
     verifiedYoung.map(d => d && `${d.ticker}:${E.dataConfidenceOf(d).score}/${E.rankOf(d).noRank ? "blocked" : "ranked"}`).join(","));
+  const tsm = DATA.find(d => d.ticker === "TSM");
+  ok(tsm && tsm.truePE != null && tsm.ownerEps != null && E.rankOf(tsm).noRank !== true,
+    "TSM ranks with ADR-aligned owner EPS", tsm ? `${tsm.truePE}x / ${tsm.ownerEps}` : "TSM missing");
 }
 
 // =============== 10. SEC period alignment ===============
@@ -316,7 +321,7 @@ const ok = (cond, name, detail = "") => {
     ok(revRev.score === null && /unavailable/i.test(revRev.why), "missing revenue revision history stays unavailable, not zero");
   }
   const map = S.qualityMarketMap(DATA, ctx);
-  ok(map.length === 120, "quality x market map covers exactly 120 tickers", String(map.length));
+  ok(map.length === 121, "quality x market map covers exactly 121 tickers", String(map.length));
   ok(map.every(p => p.ticker && p.label), "quality map rows have ticker and label");
 }
 
@@ -324,7 +329,7 @@ const ok = (cond, name, detail = "") => {
 {
   ok(E.INFLATION && E.INFLATION.series.length >= 6, "inflation macro snapshot includes CPI/PPI drivers");
   const rows = DATA.map(d => ({ d, x: E.inflationOf(d) }));
-  ok(rows.length === 120, "inflation model covers exactly 120 tickers", String(rows.length));
+  ok(rows.length === 121, "inflation model covers exactly 121 tickers", String(rows.length));
   ok(rows.every(r => r.x.score >= 0 && r.x.score <= 100 && r.x.profile && r.x.label), "inflation scores are bounded and labelled");
   const nvda = rows.find(r => r.d.ticker === "NVDA");
   ok(nvda && nvda.x.bits.some(b => /multiple|pricing|input|demand/i.test(b)), "NVDA inflation x-ray explains the stock-price channel");
@@ -339,7 +344,7 @@ const ok = (cond, name, detail = "") => {
   ok(all.some(e => e.symbol === "ASML" && e.date === "2026-07-15"), "ASML is on the bundled earnings week");
   ok(all.some(e => e.symbol === "NFLX" && e.date === "2026-07-16"), "NFLX is on the bundled earnings week");
   const coverage = new Set(DATA.map(d => d.ticker));
-  ok(uni.every(e => coverage.has(e.symbol)), "coverage-only earnings rows stay inside official 120-stock universe");
+  ok(uni.every(e => coverage.has(e.symbol)), "coverage-only earnings rows stay inside official 121-stock universe");
   const merged = E.mergeEarningsRows([{ symbol: "ASML", date: "2026-07-15", epsEstimate: 7.01, hour: "bmo" }], uni);
   ok(merged.find(e => e.symbol === "ASML").epsEstimate === 7.01, "live earnings row overrides bundled estimate when available");
 }

@@ -1,21 +1,21 @@
 {
-  "asOf": "2026-07-15T05:10:59.993Z",
-  "universe": 120,
+  "asOf": "2026-07-16T05:17:15.222Z",
+  "universe": 121,
   "trueConflicts": 0,
   "periodMismatches": 0,
   "definitionMismatches": 0,
   "unitMismatches": 0,
-  "missingFacts": 63,
-  "missingStandardTags": 63,
-  "customTagMappingsNeeded": 50,
+  "missingFacts": 64,
+  "missingStandardTags": 64,
+  "customTagMappingsNeeded": 51,
   "ifrsCompaniesNeedingReview": 1,
-  "fullFilingVerified": 90,
+  "fullFilingVerified": 91,
   "coreFilingVerified": 12,
   "partiallyVerified": 17,
   "notVerified": 1,
-  "rankableCompanies": 116,
+  "rankableCompanies": 117,
   "rankableBeforeFix": null,
-  "rankableAfterFix": 116,
+  "rankableAfterFix": 117,
   "note": "Before-fix rankable count was not recomputed because the old fiscalYear matcher has been removed. This report is generated from exact periodEnd matching.",
   "byTicker": {
     "AAPL": {
@@ -47,6 +47,22 @@
       "periodMismatches": [],
       "missing": [],
       "missingReason": null
+    },
+    "TSM": {
+      "label": "FULL FILING VERIFIED",
+      "dataConfidence": 89,
+      "rankable": true,
+      "latestPeriodEnd": "2024-12-31",
+      "trueConflicts": [],
+      "periodMismatches": [],
+      "missing": [
+        {
+          "k": "buyback",
+          "type": "MISSING SEC FACT",
+          "periodEnd": "2024-12-31"
+        }
+      ],
+      "missingReason": "CUSTOM TAG MAPPING NEEDED"
     },
     "CSCO": {
       "label": "FULL FILING VERIFIED",

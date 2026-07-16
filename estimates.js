@@ -980,6 +980,15 @@ const ESTIMATE_HISTORY = {
     "source": "not collected yet",
     "ticker": "TSLA"
   },
+  "TSM": {
+    "name": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+    "notes": [
+      "No estimate snapshots collected yet."
+    ],
+    "snapshots": [],
+    "source": "not collected yet",
+    "ticker": "TSM"
+  },
   "UBER": {
     "name": "Uber Technologies, Inc",
     "notes": [

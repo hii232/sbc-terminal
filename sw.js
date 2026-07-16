@@ -1,6 +1,6 @@
 /* SBC Terminal — service worker: cache app shell for offline / phone use */
-const CACHE = "sbc-terminal-v43";
-const SHELL = ["./", "./index.html", "./app.js?v=43", "./charts.js?v=43", "./universe.js?v=43", "./data.js?v=43", "./sec.js?v=43", "./segments.js?v=43", "./sectors.js?v=43", "./estimates.js?v=43", "./scores.js?v=43", "./manifest.json", "./icon.svg"];
+const CACHE = "sbc-terminal-v44";
+const SHELL = ["./", "./index.html", "./app.js?v=44", "./charts.js?v=44", "./universe.js?v=44", "./data.js?v=44", "./sec.js?v=44", "./segments.js?v=44", "./sectors.js?v=44", "./estimates.js?v=44", "./scores.js?v=44", "./manifest.json", "./icon.svg"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

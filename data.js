@@ -72,6 +72,18 @@ const DATA = [
     px:{v:[114.39,111.26,104.88,118.89,120.87,117.68,119.01,131.37,157.23,162.73,157.27,187.83,181.60,202.38,219.02,223.77,237.92,246.83,207.37,236.48,237.22,241.14,265.92,284.79,315.42,345.09,362.75,399.65,414.88,394.69,411.66,428.17,412.37,370.30,426.13,422.90,357.22,366.24,420.59,455.07,496.72,542.21,746.81,724.66,751.00,971.00,864.01,981.61,1133.99,1132.33,975.56,979.30,937.00,983.12], from:"2025-07-14", to:"2026-07-14"},
     note:"Cyclical but low SBC intensity. GAAP tracks owner earnings closely through the cycle." }),
 
+  co({ ticker:"TSM", name:"Taiwan Semiconductor Manufacturing", sector:"Semis/Foundry", bucket:"clean", grade:"A",
+    price:419.48, change:-0.22, mktCap:2175.6, headlinePE:36.5, ownersKeep:0.98,
+    gaapEPS:11.49, nonGaapEPS:11.49, forwardEPS:20.29,
+    fy:["2021","2022","2023","2024","2025"], sbcPctRev:0.0, sbcPctOCF:0.1, sbcPctNI:0.1,
+    revenue:[57.22,73.67,70.6,88.27,122.33], ni:[21.35,32.31,27.82,35.33,54.52], sbc:[0,0.01,0.016,0.038,0.04],
+    buyback:[0,0.03,0,0.09,0], shares:[5.186,5.186,5.186,5.186,5.186],
+    qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[25.55,30.28,33.09,33.73,35.88], ni:[11.01,12.92,15.12,15.66,18.11], sbc:[0.014,0.011,0.009,0.006,0.004], buyback:[0,0,0,0,0], shares:[5.186,5.186,5.186,5.186,5.186]},
+    gd:{ca:122.592, cl:48.894, ta:254.773, tl:81.467, eq:171.984, tbv:171.182, debt:34.19, ltd:28.778, cash:100.462, inv:9.253, rec:9.059, divPaid:14.991, divRate:3.79, divYield:0.009},
+    qm:{ocf:[40.09,52.41,40.56,55.69,73.06], fcf:[9.84,17.18,9.54,26.54,31.87], capex:[30.25,35.23,31.02,29.16,41.19], gross:[29.54,43.88,38.38,49.54,73.27], opinc:[23.43,36.49,30.09,40.32,62.18]},
+    px:{v:[240.40,245.60,235.21,241.83,238.88,232.99,230.87,243.41,259.33,264.87,273.36,292.19,280.66,295.08,294.96,300.43,286.50,284.82,275.06,291.51,294.72,292.04,288.95,302.84,319.61,323.63,342.40,334.87,330.56,348.85,366.36,370.54,374.58,338.89,338.31,329.24,326.74,339.04,370.60,370.50,402.46,397.67,411.68,404.35,404.52,418.45,415.17,423.93,462.12,432.35,434.16,434.11,419.48,419.48], from:"2025-07-14", to:"2026-07-15"},
+    note:"20-F/IFRS ADR. 2021-2024 annuals use SEC USD facts; 2025 annual and latest quarters use Yahoo TWD fundamentals converted to USD with TWD=X average FX. Shares are ADS-equivalent (ordinary shares / 5) to align with the US-listed ADR price." }),
+
   co({ ticker:"CSCO", name:"Cisco Systems", sector:"Networking", bucket:"clean", grade:"A",
     price:113.15, change:1.22, mktCap:446.0, headlinePE:37.7, ownersKeep:0.91,
     gaapEPS:3.00, nonGaapEPS:3.63,
@@ -797,7 +809,7 @@ const DATA = [
     note:"Auto-derived from filings: SBC 15.7% of revenue, diluted shares shrinking, GAAP-profitable. High SBC concern." }),
 
 
-  /* ================= EXPANDED OFFICIAL 120 COVERAGE ================= */
+  /* ================= EXPANDED OFFICIAL 121 COVERAGE ================= */
   co({ ticker:"JPM", name:"JPMORGAN CHASE & CO", sector:"Banks", bucket:"clean", grade:"A",
     price:342.89, change:2.5, mktCap:918.8, headlinePE:16.4, ownersKeep:0.85,
     gaapEPS:20.87, nonGaapEPS:20.87,

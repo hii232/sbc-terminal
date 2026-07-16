@@ -10,13 +10,13 @@ ROOT = Path(__file__).resolve().parent.parent
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 
 UNIVERSE_VERSION = "1.1.0"
-REQUIRED_UNIVERSE_SIZE = 120
+REQUIRED_UNIVERSE_SIZE = 121
 
 GROUPS = [
     ("Large technology and internet platforms",
      ["AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "AVGO", "ORCL", "NFLX"]),
     ("Semiconductors and AI infrastructure",
-     ["AMD", "INTC", "QCOM", "MU", "ARM", "LRCX", "AMAT", "KLAC", "ASML", "MRVL",
+     ["AMD", "INTC", "QCOM", "MU", "TSM", "ARM", "LRCX", "AMAT", "KLAC", "ASML", "MRVL",
       "MPWR", "ANET", "CDNS", "SNPS"]),
     ("Software, cloud and cybersecurity",
      ["CRM", "NOW", "ADBE", "INTU", "PLTR", "CRWD", "PANW", "SNOW", "DDOG", "NET",
@@ -40,7 +40,7 @@ GROUPS = [
     ("Materials, power, utilities and logistics",
      ["LIN", "FCX", "NUE", "SCCO", "VST", "NRG", "SO", "DUK", "UPS", "FDX"]),
 ]
-COUNTRY = {"ASML": "NL", "ARM": "GB", "SHOP": "CA", "MELI": "AR/UY (US filer)",
+COUNTRY = {"ASML": "NL", "ARM": "GB", "TSM": "TW", "SHOP": "CA", "MELI": "AR/UY (US filer)",
            "IREN": "AU", "NBIS": "NL", "SPGI": "US", "LIN": "IE/UK (US filer)",
            "SCCO": "PE/US filer"}
 SECTOR_OVERRIDE = {
@@ -56,6 +56,7 @@ SECTOR_OVERRIDE = {
     "EOG": "Energy", "OXY": "Energy", "MPC": "Energy", "VLO": "Energy", "NEE": "Utilities",
     "LIN": "Industrial Gas", "FCX": "Materials", "NUE": "Materials", "SCCO": "Materials", "VST": "Utilities",
     "NRG": "Utilities", "SO": "Utilities", "DUK": "Utilities", "UPS": "Industrials", "FDX": "Industrials",
+    "TSM": "Semis/Foundry",
 }
 CIK_OVERRIDE = {
     # SEC company_tickers can map XOM to a newer holding-company shell. Use the

@@ -325,7 +325,7 @@
     if (typeof UNIVERSE_LIST === "undefined") fail("universe.js not loaded");
     const uni = UNIVERSE_LIST.map(u => u.ticker);
     const expected = uni.length;
-    if (expected !== 120) fail("universe has " + expected + " tickers, expected exactly 120");
+    if (expected !== 121) fail("universe has " + expected + " tickers, expected exactly 121");
     if (new Set(uni).size !== expected) fail("duplicate tickers in universe");
     if (UNIVERSE_LIST.some(u => !u.cik || !u.name)) fail("ticker missing identity/CIK");
     const have = DATA.map(d => d.ticker);
@@ -2467,7 +2467,7 @@
         <b style="color:var(--purple)">The brain score</b> merges every engine's weighted vote: IV15 DCF 25% · SBC x-ray 20% · quality &amp; cash (ROIC + FCF-after-SBC) 20% · Graham 15% · buyback truth 10% · sector flow 10% (+ insiders when live). The CALL column is the one-line conclusion — open any stock to see the full vote breakdown and written thesis on ⚛ THE VERDICT card. Tap a column to re-rank, a row to open.
       </div>
 
-      <div class="note" style="margin-bottom:12px">The official 120-name universe enters the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete. If required SBC/share facts are missing, the ticker stays in Not Ranked instead of getting fake numbers.</div>
+      <div class="note" style="margin-bottom:12px">The official 121-name universe enters the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete. If required SBC/share facts are missing, the ticker stays in Not Ranked instead of getting fake numbers.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
         <tbody>${body}</tbody>
@@ -2543,7 +2543,7 @@
         <h3>★ NET-NET BARGAINS <span class="unit">trading below net current asset value — the rarest Graham signal</span></h3>
         ${Chart.hbars(netnets.slice(0, 10).map(x => ({ label: x.d.ticker, value: x.G.priceToNcav * 100, color: x.G.deepNetnet ? "var(--green)" : "var(--amber)", display: (x.G.priceToNcav * 100).toFixed(0) + "% of NCAV" })), { max: 105, labelW: 52 })}
         <div class="sub" style="margin-top:6px">Under 100% = below liquid assets net of all debt · under 67% (green) = Graham's deep two-thirds bargain.</div>
-      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 120-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
+      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 121-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
 
       <div class="grid g2" style="margin-bottom:12px">
         <div class="card" style="border-left:3px solid var(--green)"><h3>DEEPEST MARGIN OF SAFETY <span class="unit">discount to Graham Number</span></h3>
@@ -3216,7 +3216,7 @@
         if (!items.length) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</div>`; return; }
         el("calBody").innerHTML = `<div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
-          <tbody>${items.slice(0, 120).map(e => { const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "n/m";
+          <tbody>${items.slice(0, DATA.length).map(e => { const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "n/m";
             return `<tr data-tk="${e.symbol}"><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span></td>
               <td>${e.epsEstimate != null ? "$" + e.epsEstimate.toFixed(2) : "–"}</td>
               <td class="sub">${e.hour === "bmo" ? "pre-open" : e.hour === "amc" ? "after-close" : e.hour || ""}</td>
@@ -3348,7 +3348,7 @@
       + (withOpt.length ? `<div class="card" style="padding:6px 8px"><h3 style="padding:6px 8px 0">THE VOL BOARD <span class="unit">${withOpt.length} names · IV snapshot ${(() => { const a = optAsOf(withOpt[0] && withOpt[0].opt); if (!a) return "date unknown"; const days = Math.round((Date.now() - a.getTime()) / 864e5); return a.toISOString().slice(0, 10) + (days > 7 ? " · <b style=&quot;color:var(--orange)&quot;>⚠ " + days + "d OLD — refresh --options before trading</b>" : ""); })()} · tap a column to sort · IV/RV &gt; 1.15 = premium rich (sell) · &lt; 0.9 = cheap (buy)</span></h3>
         <div style="overflow-x:auto;max-height:56vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>TICKER</th><th data-osort="iv" class="${optState.sort === "iv" ? "sorted" : ""}">ATM IV</th><th data-osort="rv" class="${optState.sort === "rv" ? "sorted" : ""}">REALIZED</th><th data-osort="rich" class="${optState.sort === "rich" ? "sorted" : ""}">IV/RV</th><th data-osort="pcr" class="${optState.sort === "pcr" ? "sorted" : ""}">PUT/CALL OI</th><th>EXPIRY</th><th>PLAY</th></tr></thead>
-        <tbody>${sorted.slice(0, 120).map((y) => { const d = y.d, r = y.r; const pl = plays.find(x => x.d.ticker === d.ticker); const p = pl && pl.p;
+        <tbody>${sorted.slice(0, DATA.length).map((y) => { const d = y.d, r = y.r; const pl = plays.find(x => x.d.ticker === d.ticker); const p = pl && pl.p;
           return `<tr data-tk="${d.ticker}"><td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
           <td>${(d.opt.iv * 100).toFixed(0)}%</td><td class="sub">${d.opt.rv ? (d.opt.rv * 100).toFixed(0) + "%" : "–"}</td>
           <td class="${r == null ? "" : r >= 1.15 ? "up" : r <= 0.9 ? "down" : ""}">${r ? r.toFixed(2) : "–"}</td>
@@ -3547,7 +3547,7 @@
         </table></div>
       </div>` : "";
       el("calBody").outerHTML = focus + `<div class="card" id="calBody">
-        <h3>YOUR 120-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
+        <h3>YOUR 121-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
         <div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
           <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>
@@ -5033,7 +5033,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=43").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=44").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only

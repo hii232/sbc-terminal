@@ -39,14 +39,17 @@ IFRS_FIELDS = {
     "ocf": (["CashFlowsFromUsedInOperatingActivities", "NetCashFlowsFromUsedInOperatingActivities"], "USD"),
     "capex": (["PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
                "PaymentsToAcquirePropertyPlantAndEquipment"], "USD"),
-    "sbc": (["ShareBasedPaymentExpense", "ExpenseArisingFromShareBasedPaymentTransactions"], "USD"),
+    "sbc": (["AdjustmentsForSharebasedPayments", "ShareBasedPaymentExpense",
+             "ExpenseArisingFromShareBasedPaymentTransactions"], "USD"),
     "buyback": (["PaymentsToAcquireOrRedeemEntitysShares", "PurchaseOfTreasuryShares"], "USD"),
-    "dilShares": (["DilutedWeightedAverageNumberOfOrdinaryShares"], "shares"),
+    "dilShares": (["DilutedWeightedAverageNumberOfOrdinaryShares",
+                   "AdjustedWeightedAverageShares"], "shares"),
     "taxWithholding": (["PaymentsRelatedToTaxWithholdingForShareBasedCompensation"], "USD"),
     "esppProceeds": (["ProceedsFromIssueOfOrdinaryShares"], "USD"),
 }
 TAXONOMIES = {"us-gaap": US_GAAP_FIELDS, "ifrs-full": IFRS_FIELDS}
 ANNUAL_FORMS = {"10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A"}
+ADS_SHARE_DIVISOR = {"TSM": 5}
 
 def get(url):
     req = urllib.request.Request(url, headers=UA)
@@ -80,6 +83,23 @@ def annual_facts(units_list):
             by_year[key] = f
     out = sorted(by_year.values(), key=lambda x: x["end"])
     return out[-10:]  # last 10 fiscal years
+
+def apply_share_adjustments(tk, company):
+    divisor = ADS_SHARE_DIVISOR.get(tk)
+    if not divisor:
+        return company
+    note = f"ADS-equivalent shares: ordinary shares divided by {divisor} to align with the US ADR price."
+    for key in ("dilShares", "periodEndShares"):
+        vals = company["fields"].get(key)
+        if not isinstance(vals, list):
+            continue
+        for row in vals:
+            val = row.get("value")
+            if isinstance(val, (int, float)):
+                row["value"] = val / divisor
+                row["xbrlTag"] = f'{row.get("xbrlTag", "")} / ADS ratio {divisor}:1'
+                row["note"] = note
+    return company
 
 def extract(tk, cik10):
     raw = json.loads(get(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik10}.json"))
@@ -162,6 +182,7 @@ def extract(tk, cik10):
              "accessionNumber": f.get("accn"), "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
              "sourceType": "SEC", "sourceStatus": "reported", "confidence": 100}
             for f in sorted(by_y.values(), key=lambda x: x["end"])[-10:]]
+    apply_share_adjustments(tk, company)
     company["latestFiling"] = latest
     return company, raw_extract
 

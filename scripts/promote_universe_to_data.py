@@ -152,7 +152,7 @@ def record(tk, meta, quote, f, fields):
     qd = build_qd(f)
     gd = U.build_gd(f, quote or {})
     qm = build_qm(fields, years)
-    note = f"{meta.get('reason') or 'Official 120 coverage'}; data generated from Yahoo fundamentals and SEC companyfacts. Review SBC tags before treating as fully audited."
+    note = f"{meta.get('reason') or 'Official 121 coverage'}; data generated from Yahoo fundamentals and SEC companyfacts. Review SBC tags before treating as fully audited."
     lines = [
         f'  co({{ ticker:{qstr(tk)}, name:{qstr(meta["name"])}, sector:{qstr(sector)}, bucket:{qstr(bucket)}, grade:{qstr(grade)},',
         f'    price:{js_num(price)}, change:{js_num(change)}, mktCap:{js_num(mcap, 1)}, headlinePE:{js_num(pe, 1)}, ownersKeep:0.85,',
@@ -191,7 +191,7 @@ def main():
             print(f"  {tk}: failed {exc}", flush=True)
             raise
         time.sleep(0.25)
-    insert = "\n\n  /* ================= EXPANDED OFFICIAL 120 COVERAGE ================= */\n" + "\n\n".join(blocks) + "\n"
+    insert = "\n\n  /* ================= EXPANDED OFFICIAL 121 COVERAGE ================= */\n" + "\n\n".join(blocks) + "\n"
     src = src.replace("\n];\n\n/* ordering for the framework legend */", "\n" + insert + "];\n\n/* ordering for the framework legend */")
     DATA_JS.write_text(src, encoding="utf-8")
     print(f"WROTE {DATA_JS} with {len(blocks)} promoted rows", flush=True)

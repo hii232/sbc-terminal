@@ -73,9 +73,9 @@ async function main() {
       tickers: DATA.map((d) => d.ticker),
       oldPhrase: document.body.textContent.includes(["Headline P/E", "owner-earnings retention"].join(" ÷ ")),
     }));
-    ok(globals.dataLen === 120, `DATA length ${globals.dataLen}`);
-    ok(globals.universeLen === 120, `UNIVERSE length ${globals.universeLen}`);
-    ok(globals.secCount === 120 && globals.secMetaCompanies === 120, "SEC company count mismatch");
+    ok(globals.dataLen === 121, `DATA length ${globals.dataLen}`);
+    ok(globals.universeLen === 121, `UNIVERSE length ${globals.universeLen}`);
+    ok(globals.secCount === 121 && globals.secMetaCompanies === 121, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0" && globals.model === "4.0.0", "model version missing");
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
@@ -105,7 +105,7 @@ async function main() {
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');
-    await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim().startsWith("1/120"), { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim().startsWith("1/121"), { timeout: 3000 });
 
     const views = [
       ["#dailyBtn", "DAILY REVIEW"],
@@ -164,7 +164,7 @@ async function main() {
     }
 
     ok(errors.length === 0, `browser console errors:\n${errors.join("\n")}`);
-    console.log("browser smoke OK: official 120-stock universe, core views, mobile, offline reload");
+    console.log("browser smoke OK: official 121-stock universe, core views, mobile, offline reload");
   } finally {
     await context.setOffline(false).catch(() => {});
     await browser.close().catch(() => {});
