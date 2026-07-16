@@ -567,6 +567,172 @@
     if (etf === "XLE") bits.push("energy inflation can be a revenue tailwind");
     return { etf, profile: p, score, label, color, rateHit, inputCost, demandHit, passThrough, margin, bits };
   }
+
+  /* ------------------------ direction edge engine ------------------------ */
+  function pctMoveFrom(vals, lookback) {
+    const a = (vals || []).filter(hasNum);
+    if (a.length < 2) return null;
+    const end = a[a.length - 1];
+    const start = a[Math.max(0, a.length - 1 - lookback)];
+    return start > 0 ? ((end / start) - 1) * 100 : null;
+  }
+  const scorePart = (key, label, score, weight, why, source, raw) => ({
+    key, label,
+    score: score == null || !Number.isFinite(+score) ? null : Math.round(clamp(+score, 0, 100)),
+    weight, why: why || "", source: source || "terminal", raw: raw || {},
+  });
+  function estimateSetupPart(d) {
+    const hist = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY[d.ticker] && ESTIMATE_HISTORY[d.ticker].snapshots) || [];
+    const snapVal = (s, keys) => {
+      for (const k of keys) if (hasNum(s && s[k])) return +s[k];
+      return null;
+    };
+    if (hist.length >= 2) {
+      const latest = hist[hist.length - 1], prev = hist[0];
+      const epsNow = snapVal(latest, ["nextYearEps", "currentYearEps", "epsAvg", "estimatedEpsAvg", "epsEstimate"]);
+      const epsPrev = snapVal(prev, ["nextYearEps", "currentYearEps", "epsAvg", "estimatedEpsAvg", "epsEstimate"]);
+      const revNow = snapVal(latest, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
+      const revPrev = snapVal(prev, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
+      const epsRev = epsNow != null && epsPrev ? ((epsNow / epsPrev) - 1) * 100 : null;
+      const revRev = revNow != null && revPrev ? ((revNow / revPrev) - 1) * 100 : null;
+      const used = [epsRev, revRev].filter(hasNum);
+      if (used.length) {
+        const s = 50 + (epsRev || 0) * 2.1 + (revRev || 0) * 1.2;
+        const txt = `estimate revisions: EPS ${epsRev == null ? "n/a" : epsRev.toFixed(1) + "%"}, revenue ${revRev == null ? "n/a" : revRev.toFixed(1) + "%"}`;
+        return scorePart("estimates", "Estimate revisions", s, 22, txt, `${hist.length} stored snapshots`, { epsRev, revRev });
+      }
+    }
+    const live = state.live[d.ticker] || {};
+    const annual = cleanEstRows(live.streetEstimates?.annual || []);
+    const nextFY = annual[0] || null;
+    const ttmRev = d.qd ? ttm(d.qd.revenue) : null;
+    const fyRevGrowthNeed = nextFY?.revAvg != null && ttmRev ? (nextFY.revAvg / ttmRev - 1) * 100 : null;
+    const fyEps = nextFY?.epsAvg;
+    if (fyRevGrowthNeed != null || fyEps != null) {
+      const valPenalty = d.truePE && d.truePE > 45 ? -8 : d.truePE && d.truePE < 25 ? 5 : 0;
+      const s = 50 + (fyRevGrowthNeed || 0) * 1.1 + valPenalty;
+      const txt = `live Street setup: FY revenue asks for ${fyRevGrowthNeed == null ? "n/a" : fyRevGrowthNeed.toFixed(1) + "%"} growth; no revision history yet`;
+      return scorePart("estimates", "Estimate setup", s, 22, txt, "FMP live estimate table", { fyRevGrowthNeed, fyEps });
+    }
+    return scorePart("estimates", "Estimate revisions", null, 22, "missing estimate-revision history; connect/collect snapshots before trusting this layer", "missing");
+  }
+  function momentumPart(d) {
+    const vals = d.px && d.px.v ? d.px.v : [];
+    const m1 = pctMoveFrom(vals, 4);
+    const m3 = pctMoveFrom(vals, 13);
+    const day = quoteChangeOf(d);
+    if (m1 == null && m3 == null && day == null) return scorePart("momentum", "Price momentum", null, 18, "no price tape", "missing");
+    const s = 50 + (m1 || 0) * 1.25 + (m3 || 0) * 0.55 + (day || 0) * 1.7;
+    const txt = `price tape: 1M ${m1 == null ? "n/a" : m1.toFixed(1) + "%"}, 3M ${m3 == null ? "n/a" : m3.toFixed(1) + "%"}, today ${day >= 0 ? "+" : ""}${(day || 0).toFixed(1)}%`;
+    return scorePart("momentum", "Price momentum", s, 18, txt, vals.length >= 14 ? "weekly price history + live quote" : "limited price history", { m1, m3, day });
+  }
+  function sectorConfirmationPart(d) {
+    const etf = sectorETF(d.sector);
+    const s = secByT(etf), spy = secByT("SPY");
+    if (!s || !spy) return scorePart("sector", "Sector confirmation", null, 13, "sector tape unavailable", "missing");
+    const r1 = retOver(s, 1), r3 = retOver(s, 3), spy3 = retOver(spy, 3), fd = flowDelta(s);
+    const rs = r3 - spy3;
+    const score = 50 + rs * 1.8 + r1 * 1.0 + (fd || 0) * 3.5;
+    const txt = `${etf}: 3M ${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%, vs SPY ${rs >= 0 ? "+" : ""}${rs.toFixed(1)}pp, flow ${fd >= 0 ? "+" : ""}${fd.toFixed(1)}pp`;
+    return scorePart("sector", "Sector confirmation", score, 13, txt, "sector ETF tape", { etf, r1, r3, rs, fd });
+  }
+  function newsPart(d) {
+    const rows = analyzedNewsForTicker(d.ticker);
+    if (!rows.length) {
+      return scorePart("news", "News/narrative", null, 14,
+        state.keys.finnhub ? "no scored live headline loaded for this ticker" : "connect Finnhub for live headline scoring",
+        state.keys.finnhub ? "not scanned" : "missing");
+    }
+    const top = rows[0];
+    const avg = rows.slice(0, 3).reduce((a, x) => a + x.score, 0) / Math.min(3, rows.length);
+    const score = 50 + top.score * 0.38 + avg * 0.18;
+    return scorePart("news", "News/narrative", score, 14, `${top.narrative}: ${top.score > 0 ? "+" : ""}${top.score} - ${top.headline}`, "Finnhub headline scorer", { topScore: top.score, avg });
+  }
+  function optionsPositioningPart(d) {
+    const o = d.opt;
+    if (!o || !o.iv) return scorePart("options", "Options/positioning", null, 8, "options, skew and short-interest data not bundled for this name", "missing");
+    const rich = o.rv ? o.iv / o.rv : null;
+    let score = 50;
+    const bits = [];
+    if (rich != null) {
+      score += rich <= 0.9 ? 7 : rich >= 1.25 ? -5 : 0;
+      bits.push(`IV/RV ${rich.toFixed(2)}x`);
+    }
+    if (o.pcr != null) {
+      score += o.pcr <= 0.65 ? 8 : o.pcr >= 1.35 ? -9 : 0;
+      bits.push(`put/call OI ${o.pcr}`);
+    }
+    const dte = optDteNow(o);
+    if (dte != null && dte < 7) { score -= 6; bits.push("chain stale/near expiry"); }
+    return scorePart("options", "Options/positioning", score, 8, bits.join(" - ") || "options tape neutral", "bundled options snapshot", { rich, pcr: o.pcr, dte });
+  }
+  function valuationSetupPart(d) {
+    const L = ivLadder(d);
+    const ms = marketScoreOf(d);
+    if (!L || L.impliedCAGR == null) {
+      const fallback = (ms?.valuation?.score ?? 35) - (d.bucket === "tragic" ? 8 : 0);
+      return scorePart("valuation", "Valuation setup", fallback, 12, "no positive owner earnings; valuation support is weak until earnings turn positive", "owner earnings unavailable");
+    }
+    const score = 50 + (L.impliedCAGR - 0.10) * 260 + ((ms?.valuation?.score ?? 50) - 50) * 0.25;
+    const txt = `IV ladder offers ${(L.impliedCAGR * 100).toFixed(1)}%/yr; IV15 buy price $${L.IV15.toFixed(L.IV15 >= 100 ? 0 : 2)}`;
+    return scorePart("valuation", "Valuation setup", score, 12, txt, "IV ladder + owner P/E", { cagr: L.impliedCAGR, buy: L.IV15 });
+  }
+  function qualityRewardPart(d) {
+    const ms = marketScoreOf(d);
+    if (!ms) return scorePart("quality", "Business/market score", null, 10, "score engine unavailable", "missing");
+    const score = (ms.businessQuality.score * 0.35) + (ms.growthExecution.score * 0.25) + (ms.marketReward.score * 0.30) + (ms.shareholderEconomics.score * 0.10);
+    return scorePart("quality", "Business/market score", score, 10, `BQ ${ms.businessQuality.score}, growth ${ms.growthExecution.score}, market reward ${ms.marketReward.score}`, "score engine", {});
+  }
+  function macroPart(d) {
+    const inf = inflationOf(d);
+    const score = inf.score + (inf.rateHit >= 5 ? -6 : 0) + (inf.passThrough >= 5 ? 4 : 0);
+    return scorePart("macro", "Inflation/macro", score, 3, `${inf.label}: ${inf.bits.join(" - ") || inf.profile.note}`, "inflation desk", { inflationScore: inf.score });
+  }
+  function directionEdgeOf(d) {
+    const parts = [
+      estimateSetupPart(d), momentumPart(d), sectorConfirmationPart(d), newsPart(d),
+      optionsPositioningPart(d), valuationSetupPart(d), qualityRewardPart(d), macroPart(d),
+    ];
+    const totalWeight = parts.reduce((a, p) => a + p.weight, 0);
+    const used = parts.filter(p => p.score != null);
+    const usedWeight = used.reduce((a, p) => a + p.weight, 0);
+    const raw = usedWeight ? used.reduce((a, p) => a + p.score * p.weight, 0) / usedWeight : 50;
+    const score = Math.round(clamp(raw, 0, 100));
+    const coverage = Math.round((usedWeight / totalWeight) * 100);
+    const L = ivLadder(d);
+    const confidence = coverage >= 75 ? "high" : coverage >= 55 ? "medium" : "low";
+    let label = "NO EDGE", color = "var(--amber)", action = "Wait for cleaner evidence";
+    if (coverage < 45) { label = "LOW CONFIDENCE"; color = "var(--dim)"; action = "Do not force it - missing too many signal layers"; }
+    else if (score >= 66) { label = "LIKELY UP"; color = "var(--green)"; action = "Long research candidate - confirm catalyst and risk"; }
+    else if (score >= 57) { label = "UP BIAS"; color = "var(--cyan)"; action = "Constructive, but needs confirmation"; }
+    else if (score <= 34) { label = "LIKELY DOWN"; color = "var(--red)"; action = "Avoid/short research candidate - define risk"; }
+    else if (score <= 43) { label = "DOWN BIAS"; color = "var(--orange)"; action = "Weak setup - avoid adding unless thesis improves"; }
+    if (L && L.IV15 && priceOf(d) <= L.IV15 && score >= 55) action = "Buy-zone research candidate - price is at/under IV15";
+    const missing = parts.filter(p => p.score == null).map(p => p.label);
+    return { d, score, label, color, action, confidence, coverage, parts, missing, L };
+  }
+  function directionPartRows(edge) {
+    return edge.parts.map(p => `<div class="edge-part ${p.score == null ? "missing" : ""}">
+      <span>${escapeHtml(p.label)}</span>
+      <b style="color:${scoreColorOf(p.score)}">${p.score == null ? "--" : p.score}</b>
+      <small>${escapeHtml(p.why).slice(0, 120)}</small>
+    </div>`).join("");
+  }
+  function directionEdgeCard(d) {
+    const e = directionEdgeOf(d);
+    const topDrivers = e.parts.filter(p => p.score != null).sort((a, b) => Math.abs(b.score - 50) - Math.abs(a.score - 50)).slice(0, 3);
+    return `<div class="card edge-card" style="grid-column:span 3;border-left:3px solid ${e.color}">
+      <h3>DIRECTION EDGE <span class="unit">near-term research signal - not a guarantee - coverage ${e.coverage}%</span></h3>
+      <div class="edge-hero">
+        <div class="edge-score" style="color:${e.color}">${e.score}<small>${e.label}</small></div>
+        <div>
+          <div class="note" style="border-left-color:${e.color}"><b>Action:</b> ${escapeHtml(e.action)}. Confidence is ${e.confidence}; missing layers: ${e.missing.length ? e.missing.map(escapeHtml).join(", ") : "none"}.</div>
+          <div class="reason-list" style="margin-top:8px">${topDrivers.map(p => `<div><b style="color:${scoreColorOf(p.score)}">${p.label} ${p.score}</b> - ${escapeHtml(p.why)}</div>`).join("")}</div>
+        </div>
+      </div>
+      <div class="edge-grid">${directionPartRows(e)}</div>
+    </div>`;
+  }
   /* ------------------------ favorites + portfolio (localStorage) ------------------------ */
   const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
   state.favs = new Set(loadJSON("sbc_favs", []));
@@ -593,6 +759,7 @@
   const watchMetric = (d, key) => {
     if (key === "truePE") return d.truePE != null ? -d.truePE : -9999;
     if (key === "mktCap") return d.mktCap || 0;
+    if (key === "directionEdge") return directionEdgeOf(d).score ?? -1;
     return scoreVal(d, key) ?? -1;
   };
   function miniSpark(d) {
@@ -630,8 +797,8 @@
     el("watchlist").innerHTML = list.map(d => {
       const ch = quoteChangeOf(d);
       const ms = marketScoreOf(d);
+      const de = directionEdgeOf(d);
       const warn = ms?.whatCouldGoWrong?.[0] || "";
-      const scoreDelta = (ms?.marketReward?.score ?? 0) - 50;
       return `<div class="row ${state.active === d.ticker && state.view === "stock" ? "sel" : ""}" data-tk="${d.ticker}">
         <div class="bucketbar" style="background:${bcol[d.bucket] || "var(--cyan)"}"></div>
         <div style="min-width:0">
@@ -642,6 +809,7 @@
                  <span class="mini-score">MR <b>${watchScoreText(ms?.marketReward?.score)}</b></span>
                  <span class="mini-score">BQ <b>${watchScoreText(ms?.businessQuality?.score)}</b></span>
                  <span class="mini-score">VAL <b>${watchScoreText(ms?.valuation?.score)}</b></span>
+                 <span class="mini-score">DE <b style="color:${de.color}">${watchScoreText(de.score)}</b></span>
           </div>
           ${warn ? `<div class="warn-line">${warn}</div>` : ""}
         </div>
@@ -649,7 +817,7 @@
         <div>
           <div class="px">${priceTextOf(d)}</div>
           <div class="ch ${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</div>
-          <div class="mr-chip ${scoreDelta >= 0 ? "up" : "down"}">MR ${scoreDelta >= 0 ? "+" : ""}${scoreDelta.toFixed(0)}</div>
+          <div class="mr-chip ${de.score >= 50 ? "up" : "down"}">DE ${de.score}</div>
         </div>
       </div>`;
     }).join("");
@@ -659,7 +827,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "dailyBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn"];
+  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -743,7 +911,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, dailyReview: showDailyReview, sectors: showSectors, narratives: showNarratives, valuation: showValuation, inflation: showInflation,
+        const map = { home: showHome, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors, narratives: showNarratives, valuation: showValuation, inflation: showInflation,
           rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
           triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -1083,6 +1251,8 @@
       <div style="grid-column:span 3">${marketDashboard(d)}</div>
 
       ${marketConclusionCard(d)}
+
+      ${directionEdgeCard(d)}
 
       ${expectationsGapCard(d)}
 
@@ -3826,6 +3996,108 @@
     loadDailyReviewNews(false);
   }
 
+  function directionUniverse() {
+    return DATA.map(d => ({ d, e: directionEdgeOf(d), m: marketScoreOf(d), r: rankOf(d) }));
+  }
+  function directionListRow(x) {
+    const L = x.e.L;
+    const px = priceOf(x.d);
+    const buy = L && L.IV15 ? "$" + L.IV15.toFixed(L.IV15 >= 100 ? 0 : 2) : "--";
+    const gap = L && L.IV15 && px ? ((L.IV15 / px) - 1) * 100 : null;
+    const gapTxt = gap == null ? "buy zone n/a" : `${gap >= 0 ? "+" : ""}${gap.toFixed(0)}% to IV15`;
+    return `<div class="edge-row" data-tk="${x.d.ticker}" style="border-left-color:${x.e.color}">
+      <div>
+        <b>${x.d.ticker}</b><span>${x.d.sector} - ${x.d.name}</span>
+        <small>${escapeHtml(x.e.action)} - ${gapTxt}</small>
+      </div>
+      <div class="edge-row-mid">
+        <span>coverage ${x.e.coverage}%</span>
+        <span>BQ ${x.m?.businessQuality?.score ?? "--"} / MR ${x.m?.marketReward?.score ?? "--"}</span>
+        <span>buy ${buy}</span>
+      </div>
+      <strong style="color:${x.e.color}">${x.e.score}<small>${x.e.label}</small></strong>
+    </div>`;
+  }
+  function directionSection(title, arr, sub, color) {
+    return `<div class="card" style="border-left:3px solid ${color}">
+      <h3>${title} <span class="unit">${sub} - ${arr.length} names</span></h3>
+      ${arr.length ? arr.slice(0, 12).map(directionListRow).join("") : `<div class="note">No names qualify right now.</div>`}
+    </div>`;
+  }
+  function directionEdgePreviewCard() {
+    const rows = directionUniverse();
+    const ranked = rows.filter(x => x.e.coverage >= 45);
+    const up = [...ranked].sort((a, b) => b.e.score - a.e.score)[0];
+    const down = [...ranked].sort((a, b) => a.e.score - b.e.score)[0];
+    const noEdge = rows.filter(x => x.e.label === "NO EDGE" || x.e.label === "LOW CONFIDENCE").length;
+    return `<div class="card edge-card" style="grid-column:span 2;border-left:3px solid var(--cyan)">
+      <h3>DIRECTION EDGE <span class="unit">up/down research signal - coverage aware</span></h3>
+      <div class="daily-headline">${up ? `${up.d.ticker} has the best current upside setup (${up.e.score}/100).` : "No high-coverage upside setup loaded yet."}</div>
+      <div class="daily-mini-grid">
+        <div><span>Best up setup</span><b style="color:${up?.e.color || "var(--dim)"}">${up ? `${up.d.ticker} ${up.e.score}` : "--"}</b></div>
+        <div><span>Weakest setup</span><b style="color:${down?.e.color || "var(--dim)"}">${down ? `${down.d.ticker} ${down.e.score}` : "--"}</b></div>
+        <div><span>No edge / low conf</span><b style="color:var(--amber)">${noEdge}</b></div>
+        <div><span>Source gaps</span><b style="color:var(--orange)">${rows.filter(x => x.e.missing.length).length}</b></div>
+      </div>
+      <button class="action-btn" id="openDirectionEdge" type="button">OPEN DIRECTION EDGE</button>
+    </div>`;
+  }
+  function renderDirectionEdge() {
+    const rows = directionUniverse();
+    const highCov = rows.filter(x => x.e.coverage >= 45);
+    const up = highCov.filter(x => x.e.score >= 57).sort((a, b) => b.e.score - a.e.score);
+    const down = highCov.filter(x => x.e.score <= 43).sort((a, b) => a.e.score - b.e.score);
+    const wait = [...rows].filter(x => x.e.score > 43 && x.e.score < 57 || x.e.coverage < 45)
+      .sort((a, b) => (a.e.coverage - b.e.coverage) || Math.abs(a.e.score - 50) - Math.abs(b.e.score - 50));
+    const best = [...highCov].sort((a, b) => b.e.score - a.e.score)[0];
+    const weakest = [...highCov].sort((a, b) => a.e.score - b.e.score)[0];
+    const missingEst = rows.filter(x => x.e.parts.find(p => p.key === "estimates" && p.score == null)).length;
+    const missingNews = rows.filter(x => x.e.parts.find(p => p.key === "news" && p.score == null)).length;
+    const missingOpt = rows.filter(x => x.e.parts.find(p => p.key === "options" && p.score == null)).length;
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div>
+          <div class="tick gradient-title">DIRECTION EDGE</div>
+          <div class="co">near-term up/down research score - estimates, momentum, sector tape, news, options, valuation, quality, macro</div>
+        </div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">BEST UP SETUP</div><div class="stat sm" style="color:${best?.e.color || "var(--dim)"}">${best?.d.ticker || "--"}</div></div>
+        <div style="text-align:right;border-left:1px solid var(--line);padding-left:16px"><div class="sub">WEAKEST SETUP</div><div class="stat sm" style="color:${weakest?.e.color || "var(--dim)"}">${weakest?.d.ticker || "--"}</div></div>
+      </div>
+      <div class="grid g4 home-metrics" style="margin-bottom:12px">
+        <div class="card"><h3>LIKELY UP / UP BIAS</h3><div class="stat" style="color:var(--green)">${up.length}</div><div class="sub">score >=57 and coverage >=45%</div></div>
+        <div class="card"><h3>LIKELY DOWN / DOWN BIAS</h3><div class="stat" style="color:var(--red)">${down.length}</div><div class="sub">score <=43 and coverage >=45%</div></div>
+        <div class="card"><h3>NO EDGE / LOW CONF</h3><div class="stat" style="color:var(--amber)">${wait.length}</div><div class="sub">wait for cleaner evidence</div></div>
+        <div class="card"><h3>SOURCE GAPS</h3><div class="stat" style="color:var(--orange)">${missingEst}/${missingNews}/${missingOpt}</div><div class="sub">estimates / news / options missing</div></div>
+      </div>
+      <div class="note" style="margin-bottom:12px;border-left-color:var(--cyan)">This is a research-priority signal, not a price forecast. Biggest edge comes when estimate revisions, price action, sector flow and news all point the same way. If coverage is low, treat the score as a watchlist flag only.</div>
+      <div class="grid g2">
+        ${directionSection("LIKELY UP NOW", up, "constructive evidence stack", "var(--green)")}
+        ${directionSection("LIKELY DOWN / AVOID", down, "weak evidence stack", "var(--red)")}
+        ${directionSection("NO EDGE - WAIT", wait, "mixed or missing evidence", "var(--amber)")}
+        <div class="card">
+          <h3>FULL BOARD <span class="unit">${rows.length} names - sorted by direction score</span></h3>
+          <div style="overflow-x:auto;max-height:58vh;overflow-y:auto"><table class="rank">
+            <thead><tr><th>TICKER</th><th>DIRECTION</th><th>SCORE</th><th>COVERAGE</th><th>BUY PRICE</th><th>PRICE</th><th>DRIVER</th></tr></thead>
+            <tbody>${[...rows].sort((a, b) => b.e.score - a.e.score).map(x => {
+              const L = x.e.L;
+              const driver = x.e.parts.filter(p => p.score != null).sort((a, b) => Math.abs(b.score - 50) - Math.abs(a.score - 50))[0];
+              return `<tr data-tk="${x.d.ticker}"><td><span class="rk-tk">${x.d.ticker}</span> <span class="sub">${x.d.sector}</span></td>
+                <td style="color:${x.e.color};font-weight:800">${x.e.label}</td>
+                <td>${x.e.score}</td><td>${x.e.coverage}%</td>
+                <td>${L && L.IV15 ? "$" + L.IV15.toFixed(L.IV15 >= 100 ? 0 : 2) : "--"}</td>
+                <td>$${priceOf(x.d).toFixed(priceOf(x.d) >= 100 ? 0 : 2)}</td>
+                <td class="sub">${driver ? escapeHtml(driver.label + ": " + driver.why).slice(0, 90) : "--"}</td></tr>`;
+            }).join("")}</tbody>
+          </table></div>
+        </div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+  function showDirectionEdge() {
+    showView("directionEdge", renderDirectionEdge, "edgeBtn");
+  }
+
   function renderHome() {
     const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
     const ranked = scored.filter(x => !x.r.noRank);
@@ -3881,6 +4153,7 @@
       </div>
       <div class="grid g2" style="margin-bottom:12px">
         ${dailyReviewPreviewCard()}
+        ${directionEdgePreviewCard()}
       </div>
       <div class="grid g2">
         <div class="card" style="border-left:3px solid var(--green)"><h3>GREAT BUSINESSES — BUY PRICES <span class="unit">great buy = IV15 · starter = IV12</span></h3>
@@ -3900,6 +4173,8 @@
     el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = showSectors);
     const openDaily = el("openDailyReview");
     if (openDaily) openDaily.onclick = showDailyReview;
+    const openEdge = el("openDirectionEdge");
+    if (openEdge) openEdge.onclick = showDirectionEdge;
   }
   function showHome() {
     state.view = "home";
@@ -4611,13 +4886,16 @@
     if (["DAILY", "RECAP", "REVIEW", "DAILY REVIEW", "MARKET REVIEW", "MARKET RECAP", "TODAY"].includes(q)) {
       showDailyReview(); flash("Daily review", "ok"); return;
     }
+    if (["EDGE", "DIRECTION", "DIRECTION EDGE", "UP DOWN", "UP/DOWN", "SIGNAL", "SIGNALS"].includes(q)) {
+      showDirectionEdge(); flash("Direction edge", "ok"); return;
+    }
     if (["GRAHAM", "VALUE", "NETNET", "NET-NET", "MOS", "SAFETY", "DEFENSIVE"].includes(q)) {
       showGraham(); flash("Graham value screener", "ok"); return;
     }
     if (["SCREEN", "SCREENER", "FILTER"].includes(q)) { showScreener(); return; }
     if (["COMPARE", "VS", "COMPARISON"].includes(q)) { showCompare(); return; }
     if (["MAP", "QUALITY", "QUALITY MAP", "MARKET MAP", "BUSINESS QUALITY"].includes(q)) { showQualityMap(); flash("Quality x Market map", "ok"); return; }
-    if (["TRIGGERS", "TRIGGER", "ALERTS", "SIGNALS", "BUY"].includes(q)) { showTriggers(); return; }
+    if (["TRIGGERS", "TRIGGER", "ALERTS", "BUY"].includes(q)) { showTriggers(); return; }
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
     if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
     if (["TECH", "SW50", "SOFTWARE", "SEMIS", "TECHDESK"].includes(q)) { showTech(); return; }
@@ -4706,6 +4984,7 @@
     el("liveBtn").onclick = () => startLiveTape();
     el("homeBtn").onclick = showHome;
     el("dailyBtn").onclick = showDailyReview;
+    el("edgeBtn").onclick = showDirectionEdge;
     el("sectorBtn").onclick = showSectors;
     el("narrBtn").onclick = showNarratives;
     el("valBtn").onclick = showValuation;
@@ -4754,7 +5033,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=42").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=43").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4763,7 +5042,7 @@
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
-    inflationOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    inflationOf, directionEdgeOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf,
     SBC_MODEL_VERSION, FORMULA_VERSION };

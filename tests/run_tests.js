@@ -140,6 +140,24 @@ const ok = (cond, name, detail = "") => {
   ok(bad.length === 0, "verdictOf: rankable names score; only truly missing-data names are NOTRANK", bad.slice(0, 5).join(","));
 }
 
+// =============== 6b. Direction Edge sanity across the full universe ===============
+{
+  const validLabels = new Set(["LIKELY UP", "UP BIAS", "NO EDGE", "DOWN BIAS", "LIKELY DOWN", "LOW CONFIDENCE"]);
+  let bad = [], lowCoverage = 0, hasMissing = 0;
+  for (const d of DATA) {
+    const edge = E.directionEdgeOf(d);
+    if (!edge || !Number.isFinite(edge.score) || edge.score < 0 || edge.score > 100) bad.push(`${d.ticker}:score`);
+    if (!Number.isFinite(edge.coverage) || edge.coverage < 0 || edge.coverage > 100) bad.push(`${d.ticker}:coverage`);
+    if (!validLabels.has(edge.label)) bad.push(`${d.ticker}:label:${edge && edge.label}`);
+    if (!Array.isArray(edge.parts) || edge.parts.length < 6) bad.push(`${d.ticker}:parts`);
+    if (edge.coverage < 45) lowCoverage++;
+    if (edge.missing && edge.missing.length) hasMissing++;
+  }
+  ok(bad.length === 0, "directionEdgeOf: finite 0-100 score, valid label, valid parts for every name", bad.slice(0, 8).join(","));
+  ok(lowCoverage >= 0, "directionEdgeOf: low coverage names handled without crashing", String(lowCoverage));
+  ok(hasMissing > 0, "directionEdgeOf: source gaps are explicitly tracked", String(hasMissing));
+}
+
 // =============== 7. Graham engine guards ===============
 {
   let nanBad = [];

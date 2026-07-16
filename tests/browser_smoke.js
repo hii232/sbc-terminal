@@ -81,6 +81,7 @@ async function main() {
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");
     ok(await page.locator('#wlSort option[value="qualityReward"]').count() === 1, "quality + market reward watchlist sort missing");
+    ok(await page.locator('#wlSort option[value="directionEdge"]').count() === 1, "direction edge watchlist sort missing");
 
     for (const ticker of globals.tickers) {
       await page.fill("#cmdInput", ticker);
@@ -99,6 +100,7 @@ async function main() {
     ok((await page.textContent("#main")).includes("source priority: SEC filing facts"), "SEC-first source line missing");
     ok((await page.textContent("#main")).includes("Business Quality"), "six-score dashboard missing");
     ok((await page.textContent("#main")).includes("EXPECTATIONS GAP"), "expectations gap card missing");
+    ok((await page.textContent("#main")).includes("DIRECTION EDGE"), "direction edge card missing");
     ok((await page.textContent("#main")).includes("INFLATION X-RAY"), "ticker-level inflation x-ray missing");
 
     await page.click("#hdrStar");
@@ -107,6 +109,7 @@ async function main() {
 
     const views = [
       ["#dailyBtn", "DAILY REVIEW"],
+      ["#edgeBtn", "DIRECTION EDGE"],
       ["#rankBtn", "MASTER RANKINGS"],
       ["#auditBtn", "DATA AUDIT"],
       ["#compareBtn", "COMPARE"],

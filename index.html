@@ -193,6 +193,33 @@
     .daily-move span{max-width:none}
     .daily-review-card .action-btn,.daily-review-card .ghost-btn{width:100%}
   }
+  .edge-card{background:linear-gradient(180deg,rgba(24,43,52,.98),rgba(12,18,27,.98))}
+  .edge-hero{display:grid;grid-template-columns:140px minmax(0,1fr);gap:14px;align-items:center;margin:6px 0 12px}
+  .edge-score{font-size:44px;line-height:.92;font-weight:900;text-align:center}
+  .edge-score small{display:block;margin-top:8px;font-size:11px;letter-spacing:1px;color:var(--muted)}
+  .edge-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+  .edge-part{border:1px solid rgba(132,158,194,.18);border-radius:8px;background:rgba(7,10,16,.26);padding:8px;min-width:0}
+  .edge-part span{display:block;color:var(--dim);font-size:9.5px;letter-spacing:.7px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .edge-part b{display:block;font-size:17px;margin:2px 0}
+  .edge-part small{display:block;color:var(--muted);font-size:10px;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .edge-part.missing{opacity:.65}
+  .edge-row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr) auto;gap:10px;align-items:center;
+    padding:10px 0 10px 10px;border-bottom:1px solid rgba(132,158,194,.13);border-left:3px solid var(--cyan);cursor:pointer}
+  .edge-row:hover{background:rgba(77,227,247,.055)}
+  .edge-row:last-child{border-bottom:none}
+  .edge-row b{font-size:14px;color:var(--text)}
+  .edge-row span,.edge-row small{display:block;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .edge-row small{font-size:10px;color:var(--muted)}
+  .edge-row-mid{display:grid;gap:2px;font-size:10px}
+  .edge-row strong{text-align:right;font-size:22px;line-height:1}
+  .edge-row strong small{margin-top:4px;font-size:9px;letter-spacing:.7px;color:var(--muted)}
+  @media(max-width:720px){
+    .edge-hero{grid-template-columns:1fr}
+    .edge-score{text-align:left;font-size:38px}
+    .edge-grid{grid-template-columns:1fr 1fr}
+    .edge-row{grid-template-columns:1fr;gap:7px}
+    .edge-row strong{text-align:left;font-size:20px}
+  }
 
   /* owner P/E screener rows */
   .pe-row{display:grid;grid-template-columns:66px 1fr 96px;gap:8px;align-items:center;
@@ -552,6 +579,7 @@
     <div class="nav-grid">
       <button class="navbtn c-amber" id="homeBtn" style="grid-column:span 2">HOME DASHBOARD</button>
       <button class="navbtn c-cyan" id="dailyBtn" style="grid-column:span 2">DAILY REVIEW</button>
+      <button class="navbtn c-green" id="edgeBtn" style="grid-column:span 2">DIRECTION EDGE</button>
       <button class="navbtn c-purple" id="rankBtn">⚡ Rankings</button>
       <button class="navbtn c-blue" id="grahamBtn">🛡 Graham</button>
       <button class="navbtn c-green" id="valBtn">⊞ Owner P/E</button>
@@ -572,6 +600,7 @@
     <div class="wl-tools">
       <select id="wlSort" class="wl-select" aria-label="Sort watchlist">
         <option value="longTermView">Long-term score</option>
+        <option value="directionEdge">Direction edge</option>
         <option value="marketRewardView">Market reward score</option>
         <option value="qualityReward">Business quality + market reward</option>
         <option value="businessQuality">Business quality</option>
@@ -629,14 +658,14 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=42"></script>
-<script src="data.js?v=42"></script>
-<script src="sec.js?v=42"></script>
-<script src="segments.js?v=42"></script>
-<script src="sectors.js?v=42"></script>
-<script src="estimates.js?v=42"></script>
-<script src="scores.js?v=42"></script>
-<script src="charts.js?v=42"></script>
-<script src="app.js?v=42"></script>
+<script src="universe.js?v=43"></script>
+<script src="data.js?v=43"></script>
+<script src="sec.js?v=43"></script>
+<script src="segments.js?v=43"></script>
+<script src="sectors.js?v=43"></script>
+<script src="estimates.js?v=43"></script>
+<script src="scores.js?v=43"></script>
+<script src="charts.js?v=43"></script>
+<script src="app.js?v=43"></script>
 </body>
 </html>
