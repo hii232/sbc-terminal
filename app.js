@@ -4176,11 +4176,212 @@
     const openEdge = el("openDirectionEdge");
     if (openEdge) openEdge.onclick = showDirectionEdge;
   }
+  function renderHomeMobileDashboard() {
+    const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
+    const ranked = scored.filter(x => !x.r.noRank);
+    const combo = (x) => Math.round(((x.m?.businessQuality?.score || 0) + (x.m?.marketReward?.score || 0)) / 2);
+    const leaders = [...ranked].sort((a, b) => combo(b) - combo(a)).slice(0, 6);
+    const buyList = [...ranked].map(x => ({ ...x, L: ivLadder(x.d) }))
+      .filter(x => x.L && (x.m?.businessQuality?.score || 0) >= 60)
+      .sort((a, b) => (b.m.businessQuality.score - a.m.businessQuality.score) || ((b.L.IV15 / b.L.price) - (a.L.IV15 / a.L.price)))
+      .slice(0, 8);
+    const cheap = [...ranked].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE).slice(0, 6);
+    const hot = [...ranked].filter(x => x.r.truePE).sort((a, b) => (b.r.truePE || 0) - (a.r.truePE || 0)).slice(0, 6);
+    const movers = [...DATA].sort((a, b) => Math.abs(quoteChangeOf(b)) - Math.abs(quoteChangeOf(a))).slice(0, 6);
+    const sectors = SECTORS.series.filter(s => s.t !== "SPY").map(s => ({ s, r3: retOver(s, 3), fd: flowDelta(s) }))
+      .sort((a, b) => b.r3 - a.r3).slice(0, 5);
+    const medianPE = medianOf(ranked.map(x => x.r.truePE).filter(Boolean));
+    const fat = ranked.filter(x => x.r.zone === "fat").length;
+    const R = dailyReviewModel();
+    const today = new Date();
+    const homeDate = today.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+    const fmtPx = (v) => v == null || !Number.isFinite(+v) ? "--" : "$" + (+v).toFixed(2);
+    const pct = (v, d = 2) => `${v >= 0 ? "+" : ""}${(+v).toFixed(d)}%`;
+    const marketTiles = ["SPY", "SMH", "XLK"].map(t => secByT(t)).filter(Boolean).map(s => ({
+      t: s.t,
+      name: s.name,
+      px: s.closes[s.closes.length - 1],
+      move: retOver(s, 1),
+      color: s.color || "var(--cyan)",
+    }));
+    const gainers = [...DATA].filter(d => quoteChangeOf(d) > 0).sort((a, b) => quoteChangeOf(b) - quoteChangeOf(a)).slice(0, 3);
+    const losers = [...DATA].filter(d => quoteChangeOf(d) < 0).sort((a, b) => quoteChangeOf(a) - quoteChangeOf(b)).slice(0, 3);
+    const stockDay = leaders[0] || ranked[0];
+    const topBuy = buyList[0];
+    const eFrom = new Date(today.getTime() - 3 * 864e5);
+    const eTo = new Date(today.getTime() + 21 * 864e5);
+    let earningsRows = bundledEarningsRows(eFrom, eTo, true);
+    if (!earningsRows.length) earningsRows = bundledEarningsRows(new Date("2026-07-13T00:00:00"), new Date("2026-08-15T00:00:00"), true);
+    earningsRows = earningsRows.slice(0, 4);
+    const row = (x, right, sub = "") => `<div class="home-row" data-tk="${x.d.ticker}">
+      <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
+      <div class="sub">${sub || x.m?.finalLabel?.label || ""}</div>
+      <strong>${right}</strong>
+    </div>`;
+    const buyRow = (x) => {
+      const great = x.L.IV15, starter = x.L.IV12, px = x.L.price;
+      const gap = great / px - 1;
+      return `<div class="home-row buy-row" data-tk="${x.d.ticker}">
+        <div><b>${x.d.ticker}</b><span>BQ ${x.m.businessQuality.score} &middot; ${x.d.sector}</span></div>
+        <div class="sub">now $${px.toFixed(px >= 100 ? 0 : 2)} &middot; starter $${starter.toFixed(starter >= 100 ? 0 : 2)}</div>
+        <strong class="${gap >= 0 ? "up" : "down"}">$${great.toFixed(great >= 100 ? 0 : 2)}</strong>
+      </div>`;
+    };
+    const moverRow = (d) => {
+      const ch = quoteChangeOf(d);
+      return `<div class="home-row" data-tk="${d.ticker}">
+        <div><b>${d.ticker}</b><span>${d.sector}</span></div>
+        <div class="sub">${d.name}</div>
+        <strong class="${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</strong>
+      </div>`;
+    };
+    const moverCompact = (d) => {
+      const ch = quoteChangeOf(d);
+      return `<div class="bz-mover" data-tk="${d.ticker}">
+        <div><b>${d.ticker}</b><span>${escapeHtml(d.name)}</span></div>
+        <div class="bz-spark">${miniSpark(d)}</div>
+        <strong>${fmtPx(priceOf(d))}<span class="${signCls(ch)}">${pct(ch)}</span></strong>
+      </div>`;
+    };
+    const marketTile = (x) => `<button class="bz-index-tile" data-sector="${x.t}" type="button" style="--tile:${x.color}">
+      <b>${x.t}</b><span>${fmtPx(x.px)}</span><em class="${signCls(x.move)}">${pct(x.move, 1)} 1M</em>
+    </button>`;
+    const storyAge = (a) => {
+      if (!a.datetime) return "latest";
+      const ms = a.datetime > 1e12 ? a.datetime : a.datetime * 1000;
+      const hrs = Math.max(1, Math.round((Date.now() - ms) / 36e5));
+      return hrs < 24 ? `${hrs}h ago` : `${Math.round(hrs / 24)}d ago`;
+    };
+    const liveStories = R.newsRows.slice(0, 4).map(a => ({
+      headline: a.headline,
+      sub: a.narrative || "Scored headline driver",
+      tickers: [...new Set([...(a.tickers || []), a.ticker, a.sourceTicker].filter(Boolean))].slice(0, 5),
+      score: a.score || 0,
+      age: storyAge(a),
+    }));
+    const seenSectors = new Set();
+    const fallbackStories = [R.focus, R.worst, R.best].filter(s => s && !seenSectors.has(s.etf) && seenSectors.add(s.etf)).map(s => {
+      const driver = dailyDriverForSector(s);
+      const lens = DAILY_SECTOR_LENS[s.etf] || {};
+      const down = s.move < 0;
+      return {
+        headline: driver ? driver.headline : `${s.name} ${down ? "is under pressure" : "is leading"} ${pct(s.move)} as the tape reprices ${lens.watch || "sector fundamentals"}.`,
+        sub: driver ? driver.narrative : (lens.watch || "Price tape driver"),
+        tickers: s.top.slice(0, 5).map(x => x.d.ticker),
+        score: Math.round(s.move * 10),
+        age: "price tape",
+      };
+    });
+    const stories = (liveStories.length ? liveStories : fallbackStories).slice(0, 4);
+    const storyCard = (s) => `<div class="bz-news-card" ${s.tickers[0] ? `data-tk="${s.tickers[0]}"` : ""}>
+      <h3>${escapeHtml(s.headline || "No headline loaded yet")}</h3>
+      <div class="bz-news-meta"><span>${escapeHtml(s.age)}</span><span class="${signCls(s.score)}">${s.score >= 0 ? "+" : ""}${Math.round(s.score)} impact</span></div>
+      <p>${escapeHtml(s.sub || "Open Daily Review for sector context and affected tickers.")}</p>
+      <div class="bz-chips">${s.tickers.map(tk => `<button type="button" data-tk="${tk}">${tk}</button>`).join("")}</div>
+    </div>`;
+    const earningsRow = (e) => {
+      const d = companyOf(e.symbol), L = d ? ivLadder(d) : null, de = d ? directionEdgeOf(d) : null;
+      const eps = hasNum(e.epsEstimate) ? +e.epsEstimate : d && hasNum(d.forwardEPS) ? +d.forwardEPS : null;
+      return `<div class="bz-earn-row" ${d ? `data-tk="${e.symbol}"` : ""}>
+        <div><b>${e.symbol}</b><span>${escapeHtml(e.name || d?.name || "")}</span></div>
+        <div><span>${e.date}</span><em>${earningsWhen(e.hour) || "time n/a"}</em></div>
+        <div><span>EPS EST</span><b>${eps == null ? "--" : "$" + eps.toFixed(2)}</b></div>
+        <strong style="color:${de?.color || "var(--muted)"}">${de ? de.score : "--"}<span>${L ? ZONE[L.zone].label : "focus"}</span></strong>
+      </div>`;
+    };
+    const analystRows = [...ranked].filter(x => x.f.pe != null).sort((a, b) => combo(b) - combo(a)).slice(0, 4);
+    const analystRow = (x) => `<div class="bz-rating-row" data-tk="${x.d.ticker}">
+      <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
+      <div><span>FWD P/E</span><b>${x.f.pe.toFixed(1)}x</b></div>
+      <div><span>BQ + MR</span><b>${combo(x)}</b></div>
+      <strong class="${signCls(quoteChangeOf(x.d))}">${pct(quoteChangeOf(x.d))}</strong>
+    </div>`;
+    el("main").innerHTML = `
+      <div class="bz-home">
+        <section class="bz-hero">
+          <div>
+            <div class="bz-kicker">SBC TERMINAL</div>
+            <h1>HOME DASHBOARD</h1>
+            <p>Daily tape, movers, earnings, buy prices, and owner-economics edge. ${DATA.length} official names, ${ranked.length} ranked.</p>
+          </div>
+          <button class="bz-best" type="button" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
+            <span>BEST SETUP</span><b>${stockDay?.d.ticker || "--"}</b><em>${stockDay ? `BQ ${stockDay.m.businessQuality.score} / MR ${stockDay.m.marketReward.score}` : "n/a"}</em>
+          </button>
+        </section>
+        <div class="bz-index-strip">${marketTiles.map(marketTile).join("")}</div>
+        <section class="bz-panel bz-movers-panel">
+          <div class="bz-section-head"><h2>Watchlist Movers</h2><button id="openAllMovers" type="button">View All Movers</button></div>
+          <div class="bz-mover-cols">
+            <div><h3>GAINERS</h3>${gainers.length ? gainers.map(moverCompact).join("") : `<div class="note">No positive movers loaded yet.</div>`}</div>
+            <div><h3>LOSERS</h3>${losers.length ? losers.map(moverCompact).join("") : `<div class="note">No negative movers loaded yet.</div>`}</div>
+          </div>
+        </section>
+        <section class="bz-panel bz-brief">
+          <div>
+            <h2>Morning Update</h2>
+            <p>${escapeHtml(R.headline)}</p>
+            <span>${homeDate} &middot; ${liveHeaderStatus()}</span>
+          </div>
+          <button id="openDailyReviewTop" type="button">Read Details</button>
+        </section>
+        <section class="bz-feature" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
+          <div class="bz-feature-pill">${stockDay?.d.ticker || "--"}</div>
+          <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: best combined business quality and market reward setup on the board.` : "No ranked setup loaded."}</p></div>
+          <button type="button">Open</button>
+        </section>
+        <section class="bz-panel bz-edge-report">
+          <h2>SBC Edge Insider Report</h2>
+          <p>${topBuy ? `${topBuy.d.ticker} has the cleanest high-quality buy-price setup: great buy $${topBuy.L.IV15.toFixed(topBuy.L.IV15 >= 100 ? 0 : 2)}, starter $${topBuy.L.IV12.toFixed(topBuy.L.IV12 >= 100 ? 0 : 2)}.` : "No high-quality buy-price setup is in range yet."}</p>
+          <button id="openDirectionEdgeTop" type="button">Open Direction Edge</button>
+        </section>
+        <section class="bz-panel bz-why">
+          <h2>Why Is It Moving?</h2>
+          ${stories.length ? stories.map(storyCard).join("") : `<div class="note">No news driver loaded yet. Open Daily Review to scan headlines.</div>`}
+        </section>
+        <section class="bz-panel">
+          <h2>Recent / Upcoming Earnings</h2>
+          <div class="bz-earnings">${earningsRows.length ? earningsRows.map(earningsRow).join("") : `<div class="note">No bundled earnings in the current window.</div>`}</div>
+        </section>
+        <section class="bz-panel">
+          <h2>Street + Model Setup</h2>
+          ${analystRows.map(analystRow).join("")}
+        </section>
+        <section class="bz-score-strip">
+          <div><span>RANKED UNIVERSE</span><b class="up">${ranked.length}/${DATA.length}</b><em>all official names scored</em></div>
+          <div><span>FAT PITCHES</span><b class="up">${fat}</b><em>IV ladder in the zone</em></div>
+          <div><span>MEDIAN OWNER P/E</span><b>${medianPE ? medianPE.toFixed(1) + "x" : "--"}</b><em>ranked positive owner EPS</em></div>
+          <div><span>TOP COMBO</span><b>${leaders[0] ? combo(leaders[0]) : "--"}</b><em>business quality + market reward</em></div>
+        </section>
+      </div>
+      <div class="grid g2">
+        <div class="card" style="border-left:3px solid var(--green)"><h3>GREAT BUSINESSES - BUY PRICES <span class="unit">great buy = IV15 &middot; starter = IV12</span></h3>
+          <div class="note" style="margin-bottom:8px">These are model watch prices, not automatic orders. <b style="color:var(--green)">Great buy</b> means the IV ladder estimates a 15% required-return entry; <b style="color:var(--amber)">starter</b> is the 12% zone for scaling/watching.</div>
+          ${buyList.map(buyRow).join("")}
+        </div>
+        <div class="card"><h3>BEST BUSINESS + MARKET REWARD</h3>${leaders.map(x => row(x, combo(x) + "/100", `BQ ${x.m.businessQuality.score} &middot; MR ${x.m.marketReward.score}`)).join("")}</div>
+        <div class="card"><h3>CHEAPEST OWNER P/E</h3>${cheap.map(x => row(x, x.r.truePE.toFixed(1) + "x", x.m.finalLabel.label)).join("")}</div>
+        <div class="card"><h3>OVERHEATED WATCH</h3>${hot.map(x => row(x, x.r.truePE.toFixed(1) + "x", `Valuation ${x.m.valuation.score}/100`)).join("")}</div>
+        <div class="card"><h3>BIGGEST MOVES</h3>${movers.map(moverRow).join("")}</div>
+        <div class="card"><h3>SECTOR PULSE</h3>${sectors.map(x => `<div class="home-row" data-sector="${x.s.t}"><div><b>${x.s.t}</b><span>${x.s.name}</span></div><div class="sub">flow ${x.fd >= 0 ? "+" : ""}${x.fd.toFixed(1)}pp</div><strong class="${signCls(x.r3)}">${x.r3 >= 0 ? "+" : ""}${x.r3.toFixed(1)}%</strong></div>`).join("")}</div>
+        <div class="card"><h3>OPEN NEXT</h3>
+          <div class="note">Start with the combo leaders, then compare them against Cheapest Owner P/E and Overheated Watch. Use Sector Pulse to decide whether the market is confirming the thesis or fighting it.</div>
+        </div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = (e) => { e.stopPropagation(); selectTicker(r.dataset.tk); });
+    el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = (e) => { e.stopPropagation(); state.secOn.add(r.dataset.sector); showSectors(); });
+    const openDaily = el("openDailyReviewTop");
+    if (openDaily) openDaily.onclick = showDailyReview;
+    const openMovers = el("openAllMovers");
+    if (openMovers) openMovers.onclick = showRankings;
+    const openEdge = el("openDirectionEdgeTop");
+    if (openEdge) openEdge.onclick = showDirectionEdge;
+  }
+
   function showHome() {
     state.view = "home";
     setViewBtn("homeBtn");
     renderWatchlist();
-    renderHome();
+    renderHomeMobileDashboard();
     closeDrawer();
     window.scrollTo({ top: 0 });
     syncNav();
@@ -5033,7 +5234,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=44").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=45").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
