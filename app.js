@@ -1245,8 +1245,42 @@
     const c = el("clearThesis"); if (c) c.onclick = () => { delete state.thesisRules[d.ticker]; saveThesis(); flash("Thesis alerts cleared", "ok"); renderTab(d); };
   }
 
+  function tickerDrawdown(d) {
+    const px = d.px && Array.isArray(d.px.v) ? d.px : null;
+    if (!px) return null;
+    const prices = px.v.filter(v => Number.isFinite(+v) && +v > 0).map(Number);
+    if (prices.length < 10) return null;
+    const liveQuote = state.live[d.ticker]?.quote;
+    const currentPrice = liveQuote?.price != null && Number.isFinite(+liveQuote.price) && +liveQuote.price > 0
+      ? +liveQuote.price
+      : quotePriceOf(d);
+    const today = new Date().toISOString().slice(0, 10);
+    if (currentPrice != null) {
+      if (px.to === today) prices[prices.length - 1] = currentPrice;
+      else prices.push(currentPrice);
+    }
+    let peak = -Infinity;
+    const values = prices.map(price => {
+      peak = Math.max(peak, price);
+      return +(((price / peak) - 1) * 100).toFixed(2);
+    });
+    const labels = values.map(() => "");
+    labels[0] = px.from?.slice(5) || "START";
+    labels[labels.length - 1] = liveQuote ? "LIVE" : (px.to?.slice(5) || "LATEST");
+    return {
+      values,
+      labels,
+      current: values.at(-1),
+      worst: Math.min(...values),
+      peak,
+      price: prices.at(-1),
+      source: liveQuote ? `${liveQuote.source || "live quote"} · ${new Date(liveQuote.ts || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : `latest loaded quote · ${px.to}`,
+    };
+  }
+
   function tabOverview(d) {
     const px = d.px && d.px.v && d.px.v.length >= 10 ? d.px : null;
+    const dd = tickerDrawdown(d);
     return `<div class="grid g3">
       <div style="grid-column:span 3">${marketDashboard(d)}</div>
 
@@ -1269,6 +1303,19 @@
         <h3>OWNER-EARNINGS RETENTION</h3>
         <div style="display:flex;justify-content:center;margin:6px 0">${Chart.donut(d.ownersKeep)}</div>
         <div class="sub" style="text-align:center">Shareholders keep <b style="color:var(--text)">${(d.ownersKeep * 100).toFixed(1)}¢</b> of each GAAP earnings dollar after true SBC economics.</div>
+      </div>
+
+      <div class="card drawdown-card" style="grid-column:span 3">
+        <h3>DRAWDOWN FROM RUNNING HIGH <span class="unit">${dd ? `12M weekly history + ${dd.source}` : "price history unavailable"}</span></h3>
+        ${dd ? `<div class="drawdown-stats">
+            <div><span>CURRENT DRAWDOWN</span><b class="${dd.current <= -20 ? "down" : dd.current < 0 ? "warn" : "up"}">${dd.current.toFixed(1)}%</b></div>
+            <div><span>WORST 12M</span><b class="down">${dd.worst.toFixed(1)}%</b></div>
+            <div><span>RUNNING PEAK</span><b>$${dd.peak.toFixed(2)}</b></div>
+            <div><span>CURRENT PRICE</span><b>$${dd.price.toFixed(2)}</b></div>
+          </div>
+          ${Chart.drawdown(dd.values, dd.labels, { h: 220 })}
+          <div class="sub drawdown-note">Drawdown measures the decline from each date's highest prior price. A new high resets the line to 0%.</div>`
+          : `<div class="sub" style="padding:28px 10px;text-align:center">No verified 12-month price history is available for this ticker, so no drawdown is calculated.</div>`}
       </div>
 
       <div class="card"><h3>GAAP EPS</h3><div class="stat">$${d.gaapEPS?.toFixed(2) ?? "–"}</div><div class="sub">what's actually reported</div></div>
@@ -5226,7 +5273,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=47").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=48").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5237,7 +5284,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, directionEdgeOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
-    allCompanies, companyOf,
+    allCompanies, companyOf, tickerDrawdown,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();

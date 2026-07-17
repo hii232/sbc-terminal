@@ -73,6 +73,46 @@
     return `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">${g}${paths}</svg>`;
   }
 
+  /* ---------- DRAWDOWN CHART (percentage below running high) ---------- */
+  function drawdown(points, xlabels, opts = {}) {
+    const vals = points.map(v => Number.isFinite(+v) ? +v : null);
+    const W = opts.w || 700, H = opts.h || 220;
+    const P = { t: 16, r: 58, b: 25, l: 44 };
+    const iw = W - P.l - P.r, ih = H - P.t - P.b;
+    const valid = vals.filter(v => v != null);
+    if (valid.length < 2) return "";
+    const worst = Math.min(...valid, 0);
+    const floor = Math.min(-5, Math.floor(worst / 5) * 5);
+    const x = i => P.l + (vals.length === 1 ? iw / 2 : (i / (vals.length - 1)) * iw);
+    const y = v => P.t + ((0 - v) / (0 - floor)) * ih;
+    let grid = "";
+    for (let tick = 0; tick >= floor; tick -= 5) {
+      const yy = y(tick);
+      grid += `<line x1="${P.l}" y1="${yy}" x2="${W - P.r}" y2="${yy}" stroke="${C.grid}"/>`;
+      grid += `<text x="${P.l - 6}" y="${yy + 3}" fill="${C.text}" font-size="9" text-anchor="end">${tick}%</text>`;
+    }
+    let path = "";
+    vals.forEach((v, i) => { if (v != null) path += `${path ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)} `; });
+    const first = vals.findIndex(v => v != null), last = vals.findLastIndex(v => v != null);
+    const area = `${path}L${x(last).toFixed(1)} ${y(0).toFixed(1)} L${x(first).toFixed(1)} ${y(0).toFixed(1)} Z`;
+    let labels = "";
+    xlabels.forEach((label, i) => {
+      if (label) labels += `<text x="${x(i)}" y="${H - 6}" fill="${C.text}" font-size="9" text-anchor="${i === 0 ? "start" : i === xlabels.length - 1 ? "end" : "middle"}">${label}</text>`;
+    });
+    const current = vals[last];
+    const tagY = Math.max(P.t + 9, Math.min(H - P.b - 5, y(current)));
+    const tagColor = current <= -20 ? "#ff4560" : current <= -10 ? C.red : C.orange;
+    return `<svg class="drawdown-svg" viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Drawdown from running high">
+      ${grid}
+      <path d="${area}" fill="${tagColor}" opacity="0.10"/>
+      <path d="${path}" fill="none" stroke="${tagColor}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${x(last)}" cy="${y(current)}" r="3.5" fill="${tagColor}"/>
+      <rect x="${W - P.r + 5}" y="${tagY - 10}" width="48" height="20" rx="4" fill="${tagColor}"/>
+      <text x="${W - P.r + 29}" y="${tagY + 4}" fill="#fff" font-size="10" font-weight="800" text-anchor="middle">${current.toFixed(1)}%</text>
+      ${labels}
+    </svg>`;
+  }
+
   /* ---------- GROUPED / SINGLE BAR CHART ---------- */
   function bars(groups, xlabels, opts = {}) {
     // groups: [{name,color,values:[...]}]
@@ -141,5 +181,5 @@
     </svg>`;
   }
 
-  window.Chart = { line, bars, hbars, donut, C };
+  window.Chart = { line, drawdown, bars, hbars, donut, C };
 })();

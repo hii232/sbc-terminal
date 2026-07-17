@@ -87,6 +87,7 @@ async function main() {
       await page.fill("#cmdInput", ticker);
       await page.click(".cmd .go");
       await page.waitForFunction((t) => document.querySelector("#main")?.textContent.includes(t), ticker, { timeout: 3000 });
+      ok((await page.textContent("#main")).includes("DRAWDOWN FROM RUNNING HIGH"), `${ticker} drawdown card missing`);
     }
 
     await page.fill("#cmdInput", "JPM");

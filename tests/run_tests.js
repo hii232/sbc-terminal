@@ -26,6 +26,18 @@ const ok = (cond, name, detail = "") => {
   else { fail++; console.error("  ✗ FAIL:", name, detail); }
 };
 
+// =============== Drawdown calculation ===============
+{
+  const sample = E.tickerDrawdown({
+    ticker: "TEST",
+    price: 104,
+    px: { from: "2025-07-01", to: "2026-07-01", v: [100, 105, 110, 115, 120, 90, 100, 130, 110, 104] },
+  });
+  ok(sample && sample.current === -20, "drawdown uses latest price versus running peak", String(sample?.current));
+  ok(sample && sample.worst === -25, "drawdown identifies worst decline", String(sample?.worst));
+  ok(sample && sample.peak === 130, "drawdown preserves running peak", String(sample?.peak));
+}
+
 // =============== 1. Black-Scholes correctness ===============
 {
   ok(E.lastVal([]) === null, "lastVal([]) -> null, never fake zero");

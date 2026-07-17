@@ -237,6 +237,14 @@
   .bz-score-strip span,.bz-score-strip em{display:block;color:var(--muted);font-size:11px;font-style:normal}
   .bz-score-strip span{font-weight:900;letter-spacing:.8px}
   .bz-score-strip b{display:block;margin:6px 0 2px;font-size:30px;line-height:1;color:var(--amber)}
+  .drawdown-card{overflow:hidden}
+  .drawdown-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+  .drawdown-stats>div{padding:10px 12px;border:1px solid var(--line);background:rgba(7,12,20,.42);border-radius:6px}
+  .drawdown-stats span{display:block;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.7px}
+  .drawdown-stats b{display:block;margin-top:5px;color:var(--text);font-size:20px;letter-spacing:0}
+  .drawdown-stats b.warn{color:var(--orange)}
+  .drawdown-svg{display:block;min-height:180px}
+  .drawdown-note{margin-top:4px}
 
   .daily-review-card{background:linear-gradient(180deg,rgba(26,42,58,.98),rgba(12,18,27,.98))}
   .daily-headline{font-size:18px;line-height:1.35;font-weight:800;color:var(--text);margin:7px 0 10px}
@@ -528,6 +536,10 @@
     .bz-score-strip div{border-right:1px solid rgba(132,158,194,.18);border-bottom:1px solid rgba(132,158,194,.18)}
     .bz-score-strip div:nth-child(2n){border-right:none}
     .bz-score-strip div:nth-last-child(-n+2){border-bottom:none}
+    .drawdown-stats{grid-template-columns:1fr 1fr}
+    .drawdown-stats>div{padding:9px 10px}
+    .drawdown-stats b{font-size:18px}
+    .drawdown-svg{min-height:165px}
 
     /* modal fits phone */
     .modal .box{padding:16px;max-height:85vh;overflow-y:auto}
@@ -760,14 +772,14 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=47"></script>
-<script src="data.js?v=47"></script>
-<script src="sec.js?v=47"></script>
-<script src="segments.js?v=47"></script>
-<script src="sectors.js?v=47"></script>
-<script src="estimates.js?v=47"></script>
-<script src="scores.js?v=47"></script>
-<script src="charts.js?v=47"></script>
-<script src="app.js?v=47"></script>
+<script src="universe.js?v=48"></script>
+<script src="data.js?v=48"></script>
+<script src="sec.js?v=48"></script>
+<script src="segments.js?v=48"></script>
+<script src="sectors.js?v=48"></script>
+<script src="estimates.js?v=48"></script>
+<script src="scores.js?v=48"></script>
+<script src="charts.js?v=48"></script>
+<script src="app.js?v=48"></script>
 </body>
 </html>
