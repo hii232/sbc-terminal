@@ -2,7 +2,7 @@
  "ticker": "NFLX",
  "cik": "0001065280",
  "entityName": "Netflix, Inc.",
- "retrievedAt": "2026-07-15T04:57:21.871217Z",
+ "retrievedAt": "2026-07-19T16:28:43.449554Z",
  "fields": {
   "buyback": [
    {
@@ -1865,12 +1865,12 @@
     "confidence": 100
    },
    {
-    "value": 4212794271,
+    "value": 4163939676,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-17",
-    "accessionNumber": "0001065280-26-000138",
+    "filedDate": "2026-07-17",
+    "accessionNumber": "0001065280-26-000212",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

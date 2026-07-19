@@ -1,8 +1,8 @@
 {
  "ticker": "GE",
  "cik": "0000040545",
- "entityName": "GENERAL ELECTRIC COMPANY",
- "retrievedAt": "2026-07-15T04:58:22.012562Z",
+ "entityName": "GENERAL ELECTRIC CO",
+ "retrievedAt": "2026-07-19T16:29:44.742453Z",
  "fields": {
   "buyback": [
    {
@@ -1604,12 +1604,12 @@
     "confidence": 100
    },
    {
-    "value": 1043337235,
+    "value": 1037562513,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-21",
-    "accessionNumber": "0000040545-26-000027",
+    "filedDate": "2026-07-16",
+    "accessionNumber": "0000040545-26-000049",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -325,7 +325,7 @@
     if (typeof UNIVERSE_LIST === "undefined") fail("universe.js not loaded");
     const uni = UNIVERSE_LIST.map(u => u.ticker);
     const expected = uni.length;
-    if (expected !== 121) fail("universe has " + expected + " tickers, expected exactly 121");
+    if (expected !== 126) fail("universe has " + expected + " tickers, expected exactly 126");
     if (new Set(uni).size !== expected) fail("duplicate tickers in universe");
     if (UNIVERSE_LIST.some(u => !u.cik || !u.name)) fail("ticker missing identity/CIK");
     const have = DATA.map(d => d.ticker);
@@ -827,7 +827,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn"];
+  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn", "trackBtn", "journalBtn"];
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -913,7 +913,7 @@
       } else {
         const map = { home: showHome, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors, narratives: showNarratives, valuation: showValuation, inflation: showInflation,
           rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
-          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit };
+          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
     } finally { navRestoring = false; }
@@ -948,7 +948,7 @@
     const header = `
       <div class="hdr">
         <div>
-          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span>${conflictBadge}</div>
+          <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> <span class="star" id="hdrThesis" title="Write/read your thesis — the terminal is a reading list until you do">✎</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span>${conflictBadge}</div>
           <div class="co">${d.name} · ${d.sector}</div>
         </div>
         <div>
@@ -987,6 +987,7 @@
     el("main").querySelectorAll(".tabs button").forEach(btn =>
       btn.onclick = () => { currentTab = btn.dataset.tab; render(); syncNav(); pushNav(); });
     const hs = el("hdrStar"); if (hs) hs.onclick = () => { toggleFav(d.ticker); render(); };
+    const ht = el("hdrThesis"); if (ht) ht.onclick = () => { journalState.prefill = d.ticker; showJournal(); };
     renderTab(d);
   }
 
@@ -1548,7 +1549,7 @@
         <td class="sub">${c.accn || c.secFact?.accn || "—"}</td><td class="sub">${c.tag || c.secFact?.tag || "—"}</td><td class="sub">${c.valueUsed || "SEC primary"}</td>
       </tr>`).join("");
       return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : sv.periodMismatch.length ? "var(--orange)" : "var(--green)"}">
-        <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten</span></h3>
+        <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten${(() => { const u = (typeof UNIVERSE_LIST !== "undefined") && UNIVERSE_LIST.find(x => x.ticker === d.ticker); return u && sv.latest && sv.latest.accn ? ` · <a href="https://www.sec.gov/Archives/edgar/data/${u.cik}/${sv.latest.accn.replace(/-/g, "")}/" target="_blank" rel="noopener" style="color:var(--cyan)">READ THE ACTUAL FILING →</a>` : ""; })()}</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th style="text-align:left">FIELD</th><th style="text-align:left">STATUS</th><th>SEC FILING</th><th>TERMINAL</th><th>NOTE</th></tr>${rows}</table></div>
         <h3 style="margin-top:12px">CONFLICT / PERIOD DETAILS <span class="unit">same-period facts only become true conflicts</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th>FIELD</th><th>REASON</th><th>SEC VALUE</th><th>OTHER VALUE</th><th>SEC PERIOD</th><th>OTHER PERIOD</th><th>FILING</th><th>ACCESSION</th><th>TAG</th><th>MODEL USES</th></tr>${detailRows}</table></div>
@@ -2514,7 +2515,7 @@
         <b style="color:var(--purple)">The brain score</b> merges every engine's weighted vote: IV15 DCF 25% · SBC x-ray 20% · quality &amp; cash (ROIC + FCF-after-SBC) 20% · Graham 15% · buyback truth 10% · sector flow 10% (+ insiders when live). The CALL column is the one-line conclusion — open any stock to see the full vote breakdown and written thesis on ⚛ THE VERDICT card. Tap a column to re-rank, a row to open.
       </div>
 
-      <div class="note" style="margin-bottom:12px">The official 121-name universe enters the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete. If required SBC/share facts are missing, the ticker stays in Not Ranked instead of getting fake numbers.</div>
+      <div class="note" style="margin-bottom:12px">The official 126-name universe enters the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete. If required SBC/share facts are missing, the ticker stays in Not Ranked instead of getting fake numbers.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
         <tbody>${body}</tbody>
@@ -2590,7 +2591,7 @@
         <h3>★ NET-NET BARGAINS <span class="unit">trading below net current asset value — the rarest Graham signal</span></h3>
         ${Chart.hbars(netnets.slice(0, 10).map(x => ({ label: x.d.ticker, value: x.G.priceToNcav * 100, color: x.G.deepNetnet ? "var(--green)" : "var(--amber)", display: (x.G.priceToNcav * 100).toFixed(0) + "% of NCAV" })), { max: 105, labelW: 52 })}
         <div class="sub" style="margin-top:6px">Under 100% = below liquid assets net of all debt · under 67% (green) = Graham's deep two-thirds bargain.</div>
-      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 121-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
+      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 126-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
 
       <div class="grid g2" style="margin-bottom:12px">
         <div class="card" style="border-left:3px solid var(--green)"><h3>DEEPEST MARGIN OF SAFETY <span class="unit">discount to Graham Number</span></h3>
@@ -3545,6 +3546,132 @@
   }
   const showAudit = () => showView("audit", renderAudit, "auditBtn");
 
+  /* ============================================================================
+     📈 TRACK RECORD — is the model actually any good?
+     Daily brain-score snapshots (scripts/snapshot_scores.js, run by the
+     data-refresh workflow) accumulate into an OUT-OF-SAMPLE record. Until the
+     record exists, this page says so — the score is a hypothesis, not an edge.
+     ============================================================================ */
+  function renderTrack() {
+    const H = (typeof TRACK_HISTORY !== "undefined") ? TRACK_HISTORY : [];
+    const latest = H.length ? H[H.length - 1] : null;
+    const first = H.length ? H[0] : null;
+    const daysSpan = latest && first ? Math.round((Date.parse(latest.date) - Date.parse(first.date)) / 864e5) : 0;
+
+    let cohortHtml = "";
+    if (latest) {
+      const sorted = latest.entries.filter(e => e.s != null).sort((a, b) => b.s - a.s);
+      const qSize = Math.ceil(sorted.length / 5);
+      const qs = [0, 1, 2, 3, 4].map(i => sorted.slice(i * qSize, (i + 1) * qSize));
+      cohortHtml = `<div class="card" style="margin-bottom:12px"><h3>TODAY'S COHORTS <span class="unit">snapshot ${latest.date} · these are the bets being recorded</span></h3>
+        <div style="overflow-x:auto"><table class="rank"><thead><tr><th>QUINTILE</th><th>AVG SCORE</th><th>NAMES</th><th style="text-align:left">SAMPLE</th></tr></thead><tbody>
+        ${qs.map((q, i) => `<tr><td>Q${i + 1}${i === 0 ? " (top)" : i === 4 ? " (bottom)" : ""}</td>
+          <td>${(q.reduce((a, x) => a + x.s, 0) / q.length).toFixed(1)}</td><td>${q.length}</td>
+          <td style="text-align:left" class="sub">${q.slice(0, 6).map(x => x.t).join(", ")}${q.length > 6 ? "…" : ""}</td></tr>`).join("")}
+        </tbody></table></div></div>`;
+    }
+
+    let fwdHtml = "";
+    const base = H.find(sn => latest && (Date.parse(latest.date) - Date.parse(sn.date)) >= 30 * 864e5);
+    if (base && latest && base.date !== latest.date) {
+      const nowP = {}; latest.entries.forEach(e => nowP[e.t] = e.p);
+      const rows = base.entries.filter(e => e.s != null && e.p > 0 && nowP[e.t] > 0)
+        .map(e => ({ ...e, ret: (nowP[e.t] / e.p - 1) * 100 })).sort((a, b) => b.s - a.s);
+      const qSize = Math.ceil(rows.length / 5);
+      const qs = [0, 1, 2, 3, 4].map(i => rows.slice(i * qSize, (i + 1) * qSize));
+      const avg = (arr) => arr.reduce((a, x) => a + x.ret, 0) / Math.max(arr.length, 1);
+      const spread = avg(qs[0]) - avg(qs[4]);
+      const calls = {};
+      rows.forEach(r => { (calls[r.c] = calls[r.c] || []).push(r.ret); });
+      fwdHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid ${spread > 0 ? "var(--green)" : "var(--red)"}">
+        <h3>FORWARD RETURNS — ${base.date} → ${latest.date} <span class="unit">${Math.round((Date.parse(latest.date) - Date.parse(base.date)) / 864e5)} days · price return only, no dividends</span></h3>
+        <div style="overflow-x:auto"><table class="rank"><thead><tr><th>QUINTILE (by score on ${base.date})</th><th>AVG RETURN</th></tr></thead><tbody>
+          ${qs.map((q, i) => `<tr><td>Q${i + 1}</td><td class="${avg(q) >= 0 ? "up" : "down"}">${avg(q) >= 0 ? "+" : ""}${avg(q).toFixed(1)}%</td></tr>`).join("")}
+          <tr><td><b>Q1 − Q5 spread (the model's claim)</b></td><td class="${spread > 0 ? "up" : "down"}"><b>${spread >= 0 ? "+" : ""}${spread.toFixed(1)}pp</b></td></tr>
+        </tbody></table></div>
+        <div style="overflow-x:auto;margin-top:8px"><table class="rank"><thead><tr><th>CALL COHORT</th><th>N</th><th>AVG RETURN</th></tr></thead><tbody>
+          ${Object.entries(calls).sort((a, b) => avg(b[1].map(v => ({ ret: v }))) - avg(a[1].map(v => ({ ret: v })))).map(([c, arr]) => { const m = arr.reduce((x, y) => x + y, 0) / arr.length; return `<tr><td>${c}</td><td>${arr.length}</td><td class="${m >= 0 ? "up" : "down"}">${m >= 0 ? "+" : ""}${m.toFixed(1)}%</td></tr>`; }).join("")}
+        </tbody></table></div>
+        <div class="sub" style="margin-top:8px">One window proves nothing — spreads must persist across many windows before the score deserves capital. Judge after 12 months, not 12 days.</div></div>`;
+    } else {
+      fwdHtml = `<div class="note" style="margin-bottom:12px;border-left-color:var(--amber)"><b>No forward-return evidence yet.</b> Tracking since <b>${first ? first.date : "today"}</b> (${H.length} snapshot${H.length === 1 ? "" : "s"}, ${daysSpan} days). The first cohort comparison unlocks at 30 days of history; a real verdict needs a year. Until then every score in this terminal is an <b>untested hypothesis</b> — size accordingly.</div>`;
+    }
+
+    el("main").innerHTML = toolHeader("📈", "MODEL TRACK RECORD", "the terminal grading itself — do high scores actually earn their returns?",
+      `<div style="text-align:right"><div class="sub">SNAPSHOTS</div><div class="stat sm">${H.length}</div></div>`)
+      + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's brain score, call and price (scripts/snapshot_scores.js). This page compares past scores against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
+      + fwdHtml + cohortHtml;
+  }
+  const showTrack = () => showView("track", renderTrack, "trackBtn");
+
+  /* ============================================================================
+     ✎ THESIS JOURNAL — the terminal is a reading list until you write one.
+     Local-only (this browser). Forces the discipline: what must be true,
+     what breaks it, targets, size, exit — BEFORE the money moves.
+     ============================================================================ */
+  const journalState = { prefill: null };
+  const loadJournal = () => { try { return JSON.parse(localStorage.getItem("sbc_journal") || "[]"); } catch { return []; } };
+  const saveJournal = (j) => localStorage.setItem("sbc_journal", JSON.stringify(j));
+  function renderJournal() {
+    const J = loadJournal().sort((a, b) => b.created.localeCompare(a.created));
+    const pre = journalState.prefill || ""; journalState.prefill = null;
+    const fld = (id, ph, tall) => tall
+      ? `<textarea id="${id}" class="scr-input" placeholder="${ph}" style="width:100%;min-height:56px;margin-bottom:6px"></textarea>`
+      : `<input id="${id}" class="scr-input" placeholder="${ph}" style="width:100%;margin-bottom:6px">`;
+    const entryHtml = J.map((e, i) => {
+      const ageDays = Math.round((Date.now() - Date.parse(e.created)) / 864e5);
+      const due = ageDays >= 90;
+      return `<div class="card" style="margin-bottom:10px;border-left:3px solid ${due ? "var(--orange)" : "var(--green)"}">
+        <h3><span class="rk-tk" data-tk="${e.ticker}" style="cursor:pointer">${e.ticker}</span> — ${e.created.slice(0, 10)} <span class="unit">${ageDays}d old${due ? " · ⚠ REVIEW DUE — has anything broken?" : ""}</span>
+          <button class="scr-reset" data-del="${i}" style="margin-left:auto;font-size:9px;padding:2px 8px">delete</button></h3>
+        <div class="kv"><span class="k">Thesis</span><span class="v" style="font-weight:400;text-align:right;max-width:70%">${e.thesis}</span></div>
+        ${e.must ? `<div class="kv"><span class="k">Must be true</span><span class="v" style="font-weight:400;text-align:right;max-width:70%">${e.must}</span></div>` : ""}
+        ${e.breakers ? `<div class="kv"><span class="k">Thesis breakers</span><span class="v" style="font-weight:400;text-align:right;max-width:70%;color:var(--red)">${e.breakers}</span></div>` : ""}
+        ${e.targets ? `<div class="kv"><span class="k">Bear / base / bull</span><span class="v">${e.targets}</span></div>` : ""}
+        ${e.size ? `<div class="kv"><span class="k">Size & max loss</span><span class="v">${e.size}</span></div>` : ""}
+        ${e.exit ? `<div class="kv"><span class="k">Exit plan</span><span class="v" style="font-weight:400;text-align:right;max-width:70%">${e.exit}</span></div>` : ""}
+      </div>`;
+    }).join("");
+
+    el("main").innerHTML = toolHeader("✎", "THESIS JOURNAL", "no thesis, no trade — write it before the money moves (stored only in this browser)",
+      `<div style="text-align:right"><div class="sub">WRITTEN THESES</div><div class="stat sm" style="color:${J.length ? "var(--green)" : "var(--red)"}">${J.length}</div></div>`)
+      + (J.length === 0 ? `<div class="note" style="margin-bottom:12px;border-left-color:var(--red)"><b>Zero written theses.</b> Weeks of terminal-building, eighteen views, and no investment case on paper — the tool is ahead of the process. Pick ONE name the terminal rates well, read its latest filing (link on the FINANCIALS tab), and write the five fields below. That's the whole job.</div>` : "")
+      + `<div class="card" style="margin-bottom:14px"><h3>NEW THESIS</h3>
+        <input id="jTicker" class="scr-input" placeholder="TICKER" value="${pre}" style="width:120px;margin-bottom:6px;text-transform:uppercase">
+        ${fld("jThesis", "Thesis — why does the market misprice this? (one paragraph max)", true)}
+        ${fld("jMust", "What MUST be true for this to work", false)}
+        ${fld("jBreak", "What breaks it — the condition that makes you sell", false)}
+        ${fld("jTargets", "Bear / base / bull per-share values", false)}
+        ${fld("jSize", "Position size + max loss you accept", false)}
+        ${fld("jExit", "Exit plan (price, date, or event)", false)}
+        <div style="display:flex;gap:8px">
+          <button class="scr-reset" id="jSave" style="color:var(--green);border-color:var(--green)">Save thesis</button>
+          <button class="scr-reset" id="jExport">Export JSON</button>
+        </div></div>` + entryHtml;
+
+    el("jSave").onclick = () => {
+      const g = (id) => (el(id).value || "").trim();
+      const tk = g("jTicker").toUpperCase();
+      if (!tk || !g("jThesis")) { flash("Ticker + thesis are the minimum", "err"); return; }
+      if (!DATA.find(d => d.ticker === tk)) { flash(tk + " is not in the official universe", "err"); return; }
+      const J2 = loadJournal();
+      J2.push({ ticker: tk, thesis: g("jThesis"), must: g("jMust"), breakers: g("jBreak"),
+        targets: g("jTargets"), size: g("jSize"), exit: g("jExit"), created: new Date().toISOString() });
+      saveJournal(J2); flash("Thesis saved — review it after the next earnings report", "ok"); renderJournal();
+    };
+    el("jExport").onclick = () => {
+      const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), theses: loadJournal() }, null, 1)], { type: "application/json" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "sbc-theses.json"; a.click();
+    };
+    el("main").querySelectorAll("[data-del]").forEach(b => b.onclick = (ev) => {
+      ev.stopPropagation();
+      const J2 = loadJournal().sort((a, b) => b.created.localeCompare(a.created));
+      J2.splice(+b.dataset.del, 1); saveJournal(J2); renderJournal();
+    });
+    el("main").querySelectorAll(".rk-tk[data-tk]").forEach(t => t.onclick = () => selectTicker(t.dataset.tk));
+  }
+  const showJournal = () => showView("journal", renderJournal, "journalBtn");
+
   const showScreener = () => showView("screener", renderScreener, "screenBtn");
   const showCompare = () => showView("compare", renderCompare, "compareBtn");
   const showTriggers = () => showView("triggers", renderTriggers, "trigBtn");
@@ -3594,7 +3721,7 @@
         </table></div>
       </div>` : "";
       el("calBody").outerHTML = focus + `<div class="card" id="calBody">
-        <h3>YOUR 121-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
+        <h3>YOUR 126-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
         <div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
           <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>
@@ -5142,6 +5269,8 @@
     if (["OPTIONS", "OPTS", "PUTS", "CALLS", "VOL", "IV"].includes(q)) { showOptions(); return; }
     if (["INFLATION", "CPI", "PPI", "MACRO", "RATES", "FED"].includes(q)) { showInflation(); flash("Inflation desk", "ok"); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
+    if (["TRACK", "RECORD", "SCORECARD", "PROOF"].includes(q)) { showTrack(); return; }
+    if (["JOURNAL", "THESIS", "THESES"].includes(q)) { showJournal(); return; }
     if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
       showValuation(); flash("Est owner-earnings P/E screener", "ok"); return;
     }
@@ -5247,6 +5376,8 @@
     el("optBtn").onclick = showOptions;
     el("macroBtn").onclick = showInflation;
     el("auditBtn").onclick = showAudit;
+    el("trackBtn").onclick = showTrack;
+    el("journalBtn").onclick = showJournal;
     el("drawerClose").onclick = closeDrawer;
     el("navSearch").onclick = () => {
       closeDrawer();

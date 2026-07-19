@@ -2,11 +2,15 @@
  "ticker": "TSM",
  "cik": "0001046179",
  "entityName": "Taiwan Semiconductor Manufacturing Company Limited",
- "retrievedAt": "2026-07-16T05:07:36.950Z",
+ "retrievedAt": "2026-07-19T16:28:47.601186Z",
  "fields": {
-  "revenue": [
+  "buyback": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "capex": [
    {
-    "value": 32977300000,
+    "value": 11153400000,
     "unit": "USD",
     "periodStart": "2017-01-01",
     "periodEnd": "2017-12-31",
@@ -15,14 +19,15 @@
     "form": "20-F",
     "filedDate": "2018-04-19",
     "accessionNumber": "0001193125-18-121866",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 33697300000,
+    "value": 10309800000,
     "unit": "USD",
     "periodStart": "2018-01-01",
     "periodEnd": "2018-12-31",
@@ -31,14 +36,15 @@
     "form": "20-F",
     "filedDate": "2019-04-17",
     "accessionNumber": "0001193125-19-108390",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 35773500000,
+    "value": 15393600000,
     "unit": "USD",
     "periodStart": "2019-01-01",
     "periodEnd": "2019-12-31",
@@ -47,14 +53,15 @@
     "form": "20-F",
     "filedDate": "2020-04-15",
     "accessionNumber": "0001193125-20-107579",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 47694300000,
+    "value": 18064100000,
     "unit": "USD",
     "periodStart": "2020-01-01",
     "periodEnd": "2020-12-31",
@@ -63,14 +70,15 @@
     "form": "20-F",
     "filedDate": "2021-04-16",
     "accessionNumber": "0001193125-21-118512",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 57224800000,
+    "value": 30252200000,
     "unit": "USD",
     "periodStart": "2021-01-01",
     "periodEnd": "2021-12-31",
@@ -79,14 +87,15 @@
     "form": "20-F",
     "filedDate": "2022-04-14",
     "accessionNumber": "0001193125-22-104891",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 73670400000,
+    "value": 35231800000,
     "unit": "USD",
     "periodStart": "2022-01-01",
     "periodEnd": "2022-12-31",
@@ -95,14 +104,15 @@
     "form": "20-F",
     "filedDate": "2023-04-20",
     "accessionNumber": "0001193125-23-107214",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 70598800000,
+    "value": 31019500000,
     "unit": "USD",
     "periodStart": "2023-01-01",
     "periodEnd": "2023-12-31",
@@ -111,14 +121,15 @@
     "form": "20-F",
     "filedDate": "2024-04-18",
     "accessionNumber": "0001193125-24-099840",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 88268000000,
+    "value": 29155400000,
     "unit": "USD",
     "periodStart": "2024-01-01",
     "periodEnd": "2024-12-31",
@@ -127,13 +138,158 @@
     "form": "20-F",
     "filedDate": "2025-04-17",
     "accessionNumber": "0001193125-25-083423",
-    "xbrlTag": "ifrs-full:Revenue",
+    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    }
   ],
+  "dilShares": [
+   {
+    "value": 5186080000.0,
+    "unit": "shares",
+    "periodStart": "2015-01-01",
+    "periodEnd": "2015-12-31",
+    "fiscalYear": 2017,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2018-04-19",
+    "accessionNumber": "0001193125-18-121866",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100,
+    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
+   },
+   {
+    "value": 5186060000.0,
+    "unit": "shares",
+    "periodStart": "2017-01-01",
+    "periodEnd": "2017-12-31",
+    "fiscalYear": 2017,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2018-04-19",
+    "accessionNumber": "0001193125-18-121866",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100,
+    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
+   },
+   {
+    "value": 5186060000.0,
+    "unit": "shares",
+    "periodStart": "2020-01-01",
+    "periodEnd": "2020-12-31",
+    "fiscalYear": 2022,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2023-04-20",
+    "accessionNumber": "0001193125-23-107214",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100,
+    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
+   },
+   {
+    "value": 5186060000.0,
+    "unit": "shares",
+    "periodStart": "2021-01-01",
+    "periodEnd": "2021-12-31",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2024-04-18",
+    "accessionNumber": "0001193125-24-099840",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 25930300000,
+     "filed": "2023-04-20",
+     "accn": "0001193125-23-107214"
+    },
+    "confidence": 100,
+    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
+   },
+   {
+    "value": 5185880000.0,
+    "unit": "shares",
+    "periodStart": "2022-01-01",
+    "periodEnd": "2022-12-31",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2025-04-17",
+    "accessionNumber": "0001193125-25-083423",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 25929400000,
+     "filed": "2024-04-18",
+     "accn": "0001193125-24-099840"
+    },
+    "confidence": 100,
+    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
+   },
+   {
+    "value": 5185860000.0,
+    "unit": "shares",
+    "periodStart": "2023-01-01",
+    "periodEnd": "2023-12-31",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2025-04-17",
+    "accessionNumber": "0001193125-25-083423",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 25929300000,
+     "filed": "2024-04-18",
+     "accn": "0001193125-24-099840"
+    },
+    "confidence": 100,
+    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
+   },
+   {
+    "value": 5185940000.0,
+    "unit": "shares",
+    "periodStart": "2024-01-01",
+    "periodEnd": "2024-12-31",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2025-04-17",
+    "accessionNumber": "0001193125-25-083423",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100,
+    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
+   }
+  ],
+  "esppProceeds": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
   "netIncome": [
    {
     "value": 11641000000,
@@ -149,6 +305,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -165,6 +322,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -181,6 +339,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -197,6 +356,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -213,6 +373,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -229,6 +390,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -245,6 +407,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -261,6 +424,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    }
   ],
@@ -279,6 +443,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -295,6 +460,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -311,6 +477,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -327,6 +494,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -343,6 +511,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -359,6 +528,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -375,6 +545,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -391,12 +562,13 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    }
   ],
-  "capex": [
+  "revenue": [
    {
-    "value": 11153400000,
+    "value": 32977300000,
     "unit": "USD",
     "periodStart": "2017-01-01",
     "periodEnd": "2017-12-31",
@@ -405,14 +577,15 @@
     "form": "20-F",
     "filedDate": "2018-04-19",
     "accessionNumber": "0001193125-18-121866",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 10309800000,
+    "value": 33697300000,
     "unit": "USD",
     "periodStart": "2018-01-01",
     "periodEnd": "2018-12-31",
@@ -421,14 +594,15 @@
     "form": "20-F",
     "filedDate": "2019-04-17",
     "accessionNumber": "0001193125-19-108390",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 15393600000,
+    "value": 35773500000,
     "unit": "USD",
     "periodStart": "2019-01-01",
     "periodEnd": "2019-12-31",
@@ -437,14 +611,15 @@
     "form": "20-F",
     "filedDate": "2020-04-15",
     "accessionNumber": "0001193125-20-107579",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 18064100000,
+    "value": 47694300000,
     "unit": "USD",
     "periodStart": "2020-01-01",
     "periodEnd": "2020-12-31",
@@ -453,14 +628,15 @@
     "form": "20-F",
     "filedDate": "2021-04-16",
     "accessionNumber": "0001193125-21-118512",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 30252200000,
+    "value": 57224800000,
     "unit": "USD",
     "periodStart": "2021-01-01",
     "periodEnd": "2021-12-31",
@@ -469,14 +645,15 @@
     "form": "20-F",
     "filedDate": "2022-04-14",
     "accessionNumber": "0001193125-22-104891",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 35231800000,
+    "value": 73670400000,
     "unit": "USD",
     "periodStart": "2022-01-01",
     "periodEnd": "2022-12-31",
@@ -485,14 +662,15 @@
     "form": "20-F",
     "filedDate": "2023-04-20",
     "accessionNumber": "0001193125-23-107214",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 31019500000,
+    "value": 70598800000,
     "unit": "USD",
     "periodStart": "2023-01-01",
     "periodEnd": "2023-12-31",
@@ -501,14 +679,15 @@
     "form": "20-F",
     "filedDate": "2024-04-18",
     "accessionNumber": "0001193125-24-099840",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
-    "value": 29155400000,
+    "value": 88268000000,
     "unit": "USD",
     "periodStart": "2024-01-01",
     "periodEnd": "2024-12-31",
@@ -517,10 +696,11 @@
     "form": "20-F",
     "filedDate": "2025-04-17",
     "accessionNumber": "0001193125-25-083423",
-    "xbrlTag": "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "xbrlTag": "ifrs-full:Revenue",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    }
   ],
@@ -539,6 +719,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -555,6 +736,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -571,6 +753,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -587,6 +770,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -603,6 +787,7 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
    },
    {
@@ -619,141 +804,13 @@
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": false,
+    "supersedes": null,
     "confidence": 100
-   }
-  ],
-  "buyback": {
-   "sourceStatus": "missing",
-   "note": "no annual fact found under known tags ? missing, NOT zero"
-  },
-  "dilShares": [
-   {
-    "value": 5186080000,
-    "unit": "shares",
-    "periodStart": "2015-01-01",
-    "periodEnd": "2015-12-31",
-    "fiscalYear": 2017,
-    "fiscalPeriod": "FY",
-    "form": "20-F",
-    "filedDate": "2018-04-19",
-    "accessionNumber": "0001193125-18-121866",
-    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
-    "sourceType": "SEC",
-    "sourceStatus": "reported",
-    "restated": false,
-    "confidence": 100,
-    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
-   },
-   {
-    "value": 5186060000,
-    "unit": "shares",
-    "periodStart": "2017-01-01",
-    "periodEnd": "2017-12-31",
-    "fiscalYear": 2017,
-    "fiscalPeriod": "FY",
-    "form": "20-F",
-    "filedDate": "2018-04-19",
-    "accessionNumber": "0001193125-18-121866",
-    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
-    "sourceType": "SEC",
-    "sourceStatus": "reported",
-    "restated": false,
-    "confidence": 100,
-    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
-   },
-   {
-    "value": 5186060000,
-    "unit": "shares",
-    "periodStart": "2020-01-01",
-    "periodEnd": "2020-12-31",
-    "fiscalYear": 2022,
-    "fiscalPeriod": "FY",
-    "form": "20-F",
-    "filedDate": "2023-04-20",
-    "accessionNumber": "0001193125-23-107214",
-    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
-    "sourceType": "SEC",
-    "sourceStatus": "reported",
-    "restated": false,
-    "confidence": 100,
-    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
-   },
-   {
-    "value": 5186060000,
-    "unit": "shares",
-    "periodStart": "2021-01-01",
-    "periodEnd": "2021-12-31",
-    "fiscalYear": 2023,
-    "fiscalPeriod": "FY",
-    "form": "20-F",
-    "filedDate": "2024-04-18",
-    "accessionNumber": "0001193125-24-099840",
-    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
-    "sourceType": "SEC",
-    "sourceStatus": "reported",
-    "restated": false,
-    "confidence": 100,
-    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
-   },
-   {
-    "value": 5185880000,
-    "unit": "shares",
-    "periodStart": "2022-01-01",
-    "periodEnd": "2022-12-31",
-    "fiscalYear": 2024,
-    "fiscalPeriod": "FY",
-    "form": "20-F",
-    "filedDate": "2025-04-17",
-    "accessionNumber": "0001193125-25-083423",
-    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
-    "sourceType": "SEC",
-    "sourceStatus": "reported",
-    "restated": false,
-    "confidence": 100,
-    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
-   },
-   {
-    "value": 5185860000,
-    "unit": "shares",
-    "periodStart": "2023-01-01",
-    "periodEnd": "2023-12-31",
-    "fiscalYear": 2024,
-    "fiscalPeriod": "FY",
-    "form": "20-F",
-    "filedDate": "2025-04-17",
-    "accessionNumber": "0001193125-25-083423",
-    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
-    "sourceType": "SEC",
-    "sourceStatus": "reported",
-    "restated": false,
-    "confidence": 100,
-    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
-   },
-   {
-    "value": 5185940000,
-    "unit": "shares",
-    "periodStart": "2024-01-01",
-    "periodEnd": "2024-12-31",
-    "fiscalYear": 2024,
-    "fiscalPeriod": "FY",
-    "form": "20-F",
-    "filedDate": "2025-04-17",
-    "accessionNumber": "0001193125-25-083423",
-    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares / ADS ratio 5:1",
-    "sourceType": "SEC",
-    "sourceStatus": "reported",
-    "restated": false,
-    "confidence": 100,
-    "note": "ADS-equivalent shares: ordinary shares divided by 5 to align with the US ADR price."
    }
   ],
   "taxWithholding": {
    "sourceStatus": "missing",
-   "note": "no annual fact found under known tags ? missing, NOT zero"
-  },
-  "esppProceeds": {
-   "sourceStatus": "missing",
-   "note": "no annual fact found under known tags ? missing, NOT zero"
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
   },
   "periodEndShares": [
    {

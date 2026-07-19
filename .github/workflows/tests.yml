@@ -17,7 +17,7 @@ jobs:
         run: node tests/browser_smoke.js
       - name: Universe + security checks
         run: |
-          node -e "const u=require('./data/universe.json'); const fs=require('fs'); const t=u.companies.map(c=>c.ticker); if(u.count!==121||u.companies.length!==121||new Set(t).size!==121||t.includes('FLUT')||!t.includes('TSM')) process.exit(1); for (const c of u.companies){ if(!c.cik||!c.cik10||!fs.existsSync('./data/companies/'+c.ticker+'.json')||!fs.existsSync('./data/raw/'+c.ticker+'/sec-facts-extract.json')) process.exit(1); } const sec=fs.readFileSync('./sec.js','utf8'); if(!/const SEC = /.test(sec)||!/\"companies\":\\s*121/.test(sec)||!/\"TSM\"/.test(sec)) process.exit(1); console.log('universe OK exactly', u.count)"
+          node -e "const u=require('./data/universe.json'); const fs=require('fs'); const t=u.companies.map(c=>c.ticker); if(u.count!==126||u.companies.length!==126||new Set(t).size!==126||t.includes('FLUT')||!t.includes('TSM')) process.exit(1); for (const c of u.companies){ if(!c.cik||!c.cik10||!fs.existsSync('./data/companies/'+c.ticker+'.json')||!fs.existsSync('./data/raw/'+c.ticker+'/sec-facts-extract.json')) process.exit(1); } const sec=fs.readFileSync('./sec.js','utf8'); if(!/const SEC = /.test(sec)||!/\"companies\":\\s*126/.test(sec)||!/\"TSM\"/.test(sec)) process.exit(1); console.log('universe OK exactly', u.count)"
           ! grep -rE "api_key=|token=[A-Za-z0-9]{20}" --include="*.js" --include="*.html" . || (echo 'possible key leak' && exit 1)
       - name: Golden audit gate
         run: python scripts/golden_audit.py

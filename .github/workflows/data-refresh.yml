@@ -18,12 +18,14 @@ jobs:
         run: python scripts/gen_prices.py
       - name: Refresh SEC filing facts
         run: python scripts/sec_ingest.py
+      - name: Record model track-record snapshot
+        run: node scripts/snapshot_scores.js
       - name: Tests must pass before commit
         run: node tests/run_tests.js
       - name: Commit refreshed data
         run: |
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
-          git add data.js sec.js data/ || true
+          git add data.js sec.js track.js data/ || true
           git diff --cached --quiet || git commit -m "data: automated refresh $(date -u +%F)"
           git push

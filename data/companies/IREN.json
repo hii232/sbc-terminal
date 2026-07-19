@@ -2,7 +2,7 @@
  "ticker": "IREN",
  "cik": "0001878848",
  "entityName": "IREN LIMITED",
- "retrievedAt": "2026-07-15T04:57:50.125971Z",
+ "retrievedAt": "2026-07-19T16:29:13.409670Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",
@@ -155,6 +155,65 @@
    }
   ],
   "dilShares": [
+   {
+    "value": 16117168,
+    "unit": "shares",
+    "periodStart": "2019-07-01",
+    "periodEnd": "2020-06-30",
+    "fiscalYear": 2022,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2022-09-13",
+    "accessionNumber": "0001140361-22-033208",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   },
+   {
+    "value": 20629327,
+    "unit": "shares",
+    "periodStart": "2020-07-01",
+    "periodEnd": "2021-06-30",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2023-09-13",
+    "accessionNumber": "0001140361-23-043816",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 20629327,
+     "filed": "2022-09-13",
+     "accn": "0001140361-22-033208"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 40941074,
+    "unit": "shares",
+    "periodStart": "2021-07-01",
+    "periodEnd": "2022-06-30",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "20-F/A",
+    "filedDate": "2025-03-20",
+    "accessionNumber": "0001878848-25-000020",
+    "xbrlTag": "ifrs-full:AdjustedWeightedAverageShares",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 40941074,
+     "filed": "2024-08-28",
+     "accn": "0001628280-24-038677"
+    },
+    "confidence": 100
+   },
    {
     "value": 54775771,
     "unit": "shares",
@@ -567,6 +626,65 @@
    }
   ],
   "sbc": [
+   {
+    "value": 179000,
+    "unit": "USD",
+    "periodStart": "2019-07-01",
+    "periodEnd": "2020-06-30",
+    "fiscalYear": 2022,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2022-09-13",
+    "accessionNumber": "0001140361-22-033208",
+    "xbrlTag": "ifrs-full:AdjustmentsForSharebasedPayments",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   },
+   {
+    "value": 805000,
+    "unit": "USD",
+    "periodStart": "2020-07-01",
+    "periodEnd": "2021-06-30",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "20-F",
+    "filedDate": "2023-09-13",
+    "accessionNumber": "0001140361-23-043816",
+    "xbrlTag": "ifrs-full:AdjustmentsForSharebasedPayments",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 805000,
+     "filed": "2022-09-13",
+     "accn": "0001140361-22-033208"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 13896000,
+    "unit": "USD",
+    "periodStart": "2021-07-01",
+    "periodEnd": "2022-06-30",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "20-F/A",
+    "filedDate": "2025-03-20",
+    "accessionNumber": "0001878848-25-000020",
+    "xbrlTag": "ifrs-full:AdjustmentsForSharebasedPayments",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 13896000,
+     "filed": "2024-08-28",
+     "accn": "0001628280-24-038677"
+    },
+    "confidence": 100
+   },
    {
     "value": 14356000,
     "unit": "USD",

@@ -1,7 +1,7 @@
 {
- "universeVersion": "1.1.0",
- "asOf": "2026-07-16",
- "count": 121,
+ "universeVersion": "1.2.0",
+ "asOf": "2026-07-19",
+ "count": 126,
  "companies": [
   {
    "ticker": "AAPL",
@@ -14,8 +14,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -29,8 +29,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -44,8 +44,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -59,8 +59,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -74,8 +74,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -89,8 +89,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -104,8 +104,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -119,8 +119,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -134,8 +134,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -149,8 +149,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -164,8 +164,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -179,8 +179,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -194,8 +194,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -209,8 +209,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -224,8 +224,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-16",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -239,8 +239,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -254,8 +254,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -269,8 +269,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -284,8 +284,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -299,8 +299,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -314,8 +314,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -329,8 +329,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -344,8 +344,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -359,8 +359,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -374,8 +374,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -389,8 +389,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -404,8 +404,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -419,8 +419,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -434,8 +434,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -449,8 +449,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -464,8 +464,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -479,8 +479,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -494,8 +494,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -509,8 +509,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -524,8 +524,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -539,8 +539,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -554,8 +554,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -569,8 +569,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -584,8 +584,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -599,8 +599,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -614,8 +614,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -629,8 +629,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -644,8 +644,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -659,8 +659,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -674,8 +674,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -689,8 +689,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -704,8 +704,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -719,8 +719,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -734,8 +734,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -749,8 +749,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -764,8 +764,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -779,8 +779,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -794,8 +794,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -809,8 +809,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -824,8 +824,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -839,8 +839,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -854,8 +854,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -869,8 +869,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -884,8 +884,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -899,8 +899,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -914,8 +914,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -929,8 +929,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -944,8 +944,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -959,8 +959,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -974,8 +974,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -989,8 +989,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1004,8 +1004,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1019,8 +1019,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1034,8 +1034,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1049,8 +1049,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1064,8 +1064,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1079,8 +1079,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1094,8 +1094,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1109,8 +1109,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1124,8 +1124,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1139,8 +1139,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1154,8 +1154,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1169,8 +1169,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1184,8 +1184,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1199,8 +1199,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1214,8 +1214,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1229,8 +1229,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1244,8 +1244,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1259,8 +1259,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1274,8 +1274,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1289,8 +1289,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1304,8 +1304,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1319,8 +1319,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1334,8 +1334,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1349,8 +1349,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1364,8 +1364,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1379,8 +1379,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1394,8 +1394,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1409,8 +1409,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1424,8 +1424,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1439,8 +1439,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1454,8 +1454,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1469,8 +1469,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1484,8 +1484,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1499,8 +1499,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1514,8 +1514,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1529,8 +1529,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1544,8 +1544,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1559,8 +1559,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1574,8 +1574,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1589,8 +1589,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1604,8 +1604,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1619,8 +1619,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1634,8 +1634,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1649,8 +1649,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1664,8 +1664,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1679,8 +1679,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1694,8 +1694,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1709,8 +1709,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1724,8 +1724,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1739,8 +1739,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1754,8 +1754,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1769,8 +1769,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1784,8 +1784,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1799,8 +1799,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   },
   {
@@ -1814,8 +1814,83 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.1.0",
-   "dateAdded": "2026-07-15",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
+   "status": "active"
+  },
+  {
+   "ticker": "PGR",
+   "name": "PROGRESSIVE CORP/OH/",
+   "cik": 80661,
+   "cik10": "0000080661",
+   "sector": "Insurance",
+   "industry": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
+   "status": "active"
+  },
+  {
+   "ticker": "TRV",
+   "name": "TRAVELERS COMPANIES, INC.",
+   "cik": 86312,
+   "cik10": "0000086312",
+   "sector": "Insurance",
+   "industry": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
+   "status": "active"
+  },
+  {
+   "ticker": "ALL",
+   "name": "ALLSTATE CORP",
+   "cik": 899051,
+   "cik10": "0000899051",
+   "sector": "Insurance",
+   "industry": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
+   "status": "active"
+  },
+  {
+   "ticker": "HIG",
+   "name": "HARTFORD INSURANCE GROUP, INC.",
+   "cik": 874766,
+   "cik10": "0000874766",
+   "sector": "Insurance",
+   "industry": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
+   "status": "active"
+  },
+  {
+   "ticker": "CB",
+   "name": "Chubb Ltd",
+   "cik": 896159,
+   "cik10": "0000896159",
+   "sector": "Insurance",
+   "industry": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
+   "universeVersion": "1.2.0",
+   "dateAdded": "2026-07-19",
    "status": "active"
   }
  ]

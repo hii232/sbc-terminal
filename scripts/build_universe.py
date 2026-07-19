@@ -9,8 +9,8 @@ from datetime import date
 ROOT = Path(__file__).resolve().parent.parent
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 
-UNIVERSE_VERSION = "1.1.0"
-REQUIRED_UNIVERSE_SIZE = 121
+UNIVERSE_VERSION = "1.2.0"
+REQUIRED_UNIVERSE_SIZE = 126
 
 GROUPS = [
     ("Large technology and internet platforms",
@@ -39,6 +39,8 @@ GROUPS = [
      ["XOM", "CVX", "COP", "SLB", "LNG", "EOG", "OXY", "MPC", "VLO", "NEE"]),
     ("Materials, power, utilities and logistics",
      ["LIN", "FCX", "NUE", "SCCO", "VST", "NRG", "SO", "DUK", "UPS", "FDX"]),
+    ("Insurance underwriting discipline (the terminal's own top scorers)",
+     ["PGR", "TRV", "ALL", "HIG", "CB"]),
 ]
 COUNTRY = {"ASML": "NL", "ARM": "GB", "TSM": "TW", "SHOP": "CA", "MELI": "AR/UY (US filer)",
            "IREN": "AU", "NBIS": "NL", "SPGI": "US", "LIN": "IE/UK (US filer)",
@@ -57,6 +59,7 @@ SECTOR_OVERRIDE = {
     "LIN": "Industrial Gas", "FCX": "Materials", "NUE": "Materials", "SCCO": "Materials", "VST": "Utilities",
     "NRG": "Utilities", "SO": "Utilities", "DUK": "Utilities", "UPS": "Industrials", "FDX": "Industrials",
     "TSM": "Semis/Foundry",
+    "PGR": "Insurance", "TRV": "Insurance", "ALL": "Insurance", "HIG": "Insurance", "CB": "Insurance",
 }
 CIK_OVERRIDE = {
     # SEC company_tickers can map XOM to a newer holding-company shell. Use the
