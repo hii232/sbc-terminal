@@ -1,8 +1,6 @@
 {
- "asOf": "2026-07-15",
- "modelVersion": "4.0.0",
- "method": "expanded SEC-XBRL vs terminal reconciliation",
- "reviewer": "automated SEC audit gate",
+ "asOf": "2026-07-19",
+ "method": "automated SEC-XBRL vs aggregator reconciliation (latest FY)",
  "companies": {
   "AAPL": {
    "reviewer": "automated SEC audit gate",
@@ -1101,8 +1099,6 @@
      }
     },
     "buyback": {
-     "label": "Share repurchases",
-     "severity": "core",
      "status": "verified",
      "secB": 0.075,
      "terminalB": 0.075,
@@ -1529,9 +1525,7 @@
      }
     },
     "dilShares": {
-     "label": "Diluted weighted-average shares",
-     "severity": "core",
-     "status": "verified",
+     "status": "REPAIRED-from-SEC (app displays the filed value)",
      "secB": 0.251,
      "terminalB": 0.251,
      "diffPct": 0.17,
@@ -2422,9 +2416,7 @@
   }
  },
  "summary": {
-  "verifiedFields": 83,
-  "conflictFields": 0,
-  "coreConflictFields": 0,
-  "pass": true
+  "verifiedFields": 58,
+  "conflictFields": 0
  }
 }

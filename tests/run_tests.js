@@ -381,5 +381,14 @@ const ok = (cond, name, detail = "") => {
   ok(E.companyOf("JPM") && DATA.some(d => d.ticker === "JPM"), "JPM lookup is available as a normal official DATA row");
 }
 
+// =============== 10. SEC-authoritative share repair ===============
+{
+  const repaired = DATA.filter(d => d.sharesAggregatorRejected);
+  ok(repaired.length >= 1, "gross aggregator share corruption caught + repaired from filings", repaired.map(d => d.ticker).join(","));
+  ok(repaired.every(d => { const f = SEC[d.ticker].f.dilShares; return Math.abs((d.shares.filter(v=>v!=null).slice(-1)[0]) - f.v/1e9) / (f.v/1e9) < 0.01; }),
+     "repaired share series matches the filed value");
+  ok(repaired.every(d => d.sharesAggregatorRejected.was && d.sharesAggregatorRejected.ratio), "repair is recorded, not silent");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

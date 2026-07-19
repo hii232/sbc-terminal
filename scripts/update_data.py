@@ -11,7 +11,7 @@ Also refreshes sectors.js (11 SPDR sector ETFs + SMH + SPY: 13 months of
 monthly closes and dollar volume for the SECTOR FLOW view).
 
 Usage:
-    python scripts/update_data.py            # refresh everything (stocks + sectors)
+    python scripts/update_data.py            # refresh all 60 universe names + sectors
     python scripts/update_data.py NVDA PLTR  # refresh only these tickers (skips sectors)
 
 Run from the stock-terminal folder (or anywhere — paths are resolved

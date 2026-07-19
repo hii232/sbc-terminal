@@ -23,11 +23,9 @@ const YEARS = [2021, 2022, 2023, 2024, 2025];
 
 /* helper: build a company record with sane defaults */
 function co(o) {
-  o.modelVersion = SBC_MODEL_VERSION;
-  o.truePE = null; // app.js computes owner P/E directly from owner EPS.
-  o.ownerEps = null;
-  o.sbcAdjEPS = null;
-  o.snapshot = "SEC-first bundled fundamentals + secondary quote/history snapshots · 2026-07-11";
+  o.truePE = o.headlinePE && o.ownersKeep ? +(o.headlinePE / o.ownersKeep).toFixed(1) : null;
+  o.sbcAdjEPS = o.gaapEPS != null && o.ownersKeep != null ? +(o.gaapEPS * o.ownersKeep).toFixed(2) : null;
+  o.snapshot = "quotes + annual fundamentals: Yahoo Finance · 2026-07-19";
   return o;
 }
 
@@ -352,8 +350,8 @@ const DATA = [
     note:"SBC ~18% of revenue, share count still climbing. Reported GAAP profit heavily dependent on SBC being ignored by the Street." }),
 
   co({ ticker:"CRWD", name:"CrowdStrike", sector:"Cybersecurity", bucket:"tragic", grade:"F",
-    price:188.43, change:-3.18, mktCap:191.9, headlinePE:null, ownersKeep:0.40,
-    gaapEPS:-0.04, nonGaapEPS:0.97,
+    price:203.08, change:-0.33, mktCap:206.8, headlinePE:null, ownersKeep:0.40,
+    gaapEPS:-0.02, nonGaapEPS:0.97,
     fy:["2023","2024","2025","2026"], sbcPctRev:22.8, sbcPctOCF:68.0, sbcPctNI:null,
     revenue:[2.24,3.06,3.95,4.81], ni:[-0.18,0.07,-0.02,-0.16], sbc:[0.527,0.649,0.861,1.097],
     buyback:[0,0,0,0], shares:[0.227,0.233,0.245,0.251],

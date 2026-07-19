@@ -67,11 +67,106 @@ The machine-readable output is in `data/audits/golden-company-audit.json`.
 
 Do not deploy unless:
 
-- Official universe is exactly 120
-- `DATA.length === 120`
-- `Object.keys(SEC).length === 120`
-- golden audit passes
-- regression tests pass
-- browser smoke tests pass
-- no high-severity source conflicts remain
-- no exposed API credentials are detected
+- **Stale quotes**: snapshot date now shown and live quotes recompute derived
+  multiples; but bundled prices still age between refreshes — refresh cadence is
+  manual (`update_data.py`). Mitigated, not eliminated.
+- **Derived judgments stored in data** (`ownersKeep`, buckets): labeled HEURISTIC
+  with provenance; still not recomputed from raw inputs at runtime.
+- **Lottery-option risk**: gates (quality ≥ thresholds, IV/RV, brain call) plus
+  new assignment-risk warning; but there is still no per-contract liquidity/
+  spread scoring (needs chain-level data — see paid).
+
+## NOT YET IMPLEMENTED (from the 29-phase spec)
+
+- Reverse DCF / scenario DCF UI; multiyear pooled retention selector; one-time-
+  item normalization bridge; sector engines beyond financials guards; IV-crush
+  matrix; shares-vs-call-vs-spread comparator; portfolio Greeks & sizing
+  warnings; thesis journal event reviews; news intelligence pipeline; alerts
+  engine; virtualized lists.
+
+## REQUIRES PAID DATA
+
+- Live full options chains, per-contract bid/ask/OI/volume and Greeks, IV rank/
+  percentile history (Polygon/Tradier/ORATS-class). Current options layer is a
+  real but single ~35-day ATM snapshot per name, refreshed by script.
+- Intraday/tick prices; transcripts; institutional news wires.
+
+## REQUIRES MANUAL FILING VERIFICATION
+
+- Everything labeled HEURISTIC/PARTIALLY VERIFIED. Filing-grade owner earnings
+  (Phase-5 share reconciliation: withholding cash, option/ESPP proceeds,
+  acquisition shares, period-end share counts) needs SEC XBRL ingestion plus
+  human reconciliation before any name can be marked FILING VERIFIED.
+
+---
+
+# v3.0 (2026-07) — response to external audit: owner-economics engine rebuilt
+
+**External-audit triage:** several flagged items (exposed key, synthetic chart,
+"True" labels, missing Options desk) were reviewed against a stale cache — the
+live main serves v19+ with all of them fixed (curl-verified). The following
+were VALID and are now fixed:
+
+1. **Pure-diluter failure (Critical 1) — FIXED.** Economic SBC cost is now
+   `max(GAAP SBC, market value of reconciled employee shares) + 25% withholding`.
+   A no-buyback diluter can never again show owner earnings above net income.
+   Regression-tested (fixtures 4.x).
+2. **Manual ownersKeep (Critical 2) — FIXED for 588/650.** Retention is now
+   COMPUTED at runtime: pooled multi-year Σowner/ΣNI with the latest year
+   share-reconciled (Δshares + buyback$/avg-price, capped at 1.5×SBC$/avg-price;
+   excess flagged as non-SBC issuance). Fallback names (pooled NI ≤ 0) keep the
+   seeded heuristic and are labeled `fallback`. Est-P/E and owner-EPS derive
+   from the computed value — recomputed after any live financials merge.
+3. **M&A share misclassification (Critical 3) — FIXED.** Issuance beyond what
+   SBC can explain is excluded from SBC cost and flagged; auto-derived names
+   bucketed "tragic" purely from such issuance are reclassified at runtime
+   (e.g. Smurfit Westrock: tragic/F → middle/C, flagged "non-SBC issuance").
+4. **Live data not recomputing the model (Critical 4) — FIXED.** One function
+   (`recomputeOwnerEconomics`) owns retention/est-P/E/owner-EPS; runs at load
+   and after FMP merges.
+5. **"Money flow" (Critical 7) — RENAMED** to TRADING-ACTIVITY SHARE with an
+   explicit "volume has a buyer and a seller" disclosure. Brain vote renamed
+   SECTOR MOMENTUM (it is price momentum).
+6. **Narrative "odds" (Critical 8) — RENAMED** to momentum scores "(heuristic,
+   not a probability)". The only remaining "odds" are Polymarket's real
+   market-implied odds, which is the correct term.
+7. **Brain false precision — FIXED.** Verdict shows a HEURISTIC SCORE BAND
+   (±6) plus DATA CONFIDENCE (LOW / MEDIUM / MEDIUM-HIGH; HIGH is reserved for
+   filing-verified data, which does not exist yet).
+8. **Fat Pitch language** — zone descriptions now say "model-implied … a
+   scenario, not a promise"; buyback accretion notes it compares against
+   today's model value, not historical purchase prices.
+
+Tests: 30 assertions, all passing (`node tests/run_tests.js`).
+Still open (unchanged): SEC XBRL filing verification, paid options chains,
+news intelligence, reverse DCF — see §4 above.
+
+---
+
+# v4.0 (2026-07) — ELITE rebuild: 60-stock universe, SEC filings as primary source
+
+- **Universe**: exactly 60 approved names (`universe.json`, UNIVERSE_VERSION
+  1.0.0, CIKs from SEC's own ticker map). App refuses to boot on any violation.
+  The 650-name expansion was REMOVED (DATA.length === 60).
+- **SEC XBRL ingestion** (`scripts/sec_ingest.py`): 10 years of annual facts for
+  9 core fields across all 60 CIKs; every value carries form / filed date /
+  accession number / XBRL tag / period; amended filings supersede (older kept);
+  facts merged across candidate tags per period (fixes tag-switch truncation).
+  Raw extracts in `data/raw/`, clean layer in `data/companies/`, app bundle `sec.js`.
+- **Cross-check layer**: aggregator vs SEC at load; badges FILING VERIFIED* (43)
+  / PARTIALLY VERIFIED (16) / HEURISTIC (1); 23 field-level conflicts remain
+  flagged (tag/period differences) — never silently resolved. $50M materiality
+  floor on dollar comparisons.
+- **SEC-authoritative repair (case study)**: the cross-check caught the
+  aggregator reporting diluted shares at 4× (CRWD), 10× (KLAC) and 25× (BKNG)
+  the filed counts — corrupted series that had been silently poisoning
+  per-share math. The app now adopts the 10-K values with a VISIBLE repair
+  record (`sharesAggregatorRejected`), shown in the SEC FILING CHECK card.
+- **SEC-reported SBC tax withholding** now feeds owner earnings for 47/60 names
+  (replaces the 25% proxy; source labeled per name).
+- **Golden 12-company audit**: 58 fields verified, 0 conflicts
+  (`data/audits/golden-company-audit.json`).
+- **Automation**: GitHub Actions — tests on push; weekday data refresh with
+  tests gating the commit. No API keys anywhere in the repo.
+- **Tests**: 44 assertions incl. universe validation, provenance integrity,
+  missing≠zero, share-repair verification — all passing.

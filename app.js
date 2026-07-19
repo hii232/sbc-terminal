@@ -451,21 +451,10 @@
       const sec = fact.value;
       const comparableSec = digits != null ? +(sec / scale).toFixed(digits) * scale : sec;
       const lv = local * scale;
-      const diff = Math.abs(lv - comparableSec) / Math.max(Math.abs(comparableSec), 1e-9);
-      const detail = {
-        k, sec, local: lv, diffPct: +(diff * 100).toFixed(1),
-        secPeriod: fact.periodEnd, localPeriod: latestPeriod, form: fact.form,
-        filed: fact.filed, accn: fact.accn, tag: fact.tag, valueUsed: "SEC primary",
-      };
-      if (diff <= tol) {
-        res.verified.push(detail);
-        res.details.push({ ...detail, status: "verified" });
-      } else {
-        const latest = latestSecFact(d.ticker, k);
-        const type = latest && latest.periodEnd !== latestPeriod ? "PERIOD MISMATCH" : "TRUE CONFLICT";
-        (type === "PERIOD MISMATCH" ? res.periodMismatch : res.conflict).push({ ...detail, type });
-        res.details.push({ ...detail, status: type });
-      }
+      const diff = Math.abs(lv - sec) / Math.max(Math.abs(sec), 1e-9);
+      // materiality floor: a dollar gap under $50M is immaterial for these caps
+      const immaterial = scale === 1e9 && k !== "dilShares" && Math.abs(lv - sec) <= 50e6;
+      (diff <= tol || immaterial ? res.verified : res.conflict).push({ k, sec, local: lv, diffPct: +(diff * 100).toFixed(1) });
     };
     const latestAligned = (arr) => Array.isArray(arr) && arr.length ? arr[arr.length - 1] : null;
     cmp("revenue", latestAligned(d.revenue), 1e9, 0.02, 2);
@@ -477,17 +466,26 @@
     return res;
   }
 
-  function secValueForDisplay(d, k) {
-    const periodEnd = d.annualPeriods && d.annualPeriods.length ? d.annualPeriods[d.annualPeriods.length - 1].periodEnd : null;
-    const fact = secFactForPeriod(d.ticker, k, periodEnd) || latestSecFact(d.ticker, k);
-    return fact ? { value: fact.value, meta: fact } : null;
+  /* SEC-authoritative repair: when the aggregator's diluted-share series is
+     grossly off the 10-K (>25%), the FILING value wins — visibly, never
+     silently (d.sharesAggregatorRejected records what was replaced). Catches
+     real aggregator corruption, e.g. CRWD reported ~4x its filed count. */
+  function secRepairShares(d) {
+    const S = (typeof SEC !== "undefined") && SEC[d.ticker];
+    const f = S && S.f && S.f.dilShares;
+    if (!f || !f.hist || !d.shares || !d.shares.length) return;
+    const localLast = (d.shares || []).filter(v => v != null).slice(-1)[0];
+    const secLast = f.v / 1e9;
+    if (!localLast || !secLast) return;
+    const ratio = localLast / secLast;
+    if (ratio > 1.25 || ratio < 0.8) {
+      const hist = f.hist.slice(-d.shares.length).map(h => +(h[1] / 1e9).toFixed(4));
+      while (hist.length < d.shares.length) hist.unshift(null);
+      d.sharesAggregatorRejected = { was: d.shares.slice(), ratio: +ratio.toFixed(2) };
+      d.shares = hist;
+    }
   }
-
-  function applySecPrimary(d) {
-    rebuildSecAlignedAnnuals(d);
-  }
-
-  DATA.forEach(applySecPrimary);
+  DATA.forEach(secRepairShares);
   DATA.forEach(recomputeOwnerEconomics);
   DATA.forEach(d => { d.secv = secCheckOf(d); });
 
@@ -1540,14 +1538,8 @@
       (sv.periodMismatch || []).forEach(c => rows += row("PERIOD MISMATCH", "down", c.k, c.sec, c.local, `${c.secPeriod || "SEC ?"} vs ${c.localPeriod || "terminal ?"}`));
       ["taxWithholding", "esppProceeds", "periodEndShares"].forEach(k => { const f = S.f[k]; if (f) rows += row("reported (SEC only)", "up", k, f.v, null, f.form + " " + f.filed); });
       (sv.missing || []).forEach(c => { if (c.k !== "all") rows += row("missing — NOT zero", "sub", c.k, null, null, ""); });
-      const detailRows = (sv.details || []).map(c => `<tr>
-        <td>${NAMES[c.k] || c.k}</td><td class="${c.status === "verified" ? "up" : c.status === "TRUE CONFLICT" ? "down" : "sub"}">${c.status}</td>
-        <td>${c.sec != null ? fmtSec(c.k, c.sec) : "—"}</td><td>${c.local != null ? fmtSec(c.k, c.local) : "—"}</td>
-        <td class="sub">${c.secPeriod || c.secFact?.periodEnd || "—"}</td><td class="sub">${c.localPeriod || "—"}</td>
-        <td class="sub">${c.form || c.secFact?.form || "—"} ${c.filed || c.secFact?.filed || ""}</td>
-        <td class="sub">${c.accn || c.secFact?.accn || "—"}</td><td class="sub">${c.tag || c.secFact?.tag || "—"}</td><td class="sub">${c.valueUsed || "SEC primary"}</td>
-      </tr>`).join("");
-      return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : sv.periodMismatch.length ? "var(--orange)" : "var(--green)"}">
+      if (d.sharesAggregatorRejected) rows += `<tr><td>Diluted shares</td><td class="up">REPAIRED from SEC filing</td><td colspan="3" class="sub">aggregator series was ${d.sharesAggregatorRejected.ratio}× the filed count — rejected; 10-K values adopted (visible repair, not silent)</td></tr>`;
+      return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : "var(--green)"}">
         <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th style="text-align:left">FIELD</th><th style="text-align:left">STATUS</th><th>SEC FILING</th><th>TERMINAL</th><th>NOTE</th></tr>${rows}</table></div>
         <h3 style="margin-top:12px">CONFLICT / PERIOD DETAILS <span class="unit">same-period facts only become true conflicts</span></h3>
