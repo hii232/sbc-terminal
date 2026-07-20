@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: "0 11 * * 1-5"   # weekdays 11:00 UTC (pre-US-open)
   workflow_dispatch: {}
+permissions:
+  contents: write
 jobs:
   refresh:
     runs-on: ubuntu-latest

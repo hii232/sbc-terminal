@@ -1,6 +1,9 @@
 /* SBC Terminal — service worker: cache app shell for offline / phone use */
-const CACHE = "sbc-terminal-v49";
-const SHELL = ["./", "./index.html", "./app.js?v=48", "./charts.js?v=48", "./universe.js?v=48", "./data.js?v=48", "./sec.js?v=48", "./segments.js?v=48", "./sectors.js?v=48", "./estimates.js?v=48", "./scores.js?v=48", "./manifest.json", "./icon.svg"];
+const V = "50";
+const CACHE = "sbc-terminal-v" + V;
+const SHELL = ["./", "./index.html", "./manifest.json", "./icon.svg"].concat(
+  ["app.js", "charts.js", "universe.js", "data.js", "sec.js", "track.js", "segments.js", "sectors.js", "estimates.js", "scores.js"].map((f) => `./${f}?v=${V}`)
+);
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -21,8 +24,10 @@ self.addEventListener("fetch", (e) => {
   e.respondWith(
     fetch(e.request)
       .then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put(e.request, copy));
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy));
+        }
         return res;
       })
       .catch(() => caches.match(e.request))

@@ -40,7 +40,7 @@
     "Ride-Hailing": "XLY", "Gaming/Betting": "XLY", "Gaming": "XLC", "Streaming": "XLC", "Social Media": "XLC",
     "Media": "XLC", "Telecom": "XLC",
     "Payments": "XLF", "Banks": "XLF", "Asset Mgmt": "XLF", "Financial Data": "XLF",
-    "Crypto Exchange": "XLF", "Fintech Brokerage": "XLF",
+    "Crypto Exchange": "XLF", "Fintech Brokerage": "XLF", "Insurance": "XLF",
     "Pharma": "XLV", "Managed Care": "XLV", "Life Sciences": "XLV",
     "Medical Devices": "XLV", "Biotech": "XLV",
     "Energy": "XLE",
@@ -81,30 +81,24 @@
     SPY: { name: "Market", multiple: 2, input: 2, demand: 1, pass: 1, note: "sticky inflation raises discount rates and compresses multiples first." },
   };
   const EARNINGS_FOCUS = {
-    asOf: "2026-07-13",
-    source: "Earnings Whispers most-anticipated week + market-calendar cross-check",
-    note: "July 13-17, 2026 earnings week: banks test credit/NII, ASML/TSM test AI capex, NFLX tests consumer and ads.",
+    asOf: "2026-07-20",
+    source: "Company IR dates + market-calendar cross-check (CNBC / Yahoo / MarketBeat)",
+    note: "July 20-24, 2026 earnings week: GOOGL and TSLA headline Wednesday night (AI monetization + autonomy vs valuation); TXN, NOW, IBM and INTC test the semis / enterprise-AI tape; KO, GM and UNP read on consumer, tariffs and freight.",
     rows: [
-      { date: "2026-07-14", symbol: "JPM", name: "JPMorgan Chase", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-14", symbol: "BAC", name: "Bank of America", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-14", symbol: "C", name: "Citigroup", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-14", symbol: "GS", name: "Goldman Sachs", hour: "bmo", theme: "Capital markets" },
-      { date: "2026-07-14", symbol: "WFC", name: "Wells Fargo", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-15", symbol: "ASML", name: "ASML", hour: "bmo", theme: "AI capex / semi equipment", epsEstimate: 6.88 },
-      { date: "2026-07-15", symbol: "BLK", name: "BlackRock", hour: "bmo", theme: "Asset management" },
-      { date: "2026-07-15", symbol: "JNJ", name: "Johnson & Johnson", hour: "bmo", theme: "Health care" },
-      { date: "2026-07-15", symbol: "MS", name: "Morgan Stanley", hour: "bmo", theme: "Capital markets" },
-      { date: "2026-07-15", symbol: "PGR", name: "Progressive", hour: "bmo", theme: "Insurance" },
-      { date: "2026-07-16", symbol: "TSM", name: "Taiwan Semiconductor", hour: "bmo", theme: "AI semis / foundry" },
-      { date: "2026-07-16", symbol: "UNH", name: "UnitedHealth", hour: "bmo", theme: "Health care / managed care" },
-      { date: "2026-07-16", symbol: "GE", name: "GE Aerospace", hour: "bmo", theme: "Industrials / aerospace" },
-      { date: "2026-07-16", symbol: "NFLX", name: "Netflix", hour: "amc", theme: "Consumer / ads", epsEstimate: 0.79 },
-      { date: "2026-07-16", symbol: "AA", name: "Alcoa", hour: "amc", theme: "Materials / aluminum" },
-      { date: "2026-07-17", symbol: "AXP", name: "American Express", hour: "bmo", theme: "Consumer credit" },
-      { date: "2026-07-17", symbol: "FITB", name: "Fifth Third", hour: "bmo", theme: "Regional banks" },
-      { date: "2026-07-17", symbol: "RF", name: "Regions Financial", hour: "bmo", theme: "Regional banks" },
-      { date: "2026-07-17", symbol: "TRV", name: "Travelers", hour: "bmo", theme: "Insurance" },
-      { date: "2026-07-17", symbol: "ERIC", name: "Ericsson", hour: "bmo", theme: "Telecom equipment" },
+      { date: "2026-07-21", symbol: "GM", name: "General Motors", hour: "bmo", theme: "Autos / tariffs", epsEstimate: 3.17 },
+      { date: "2026-07-21", symbol: "KO", name: "Coca-Cola", theme: "Staples / pricing power" },
+      { date: "2026-07-21", symbol: "PM", name: "Philip Morris", theme: "Staples / smoke-free mix" },
+      { date: "2026-07-21", symbol: "RTX", name: "RTX", theme: "Defense / aerospace" },
+      { date: "2026-07-21", symbol: "MMM", name: "3M", theme: "Industrials / margins" },
+      { date: "2026-07-22", symbol: "T", name: "AT&T", hour: "bmo", theme: "Telecom / subscribers" },
+      { date: "2026-07-22", symbol: "GOOGL", name: "Alphabet", hour: "amc", theme: "AI monetization / ads / cloud" },
+      { date: "2026-07-22", symbol: "TSLA", name: "Tesla", hour: "amc", theme: "Autonomy / EV margins" },
+      { date: "2026-07-22", symbol: "TXN", name: "Texas Instruments", hour: "amc", theme: "Analog semis cycle" },
+      { date: "2026-07-22", symbol: "NOW", name: "ServiceNow", hour: "amc", theme: "Enterprise AI software" },
+      { date: "2026-07-22", symbol: "IBM", name: "IBM", hour: "amc", theme: "Enterprise AI / software" },
+      { date: "2026-07-23", symbol: "UNP", name: "Union Pacific", hour: "bmo", theme: "Freight / economy bellwether" },
+      { date: "2026-07-23", symbol: "INTC", name: "Intel", hour: "amc", theme: "Foundry turnaround", epsEstimate: 0.21 },
+      { date: "2026-07-24", symbol: "VZ", name: "Verizon", hour: "bmo", theme: "Telecom / consumer" },
     ],
   };
   const secByT = (t) => SECTORS.series.find(s => s.t === t);
@@ -243,8 +237,11 @@
     const pxArr = d.px && d.px.v && d.px.v.length ? d.px.v.slice(-26) : null;
     const avgP = pxArr ? pxArr.reduce((a, v) => a + v, 0) / pxArr.length : (d.price || null);
     let shareCost = ttmSbc, mnaShares = 0;
-    const ttmBuyback = sum(ttmRows.map(r => hasNum(r.buyback) ? +r.buyback : 0));
-    if (avgP && usable.length >= 5 && ttmSbc > 0) {
+    // Reconciling share cost needs real buyback data for all four quarters —
+    // missing quarters must not be summed as zero buybacks.
+    const bbComplete = ttmRows.every(r => hasNum(r.buyback));
+    const ttmBuyback = bbComplete ? sum(ttmRows.map(r => +r.buyback)) : null;
+    if (avgP && usable.length >= 5 && ttmSbc > 0 && bbComplete) {
       const dSh = +usable[usable.length - 1].shares - +usable[usable.length - 5].shares;
       const bought = ttmBuyback > 0 ? ttmBuyback / avgP : 0;
       const grossIssued = Math.max(0, dSh + bought);
@@ -593,8 +590,8 @@
       const epsPrev = snapVal(prev, ["nextYearEps", "currentYearEps", "epsAvg", "estimatedEpsAvg", "epsEstimate"]);
       const revNow = snapVal(latest, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
       const revPrev = snapVal(prev, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
-      const epsRev = epsNow != null && epsPrev ? ((epsNow / epsPrev) - 1) * 100 : null;
-      const revRev = revNow != null && revPrev ? ((revNow / revPrev) - 1) * 100 : null;
+      const epsRev = epsNow != null && epsPrev ? ((epsNow - epsPrev) / Math.abs(epsPrev)) * 100 : null;
+      const revRev = revNow != null && revPrev ? ((revNow - revPrev) / Math.abs(revPrev)) * 100 : null;
       const used = [epsRev, revRev].filter(hasNum);
       if (used.length) {
         const s = 50 + (epsRev || 0) * 2.1 + (revRev || 0) * 1.2;
@@ -1302,8 +1299,10 @@
       </div>
       <div class="card">
         <h3>OWNER-EARNINGS RETENTION</h3>
-        <div style="display:flex;justify-content:center;margin:6px 0">${Chart.donut(d.ownersKeep)}</div>
-        <div class="sub" style="text-align:center">Shareholders keep <b style="color:var(--text)">${(d.ownersKeep * 100).toFixed(1)}¢</b> of each GAAP earnings dollar after true SBC economics.</div>
+        ${d.ownersKeep == null
+          ? `<div class="sub" style="padding:24px 10px;text-align:center">Retention is not computable from the filings yet (needs 2+ years of positive pooled net income). Shown as unavailable, not zero.</div>`
+          : `<div style="display:flex;justify-content:center;margin:6px 0">${Chart.donut(d.ownersKeep)}</div>
+        <div class="sub" style="text-align:center">Shareholders keep <b style="color:var(--text)">${(d.ownersKeep * 100).toFixed(1)}¢</b> of each GAAP earnings dollar after true SBC economics.</div>`}
       </div>
 
       <div class="card drawdown-card" style="grid-column:span 3">
@@ -2825,7 +2824,8 @@
     const etf = sectorETF(d.sector), s = secByT(etf), spy = secByT("SPY");
     const mom = s && spy ? retOver(s, 3) - retOver(spy, 3) : 0;
     const lv = state.live[d.ticker] || {};
-    const keep = d.ownersKeep || 0;
+    // Missing retention stays missing: it must not read as "keeps 0¢/$".
+    const keep = hasNum(d.ownersKeep) ? d.ownersKeep : null;
     const sig = [];
     if (!dc.rankable) {
       const C = CALLS.NOTRANK;
@@ -2840,8 +2840,8 @@
     }
 
     // 1 · SBC X-Ray — is the earnings dollar real? (w20)
-    let v = keep >= .9 ? 2 : keep >= .8 ? 1 : keep >= .65 ? 0 : keep >= .5 ? -1 : -2;
-    sig.push({ k: "SBC X-RAY", w: 20, v, why: `keeps ${(keep * 100).toFixed(0)}¢/$ · SBC ${d.sbcPctRev == null ? "n/a" : d.sbcPctRev.toFixed(1) + "% of rev"} · shares ${trend.chg >= 0 ? "+" : ""}${(trend.chg || 0).toFixed(1)}% over the record` });
+    let v = keep == null ? 0 : keep >= .9 ? 2 : keep >= .8 ? 1 : keep >= .65 ? 0 : keep >= .5 ? -1 : -2;
+    sig.push({ k: "SBC X-RAY", w: 20, v, why: `${keep == null ? "retention not computable from filings yet" : `keeps ${(keep * 100).toFixed(0)}¢/$`} · SBC ${d.sbcPctRev == null ? "n/a" : d.sbcPctRev.toFixed(1) + "% of rev"} · shares ${trend.chg >= 0 ? "+" : ""}${(trend.chg || 0).toFixed(1)}% over the record` });
 
     // 2 · IV15 DCF — what return does today's price offer? (w25)
     // Prices the RANGE, not the dogma: 65% conservative + 35% AI-cycle growth
@@ -2916,9 +2916,9 @@
     const sbcV = sig[0].v, ivV = sig[1].v, qV = sig[3].v;
     const looksCheap = (d.truePE && d.truePE < 22) || (G && (G.passed >= 5 || G.netnet));
     let call;
-    if (looksCheap && (keep < 0.6 || (!finSector && Q.fcfAfterSbc != null && Q.fcfAfterSbc < 0))) call = "TRAP";
+    if (looksCheap && ((keep != null && keep < 0.6) || (!finSector && Q.fcfAfterSbc != null && Q.fcfAfterSbc < 0))) call = "TRAP";
     else if (d.bucket === "tragic" && score < 45) call = "AVOID";
-    else if (L && (L.zone === "fat" || (cagr != null && cagr >= 0.15)) && keep >= 0.7 && qV >= 0) call = "SWING";
+    else if (L && (L.zone === "fat" || (cagr != null && cagr >= 0.15)) && keep != null && keep >= 0.7 && qV >= 0) call = "SWING";
     else if (score >= 62 && ivV >= 0) call = "ACC";
     else if (sbcV >= 1 && qV >= 1 && ivV <= 0) call = "STALK";
     else if (score >= 48) call = "WATCH";
@@ -2927,7 +2927,7 @@
 
     // ---- one written thesis ----
     const bits = [];
-    bits.push(keep >= .85 ? `Earnings are real (${(keep * 100).toFixed(0)}¢ of every GAAP dollar reaches owners)` : keep >= .65 ? `Earnings need a ${(100 - keep * 100).toFixed(0)}% SBC haircut` : `Reported earnings are heavily inflated by stock comp (only ${(keep * 100).toFixed(0)}¢/$ real)`);
+    bits.push(keep == null ? "Owner retention can't be computed from the filings yet" : keep >= .85 ? `Earnings are real (${(keep * 100).toFixed(0)}¢ of every GAAP dollar reaches owners)` : keep >= .65 ? `Earnings need a ${(100 - keep * 100).toFixed(0)}% SBC haircut` : `Reported earnings are heavily inflated by stock comp (only ${(keep * 100).toFixed(0)}¢/$ real)`);
     bits.push(cagr == null ? "and there's no owner-earnings floor to value it on" : cagr >= .15 ? `today's price pays you ${(cagr * 100).toFixed(0)}%/yr — a genuine fat pitch` : cagr >= .10 ? `the price offers a decent ${(cagr * 100).toFixed(0)}%/yr, just outside the fat-pitch zone` : `the price only offers ${(cagr * 100).toFixed(1)}%/yr — you're paying for the story`);
     if (G) bits.push(G.netnet ? "Graham would buy it below liquidation value" : G.passed >= 5 ? `the classic lens agrees (${G.passed}/7 defensive)` : `the classic lens is unimpressed (${G.passed}/7)`);
     if (Q.roic != null) bits.push(Q.roic >= 15 ? `and at ${Q.roic.toFixed(0)}% ROIC the business earns its keep` : Q.roic < 8 ? `and ${Q.roic.toFixed(0)}% ROIC says capital isn't compounding here` : "");
@@ -3312,7 +3312,9 @@
     }
     const iv = o && !chainStale ? o.iv : null, rv = o ? o.rv : null;
     const rich = iv && rv ? iv / rv : null; // premium richness: IV vs realized
-    const keep = d.ownersKeep || 0;
+    // null keep fails every retention gate below (null >= x is false) without
+    // masquerading as a measured 0¢ retention.
+    const keep = hasNum(d.ownersKeep) ? d.ownersKeep : null;
 
     // 1 · GET PAID TO WAIT — cash-secured put at the IV15 buy target
     if (L && ["STALK", "WATCH", "ACC"].includes(V.call) && keep >= 0.8 && V.score >= 55
@@ -3464,12 +3466,13 @@
 
   /* ============ 🧾 DATA AUDIT — can this terminal be trusted? ============ */
   function renderAudit() {
-    const tiers = { "FILING VERIFIED*": 0, "PARTIALLY VERIFIED": 0, "HEURISTIC": 0 };
+    const tiers = { "FULL FILING VERIFIED": 0, "CORE FILING VERIFIED": 0, "PARTIALLY VERIFIED": 0, "NOT VERIFIED": 0 };
     let conflicts = 0, verifiedFields = 0, missingFields = 0;
     const total = DATA.length;
     DATA.forEach(d => {
       const sv = d.secv || { verified: [], conflict: [], missing: [] };
-      tiers[dataQualityOf(d).label]++;
+      const label = dataQualityOf(d).label;
+      tiers[label] = (tiers[label] || 0) + 1;
       conflicts += sv.conflict.length;
       verifiedFields += sv.verified.length;
       missingFields += sv.missing.length;
@@ -3492,7 +3495,8 @@
       negative: valuationAudit.filter(x => x.flags.includes("negative owner EPS")).length,
       high: valuationAudit.filter(x => x.flags.includes("high owner P/E")).length,
     };
-    const atLeastPartial = tiers["FILING VERIFIED*"] + tiers["PARTIALLY VERIFIED"];
+    const fullyVerified = tiers["FULL FILING VERIFIED"] + tiers["CORE FILING VERIFIED"];
+    const atLeastPartial = fullyVerified + tiers["PARTIALLY VERIFIED"];
     const rows = [...DATA].sort((a, b) => a.ticker.localeCompare(b.ticker)).map(d => {
       const q = dataQualityOf(d), sv = d.secv || { verified: [], conflict: [], missing: [], latest: null };
       return `<tr data-tk="${d.ticker}"><td><span class="rk-tk">${d.ticker}</span></td>
@@ -3504,7 +3508,7 @@
         <td class="sub">${d.keepSource === "computed" ? "computed" : "fallback"}</td></tr>`;
     }).join("");
     el("main").innerHTML = toolHeader("🧾", "DATA AUDIT", "provenance, versions and verification status — judge for yourself whether to trust the numbers",
-      `<div style="text-align:right"><div class="sub">FILING VERIFIED*</div><div class="stat sm" style="color:var(--green)">${tiers["FILING VERIFIED*"]}/${total}</div><div class="sub">${atLeastPartial}/${total} at least partial</div></div>`)
+      `<div style="text-align:right"><div class="sub">FILING VERIFIED*</div><div class="stat sm" style="color:var(--green)">${fullyVerified}/${total}</div><div class="sub">${atLeastPartial}/${total} at least partial</div></div>`)
       + `<div class="grid g3" style="margin-bottom:12px">
         <div class="card"><h3>VERSIONS</h3>
           <div class="kv"><span class="k">Official universe</span><span class="v">${typeof UNIVERSE_VERSION !== "undefined" ? UNIVERSE_VERSION : "?"} (${DATA.length} names)</span></div>
@@ -3512,9 +3516,10 @@
           <div class="kv"><span class="k">Formulas</span><span class="v">${FORMULA_VERSION}</span></div>
           <div class="kv"><span class="k">SEC data generated</span><span class="v">${typeof SEC_META !== "undefined" ? SEC_META.generated.slice(0, 10) : "n/a"}</span></div></div>
         <div class="card"><h3>VERIFICATION</h3>
-          <div class="kv"><span class="k">Filing verified*</span><span class="v up">${tiers["FILING VERIFIED*"]}</span></div>
+          <div class="kv"><span class="k">Full filing verified</span><span class="v up">${tiers["FULL FILING VERIFIED"]}</span></div>
+          <div class="kv"><span class="k">Core filing verified</span><span class="v up">${tiers["CORE FILING VERIFIED"]}</span></div>
           <div class="kv"><span class="k">Partially verified</span><span class="v" style="color:var(--amber)">${tiers["PARTIALLY VERIFIED"]}</span></div>
-          <div class="kv"><span class="k">Heuristic</span><span class="v sub">${tiers["HEURISTIC"]}</span></div>
+          <div class="kv"><span class="k">Not verified</span><span class="v sub">${tiers["NOT VERIFIED"]}</span></div>
           <div class="kv"><span class="k">SEC-matched fields</span><span class="v up">${verifiedFields}</span></div>
           <div class="kv"><span class="k">Open source conflicts</span><span class="v ${conflicts ? "down" : "up"}">${conflicts}</span></div></div>
         <div class="card"><h3>FRESHNESS</h3>
@@ -3528,7 +3533,7 @@
           <div class="kv"><span class="k">Negative owner EPS</span><span class="v ${valCounts.negative ? "down" : "up"}">${valCounts.negative}</span></div>
           <div class="kv"><span class="k">High owner P/E checks</span><span class="v" style="color:var(--amber)">${valCounts.high}</span></div></div>
       </div>
-      <div class="note" style="margin-bottom:12px">*FILING VERIFIED = 5+ core fields automatically reconciled to SEC XBRL facts with no open conflicts. PARTIALLY VERIFIED = at least 2 SEC matches, but conflicts or missing/non-comparable fields remain. This is NOT a manual line-by-line audit. Conflicts are flagged, never silently resolved. Missing SEC facts stay missing — never zero. Current coverage: <b>${tiers["FILING VERIFIED*"]}/${total} filing verified*</b>, <b>${atLeastPartial}/${total} at least partially verified</b>, <b>${missingFields}</b> missing/non-comparable field checks.</div>
+      <div class="note" style="margin-bottom:12px">*FILING VERIFIED = 5+ core fields automatically reconciled to SEC XBRL facts with no open conflicts. PARTIALLY VERIFIED = at least 2 SEC matches, but conflicts or missing/non-comparable fields remain. This is NOT a manual line-by-line audit. Conflicts are flagged, never silently resolved. Missing SEC facts stay missing — never zero. Current coverage: <b>${fullyVerified}/${total} filing verified*</b>, <b>${atLeastPartial}/${total} at least partially verified</b>, <b>${missingFields}</b> missing/non-comparable field checks.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:62vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>TICKER</th><th>BADGE</th><th>LATEST FILING</th><th>VERIFIED</th><th>CONFLICTS</th><th>N/A</th><th>RETENTION</th></tr></thead>
         <tbody>${rows}</tbody></table></div></div>`;
@@ -3721,7 +3726,7 @@
         </table></div>
       </div>` : "";
       el("calBody").outerHTML = focus + `<div class="card" id="calBody">
-        <h3>YOUR 126-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
+        <h3>YOUR ${uni.size}-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
         <div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
           <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>
@@ -4384,7 +4389,10 @@
     const eFrom = new Date(today.getTime() - 3 * 864e5);
     const eTo = new Date(today.getTime() + 21 * 864e5);
     let earningsRows = bundledEarningsRows(eFrom, eTo, true);
-    if (!earningsRows.length) earningsRows = bundledEarningsRows(new Date("2026-07-13T00:00:00"), new Date("2026-08-15T00:00:00"), true);
+    if (!earningsRows.length) {
+      const asOf = new Date(`${EARNINGS_FOCUS.asOf}T00:00:00`);
+      earningsRows = bundledEarningsRows(asOf, new Date(asOf.getTime() + 33 * 864e5), true);
+    }
     earningsRows = earningsRows.slice(0, 4);
     const row = (x, right, sub = "") => `<div class="home-row" data-tk="${x.d.ticker}">
       <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
@@ -4990,7 +4998,7 @@
     } finally {
       state.dailyReviewLoading = false;
       if (state.view === "dailyReview") renderDailyReview();
-      else if (state.view === "home") renderHome();
+      else if (state.view === "home") renderHomeMobileDashboard();
       if (ok) flash(`Daily review headlines scanned: ${ok}/${tickers.length}`, "ok");
     }
   }
@@ -5404,7 +5412,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=48").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=50").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only

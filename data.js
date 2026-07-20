@@ -1544,11 +1544,11 @@ const DATA = [
     note:"Insurance underwriting discipline (the terminal's own top scorers); data generated from Yahoo fundamentals and SEC companyfacts. Review SBC tags before treating as fully audited." }),
 
   co({ ticker:"TRV", name:"TRAVELERS COMPANIES, INC.", sector:"Insurance", bucket:"clean", grade:"A",
-    price:368.98, change:9.22, mktCap:0, headlinePE:9.9, ownersKeep:0.85,
+    price:368.98, change:9.22, mktCap:84.1, headlinePE:9.9, ownersKeep:0.85,
     gaapEPS:37.19, nonGaapEPS:37.19,
     fy:["2022","2023","2024","2025"], sbcPctRev:0.5, sbcPctOCF:2.4, sbcPctNI:4,
     revenue:[36.9,41.37,46.43,48.83], ni:[2.84,2.99,5,6.29], sbc:[0.148,0.162,0.183,0.256],
-    buyback:[2.06,1.02,1.12,3.13], shares:[0.24,0.232,23.11,0.228],
+    buyback:[2.06,1.02,1.12,3.13], shares:[0.24,0.232,0.231,0.228],
     qd:{labels:["Mar'25","Jun'25","Sep'25","Dec'25","Mar'26"], revenue:[11.81,12.12,12.47,12.43,11.92], ni:[0.4,1.51,1.89,2.5,1.71], sbc:[null,null,null,null,null], buyback:[0.35,0.52,0.62,1.64,1.93], shares:[0.23,0.229,0.228,0.224,0.218]},
     gd:{ca:null, cl:null, ta:143.708, tl:110.814, eq:32.894, tbv:28.492, debt:9.267, ltd:8.967, cash:26.169, inv:null, rec:21.888, divPaid:0.979, divRate:4.55, divYield:0.013},
     qm:{ocf:[6.52,7.27,6.46,10.61], fcf:[null,null,null,null], capex:[null,null,null,null]},

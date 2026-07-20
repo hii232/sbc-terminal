@@ -1,9 +1,70 @@
 {
-  "asOf": "2026-07-16T05:17:14.516Z",
+  "asOf": "2026-07-20T05:25:28.132Z",
   "modelVersion": "4.1.0",
-  "count": 121,
+  "count": 126,
   "methodology": "Current snapshot scores. Data Confidence is a separate trust gate and is not additive.",
   "rows": [
+    {
+      "ticker": "PGR",
+      "name": "PROGRESSIVE CORP/OH/",
+      "sector": "Insurance",
+      "price": 207.95,
+      "ownerPE": 10.9,
+      "ownerEPS": 19,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 10.4,
+      "forwardEPS": 19.92,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 78,
+      "marketRewardView": 60,
+      "businessQuality": 85,
+      "growthExecution": 69,
+      "marketReward": 35,
+      "shareholderEconomics": 83,
+      "valuation": 97,
+      "dataConfidence": 89,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "ALL",
+      "name": "ALLSTATE CORP",
+      "sector": "Insurance",
+      "price": 249.9,
+      "ownerPE": 6.5,
+      "ownerEPS": 38.16,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 5.5,
+      "forwardEPS": 45.21,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 77,
+      "marketRewardView": 66,
+      "businessQuality": 76,
+      "growthExecution": 58,
+      "marketReward": 57,
+      "shareholderEconomics": 96,
+      "valuation": 100,
+      "dataConfidence": 100,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
     {
       "ticker": "ADBE",
       "name": "Adobe",
@@ -65,6 +126,35 @@
       ]
     },
     {
+      "ticker": "CB",
+      "name": "Chubb Ltd",
+      "sector": "Insurance",
+      "price": 352.16,
+      "ownerPE": null,
+      "ownerEPS": null,
+      "ownerEPSSource": null,
+      "forwardPE": 12.5,
+      "forwardEPS": 28.28,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 74,
+      "marketRewardView": 67,
+      "businessQuality": 64,
+      "growthExecution": 57,
+      "marketReward": 64,
+      "shareholderEconomics": 96,
+      "valuation": 100,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
       "ticker": "AXP",
       "name": "AMERICAN EXPRESS CO",
       "sector": "Payments",
@@ -89,6 +179,65 @@
       "whyRise": [
         "Current expectations appear achievable relative to owner earnings.",
         "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "TRV",
+      "name": "TRAVELERS COMPANIES, INC.",
+      "sector": "Insurance",
+      "price": 368.98,
+      "ownerPE": 13.9,
+      "ownerEPS": 26.47,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 9.9,
+      "forwardEPS": 37.19,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 73,
+      "marketRewardView": 65,
+      "businessQuality": 80,
+      "growthExecution": 47,
+      "marketReward": 61,
+      "shareholderEconomics": 90,
+      "valuation": 88,
+      "dataConfidence": 85,
+      "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "HIG",
+      "name": "HARTFORD INSURANCE GROUP, INC.",
+      "sector": "Insurance",
+      "price": 140.26,
+      "ownerPE": 10.5,
+      "ownerEPS": 13.35,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 9.9,
+      "forwardEPS": 14.21,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 73,
+      "marketRewardView": 60,
+      "businessQuality": 73,
+      "growthExecution": 50,
+      "marketReward": 50,
+      "shareholderEconomics": 91,
+      "valuation": 98,
+      "dataConfidence": 100,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
       ],
       "whatCouldGoWrong": [
         "Main risk is paying too much if expectations reset."
@@ -175,7 +324,7 @@
       "valuation": 83,
       "dataConfidence": 77,
       "expectationsGap": "Large positive gap",
-      "whatChanged": "Better",
+      "whatChanged": "Much worse",
       "whyRise": [
         "Growth, margins or FCF/share are improving.",
         "Current expectations appear achievable relative to owner earnings."
@@ -644,7 +793,7 @@
       "finalLabel": "Mixed evidence",
       "longTermView": 63,
       "marketRewardView": 65,
-      "businessQuality": 72,
+      "businessQuality": 73,
       "growthExecution": 70,
       "marketReward": 65,
       "shareholderEconomics": 73,
@@ -769,7 +918,7 @@
       "valuation": 81,
       "dataConfidence": 100,
       "expectationsGap": "Large positive gap",
-      "whatChanged": "Mostly unchanged",
+      "whatChanged": "Better",
       "whyRise": [
         "Current expectations appear achievable relative to owner earnings."
       ],
@@ -823,11 +972,11 @@
       "businessQuality": 49,
       "growthExecution": 61,
       "marketReward": 94,
-      "shareholderEconomics": 90,
+      "shareholderEconomics": 89,
       "valuation": 46,
       "dataConfidence": 77,
       "expectationsGap": "Moderate positive gap",
-      "whatChanged": "Much better",
+      "whatChanged": "Better",
       "whyRise": [
         "Market reward and relative strength are improving."
       ],
@@ -952,6 +1101,35 @@
       ]
     },
     {
+      "ticker": "MPWR",
+      "name": "Monolithic Power",
+      "sector": "Semis",
+      "price": 1295.18,
+      "ownerPE": 101.3,
+      "ownerEPS": 12.78,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 70.9,
+      "forwardEPS": 18.26,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 61,
+      "marketRewardView": 65,
+      "businessQuality": 68,
+      "growthExecution": 82,
+      "marketReward": 64,
+      "shareholderEconomics": 59,
+      "valuation": 24,
+      "dataConfidence": 100,
+      "expectationsGap": "Fairly priced",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
       "ticker": "CRM",
       "name": "Salesforce",
       "sector": "Software",
@@ -1037,35 +1215,6 @@
       ],
       "whatCouldGoWrong": [
         "The market is not rewarding the business yet."
-      ]
-    },
-    {
-      "ticker": "MPWR",
-      "name": "Monolithic Power",
-      "sector": "Semis",
-      "price": 1295.18,
-      "ownerPE": 122.5,
-      "ownerEPS": 10.57,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 70.9,
-      "forwardEPS": 18.26,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 60,
-      "marketRewardView": 64,
-      "businessQuality": 68,
-      "growthExecution": 82,
-      "marketReward": 64,
-      "shareholderEconomics": 59,
-      "valuation": 19,
-      "dataConfidence": 100,
-      "expectationsGap": "Fairly priced",
-      "whatChanged": "Better",
-      "whyRise": [
-        "Growth, margins or FCF/share are improving."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results."
       ]
     },
     {
@@ -1361,6 +1510,35 @@
       ]
     },
     {
+      "ticker": "NUE",
+      "name": "NUCOR CORP",
+      "sector": "Materials",
+      "price": 234.16,
+      "ownerPE": 23.3,
+      "ownerEPS": 10.03,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 23.2,
+      "forwardEPS": 10.09,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Weak business, strong speculation",
+      "longTermView": 59,
+      "marketRewardView": 66,
+      "businessQuality": 43,
+      "growthExecution": 56,
+      "marketReward": 78,
+      "shareholderEconomics": 93,
+      "valuation": 54,
+      "dataConfidence": 100,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
       "ticker": "VST",
       "name": "Vistra Corp.",
       "sector": "Utilities",
@@ -1381,7 +1559,7 @@
       "valuation": 45,
       "dataConfidence": 100,
       "expectationsGap": "Large positive gap",
-      "whatChanged": "Worse",
+      "whatChanged": "Much worse",
       "whyRise": [
         "No major upside driver is proven by the bundled data."
       ],
@@ -1449,12 +1627,41 @@
       ]
     },
     {
+      "ticker": "WFC",
+      "name": "WELLS FARGO & COMPANY/MN",
+      "sector": "Banks",
+      "price": 85.29,
+      "ownerPE": 13.2,
+      "ownerEPS": 6.48,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 13.2,
+      "forwardEPS": 6.47,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Value trap risk",
+      "longTermView": 58,
+      "marketRewardView": 54,
+      "businessQuality": 38,
+      "growthExecution": 36,
+      "marketReward": 57,
+      "shareholderEconomics": 89,
+      "valuation": 91,
+      "dataConfidence": 64,
+      "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Growth or execution is weakening."
+      ]
+    },
+    {
       "ticker": "HD",
       "name": "HOME DEPOT, INC.",
       "sector": "Home Improvement",
       "price": 337.74,
-      "ownerPE": 24.5,
-      "ownerEPS": 13.78,
+      "ownerPE": 24.2,
+      "ownerEPS": 13.93,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 23.9,
       "forwardEPS": 14.12,
@@ -1566,64 +1773,6 @@
       ]
     },
     {
-      "ticker": "WFC",
-      "name": "WELLS FARGO & COMPANY/MN",
-      "sector": "Banks",
-      "price": 85.29,
-      "ownerPE": 13.2,
-      "ownerEPS": 6.48,
-      "ownerEPSSource": "latest annual owner EPS",
-      "forwardPE": 13.2,
-      "forwardEPS": 6.47,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Value trap risk",
-      "longTermView": 57,
-      "marketRewardView": 53,
-      "businessQuality": 37,
-      "growthExecution": 33,
-      "marketReward": 57,
-      "shareholderEconomics": 89,
-      "valuation": 91,
-      "dataConfidence": 64,
-      "expectationsGap": "Moderate positive gap",
-      "whatChanged": "Mostly unchanged",
-      "whyRise": [
-        "Current expectations appear achievable relative to owner earnings."
-      ],
-      "whatCouldGoWrong": [
-        "Growth or execution is weakening."
-      ]
-    },
-    {
-      "ticker": "NUE",
-      "name": "NUCOR CORP",
-      "sector": "Materials",
-      "price": 234.16,
-      "ownerPE": 23.3,
-      "ownerEPS": 10.03,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 23.2,
-      "forwardEPS": 10.09,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Weak business, strong speculation",
-      "longTermView": 57,
-      "marketRewardView": 65,
-      "businessQuality": 43,
-      "growthExecution": 56,
-      "marketReward": 78,
-      "shareholderEconomics": 77,
-      "valuation": 54,
-      "dataConfidence": 100,
-      "expectationsGap": "Large positive gap",
-      "whatChanged": "Better",
-      "whyRise": [
-        "Market reward and relative strength are improving."
-      ],
-      "whatCouldGoWrong": [
-        "Main risk is paying too much if expectations reset."
-      ]
-    },
-    {
       "ticker": "SCCO",
       "name": "SOUTHERN COPPER CORP/",
       "sector": "Materials",
@@ -1674,7 +1823,7 @@
       "valuation": 95,
       "dataConfidence": 89,
       "expectationsGap": "Large positive gap",
-      "whatChanged": "Worse",
+      "whatChanged": "Better",
       "whyRise": [
         "Current expectations appear achievable relative to owner earnings."
       ],
@@ -1763,6 +1912,36 @@
       "valuation": 37,
       "dataConfidence": 100,
       "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
+      "ticker": "GEV",
+      "name": "GE Vernova Inc.",
+      "sector": "Industrials",
+      "price": 1066.01,
+      "ownerPE": 62.8,
+      "ownerEPS": 16.98,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 30.5,
+      "forwardEPS": 34.97,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 56,
+      "marketRewardView": 41,
+      "businessQuality": 64,
+      "growthExecution": 59,
+      "marketReward": 21,
+      "shareholderEconomics": 91,
+      "valuation": 29,
+      "dataConfidence": 100,
+      "expectationsGap": "Extreme expectations risk",
       "whatChanged": "Better",
       "whyRise": [
         "No major upside driver is proven by the bundled data."
@@ -1971,7 +2150,7 @@
       "valuation": 38,
       "dataConfidence": 100,
       "expectationsGap": "Large positive gap",
-      "whatChanged": "Worse",
+      "whatChanged": "Much worse",
       "whyRise": [
         "No major upside driver is proven by the bundled data."
       ],
@@ -1984,8 +2163,8 @@
       "name": "Palantir",
       "sector": "Software/AI",
       "price": 129.01,
-      "ownerPE": 189.7,
-      "ownerEPS": 0.68,
+      "ownerPE": 157.3,
+      "ownerEPS": 0.82,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 85.4,
       "forwardEPS": 1.51,
@@ -1997,7 +2176,7 @@
       "growthExecution": 75,
       "marketReward": 36,
       "shareholderEconomics": 27,
-      "valuation": 12,
+      "valuation": 13,
       "dataConfidence": 100,
       "expectationsGap": "Extreme expectations risk",
       "whatChanged": "Better",
@@ -2042,36 +2221,6 @@
       ]
     },
     {
-      "ticker": "GEV",
-      "name": "GE Vernova Inc.",
-      "sector": "Industrials",
-      "price": 1066.01,
-      "ownerPE": 62.8,
-      "ownerEPS": 16.98,
-      "ownerEPSSource": "latest annual owner EPS",
-      "forwardPE": 30.5,
-      "forwardEPS": 34.97,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 53,
-      "marketRewardView": 40,
-      "businessQuality": 61,
-      "growthExecution": 54,
-      "marketReward": 21,
-      "shareholderEconomics": 91,
-      "valuation": 29,
-      "dataConfidence": 100,
-      "expectationsGap": "Extreme expectations risk",
-      "whatChanged": "Better",
-      "whyRise": [
-        "No major upside driver is proven by the bundled data."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results.",
-        "The market is not rewarding the business yet."
-      ]
-    },
-    {
       "ticker": "CEG",
       "name": "Constellation Energy Corp",
       "sector": "Utilities",
@@ -2092,7 +2241,7 @@
       "valuation": 28,
       "dataConfidence": 100,
       "expectationsGap": "Fairly priced",
-      "whatChanged": "Mostly unchanged",
+      "whatChanged": "Better",
       "whyRise": [
         "Growth, margins or FCF/share are improving."
       ],
@@ -2122,37 +2271,6 @@
       "dataConfidence": 100,
       "expectationsGap": "Extreme expectations risk",
       "whatChanged": "Better",
-      "whyRise": [
-        "Market reward and relative strength are improving.",
-        "Growth, margins or FCF/share are improving."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results.",
-        "Shareholder economics show SBC or dilution leakage."
-      ]
-    },
-    {
-      "ticker": "PANW",
-      "name": "Palo Alto Networks",
-      "sector": "Cybersecurity",
-      "price": 321.11,
-      "ownerPE": null,
-      "ownerEPS": -0.53,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 199.4,
-      "forwardEPS": 1.61,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 52,
-      "marketRewardView": 73,
-      "businessQuality": 57,
-      "growthExecution": 67,
-      "marketReward": 100,
-      "shareholderEconomics": 34,
-      "valuation": 13,
-      "dataConfidence": 100,
-      "expectationsGap": "Insufficient data",
-      "whatChanged": "Worse",
       "whyRise": [
         "Market reward and relative strength are improving.",
         "Growth, margins or FCF/share are improving."
@@ -2193,6 +2311,35 @@
       ]
     },
     {
+      "ticker": "NEE",
+      "name": "NEXTERA ENERGY INC",
+      "sector": "Utilities",
+      "price": 89.54,
+      "ownerPE": 27.7,
+      "ownerEPS": 3.23,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 22.7,
+      "forwardEPS": 3.94,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 52,
+      "marketRewardView": 55,
+      "businessQuality": 55,
+      "growthExecution": 50,
+      "marketReward": 60,
+      "shareholderEconomics": 39,
+      "valuation": 57,
+      "dataConfidence": 72,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
       "ticker": "DDOG",
       "name": "Datadog",
       "sector": "Software",
@@ -2224,12 +2371,42 @@
       ]
     },
     {
+      "ticker": "SHOP",
+      "name": "Shopify",
+      "sector": "E-commerce",
+      "price": 116.47,
+      "ownerPE": 125.2,
+      "ownerEPS": 0.93,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 99.5,
+      "forwardEPS": 1.17,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 51,
+      "marketRewardView": 42,
+      "businessQuality": 66,
+      "growthExecution": 68,
+      "marketReward": 23,
+      "shareholderEconomics": 52,
+      "valuation": 19,
+      "dataConfidence": 89,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "The market is not rewarding the business yet."
+      ]
+    },
+    {
       "ticker": "ZS",
       "name": "Zscaler",
       "sector": "Cybersecurity",
       "price": 143.78,
       "ownerPE": null,
-      "ownerEPS": -2.32,
+      "ownerEPS": -1.65,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 44.9,
       "forwardEPS": 3.2,
@@ -2237,14 +2414,14 @@
       "finalLabel": "Mixed evidence",
       "longTermView": 51,
       "marketRewardView": 60,
-      "businessQuality": 60,
+      "businessQuality": 59,
       "growthExecution": 81,
       "marketReward": 61,
       "shareholderEconomics": 9,
       "valuation": 26,
       "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
-      "whatChanged": "Worse",
+      "whatChanged": "Better",
       "whyRise": [
         "Growth, margins or FCF/share are improving."
       ],
@@ -2254,33 +2431,34 @@
       ]
     },
     {
-      "ticker": "NKE",
-      "name": "NIKE, Inc.",
-      "sector": "Apparel",
-      "price": 42.86,
-      "ownerPE": 30.6,
-      "ownerEPS": 1.4,
+      "ticker": "PANW",
+      "name": "Palo Alto Networks",
+      "sector": "Cybersecurity",
+      "price": 321.11,
+      "ownerPE": 617.5,
+      "ownerEPS": 0.52,
       "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 20.8,
-      "forwardEPS": 2.06,
+      "forwardPE": 199.4,
+      "forwardEPS": 1.61,
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
       "longTermView": 51,
-      "marketRewardView": 35,
-      "businessQuality": 55,
-      "growthExecution": 34,
-      "marketReward": 17,
-      "shareholderEconomics": 84,
-      "valuation": 60,
+      "marketRewardView": 73,
+      "businessQuality": 57,
+      "growthExecution": 67,
+      "marketReward": 100,
+      "shareholderEconomics": 34,
+      "valuation": 12,
       "dataConfidence": 100,
-      "expectationsGap": "Fairly priced",
-      "whatChanged": "Much worse",
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
       "whyRise": [
-        "Current expectations appear achievable relative to owner earnings."
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
       ],
       "whatCouldGoWrong": [
-        "The market is not rewarding the business yet.",
-        "Growth or execution is weakening."
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
       ]
     },
     {
@@ -2405,35 +2583,6 @@
       ]
     },
     {
-      "ticker": "NEE",
-      "name": "NEXTERA ENERGY INC",
-      "sector": "Utilities",
-      "price": 89.54,
-      "ownerPE": 27.7,
-      "ownerEPS": 3.23,
-      "ownerEPSSource": "latest annual owner EPS",
-      "forwardPE": 22.7,
-      "forwardEPS": 3.94,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 51,
-      "marketRewardView": 55,
-      "businessQuality": 54,
-      "growthExecution": 48,
-      "marketReward": 60,
-      "shareholderEconomics": 39,
-      "valuation": 57,
-      "dataConfidence": 72,
-      "expectationsGap": "Large positive gap",
-      "whatChanged": "Better",
-      "whyRise": [
-        "No major upside driver is proven by the bundled data."
-      ],
-      "whatCouldGoWrong": [
-        "Shareholder economics show SBC or dilution leakage."
-      ]
-    },
-    {
       "ticker": "AVGO",
       "name": "Broadcom",
       "sector": "Semis",
@@ -2465,36 +2614,6 @@
       ]
     },
     {
-      "ticker": "SHOP",
-      "name": "Shopify",
-      "sector": "E-commerce",
-      "price": 116.47,
-      "ownerPE": 155.3,
-      "ownerEPS": 0.75,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 99.5,
-      "forwardEPS": 1.17,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 50,
-      "marketRewardView": 41,
-      "businessQuality": 66,
-      "growthExecution": 67,
-      "marketReward": 23,
-      "shareholderEconomics": 52,
-      "valuation": 17,
-      "dataConfidence": 89,
-      "expectationsGap": "Large positive gap",
-      "whatChanged": "Worse",
-      "whyRise": [
-        "Growth, margins or FCF/share are improving."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results.",
-        "The market is not rewarding the business yet."
-      ]
-    },
-    {
       "ticker": "RBLX",
       "name": "Roblox",
       "sector": "Gaming",
@@ -2515,7 +2634,7 @@
       "valuation": 26,
       "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
-      "whatChanged": "Worse",
+      "whatChanged": "Much worse",
       "whyRise": [
         "Growth, margins or FCF/share are improving."
       ],
@@ -2546,7 +2665,7 @@
       "valuation": 36,
       "dataConfidence": 50,
       "expectationsGap": "Insufficient data",
-      "whatChanged": "Much better",
+      "whatChanged": "Better",
       "whyRise": [
         "Market reward and relative strength are improving."
       ],
@@ -2585,41 +2704,12 @@
       ]
     },
     {
-      "ticker": "DUK",
-      "name": "Duke Energy CORP",
-      "sector": "Utilities",
-      "price": 126.37,
-      "ownerPE": 20.1,
-      "ownerEPS": 6.3,
-      "ownerEPSSource": "latest annual owner EPS",
-      "forwardPE": 19.4,
-      "forwardEPS": 6.5,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 50,
-      "marketRewardView": 55,
-      "businessQuality": 37,
-      "growthExecution": 51,
-      "marketReward": 63,
-      "shareholderEconomics": 63,
-      "valuation": 51,
-      "dataConfidence": 89,
-      "expectationsGap": "Large positive gap",
-      "whatChanged": "Better",
-      "whyRise": [
-        "No major upside driver is proven by the bundled data."
-      ],
-      "whatCouldGoWrong": [
-        "Main risk is paying too much if expectations reset."
-      ]
-    },
-    {
       "ticker": "MU",
       "name": "Micron Technology",
       "sector": "Semis",
       "price": 948.8,
-      "ownerPE": 21.9,
-      "ownerEPS": 43.29,
+      "ownerPE": 21.7,
+      "ownerEPS": 43.82,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 20.4,
       "forwardEPS": 46.55,
@@ -2678,7 +2768,7 @@
       "sector": "Cybersecurity",
       "price": 188.43,
       "ownerPE": null,
-      "ownerEPS": -0.85,
+      "ownerEPS": -0.3,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 194.3,
       "forwardEPS": 0.97,
@@ -2686,7 +2776,7 @@
       "finalLabel": "Improving business, market noticing",
       "longTermView": 49,
       "marketRewardView": 66,
-      "businessQuality": 59,
+      "businessQuality": 58,
       "growthExecution": 81,
       "marketReward": 78,
       "shareholderEconomics": 9,
@@ -2731,6 +2821,37 @@
       ],
       "whatCouldGoWrong": [
         "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "SNOW",
+      "name": "Snowflake",
+      "sector": "Software",
+      "price": 258.88,
+      "ownerPE": null,
+      "ownerEPS": -7,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 183.6,
+      "forwardEPS": 1.41,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Improving business, market noticing",
+      "longTermView": 49,
+      "marketRewardView": 68,
+      "businessQuality": 53,
+      "growthExecution": 83,
+      "marketReward": 82,
+      "shareholderEconomics": 14,
+      "valuation": 12,
+      "dataConfidence": 100,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving.",
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage."
       ]
     },
     {
@@ -2793,6 +2914,35 @@
       ]
     },
     {
+      "ticker": "DUK",
+      "name": "Duke Energy CORP",
+      "sector": "Utilities",
+      "price": 126.37,
+      "ownerPE": 20.1,
+      "ownerEPS": 6.3,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 19.4,
+      "forwardEPS": 6.5,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 49,
+      "marketRewardView": 55,
+      "businessQuality": 38,
+      "growthExecution": 52,
+      "marketReward": 63,
+      "shareholderEconomics": 54,
+      "valuation": 51,
+      "dataConfidence": 89,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Better",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
       "ticker": "ARM",
       "name": "Arm Holdings",
       "sector": "Semis/IP",
@@ -2823,101 +2973,12 @@
       ]
     },
     {
-      "ticker": "HOOD",
-      "name": "Robinhood",
-      "sector": "Fintech Brokerage",
-      "price": 110.49,
-      "ownerPE": 61,
-      "ownerEPS": 1.81,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 38.5,
-      "forwardEPS": 2.87,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 48,
-      "marketRewardView": 48,
-      "businessQuality": 53,
-      "growthExecution": 50,
-      "marketReward": 47,
-      "shareholderEconomics": 55,
-      "valuation": 32,
-      "dataConfidence": 85,
-      "expectationsGap": "Large positive gap",
-      "whatChanged": "Worse",
-      "whyRise": [
-        "No major upside driver is proven by the bundled data."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results."
-      ]
-    },
-    {
-      "ticker": "SNOW",
-      "name": "Snowflake",
-      "sector": "Software",
-      "price": 258.88,
-      "ownerPE": null,
-      "ownerEPS": -7,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 183.6,
-      "forwardEPS": 1.41,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Improving business, market noticing",
-      "longTermView": 48,
-      "marketRewardView": 67,
-      "businessQuality": 50,
-      "growthExecution": 83,
-      "marketReward": 82,
-      "shareholderEconomics": 14,
-      "valuation": 12,
-      "dataConfidence": 100,
-      "expectationsGap": "Insufficient data",
-      "whatChanged": "Mostly unchanged",
-      "whyRise": [
-        "Market reward and relative strength are improving.",
-        "Growth, margins or FCF/share are improving."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results.",
-        "Shareholder economics show SBC or dilution leakage."
-      ]
-    },
-    {
-      "ticker": "SO",
-      "name": "SOUTHERN CO",
-      "sector": "Utilities",
-      "price": 95.96,
-      "ownerPE": 25.4,
-      "ownerEPS": 3.78,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 24.7,
-      "forwardEPS": 3.89,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 48,
-      "marketRewardView": 55,
-      "businessQuality": 38,
-      "growthExecution": 54,
-      "marketReward": 66,
-      "shareholderEconomics": 63,
-      "valuation": 33,
-      "dataConfidence": 64,
-      "expectationsGap": "Large positive gap",
-      "whatChanged": "Mostly unchanged",
-      "whyRise": [
-        "Market reward and relative strength are improving."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results."
-      ]
-    },
-    {
       "ticker": "TSLA",
       "name": "Tesla",
       "sector": "Auto/AI",
       "price": 394.06,
-      "ownerPE": 985.1,
-      "ownerEPS": 0.4,
+      "ownerPE": 458.2,
+      "ownerEPS": 0.86,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 305.5,
       "forwardEPS": 1.29,
@@ -2942,32 +3003,32 @@
       ]
     },
     {
-      "ticker": "CRWV",
-      "name": "CoreWeave",
-      "sector": "Neocloud",
-      "price": 85.16,
-      "ownerPE": null,
-      "ownerEPS": -3.87,
+      "ticker": "HOOD",
+      "name": "Robinhood",
+      "sector": "Fintech Brokerage",
+      "price": 110.49,
+      "ownerPE": 61,
+      "ownerEPS": 1.81,
       "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 78.1,
-      "forwardEPS": 1.09,
+      "forwardPE": 38.5,
+      "forwardEPS": 2.87,
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
       "longTermView": 47,
-      "marketRewardView": 57,
-      "businessQuality": 44,
-      "growthExecution": 93,
-      "marketReward": 57,
-      "shareholderEconomics": 32,
-      "valuation": 0,
-      "dataConfidence": 89,
-      "expectationsGap": "Insufficient data",
-      "whatChanged": "Mostly unchanged",
+      "marketRewardView": 47,
+      "businessQuality": 53,
+      "growthExecution": 50,
+      "marketReward": 47,
+      "shareholderEconomics": 53,
+      "valuation": 32,
+      "dataConfidence": 85,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Worse",
       "whyRise": [
-        "Growth, margins or FCF/share are improving."
+        "No major upside driver is proven by the bundled data."
       ],
       "whatCouldGoWrong": [
-        "Shareholder economics show SBC or dilution leakage."
+        "Valuation requires strong future results."
       ]
     },
     {
@@ -3020,7 +3081,7 @@
       "valuation": 75,
       "dataConfidence": 89,
       "expectationsGap": "Large positive gap",
-      "whatChanged": "Much worse",
+      "whatChanged": "Worse",
       "whyRise": [
         "Current expectations appear achievable relative to owner earnings."
       ],
@@ -3051,6 +3112,35 @@
       "dataConfidence": 77,
       "expectationsGap": "Fairly priced",
       "whatChanged": "Better",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "SO",
+      "name": "SOUTHERN CO",
+      "sector": "Utilities",
+      "price": 95.96,
+      "ownerPE": 25,
+      "ownerEPS": 3.84,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 24.7,
+      "forwardEPS": 3.89,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 46,
+      "marketRewardView": 55,
+      "businessQuality": 38,
+      "growthExecution": 54,
+      "marketReward": 66,
+      "shareholderEconomics": 52,
+      "valuation": 34,
+      "dataConfidence": 64,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Mostly unchanged",
       "whyRise": [
         "Market reward and relative strength are improving."
       ],
@@ -3094,22 +3184,22 @@
       "sector": "Software",
       "price": 264.43,
       "ownerPE": null,
-      "ownerEPS": -1.23,
+      "ownerEPS": -0.56,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 1322.1,
       "forwardEPS": 0.2,
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
-      "longTermView": 45,
-      "marketRewardView": 58,
-      "businessQuality": 53,
+      "longTermView": 44,
+      "marketRewardView": 57,
+      "businessQuality": 49,
       "growthExecution": 74,
       "marketReward": 66,
       "shareholderEconomics": 10,
       "valuation": 11,
       "dataConfidence": 100,
       "expectationsGap": "Insufficient data",
-      "whatChanged": "Better",
+      "whatChanged": "Worse",
       "whyRise": [
         "Market reward and relative strength are improving.",
         "Growth, margins or FCF/share are improving."
@@ -3132,8 +3222,8 @@
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
       "longTermView": 43,
-      "marketRewardView": 52,
-      "businessQuality": 57,
+      "marketRewardView": 51,
+      "businessQuality": 55,
       "growthExecution": 67,
       "marketReward": 54,
       "shareholderEconomics": 4,
@@ -3150,61 +3240,62 @@
       ]
     },
     {
-      "ticker": "NBIS",
-      "name": "Nebius Group N.V.",
-      "sector": "Comm Services",
-      "price": 216.48,
-      "ownerPE": 91,
-      "ownerEPS": 2.38,
+      "ticker": "CRWV",
+      "name": "CoreWeave",
+      "sector": "Neocloud",
+      "price": 85.16,
+      "ownerPE": null,
+      "ownerEPS": -3.3,
       "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 59.5,
-      "forwardEPS": 3.64,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Weak business, strong speculation",
-      "longTermView": 43,
-      "marketRewardView": 57,
-      "businessQuality": 32,
-      "growthExecution": 55,
-      "marketReward": 77,
-      "shareholderEconomics": 71,
-      "valuation": 7,
-      "dataConfidence": 89,
-      "expectationsGap": "Extreme expectations risk",
-      "whatChanged": "Mostly unchanged",
-      "whyRise": [
-        "Market reward and relative strength are improving."
-      ],
-      "whatCouldGoWrong": [
-        "Valuation requires strong future results."
-      ]
-    },
-    {
-      "ticker": "ORCL",
-      "name": "Oracle",
-      "sector": "Software",
-      "price": 138.16,
-      "ownerPE": 25.4,
-      "ownerEPS": 5.45,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 20.6,
-      "forwardEPS": 6.7,
+      "forwardPE": 78.1,
+      "forwardEPS": 1.09,
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
       "longTermView": 42,
-      "marketRewardView": 45,
-      "businessQuality": 26,
-      "growthExecution": 47,
-      "marketReward": 48,
+      "marketRewardView": 55,
+      "businessQuality": 37,
+      "growthExecution": 93,
+      "marketReward": 57,
+      "shareholderEconomics": 13,
+      "valuation": 0,
+      "dataConfidence": 89,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Shareholder economics show SBC or dilution leakage."
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "name": "NIKE, Inc.",
+      "sector": "Apparel",
+      "price": 42.86,
+      "ownerPE": 30.6,
+      "ownerEPS": 1.4,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 20.8,
+      "forwardEPS": 2.06,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 42,
+      "marketRewardView": 30,
+      "businessQuality": 48,
+      "growthExecution": 29,
+      "marketReward": 17,
       "shareholderEconomics": 63,
-      "valuation": 41,
+      "valuation": 48,
       "dataConfidence": 100,
-      "expectationsGap": "Moderate positive gap",
-      "whatChanged": "Better",
+      "expectationsGap": "Moderate expectations risk",
+      "whatChanged": "Much worse",
       "whyRise": [
         "No major upside driver is proven by the bundled data."
       ],
       "whatCouldGoWrong": [
-        "Valuation requires strong future results."
+        "The market is not rewarding the business yet.",
+        "Growth or execution is weakening."
       ]
     },
     {
@@ -3236,6 +3327,64 @@
         "Valuation requires strong future results.",
         "The market is not rewarding the business yet.",
         "Growth or execution is weakening."
+      ]
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle",
+      "sector": "Software",
+      "price": 138.16,
+      "ownerPE": 25.4,
+      "ownerEPS": 5.45,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 20.6,
+      "forwardEPS": 6.7,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 41,
+      "marketRewardView": 44,
+      "businessQuality": 26,
+      "growthExecution": 47,
+      "marketReward": 48,
+      "shareholderEconomics": 59,
+      "valuation": 41,
+      "dataConfidence": 100,
+      "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "NBIS",
+      "name": "Nebius Group N.V.",
+      "sector": "Comm Services",
+      "price": 216.48,
+      "ownerPE": 85.2,
+      "ownerEPS": 2.54,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 59.5,
+      "forwardEPS": 3.64,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Weak business, strong speculation",
+      "longTermView": 41,
+      "marketRewardView": 56,
+      "businessQuality": 28,
+      "growthExecution": 55,
+      "marketReward": 77,
+      "shareholderEconomics": 62,
+      "valuation": 7,
+      "dataConfidence": 89,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Mostly unchanged",
+      "whyRise": [
+        "Market reward and relative strength are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Valuation requires strong future results."
       ]
     },
     {
@@ -3410,11 +3559,11 @@
       "businessQuality": 44,
       "growthExecution": 49,
       "marketReward": 16,
-      "shareholderEconomics": 30,
+      "shareholderEconomics": 27,
       "valuation": 23,
       "dataConfidence": 85,
       "expectationsGap": "Large positive gap",
-      "whatChanged": "Much worse",
+      "whatChanged": "Mostly unchanged",
       "whyRise": [
         "No major upside driver is proven by the bundled data."
       ],
@@ -3468,15 +3617,15 @@
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
       "longTermView": 34,
-      "marketRewardView": 43,
-      "businessQuality": 37,
-      "growthExecution": 45,
+      "marketRewardView": 44,
+      "businessQuality": 39,
+      "growthExecution": 54,
       "marketReward": 52,
-      "shareholderEconomics": 36,
+      "shareholderEconomics": 19,
       "valuation": 6,
       "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
-      "whatChanged": "Mostly unchanged",
+      "whatChanged": "Worse",
       "whyRise": [
         "No major upside driver is proven by the bundled data."
       ],
@@ -3490,20 +3639,20 @@
       "name": "Synopsys",
       "sector": "EDA Software",
       "price": 428.93,
-      "ownerPE": 2680.8,
-      "ownerEPS": 0.16,
+      "ownerPE": 157.1,
+      "ownerEPS": 2.73,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 69.2,
       "forwardEPS": 6.2,
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
-      "longTermView": 31,
+      "longTermView": 33,
       "marketRewardView": 28,
       "businessQuality": 33,
       "growthExecution": 50,
       "marketReward": 16,
       "shareholderEconomics": 33,
-      "valuation": 12,
+      "valuation": 18,
       "dataConfidence": 100,
       "expectationsGap": "Extreme expectations risk",
       "whatChanged": "Much worse",
@@ -3553,18 +3702,18 @@
       "sector": "Semis",
       "price": 106.04,
       "ownerPE": null,
-      "ownerEPS": -0.98,
+      "ownerEPS": -0.74,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 441.8,
       "forwardEPS": 0.24,
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
-      "longTermView": 30,
-      "marketRewardView": 44,
-      "businessQuality": 25,
+      "longTermView": 27,
+      "marketRewardView": 43,
+      "businessQuality": 16,
       "growthExecution": 27,
       "marketReward": 68,
-      "shareholderEconomics": 49,
+      "shareholderEconomics": 51,
       "valuation": 7,
       "dataConfidence": 89,
       "expectationsGap": "Insufficient data",
@@ -3574,7 +3723,6 @@
       ],
       "whatCouldGoWrong": [
         "Valuation requires strong future results.",
-        "Shareholder economics show SBC or dilution leakage.",
         "Growth or execution is weakening."
       ]
     },
@@ -3583,28 +3731,29 @@
       "name": "BOEING CO",
       "sector": "Aerospace",
       "price": 217.11,
-      "ownerPE": 92,
-      "ownerEPS": 2.36,
+      "ownerPE": 82.2,
+      "ownerEPS": 2.64,
       "ownerEPSSource": "TTM quarterly owner EPS",
       "forwardPE": 86.2,
       "forwardEPS": 2.52,
       "forwardPESource": "Street adjusted EPS proxy",
       "finalLabel": "Mixed evidence",
       "longTermView": 24,
-      "marketRewardView": 20,
+      "marketRewardView": 19,
       "businessQuality": 25,
       "growthExecution": 21,
       "marketReward": 15,
-      "shareholderEconomics": 53,
+      "shareholderEconomics": 47,
       "valuation": 11,
       "dataConfidence": 89,
       "expectationsGap": "Extreme expectations risk",
-      "whatChanged": "Much worse",
+      "whatChanged": "Worse",
       "whyRise": [
         "No major upside driver is proven by the bundled data."
       ],
       "whatCouldGoWrong": [
         "Valuation requires strong future results.",
+        "Shareholder economics show SBC or dilution leakage.",
         "The market is not rewarding the business yet.",
         "Growth or execution is weakening."
       ]

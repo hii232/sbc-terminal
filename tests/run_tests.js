@@ -350,16 +350,27 @@ const ok = (cond, name, detail = "") => {
 
 // =============== 13. Earnings focus calendar ===============
 {
-  ok(E.EARNINGS_FOCUS && E.EARNINGS_FOCUS.rows.length >= 18, "earnings focus week is bundled");
-  const from = new Date("2026-07-13T12:00:00Z"), to = new Date("2026-08-03T12:00:00Z");
+  // Week-agnostic: the bundle is refreshed regularly, so assert structure and
+  // filtering behavior against its own asOf date instead of hardcoded tickers.
+  const rows = E.EARNINGS_FOCUS && E.EARNINGS_FOCUS.rows || [];
+  ok(rows.length >= 10, "earnings focus week is bundled", String(rows.length));
+  ok(/^\d{4}-\d{2}-\d{2}$/.test(E.EARNINGS_FOCUS.asOf), "earnings focus week carries an asOf date");
+  ok(rows.every(e => /^\d{4}-\d{2}-\d{2}$/.test(e.date) && e.symbol && e.name), "bundled focus rows carry date, symbol and name");
+  const asOf = new Date(`${E.EARNINGS_FOCUS.asOf}T12:00:00Z`);
+  const from = new Date(asOf.getTime() - 864e5), to = new Date(asOf.getTime() + 14 * 864e5);
+  ok(rows.every(e => {
+    const d = new Date(`${e.date}T12:00:00Z`);
+    return d >= from && d <= to;
+  }), "bundled focus rows stay within two weeks of their asOf date");
   const all = E.bundledEarningsRows(from, to, false);
   const uni = E.bundledEarningsRows(from, to, true);
-  ok(all.some(e => e.symbol === "ASML" && e.date === "2026-07-15"), "ASML is on the bundled earnings week");
-  ok(all.some(e => e.symbol === "NFLX" && e.date === "2026-07-16"), "NFLX is on the bundled earnings week");
+  ok(all.length === rows.length, "date-window filter keeps the whole bundled week", `${all.length}/${rows.length}`);
+  ok(E.bundledEarningsRows(new Date("2000-01-01T12:00:00Z"), new Date("2000-01-08T12:00:00Z"), false).length === 0, "date-window filter excludes out-of-range rows");
   const coverage = new Set(DATA.map(d => d.ticker));
-  ok(uni.every(e => coverage.has(e.symbol)), "coverage-only earnings rows stay inside official 126-stock universe");
-  const merged = E.mergeEarningsRows([{ symbol: "ASML", date: "2026-07-15", epsEstimate: 7.01, hour: "bmo" }], uni);
-  ok(merged.find(e => e.symbol === "ASML").epsEstimate === 7.01, "live earnings row overrides bundled estimate when available");
+  ok(uni.every(e => coverage.has(e.symbol)), "coverage-only earnings rows stay inside the official universe");
+  const probe = all[0];
+  const merged = E.mergeEarningsRows([{ symbol: probe.symbol, date: probe.date, epsEstimate: 9.99, hour: "bmo" }], all);
+  ok(merged.find(e => e.symbol === probe.symbol && e.date === probe.date).epsEstimate === 9.99, "live earnings row overrides bundled estimate when available");
 }
 
 // =============== 14. Live quote tape ===============

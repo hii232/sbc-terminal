@@ -1,5 +1,13 @@
 # SBC Model Changelog
 
+## Universe + gate maintenance - 2026-07-20
+
+- Universe expanded to exactly 126 official companies (insurers added: PGR, TRV, ALL, HIG, CB). Model versions unchanged.
+- Verification gate made universe-size and calendar-week agnostic: browser smoke reads the count from `data/universe.json`; earnings-calendar tests validate structure and window filtering against `EARNINGS_FOCUS.asOf` instead of hardcoded tickers/dates.
+- Bundled earnings focus week refreshed to July 20-24, 2026 (sources: company IR pages and market calendars; estimates only where published).
+- Score/audit artifacts regenerated for the 126 universe (previous `latest-scores.json` was stale at 121).
+- README/AUDIT counts reconciled to 126.
+
 ## 4.1.1 - 2026-07-12
 
 - Fixed SEC period alignment: runtime matching now uses exact `periodEnd`, not fiscalYear labels.
