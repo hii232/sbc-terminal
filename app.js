@@ -81,30 +81,24 @@
     SPY: { name: "Market", multiple: 2, input: 2, demand: 1, pass: 1, note: "sticky inflation raises discount rates and compresses multiples first." },
   };
   const EARNINGS_FOCUS = {
-    asOf: "2026-07-13",
-    source: "Earnings Whispers most-anticipated week + market-calendar cross-check",
-    note: "July 13-17, 2026 earnings week: banks test credit/NII, ASML/TSM test AI capex, NFLX tests consumer and ads.",
+    asOf: "2026-07-20",
+    source: "Company IR dates + market-calendar cross-check (CNBC / Yahoo / MarketBeat)",
+    note: "July 20-24, 2026 earnings week: GOOGL and TSLA headline Wednesday night (AI monetization + autonomy vs valuation); TXN, NOW, IBM and INTC test the semis / enterprise-AI tape; KO, GM and UNP read on consumer, tariffs and freight.",
     rows: [
-      { date: "2026-07-14", symbol: "JPM", name: "JPMorgan Chase", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-14", symbol: "BAC", name: "Bank of America", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-14", symbol: "C", name: "Citigroup", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-14", symbol: "GS", name: "Goldman Sachs", hour: "bmo", theme: "Capital markets" },
-      { date: "2026-07-14", symbol: "WFC", name: "Wells Fargo", hour: "bmo", theme: "Banks / credit" },
-      { date: "2026-07-15", symbol: "ASML", name: "ASML", hour: "bmo", theme: "AI capex / semi equipment", epsEstimate: 6.88 },
-      { date: "2026-07-15", symbol: "BLK", name: "BlackRock", hour: "bmo", theme: "Asset management" },
-      { date: "2026-07-15", symbol: "JNJ", name: "Johnson & Johnson", hour: "bmo", theme: "Health care" },
-      { date: "2026-07-15", symbol: "MS", name: "Morgan Stanley", hour: "bmo", theme: "Capital markets" },
-      { date: "2026-07-15", symbol: "PGR", name: "Progressive", hour: "bmo", theme: "Insurance" },
-      { date: "2026-07-16", symbol: "TSM", name: "Taiwan Semiconductor", hour: "bmo", theme: "AI semis / foundry" },
-      { date: "2026-07-16", symbol: "UNH", name: "UnitedHealth", hour: "bmo", theme: "Health care / managed care" },
-      { date: "2026-07-16", symbol: "GE", name: "GE Aerospace", hour: "bmo", theme: "Industrials / aerospace" },
-      { date: "2026-07-16", symbol: "NFLX", name: "Netflix", hour: "amc", theme: "Consumer / ads", epsEstimate: 0.79 },
-      { date: "2026-07-16", symbol: "AA", name: "Alcoa", hour: "amc", theme: "Materials / aluminum" },
-      { date: "2026-07-17", symbol: "AXP", name: "American Express", hour: "bmo", theme: "Consumer credit" },
-      { date: "2026-07-17", symbol: "FITB", name: "Fifth Third", hour: "bmo", theme: "Regional banks" },
-      { date: "2026-07-17", symbol: "RF", name: "Regions Financial", hour: "bmo", theme: "Regional banks" },
-      { date: "2026-07-17", symbol: "TRV", name: "Travelers", hour: "bmo", theme: "Insurance" },
-      { date: "2026-07-17", symbol: "ERIC", name: "Ericsson", hour: "bmo", theme: "Telecom equipment" },
+      { date: "2026-07-21", symbol: "GM", name: "General Motors", hour: "bmo", theme: "Autos / tariffs", epsEstimate: 3.17 },
+      { date: "2026-07-21", symbol: "KO", name: "Coca-Cola", theme: "Staples / pricing power" },
+      { date: "2026-07-21", symbol: "PM", name: "Philip Morris", theme: "Staples / smoke-free mix" },
+      { date: "2026-07-21", symbol: "RTX", name: "RTX", theme: "Defense / aerospace" },
+      { date: "2026-07-21", symbol: "MMM", name: "3M", theme: "Industrials / margins" },
+      { date: "2026-07-22", symbol: "T", name: "AT&T", hour: "bmo", theme: "Telecom / subscribers" },
+      { date: "2026-07-22", symbol: "GOOGL", name: "Alphabet", hour: "amc", theme: "AI monetization / ads / cloud" },
+      { date: "2026-07-22", symbol: "TSLA", name: "Tesla", hour: "amc", theme: "Autonomy / EV margins" },
+      { date: "2026-07-22", symbol: "TXN", name: "Texas Instruments", hour: "amc", theme: "Analog semis cycle" },
+      { date: "2026-07-22", symbol: "NOW", name: "ServiceNow", hour: "amc", theme: "Enterprise AI software" },
+      { date: "2026-07-22", symbol: "IBM", name: "IBM", hour: "amc", theme: "Enterprise AI / software" },
+      { date: "2026-07-23", symbol: "UNP", name: "Union Pacific", hour: "bmo", theme: "Freight / economy bellwether" },
+      { date: "2026-07-23", symbol: "INTC", name: "Intel", hour: "amc", theme: "Foundry turnaround", epsEstimate: 0.21 },
+      { date: "2026-07-24", symbol: "VZ", name: "Verizon", hour: "bmo", theme: "Telecom / consumer" },
     ],
   };
   const secByT = (t) => SECTORS.series.find(s => s.t === t);
@@ -3721,7 +3715,7 @@
         </table></div>
       </div>` : "";
       el("calBody").outerHTML = focus + `<div class="card" id="calBody">
-        <h3>YOUR 126-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
+        <h3>YOUR ${uni.size}-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
         <div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
           <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>

@@ -1,9 +1,40 @@
 {
-  "asOf": "2026-07-16T05:17:14.516Z",
+  "asOf": "2026-07-20T04:59:10.186Z",
   "modelVersion": "4.1.0",
-  "count": 121,
+  "count": 126,
   "methodology": "Current snapshot scores. Data Confidence is a separate trust gate and is not additive.",
   "rows": [
+    {
+      "ticker": "PGR",
+      "name": "PROGRESSIVE CORP/OH/",
+      "sector": "Insurance",
+      "price": 207.95,
+      "ownerPE": 10.9,
+      "ownerEPS": 19,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 10.4,
+      "forwardEPS": 19.92,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Great business, market not rewarding it yet",
+      "longTermView": 76,
+      "marketRewardView": 58,
+      "businessQuality": 78,
+      "growthExecution": 69,
+      "marketReward": 34,
+      "shareholderEconomics": 83,
+      "valuation": 97,
+      "dataConfidence": 89,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings.",
+        "Business quality is high."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet."
+      ]
+    },
     {
       "ticker": "ADBE",
       "name": "Adobe",
@@ -58,6 +89,64 @@
       "whatChanged": "Better",
       "whyRise": [
         "Market reward and relative strength are improving.",
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "ALL",
+      "name": "ALLSTATE CORP",
+      "sector": "Insurance",
+      "price": 249.9,
+      "ownerPE": 6.5,
+      "ownerEPS": 38.16,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 5.5,
+      "forwardEPS": 45.21,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 74,
+      "marketRewardView": 64,
+      "businessQuality": 65,
+      "growthExecution": 58,
+      "marketReward": 56,
+      "shareholderEconomics": 96,
+      "valuation": 100,
+      "dataConfidence": 100,
+      "expectationsGap": "Large positive gap",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "CB",
+      "name": "Chubb Ltd",
+      "sector": "Insurance",
+      "price": 352.16,
+      "ownerPE": null,
+      "ownerEPS": null,
+      "ownerEPSSource": null,
+      "forwardPE": 12.5,
+      "forwardEPS": 28.28,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 74,
+      "marketRewardView": 67,
+      "businessQuality": 62,
+      "growthExecution": 57,
+      "marketReward": 63,
+      "shareholderEconomics": 96,
+      "valuation": 100,
+      "dataConfidence": 50,
+      "expectationsGap": "Insufficient data",
+      "whatChanged": "Worse",
+      "whyRise": [
         "Current expectations appear achievable relative to owner earnings."
       ],
       "whatCouldGoWrong": [
@@ -149,6 +238,35 @@
       "whyRise": [
         "Market reward and relative strength are improving.",
         "Growth, margins or FCF/share are improving."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "HIG",
+      "name": "HARTFORD INSURANCE GROUP, INC.",
+      "sector": "Insurance",
+      "price": 140.26,
+      "ownerPE": 10.5,
+      "ownerEPS": 13.35,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 9.9,
+      "forwardEPS": 14.21,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 71,
+      "marketRewardView": 59,
+      "businessQuality": 66,
+      "growthExecution": 50,
+      "marketReward": 50,
+      "shareholderEconomics": 91,
+      "valuation": 98,
+      "dataConfidence": 100,
+      "expectationsGap": "Extreme expectations risk",
+      "whatChanged": "Worse",
+      "whyRise": [
+        "Current expectations appear achievable relative to owner earnings."
       ],
       "whatCouldGoWrong": [
         "Main risk is paying too much if expectations reset."
@@ -269,6 +387,35 @@
       "whyRise": [
         "Market reward and relative strength are improving.",
         "Growth, margins or FCF/share are improving.",
+        "Current expectations appear achievable relative to owner earnings."
+      ],
+      "whatCouldGoWrong": [
+        "Main risk is paying too much if expectations reset."
+      ]
+    },
+    {
+      "ticker": "TRV",
+      "name": "TRAVELERS COMPANIES, INC.",
+      "sector": "Insurance",
+      "price": 368.98,
+      "ownerPE": 13.9,
+      "ownerEPS": 26.47,
+      "ownerEPSSource": "latest annual owner EPS",
+      "forwardPE": 9.9,
+      "forwardEPS": 37.19,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 70,
+      "marketRewardView": 62,
+      "businessQuality": 70,
+      "growthExecution": 47,
+      "marketReward": 59,
+      "shareholderEconomics": 90,
+      "valuation": 88,
+      "dataConfidence": 85,
+      "expectationsGap": "Moderate positive gap",
+      "whatChanged": "Worse",
+      "whyRise": [
         "Current expectations appear achievable relative to owner earnings."
       ],
       "whatCouldGoWrong": [
@@ -2254,36 +2401,6 @@
       ]
     },
     {
-      "ticker": "NKE",
-      "name": "NIKE, Inc.",
-      "sector": "Apparel",
-      "price": 42.86,
-      "ownerPE": 30.6,
-      "ownerEPS": 1.4,
-      "ownerEPSSource": "TTM quarterly owner EPS",
-      "forwardPE": 20.8,
-      "forwardEPS": 2.06,
-      "forwardPESource": "Street adjusted EPS proxy",
-      "finalLabel": "Mixed evidence",
-      "longTermView": 51,
-      "marketRewardView": 35,
-      "businessQuality": 55,
-      "growthExecution": 34,
-      "marketReward": 17,
-      "shareholderEconomics": 84,
-      "valuation": 60,
-      "dataConfidence": 100,
-      "expectationsGap": "Fairly priced",
-      "whatChanged": "Much worse",
-      "whyRise": [
-        "Current expectations appear achievable relative to owner earnings."
-      ],
-      "whatCouldGoWrong": [
-        "The market is not rewarding the business yet.",
-        "Growth or execution is weakening."
-      ]
-    },
-    {
       "ticker": "DIS",
       "name": "Walt Disney Co",
       "sector": "Media",
@@ -3205,6 +3322,36 @@
       ],
       "whatCouldGoWrong": [
         "Valuation requires strong future results."
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "name": "NIKE, Inc.",
+      "sector": "Apparel",
+      "price": 42.86,
+      "ownerPE": 30.6,
+      "ownerEPS": 1.4,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "forwardPE": 20.8,
+      "forwardEPS": 2.06,
+      "forwardPESource": "Street adjusted EPS proxy",
+      "finalLabel": "Mixed evidence",
+      "longTermView": 42,
+      "marketRewardView": 30,
+      "businessQuality": 48,
+      "growthExecution": 29,
+      "marketReward": 17,
+      "shareholderEconomics": 63,
+      "valuation": 48,
+      "dataConfidence": 100,
+      "expectationsGap": "Moderate expectations risk",
+      "whatChanged": "Much worse",
+      "whyRise": [
+        "No major upside driver is proven by the bundled data."
+      ],
+      "whatCouldGoWrong": [
+        "The market is not rewarding the business yet.",
+        "Growth or execution is weakening."
       ]
     },
     {

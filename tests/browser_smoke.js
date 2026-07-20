@@ -3,6 +3,7 @@ const http = require("http");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
+const OFFICIAL_COUNT = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "universe.json"), "utf8")).count;
 const TYPES = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -73,9 +74,9 @@ async function main() {
       tickers: DATA.map((d) => d.ticker),
       oldPhrase: document.body.textContent.includes(["Headline P/E", "owner-earnings retention"].join(" ÷ ")),
     }));
-    ok(globals.dataLen === 121, `DATA length ${globals.dataLen}`);
-    ok(globals.universeLen === 121, `UNIVERSE length ${globals.universeLen}`);
-    ok(globals.secCount === 121 && globals.secMetaCompanies === 121, "SEC company count mismatch");
+    ok(globals.dataLen === OFFICIAL_COUNT, `DATA length ${globals.dataLen}`);
+    ok(globals.universeLen === OFFICIAL_COUNT, `UNIVERSE length ${globals.universeLen}`);
+    ok(globals.secCount === OFFICIAL_COUNT && globals.secMetaCompanies === OFFICIAL_COUNT, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0" && globals.model === "4.0.0", "model version missing");
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
@@ -106,7 +107,7 @@ async function main() {
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');
-    await page.waitForFunction(() => document.querySelector("#wlCount")?.textContent.trim().startsWith("1/121"), { timeout: 3000 });
+    await page.waitForFunction((count) => document.querySelector("#wlCount")?.textContent.trim().startsWith(`1/${count}`), OFFICIAL_COUNT, { timeout: 3000 });
 
     const views = [
       ["#dailyBtn", "DAILY REVIEW"],
@@ -119,16 +120,27 @@ async function main() {
       ["#sectorBtn", "SECTOR FLOW"],
       ["#mapBtn", "QUALITY x MARKET MAP"],
       ["#macroBtn", "INFLATION DESK"],
-      ["#calBtn", "THIS WEEK'S MARKET EARNINGS TAPE"],
+      ["#calBtn", "EARNINGS CALENDAR"],
     ];
     for (const [selector, expected] of views) {
       await page.click(selector);
       await page.waitForFunction((txt) => document.querySelector("#main")?.textContent.includes(txt), expected, { timeout: 3000 });
     }
-    await page.waitForFunction(() => {
-      const t = document.querySelector("#main")?.textContent || "";
-      return t.includes("ASML/TSM test AI capex") && t.includes("NFLX") && t.includes("July 13-17, 2026");
-    }, { timeout: 3000 });
+    // Focus tape is time-windowed: it must render exactly when bundled rows fall
+    // inside the next-21-days window, whatever week the bundle currently holds.
+    const cal = await page.evaluate(() => {
+      const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
+      return {
+        focusCount: window.__engines.bundledEarningsRows(today, to, false).length,
+        text: document.querySelector("#main")?.textContent || "",
+      };
+    });
+    if (cal.focusCount > 0) {
+      ok(cal.text.includes("THIS WEEK'S MARKET EARNINGS TAPE"), "focus tape missing despite current bundled rows");
+    } else {
+      ok(!cal.text.includes("THIS WEEK'S MARKET EARNINGS TAPE"), "focus tape shown with no rows in window");
+    }
+    ok(cal.text.includes("EARNINGS CALENDAR"), "universe earnings calendar missing");
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "domcontentloaded" });
@@ -165,7 +177,7 @@ async function main() {
     }
 
     ok(errors.length === 0, `browser console errors:\n${errors.join("\n")}`);
-    console.log("browser smoke OK: official 121-stock universe, core views, mobile, offline reload");
+    console.log(`browser smoke OK: official ${OFFICIAL_COUNT}-stock universe, core views, mobile, offline reload`);
   } finally {
     await context.setOffline(false).catch(() => {});
     await browser.close().catch(() => {});

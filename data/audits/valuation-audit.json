@@ -1,8 +1,8 @@
 {
-  "asOf": "2026-07-16T05:17:14.516Z",
-  "universe": 121,
+  "asOf": "2026-07-20T04:59:10.186Z",
+  "universe": 126,
   "headlinePriceEpsMismatches": 0,
-  "rankedAnnualOwnerEpsBasis": 16,
+  "rankedAnnualOwnerEpsBasis": 19,
   "missingOwnerPE": 0,
   "negativeOwnerEpsNoPE": 12,
   "highOwnerPE": 16,
@@ -121,6 +121,24 @@
       "dataConfidence": 85,
       "rankable": true,
       "flags": []
+    },
+    {
+      "ticker": "ALL",
+      "name": "ALLSTATE CORP",
+      "sector": "Insurance",
+      "price": 249.9,
+      "gaapEPS": 45.21,
+      "headlinePE": 5.5,
+      "impliedHeadlinePE": 5.5,
+      "headlineGap": 0,
+      "ownerEPS": 38.16,
+      "ownerPE": 6.5,
+      "ownerEPSSource": "latest annual owner EPS",
+      "dataConfidence": 100,
+      "rankable": true,
+      "flags": [
+        "annual-owner-eps-basis"
+      ]
     },
     {
       "ticker": "AMAT",
@@ -391,6 +409,22 @@
       "flags": [
         "annual-owner-eps-basis"
       ]
+    },
+    {
+      "ticker": "CB",
+      "name": "Chubb Ltd",
+      "sector": "Insurance",
+      "price": 352.16,
+      "gaapEPS": 28.28,
+      "headlinePE": 12.5,
+      "impliedHeadlinePE": 12.5,
+      "headlineGap": 0,
+      "ownerEPS": null,
+      "ownerPE": null,
+      "ownerEPSSource": null,
+      "dataConfidence": 50,
+      "rankable": false,
+      "flags": []
     },
     {
       "ticker": "CDNS",
@@ -827,6 +861,24 @@
       "dataConfidence": 100,
       "rankable": true,
       "flags": []
+    },
+    {
+      "ticker": "HIG",
+      "name": "HARTFORD INSURANCE GROUP, INC.",
+      "sector": "Insurance",
+      "price": 140.26,
+      "gaapEPS": 14.21,
+      "headlinePE": 9.9,
+      "impliedHeadlinePE": 9.9,
+      "headlineGap": 0,
+      "ownerEPS": 13.35,
+      "ownerPE": 10.5,
+      "ownerEPSSource": "latest annual owner EPS",
+      "dataConfidence": 100,
+      "rankable": true,
+      "flags": [
+        "annual-owner-eps-basis"
+      ]
     },
     {
       "ticker": "HON",
@@ -1529,6 +1581,22 @@
       "flags": []
     },
     {
+      "ticker": "PGR",
+      "name": "PROGRESSIVE CORP/OH/",
+      "sector": "Insurance",
+      "price": 207.95,
+      "gaapEPS": 19.92,
+      "headlinePE": 10.4,
+      "impliedHeadlinePE": 10.4,
+      "headlineGap": 0,
+      "ownerEPS": 19,
+      "ownerPE": 10.9,
+      "ownerEPSSource": "TTM quarterly owner EPS",
+      "dataConfidence": 89,
+      "rankable": true,
+      "flags": []
+    },
+    {
       "ticker": "PLTR",
       "name": "Palantir",
       "sector": "Software/AI",
@@ -1811,6 +1879,24 @@
       "dataConfidence": 100,
       "rankable": true,
       "flags": []
+    },
+    {
+      "ticker": "TRV",
+      "name": "TRAVELERS COMPANIES, INC.",
+      "sector": "Insurance",
+      "price": 368.98,
+      "gaapEPS": 37.19,
+      "headlinePE": 9.9,
+      "impliedHeadlinePE": 9.9,
+      "headlineGap": 0,
+      "ownerEPS": 26.47,
+      "ownerPE": 13.9,
+      "ownerEPSSource": "latest annual owner EPS",
+      "dataConfidence": 85,
+      "rankable": true,
+      "flags": [
+        "annual-owner-eps-basis"
+      ]
     },
     {
       "ticker": "TSLA",
