@@ -1,9 +1,23 @@
 {
   "name": "Walt Disney Co",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 2.46115,
+      "currentYearRevenue": 67653169580.0,
+      "date": "2026-07-20",
+      "nextYearEps": 3.78352,
+      "nextYearRevenue": 84416514199.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "DIS"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "DIS"
 }

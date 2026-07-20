@@ -1,4 +1,8 @@
 {
+  "lastError": {
+    "date": "2026-07-20",
+    "message": "HTTP Error 403: Forbidden"
+  },
   "name": "Datadog, Inc.",
   "notes": [
     "No estimate snapshots collected yet."

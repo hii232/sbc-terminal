@@ -1,9 +1,23 @@
 {
   "name": "GOLDMAN SACHS GROUP INC",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 20.16086,
+      "currentYearRevenue": 42670163814.0,
+      "date": "2026-07-20",
+      "nextYearEps": 59.88138,
+      "nextYearRevenue": 58531089561.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "GS"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "GS"
 }

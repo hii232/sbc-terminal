@@ -1,9 +1,23 @@
 {
   "name": "VISA INC.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 5.80312,
+      "currentYearRevenue": 24060299531.0,
+      "date": "2026-07-20",
+      "nextYearEps": 7.43247,
+      "nextYearRevenue": 29077529887.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "V"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "V"
 }

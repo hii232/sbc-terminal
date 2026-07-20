@@ -1,9 +1,23 @@
 {
   "name": "JOHNSON & JOHNSON",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 9.83192,
+      "currentYearRevenue": 94449186951.0,
+      "date": "2026-07-20",
+      "nextYearEps": 10.04625,
+      "nextYearRevenue": 95018825749.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "JNJ"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "JNJ"
 }

@@ -1,9 +1,23 @@
 {
   "name": "GENERAL ELECTRIC CO",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 1.26808,
+      "currentYearRevenue": 74824743052.0,
+      "date": "2026-07-20",
+      "nextYearEps": 2.03496,
+      "nextYearRevenue": 74168626100.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "GE"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "GE"
 }

@@ -1,9 +1,23 @@
 {
   "name": "BOEING CO",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": -2.04938,
+      "currentYearRevenue": 64170247469.0,
+      "date": "2026-07-20",
+      "nextYearEps": -8.95304,
+      "nextYearRevenue": 66762368464.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "BA"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "BA"
 }

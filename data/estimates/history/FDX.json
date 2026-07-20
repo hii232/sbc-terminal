@@ -1,9 +1,23 @@
 {
   "name": "FEDEX CORP",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 20.52097,
+      "currentYearRevenue": 93541595402.0,
+      "date": "2026-07-20",
+      "nextYearEps": 14.80205,
+      "nextYearRevenue": 90884469411.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "FDX"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "FDX"
 }

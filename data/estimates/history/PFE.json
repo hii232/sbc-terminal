@@ -1,9 +1,23 @@
 {
   "name": "PFIZER INC",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 4.20822,
+      "currentYearRevenue": 81764526021.0,
+      "date": "2026-07-20",
+      "nextYearEps": 6.50281,
+      "nextYearRevenue": 100342363631.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "PFE"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "PFE"
 }

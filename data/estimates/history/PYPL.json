@@ -1,9 +1,23 @@
 {
   "name": "PayPal Holdings, Inc.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 4.60064,
+      "currentYearRevenue": 25338532839.0,
+      "date": "2026-07-20",
+      "nextYearEps": 4.0847,
+      "nextYearRevenue": 27520186777.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "PYPL"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "PYPL"
 }

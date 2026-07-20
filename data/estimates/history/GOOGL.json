@@ -1,9 +1,23 @@
 {
   "name": "Alphabet Inc.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 5.42868,
+      "currentYearRevenue": 253189995257.0,
+      "date": "2026-07-20",
+      "nextYearEps": 4.71713,
+      "nextYearRevenue": 283349214836.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "GOOGL"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "GOOGL"
 }

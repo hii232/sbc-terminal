@@ -1,9 +1,23 @@
 {
   "name": "JPMORGAN CHASE & CO",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 10.49653,
+      "currentYearRevenue": 115939818336.0,
+      "date": "2026-07-20",
+      "nextYearEps": 7.73157,
+      "nextYearRevenue": 120271998401.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "JPM"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "JPM"
 }

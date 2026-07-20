@@ -1,9 +1,23 @@
 {
   "name": "AbbVie Inc.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 12.67965,
+      "currentYearRevenue": 56234025565.0,
+      "date": "2026-07-20",
+      "nextYearEps": 13.7644,
+      "nextYearRevenue": 58271874634.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "ABBV"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
   "ticker": "ABBV"
 }
