@@ -62,6 +62,15 @@ const ESTIMATE_HISTORY = {
     "source": "not collected yet",
     "ticker": "ADP"
   },
+  "ALL": {
+    "name": "ALLSTATE CORP",
+    "notes": [
+      "No estimate snapshots collected yet."
+    ],
+    "snapshots": [],
+    "source": "not collected yet",
+    "ticker": "ALL"
+  },
   "AMAT": {
     "name": "APPLIED MATERIALS INC /DE",
     "notes": [
@@ -205,6 +214,15 @@ const ESTIMATE_HISTORY = {
     "snapshots": [],
     "source": "not collected yet",
     "ticker": "CAT"
+  },
+  "CB": {
+    "name": "Chubb Ltd",
+    "notes": [
+      "No estimate snapshots collected yet."
+    ],
+    "snapshots": [],
+    "source": "not collected yet",
+    "ticker": "CB"
   },
   "CDNS": {
     "name": "CADENCE DESIGN SYSTEMS INC",
@@ -439,6 +457,15 @@ const ESTIMATE_HISTORY = {
     "snapshots": [],
     "source": "not collected yet",
     "ticker": "HD"
+  },
+  "HIG": {
+    "name": "HARTFORD INSURANCE GROUP, INC.",
+    "notes": [
+      "No estimate snapshots collected yet."
+    ],
+    "snapshots": [],
+    "source": "not collected yet",
+    "ticker": "HIG"
   },
   "HON": {
     "name": "HONEYWELL INTERNATIONAL INC",
@@ -818,6 +845,15 @@ const ESTIMATE_HISTORY = {
     "source": "not collected yet",
     "ticker": "PFE"
   },
+  "PGR": {
+    "name": "PROGRESSIVE CORP/OH/",
+    "notes": [
+      "No estimate snapshots collected yet."
+    ],
+    "snapshots": [],
+    "source": "not collected yet",
+    "ticker": "PGR"
+  },
   "PLTR": {
     "name": "Palantir Technologies Inc.",
     "notes": [
@@ -970,6 +1006,15 @@ const ESTIMATE_HISTORY = {
     "snapshots": [],
     "source": "not collected yet",
     "ticker": "TMO"
+  },
+  "TRV": {
+    "name": "TRAVELERS COMPANIES, INC.",
+    "notes": [
+      "No estimate snapshots collected yet."
+    ],
+    "snapshots": [],
+    "source": "not collected yet",
+    "ticker": "TRV"
   },
   "TSLA": {
     "name": "Tesla, Inc.",

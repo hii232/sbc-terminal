@@ -64,6 +64,7 @@
     "Beverages": "XLP", "Mega Retail": "XLP", "Industrial Gas": "XLB", "Materials": "XLB",
     "REIT": "XLRE", "Utilities": "XLU", "Technology": "XLK", "Financials": "XLF",
     "Health Care": "XLV", "Consumer Disc": "XLY", "Comm Services": "XLC",
+    "Insurance": "XLF",
   };
 
   const n = (v) => v != null && Number.isFinite(+v) ? +v : null;
@@ -80,7 +81,9 @@
     return null;
   };
   const clean = (arr) => (arr || []).filter(v => n(v) != null).map(Number);
-  const pct = (a, b) => a != null && b != null && b !== 0 ? ((a / b) - 1) * 100 : null;
+  // Divide by |b| so a change from a negative base keeps its true direction
+  // (e.g. EPS revised -1.00 -> -0.50 is +50%, not -50%).
+  const pct = (a, b) => a != null && b != null && b !== 0 ? ((a - b) / Math.abs(b)) * 100 : null;
   const div = (a, b) => a != null && b != null && b !== 0 ? a / b : null;
   const cagr = (arr) => {
     const a = clean(arr);
@@ -146,12 +149,7 @@
     for (let i = 1; i < a.length; i++) out.push(pct(a[i], a[i - 1]));
     return out;
   };
-  const annualGrowths = (arr) => {
-    const a = Array.isArray(arr) ? arr : [];
-    const out = [];
-    for (let i = 1; i < a.length; i++) out.push(pct(a[i], a[i - 1]));
-    return out;
-  };
+  const annualGrowths = seqGrowths;
   const fcfPerShareSeries = (d) => (d.qm && d.qm.fcf || []).map((v, i) => {
     const sh = (d.shares || [])[i];
     return v != null && sh ? v / sh : null;
@@ -163,7 +161,9 @@
   const recurringProxy = (d) => /Software|Cloud|Cyber|Payments|Data|Subscription|Streaming|ServiceNow|Adobe|Intuit|Workday|Mongo|Datadog|Cloudflare/i.test(`${d.sector} ${d.name}`);
 
   function estimateRevision(history, field, days) {
-    const snaps = history && Array.isArray(history.snapshots) ? history.snapshots.filter(s => s && s.date && n(s[field]) != null) : [];
+    const snaps = history && Array.isArray(history.snapshots)
+      ? history.snapshots.filter(s => s && s.date && n(s[field]) != null).sort((a, b) => a.date.localeCompare(b.date))
+      : [];
     if (snaps.length < 2) return null;
     const latest = snaps[snaps.length - 1];
     const latestTime = Date.parse(latest.date);
@@ -171,7 +171,9 @@
     for (let i = snaps.length - 2; i >= 0; i--) {
       if ((latestTime - Date.parse(snaps[i].date)) / 864e5 >= days) { prior = snaps[i]; break; }
     }
-    if (!prior) prior = snaps[0];
+    // No snapshot old enough for this horizon -> that horizon is unavailable,
+    // not a rescaled copy of a shorter one.
+    if (!prior) return null;
     const chg = pct(+latest[field], +prior[field]);
     return { latest: +latest[field], prior: +prior[field], pct: chg, days: Math.round((latestTime - Date.parse(prior.date)) / 864e5) };
   }
@@ -199,7 +201,7 @@
     const fcfScore = weighted([
       { k: "FCF margin", weight: 8, score: scoreRange(fcfMargin, -5, Math.max(18, (base.fcfMargin || 10) * 1.8)), why: `FCF margin ${round(fcfMargin, 1)}%` },
       { k: "FCF/share growth", weight: 7, score: scoreRange(cagr(fcfps), -10, 25), why: `FCF/share CAGR ${round(cagr(fcfps), 1)}%` },
-      { k: "Cash conversion", weight: 5, score: scoreRange(div(ocf, Math.abs(ni)), 0.5, 1.5), why: `OCF / net income ${round(div(ocf, Math.abs(ni)), 2)}x` },
+      { k: "Cash conversion", weight: 5, score: ni != null && ni > 0 ? scoreRange(div(ocf, ni), 0.5, 1.5) : null, why: ni != null && ni <= 0 ? "negative net income - conversion ratio not meaningful" : `OCF / net income ${round(div(ocf, ni), 2)}x` },
     ]).score;
     const gross = last(m.gross), opm = last(m.op);
     const compScore = weighted([
@@ -207,30 +209,31 @@
       { k: "Margin stability", weight: 5, score: scoreLower(stdev(m.op), 3, 18), why: `op-margin stdev ${round(stdev(m.op), 1)}pp` },
       { k: "Recurring proxy", weight: 4, score: recurringProxy(d) ? 75 : 50, why: recurringProxy(d) ? "qualitative recurring/repeat revenue proxy" : "no recurring revenue proxy used" },
     ]).score;
-    const revGrowths = annualGrowths(d.revenue);
+    const revGrowths = annualGrowths(d.revenue).filter(v => v != null);
+    const worstGrowth = revGrowths.length ? Math.min(...revGrowths) : null;
     const durScore = weighted([
       { k: "Revenue CAGR", weight: 7, score: scoreRange(cagr(d.revenue), -5, 25), why: `annual revenue CAGR ${round(cagr(d.revenue), 1)}%` },
-      { k: "Growth consistency", weight: 5, score: scoreRange(revGrowths.filter(v => v > 0).length, 0, Math.max(1, revGrowths.length)), why: `${revGrowths.filter(v => v > 0).length}/${revGrowths.length} positive-growth years` },
-      { k: "Decline risk", weight: 3, score: scoreLower(Math.min(...revGrowths.filter(v => v != null)), -5, -35), why: `worst annual growth ${round(Math.min(...revGrowths.filter(v => v != null)), 1)}%` },
+      { k: "Growth consistency", weight: 5, score: revGrowths.length ? scoreRange(revGrowths.filter(v => v > 0).length, 0, revGrowths.length) : null, why: revGrowths.length ? `${revGrowths.filter(v => v > 0).length}/${revGrowths.length} positive-growth years` : "revenue history unavailable" },
+      { k: "Decline risk", weight: 3, score: scoreLower(worstGrowth, -5, -35), why: worstGrowth != null ? `worst annual growth ${round(worstGrowth, 1)}%` : "revenue history unavailable" },
     ]).score;
     const marginScore = weighted([
       { k: "Gross-margin trend", weight: 5, score: scoreRange(slope(m.gross), -8, 8), why: `gross-margin change ${round(slope(m.gross), 1)}pp` },
       { k: "Operating-margin trend", weight: 5, score: scoreRange(slope(m.op), -8, 8), why: `operating-margin change ${round(slope(m.op), 1)}pp` },
       { k: "FCF-margin trend", weight: 5, score: scoreRange(slope(m.fcf), -8, 8), why: `FCF-margin change ${round(slope(m.fcf), 1)}pp` },
     ]).score;
-    const netDebt = n(g.debt) != null || n(g.cash) != null ? (g.debt || 0) - (g.cash || 0) : null;
+    const netDebt = n(g.debt) != null && n(g.cash) != null ? g.debt - g.cash : null;
     const balanceScore = sectorETF(d) === "XLF"
       ? weighted([
         { k: "Equity returns", weight: 8, score: scoreRange(roe, 6, 18), why: `ROE ${round(roe, 1)}%` },
         { k: "Liquidity", weight: 7, score: g.ca && g.cl ? scoreRange(g.ca / g.cl, 0.8, 2.0) : null, why: `current ratio ${round(div(g.ca, g.cl), 2)}x` },
       ]).score
       : weighted([
-        { k: "Net debt / FCF", weight: 8, score: netDebt != null && fcf != null ? scoreLower(netDebt / Math.max(Math.abs(fcf), 0.01), -2, base.netDebtFcf || 4) : null, why: `net debt / FCF ${round(div(netDebt, Math.max(Math.abs(fcf || 0), 0.01)), 1)}x` },
+        { k: "Net debt / FCF", weight: 8, score: netDebt != null && fcf != null ? (fcf > 0 ? scoreLower(netDebt / Math.max(fcf, 0.01), -2, base.netDebtFcf || 4) : netDebt > 0 ? 0 : null) : null, why: fcf != null && fcf <= 0 ? (netDebt != null && netDebt > 0 ? "net debt with negative FCF" : "negative FCF with net cash - not scored") : `net debt / FCF ${round(div(netDebt, Math.max(fcf || 0.01, 0.01)), 1)}x` },
         { k: "Liquidity", weight: 4, score: g.ca && g.cl ? scoreRange(g.ca / g.cl, 0.8, 2.5) : null, why: `current ratio ${round(div(g.ca, g.cl), 2)}x` },
         { k: "Self funding", weight: 3, score: fcf != null ? scoreRange(fcf, -2, 5) : null, why: `FCF ${round(fcf, 2)}B` },
       ]).score;
     return weighted([
-      { k: "Return on capital", weight: 20, score: returnScore, why: sectorETF(d) === "XLF" || sectorETF(d) === "XLRE" ? `ROE ${round(roe, 1)}%` : `ROIC ${round(roic, 1)}%` },
+      { k: "Return on capital", weight: 20, score: returnScore, why: sectorETF(d) === "XLF" || sectorETF(d) === "XLRE" ? `ROE ${round(roe, 1)}%` : `ROIC ${round(roic, 1)}% (21% tax assumed)` },
       { k: "Free-cash-flow strength", weight: 20, score: fcfScore, why: `FCF margin ${round(fcfMargin, 1)}%, FCF/share CAGR ${round(cagr(fcfps), 1)}%` },
       { k: "Competitive strength", weight: 15, score: compScore, why: `gross margin ${round(gross, 1)}%, stability and recurring proxy` },
       { k: "Revenue durability", weight: 15, score: durScore, why: `revenue CAGR ${round(cagr(d.revenue), 1)}%, consistency ${revGrowths.filter(v => v > 0).length}/${revGrowths.length}` },
@@ -250,8 +253,9 @@
       { k: "Operating margin", weight: 5, score: scoreRange(slope(m.op), -6, 8), why: `operating margin change ${round(slope(m.op), 1)}pp` },
       { k: "FCF margin", weight: 5, score: scoreRange(slope(m.fcf), -6, 8), why: `FCF margin change ${round(slope(m.fcf), 1)}pp` },
     ]).score;
+    const ag = annualGrowths(d.revenue).filter(v => v != null);
     const mgmt = weighted([
-      { k: "Positive revenue years", weight: 6, score: scoreRange(annualGrowths(d.revenue).filter(v => v > 0).length, 0, Math.max(1, annualGrowths(d.revenue).length)), why: "execution consistency proxy" },
+      { k: "Positive revenue years", weight: 6, score: ag.length ? scoreRange(ag.filter(v => v > 0).length, 0, ag.length) : null, why: ag.length ? "execution consistency proxy" : "revenue history unavailable" },
       { k: "FCF positive", weight: 5, score: last(d.qm && d.qm.fcf) != null ? (last(d.qm && d.qm.fcf) > 0 ? 75 : 25) : null, why: `latest FCF ${round(last(d.qm && d.qm.fcf), 2)}B` },
       { k: "Capex results", weight: 4, score: scoreRange(cagr(d.revenue), -5, 25), why: "capex results proxy from revenue growth" },
       { k: "Guidance/beat history", weight: 5, score: null, why: "guidance/beat history unavailable until estimate snapshots accumulate" },
@@ -288,7 +292,9 @@
     const ge = growthExecution(d);
     const rs = relativeStrength(d, ctx);
     const sector = secByT(ctx, sectorETF(d)), spy = secByT(ctx, "SPY");
-    const sectorStrength = sector && spy ? scoreRange(retOver(sector, 3) - retOver(spy, 3), -8, 8) : null;
+    const sec3 = retOver(sector, 3), spy3 = retOver(spy, 3);
+    const sectorVsSpy3 = sec3 != null && spy3 != null ? sec3 - spy3 : null;
+    const sectorStrength = scoreRange(sectorVsSpy3, -8, 8);
     const rsScore = weighted([
       { k: "1M", weight: 3, score: scoreRange(rs.oneMonth, -10, 15), why: "" },
       { k: "3M vs sector", weight: 5, score: scoreRange(rs.vsSector3, -12, 12), why: "" },
@@ -303,19 +309,21 @@
       { k: "Guidance direction", weight: 10, score: null, why: "guidance history unavailable until snapshots/news parser accumulate" },
       { k: "Relative strength", weight: 15, score: rsScore, why: `3M vs sector ${round(rs.vsSector3, 1)}pp, vs SPY ${round(rs.vsSpy3, 1)}pp` },
       { k: "Post-earnings reaction", weight: 10, score: null, why: "earnings-day/five-day reaction history not bundled yet" },
-      { k: "Sector strength", weight: 5, score: sectorStrength, why: `sector 3M vs SPY ${round(retOver(sector, 3) - retOver(spy, 3), 1)}pp` },
+      { k: "Sector strength", weight: 5, score: sectorStrength, why: sectorVsSpy3 != null ? `sector 3M vs SPY ${round(sectorVsSpy3, 1)}pp` : "sector series unavailable" },
     ]);
   }
 
   function shareholderEconomics(d) {
     const sbc = last(d.sbc), rev = last(d.revenue), fcf = last(d.qm && d.qm.fcf), shares = clean(d.shares);
     const oneYr = shares.length >= 2 ? pct(shares[shares.length - 1], shares[shares.length - 2]) : null;
-    const fiveYr = shares.length >= 2 ? pct(shares[shares.length - 1], shares[0]) : null;
+    // Multi-year dilution needs a window longer than the one-year part,
+    // otherwise a 2-point history double-counts the same change at 30% weight.
+    const fiveYr = shares.length >= 3 ? pct(shares[shares.length - 1], shares[0]) : null;
     const buyback = last(d.buyback);
     const ownerGrowth = cagr(ownerEpsSeries(d));
     return weighted([
       { k: "SBC burden", weight: 20, score: scoreLower(div(sbc, rev) * 100, 2, 20), why: `SBC/revenue ${round(div(sbc, rev) * 100, 1)}%` },
-      { k: "FCF dilution burden", weight: 20, score: fcf != null && sbc != null ? scoreLower(div(sbc, Math.abs(fcf)) * 100, 5, 80) : null, why: `SBC/FCF ${round(div(sbc, Math.abs(fcf)) * 100, 1)}%` },
+      { k: "FCF dilution burden", weight: 20, score: fcf != null && sbc != null && fcf > 0 ? scoreLower(div(sbc, fcf) * 100, 5, 80) : null, why: fcf != null && fcf <= 0 ? "negative FCF - SBC/FCF ratio not meaningful" : `SBC/FCF ${round(div(sbc, fcf) * 100, 1)}%` },
       { k: "One-year dilution", weight: 15, score: scoreLower(oneYr, -3, 8), why: `1Y share change ${round(oneYr, 1)}%` },
       { k: "Five-year dilution", weight: 15, score: scoreLower(fiveYr, -12, 25), why: `record share change ${round(fiveYr, 1)}%` },
       { k: "Buyback effectiveness", weight: 15, score: buyback != null && sbc != null ? scoreRange(buyback - sbc, -sbc, Math.max(sbc * 2, 0.01)) : null, why: `buybacks less SBC ${round((buyback || 0) - (sbc || 0), 2)}B` },
@@ -335,7 +343,8 @@
     const evAdjFcf = ev != null && adjFcf > 0 ? ev / adjFcf : null;
     const peers = (ctx.data || []).filter(x => x !== d && x.sector === d.sector && x.truePE).map(x => x.truePE).sort((a, b) => a - b);
     const peerMedian = peers.length ? peers[Math.floor(peers.length / 2)] : null;
-    const growth = Math.max(cagr(d.revenue) || 0, cagr(ownerEpsSeries(d)) || 0);
+    const growthCandidates = [cagr(d.revenue), cagr(ownerEpsSeries(d))].filter(v => v != null);
+    const growth = growthCandidates.length ? Math.max(...growthCandidates) : null;
     return weighted([
       { k: "GAAP earnings yield", weight: 10, score: scoreRange(gaapYield, 0, 7), why: `GAAP yield ${round(gaapYield, 1)}%` },
       { k: "FCF yield", weight: 14, score: scoreRange(fcfYield, -2, 8), why: `FCF yield ${round(fcfYield, 1)}%` },
@@ -344,7 +353,7 @@
       { k: "EV/FCF", weight: 12, score: scoreLower(evFcf, 12, 60), why: `EV/FCF ${round(evFcf, 1)}x` },
       { k: "EV/adjusted FCF", weight: 12, score: scoreLower(evAdjFcf, 12, 70), why: `EV/adj FCF ${round(evAdjFcf, 1)}x` },
       { k: "Peer comparison", weight: 10, score: d.truePE && peerMedian ? scoreLower(d.truePE / peerMedian, 0.7, 1.8) : null, why: `owner P/E ${round(d.truePE, 1)}x vs peer median ${round(peerMedian, 1)}x` },
-      { k: "Growth-adjusted valuation", weight: 10, score: d.truePE ? scoreLower(d.truePE / Math.max(growth, 1), 1.2, 5.0) : null, why: `owner P/E / growth ${round(d.truePE / Math.max(growth, 1), 2)}x` },
+      { k: "Growth-adjusted valuation", weight: 10, score: d.truePE && growth != null ? scoreLower(d.truePE / Math.max(growth, 1), 1.2, 5.0) : null, why: growth == null ? "growth history unavailable" : `owner P/E / growth ${round(d.truePE / Math.max(growth, 1), 2)}x` },
     ]);
   }
 
@@ -363,14 +372,17 @@
   function finalLabel(scores) {
     const b = scores.businessQuality.score, g = scores.growthExecution.score, m = scores.marketReward.score;
     const s = scores.shareholderEconomics.score, v = scores.valuation.score;
+    // A null pillar must never satisfy a comparison (null < x is true in JS),
+    // so every branch requires the pillars it reads to be present.
+    const has = (...xs) => xs.every(x => x != null);
     let label = "Mixed evidence", reasons = [];
-    if (b >= 85 && g >= 70 && v >= 55) label = "Elite compounder";
-    else if (b >= 85 && v < 50) label = "Elite business, expensive stock";
-    else if (g >= 70 && m >= 70) label = "Improving business, market noticing";
-    else if (b >= 75 && m < 50) label = "Great business, market not rewarding it yet";
-    else if (b < 45 && m >= 70) label = "Weak business, strong speculation";
-    else if (b >= 70 && s < 45) label = "Shareholder leakage problem";
-    else if (v >= 70 && (g < 45 || b < 50 || m < 45)) label = "Value trap risk";
+    if (has(b, g, v) && b >= 85 && g >= 70 && v >= 55) label = "Elite compounder";
+    else if (has(b, v) && b >= 85 && v < 50) label = "Elite business, expensive stock";
+    else if (has(g, m) && g >= 70 && m >= 70) label = "Improving business, market noticing";
+    else if (has(b, m) && b >= 75 && m < 50) label = "Great business, market not rewarding it yet";
+    else if (has(b, m) && b < 45 && m >= 70) label = "Weak business, strong speculation";
+    else if (has(b, s) && b >= 70 && s < 45) label = "Shareholder leakage problem";
+    else if (has(v) && v >= 70 && ((has(g) && g < 45) || (has(b) && b < 50) || (has(m) && m < 45))) label = "Value trap risk";
     if (b != null) reasons.push(`Business Quality ${b}`);
     if (g != null) reasons.push(`Growth and Execution ${g}`);
     if (m != null) reasons.push(`Market Reward ${m}`);
@@ -393,7 +405,9 @@
     const consensusFcfMargin = null;
     const terminalRev = revBase;
     const terminalFcf = fcfMargin;
-    const compare = consensusRevGrowth != null ? consensusRevGrowth - requiredOwnerGrowth : terminalRev != null && requiredOwnerGrowth != null ? terminalRev - requiredOwnerGrowth : null;
+    const compare = requiredOwnerGrowth == null ? null
+      : consensusRevGrowth != null ? consensusRevGrowth - requiredOwnerGrowth
+      : terminalRev != null ? terminalRev - requiredOwnerGrowth : null;
     let label = "Insufficient data";
     if (compare != null) {
       if (compare >= 8) label = "Large positive gap";

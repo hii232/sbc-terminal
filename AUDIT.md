@@ -63,6 +63,25 @@ The machine-readable output is in `data/audits/golden-company-audit.json`.
 - Full manual filing review still needs reviewer notes, exact evidence excerpts, and latest four-quarter checks for every audited company.
 - Live options chains, transcripts, and institutional news feeds require paid data sources.
 
+## Open Findings — 2026-07-20 code review (verified, deferred)
+
+Fixed in this review: null retention rendered as "keeps 0¢/$" in verdicts/options/overview; insurers missing from both SECTOR_MAP tables (scored on ROIC/FCF branch); DATA AUDIT tier counters keyed on legacy labels (always showed 0 verified); TTM buyback null-as-zero; estimate-revision sign flip on negative priors; score-engine null-coercion set (empty growth history, net debt, growth-adjusted valuation, expectations gap, final label, sector strength); revision horizons no longer reuse one short baseline; service-worker precache version mismatch (offline was dead on first install); TRV mktCap 0 and 100x shares typo; stale score snapshot.
+
+Still open, in priority order:
+
+1. `rebuildSecAlignedAnnuals` keeps stale short aggregator arrays for fields with zero SEC facts, index-misaligned against the rebuilt `fy` axis (31 names affected, e.g. TSLA/SHOP buyback len 4 vs fy len 10, V shares len 4). Fields need re-indexing by fiscal-year label, and `trueOwnerEarnings`' per-field `lastVal` can still pair values from different fiscal years.
+2. `CRWD` bundle internally inconsistent ~4x: `mktCap` + `qd.shares` (~1.03B shares) vs SEC annual diluted shares (0.251B). Needs a live-source recheck before editing.
+3. `ttm()` sums whatever quarters exist (1-3 nulls silently understate "TTM" revenue/NI/SBC); should require 4 or label the shortfall.
+4. `quoteChangeOf` coerces missing day-change to 0 ("0.00%" instead of missing) and feeds it as neutral momentum.
+5. Market Reward has no minimum-coverage gate (currently ~35% coverage while estimate histories are empty) and Growth acceleration double-counts into both views.
+6. Clean/Middle/High/Tragic bucket still drives watchlist/screener filters, AVOID calls, portfolio allocation and calendar columns despite being spec'd as SBC-X-Ray-only.
+7. charts.js: all-null series render a blank SVG (no "no data" state); `donut(null)` clamps to 0 (call sites now guarded).
+8. tabSBC "Wall St adj" bar duplicates headline P/E (no non-GAAP P/E computed); `sbcPctOCF` never recomputed from SEC arrays.
+9. iOS `apple-touch-icon` is SVG (unsupported) — needs PNG 180/192/512 incl. maskable; no CSP meta.
+10. Dead code to delete: first `renderCalendar`/`refreshAllLive`/`updateLiveDot` declarations (shadowed), `legacyDataQualityOf`, `SEC_FIELD_TO_LOCAL`, `secValueForDisplay`, `RANK_COLS` + dead first body build in `renderRankings`, legacy `renderHome`, no-op ternaries in `scoreVal`/`fmtPct`, unused `gm` in scores.js `whatChanged`.
+
+Needs owner action: set the `FMP_API_KEY` repo secret so estimate histories start accumulating (workflow runs green but writes empty snapshots); merge to main so the repaired data-refresh workflow can push again.
+
 ## Deployment Rule
 
 Do not deploy unless:
