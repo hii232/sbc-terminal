@@ -1,5 +1,11 @@
 # SBC Model Changelog
 
+## Social buzz sentiment timeline - 2026-07-21
+
+- Added a sentiment-over-time line chart to Social Buzz: bullish share of tagged posts bucketed across each stream's real time span (📈 per trending ticker; empty buckets stay null, never a fabricated 50%).
+- Added a day-over-day crowd-mood line persisted in localStorage (one reading per ticker per day; device-local, best-effort).
+- charts.js line() gained optional fixed min/max domain (used to anchor sentiment to 0-100). App shell v54.
+
 ## Social buzz desk - 2026-07-20
 
 - Added the Social Buzz view: Stocktwits public trending tape with crowd size, per-symbol chatter velocity from real post timestamps, and terminal context (bucket + IV15 zone) for universe names. Keyless, honest-failure, sentiment-only.

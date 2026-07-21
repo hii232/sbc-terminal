@@ -383,6 +383,19 @@ const ok = (cond, name, detail = "") => {
   const v = E.buzzVelocity(msgs, now);
   ok(v && v.lastHour === 6 && v.perHour != null && v.perHour > 5, "buzz velocity computes posts/hour from real timestamps", JSON.stringify(v));
   ok(E.buzzVelocity([], now) == null && E.buzzVelocity([{ created_at: new Date(now).toISOString() }], now) == null, "fewer than two posts -> velocity unavailable, not zero");
+
+  // Sentiment timeline: bullish share of tagged posts, bucketed over real time.
+  const bull = (mins, basic) => ({ created_at: new Date(now - mins * 60e3).toISOString(), entities: { sentiment: basic ? { basic } : null } });
+  const stream = [
+    bull(300, "Bullish"), bull(290, "Bullish"), bull(280, "Bearish"), bull(270, "Bullish"),
+    bull(30, "Bearish"), bull(25, "Bearish"), bull(20, "Bullish"), bull(10, "Bearish"), bull(5, null),
+  ];
+  const ser = E.buzzSentimentSeries(stream, 3);
+  ok(ser && ser.labels.length === 3 && ser.tagged === 8 && ser.total === 9, "sentiment series buckets tagged posts over the span", JSON.stringify(ser && { t: ser.tagged, n: ser.total }));
+  ok(ser.bullPct.every(v => v === null || (v >= 0 && v <= 100)), "bullish-share buckets are 0..100 or null (never fabricated)");
+  ok(E.msgSentiment(bull(1, "Bullish")) === 1 && E.msgSentiment(bull(1, "Bearish")) === -1 && E.msgSentiment(bull(1, null)) === 0, "message sentiment classifies Bullish/Bearish/untagged");
+  ok(E.buzzSentimentSeries([bull(5, "Bullish"), bull(4, null)]) === null, "too few tagged posts -> no fabricated timeline");
+  ok(E.buzzOverallBull(stream) != null && E.buzzOverallBull([bull(1, null)]) === null, "overall bullish share needs tagged posts, else unavailable");
 }
 
 // =============== 14. Live quote tape ===============
