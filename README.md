@@ -88,6 +88,10 @@ Current local result: regression tests enforce official 126-stock coverage, gold
 
 GitHub Actions also checks exact universe size, required SEC source files, calculation regressions, browser smoke coverage, the golden audit, and simple secret patterns.
 
+## Social Buzz
+
+The Social Buzz desk shows which tickers the crowd is piling into right now: Stocktwits' public trending list plus per-symbol chatter velocity measured from real post timestamps, cross-referenced with the terminal's own bucket/IV15 context for universe names. No key is required. The terminal deliberately does not scrape X — X/Twitter volume requires their paid API plus a server — and crowd heat is presented as a sentiment input, never a valuation input. If the tape is unreachable, the desk says so instead of inventing numbers.
+
 ## Phone Use
 
 Open the production link on your phone and use Add to Home Screen. Because it is hosted on GitHub Pages, it works on mobile data and does not require the same Wi-Fi as your computer.

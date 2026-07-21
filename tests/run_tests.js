@@ -373,6 +373,18 @@ const ok = (cond, name, detail = "") => {
   ok(merged.find(e => e.symbol === probe.symbol && e.date === probe.date).epsEstimate === 9.99, "live earnings row overrides bundled estimate when available");
 }
 
+// =============== 13b. Social buzz desk ===============
+{
+  const t = E.normalizeTrending({ symbols: [{ symbol: "NVDA", title: "NVIDIA", watchlist_count: 512 }, { symbol: "bad sym!", title: "junk" }, { symbol: "BRK.B", title: "Berkshire" }, null] });
+  ok(t.length === 2 && t[0].symbol === "NVDA" && t[0].watchers === 512, "trending payload normalizes and rejects junk symbols", JSON.stringify(t));
+  ok(E.normalizeTrending(null).length === 0 && E.normalizeTrending({}).length === 0, "missing trending payload -> empty, not fabricated");
+  const now = Date.parse("2026-07-20T12:00:00Z");
+  const msgs = [0, 10, 20, 30, 40, 50].map(m => ({ created_at: new Date(now - m * 60e3).toISOString() }));
+  const v = E.buzzVelocity(msgs, now);
+  ok(v && v.lastHour === 6 && v.perHour != null && v.perHour > 5, "buzz velocity computes posts/hour from real timestamps", JSON.stringify(v));
+  ok(E.buzzVelocity([], now) == null && E.buzzVelocity([{ created_at: new Date(now).toISOString() }], now) == null, "fewer than two posts -> velocity unavailable, not zero");
+}
+
 // =============== 14. Live quote tape ===============
 {
   ok(E.isMarketHours(new Date("2026-07-13T14:00:00Z")) === true, "market-hours detector true during regular session");

@@ -1,12 +1,12 @@
 {
- "asOf": "2026-07-20",
+ "asOf": "2026-07-21",
  "modelVersion": "4.0.0",
  "method": "expanded SEC-XBRL vs terminal reconciliation",
  "reviewer": "automated SEC audit gate",
  "companies": {
   "AAPL": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -216,7 +216,7 @@
   },
   "MSFT": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -426,7 +426,7 @@
   },
   "GOOGL": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -610,7 +610,7 @@
   },
   "META": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -807,7 +807,7 @@
   },
   "NVDA": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1017,8 +1017,8 @@
   },
   "PLTR": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
-   "pass": true,
+   "reviewDate": "2026-07-21",
+   "pass": false,
    "latestAnnualReport": {
     "status": "reported",
     "form": "10-K",
@@ -1103,10 +1103,10 @@
     "buyback": {
      "label": "Share repurchases",
      "severity": "core",
-     "status": "verified",
+     "status": "CONFLICT",
      "secB": 0.075,
-     "terminalB": 0.075,
-     "diffPct": 0.02,
+     "terminalB": 0.07,
+     "diffPct": 6.65,
      "evidence": {
       "form": "10-K",
       "filed": "2026-02-17",
@@ -1214,7 +1214,7 @@
   },
   "CRM": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1424,8 +1424,8 @@
   },
   "CRWD": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
-   "pass": true,
+   "reviewDate": "2026-07-21",
+   "pass": false,
    "latestAnnualReport": {
     "status": "reported",
     "form": "10-K",
@@ -1531,10 +1531,10 @@
     "dilShares": {
      "label": "Diluted weighted-average shares",
      "severity": "core",
-     "status": "verified",
+     "status": "CONFLICT",
      "secB": 0.251,
-     "terminalB": 0.251,
-     "diffPct": 0.17,
+     "terminalB": 1.002,
+     "diffPct": 299.88,
      "evidence": {
       "form": "10-K",
       "filed": "2026-03-05",
@@ -1621,7 +1621,7 @@
   },
   "SNOW": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1831,7 +1831,7 @@
   },
   "UBER": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -2041,7 +2041,7 @@
   },
   "COIN": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -2238,7 +2238,7 @@
   },
   "CRWV": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-07-20",
+   "reviewDate": "2026-07-21",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -2422,9 +2422,9 @@
   }
  },
  "summary": {
-  "verifiedFields": 83,
-  "conflictFields": 0,
-  "coreConflictFields": 0,
-  "pass": true
+  "verifiedFields": 81,
+  "conflictFields": 2,
+  "coreConflictFields": 2,
+  "pass": false
  }
 }
