@@ -5265,20 +5265,43 @@
     return true;
   }
 
-  async function fetchFmpQuoteBatch(tickers) {
-    if (!state.keys.fmp || !tickers.length) return 0;
-    const symbols = tickers.join(",");
-    const rows = await fetchJsonWithRetry(`https://financialmodelingprep.com/api/v3/quote/${symbols}?apikey=${state.keys.fmp}`, {
-      provider: "FMP quote batch", ticker: "UNIVERSE", cacheMs: 15 * 1000
-    });
+  function applyFmpRows(rows) {
     if (!Array.isArray(rows)) return 0;
     let ok = 0;
     rows.forEach(q => {
       const tk = q.symbol || q.ticker;
-      const ch = q.changesPercentage ?? q.changePercentage ?? q.changePercent;
-      if (applyLiveQuote(tk, q.price, ch, "FMP batch")) ok++;
+      const ch = q.changesPercentage ?? q.changePercentage ?? q.changePercent ?? q.change_percent;
+      if (applyLiveQuote(tk, q.price, ch, "FMP")) ok++;
     });
     return ok;
+  }
+  // FMP migrated to the /stable/ API; keys issued now often can't hit the legacy
+  // /api/v3/ endpoints (they 403). Try stable first, fall back to legacy, and —
+  // crucially — surface the failure instead of silently leaving prices stale.
+  async function fetchFmpQuoteBatch(tickers) {
+    if (!state.keys.fmp || !tickers.length) return 0;
+    const key = encodeURIComponent(state.keys.fmp);
+    const endpoints = [
+      (csv) => `https://financialmodelingprep.com/stable/batch-quote?symbols=${csv}&apikey=${key}`,
+      (csv) => `https://financialmodelingprep.com/api/v3/quote/${csv}?apikey=${key}`,
+    ];
+    let lastErr = null;
+    for (const build of endpoints) {
+      try {
+        let ok = 0;
+        for (let i = 0; i < tickers.length; i += 50) {
+          const csv = tickers.slice(i, i + 50).join(",");
+          const rows = await fetchJsonWithRetry(build(csv), { provider: "FMP quotes", ticker: "UNIVERSE", cacheMs: 15 * 1000, retries: 0, timeoutMs: 9000 });
+          ok += applyFmpRows(rows);
+        }
+        if (ok > 0) return ok;
+        lastErr = new Error("FMP returned no usable rows (key tier may not cover quotes)");
+      } catch (e) { lastErr = e; }
+    }
+    state.liveStatus = { ...state.liveStatus, lastError: lastErr ? String(lastErr.message || lastErr) : "FMP unavailable" };
+    flash(`FMP live quotes failed: ${state.liveStatus.lastError}. Falling back to free feed.`, "err");
+    // Last resort: the keyless Yahoo path so the board still freshens.
+    return fetchYahooQuoteBatch(tickers.slice(0, 40));
   }
 
   async function fetchYahooQuote(tk) {
@@ -5662,7 +5685,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=55").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=56").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
