@@ -5299,19 +5299,36 @@
       } catch (e) { lastErr = e; }
     }
     state.liveStatus = { ...state.liveStatus, lastError: lastErr ? String(lastErr.message || lastErr) : "FMP unavailable" };
-    flash(`FMP live quotes failed: ${state.liveStatus.lastError}. Falling back to free feed.`, "err");
-    // Last resort: the keyless Yahoo path so the board still freshens.
-    return fetchYahooQuoteBatch(tickers.slice(0, 40));
+    // Stop using this FMP key for the rest of the session (its tier won't serve
+    // quotes) — future cycles skip straight to the free feed, no repeated 403s.
+    state.fmpBlocked = true;
+    flash(`FMP quotes unavailable on this key (${state.liveStatus.lastError}). Using the free feed instead — no key needed.`, "err");
+    return fetchYahooQuoteBatch(tickers.slice(0, 48));
   }
 
+  // Yahoo's chart endpoint is keyless but its CORS behaviour varies by network,
+  // so — like Social Buzz — escalate through relays instead of depending on one.
+  async function fetchYahooChartJson(tk) {
+    const path = `query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(tk)}?range=1d&interval=1m&includePrePost=true`;
+    const direct = `https://${path}`;
+    const relays = [
+      direct,
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(direct)}`,
+      `https://corsproxy.io/?url=${encodeURIComponent(direct)}`,
+    ];
+    for (const url of relays) {
+      try {
+        const j = await fetchJsonWithRetry(url, { provider: "Yahoo chart", ticker: tk, cacheMs: 10 * 1000, retries: 0, timeoutMs: 7000 });
+        if (j && j.chart) return j;
+      } catch { /* try next relay */ }
+    }
+    const txt = await fetchTextWithRetry(`https://r.jina.ai/http://${path}`, { provider: "Yahoo chart via Jina", ticker: tk, cacheMs: 10 * 1000, timeoutMs: 9000, retries: 0 });
+    const s = txt.indexOf('{"chart"'), e = txt.lastIndexOf("}");
+    if (s < 0 || e <= s) throw new Error("Yahoo chart unreachable");
+    return JSON.parse(txt.slice(s, e + 1));
+  }
   async function fetchYahooQuote(tk) {
-    const target = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(tk)}?range=1d&interval=1m&includePrePost=true`;
-    const url = `https://r.jina.ai/http://${target}`;
-    const txt = await fetchTextWithRetry(url, { provider: "Jina/Yahoo chart quote", ticker: tk, cacheMs: 10 * 1000, timeoutMs: 6500, retries: 1 });
-    const start = txt.indexOf("{\"chart\"");
-    const end = txt.lastIndexOf("}");
-    if (start < 0 || end <= start) throw new Error("Yahoo chart JSON not found");
-    const j = JSON.parse(txt.slice(start, end + 1));
+    const j = await fetchYahooChartJson(tk);
     const r = j?.chart?.result?.[0];
     const m = r?.meta || {};
     const q = r?.indicators?.quote?.[0] || {};
@@ -5412,21 +5429,6 @@
     return null;
   }
 
-  function refreshAllLive() {
-    if (!state.keys.finnhub && !state.keys.fmp) return;
-    // Full official Core universe, quotes only, sequential with progress;
-    // one failure never stops the rest.
-    const all = DATA.slice();
-    let done = 0, fails = 0;
-    flash(`Prices updated: 0 / ${all.length}…`, "ok");
-    all.forEach((d, i) => setTimeout(async () => {
-      try { await fetchLive(d.ticker, false); } catch (e) { fails++; }
-      done++;
-      if (done % 5 === 0 || done === all.length)
-        flash(`Prices updated: ${done - fails} / ${all.length}${fails ? ` · ${fails} failed` : ""}${done === all.length ? " · done" : "…"}`, "ok");
-    }, i * 1100));
-  }
-
   function updateLiveDot() {
     const on = !!(state.keys.finnhub || state.keys.fmp);
     el("liveDot").classList.toggle("on", on);
@@ -5458,7 +5460,7 @@
     allCompanies()
       .filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap)
-      .slice(0, 30)
+      .slice(0, 48)
       .forEach(d => add(d.ticker));
     return out;
   }
@@ -5483,13 +5485,17 @@
       [...allCompanies()].sort((a, b) => (b.mktCap || 0) - (a.mktCap || 0)).forEach(d => add(d.ticker));
       return out;
     };
-    const all = state.keys.finnhub || state.keys.fmp ? prioritized() : noKeyQuoteTickers();
-    let ok = 0, fails = 0, source = state.keys.fmp ? "FMP batch" : state.keys.finnhub ? "Finnhub rotation" : "Yahoo";
+    // FMP that already 403'd this session is skipped so we don't burn every
+    // cycle on a key its tier won't honour — go straight to the free feed.
+    const useFmp = state.keys.fmp && !state.fmpBlocked;
+    const useFinnhub = !useFmp && state.keys.finnhub;
+    const all = (useFmp || useFinnhub) ? prioritized() : noKeyQuoteTickers();
+    let ok = 0, fails = 0, source = useFmp ? "FMP batch" : useFinnhub ? "Finnhub rotation" : "Yahoo (free)";
     if (!silent) flash("Live prices updating...", "ok");
     try {
-      if (state.keys.fmp) {
+      if (useFmp) {
         ok = await fetchFmpQuoteBatch(all);
-      } else if (state.keys.finnhub) {
+      } else if (useFinnhub) {
         for (const tk of all) {
           try { await fetchLive(tk, false); if (state.live[tk]?.quote) ok++; }
           catch (e) { fails++; }
@@ -5502,7 +5508,7 @@
       if (state.active && state.live[state.active]?.quote) render();
       renderWatchlist();
       updateLiveDot();
-      if (!silent) flash(`Live prices updated: ${ok}/${state.keys.finnhub || state.keys.fmp ? allCompanies().length : all.length}${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
+      if (!silent) flash(`Live prices updated: ${ok}/${all.length} via ${source}${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
       return ok;
     } finally {
       state.quoteRefreshing = false;
@@ -5685,7 +5691,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=56").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=57").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
