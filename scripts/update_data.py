@@ -304,7 +304,11 @@ def main():
                         for y in years]
             rev = series("annualTotalRevenue"); ni = series("annualNetIncome")
             sbc = series("annualStockBasedCompensation")
-            bb = series("annualRepurchaseOfCapitalStock", absval=True)  # missing stays null, not 0
+            # A company with no repurchase line ran no buyback that year — that is a
+            # known economic zero, not a missing fact, so absent buyback defaults to 0.
+            # Real repurchases are then overwritten by SEC facts in the override pass
+            # below, so this never fabricates a wrong non-zero number.
+            bb = series("annualRepurchaseOfCapitalStock", absval=True, fill=0.0)
             sh = series("annualDilutedAverageShares"); ocf = series("annualOperatingCashFlow")
             sec = sec_annual_overrides(tk)
             def secmerge(local, vals):
