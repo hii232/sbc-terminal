@@ -1,5 +1,10 @@
 # SBC Model Changelog
 
+## Social buzz desk - 2026-07-20
+
+- Added the Social Buzz view: Stocktwits public trending tape with crowd size, per-symbol chatter velocity from real post timestamps, and terminal context (bucket + IV15 zone) for universe names. Keyless, honest-failure, sentiment-only.
+- App shell bumped to v51.
+
 ## Universe + gate maintenance - 2026-07-20
 
 - Universe expanded to exactly 126 official companies (insurers added: PGR, TRV, ALL, HIG, CB). Model versions unchanged.

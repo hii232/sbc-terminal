@@ -3745,6 +3745,81 @@
   const showCalendar = () => showView("calendar", renderCalendar, "calBtn");
 
   /* ============================================================================
+     🗣 SOCIAL BUZZ — the crowd tape.
+     Which tickers the market is piling into right now, and how fast the chatter
+     is moving. Source is the Stocktwits public trending/stream API (finance-
+     native, keyless). This terminal does not scrape X: X volume data requires
+     their paid API plus a server, so it is labeled out of scope, not faked.
+     ============================================================================ */
+  const BUZZ_TRENDING_URL = "https://api.stocktwits.com/api/2/trending/symbols.json";
+  const buzzStreamUrl = (sym) => `https://api.stocktwits.com/api/2/streams/symbol/${encodeURIComponent(sym)}.json`;
+  function normalizeTrending(j) {
+    const rows = j && Array.isArray(j.symbols) ? j.symbols : [];
+    return rows
+      .filter(s => s && typeof s.symbol === "string" && /^[A-Z][A-Z.]{0,5}$/.test(s.symbol))
+      .map(s => ({ symbol: s.symbol, title: s.title || "", watchers: hasNum(s.watchlist_count) ? +s.watchlist_count : null }));
+  }
+  function buzzVelocity(messages, nowTs) {
+    const ts = (Array.isArray(messages) ? messages : [])
+      .map(m => Date.parse(m && m.created_at))
+      .filter(t => Number.isFinite(t))
+      .sort((a, b) => a - b);
+    if (ts.length < 2) return null; // one post is not a rate — unavailable, not zero
+    const now = Number.isFinite(nowTs) ? nowTs : Date.now();
+    const lastHour = ts.filter(t => now - t <= 3600e3).length;
+    const spanMin = (ts[ts.length - 1] - ts[0]) / 60e3;
+    const perHour = spanMin > 0 ? +(ts.length / (spanMin / 60)).toFixed(1) : null;
+    return { lastHour, perHour, newest: ts[ts.length - 1], sample: ts.length };
+  }
+  function renderBuzz() {
+    el("main").innerHTML = toolHeader("🗣", "SOCIAL BUZZ", "which tickers the crowd is piling into right now — live public tape, labeled sources")
+      + `<div class="card" id="buzzBody"><div class="sub" style="padding:16px">Loading the trending tape...</div></div>
+      <div class="note" style="margin-top:10px">Source: Stocktwits public trending + per-symbol streams (no key required). Velocity is measured from real post timestamps. This is finance-native crowd chatter, not X — X/Twitter counts require their paid API and a server, and this terminal does not scrape. Names outside the official universe appear for awareness only and carry no scores. Crowd heat is a sentiment input, never a valuation input.</div>`;
+    fetchJsonWithRetry(BUZZ_TRENDING_URL, { provider: "Stocktwits trending", ticker: "MARKET", cacheMs: 120e3 })
+      .then((j) => {
+        const rows = normalizeTrending(j).slice(0, 20);
+        if (!rows.length) throw new Error("empty trending payload");
+        const inUni = rows.filter(r => companyOf(r.symbol)).length;
+        const rowHtml = (r, i) => {
+          const d = companyOf(r.symbol);
+          const L = d ? ivLadder(d) : null;
+          return `<tr ${d ? `data-tk="${r.symbol}"` : ""}>
+            <td class="sub">${i + 1}</td>
+            <td><span class="rk-tk">${r.symbol}</span>${r.title && r.title.toUpperCase() !== r.symbol ? ` <span class="unit">${r.title}</span>` : ""}</td>
+            <td class="sub">${r.watchers != null ? r.watchers.toLocaleString() : "–"}</td>
+            <td id="buzzVel-${r.symbol}" class="sub">…</td>
+            ${d
+              ? `<td><span style="color:${BUCKETS[d.bucket].color}">${d.bucket}</span> · <span style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${L ? ZONE[L.zone].label : "no owner-earnings floor"}</span></td>`
+              : `<td class="sub">not in universe — no scores</td>`}
+          </tr>`;
+        };
+        el("buzzBody").innerHTML = `<h3>TRENDING NOW <span class="unit">top ${rows.length} on the tape · ${inUni} in your universe · tap a universe name to open it</span></h3>
+          <div style="overflow-x:auto"><table class="rank">
+            <thead><tr><th>#</th><th>TICKER</th><th>CROWD SIZE</th><th>CHATTER VELOCITY</th><th>TERMINAL CONTEXT</th></tr></thead>
+            <tbody>${rows.map(rowHtml).join("")}</tbody>
+          </table></div>`;
+        el("main").querySelectorAll("tr[data-tk]").forEach(tr => tr.onclick = () => selectTicker(tr.dataset.tk));
+        rows.slice(0, 8).forEach((r) => {
+          fetchJsonWithRetry(buzzStreamUrl(r.symbol), { provider: "Stocktwits stream", ticker: r.symbol, cacheMs: 120e3 })
+            .then((sj) => {
+              const v = buzzVelocity(sj && sj.messages);
+              const cell = document.getElementById(`buzzVel-${r.symbol}`);
+              if (cell) cell.innerHTML = v ? `<b style="color:var(--cyan)">${v.lastHour}</b> posts last hr · ~${v.perHour ?? "?"}/hr pace` : "quiet";
+            })
+            .catch(() => {
+              const cell = document.getElementById(`buzzVel-${r.symbol}`);
+              if (cell) cell.textContent = "n/a";
+            });
+        });
+      })
+      .catch(() => {
+        el("buzzBody").innerHTML = `<h3>TRENDING NOW</h3>
+          <div class="sub" style="padding:16px">Stocktwits tape unreachable from this network right now. Nothing is shown rather than something invented — try again in a minute.</div>`;
+      });
+  }
+  const showBuzz = () => showView("buzz", renderBuzz, "buzzBtn");
+
+  /* ============================================================================
      ⌬ TECH DESK — the whole framework pointed at tech only.
      Tech is where SBC lives: software, semis, internet, payments/fintech.
      ============================================================================ */
@@ -5380,6 +5455,7 @@
     el("mapBtn").onclick = showQualityMap;
     el("portBtn").onclick = showPortfolio;
     el("calBtn").onclick = showCalendar;
+    el("buzzBtn").onclick = showBuzz;
     el("techBtn").onclick = showTech;
     el("optBtn").onclick = showOptions;
     el("macroBtn").onclick = showInflation;
@@ -5412,7 +5488,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=50").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=51").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5422,6 +5498,7 @@
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, directionEdgeOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    normalizeTrending, buzzVelocity,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
     SBC_MODEL_VERSION, FORMULA_VERSION };
