@@ -94,7 +94,7 @@
      "severity": "core",
      "status": "verified",
      "secB": 90.711,
-     "terminalB": 90.71,
+     "terminalB": 90.711,
      "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
@@ -514,7 +514,7 @@
      "severity": "core",
      "status": "verified",
      "secB": 45.709,
-     "terminalB": 45.71,
+     "terminalB": 45.709,
      "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
@@ -698,8 +698,8 @@
      "severity": "core",
      "status": "verified",
      "secB": 26.248,
-     "terminalB": 26.25,
-     "diffPct": 0.01,
+     "terminalB": 26.248,
+     "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
       "filed": "2026-01-29",
@@ -895,8 +895,8 @@
      "severity": "core",
      "status": "verified",
      "secB": 40.086,
-     "terminalB": 40.09,
-     "diffPct": 0.01,
+     "terminalB": 40.086,
+     "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
       "filed": "2026-02-25",
@@ -1018,7 +1018,7 @@
   "PLTR": {
    "reviewer": "automated SEC audit gate",
    "reviewDate": "2026-07-21",
-   "pass": false,
+   "pass": true,
    "latestAnnualReport": {
     "status": "reported",
     "form": "10-K",
@@ -1103,10 +1103,10 @@
     "buyback": {
      "label": "Share repurchases",
      "severity": "core",
-     "status": "CONFLICT",
+     "status": "verified",
      "secB": 0.075,
-     "terminalB": 0.07,
-     "diffPct": 6.65,
+     "terminalB": 0.075,
+     "diffPct": 0.02,
      "evidence": {
       "form": "10-K",
       "filed": "2026-02-17",
@@ -1302,8 +1302,8 @@
      "severity": "core",
      "status": "verified",
      "secB": 12.596,
-     "terminalB": 12.6,
-     "diffPct": 0.03,
+     "terminalB": 12.596,
+     "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
@@ -1425,7 +1425,7 @@
   "CRWD": {
    "reviewer": "automated SEC audit gate",
    "reviewDate": "2026-07-21",
-   "pass": false,
+   "pass": true,
    "latestAnnualReport": {
     "status": "reported",
     "form": "10-K",
@@ -1531,10 +1531,10 @@
     "dilShares": {
      "label": "Diluted weighted-average shares",
      "severity": "core",
-     "status": "CONFLICT",
+     "status": "verified",
      "secB": 0.251,
-     "terminalB": 1.002,
-     "diffPct": 299.88,
+     "terminalB": 0.251,
+     "diffPct": 0.17,
      "evidence": {
       "form": "10-K",
       "filed": "2026-03-05",
@@ -1709,8 +1709,8 @@
      "severity": "core",
      "status": "verified",
      "secB": 0.874,
-     "terminalB": 0.87,
-     "diffPct": 0.4,
+     "terminalB": 0.874,
+     "diffPct": 0.05,
      "evidence": {
       "form": "10-K",
       "filed": "2026-03-20",
@@ -1919,8 +1919,8 @@
      "severity": "core",
      "status": "verified",
      "secB": 6.523,
-     "terminalB": 6.52,
-     "diffPct": 0.05,
+     "terminalB": 6.523,
+     "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
       "filed": "2026-02-13",
@@ -2334,8 +2334,8 @@
      "severity": "core",
      "status": "verified",
      "secB": 0.436,
-     "terminalB": 0.435,
-     "diffPct": 0.23,
+     "terminalB": 0.436,
+     "diffPct": 0.0,
      "evidence": {
       "form": "10-K",
       "filed": "2026-03-02",
@@ -2422,9 +2422,9 @@
   }
  },
  "summary": {
-  "verifiedFields": 81,
-  "conflictFields": 2,
-  "coreConflictFields": 2,
-  "pass": false
+  "verifiedFields": 83,
+  "conflictFields": 0,
+  "coreConflictFields": 0,
+  "pass": true
  }
 }

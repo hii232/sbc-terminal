@@ -187,6 +187,72 @@ def arr(vals, nd=2):
         return s if s not in ("", "-0") else "0"
     return "[" + ",".join(f(v) for v in vals) + "]"
 
+# ── SEC-primary reconciliation ─────────────────────────────────────────
+# Rule: provider (Yahoo) data must never overwrite SEC-backed annual facts.
+# After the Yahoo arrays are written, any fiscal year for which the SEC
+# ingest (data/companies/<TK>.json) carries an annual fact wins.
+SEC_ANNUAL_FIELD_MAP = {"revenue": "revenue", "ni": "netIncome", "sbc": "sbc", "buyback": "buyback", "shares": "dilShares"}
+SEC_ANNUAL_DECIMALS = {"revenue": 2, "ni": 2, "sbc": 3, "buyback": 3, "shares": 3}
+
+def sec_annual_overrides(tk):
+    path = DATA_JS.parent / "data" / "companies" / f"{tk}.json"
+    if not path.exists():
+        return {}
+    try:
+        fields = json.loads(path.read_text(encoding="utf-8")).get("fields", {})
+    except Exception:
+        return {}
+    out = {}
+    for local, sec_key in SEC_ANNUAL_FIELD_MAP.items():
+        rows = fields.get(sec_key)
+        if not isinstance(rows, list):  # {"sourceStatus": "missing", ...} means no SEC fact
+            continue
+        by_year = {}
+        for r in rows:
+            if not isinstance(r, dict):
+                continue
+            end, val = r.get("periodEnd") or "", r.get("value")
+            if len(end) >= 4 and isinstance(val, (int, float)):
+                by_year[end[:4]] = (abs(val) if local == "buyback" else val) / 1e9
+        if by_year:
+            out[local] = by_year
+    return out
+
+def merge_sec_annuals(block, tk):
+    m = re.search(r'fy:\[([^\]]*)\]', block)
+    if not m:
+        return block
+    years = [y.strip().strip('"') for y in m.group(1).split(",") if y.strip()]
+    sec = sec_annual_overrides(tk)
+    if not years or not sec:
+        return block
+    for local, by_year in sec.items():
+        am = re.search(local + r':\[([^\]]*)\]', block)  # annual array precedes qd's copy
+        if not am:
+            continue
+        raw = [v.strip() for v in am.group(1).split(",")] if am.group(1).strip() else []
+        if len(raw) != len(years):
+            continue
+        vals = [None if v == "null" else float(v) for v in raw]
+        merged = [by_year.get(y, v) for y, v in zip(years, vals)]
+        if merged != vals:
+            block = re.sub(local + r':\[[^\]]*\]', local + ":" + arr(merged, SEC_ANNUAL_DECIMALS[local]), block, count=1)
+    return block
+
+def apply_sec_overrides_only():
+    """Offline pass: reconcile data.js annual arrays to SEC facts without
+    touching any provider. Usage: python scripts/update_data.py --sec-only"""
+    src = DATA_JS.read_text(encoding="utf-8")
+    pattern = re.compile(r'co\(\{ ticker:"([A-Z]+)".*?\}\)', re.S)
+    changed = []
+    def sub(m):
+        b2 = merge_sec_annuals(m.group(0), m.group(1))
+        if b2 != m.group(0):
+            changed.append(m.group(1))
+        return b2
+    DATA_JS.write_text(pattern.sub(sub, src), encoding="utf-8")
+    print(f"SEC annual overrides applied to {len(changed)} tickers: {', '.join(changed) or '-'}")
+
 def main():
     only = {t.upper() for t in sys.argv[1:]}
     src = DATA_JS.read_text(encoding="utf-8")
@@ -238,12 +304,18 @@ def main():
                         for y in years]
             rev = series("annualTotalRevenue"); ni = series("annualNetIncome")
             sbc = series("annualStockBasedCompensation")
-            bb = series("annualRepurchaseOfCapitalStock", absval=True, fill=0.0)
+            bb = series("annualRepurchaseOfCapitalStock", absval=True)  # missing stays null, not 0
             sh = series("annualDilutedAverageShares"); ocf = series("annualOperatingCashFlow")
+            sec = sec_annual_overrides(tk)
+            def secmerge(local, vals):
+                o = sec.get(local, {})
+                return [o.get(y, v) for y, v in zip(years, vals)]
+            rev = secmerge("revenue", rev); ni = secmerge("ni", ni); sbc = secmerge("sbc", sbc)
+            bb = secmerge("buyback", bb); sh = secmerge("shares", sh)
             block = re.sub(r"revenue:\[[^\]]*\]", "revenue:" + arr(rev), block)
             block = re.sub(r"ni:\[[^\]]*\]", "ni:" + arr(ni), block)
             block = re.sub(r"sbc:\[[^\]]*\]", "sbc:" + arr(sbc, 3), block)
-            block = re.sub(r"buyback:\[[^\]]*\]", "buyback:" + arr(bb), block)
+            block = re.sub(r"buyback:\[[^\]]*\]", "buyback:" + arr(bb, 3), block)
             block = re.sub(r"shares:\[[^\]]*\]", "shares:" + arr(sh, 3), block)
             fy = "fy:[" + ",".join(f'"{y}"' for y in years) + "],"
             if "fy:[" in block:
@@ -295,5 +367,7 @@ def refresh_options():
 if __name__ == "__main__":
     if "--options" in sys.argv:
         refresh_options()
+    elif "--sec-only" in sys.argv:
+        apply_sec_overrides_only()
     else:
         main()
