@@ -122,6 +122,7 @@ async function main() {
       ["#sectorBtn", "SECTOR FLOW"],
       ["#mapBtn", "QUALITY x MARKET MAP"],
       ["#macroBtn", "INFLATION DESK"],
+      ["#timeMachineBtn", "TIME MACHINE"],
       ["#buzzBtn", "SOCIAL BUZZ"],
       ["#calBtn", "EARNINGS CALENDAR"],  // keep last: the focus-tape check below reads this view
     ];
