@@ -3754,19 +3754,45 @@
   const BUZZ_TRENDING_URL = "https://api.stocktwits.com/api/2/trending/symbols.json";
   const buzzStreamUrl = (sym) => `https://api.stocktwits.com/api/2/streams/symbol/${encodeURIComponent(sym)}.json`;
   // Stocktwits sends no CORS headers for third-party origins, so browser calls
-  // from GitHub Pages fail. Same answer as the Yahoo quote path: try direct,
-  // then fall back to the r.jina.ai text proxy and cut the JSON out of it.
+  // from GitHub Pages fail. Escalating chain: direct fetch -> JSONP (first-party,
+  // no CORS needed) -> two independent CORS relays -> r.jina.ai text extraction.
+  function fetchJsonp(url, timeoutMs = 7000) {
+    return new Promise((resolve, reject) => {
+      const cb = `__stBuzz${Date.now()}_${Math.floor(Math.random() * 1e6)}`;
+      const s = document.createElement("script");
+      const timer = setTimeout(() => { cleanup(); reject(new Error("jsonp timeout")); }, timeoutMs);
+      function cleanup() { clearTimeout(timer); try { delete window[cb]; } catch {} s.remove(); }
+      window[cb] = (data) => { cleanup(); resolve(data); };
+      s.onerror = () => { cleanup(); reject(new Error("jsonp load error")); };
+      s.src = url + (url.includes("?") ? "&" : "?") + "callback=" + cb;
+      document.head.appendChild(s);
+    });
+  }
   async function fetchBuzzJson(target, meta) {
+    const tried = [];
+    try { return await fetchJsonWithRetry(target, { ...meta, retries: 0, timeoutMs: 6000 }); }
+    catch { tried.push("direct"); }
+    try { const j = await fetchJsonp(target); if (j && typeof j === "object") return j; tried.push("jsonp-shape"); }
+    catch { tried.push("jsonp"); }
+    const relays = [
+      { name: "allorigins", wrap: (t) => `https://api.allorigins.win/raw?url=${encodeURIComponent(t)}` },
+      { name: "corsproxy", wrap: (t) => `https://corsproxy.io/?url=${encodeURIComponent(t)}` },
+    ];
+    for (const r of relays) {
+      try { return await fetchJsonWithRetry(r.wrap(target), { ...meta, provider: `${meta.provider} via ${r.name}`, retries: 0, timeoutMs: 8000 }); }
+      catch { tried.push(r.name); }
+    }
     try {
-      return await fetchJsonWithRetry(target, { ...meta, retries: 1 });
-    } catch (e) {
       const txt = await fetchTextWithRetry(`https://r.jina.ai/http://${target.replace(/^https?:\/\//, "")}`,
-        { ...meta, provider: `${meta.provider} via Jina`, timeoutMs: 9500, retries: 1 });
+        { ...meta, provider: `${meta.provider} via Jina`, timeoutMs: 9500, retries: 0 });
       const start = txt.indexOf('{"response"');
       const end = txt.lastIndexOf("}");
-      if (start < 0 || end <= start) throw new Error("buzz JSON not found in proxy response");
-      return JSON.parse(txt.slice(start, end + 1));
-    }
+      if (start >= 0 && end > start) return JSON.parse(txt.slice(start, end + 1));
+      tried.push("jina-parse");
+    } catch { tried.push("jina"); }
+    const err = new Error(`buzz tape unreachable (tried ${tried.join(" → ")})`);
+    err.tried = tried;
+    throw err;
   }
   function normalizeTrending(j) {
     const rows = j && Array.isArray(j.symbols) ? j.symbols : [];
@@ -3789,7 +3815,7 @@
   function renderBuzz() {
     el("main").innerHTML = toolHeader("🗣", "SOCIAL BUZZ", "which tickers the crowd is piling into right now — live public tape, labeled sources")
       + `<div class="card" id="buzzBody"><div class="sub" style="padding:16px">Loading the trending tape...</div></div>
-      <div class="note" style="margin-top:10px">Source: Stocktwits public trending + per-symbol streams (no key required). Velocity is measured from real post timestamps. This is finance-native crowd chatter, not X — X/Twitter counts require their paid API and a server, and this terminal does not scrape. Names outside the official universe appear for awareness only and carry no scores. Crowd heat is a sentiment input, never a valuation input.</div>`;
+      <div class="note" style="margin-top:10px">Source: Stocktwits public trending + per-symbol streams (no key required). Velocity is measured from real post timestamps. This is finance-native crowd chatter, not X — X/Twitter counts require their paid API and a server, and this terminal does not scrape. Names outside the official universe appear for awareness only and carry no scores. Crowd heat is a sentiment input, never a valuation input. · shell v53</div>`;
     fetchBuzzJson(BUZZ_TRENDING_URL, { provider: "Stocktwits trending", ticker: "MARKET", cacheMs: 120e3 })
       .then((j) => {
         const rows = normalizeTrending(j).slice(0, 20);
@@ -3827,9 +3853,12 @@
             });
         });
       })
-      .catch(() => {
+      .catch((e) => {
         el("buzzBody").innerHTML = `<h3>TRENDING NOW</h3>
-          <div class="sub" style="padding:16px">Stocktwits tape unreachable from this network right now. Nothing is shown rather than something invented — try again in a minute.</div>`;
+          <div class="sub" style="padding:16px">Stocktwits tape unreachable right now${e && e.tried ? ` (tried ${e.tried.join(" → ")})` : ""}. Nothing is shown rather than something invented.</div>
+          <div style="padding:0 16px 16px"><button class="navbtn c-cyan" id="buzzRetry">↻ RETRY</button></div>`;
+        const b = el("buzzRetry");
+        if (b) b.onclick = renderBuzz;
       });
   }
   const showBuzz = () => showView("buzz", renderBuzz, "buzzBtn");
@@ -5503,7 +5532,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=52").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=53").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
