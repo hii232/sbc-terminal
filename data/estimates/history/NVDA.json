@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "NVDA"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 0.43252,
+      "currentYearRevenue": 26662163796.0,
+      "date": "2026-07-21",
+      "nextYearEps": 0.32685,
+      "nextYearRevenue": 26952415189.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "NVDA"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "UNH"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 18.84129,
+      "currentYearRevenue": 286743784850.0,
+      "date": "2026-07-21",
+      "nextYearEps": 22.02389,
+      "nextYearRevenue": 323882736766.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "UNH"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "ABBV"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 12.67965,
+      "currentYearRevenue": 56234025565.0,
+      "date": "2026-07-21",
+      "nextYearEps": 13.7644,
+      "nextYearRevenue": 58271874634.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "ABBV"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

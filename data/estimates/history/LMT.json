@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "LMT"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 22.46229,
+      "currentYearRevenue": 67029633451.0,
+      "date": "2026-07-21",
+      "nextYearEps": 23.18174,
+      "nextYearRevenue": 65263787929.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "LMT"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

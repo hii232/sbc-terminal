@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "ADBE"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 12.47427,
+      "currentYearRevenue": 15752629874.0,
+      "date": "2026-07-21",
+      "nextYearEps": 13.62558,
+      "nextYearRevenue": 17609757239.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "ADBE"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

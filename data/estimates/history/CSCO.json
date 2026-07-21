@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "CSCO"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 3.14814,
+      "currentYearRevenue": 49234831843.0,
+      "date": "2026-07-21",
+      "nextYearEps": 3.20535,
+      "nextYearRevenue": 49722469376.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "CSCO"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",
