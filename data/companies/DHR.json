@@ -1,8 +1,8 @@
 {
  "ticker": "DHR",
  "cik": "0000313616",
- "entityName": "Danaher Corporation",
- "retrievedAt": "2026-07-20T17:42:37.025012Z",
+ "entityName": "DANAHER CORPORATION",
+ "retrievedAt": "2026-07-21T12:43:27.960915Z",
  "fields": {
   "buyback": [
    {
@@ -1933,12 +1933,12 @@
     "confidence": 100
    },
    {
-    "value": 707770627,
+    "value": 702986054,
     "unit": "shares",
-    "periodEnd": "2026-04-16",
+    "periodEnd": "2026-07-16",
     "form": "10-Q",
-    "filedDate": "2026-04-21",
-    "accessionNumber": "0000313616-26-000107",
+    "filedDate": "2026-07-21",
+    "accessionNumber": "0000313616-26-000161",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
