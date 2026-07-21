@@ -70,7 +70,7 @@ Fixed in this review: null retention rendered as "keeps 0¢/$" in verdicts/optio
 Still open, in priority order:
 
 1. `rebuildSecAlignedAnnuals` keeps stale short aggregator arrays for fields with zero SEC facts, index-misaligned against the rebuilt `fy` axis (31 names affected, e.g. TSLA/SHOP buyback len 4 vs fy len 10, V shares len 4). Fields need re-indexing by fiscal-year label, and `trueOwnerEarnings`' per-field `lastVal` can still pair values from different fiscal years.
-2. `CRWD` bundle internally inconsistent ~4x: `mktCap` + `qd.shares` (~1.03B shares) vs SEC annual diluted shares (0.251B). Needs a live-source recheck before editing.
+2. `CRWD` share basis: Yahoo reports ~1.0B shares (annual + quarterly + mktCap) while every SEC filing through the FY2026 10-K (filed 2026-03-05) reports ~0.251B diluted. Annual arrays now hold the SEC basis per the SEC-primary rule (enforced mechanically by `update_data.py`'s SEC override pass), but `qd.shares`/`mktCap` remain on Yahoo's basis. If CrowdStrike executed a ~4:1 split after 2026-03-05, Yahoo is split-adjusted and the SEC annual basis must be adjusted (see `ADS_SHARE_DIVISOR` mechanism in `scripts/sec_ingest.py` for the pattern); verify against the latest 10-Q/8-K before touching.
 3. `ttm()` sums whatever quarters exist (1-3 nulls silently understate "TTM" revenue/NI/SBC); should require 4 or label the shortfall.
 4. `quoteChangeOf` coerces missing day-change to 0 ("0.00%" instead of missing) and feeds it as neutral momentum.
 5. Market Reward has no minimum-coverage gate (currently ~35% coverage while estimate histories are empty) and Growth acceleration double-counts into both views.

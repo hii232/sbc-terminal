@@ -24,6 +24,8 @@ jobs:
         run: node scripts/snapshot_scores.js
       - name: Tests must pass before commit
         run: node tests/run_tests.js
+      - name: Golden audit must pass before commit
+        run: python scripts/golden_audit.py
       - name: Commit refreshed data
         run: |
           git config user.name "sbc-terminal-bot"
