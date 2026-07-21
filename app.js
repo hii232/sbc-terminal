@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "58"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "59"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -3975,6 +3975,171 @@
   const showBuzz = () => showView("buzz", renderBuzz, "buzzBtn");
 
   /* ============================================================================
+     📈 TIME MACHINE — tickers moving over time + social sentiment.
+     Everything here is real: 53 weeks of Yahoo weekly closes bundled per name
+     (d.px.v), plus the Stocktwits sentiment stream / day-over-day log. Nothing
+     is synthesized; a name without price history is simply skipped.
+     ============================================================================ */
+  const TM_COLORS = ["#37c6ff", "#26d07c", "#ffb000", "#b48cff", "#ff8a3d", "#ff5b6b"];
+  const TM_WINDOWS = [{ w: 13, label: "3M" }, { w: 26, label: "6M" }, { w: 52, label: "1Y" }];
+  const pxVals = (d) => (d && d.px && Array.isArray(d.px.v)) ? d.px.v.filter(v => Number.isFinite(+v)).map(Number) : null;
+  function pxWindowSlice(d, weeks) {
+    const v = pxVals(d);
+    if (!v || v.length < 3) return null;
+    return v.slice(Math.max(0, v.length - 1 - weeks));
+  }
+  function pxReturn(d, weeks) {
+    const s = pxWindowSlice(d, weeks);
+    if (!s || s.length < 2 || s[0] <= 0) return null;
+    return (s[s.length - 1] / s[0] - 1) * 100;
+  }
+  function pxNormalized(d, weeks) {
+    const s = pxWindowSlice(d, weeks);
+    if (!s || s.length < 2 || s[0] <= 0) return null;
+    return s.map(v => +(((v / s[0]) - 1) * 100).toFixed(2));
+  }
+  function tmDateLabels(weeks, n = 5) {
+    const ref = DATA.find(d => d.px && d.px.to && pxVals(d));
+    if (!ref) return [];
+    const total = pxVals(ref).length;
+    const start = Math.max(0, total - 1 - weeks);
+    const count = total - start;
+    const toParts = ref.px.to.split("-").map(Number);
+    const toMs = Date.UTC(toParts[0], toParts[1] - 1, toParts[2]);
+    const every = Math.max(1, Math.ceil(count / n));
+    const out = [];
+    for (let i = 0; i < count; i++) {
+      const idxFromEnd = count - 1 - i;
+      const dt = new Date(toMs - idxFromEnd * 7 * 864e5);
+      out.push((i % every === 0 || i === count - 1) ? `${dt.getUTCMonth() + 1}/${dt.getUTCDate()}` : "");
+    }
+    return out;
+  }
+  function tmState() {
+    if (!state.tm) {
+      const seedFavs = allCompanies().filter(d => state.favs.has(d.ticker) && pxVals(d)).map(d => d.ticker);
+      const seed = seedFavs.length ? seedFavs.slice(0, 5)
+        : DATA.map(d => ({ d, r: pxReturn(d, 26) })).filter(x => x.r != null)
+            .sort((a, b) => b.r - a.r).slice(0, 4).map(x => x.d.ticker);
+      state.tm = { tickers: seed, window: 26, focus: seed[0] || null };
+    }
+    return state.tm;
+  }
+  function renderTimeMachine() {
+    const S = tmState();
+    const W = S.window;
+    const winLabel = (TM_WINDOWS.find(x => x.w === W) || { label: "6M" }).label;
+    const labels = tmDateLabels(W);
+
+    // ── Panel 1: performance overlay (normalized % return) ──
+    const overlay = S.tickers.map((tk, i) => {
+      const d = companyOf(tk), raw = pxNormalized(d, W);
+      if (!raw) return null;
+      // Anchor every series to the right edge of the shared weekly grid so a
+      // shorter history (recent listing) aligns to the same dates instead of
+      // being stretched across the whole axis.
+      const pts = labels.length > raw.length ? Array(labels.length - raw.length).fill(null).concat(raw) : raw.slice(raw.length - labels.length);
+      return { tk, name: d.name, points: pts, color: TM_COLORS[i % TM_COLORS.length], ret: pxReturn(d, W) };
+    }).filter(Boolean);
+    const overlayChart = overlay.length
+      ? Chart.line(overlay.map(s => ({ points: s.points, color: s.color })), labels, { h: 240, zero: true })
+      : `<div class="sub" style="padding:24px 10px;text-align:center">Add tickers below to compare how they moved over ${winLabel}.</div>`;
+    const legend = overlay.map(s => `<button data-tmfocus="${s.tk}" class="tm-leg" style="cursor:pointer;background:none;border:none;display:inline-flex;align-items:center;gap:6px;margin:0 10px 4px 0;color:var(--text)">
+      <span style="width:10px;height:10px;border-radius:2px;background:${s.color};display:inline-block"></span>
+      <b>${s.tk}</b> <span class="${s.ret >= 0 ? "up" : "down"}" style="font-family:var(--mono)">${s.ret >= 0 ? "+" : ""}${s.ret.toFixed(1)}%</span>
+      <span data-tmremove="${s.tk}" style="color:var(--dim);margin-left:2px">✕</span>
+    </button>`).join("");
+
+    // ── Panel 2: rising / falling over the window ──
+    const ranked = DATA.map(d => ({ d, r: pxReturn(d, W) })).filter(x => x.r != null).sort((a, b) => b.r - a.r);
+    const rising = ranked.slice(0, 10), falling = ranked.slice(-10).reverse();
+    const moverRow = (x) => {
+      const sel = S.tickers.includes(x.d.ticker);
+      return `<tr>
+        <td><span class="rk-tk" data-tmfocus="${x.d.ticker}" style="cursor:pointer">${x.d.ticker}</span></td>
+        <td class="bz-spark" style="width:110px">${miniSpark(x.d)}</td>
+        <td class="${x.r >= 0 ? "up" : "down"}" style="text-align:right;font-family:var(--mono);font-weight:700">${x.r >= 0 ? "+" : ""}${x.r.toFixed(1)}%</td>
+        <td style="text-align:right"><button data-tmadd="${x.d.ticker}" style="cursor:pointer;background:none;border:1px solid var(--line);border-radius:5px;color:${sel ? "var(--green)" : "var(--cyan)"};padding:1px 7px">${sel ? "✓" : "＋"}</button></td>
+      </tr>`;
+    };
+    const moversTable = (title, rows, col) => `<div class="card" style="flex:1;min-width:250px">
+      <h3 style="color:${col}">${title} <span class="unit">${winLabel}</span></h3>
+      <div style="overflow-x:auto"><table class="rank"><tbody>${rows.map(moverRow).join("")}</tbody></table></div>
+    </div>`;
+
+    // ── Panel 3: price × sentiment for the focused ticker ──
+    const fd = S.focus ? companyOf(S.focus) : null;
+    const focusPrice = fd ? pxWindowSlice(fd, W) : null;
+    const focusRet = fd ? pxReturn(fd, W) : null;
+    const priceChart = focusPrice
+      ? Chart.line([{ points: focusPrice, color: "#37c6ff" }], labels, { h: 180, area: true })
+      : `<div class="sub" style="padding:20px;text-align:center">No price history for this name.</div>`;
+
+    el("main").innerHTML = toolHeader("📈", "TIME MACHINE", "how tickers move over time, and whether the crowd is with them — real weekly prices + live sentiment")
+      + `<div class="tm-winbar" style="display:flex;gap:6px;margin-bottom:12px">
+          ${TM_WINDOWS.map(x => `<button data-tmwin="${x.w}" class="navbtn ${x.w === W ? "c-cyan" : ""}" style="padding:5px 14px;${x.w === W ? "" : "opacity:.6"}">${x.label}</button>`).join("")}
+        </div>
+        <div class="card">
+          <h3>PERFORMANCE OVER TIME <span class="unit">normalized % return · ${winLabel} · ${overlay.length} tickers</span></h3>
+          <div style="margin-bottom:8px">${overlayChart}</div>
+          <div style="border-top:1px solid var(--line);padding-top:8px">${legend || `<span class="sub">Tap ＋ on any name below to plot it.</span>`}</div>
+        </div>
+        <div class="card" style="margin-top:12px">
+          <h3>${S.focus || "—"} · PRICE × SENTIMENT <span class="unit">${focusRet != null ? `${winLabel} ${focusRet >= 0 ? "+" : ""}${focusRet.toFixed(1)}%` : ""}</span></h3>
+          <div style="margin-bottom:4px">${priceChart}</div>
+          <div id="tmSentiment"><div class="sub" style="padding:8px">Loading crowd sentiment for ${S.focus || "—"}…</div></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+          ${moversTable("▲ RISING", rising, "var(--green)")}
+          ${moversTable("▼ FALLING", falling, "var(--red)")}
+        </div>
+        <div class="note" style="margin-top:10px">Prices are 53 weeks of real Yahoo weekly closes bundled per name (updated by the daily refresh). Sentiment is the live Stocktwits stream plus this device's day-over-day log. Both are honest inputs — gaps stay gaps, nothing is synthesized. Not investment advice. · build v${SHELL_BUILD}</div>`;
+
+    // wiring
+    el("main").querySelectorAll("[data-tmwin]").forEach(b => b.onclick = () => { S.window = +b.dataset.tmwin; renderTimeMachine(); });
+    el("main").querySelectorAll("[data-tmremove]").forEach(b => b.onclick = (e) => { e.stopPropagation(); S.tickers = S.tickers.filter(t => t !== b.dataset.tmremove); if (S.focus === b.dataset.tmremove) S.focus = S.tickers[0] || null; renderTimeMachine(); });
+    el("main").querySelectorAll("[data-tmadd]").forEach(b => b.onclick = () => {
+      const tk = b.dataset.tmadd;
+      if (S.tickers.includes(tk)) S.tickers = S.tickers.filter(t => t !== tk);
+      else if (S.tickers.length < 6) S.tickers.push(tk);
+      S.focus = tk; renderTimeMachine();
+    });
+    el("main").querySelectorAll("[data-tmfocus]").forEach(b => b.onclick = (e) => {
+      if (e.target.dataset && e.target.dataset.tmremove) return;
+      S.focus = b.dataset.tmfocus;
+      if (!S.tickers.includes(S.focus) && S.tickers.length < 6) S.tickers.push(S.focus);
+      renderTimeMachine();
+    });
+    renderTmSentiment(S.focus);
+  }
+  function renderTmSentiment(ticker) {
+    const box = el("tmSentiment");
+    if (!box || !ticker) return;
+    const hist = buzzHistSeries(ticker);
+    if (hist) {
+      box.innerHTML = `<h4 style="margin:6px 0 2px;color:var(--muted);font-size:11px;letter-spacing:1px">CROWD MOOD · DAY OVER DAY <span class="unit">${hist.labels.length} days · this device</span></h4>
+        ${Chart.line([{ points: hist.bull, color: "#26d07c" }], hist.labels, { h: 130, min: 0, max: 100 })}
+        <div class="sub" style="padding:2px 4px">Bullish share of tagged posts, 50% = balanced. Builds as you revisit.</div>`;
+      return;
+    }
+    fetchBuzzJson(buzzStreamUrl(ticker), { provider: "Stocktwits stream", ticker, cacheMs: 120e3 })
+      .then((sj) => {
+        const ser = buzzSentimentSeries(sj && sj.messages);
+        const overall = buzzOverallBull(sj && sj.messages);
+        buzzHistRecord(ticker, overall, Array.isArray(sj && sj.messages) ? sj.messages.length : null, null);
+        if (!ser) {
+          box.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment for ${ticker}: ${overall != null ? `<b style="color:${overall >= 50 ? "var(--green)" : "var(--red)"}">${overall}% bullish</b> now, but` : "not enough tagged posts yet —"} a trend line builds here as you revisit. Day-over-day is stored on this device.</div>`;
+          return;
+        }
+        box.innerHTML = `<h4 style="margin:6px 0 2px;color:var(--muted);font-size:11px;letter-spacing:1px">CROWD SENTIMENT · INTRADAY <span class="unit">${ser.tagged}/${ser.total} tagged posts</span></h4>
+          ${Chart.line([{ points: ser.bullPct, color: "#37c6ff" }], ser.labels, { h: 130, min: 0, max: 100 })}
+          <div class="sub" style="padding:2px 4px">Bullish share of tagged posts over the live stream. 50% = balanced · gaps = no tagged posts.</div>`;
+      })
+      .catch(() => { box.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment stream for ${ticker} is unreachable right now.</div>`; });
+  }
+  const showTimeMachine = () => showView("timeMachine", renderTimeMachine, "timeMachineBtn");
+
+  /* ============================================================================
      ⌬ TECH DESK — the whole framework pointed at tech only.
      Tech is where SBC lives: software, semis, internet, payments/fintech.
      ============================================================================ */
@@ -5672,6 +5837,7 @@
     el("portBtn").onclick = showPortfolio;
     el("calBtn").onclick = showCalendar;
     el("buzzBtn").onclick = showBuzz;
+    el("timeMachineBtn").onclick = showTimeMachine;
     el("techBtn").onclick = showTech;
     el("optBtn").onclick = showOptions;
     el("macroBtn").onclick = showInflation;
@@ -5704,7 +5870,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=58").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=59").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5715,6 +5881,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, directionEdgeOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     normalizeTrending, buzzVelocity, buzzSentimentSeries, buzzOverallBull, msgSentiment,
+    pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
     SBC_MODEL_VERSION, FORMULA_VERSION };

@@ -405,6 +405,21 @@ const ok = (cond, name, detail = "") => {
   ok(E.buzzOverallBull(stream) != null && E.buzzOverallBull([bull(1, null)]) === null, "overall bullish share needs tagged posts, else unavailable");
 }
 
+// =============== 13c. Time machine (price over time) ===============
+{
+  const d = DATA.find(x => x.px && Array.isArray(x.px.v) && x.px.v.length >= 20);
+  ok(d, "at least one name carries a weekly price series for the time machine");
+  const norm3m = E.pxNormalized(d, 13);
+  ok(Array.isArray(norm3m) && norm3m[0] === 0, "normalized series starts at 0% (indexed to window start)", JSON.stringify(norm3m && norm3m[0]));
+  ok(norm3m.every(v => Number.isFinite(v)), "normalized series has no NaN/gaps from valid prices");
+  const r6 = E.pxReturn(d, 26), sl = E.pxWindowSlice(d, 26);
+  const expected = +(((sl[sl.length - 1] / sl[0]) - 1) * 100);
+  ok(Math.abs(r6 - expected) < 1e-6, "window return matches (last/first - 1) over the slice", `${r6} vs ${expected}`);
+  ok(E.pxWindowSlice(d, 13).length <= 14, "3M window slices ~13 weeks, not the whole series", String(E.pxWindowSlice(d, 13).length));
+  ok(E.pxReturn({ ticker: "XX" }, 26) === null && E.pxNormalized({ px: { v: [null, null] } }, 26) === null, "missing price history -> null, never fabricated");
+  ok(E.tmDateLabels(26).filter(Boolean).length >= 2, "time axis produces dated tick labels");
+}
+
 // =============== 14. Live quote tape ===============
 {
   ok(E.isMarketHours(new Date("2026-07-13T14:00:00Z")) === true, "market-hours detector true during regular session");
