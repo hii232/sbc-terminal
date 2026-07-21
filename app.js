@@ -14,6 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
+  const SHELL_BUILD = "58"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -4721,7 +4722,7 @@
           <div>
             <div class="bz-kicker">SBC TERMINAL</div>
             <h1>HOME DASHBOARD</h1>
-            <p>Daily tape, movers, earnings, buy prices, and owner-economics edge. ${DATA.length} official names, ${ranked.length} ranked.</p>
+            <p>Daily tape, movers, earnings, buy prices, and owner-economics edge. ${DATA.length} official names, ${ranked.length} ranked. <span class="sub">build v${SHELL_BUILD}</span></p>
           </div>
           <button class="bz-best" type="button" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
             <span>BEST SETUP</span><b>${stockDay?.d.ticker || "--"}</b><em>${stockDay ? `BQ ${stockDay.m.businessQuality.score} / MR ${stockDay.m.marketReward.score}` : "n/a"}</em>
@@ -4730,6 +4731,11 @@
         <div class="bz-index-strip">${marketTiles.map(marketTile).join("")}</div>
         <section class="bz-panel bz-movers-panel">
           <div class="bz-section-head"><h2>Watchlist Movers <span class="unit" style="font-weight:600">${moverBasis} · ${liveCoverage}/${DATA.length} live</span></h2><button id="openAllMovers" type="button">View All Movers</button></div>
+          <div class="note" style="margin:-4px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <button id="homeRefreshPrices" type="button" style="cursor:pointer;background:none;border:1px solid var(--line);border-radius:6px;padding:3px 10px;color:var(--cyan)">↻ Refresh prices</button>
+            <span id="homeLiveStatus" class="sub">${state.liveStatus.lastFullRefresh ? `${liveCoverage} live · updated ${Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000)}s ago` : "fetching live prices…"}${state.liveStatus.lastError ? ` · last error: ${escapeHtml(state.liveStatus.lastError)}` : ""}</span>
+            ${liveCoverage < 40 && !state.keys.finnhub ? `<span class="sub">For instant live quotes (no proxy): add a free <b>Finnhub</b> key in ⚙️.</span>` : ""}
+          </div>
           <div class="bz-mover-cols">
             <div><h3>GAINERS</h3>${gainers.length ? gainers.map(moverCompact).join("") : `<div class="note">No positive movers loaded yet.</div>`}</div>
             <div><h3>LOSERS</h3>${losers.length ? losers.map(moverCompact).join("") : `<div class="note">No negative movers loaded yet.</div>`}</div>
@@ -4787,6 +4793,13 @@
     if (openDaily) openDaily.onclick = showDailyReview;
     const openMovers = el("openAllMovers");
     if (openMovers) openMovers.onclick = showRankings;
+    const refreshBtn = el("homeRefreshPrices");
+    if (refreshBtn) refreshBtn.onclick = async () => {
+      refreshBtn.textContent = "↻ refreshing…"; refreshBtn.disabled = true;
+      state.fmpBlocked = false; // let the user force a fresh attempt
+      await refreshAllLive({ silent: false });
+      if (state.view === "home") renderHomeMobileDashboard();
+    };
   }
 
   function showHome() {
@@ -5691,7 +5704,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=57").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=58").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
