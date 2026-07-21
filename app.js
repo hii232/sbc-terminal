@@ -4595,7 +4595,16 @@
       .slice(0, 8);
     const cheap = [...ranked].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE).slice(0, 6);
     const hot = [...ranked].filter(x => x.r.truePE).sort((a, b) => (b.r.truePE || 0) - (a.r.truePE || 0)).slice(0, 6);
-    const movers = [...DATA].sort((a, b) => Math.abs(quoteChangeOf(b)) - Math.abs(quoteChangeOf(a))).slice(0, 6);
+    // Freshness-consistent movers: mixing a few live intraday quotes with the
+    // morning snapshot for everyone else makes the movers list "whichever names
+    // happened to refresh". Until live coverage is broad, rank AND display every
+    // name on the same morning-snapshot basis, and say so.
+    const liveCoverage = DATA.filter(d => state.live[d.ticker]?.quote).length;
+    const broadLive = liveCoverage >= 40;
+    const moverChange = (d) => broadLive ? quoteChangeOf(d) : (Number.isFinite(+d.change) ? +d.change : 0);
+    const moverPrice = (d) => broadLive ? quotePriceOf(d) : (Number.isFinite(+d.price) && +d.price > 0 ? +d.price : null);
+    const moverBasis = broadLive ? "live" : "morning snapshot";
+    const movers = [...DATA].sort((a, b) => Math.abs(moverChange(b)) - Math.abs(moverChange(a))).slice(0, 6);
     const sectors = SECTORS.series.filter(s => s.t !== "SPY").map(s => ({ s, r3: retOver(s, 3), fd: flowDelta(s) }))
       .sort((a, b) => b.r3 - a.r3).slice(0, 5);
     const medianPE = medianOf(ranked.map(x => x.r.truePE).filter(Boolean));
@@ -4612,8 +4621,8 @@
       move: retOver(s, 1),
       color: s.color || "var(--cyan)",
     }));
-    const gainers = [...DATA].filter(d => quoteChangeOf(d) > 0).sort((a, b) => quoteChangeOf(b) - quoteChangeOf(a)).slice(0, 3);
-    const losers = [...DATA].filter(d => quoteChangeOf(d) < 0).sort((a, b) => quoteChangeOf(a) - quoteChangeOf(b)).slice(0, 3);
+    const gainers = [...DATA].filter(d => moverChange(d) > 0).sort((a, b) => moverChange(b) - moverChange(a)).slice(0, 3);
+    const losers = [...DATA].filter(d => moverChange(d) < 0).sort((a, b) => moverChange(a) - moverChange(b)).slice(0, 3);
     const stockDay = leaders[0] || ranked[0];
     const eFrom = new Date(today.getTime() - 3 * 864e5);
     const eTo = new Date(today.getTime() + 21 * 864e5);
@@ -4646,11 +4655,11 @@
       </div>`;
     };
     const moverCompact = (d) => {
-      const ch = quoteChangeOf(d);
+      const ch = moverChange(d);
       return `<div class="bz-mover" data-tk="${d.ticker}">
         <div><b>${d.ticker}</b><span>${escapeHtml(d.name)}</span></div>
         <div class="bz-spark">${miniSpark(d)}</div>
-        <strong>${fmtPx(priceOf(d))}<span class="${signCls(ch)}">${pct(ch)}</span></strong>
+        <strong>${fmtPx(moverPrice(d))}<span class="${signCls(ch)}">${pct(ch)}</span></strong>
       </div>`;
     };
     const marketTile = (x) => `<button class="bz-index-tile" data-sector="${x.t}" type="button" style="--tile:${x.color}">
@@ -4720,7 +4729,7 @@
         </section>
         <div class="bz-index-strip">${marketTiles.map(marketTile).join("")}</div>
         <section class="bz-panel bz-movers-panel">
-          <div class="bz-section-head"><h2>Watchlist Movers</h2><button id="openAllMovers" type="button">View All Movers</button></div>
+          <div class="bz-section-head"><h2>Watchlist Movers <span class="unit" style="font-weight:600">${moverBasis} · ${liveCoverage}/${DATA.length} live</span></h2><button id="openAllMovers" type="button">View All Movers</button></div>
           <div class="bz-mover-cols">
             <div><h3>GAINERS</h3>${gainers.length ? gainers.map(moverCompact).join("") : `<div class="note">No positive movers loaded yet.</div>`}</div>
             <div><h3>LOSERS</h3>${losers.length ? losers.map(moverCompact).join("") : `<div class="note">No negative movers loaded yet.</div>`}</div>
@@ -5440,7 +5449,18 @@
     }
     if (state.quoteRefreshing) return state.liveStatus.lastCount || 0;
     state.quoteRefreshing = true;
-    const all = state.keys.finnhub || state.keys.fmp ? allCompanies().map(d => d.ticker) : noKeyQuoteTickers();
+    // Refresh the names the user is most likely looking at FIRST (active ticker,
+    // favourites, then biggest by market cap), so on a rate-limited/slow path the
+    // visible board freshens before the long tail — instead of universe order.
+    const prioritized = () => {
+      const seen = new Set(), out = [];
+      const add = (tk) => { if (tk && !seen.has(tk)) { seen.add(tk); out.push(tk); } };
+      add(state.active);
+      allCompanies().filter(d => state.favs.has(d.ticker)).forEach(d => add(d.ticker));
+      [...allCompanies()].sort((a, b) => (b.mktCap || 0) - (a.mktCap || 0)).forEach(d => add(d.ticker));
+      return out;
+    };
+    const all = state.keys.finnhub || state.keys.fmp ? prioritized() : noKeyQuoteTickers();
     let ok = 0, fails = 0, source = state.keys.fmp ? "FMP batch" : state.keys.finnhub ? "Finnhub rotation" : "Yahoo";
     if (!silent) flash("Live prices updating...", "ok");
     try {
@@ -5642,7 +5662,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=54").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=55").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
