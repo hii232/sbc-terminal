@@ -43,6 +43,9 @@
     let lo = Infinity, hi = -Infinity;
     series.forEach(s => s.points.forEach(v => { if (v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); } }));
     if (opts.zero) lo = Math.min(lo, 0);
+    if (opts.min != null) lo = Math.min(lo, opts.min);
+    if (opts.max != null) hi = Math.max(hi, opts.max);
+    if (!isFinite(lo) || !isFinite(hi)) { lo = 0; hi = 1; }
     const sc = niceScale(lo, hi, 4);
     const x = i => P.l + (xlabels.length === 1 ? iw / 2 : (i / (xlabels.length - 1)) * iw);
     const y = v => P.t + ih - ((v - sc.min) / (sc.max - sc.min)) * ih;

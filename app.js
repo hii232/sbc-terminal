@@ -3812,10 +3812,112 @@
     const perHour = spanMin > 0 ? +(ts.length / (spanMin / 60)).toFixed(1) : null;
     return { lastHour, perHour, newest: ts[ts.length - 1], sample: ts.length };
   }
+  // Stocktwits tags posts Bullish/Bearish (or leaves them untagged). +1/-1/0.
+  const msgSentiment = (m) => {
+    const b = m && m.entities && m.entities.sentiment && m.entities.sentiment.basic;
+    return b === "Bullish" ? 1 : b === "Bearish" ? -1 : 0;
+  };
+  // Bullish share of TAGGED posts, bucketed across the stream's real time span.
+  // Buckets with no tagged posts stay null (a gap), never a fabricated 50%.
+  function buzzSentimentSeries(messages, nBuckets = 6) {
+    const msgs = (Array.isArray(messages) ? messages : [])
+      .map(m => ({ t: Date.parse(m && m.created_at), s: msgSentiment(m) }))
+      .filter(m => Number.isFinite(m.t))
+      .sort((a, b) => a.t - b.t);
+    const tagged = msgs.filter(m => m.s !== 0);
+    if (tagged.length < 4) return null; // too thin to draw a trend honestly
+    const t0 = msgs[0].t, t1 = msgs[msgs.length - 1].t, span = Math.max(6e4, t1 - t0);
+    const width = span / nBuckets, useDate = span > 36 * 3600e3;
+    const labels = [], bullPct = [], volume = [];
+    for (let i = 0; i < nBuckets; i++) {
+      const lo = t0 + i * width, hi = i === nBuckets - 1 ? t1 + 1 : t0 + (i + 1) * width;
+      const inB = msgs.filter(m => m.t >= lo && m.t < hi);
+      const bull = inB.filter(m => m.s > 0).length, bear = inB.filter(m => m.s < 0).length;
+      const mid = new Date(lo + width / 2);
+      labels.push(useDate ? mid.toLocaleDateString([], { month: "numeric", day: "numeric" })
+                          : mid.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+      bullPct.push(bull + bear > 0 ? Math.round((bull / (bull + bear)) * 100) : null);
+      volume.push(inB.length);
+    }
+    return { labels, bullPct, volume, tagged: tagged.length, total: msgs.length, from: t0, to: t1, span };
+  }
+  function buzzOverallBull(messages) {
+    const tagged = (Array.isArray(messages) ? messages : []).map(msgSentiment).filter(s => s !== 0);
+    if (tagged.length < 3) return null;
+    return Math.round((tagged.filter(s => s > 0).length / tagged.length) * 100);
+  }
+  // Day-over-day history lives in this device's localStorage (a static site has
+  // no server to log it). One reading per ticker per day; capped, best-effort.
+  const BUZZ_HIST_KEY = "sbc_buzz_hist_v1";
+  function buzzHistLoad() {
+    try { return JSON.parse(localStorage.getItem(BUZZ_HIST_KEY)) || {}; } catch { return {}; }
+  }
+  function buzzHistRecord(ticker, bullPct, volume, watchers) {
+    if (!ticker || bullPct == null) return;
+    try {
+      const all = buzzHistLoad();
+      const day = new Date().toISOString().slice(0, 10);
+      const arr = Array.isArray(all[ticker]) ? all[ticker] : [];
+      const row = { d: day, bull: bullPct, vol: volume ?? null, watch: watchers ?? null };
+      if (arr.length && arr[arr.length - 1].d === day) arr[arr.length - 1] = row;
+      else arr.push(row);
+      all[ticker] = arr.slice(-45);
+      localStorage.setItem(BUZZ_HIST_KEY, JSON.stringify(all));
+    } catch { /* storage full/blocked — history is best-effort */ }
+  }
+  function buzzHistSeries(ticker) {
+    const arr = buzzHistLoad()[ticker];
+    if (!Array.isArray(arr) || arr.length < 2) return null;
+    return {
+      labels: arr.map(r => { const [y, m, d] = r.d.split("-"); return `${+m}/${+d}`; }),
+      bull: arr.map(r => (hasNum(r.bull) ? +r.bull : null)),
+    };
+  }
+  let buzzSelected = null; // ticker currently plotted in the sentiment timeline
+  function renderBuzzTimeline(ticker) {
+    const card = el("buzzChart");
+    if (!card) return;
+    buzzSelected = ticker;
+    el("main").querySelectorAll("[data-buzzchip]").forEach(c =>
+      c.style.borderColor = c.dataset.buzzchip === ticker ? "var(--cyan)" : "var(--line)");
+    if (!ticker) { card.innerHTML = `<div class="sub" style="padding:16px">Tap a ticker above to chart its crowd sentiment over time.</div>`; return; }
+    card.innerHTML = `<div class="sub" style="padding:16px">Loading ${ticker} sentiment timeline…</div>`;
+    fetchBuzzJson(buzzStreamUrl(ticker), { provider: "Stocktwits stream", ticker, cacheMs: 120e3 })
+      .then((sj) => {
+        const msgs = sj && sj.messages;
+        const series = buzzSentimentSeries(msgs);
+        const overall = buzzOverallBull(msgs);
+        buzzHistRecord(ticker, overall, Array.isArray(msgs) ? msgs.length : null, null);
+        const hist = buzzHistSeries(ticker);
+        if (!series) {
+          card.innerHTML = `<h3>${ticker} · SENTIMENT TIMELINE</h3>
+            <div class="sub" style="padding:12px 16px">Not enough tagged posts to chart a trend yet (needs ~4+ Bullish/Bearish-tagged posts in the live stream). Untagged chatter isn't counted. ${overall != null ? `Right now: <b style="color:${overall >= 50 ? "var(--green)" : "var(--red)"}">${overall}% bullish</b> of tagged posts.` : ""}</div>`;
+          return;
+        }
+        const last = series.bullPct.filter(v => v != null).slice(-1)[0];
+        const first = series.bullPct.filter(v => v != null)[0];
+        const dir = last != null && first != null ? (last - first) : null;
+        const spanH = Math.round(series.span / 3600e3);
+        const chart = Chart.line([{ points: series.bullPct, color: "#37c6ff" }], series.labels, { h: 190, min: 0, max: 100, area: true });
+        const histBlock = hist
+          ? `<h3 style="margin-top:14px">${ticker} · DAY-OVER-DAY <span class="unit">this device's log · ${hist.labels.length} days</span></h3>
+             ${Chart.line([{ points: hist.bull, color: "#26d07c" }], hist.labels, { h: 150, min: 0, max: 100 })}`
+          : `<div class="sub" style="margin-top:10px">Day-over-day mood builds here as you revisit this tab — one reading per day per ticker, stored only on this device.</div>`;
+        card.innerHTML = `<h3>${ticker} · SENTIMENT TIMELINE <span class="unit">bullish share of tagged posts · ${series.tagged}/${series.total} tagged over ~${spanH}h</span></h3>
+          <div style="margin-bottom:6px">${chart}</div>
+          <div class="sub" style="padding:0 4px 4px">Now <b style="color:${last >= 50 ? "var(--green)" : "var(--red)"}">${last ?? "–"}% bullish</b>${dir != null ? ` · ${dir >= 0 ? "▲" : "▼"} ${Math.abs(dir)}pp across the window` : ""} · 50% = balanced · gaps = no tagged posts in that window.</div>
+          ${histBlock}`;
+      })
+      .catch((e) => {
+        card.innerHTML = `<h3>${ticker} · SENTIMENT TIMELINE</h3>
+          <div class="sub" style="padding:12px 16px">Stream unreachable right now${e && e.tried ? ` (tried ${e.tried.join(" → ")})` : ""}.</div>`;
+      });
+  }
   function renderBuzz() {
     el("main").innerHTML = toolHeader("🗣", "SOCIAL BUZZ", "which tickers the crowd is piling into right now — live public tape, labeled sources")
-      + `<div class="card" id="buzzBody"><div class="sub" style="padding:16px">Loading the trending tape...</div></div>
-      <div class="note" style="margin-top:10px">Source: Stocktwits public trending + per-symbol streams (no key required). Velocity is measured from real post timestamps. This is finance-native crowd chatter, not X — X/Twitter counts require their paid API and a server, and this terminal does not scrape. Names outside the official universe appear for awareness only and carry no scores. Crowd heat is a sentiment input, never a valuation input. · shell v53</div>`;
+      + `<div class="card" id="buzzChart"><div class="sub" style="padding:16px">Loading sentiment timeline…</div></div>
+      <div class="card" id="buzzBody" style="margin-top:12px"><div class="sub" style="padding:16px">Loading the trending tape...</div></div>
+      <div class="note" style="margin-top:10px">Source: Stocktwits public trending + per-symbol streams (no key required). Velocity and sentiment are measured from real post timestamps and each post's Bullish/Bearish tag. This is finance-native crowd chatter, not X — X/Twitter counts require their paid API and a server, and this terminal does not scrape. Names outside the official universe appear for awareness only and carry no scores. Crowd heat is a sentiment input, never a valuation input. · shell v54</div>`;
     fetchBuzzJson(BUZZ_TRENDING_URL, { provider: "Stocktwits trending", ticker: "MARKET", cacheMs: 120e3 })
       .then((j) => {
         const rows = normalizeTrending(j).slice(0, 20);
@@ -3824,26 +3926,33 @@
         const rowHtml = (r, i) => {
           const d = companyOf(r.symbol);
           const L = d ? ivLadder(d) : null;
-          return `<tr ${d ? `data-tk="${r.symbol}"` : ""}>
+          return `<tr>
             <td class="sub">${i + 1}</td>
-            <td><span class="rk-tk">${r.symbol}</span>${r.title && r.title.toUpperCase() !== r.symbol ? ` <span class="unit">${r.title}</span>` : ""}</td>
+            <td><span class="rk-tk" data-open="${r.symbol}" style="cursor:pointer">${r.symbol}</span>${r.title && r.title.toUpperCase() !== r.symbol ? ` <span class="unit">${r.title}</span>` : ""}</td>
             <td class="sub">${r.watchers != null ? r.watchers.toLocaleString() : "–"}</td>
             <td id="buzzVel-${r.symbol}" class="sub">…</td>
+            <td><button data-chart="${r.symbol}" class="rk-tk" style="cursor:pointer;background:none;border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--cyan)">📈 chart</button></td>
             ${d
               ? `<td><span style="color:${BUCKETS[d.bucket].color}">${d.bucket}</span> · <span style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${L ? ZONE[L.zone].label : "no owner-earnings floor"}</span></td>`
               : `<td class="sub">not in universe — no scores</td>`}
           </tr>`;
         };
-        el("buzzBody").innerHTML = `<h3>TRENDING NOW <span class="unit">top ${rows.length} on the tape · ${inUni} in your universe · tap a universe name to open it</span></h3>
+        el("buzzBody").innerHTML = `<h3>TRENDING NOW <span class="unit">top ${rows.length} on the tape · ${inUni} in your universe · 📈 charts sentiment, ticker opens the stock</span></h3>
           <div style="overflow-x:auto"><table class="rank">
-            <thead><tr><th>#</th><th>TICKER</th><th>CROWD SIZE</th><th>CHATTER VELOCITY</th><th>TERMINAL CONTEXT</th></tr></thead>
+            <thead><tr><th>#</th><th>TICKER</th><th>CROWD SIZE</th><th>CHATTER VELOCITY</th><th>TIMELINE</th><th>TERMINAL CONTEXT</th></tr></thead>
             <tbody>${rows.map(rowHtml).join("")}</tbody>
           </table></div>`;
-        el("main").querySelectorAll("tr[data-tk]").forEach(tr => tr.onclick = () => selectTicker(tr.dataset.tk));
+        el("main").querySelectorAll("[data-open]").forEach(s => s.onclick = () => selectTicker(s.dataset.open));
+        el("main").querySelectorAll("[data-chart]").forEach(b => b.onclick = () => renderBuzzTimeline(b.dataset.chart));
+        // default the timeline to the top in-universe name, else the top name
+        const def = (buzzSelected && rows.some(r => r.symbol === buzzSelected) && buzzSelected)
+          || (rows.find(r => companyOf(r.symbol)) || rows[0]).symbol;
+        renderBuzzTimeline(def);
         rows.slice(0, 8).forEach((r) => {
           fetchBuzzJson(buzzStreamUrl(r.symbol), { provider: "Stocktwits stream", ticker: r.symbol, cacheMs: 120e3 })
             .then((sj) => {
               const v = buzzVelocity(sj && sj.messages);
+              buzzHistRecord(r.symbol, buzzOverallBull(sj && sj.messages), Array.isArray(sj && sj.messages) ? sj.messages.length : null, r.watchers);
               const cell = document.getElementById(`buzzVel-${r.symbol}`);
               if (cell) cell.innerHTML = v ? `<b style="color:var(--cyan)">${v.lastHour}</b> posts last hr · ~${v.perHour ?? "?"}/hr pace` : "quiet";
             })
@@ -3854,6 +3963,7 @@
         });
       })
       .catch((e) => {
+        el("buzzChart").innerHTML = "";
         el("buzzBody").innerHTML = `<h3>TRENDING NOW</h3>
           <div class="sub" style="padding:16px">Stocktwits tape unreachable right now${e && e.tried ? ` (tried ${e.tried.join(" → ")})` : ""}. Nothing is shown rather than something invented.</div>
           <div style="padding:0 16px 16px"><button class="navbtn c-cyan" id="buzzRetry">↻ RETRY</button></div>`;
@@ -5532,7 +5642,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=53").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=54").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5542,7 +5652,7 @@
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     inflationOf, directionEdgeOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
-    normalizeTrending, buzzVelocity,
+    normalizeTrending, buzzVelocity, buzzSentimentSeries, buzzOverallBull, msgSentiment,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
     SBC_MODEL_VERSION, FORMULA_VERSION };

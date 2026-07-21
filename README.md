@@ -90,7 +90,7 @@ GitHub Actions also checks exact universe size, required SEC source files, calcu
 
 ## Social Buzz
 
-The Social Buzz desk shows which tickers the crowd is piling into right now: Stocktwits' public trending list plus per-symbol chatter velocity measured from real post timestamps, cross-referenced with the terminal's own bucket/IV15 context for universe names. No key is required. The terminal deliberately does not scrape X — X/Twitter volume requires their paid API plus a server — and crowd heat is presented as a sentiment input, never a valuation input. If the tape is unreachable, the desk says so instead of inventing numbers.
+The Social Buzz desk shows which tickers the crowd is piling into right now: Stocktwits' public trending list plus per-symbol chatter velocity measured from real post timestamps, cross-referenced with the terminal's own bucket/IV15 context for universe names. A sentiment timeline charts the bullish share of tagged (Bullish/Bearish) posts bucketed across each stream's real time span — so you can see mood rising or falling — with buckets that have no tagged posts left as gaps rather than filled with a fabricated 50%. A day-over-day line accumulates in the browser's own storage (a static site has no server to log history), one reading per ticker per day, labeled as this-device data. No key is required. The terminal deliberately does not scrape X — X/Twitter volume requires their paid API plus a server — and crowd heat is presented as a sentiment input, never a valuation input. If the tape is unreachable, the desk says so instead of inventing numbers.
 
 ## Phone Use
 
