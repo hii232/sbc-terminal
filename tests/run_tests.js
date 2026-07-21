@@ -248,6 +248,13 @@ const ok = (cond, name, detail = "") => {
   const noSbc = { ticker: "XX", ni: [5, 5, 5], sbc: [null, null, null], buyback: [1, 1, 1], price: 10, gaapEPS: 1, headlinePE: 10, ownersKeep: 0.9 };
   const st = E.trueOwnerEarnings(noSbc);
   ok(st.sbcMissing === true && st.owner === null, "missing SBC flagged as missing, not zero");
+  // A company that runs no buyback program has a KNOWN zero, not missing data —
+  // it must stay rankable. (Regression guard: a refresh once nulled absent
+  // buybacks and dropped TSLA/ARM/RBLX/IREN/NEE out of the ranking.)
+  const noBuyback = E.buybackQuality({ buyback: [0, 0, 0, 0], sbc: [0.2, 0.2, 0.2, 0.2], shares: [1, 1, 1, 1] });
+  ok(noBuyback.insufficientData !== true && noBuyback.t === "No buybacks", "zero-buyback company is a known zero, not insufficient data", JSON.stringify(noBuyback.t));
+  const missingBuyback = E.buybackQuality({ buyback: [null, null, null, null], sbc: [0.2, 0.2, 0.2, 0.2] });
+  ok(missingBuyback.insufficientData === true, "genuinely missing buyback stays flagged insufficient (not coerced to zero)");
   const rankedUniverse = DATA.filter(d => E.rankOf(d).noRank !== true);
   ok(rankedUniverse.length >= 116, "116+ official names enter the main ranking when owner earnings can be computed", String(rankedUniverse.length));
   const lowConfidenceRanked = DATA.filter(d => E.dataConfidenceOf(d).score < 80 && E.rankOf(d).noRank !== true);
