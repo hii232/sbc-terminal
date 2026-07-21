@@ -3982,24 +3982,39 @@
      ============================================================================ */
   const TM_COLORS = ["#37c6ff", "#26d07c", "#ffb000", "#b48cff", "#ff8a3d", "#ff5b6b"];
   const TM_WINDOWS = [{ w: 13, label: "3M" }, { w: 26, label: "6M" }, { w: 52, label: "1Y" }];
-  const pxVals = (d) => (d && d.px && Array.isArray(d.px.v)) ? d.px.v.filter(v => Number.isFinite(+v)).map(Number) : null;
+  // Grid-preserving: a missing weekly close stays null in place so index->date
+  // never slides. Consumers use the first/last FINITE value and skip null gaps.
+  const pxVals = (d) => (d && d.px && Array.isArray(d.px.v)) ? d.px.v.map(v => Number.isFinite(v) ? v : null) : null;
+  const firstFinite = (a) => { for (const v of a) if (Number.isFinite(v)) return v; return null; };
+  const lastFinite = (a) => { for (let i = a.length - 1; i >= 0; i--) if (Number.isFinite(a[i])) return a[i]; return null; };
   function pxWindowSlice(d, weeks) {
     const v = pxVals(d);
     if (!v || v.length < 3) return null;
     return v.slice(Math.max(0, v.length - 1 - weeks));
   }
+  // A series covers the requested window only if its grid reaches back far
+  // enough. A recent listing with 20 weeks must NOT be ranked as a "1Y" return.
+  const pxCovers = (s, weeks) => s && (s.length - 1) >= weeks * 0.9;
   function pxReturn(d, weeks) {
     const s = pxWindowSlice(d, weeks);
-    if (!s || s.length < 2 || s[0] <= 0) return null;
-    return (s[s.length - 1] / s[0] - 1) * 100;
+    if (!s || !pxCovers(s, weeks)) return null;
+    const a = firstFinite(s), b = lastFinite(s);
+    if (a == null || b == null || a <= 0) return null;
+    return (b / a - 1) * 100;
   }
   function pxNormalized(d, weeks) {
     const s = pxWindowSlice(d, weeks);
-    if (!s || s.length < 2 || s[0] <= 0) return null;
-    return s.map(v => +(((v / s[0]) - 1) * 100).toFixed(2));
+    if (!s || !pxCovers(s, weeks)) return null;
+    const base = firstFinite(s);
+    if (base == null || base <= 0) return null;
+    return s.map(v => Number.isFinite(v) ? +(((v / base) - 1) * 100).toFixed(2) : null);
   }
   function tmDateLabels(weeks, n = 5) {
-    const ref = DATA.find(d => d.px && d.px.to && pxVals(d));
+    // Anchor the date axis to the LONGEST valid series so every plotted series
+    // is <= the axis length and only ever gets left-padded, never front-sliced
+    // (which would drop its 0% baseline).
+    const ref = DATA.filter(d => d.px && d.px.to && pxVals(d) && pxVals(d).length >= 2)
+      .sort((a, b) => pxVals(b).length - pxVals(a).length)[0];
     if (!ref) return [];
     const total = pxVals(ref).length;
     const start = Math.max(0, total - 1 - weeks);
@@ -4069,7 +4084,12 @@
 
     // ── Panel 3: price × sentiment for the focused ticker ──
     const fd = S.focus ? companyOf(S.focus) : null;
-    const focusPrice = fd ? pxWindowSlice(fd, W) : null;
+    const focusRaw = fd ? pxWindowSlice(fd, W) : null;
+    // Left-pad to the shared axis so a shorter history plots under its true
+    // (recent) dates instead of being stretched back across the whole axis.
+    const focusPrice = focusRaw
+      ? (labels.length > focusRaw.length ? Array(labels.length - focusRaw.length).fill(null).concat(focusRaw) : focusRaw.slice(focusRaw.length - labels.length))
+      : null;
     const focusRet = fd ? pxReturn(fd, W) : null;
     const priceChart = focusPrice
       ? Chart.line([{ points: focusPrice, color: "#37c6ff" }], labels, { h: 180, area: true })
@@ -4083,6 +4103,7 @@
           <h3>PERFORMANCE OVER TIME <span class="unit">normalized % return · ${winLabel} · ${overlay.length} tickers</span></h3>
           <div style="margin-bottom:8px">${overlayChart}</div>
           <div style="border-top:1px solid var(--line);padding-top:8px">${legend || `<span class="sub">Tap ＋ on any name below to plot it.</span>`}</div>
+          ${S.tickers.length > overlay.length ? `<div class="sub" style="margin-top:6px">${S.tickers.length - overlay.length} selected name(s) hidden — not enough price history to cover ${winLabel}. Try a shorter window.</div>` : ""}
         </div>
         <div class="card" style="margin-top:12px">
           <h3>${S.focus || "—"} · PRICE × SENTIMENT <span class="unit">${focusRet != null ? `${winLabel} ${focusRet >= 0 ? "+" : ""}${focusRet.toFixed(1)}%` : ""}</span></h3>
@@ -4100,9 +4121,16 @@
     el("main").querySelectorAll("[data-tmremove]").forEach(b => b.onclick = (e) => { e.stopPropagation(); S.tickers = S.tickers.filter(t => t !== b.dataset.tmremove); if (S.focus === b.dataset.tmremove) S.focus = S.tickers[0] || null; renderTimeMachine(); });
     el("main").querySelectorAll("[data-tmadd]").forEach(b => b.onclick = () => {
       const tk = b.dataset.tmadd;
-      if (S.tickers.includes(tk)) S.tickers = S.tickers.filter(t => t !== tk);
-      else if (S.tickers.length < 6) S.tickers.push(tk);
-      S.focus = tk; renderTimeMachine();
+      if (S.tickers.includes(tk)) {
+        // toggling OFF: drop it, and only move focus if it was the focused name
+        S.tickers = S.tickers.filter(t => t !== tk);
+        if (S.focus === tk) S.focus = S.tickers[0] || null;
+      } else if (S.tickers.length < 6) {
+        S.tickers.push(tk); S.focus = tk; // adding: focus what you added
+      } else {
+        S.focus = tk; // at capacity: just focus it for the price×sentiment panel
+      }
+      renderTimeMachine();
     });
     el("main").querySelectorAll("[data-tmfocus]").forEach(b => b.onclick = (e) => {
       if (e.target.dataset && e.target.dataset.tmremove) return;
@@ -4115,6 +4143,9 @@
   function renderTmSentiment(ticker) {
     const box = el("tmSentiment");
     if (!box || !ticker) return;
+    // Guard the async race: if focus changed by the time the stream returns,
+    // don't overwrite the newer panel with a stale ticker's sentiment.
+    const stillFocused = () => state.tm && state.tm.focus === ticker && el("tmSentiment");
     const hist = buzzHistSeries(ticker);
     if (hist) {
       box.innerHTML = `<h4 style="margin:6px 0 2px;color:var(--muted);font-size:11px;letter-spacing:1px">CROWD MOOD · DAY OVER DAY <span class="unit">${hist.labels.length} days · this device</span></h4>
@@ -4127,15 +4158,17 @@
         const ser = buzzSentimentSeries(sj && sj.messages);
         const overall = buzzOverallBull(sj && sj.messages);
         buzzHistRecord(ticker, overall, Array.isArray(sj && sj.messages) ? sj.messages.length : null, null);
+        const b2 = stillFocused();
+        if (!b2) return;
         if (!ser) {
-          box.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment for ${ticker}: ${overall != null ? `<b style="color:${overall >= 50 ? "var(--green)" : "var(--red)"}">${overall}% bullish</b> now, but` : "not enough tagged posts yet —"} a trend line builds here as you revisit. Day-over-day is stored on this device.</div>`;
+          b2.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment for ${ticker}: ${overall != null ? `<b style="color:${overall >= 50 ? "var(--green)" : "var(--red)"}">${overall}% bullish</b> now, but` : "not enough tagged posts yet —"} a trend line builds here as you revisit. Day-over-day is stored on this device.</div>`;
           return;
         }
-        box.innerHTML = `<h4 style="margin:6px 0 2px;color:var(--muted);font-size:11px;letter-spacing:1px">CROWD SENTIMENT · INTRADAY <span class="unit">${ser.tagged}/${ser.total} tagged posts</span></h4>
+        b2.innerHTML = `<h4 style="margin:6px 0 2px;color:var(--muted);font-size:11px;letter-spacing:1px">CROWD SENTIMENT · INTRADAY <span class="unit">${ser.tagged}/${ser.total} tagged posts</span></h4>
           ${Chart.line([{ points: ser.bullPct, color: "#37c6ff" }], ser.labels, { h: 130, min: 0, max: 100 })}
           <div class="sub" style="padding:2px 4px">Bullish share of tagged posts over the live stream. 50% = balanced · gaps = no tagged posts.</div>`;
       })
-      .catch(() => { box.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment stream for ${ticker} is unreachable right now.</div>`; });
+      .catch(() => { const b2 = stillFocused(); if (b2) b2.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment stream for ${ticker} is unreachable right now.</div>`; });
   }
   const showTimeMachine = () => showView("timeMachine", renderTimeMachine, "timeMachineBtn");
 

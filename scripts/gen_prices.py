@@ -14,13 +14,20 @@ def fetch_px(tk):
     r = d["chart"]["result"][0]
     closes = r["indicators"]["quote"][0]["close"]
     ts = r["timestamp"]
-    pts = [(ts[i], c) for i, c in enumerate(closes) if c]
-    if len(pts) < 10:
+    # Keep every weekly slot on a uniform grid: a gap becomes null, not a
+    # compacted point. The terminal's time axis maps index->date by a fixed
+    # weekly cadence, so dropping slots would slide every later point onto the
+    # wrong date. Trim only leading/trailing nulls (pre-listing / no-print).
+    grid = list(zip(ts, closes))
+    while grid and grid[0][1] is None:
+        grid.pop(0)
+    while grid and grid[-1][1] is None:
+        grid.pop()
+    if len([c for _, c in grid if c is not None]) < 10:
         return None
-    # ~52 weekly closes; label first/last dates for provenance
-    vals = ",".join(f"{c:.2f}" for _, c in pts)
-    d0 = time.strftime("%Y-%m-%d", time.gmtime(pts[0][0]))
-    d1 = time.strftime("%Y-%m-%d", time.gmtime(pts[-1][0]))
+    vals = ",".join("null" if c is None else f"{c:.2f}" for _, c in grid)
+    d0 = time.strftime("%Y-%m-%d", time.gmtime(grid[0][0]))
+    d1 = time.strftime("%Y-%m-%d", time.gmtime(grid[-1][0]))
     return f'px:{{v:[{vals}], from:"{d0}", to:"{d1}"}},'
 
 src = DATA_JS.read_text(encoding="utf-8")

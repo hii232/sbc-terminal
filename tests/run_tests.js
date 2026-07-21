@@ -418,6 +418,14 @@ const ok = (cond, name, detail = "") => {
   ok(E.pxWindowSlice(d, 13).length <= 14, "3M window slices ~13 weeks, not the whole series", String(E.pxWindowSlice(d, 13).length));
   ok(E.pxReturn({ ticker: "XX" }, 26) === null && E.pxNormalized({ px: { v: [null, null] } }, 26) === null, "missing price history -> null, never fabricated");
   ok(E.tmDateLabels(26).filter(Boolean).length >= 2, "time axis produces dated tick labels");
+  // Coverage gate: a short (recent-listing) series must NOT be ranked as a full-window return.
+  const shortName = { ticker: "IPO", px: { v: Array.from({ length: 15 }, (_, i) => 100 + i), from: "2026-04-01", to: "2026-07-20" } };
+  ok(E.pxReturn(shortName, 52) === null, "15-week series returns null for a 1Y window (not a fake 1Y return)");
+  ok(E.pxReturn(shortName, 13) != null, "same series still reports the 3M window it actually covers");
+  // Null grid: interior gaps stay gaps; normalization uses the first finite close and preserves positions.
+  const gapped = { px: { v: [100, null, 110, 120, null, 130], from: "2026-06-08", to: "2026-07-13" } };
+  const gn = E.pxNormalized(gapped, 5);
+  ok(gn && gn[0] === 0 && gn[1] === null && Math.abs(gn[2] - 10) < 1e-6, "gapped series: base=first finite, gaps stay null, positions preserved", JSON.stringify(gn));
 }
 
 // =============== 14. Live quote tape ===============
