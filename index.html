@@ -747,12 +747,12 @@
   <div class="box">
     <h2>Connect Live Data</h2>
     <p>The terminal works fully offline with SEC-first bundled snapshots. Add a <b>free</b> API key to pull live quotes, news, estimates and fallback checks. Keys are saved in this browser’s localStorage — convenient, but NOT secure storage — nothing is sent anywhere except the data provider.</p>
-    <label>FINNHUB API KEY <span style="color:var(--dim)">— quotes + company news</span></label>
+    <label>FINNHUB API KEY <span style="color:var(--green)">— recommended for reliable live quotes</span></label>
     <input id="finnhubKey" placeholder="paste key from finnhub.io" />
-    <div class="hint">Free key: <a href="https://finnhub.io/register" target="_blank" rel="noopener">finnhub.io/register</a> · 60 calls/min</div>
-    <label>FMP API KEY <span style="color:var(--dim)">— secondary fallback checks, never SEC overwrite</span></label>
-    <input id="fmpKey" placeholder="paste key from financialmodelingprep.com" />
-    <div class="hint">Free key: <a href="https://site.financialmodelingprep.com/developer/docs" target="_blank" rel="noopener">financialmodelingprep.com</a> · 250 calls/day</div>
+    <div class="hint">Best live-price path: Finnhub allows the app to fetch quotes <b>directly</b> (no proxy), so it works where the free feed can't. Free key: <a href="https://finnhub.io/register" target="_blank" rel="noopener">finnhub.io/register</a> · 60 calls/min · takes 30s.</div>
+    <label>FMP API KEY <span style="color:var(--dim)">— fundamentals fallback only (free tier does NOT serve live quotes)</span></label>
+    <input id="fmpKey" placeholder="optional — leave blank for live quotes" />
+    <div class="hint">FMP's free tier returns 403 on quote endpoints, so it can't drive live prices. Leave blank unless you have a paid FMP plan.</div>
     <div class="actions">
       <button class="btn-s" id="clearKeys">Clear</button>
       <button class="btn-s" id="closeModal">Cancel</button>
@@ -774,15 +774,15 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=57"></script>
-<script src="data.js?v=57"></script>
-<script src="sec.js?v=57"></script>
-<script src="track.js?v=57"></script>
-<script src="segments.js?v=57"></script>
-<script src="sectors.js?v=57"></script>
-<script src="estimates.js?v=57"></script>
-<script src="scores.js?v=57"></script>
-<script src="charts.js?v=57"></script>
-<script src="app.js?v=57"></script>
+<script src="universe.js?v=58"></script>
+<script src="data.js?v=58"></script>
+<script src="sec.js?v=58"></script>
+<script src="track.js?v=58"></script>
+<script src="segments.js?v=58"></script>
+<script src="sectors.js?v=58"></script>
+<script src="estimates.js?v=58"></script>
+<script src="scores.js?v=58"></script>
+<script src="charts.js?v=58"></script>
+<script src="app.js?v=58"></script>
 </body>
 </html>
