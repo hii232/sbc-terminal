@@ -3753,6 +3753,21 @@
      ============================================================================ */
   const BUZZ_TRENDING_URL = "https://api.stocktwits.com/api/2/trending/symbols.json";
   const buzzStreamUrl = (sym) => `https://api.stocktwits.com/api/2/streams/symbol/${encodeURIComponent(sym)}.json`;
+  // Stocktwits sends no CORS headers for third-party origins, so browser calls
+  // from GitHub Pages fail. Same answer as the Yahoo quote path: try direct,
+  // then fall back to the r.jina.ai text proxy and cut the JSON out of it.
+  async function fetchBuzzJson(target, meta) {
+    try {
+      return await fetchJsonWithRetry(target, { ...meta, retries: 1 });
+    } catch (e) {
+      const txt = await fetchTextWithRetry(`https://r.jina.ai/http://${target.replace(/^https?:\/\//, "")}`,
+        { ...meta, provider: `${meta.provider} via Jina`, timeoutMs: 9500, retries: 1 });
+      const start = txt.indexOf('{"response"');
+      const end = txt.lastIndexOf("}");
+      if (start < 0 || end <= start) throw new Error("buzz JSON not found in proxy response");
+      return JSON.parse(txt.slice(start, end + 1));
+    }
+  }
   function normalizeTrending(j) {
     const rows = j && Array.isArray(j.symbols) ? j.symbols : [];
     return rows
@@ -3775,7 +3790,7 @@
     el("main").innerHTML = toolHeader("🗣", "SOCIAL BUZZ", "which tickers the crowd is piling into right now — live public tape, labeled sources")
       + `<div class="card" id="buzzBody"><div class="sub" style="padding:16px">Loading the trending tape...</div></div>
       <div class="note" style="margin-top:10px">Source: Stocktwits public trending + per-symbol streams (no key required). Velocity is measured from real post timestamps. This is finance-native crowd chatter, not X — X/Twitter counts require their paid API and a server, and this terminal does not scrape. Names outside the official universe appear for awareness only and carry no scores. Crowd heat is a sentiment input, never a valuation input.</div>`;
-    fetchJsonWithRetry(BUZZ_TRENDING_URL, { provider: "Stocktwits trending", ticker: "MARKET", cacheMs: 120e3 })
+    fetchBuzzJson(BUZZ_TRENDING_URL, { provider: "Stocktwits trending", ticker: "MARKET", cacheMs: 120e3 })
       .then((j) => {
         const rows = normalizeTrending(j).slice(0, 20);
         if (!rows.length) throw new Error("empty trending payload");
@@ -3800,7 +3815,7 @@
           </table></div>`;
         el("main").querySelectorAll("tr[data-tk]").forEach(tr => tr.onclick = () => selectTicker(tr.dataset.tk));
         rows.slice(0, 8).forEach((r) => {
-          fetchJsonWithRetry(buzzStreamUrl(r.symbol), { provider: "Stocktwits stream", ticker: r.symbol, cacheMs: 120e3 })
+          fetchBuzzJson(buzzStreamUrl(r.symbol), { provider: "Stocktwits stream", ticker: r.symbol, cacheMs: 120e3 })
             .then((sj) => {
               const v = buzzVelocity(sj && sj.messages);
               const cell = document.getElementById(`buzzVel-${r.symbol}`);
@@ -5488,7 +5503,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=51").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=52").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
