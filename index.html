@@ -406,6 +406,36 @@
   .backdrop.show{display:block}
   .bottom-nav{display:none}
 
+  /* ============ CONDENSED TOP NAVIGATION ============ */
+  .topnav{position:sticky;top:0;z-index:46;display:flex;gap:4px;align-items:center;overflow-x:auto;overflow-y:visible;
+    background:linear-gradient(180deg,#0f1622,#0a0f17);border-bottom:1px solid var(--line2);
+    padding:6px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav-group{position:relative;flex:0 0 auto}
+  .topnav-group > button{background:none;border:1px solid transparent;color:var(--muted);font-family:var(--mono);
+    font-size:12.5px;font-weight:700;letter-spacing:.3px;padding:7px 12px;border-radius:9px;cursor:pointer;white-space:nowrap;
+    display:flex;align-items:center;gap:5px;line-height:1}
+  .topnav-group > button:hover{color:var(--text);background:rgba(77,227,247,.06)}
+  .topnav-group.open > button{color:var(--cyan);background:rgba(77,227,247,.12);border-color:rgba(77,227,247,.3)}
+  .topnav-group.current > button{color:var(--text)}
+  .topnav-group.current > button::after{content:"";position:absolute;left:12px;right:12px;bottom:-6px;height:2px;border-radius:2px;background:var(--cyan)}
+  /* fixed so the scrollable top bar's overflow can't clip it; positioned in JS */
+  .topnav-dd{position:fixed;z-index:70;min-width:210px;max-width:min(280px,92vw);
+    background:linear-gradient(180deg,#1a2432,#0e141d);border:1px solid var(--line2);border-radius:12px;
+    box-shadow:0 20px 54px rgba(0,0,0,.6);padding:6px;display:none;flex-direction:column;gap:2px}
+  .topnav-group.open .topnav-dd{display:flex}
+  .topnav-dd button{background:none;border:none;text-align:left;color:var(--text);font-family:var(--mono);font-size:13px;
+    padding:10px 12px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:9px;white-space:nowrap}
+  .topnav-dd button:hover{background:rgba(77,227,247,.1);color:var(--cyan)}
+  .topnav-dd button.active{background:rgba(77,227,247,.16);color:var(--cyan);font-weight:700}
+  .topnav-dd button .tn-ic{width:18px;text-align:center;flex:0 0 auto}
+  .topnav-watch{margin-left:auto;flex:0 0 auto;background:none;border:1px solid var(--line2);color:var(--gold);
+    font-family:var(--mono);font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px;cursor:pointer;white-space:nowrap}
+  .topnav-watch:hover{background:rgba(255,176,0,.1)}
+  .topnav-watch.active{background:rgba(255,176,0,.14);border-color:rgba(255,176,0,.4)}
+  /* nav now lives in the top bar, not the drawer */
+  .nav-grid{display:none !important}
+
   /* ============ MOBILE ============ */
   @media(max-width:720px){
     body{font-size:13.5px}
@@ -415,7 +445,7 @@
     .card{min-width:0;max-width:100%;overflow:hidden}
     .card,.note,.reason-list div,.sub{overflow-wrap:anywhere}
     .app{display:block;height:auto}
-    main{padding:12px 10px calc(104px + env(safe-area-inset-bottom));scroll-padding-bottom:110px}
+    main{padding:12px 10px calc(24px + env(safe-area-inset-bottom));scroll-padding-bottom:24px}
 
     /* header: brand + search only */
     header{gap:8px;padding:8px 10px}
@@ -481,8 +511,10 @@
     .stat{font-size:19px}
     .tabs button{padding:9px 11px;font-size:10.5px}
 
-    /* bottom navigation bar */
-    .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;
+    /* bottom navigation bar — replaced by the top nav; kept in DOM (hidden) so
+       existing JS refs (navList/navSectors/…) stay valid */
+    .bottom-nav{display:none !important}
+    .bottom-nav-legacy{position:fixed;bottom:0;left:0;right:0;z-index:50;
       background:linear-gradient(180deg,rgba(23,32,45,.98),rgba(8,12,18,.98));border-top:1px solid rgba(132,158,194,.26);
       padding:7px 6px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -10px 28px rgba(0,0,0,.42)}
     .bottom-nav button{flex:1;background:none;border:none;color:var(--muted);font-family:var(--mono);
@@ -680,12 +712,14 @@
   </button>
 </header>
 
+<nav class="topnav" id="topnav" aria-label="Primary"></nav>
+
 <div class="app">
   <aside>
     <div class="drawer-head">
       <div>
-        <b>TERMINAL MENU</b>
-        <span>Tools + watchlist</span>
+        <b>WATCHLIST</b>
+        <span>Your tracked names</span>
       </div>
       <button class="drawer-close" id="drawerClose" type="button" aria-label="Close menu">&times;</button>
     </div>
@@ -774,15 +808,15 @@
 
 <div class="flash" id="flash"></div>
 
-<script src="universe.js?v=60"></script>
-<script src="data.js?v=60"></script>
-<script src="sec.js?v=60"></script>
-<script src="track.js?v=60"></script>
-<script src="segments.js?v=60"></script>
-<script src="sectors.js?v=60"></script>
-<script src="estimates.js?v=60"></script>
-<script src="scores.js?v=60"></script>
-<script src="charts.js?v=60"></script>
-<script src="app.js?v=60"></script>
+<script src="universe.js?v=61"></script>
+<script src="data.js?v=61"></script>
+<script src="sec.js?v=61"></script>
+<script src="track.js?v=61"></script>
+<script src="segments.js?v=61"></script>
+<script src="sectors.js?v=61"></script>
+<script src="estimates.js?v=61"></script>
+<script src="scores.js?v=61"></script>
+<script src="charts.js?v=61"></script>
+<script src="app.js?v=61"></script>
 </body>
 </html>

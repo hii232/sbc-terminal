@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "60"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "61"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -825,7 +825,97 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "optBtn", "macroBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "buzzBtn", "techBtn", "optBtn", "macroBtn", "auditBtn", "trackBtn", "journalBtn"];
+
+  // Condensed top navigation: the 21 tool views grouped into a few labelled
+  // menus. Each item delegates to its existing hidden drawer button, so all the
+  // show*() wiring stays intact. (Group membership finalized from a design pass.)
+  const NAV_GROUPS = [
+    { name: "Home", icon: "🏠", tools: [
+      { id: "homeBtn", label: "Home Dashboard", ic: "🏠" },
+    ] },
+    { name: "Market", icon: "📈", tools: [
+      { id: "dailyBtn", label: "Daily Review", ic: "📰" },
+      { id: "edgeBtn", label: "Direction Edge", ic: "🧭" },
+      { id: "sectorBtn", label: "Sectors", ic: "◈" },
+      { id: "buzzBtn", label: "Social Buzz & Charts", ic: "🗣" },
+      { id: "calBtn", label: "Earnings Calendar", ic: "📅" },
+    ] },
+    { name: "Find", icon: "🔍", tools: [
+      { id: "rankBtn", label: "Rankings", ic: "⚡" },
+      { id: "screenBtn", label: "Screener", ic: "📊" },
+      { id: "mapBtn", label: "Quality × Market Map", ic: "◎" },
+    ] },
+    { name: "Value", icon: "💰", tools: [
+      { id: "grahamBtn", label: "Graham Value", ic: "🛡" },
+      { id: "valBtn", label: "Owner-Earnings P/E", ic: "⊞" },
+      { id: "compareBtn", label: "Compare", ic: "⚖" },
+      { id: "narrBtn", label: "Narratives", ic: "◆" },
+    ] },
+    { name: "Desks", icon: "🖥️", tools: [
+      { id: "techBtn", label: "Tech Desk", ic: "⌬" },
+      { id: "optBtn", label: "Options Desk", ic: "⚄" },
+      { id: "macroBtn", label: "Inflation Desk", ic: "🔥" },
+    ] },
+    { name: "Mine", icon: "💼", tools: [
+      { id: "portBtn", label: "Portfolio", ic: "💼" },
+      { id: "journalBtn", label: "Thesis Journal", ic: "✎" },
+      { id: "trigBtn", label: "Triggers", ic: "🎯" },
+      { id: "trackBtn", label: "Track Record", ic: "📈" },
+      { id: "auditBtn", label: "Data Audit — sources & trust", ic: "🧾" },
+    ] },
+  ];
+  function closeTopnavDD() {
+    el("topnav").querySelectorAll(".topnav-group.open").forEach(g => g.classList.remove("open"));
+  }
+  function renderTopNav() {
+    const nav = el("topnav");
+    if (!nav) return;
+    nav.innerHTML = NAV_GROUPS.map((g, gi) => `
+      <div class="topnav-group" data-g="${gi}">
+        <button type="button" aria-haspopup="true">${g.icon} ${g.name}<span style="font-size:9px;opacity:.55;margin-left:1px">▾</span></button>
+        <div class="topnav-dd" role="menu">${g.tools.map(t => `<button type="button" role="menuitem" data-tool="${t.id}"><span class="tn-ic">${t.ic}</span>${t.label}</button>`).join("")}</div>
+      </div>`).join("")
+      + `<button type="button" id="topWatch" class="topnav-watch" title="Watchlist">★ Watchlist</button>`;
+    nav.querySelectorAll(".topnav-group").forEach(group => {
+      const btn = group.querySelector(":scope > button");
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const wasOpen = group.classList.contains("open");
+        closeTopnavDD();
+        if (!wasOpen) {
+          group.classList.add("open");
+          // position the fixed dropdown under its button (escapes the bar's scroll clip)
+          const dd = group.querySelector(".topnav-dd");
+          const r = btn.getBoundingClientRect();
+          dd.style.top = Math.round(r.bottom + 6) + "px";
+          dd.style.left = Math.round(Math.max(6, Math.min(r.left, window.innerWidth - dd.offsetWidth - 8))) + "px";
+        }
+      };
+      group.querySelectorAll("[data-tool]").forEach(item => item.onclick = (e) => {
+        e.stopPropagation();
+        closeTopnavDD();
+        const real = el(item.dataset.tool);
+        if (real) real.click(); // delegate to the existing show*() wiring
+      });
+    });
+    el("topWatch").onclick = (e) => { e.stopPropagation(); closeTopnavDD(); $("aside").classList.contains("open") ? closeDrawer() : openDrawer(); };
+    document.addEventListener("click", closeTopnavDD);
+    nav.addEventListener("scroll", closeTopnavDD, { passive: true }); // a fixed dropdown would detach if the bar scrolls
+    syncTopNav();
+  }
+  function syncTopNav() {
+    const nav = el("topnav");
+    if (!nav) return;
+    const activeId = VIEW_BTNS.find(id => { const e = el(id); return e && e.classList.contains("active"); });
+    nav.querySelectorAll(".topnav-group").forEach((group, gi) => {
+      const inGroup = (NAV_GROUPS[gi].tools || []).some(t => t.id === activeId);
+      group.classList.toggle("current", inGroup);
+      group.querySelectorAll("[data-tool]").forEach(item => item.classList.toggle("active", item.dataset.tool === activeId));
+    });
+    const w = el("topWatch");
+    if (w) w.classList.toggle("active", $("aside").classList.contains("open"));
+  }
   function setViewBtn(activeId) { VIEW_BTNS.forEach(id => el(id).classList.toggle("active", id === activeId)); }
   function showView(view, renderFn, btnId) {
     state.view = view; setViewBtn(btnId); renderWatchlist(); renderFn();
@@ -877,6 +967,7 @@
     el("navNarr").classList.toggle("active", !drawerOpen && state.view === "narratives");
     el("navPE").classList.toggle("active", !drawerOpen && state.view === "valuation");
     el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
+    syncTopNav();
   }
   function syncMobileChrome() {
     el("cmdInput").placeholder = window.matchMedia("(max-width:720px)").matches
@@ -5828,6 +5919,7 @@
     el("backdrop").onclick = closeDrawer;
     window.addEventListener("resize", syncMobileChrome);
 
+    renderTopNav();
     showHome();
     syncMobileChrome();
     updateLiveDot();
@@ -5844,7 +5936,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=60").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=61").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
