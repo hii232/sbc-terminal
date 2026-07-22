@@ -125,8 +125,11 @@ async function main() {
       ["#buzzBtn", "SOCIAL BUZZ"],
       ["#calBtn", "EARNINGS CALENDAR"],  // keep last: the focus-tape check below reads this view
     ];
+    // Nav moved to the top bar; the legacy drawer buttons still carry the wiring
+    // but are display:none, so drive them programmatically (their handlers are
+    // exactly what the top-nav items delegate to).
     for (const [selector, expected] of views) {
-      await page.click(selector);
+      await page.evaluate((s) => document.querySelector(s).click(), selector);
       await page.waitForFunction((txt) => document.querySelector("#main")?.textContent.includes(txt), expected, { timeout: 3000 });
     }
     // Focus tape is time-windowed: it must render exactly when bundled rows fall
@@ -145,16 +148,34 @@ async function main() {
     }
     ok(cal.text.includes("EARNINGS CALENDAR"), "universe earnings calendar missing");
 
+    // Condensed TOP navigation: a few groups, and clicking a group's item navigates.
+    const topnav = await page.evaluate(() => ({
+      groups: document.querySelectorAll("#topnav .topnav-group").length,
+      tools: document.querySelectorAll("#topnav .topnav-group [data-tool]").length,
+      hasWatch: !!document.querySelector("#topnav #topWatch"),
+    }));
+    ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
+    ok(topnav.tools === 21, "all 21 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.hasWatch, "watchlist reachable from the top nav");
+    await page.evaluate(() => {
+      const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="valBtn"]'));
+      g.querySelector(":scope > button").click();
+      g.querySelector('[data-tool="valBtn"]').click();
+    });
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("OWNER-EARNINGS P/E"), { timeout: 3000 });
+
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "domcontentloaded" });
-    await page.waitForSelector("#bottomNav", { timeout: 10000 });
+    await page.waitForSelector("#topnav .topnav-group", { timeout: 10000 });
     const mobile = await page.evaluate(() => ({
-      nav: [...document.querySelectorAll("#bottomNav button")].map((b) => b.textContent.trim()).join("|"),
+      groups: document.querySelectorAll("#topnav .topnav-group").length,
+      topOffset: Math.round(document.querySelector("#topnav")?.getBoundingClientRect().top ?? -1),
       overflow: document.documentElement.scrollWidth > window.innerWidth + 2,
     }));
-    ok(mobile.nav.includes("OWNER P/E"), "mobile owner P/E nav missing");
+    ok(mobile.groups >= 4, "mobile top-nav groups present");
+    ok(mobile.topOffset >= 0 && mobile.topOffset < 200, "top nav sits at the top of the screen");
     ok(!mobile.overflow, "mobile viewport has horizontal overflow");
-    await page.click("#navList");
+    await page.evaluate(() => document.querySelector("#navList").click());
     await page.waitForSelector("#watchlist .spark", { timeout: 10000 });
     const mobileList = await page.evaluate(() => ({
       sparks: document.querySelectorAll("#watchlist .spark").length,
@@ -165,7 +186,7 @@ async function main() {
     ok(mobileList.mrPills >= 50, "mobile market-list reward pills missing");
     ok(mobileList.rowHeight >= 80, "mobile market-list rows too cramped");
     await page.click("#drawerClose");
-    await page.click("#navPE");
+    await page.evaluate(() => document.querySelector("#navPE").click());
     await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Forward P/E"), { timeout: 3000 });
 
     const swSupported = await page.evaluate(() => "serviceWorker" in navigator);
@@ -175,7 +196,8 @@ async function main() {
       await context.setOffline(true);
       await page.reload({ waitUntil: "domcontentloaded" });
       await page.waitForSelector("#main", { timeout: 10000 });
-      ok((await page.textContent("#bottomNav")).includes("OWNER P/E"), "offline reload lost app shell");
+      await page.waitForSelector("#topnav .topnav-group", { timeout: 10000 });
+      ok((await page.$$("#topnav .topnav-group")).length >= 4, "offline reload lost the top-nav shell");
       await context.setOffline(false);
     }
 
