@@ -2,7 +2,7 @@
  "ticker": "GEV",
  "cik": "0001996810",
  "entityName": "GE Vernova Inc.",
- "retrievedAt": "2026-07-21T12:43:36.621759Z",
+ "retrievedAt": "2026-07-22T12:27:39.967257Z",
  "fields": {
   "buyback": [
    {
@@ -538,12 +538,12 @@
     "confidence": 100
    },
    {
-    "value": 268719995,
+    "value": 266333581,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-22",
-    "accessionNumber": "0001996810-26-000064",
+    "filedDate": "2026-07-22",
+    "accessionNumber": "0001996810-26-000148",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
