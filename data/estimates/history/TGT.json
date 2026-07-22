@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "TGT"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 13.21994,
+      "currentYearRevenue": 106212551786.0,
+      "date": "2026-07-22",
+      "nextYearEps": 5.52332,
+      "nextYearRevenue": 108297392881.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "TGT"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

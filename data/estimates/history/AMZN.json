@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "AMZN"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 2.04996,
+      "currentYearRevenue": 470298361760.0,
+      "date": "2026-07-22",
+      "nextYearEps": -0.10658,
+      "nextYearRevenue": 510346366449.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "AMZN"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

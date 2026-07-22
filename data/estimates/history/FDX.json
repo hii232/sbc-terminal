@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "FDX"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 20.52097,
+      "currentYearRevenue": 93541595402.0,
+      "date": "2026-07-22",
+      "nextYearEps": 14.80205,
+      "nextYearRevenue": 90884469411.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "FDX"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "COIN"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 13.29597,
+      "currentYearRevenue": 7322750923.0,
+      "date": "2026-07-22",
+      "nextYearEps": -11.9055,
+      "nextYearRevenue": 3139866588.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "COIN"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

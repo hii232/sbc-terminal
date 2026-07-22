@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "TSLA"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 2.14522,
+      "currentYearRevenue": 53009897638.0,
+      "date": "2026-07-22",
+      "nextYearEps": 3.95584,
+      "nextYearRevenue": 82141808957.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "TSLA"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

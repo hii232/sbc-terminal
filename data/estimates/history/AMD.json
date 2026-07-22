@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "AMD"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 2.64582,
+      "currentYearRevenue": 16129371055.0,
+      "date": "2026-07-22",
+      "nextYearEps": 3.49889,
+      "nextYearRevenue": 23520416326.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "AMD"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

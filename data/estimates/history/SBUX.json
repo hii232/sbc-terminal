@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "SBUX"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 3.22903,
+      "currentYearRevenue": 29130007152.0,
+      "date": "2026-07-22",
+      "nextYearEps": 2.87032,
+      "nextYearRevenue": 32157917831.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "SBUX"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

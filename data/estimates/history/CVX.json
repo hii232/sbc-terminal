@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "CVX"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 8.5646,
+      "currentYearRevenue": 157502878115.0,
+      "date": "2026-07-22",
+      "nextYearEps": 19.11635,
+      "nextYearRevenue": 239852294360.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "CVX"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

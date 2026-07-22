@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "WMT"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 2.13819,
+      "currentYearRevenue": 571613501334.0,
+      "date": "2026-07-22",
+      "nextYearEps": 2.0287,
+      "nextYearRevenue": 606594020169.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "WMT"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

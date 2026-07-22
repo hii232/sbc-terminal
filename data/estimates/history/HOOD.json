@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "HOOD"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": -5.51281,
+      "currentYearRevenue": 1830054805.0,
+      "date": "2026-07-22",
+      "nextYearEps": -1.12089,
+      "nextYearRevenue": 1371085229.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "HOOD"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

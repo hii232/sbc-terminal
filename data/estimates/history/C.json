@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "C"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 10.12168,
+      "currentYearRevenue": 70926928816.0,
+      "date": "2026-07-22",
+      "nextYearEps": 6.98658,
+      "nextYearRevenue": 75151298828.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "C"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

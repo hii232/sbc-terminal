@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "TSM"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 98.43071,
+      "currentYearRevenue": 1332962912763.0,
+      "date": "2026-07-22",
+      "nextYearEps": 113.63484,
+      "nextYearRevenue": 1576725481576.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "TSM"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",
