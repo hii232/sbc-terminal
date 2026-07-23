@@ -2,7 +2,7 @@
  "ticker": "HON",
  "cik": "0000773840",
  "entityName": "Honeywell International Inc",
- "retrievedAt": "2026-07-23T12:24:07.484902Z",
+ "retrievedAt": "2026-07-23T23:21:49.532572Z",
  "fields": {
   "buyback": [
    {
@@ -1574,12 +1574,12 @@
     "confidence": 100
    },
    {
-    "value": 633653119,
+    "value": 316940010,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-23",
-    "accessionNumber": "0000773840-26-000057",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0000773840-26-000124",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

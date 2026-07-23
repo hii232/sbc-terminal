@@ -2,7 +2,7 @@
  "ticker": "RTX",
  "cik": "0000101829",
  "entityName": "RTX CORPORATION",
- "retrievedAt": "2026-07-23T12:24:06.640837Z",
+ "retrievedAt": "2026-07-23T23:21:48.423036Z",
  "fields": {
   "buyback": [
    {
@@ -1766,12 +1766,12 @@
     "confidence": 100
    },
    {
-    "value": 1346683428,
+    "value": 1347758144,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-21",
-    "accessionNumber": "0000101829-26-000011",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0000101829-26-000027",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

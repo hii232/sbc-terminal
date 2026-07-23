@@ -437,10 +437,10 @@
    "latestFourQuarters": {
     "status": "terminal-snapshot",
     "labels": [
-     "Jun'25",
      "Sep'25",
      "Dec'25",
-     "Mar'26"
+     "Mar'26",
+     "Jun'26"
     ],
     "fieldCount": 5,
     "note": "latest four-quarter terminal snapshot; SEC quarter matching is not used for the deployment gate yet"
