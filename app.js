@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "62"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "63"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -707,10 +707,8 @@
   const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
   state.favs = new Set(loadJSON("sbc_favs", []));
   state.portfolio = loadJSON("sbc_portfolio", {}); // ticker -> {shares, cost}
-  state.thesisRules = loadJSON("sbc_thesis_rules", {});
   const saveFavs = () => localStorage.setItem("sbc_favs", JSON.stringify([...state.favs]));
   const savePort = () => localStorage.setItem("sbc_portfolio", JSON.stringify(state.portfolio));
-  const saveThesis = () => localStorage.setItem("sbc_thesis_rules", JSON.stringify(state.thesisRules));
   function toggleFav(tk) { state.favs.has(tk) ? state.favs.delete(tk) : state.favs.add(tk); saveFavs(); renderWatchlist(); }
   const priceOf = (d) => state.live[d.ticker]?.quote?.price ?? d.price;
   const allCompanies = () => DATA;
@@ -797,7 +795,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "techBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -814,21 +812,14 @@
       { id: "edgeBtn", label: "Direction Edge", ic: "🧭" },
       { id: "sectorBtn", label: "Sectors", ic: "◈" },
     ] },
-    { name: "Find", icon: "🔍", tools: [
+    { name: "Stocks", icon: "🔍", tools: [
       { id: "rankBtn", label: "Rankings", ic: "⚡" },
       { id: "screenBtn", label: "Screener", ic: "📊" },
-      { id: "mapBtn", label: "Quality × Market Map", ic: "◎" },
-    ] },
-    { name: "Value", icon: "💰", tools: [
-      { id: "grahamBtn", label: "Graham Value", ic: "🛡" },
-      { id: "valBtn", label: "Owner-Earnings P/E", ic: "⊞" },
       { id: "compareBtn", label: "Compare", ic: "⚖" },
-      { id: "techBtn", label: "Tech Desk", ic: "⌬" },
     ] },
     { name: "Mine", icon: "💼", tools: [
       { id: "portBtn", label: "Portfolio", ic: "💼" },
       { id: "journalBtn", label: "Thesis Journal", ic: "✎" },
-      { id: "trigBtn", label: "Triggers", ic: "🎯" },
       { id: "trackBtn", label: "Track Record", ic: "📈" },
       { id: "auditBtn", label: "Data Audit — sources & trust", ic: "🧾" },
     ] },
@@ -933,7 +924,7 @@
     $("aside").setAttribute("aria-hidden", drawerMode && !drawerOpen ? "true" : "false");
     el("navSectors").classList.toggle("active", !drawerOpen && state.view === "sectors");
     el("navNarr").classList.toggle("active", !drawerOpen && state.view === "calendar");
-    el("navPE").classList.toggle("active", !drawerOpen && state.view === "valuation");
+    el("navPE").classList.toggle("active", !drawerOpen && state.view === "screener");
     el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
     syncTopNav();
   }
@@ -968,9 +959,9 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors, valuation: showValuation,
-          rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
-          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, audit: showAudit, track: showTrack, journal: showJournal };
+        const map = { home: showHome, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+          rankings: showRankings, screener: showScreener, compare: showCompare,
+          portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
     } finally { navRestoring = false; }
@@ -1034,7 +1025,7 @@
       </div>`;
 
     const tabs = `<div class="tabs">
-      ${[["overview", "OVERVIEW"], ["quality", "QUALITY"], ["gap", "EXPECTATIONS"], ["alerts", "ALERTS"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["earnings", "EARNINGS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
+      ${[["overview", "OVERVIEW"], ["quality", "QUALITY"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["earnings", "EARNINGS"], ["news", "NEWS"]]
         .map(([k, l]) => `<button data-tab="${k}" class="${currentTab === k ? "active" : ""}">${l}</button>`).join("")}
     </div>`;
 
@@ -1068,11 +1059,6 @@
     }
     else if (currentTab === "sbc") body.innerHTML = tabSBC(d);
     else if (currentTab === "quality") body.innerHTML = tabQuality(d);
-    else if (currentTab === "gap") body.innerHTML = tabGap(d);
-    else if (currentTab === "alerts") {
-      body.innerHTML = tabAlerts(d);
-      wireThesisForm(d);
-    }
     else if (currentTab === "financials") {
       body.innerHTML = tabFinancials(d);
       body.querySelectorAll(".fin-toggle").forEach(b =>
@@ -1081,7 +1067,6 @@
     else if (currentTab === "graham") body.innerHTML = tabGraham(d);
     else if (currentTab === "earnings") body.innerHTML = tabEarnings(d);
     else if (currentTab === "news") body.innerHTML = tabNews(d);
-    else if (currentTab === "framework") body.innerHTML = tabFramework(d);
     body.querySelectorAll("[data-news-tk]").forEach(x =>
       x.onclick = (e) => { e.preventDefault(); e.stopPropagation(); selectTicker(x.dataset.newsTk); });
   }
@@ -1242,67 +1227,6 @@
         ${scoreDetailCard("DATA CONFIDENCE", { score: ms.dataConfidence.score, coverage: 100, details: [{ k: "Separate trust gate", score: ms.dataConfidence.score, why: ms.dataConfidence.reason }] })}
       </div>`;
   }
-  function tabGap(d) {
-    return `<div class="grid g3">
-      ${expectationsGapCard(d)}
-      ${valuationCasesCard(d)}
-      ${whatChangedCard(d)}
-    </div>`;
-  }
-  function thesisRuleFor(d) {
-    return state.thesisRules[d.ticker] || {};
-  }
-  function tabAlerts(d) {
-    const t = thesisRuleFor(d);
-    const out = window.ScoreEngine ? window.ScoreEngine.thesisAlerts(d, t, marketContext()) : { alerts: [] };
-    const alertHtml = out.alerts.length
-      ? out.alerts.map(a => `<div class="note callout" style="margin-top:8px">${a}</div>`).join("")
-      : `<div class="note" style="margin-top:8px;border-left-color:var(--green)">No thesis-breaking alerts fired for the saved rules.</div>`;
-    return `<div class="grid g2">
-      <div class="card">
-        <h3>THESIS-BREAKING ALERTS <span class="unit">saved per ticker on this device</span></h3>
-        <div class="thesis-grid">
-          <label>Min revenue growth %<input id="thMinRev" type="number" value="${t.minRevenueGrowth ?? ""}" placeholder="e.g. 10"></label>
-          <label>Min operating margin %<input id="thMinOp" type="number" value="${t.minOperatingMargin ?? ""}" placeholder="e.g. 20"></label>
-          <label>Max SBC / revenue %<input id="thMaxSbc" type="number" value="${t.maxSbcRevenue ?? ""}" placeholder="e.g. 12"></label>
-          <label>Min 3M RS vs sector pp<input id="thMinRs" type="number" value="${t.minRelativeStrength ?? ""}" placeholder="e.g. -5"></label>
-          <label>Max owner P/E<input id="thMaxPe" type="number" value="${t.maxOwnerPE ?? ""}" placeholder="e.g. 35"></label>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:12px">
-          <button class="action-btn" id="saveThesis">SAVE ALERTS</button>
-          <button class="ghost-btn" id="clearThesis">CLEAR</button>
-        </div>
-      </div>
-      <div class="card">
-        <h3>ALERT STATUS <span class="unit">${out.broken || 0} fired</span></h3>
-        ${alertHtml}
-      </div>
-      ${whatChangedCard(d)}
-    </div>`;
-  }
-  function wireThesisForm(d) {
-    const val = (id) => {
-      const raw = el(id)?.value;
-      return raw === "" || raw == null ? null : +raw;
-    };
-    const cleanRule = (r) => Object.fromEntries(Object.entries(r).filter(([, v]) => v != null && Number.isFinite(v)));
-    const save = () => {
-      state.thesisRules[d.ticker] = cleanRule({
-        minRevenueGrowth: val("thMinRev"),
-        minOperatingMargin: val("thMinOp"),
-        maxSbcRevenue: val("thMaxSbc"),
-        minRelativeStrength: val("thMinRs"),
-        maxOwnerPE: val("thMaxPe"),
-      });
-      if (!Object.keys(state.thesisRules[d.ticker]).length) delete state.thesisRules[d.ticker];
-      saveThesis();
-      flash("Thesis alerts saved for " + d.ticker, "ok");
-      renderTab(d);
-    };
-    const s = el("saveThesis"); if (s) s.onclick = save;
-    const c = el("clearThesis"); if (c) c.onclick = () => { delete state.thesisRules[d.ticker]; saveThesis(); flash("Thesis alerts cleared", "ok"); renderTab(d); };
-  }
-
   function tickerDrawdown(d) {
     const px = d.px && Array.isArray(d.px.v) ? d.px : null;
     if (!px) return null;
@@ -2248,67 +2172,6 @@
     </div>`;
   }
 
-  function tabFramework(d) {
-    return `<div class="card"><h3>THE PERMANENT FRAMEWORK — SBC / DILUTION / TRUE-OWNER-EARNINGS</h3>
-      <div class="note" style="margin-bottom:12px">Core claim: GAAP earnings can overstate what shareholders keep, and Wall-Street adjusted earnings are usually <b>worse</b> because analysts add SBC back as if it's free. In the NASDAQ-100 sample the author cites, GAAP overstated true owner earnings by ~19.78% and adjusted earnings by ~42.12% — shareholders kept only ~83.49¢ of each GAAP dollar.</div>
-      <div class="grid g2">
-        <div>
-          <h3 style="margin-top:0">7-STEP CHECK</h3>
-          ${[
-            ["1 · Reported-earnings quality", "How much better does non-GAAP look than GAAP, and is SBC the reason?"],
-            ["2 · SBC burden", "SBC / revenue, gross profit, OCF, net income, market cap."],
-            ["3 · Share-count truth", "Diluted shares over 1/3/5/10y — falling, flat, rising, or exploding?"],
-            ["4 · Buyback quality", "Split anti-dilution (offsets SBC) vs real reduction; only bullish if shares fall AND price < intrinsic value."],
-            ["5 · True owner earnings", "GAAP NI + SBC add-back − true economic SBC cost (offset buyback + withholding − option/ESPP inflows)."],
-            ["6 · Valuation re-rate", "Owner EPS = adjusted owner earnings / diluted shares; owner P/E = price / owner EPS."],
-            ["7 · Management score", "A→F on SBC discipline, buyback honesty, share-count direction."],
-          ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
-        </div>
-        <div>
-          <h3 style="margin-top:0">3 SBC SITUATIONS</h3>
-          <div class="note" style="margin-bottom:8px"><b style="color:var(--cyan)">Pure dilution</b> — company hands employees stock, share count rises, you own less.</div>
-          <div class="note" style="margin-bottom:8px"><b style="color:var(--amber)">Buyback treadmill</b> — buybacks only offset issuance. You think you got capital return; the company just paid cash to prevent dilution.</div>
-          <div class="note callout" style="margin-bottom:14px"><b style="color:var(--red)">Hybrid</b> — some buybacks offset SBC, some truly cut shares. You must separate the two.</div>
-          <h3>WHERE THIS CAN BE WRONG</h3>
-          <div class="sub" style="line-height:1.7">
-            • SBC can be rational if $1B of stock creates $10B of durable value.<br>
-            • The market may already know (PLTR/CRWD/DDOG long debated) — it's a <b>quality filter & haircut</b>, not an auto-short.<br>
-            • Buybacks below intrinsic value can still be fine even while offsetting dilution.<br>
-            • Young post-IPO names distort on one-time founder/retention grants — separate recurring vs one-time.<br>
-            • It only adjusts SBC — not capitalized software, leases, goodwill, customer concentration, or debt.
-          </div>
-        </div>
-      </div>
-      <div class="note" style="margin-top:14px;border-left-color:var(--green)"><b>One-sentence rule:</b> A stock is not truly cheap until it is cheap on SBC-adjusted owner earnings per share, not Wall Street adjusted EPS.</div>
-    </div>
-
-    <div class="card" style="margin-top:12px"><h3>THE IV15 OVERLAY — FROM EARNINGS QUALITY TO A BUY PRICE</h3>
-      <div class="note" style="margin-bottom:12px">A low multiple is not necessarily a value. <b style="color:var(--amber)">IV15</b> is the price at which you'd expect <b>15% compounded annual returns over 15 years</b> — a buy target from a multi-stage DCF built on SBC-adjusted owner earnings and business quality, not a simple P/E. A higher-quality business can be a fat pitch above IV15; a lower-quality one only well below it.</div>
-      <div class="grid g2">
-        <div>
-          ${[
-            ["The IV ladder", "IV20 < IV18 < IV15 < IV12 < IV10 < IV8 in price. Set alerts at every rung; IV15 ★ is the swing trigger."],
-            ["Baseline intrinsic value", "Sits between IV8 and IV10 depending on quality — this terminal uses IV8 for clean names, IV9 middle, IV10 lower tiers."],
-            ["The buyback nuance", "Buybacks BELOW baseline IV are accretive to intrinsic value per share. Above it, they pull shares in but DILUTE IV/share — which is what most tech companies do when offsetting SBC at high prices."],
-            ["Inflecting companies", "Get a 4th DCF stage (growth cap lifted to 25%) — e.g. DKNG. The value is in the transition."],
-            ["The All Map", "Baseball-field view on the ⊞ EST P/E tab: Fat Pitches (≥15% implied), Just Outside (10–15%), The Out Field (<10%)."],
-          ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
-        </div>
-        <div>
-          <div class="sub" style="line-height:1.7">
-            <b style="color:var(--text)">How this terminal computes it</b> (simplified but faithful):<br>
-            • Base = SBC-adjusted owner EPS (the Step-5 number).<br>
-            • Stage 1 (yrs 1–5): revenue growth blend, haircut &amp; capped by quality tier.<br>
-            • Stage 2 (yrs 6–10): 60% of stage 1 · Stage 3 (yrs 11–15): ≤4%.<br>
-            • Exit multiple by quality: clean 18x → tragic 10x.<br>
-            • IVr = year-15 value ÷ (1+r)¹⁵ · implied CAGR = what today's price offers.<br><br>
-            <b style="color:var(--red)">Caveats:</b> it's a screen, not the full model — no per-name debt, serial-acquirer, or bedeviled-accounting adjustments. Use it to rank pitches, then do the work.
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }
-
   /* sector-context strip shown on each stock's overview */
   function sectorContextCard(d) {
     const etf = sectorETF(d.sector);
@@ -2343,6 +2206,7 @@
      net current asset value (net-net); Graham Number; the defensive checklist;
      and the investment-vs-speculation test. Complements the modern IV15 lens.
      ============================================================================ */
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function grahamOf(d) {
     const g = d.gd;
     if (!g) return null;
@@ -2621,54 +2485,6 @@
     </div>`;
   }
 
-  /* ---- ALL MAP: baseball-field view of the whole board ---- */
-  function allMapSVG() {
-    const W = 700, H = 400, hx = W / 2, hy = H - 18;
-    const pt = (deg, rad) => { const a = (deg * Math.PI) / 180; return [hx + rad * Math.sin(a), hy - rad * Math.cos(a)]; };
-    const arc = (rad) => { const [x1, y1] = pt(-45, rad), [x2, y2] = pt(45, rad); return `M${x1.toFixed(1)} ${y1.toFixed(1)} A${rad} ${rad} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`; };
-    const band = (r1, r2, fill) => {
-      const [ax, ay] = pt(-45, r1), [bx, by] = pt(-45, r2), [cx2, cy2] = pt(45, r2), [dx, dy] = pt(45, r1);
-      return `<path d="M${ax} ${ay} L${bx} ${by} A${r2} ${r2} 0 0 1 ${cx2} ${cy2} L${dx} ${dy} A${r1} ${r1} 0 0 0 ${ax} ${ay}" fill="${fill}"/>`;
-    };
-    const zones = { fat: [], just: [], out: [] };
-    DATA.filter(d => dataConfidenceOf(d).rankable).forEach(d => { const L = ivLadder(d); zones[L ? L.zone : "out"].push({ d, L }); });
-    Object.values(zones).forEach(z => z.sort((a, b) => (b.L?.impliedCAGR ?? -1) - (a.L?.impliedCAGR ?? -1)));
-    const RB = { fat: [70, 155], just: [168, 248], out: [260, 345] };
-    let dots = "";
-    Object.entries(zones).forEach(([zn, arr]) => {
-      const [r1, r2] = RB[zn];
-      arr.forEach((it, i) => {
-        const n = arr.length;
-        const deg = n === 1 ? 0 : -41 + (82 * i) / (n - 1);
-        const rad = r1 + (r2 - r1) * (0.2 + 0.6 * ((i % 3) / 2));
-        const [x, y] = pt(deg, rad);
-        const col = { fat: "#26d07c", just: "#ffb000", out: "#ff5b6b" }[zn];
-        const cagr = it.L ? (it.L.impliedCAGR * 100).toFixed(1) + "%" : "n/m (GAAP loss)";
-        const showLabel = zn !== "out";
-        dots += `<g data-tk="${it.d.ticker}" style="cursor:pointer">
-          <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${zn === "fat" ? 6 : 4.5}" fill="${col}" stroke="#05070c" stroke-width="1.2"><title>${it.d.ticker} — implied 15y CAGR ${cagr}</title></circle>
-          ${showLabel ? `<text x="${x.toFixed(1)}" y="${(y - 8).toFixed(1)}" fill="${col}" font-size="8.5" font-weight="700" text-anchor="middle">${it.d.ticker}</text>` : ""}</g>`;
-      });
-    });
-    const [flx, fly] = pt(-45, 350), [frx, fry] = pt(45, 350);
-    return { svg: `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">
-      ${band(60, 158, "rgba(38,208,124,.07)")}${band(158, 251, "rgba(255,176,0,.06)")}${band(251, 348, "rgba(255,91,107,.05)")}
-      <path d="${arc(158)}" stroke="#26d07c" stroke-dasharray="4 4" fill="none" opacity=".5"/>
-      <path d="${arc(251)}" stroke="#ffb000" stroke-dasharray="4 4" fill="none" opacity=".5"/>
-      <path d="${arc(348)}" stroke="#ff5b6b" stroke-dasharray="4 4" fill="none" opacity=".4"/>
-      <line x1="${hx}" y1="${hy}" x2="${flx}" y2="${fly}" stroke="#31405c"/><line x1="${hx}" y1="${hy}" x2="${frx}" y2="${fry}" stroke="#31405c"/>
-      <rect x="${hx - 5}" y="${hy - 5}" width="10" height="10" fill="#d8e0ea" transform="rotate(45 ${hx} ${hy})"/>
-      <text x="${hx}" y="${hy - 42}" fill="#26d07c" font-size="11" font-weight="800" text-anchor="middle">FAT PITCHES ≥15%</text>
-      <text x="${hx}" y="${hy - 192}" fill="#ffb000" font-size="10" font-weight="700" text-anchor="middle" opacity=".85">JUST OUTSIDE 10–15%</text>
-      <text x="${hx}" y="${hy - 288}" fill="#ff5b6b" font-size="10" font-weight="700" text-anchor="middle" opacity=".85">THE OUT FIELD &lt;10%</text>
-      ${dots}
-    </svg>`, counts: { fat: zones.fat.length, just: zones.just.length, out: zones.out.length }, zones };
-  }
-
-  /* ------------------------ MASTER RANKING ENGINE ------------------------ */
-  // Rankings ARE the brain: rankOf() reads verdictOf(), so the leaderboard,
-  // the screener and every stock page share ONE unified conclusion.
-  const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function rankOf(d) {
     const V = verdictOf(d);
     if (V.noRank) return { noRank: true, dataConfidence: V.dataConfidence, composite: null, truePE: null,
@@ -2811,98 +2627,6 @@
     el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
   }
 
-  /* ------------------------ 🛡 GRAHAM VALUE SCREENER ------------------------ */
-  const grahamState = { sort: "score", dir: -1 };
-  function renderGraham() {
-    const rows = DATA.map(d => ({ d, G: grahamOf(d) })).filter(x => x.G);
-    const netnets = rows.filter(x => x.G.netnet).sort((a, b) => a.G.priceToNcav - b.G.priceToNcav);
-    const stalwarts = rows.filter(x => x.G.passed >= 6).sort((a, b) => b.G.passed - a.G.passed || b.G.score - a.G.score);
-    const byMOS = rows.filter(x => x.G.grahamMOS != null).sort((a, b) => b.G.grahamMOS - a.G.grahamMOS);
-
-    const raw = (o, k) => k === "score" ? o.G.score : k === "mos" ? o.G.grahamMOS : k === "pb" ? o.G.pb
-      : k === "cr" ? o.G.currentRatio : k === "ncav" ? o.G.priceToNcav : k === "passed" ? o.G.passed
-      : k === "div" ? o.G.divYield : o.d[k];
-    const sorted = [...rows].sort((a, b) => {
-      const va = raw(a, grahamState.sort), vb = raw(b, grahamState.sort);
-      if (va == null && vb == null) return 0; if (va == null) return 1; if (vb == null) return -1;
-      return (va - vb) * grahamState.dir;
-    });
-
-    const COLS = [
-      { k: "score", label: "G-SCORE" }, { k: "passed", label: "CHECKS" },
-      { k: "mos", label: "GRAHAM MOS" }, { k: "pb", label: "P/B" },
-      { k: "cr", label: "CURR RATIO" }, { k: "ncav", label: "PRICE/NCAV" },
-      { k: "div", label: "DIV YLD" }, { k: "mktCap", label: "MKT CAP" },
-    ];
-    const th = COLS.map(c => `<th data-gsort="${c.k}" class="${grahamState.sort === c.k ? "sorted" : ""}">${c.label}${grahamState.sort === c.k ? (grahamState.dir < 0 ? " ▾" : " ▴") : ""}</th>`).join("");
-    const body = sorted.map((x, i) => {
-      const d = x.d, G = x.G;
-      const sc = G.score >= 60 ? "var(--green)" : G.score >= 45 ? "var(--amber)" : "var(--red)";
-      return `<tr data-tk="${d.ticker}">
-        <td><span class="rk-num">${i + 1}</span></td>
-        <td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
-        <td><span class="rk-score" style="color:${sc}">${G.score.toFixed(0)}</span></td>
-        <td class="${G.passed >= 5 ? "up" : G.passed <= 2 ? "down" : ""}">${G.passed}/7</td>
-        <td class="${G.grahamMOS == null ? "" : G.grahamMOS >= 0 ? "up" : "down"}">${G.grahamMOS == null ? "n/m" : (G.grahamMOS >= 0 ? "+" : "") + (G.grahamMOS * 100).toFixed(0) + "%"}</td>
-        <td class="${G.pb == null ? "" : G.pb <= 1.5 ? "up" : G.pb > 4 ? "down" : ""}">${G.pb ? G.pb.toFixed(2) + "×" : "–"}</td>
-        <td class="${G.currentRatio == null ? "" : G.currentRatio >= 2 ? "up" : G.currentRatio < 1 ? "down" : ""}">${G.currentRatio ? G.currentRatio.toFixed(2) : "–"}</td>
-        <td class="${G.netnet ? "up" : ""}">${G.priceToNcav != null ? (G.priceToNcav * 100).toFixed(0) + "%" : "–"}</td>
-        <td class="${G.paysDiv ? "up" : "sub"}">${G.paysDiv ? G.divYield.toFixed(1) + "%" : "–"}</td>
-        <td class="sub">${money(d.mktCap)}</td>
-      </tr>`;
-    }).join("");
-
-    el("main").innerHTML = `
-      <div class="hdr">
-        <div>
-          <div class="tick" style="color:#5aa9d6">🛡 GRAHAM VALUE</div>
-          <div class="co">classic Security Analysis — margin of safety · net current asset value · defensive checklist</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right"><div class="sub">NET-NETS</div><div class="stat sm" style="color:var(--green)">${netnets.length}</div></div>
-        <div style="text-align:right;border-left:1px solid var(--line);padding-left:14px"><div class="sub">DEFENSIVE (6-7/7)</div><div class="stat sm" style="color:var(--cyan)">${stalwarts.length}</div></div>
-      </div>
-
-      <div class="note" style="margin-bottom:12px;border-left-color:#5aa9d6">
-        <b style="color:#5aa9d6">“The margin of safety is the central concept of investment.”</b> Graham valued a business by its assets, average earning power and dividends — not its story — then demanded a discount to that value. <b>Graham Number</b> = √(22.5 × EPS × book/share). <b>Net current asset value</b> = current assets − all liabilities; a stock under NCAV means you get the operating business for free. Tap a column to re-rank, a row to open.
-      </div>
-
-      ${netnets.length ? `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
-        <h3>★ NET-NET BARGAINS <span class="unit">trading below net current asset value — the rarest Graham signal</span></h3>
-        ${Chart.hbars(netnets.slice(0, 10).map(x => ({ label: x.d.ticker, value: x.G.priceToNcav * 100, color: x.G.deepNetnet ? "var(--green)" : "var(--amber)", display: (x.G.priceToNcav * 100).toFixed(0) + "% of NCAV" })), { max: 105, labelW: 52 })}
-        <div class="sub" style="margin-top:6px">Under 100% = below liquid assets net of all debt · under 67% (green) = Graham's deep two-thirds bargain.</div>
-      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 126-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
-
-      <div class="grid g2" style="margin-bottom:12px">
-        <div class="card" style="border-left:3px solid var(--green)"><h3>DEEPEST MARGIN OF SAFETY <span class="unit">discount to Graham Number</span></h3>
-          ${Chart.hbars(byMOS.slice(0, 10).map(x => ({ label: x.d.ticker, value: Math.max(0, x.G.grahamMOS * 100), color: "var(--green)", display: (x.G.grahamMOS >= 0 ? "+" : "") + (x.G.grahamMOS * 100).toFixed(0) + "%" })), { labelW: 52 })}</div>
-        <div class="card" style="border-left:3px solid var(--cyan)"><h3>DEFENSIVE STALWARTS <span class="unit">6–7 of 7 Graham criteria</span></h3>
-          ${stalwarts.length ? stalwarts.slice(0, 10).map(x => `<div class="pe-row" data-tk="${x.d.ticker}"><span class="pe-tk">${x.d.ticker}</span><span class="sub">${x.d.name}</span><span class="pe-val"><b style="color:var(--cyan)">${x.G.passed}/7</b> ${x.G.paysDiv ? x.G.divYield.toFixed(1) + "%" : ""}</span></div>`).join("") : `<div class="sub">None clear 6/7 — modern large caps rarely pass Graham's strict P/B ≤1.5 test.</div>`}</div>
-      </div>
-
-      <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:64vh;overflow-y:auto"><table class="rank">
-        <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
-        <tbody>${body}</tbody>
-      </table></div></div>`;
-
-    el("main").querySelectorAll("th[data-gsort]").forEach(h => h.onclick = () => {
-      const k = h.dataset.gsort;
-      if (grahamState.sort === k) grahamState.dir *= -1;
-      else { grahamState.sort = k; grahamState.dir = (k === "pb" || k === "ncav") ? 1 : -1; }
-      renderGraham();
-    });
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
-  function showGraham() {
-    state.view = "graham";
-    setViewBtn("grahamBtn");
-    renderWatchlist();
-    renderGraham();
-    closeDrawer();
-    window.scrollTo({ top: 0 });
-    syncNav();
-    pushNav();
-  }
 
   /* ============================================================================
      QUALITY / COMPOUNDER + FCF ENGINE (uses qm:{} blocks when present)
@@ -3298,56 +3022,6 @@
 
   /* ------------------------ 📊 CUSTOM SCREENER ------------------------ */
   const screenState = { bucket: "all", zone: "all", gMin: 0, peMax: "", sbcMax: "", capMin: "", sector: "all", favOnly: false, divOnly: false, sort: "composite" };
-  function renderQualityMap() {
-    const points = window.ScoreEngine ? window.ScoreEngine.qualityMarketMap(DATA, marketContext()) : [];
-    const count = points.length;
-    const dots = points.map(p => {
-      const x = Math.max(6, Math.min(94, 8 + (p.businessQuality || 0) * 0.84));
-      const y = Math.max(6, Math.min(94, 92 - (p.marketReward || 0) * 0.84));
-      const val = p.valuation == null ? 50 : p.valuation;
-      const bg = val >= 70 ? "var(--green)" : val >= 55 ? "var(--amber)" : val >= 40 ? "var(--orange)" : "var(--red)";
-      const fg = val >= 55 ? "#081019" : "#fff";
-      const size = Math.max(28, Math.min(44, 28 + ((p.longTermView || 0) / 100) * 16));
-      return `<button class="map-dot" data-tk="${p.ticker}" title="${p.ticker} · BQ ${fmtScore(p.businessQuality)} · MR ${fmtScore(p.marketReward)} · Val ${fmtScore(p.valuation)} · ${p.label}"
-        style="left:${x}%;top:${y}%;width:${size}px;height:${size}px;background:${bg};color:${fg}">${p.ticker}</button>`;
-    }).join("");
-    el("main").innerHTML = toolHeader("◎", "QUALITY x MARKET MAP", "Business Quality on X axis, Market Reward on Y axis, dot color is valuation support",
-      `<div style="text-align:right"><div class="sub">UNIVERSE</div><div class="stat sm" style="color:var(--cyan)">${count}</div></div>`)
-      + `<div class="grid g3">
-        <div class="card" style="grid-column:span 3">
-          <h3>QUALITY VS MARKET REWARD <span class="unit">click any ticker</span></h3>
-          <div class="map-wrap">
-            <div class="map-axis" style="left:10px;top:8px">Market Reward ↑</div>
-            <div class="map-axis" style="right:12px;bottom:8px">Business Quality →</div>
-            <div class="map-axis" style="left:50%;top:50%;transform:translate(-50%,-50%);color:#263145">50 / 50</div>
-            <div style="position:absolute;left:50%;top:0;bottom:0;border-left:1px dashed #263145"></div>
-            <div style="position:absolute;left:0;right:0;top:50%;border-top:1px dashed #263145"></div>
-            ${dots}
-          </div>
-          <div class="chart-legend">
-            <span><i style="background:var(--green)"></i>valuation supportive</span>
-            <span><i style="background:var(--amber)"></i>fair/mixed</span>
-            <span><i style="background:var(--orange)"></i>demanding</span>
-            <span><i style="background:var(--red)"></i>expensive/risky</span>
-          </div>
-        </div>
-        <div class="card" style="grid-column:span 3">
-          <h3>TOP QUADRANTS <span class="unit">sorted by long-term score</span></h3>
-          <div style="overflow:auto"><table class="rank">
-            <thead><tr><th>TICKER</th><th>LABEL</th><th>BUSINESS</th><th>MARKET</th><th>VALUATION</th><th>LONG TERM</th></tr></thead>
-            <tbody>${points.slice().sort((a, b) => (b.longTermView || 0) - (a.longTermView || 0)).slice(0, 25).map(p => `<tr data-tk="${p.ticker}">
-              <td><span class="rk-tk">${p.ticker}</span> <span class="sub">${p.sector}</span></td>
-              <td>${p.label}</td>
-              <td style="color:${scoreColorOf(p.businessQuality)}">${fmtScore(p.businessQuality)}</td>
-              <td style="color:${scoreColorOf(p.marketReward)}">${fmtScore(p.marketReward)}</td>
-              <td style="color:${scoreColorOf(p.valuation)}">${fmtScore(p.valuation)}</td>
-              <td style="color:${scoreColorOf(p.longTermView)}">${fmtScore(p.longTermView)}</td>
-            </tr>`).join("")}</tbody>
-          </table></div>
-        </div>
-      </div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
   function renderScreener() {
     const sectors = [...new Set(DATA.map(d => sectorETF(d.sector)))];
     const S = screenState;
@@ -3442,26 +3116,6 @@
     el("main").querySelectorAll("[data-rem]").forEach(x => x.onclick = () => { compareState.tickers = compareState.tickers.filter(t => t !== x.dataset.rem); renderCompare(); });
   }
 
-  /* ------------------------ 🎯 TRIGGERS TODAY ------------------------ */
-  function renderTriggers() {
-    const fats = [], belowGraham = [], netnets = [], nearLow = [];
-    DATA.forEach(d => {
-      const L = ivLadder(d), G = grahamOf(d);
-      if (L && L.zone === "fat") fats.push({ d, v: L.impliedCAGR });
-      if (G && G.grahamMOS != null && G.grahamMOS > 0.1) belowGraham.push({ d, v: G.grahamMOS });
-      if (G && G.netnet) netnets.push({ d, v: G.priceToNcav });
-    });
-    fats.sort((a, b) => b.v - a.v); belowGraham.sort((a, b) => b.v - a.v);
-    const section = (title, color, items, fmt, empty) => `<div class="card" style="border-left:3px solid ${color};margin-bottom:12px">
-      <h3>${title} <span class="unit">${items.length} names</span></h3>
-      ${items.length ? items.slice(0, 25).map(x => `<div class="pe-row" data-tk="${x.d.ticker}"><span class="pe-tk"><span class="star ${state.favs.has(x.d.ticker) ? "on" : ""}" data-fav="${x.d.ticker}">${state.favs.has(x.d.ticker) ? "★" : "☆"}</span> ${x.d.ticker}</span><span class="sub">${x.d.name}</span><span class="pe-val" style="color:${color}">${fmt(x.v)}</span></div>`).join("") : `<div class="sub">${empty}</div>`}</div>`;
-    el("main").innerHTML = toolHeader("🎯", "TRIGGERS TODAY", "where the frameworks say ACT right now — refreshes with live prices",
-      `<div style="text-align:right"><div class="sub">SIGNALS</div><div class="stat sm" style="color:var(--red)">${fats.length + belowGraham.length + netnets.length}</div></div>`)
-      + section("★ FAT PITCHES — priced for ≥15%/yr (IV15)", "var(--green)", fats, v => (v * 100).toFixed(1) + "%/yr", "Nothing priced for 15%+ right now — patience is a position.")
-      + section("BELOW GRAHAM NUMBER — classic margin of safety", "#5aa9d6", belowGraham, v => (v * 100).toFixed(0) + "% below fair", "Nothing trading meaningfully below its Graham Number.")
-      + section("NET-NETS — below net current asset value", "var(--amber)", netnets, v => (v * 100).toFixed(0) + "% of NCAV", "No large-cap net-nets — expected.");
-    el("main").querySelectorAll(".pe-row").forEach(r => r.onclick = (e) => { if (e.target.dataset.fav) { toggleFav(e.target.dataset.fav); e.stopPropagation(); renderTriggers(); } else selectTicker(r.dataset.tk); });
-  }
 
   /* ------------------------ 💼 PORTFOLIO ------------------------ */
   const usd = (n) => { // raw dollars -> $, K, M, B
@@ -3749,7 +3403,6 @@
 
   const showScreener = () => showView("screener", renderScreener, "screenBtn");
   const showCompare = () => showView("compare", renderCompare, "compareBtn");
-  const showTriggers = () => showView("triggers", renderTriggers, "trigBtn");
   const showPortfolio = () => showView("portfolio", renderPortfolio, "portBtn");
   const fmtEarningsDate = (dt) => dt.toISOString().slice(0, 10);
   const earningsWhen = (hour) => hour === "bmo" ? "pre-open" : hour === "amc" ? "after-close" : hour || "";
@@ -3981,224 +3634,11 @@
     return out;
   }
 
-  /* ============================================================================
-     ⌬ TECH DESK — the whole framework pointed at tech only.
-     Tech is where SBC lives: software, semis, internet, payments/fintech.
-     ============================================================================ */
-  const TECH_EXTRA = new Set(["Social Media", "Streaming", "Gaming", "E-commerce", "E-commerce/Cloud",
-    "Payments", "Crypto Exchange", "Fintech Brokerage", "Gaming/Betting"]);
-  const isTech = (d) => ["XLK", "SMH"].includes(sectorETF(d.sector)) || TECH_EXTRA.has(d.sector);
-
-  function techScatter(items) {
-    // x = revenue CAGR %, y = SBC % of revenue → "is the SBC buying growth?"
-    const W = 700, H = 380, P = { t: 26, r: 16, b: 34, l: 44 };
-    const iw = W - P.l - P.r, ih = H - P.t - P.b;
-    const X = (g) => P.l + clamp((g + 10) / 50, 0, 1) * iw;      // -10%..+40%
-    const Y = (s) => P.t + ih - clamp(s / 30, 0, 1) * ih;        // 0..30%+
-    let g = "";
-    // quadrant shading (split at 15% growth, 10% SBC)
-    const mx = X(15), my = Y(10);
-    g += `<rect x="${P.l}" y="${P.t}" width="${mx - P.l}" height="${my - P.t}" fill="rgba(255,91,107,.06)"/>`;      // low growth, high SBC
-    g += `<rect x="${mx}" y="${my}" width="${P.l + iw - mx}" height="${P.t + ih - my}" fill="rgba(38,208,124,.06)"/>`; // high growth, low SBC
-    [0, 10, 20, 30].forEach(s => { const y = Y(s); g += `<line x1="${P.l}" y1="${y}" x2="${W - P.r}" y2="${y}" stroke="#1c2434"/><text x="${P.l - 5}" y="${y + 3}" fill="#7d8798" font-size="8.5" text-anchor="end">${s}%</text>`; });
-    [-10, 0, 10, 20, 30, 40].forEach(x => { const xx = X(x); g += `<text x="${xx}" y="${H - 16}" fill="#7d8798" font-size="8.5" text-anchor="middle">${x >= 0 ? "+" : ""}${x}%</text>`; });
-    g += `<text x="${P.l + 6}" y="${P.t + 12}" fill="var(--red)" font-size="9.5" font-weight="700">WORST: DILUTION WITHOUT GROWTH</text>`;
-    g += `<text x="${W - P.r - 6}" y="${P.t + ih - 8}" fill="var(--green)" font-size="9.5" font-weight="700" text-anchor="end">ELITE: GROWTH WITHOUT DILUTION</text>`;
-    g += `<text x="${W / 2}" y="${H - 4}" fill="#576072" font-size="9" text-anchor="middle">REVENUE CAGR →</text>`;
-    g += `<text x="12" y="${P.t + ih / 2}" fill="#576072" font-size="9" text-anchor="middle" transform="rotate(-90 12 ${P.t + ih / 2})">SBC % OF REVENUE →</text>`;
-    const bcol = { clean: "#26d07c", middle: "#ffb000", high: "#ff8a3d", tragic: "#ff5b6b" };
-    const byCap = [...items].sort((a, b) => b.d.mktCap - a.d.mktCap);
-    const labeled = new Set(byCap.slice(0, 22).map(x => x.d.ticker));
-    let dots = "";
-    items.forEach(({ d, q }) => {
-      if (q.revCAGR == null || d.sbcPctRev == null) return;
-      const x = X(q.revCAGR), y = Y(d.sbcPctRev);
-      dots += `<g data-tk="${d.ticker}" style="cursor:pointer">
-        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${labeled.has(d.ticker) ? 5 : 3.5}" fill="${bcol[d.bucket]}" stroke="#05070c" stroke-width="1"><title>${d.ticker} — rev CAGR ${q.revCAGR.toFixed(0)}%, SBC ${d.sbcPctRev.toFixed(1)}% of rev</title></circle>
-        ${labeled.has(d.ticker) ? `<text x="${x.toFixed(1)}" y="${(y - 7).toFixed(1)}" fill="${bcol[d.bucket]}" font-size="8.5" font-weight="700" text-anchor="middle">${d.ticker}</text>` : ""}</g>`;
-    });
-    return `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">${g}${dots}</svg>`;
-  }
-
-  function renderTech() {
-    const tech = DATA.filter(isTech);
-    const rest = DATA.filter(d => !isTech(d));
-    const items = tech.map(d => ({ d, q: qualityOf(d), r: rankOf(d), X: capexOf(d) }));
-    const med = (arr) => medianOf(arr);
-    const stat = {
-      sbcT: med(tech.map(d => d.sbcPctRev)), sbcR: med(rest.map(d => d.sbcPctRev)),
-      keepT: med(tech.map(d => d.ownersKeep)), keepR: med(rest.map(d => d.ownersKeep)),
-      peT: med(tech.map(d => d.truePE)), peR: med(rest.map(d => d.truePE)),
-      gapT: med(tech.filter(d => d.gaapEPS > 0 && d.nonGaapEPS > 0).map(d => (d.nonGaapEPS / d.gaapEPS - 1) * 100)),
-      gapR: med(rest.filter(d => d.gaapEPS > 0 && d.nonGaapEPS > 0).map(d => (d.nonGaapEPS / d.gaapEPS - 1) * 100)),
-    };
-    const fats = items.filter(x => x.r.zone === "fat").length;
-    const worst = [...tech].filter(d => d.sbcPctRev != null).sort((a, b) => b.sbcPctRev - a.sbcPctRev).slice(0, 12);
-    const cleanest = [...tech].filter(d => d.sbcPctRev != null && d.mktCap > 20).sort((a, b) => a.sbcPctRev - b.sbcPctRev).slice(0, 12);
-    const board = [...items].sort((a, b) => b.r.composite - a.r.composite).slice(0, 15);
-    const smh = secByT("SMH"), xlk = secByT("XLK"), spy = secByT("SPY");
-    const relSemis = +(retOver(smh, 3) - retOver(xlk, 3)).toFixed(1);
-
-    const cell = (k, vT, vR, fmt, goodLow) => {
-      const better = vT != null && vR != null ? (goodLow ? vT < vR : vT > vR) : null;
-      return `<div style="flex:1;min-width:118px;text-align:center;border-right:1px solid var(--line)">
-        <div class="sub">${k}</div>
-        <div class="stat sm" style="color:${better == null ? "var(--text)" : better ? "var(--green)" : "var(--red)"}">${fmt(vT)}</div>
-        <div class="sub">rest of market: ${fmt(vR)}</div></div>`;
-    };
-
-    el("main").innerHTML = toolHeader("⌬", "TECH DESK", `the whole framework pointed at ${tech.length} tech names — software · semis · internet · payments`,
-      `<div style="text-align:right"><div class="sub">FAT PITCHES IN TECH</div><div class="stat sm" style="color:${fats ? "var(--green)" : "var(--red)"}">${fats}</div></div>`)
-      + `<div class="card" style="margin-bottom:12px;padding:10px 6px"><div style="display:flex;flex-wrap:wrap;align-items:center">
-          <div style="min-width:96px;text-align:center"><div class="sub" style="color:#7da2ff;font-weight:700;letter-spacing:1px">TECH vs<br>THE REST</div></div>
-          ${cell("MEDIAN SBC / REVENUE", stat.sbcT, stat.sbcR, v => v == null ? "–" : v.toFixed(1) + "%", true)}
-          ${cell("OWNER-¢ KEPT / $1", stat.keepT, stat.keepR, v => v == null ? "–" : (v * 100).toFixed(0) + "¢", false)}
-          ${cell("MEDIAN EST P/E", stat.peT, stat.peR, v => v == null ? "–" : v.toFixed(1) + "x", true)}
-          ${cell("NON-GAAP INFLATION", stat.gapT, stat.gapR, v => v == null ? "–" : "+" + v.toFixed(0) + "%", true)}
-        </div>
-        <div class="sub" style="padding:8px 12px 2px">This strip is the whole thesis in four numbers: tech pays more of your earnings to employees, keeps less per GAAP dollar, trades richer on true earnings, and inflates non-GAAP harder than the rest of the market.</div></div>`
-      + `<div class="card" style="margin-bottom:12px;border-left:3px solid #7da2ff">
-          <h3>DILUTION vs GROWTH — IS THE SBC BUYING ANYTHING? <span class="unit">each dot a tech name · tap to open · quadrants split at 15% growth / 10% SBC</span></h3>
-          ${techScatter(items)}
-          <div class="sub" style="margin-top:6px">The framework's one allowance: high SBC can be rational <i>if</i> it buys elite growth (top-right). Top-left — heavy dilution with slowing growth — is where shareholder value goes to die.</div></div>`
-      + `<div class="grid g2" style="margin-bottom:12px">
-        <div class="card" style="border-left:3px solid var(--red)"><h3>THE DILUTION LEAGUE — WORST SBC/REVENUE</h3>
-          ${Chart.hbars(worst.map(d => ({ label: d.ticker, value: d.sbcPctRev, color: d.sbcPctRev >= 20 ? "var(--red)" : "var(--orange)", display: d.sbcPctRev.toFixed(1) + "%" })), { labelW: 52 })}</div>
-        <div class="card" style="border-left:3px solid var(--green)"><h3>CLEANEST BIG TECH — LOWEST SBC/REVENUE <span class="unit">&gt;$20B cap</span></h3>
-          ${Chart.hbars(cleanest.map(d => ({ label: d.ticker, value: Math.max(d.sbcPctRev, 0.1), color: "var(--green)", display: d.sbcPctRev.toFixed(1) + "%" })), { labelW: 52 })}</div>
-      </div>`
-      + (() => {
-        const spenders = items.filter(x => x.X && x.X.lastCapex > 1).sort((a, b) => b.X.lastCapex - a.X.lastCapex).slice(0, 10);
-        const holes = items.filter(x => x.X && !x.X.assetLight && x.X.score < 35).length;
-        const paying = items.filter(x => x.X && !x.X.assetLight && x.X.score >= 60).length;
-        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--orange)">
-          <h3>🏗 THE AI CAPEX CYCLE — WHO'S SPENDING, AND IS IT WORKING? <span class="unit">top tech capex budgets · bar = latest-FY capex · color = efficiency score</span></h3>
-          ${Chart.hbars(spenders.map(x => ({
-            label: x.d.ticker, value: x.X.lastCapex,
-            color: x.X.score >= 60 ? "var(--green)" : x.X.score >= 35 ? "var(--amber)" : "var(--red)",
-            display: "$" + x.X.lastCapex.toFixed(0) + "B · " + x.X.score,
-          })), { labelW: 52 })}
-          <div class="sub" style="margin-top:6px"><b class="up">${paying}</b> tech names' capex is paying for itself in revenue · <b class="down">${holes}</b> are spending into a hole. Green = revenue justifies the spend, red = buildout on faith. Tap a stock and open its 🏗 CAPEX X-RAY for the full picture.</div>
-        </div>`;
-      })()
-      + `<div class="grid g2" style="margin-bottom:12px">
-        <div class="card"><h3>SEMIS vs SOFTWARE — WHERE'S TECH'S MONEY GOING? <span class="unit">12M cumulative return</span></h3>
-          ${Chart.line([{ points: perfSeries(smh), color: "#ffb000" }, { points: perfSeries(xlk), color: "#37c6ff" }, { points: perfSeries(spy), color: "#d8e0ea" }], SECTORS.labels, { h: 190, zero: true })}
-          <div class="chart-legend"><span><i style="background:#ffb000"></i>SMH semis</span><span><i style="background:#37c6ff"></i>XLK software/tech</span><span><i style="background:#d8e0ea"></i>SPY</span></div>
-          <div class="sub" style="margin-top:5px">Semis ${relSemis >= 0 ? "+" : ""}${relSemis}pp vs software over 3M — ${relSemis >= 2 ? "the AI-hardware trade is still leading tech." : relSemis <= -2 ? "leadership has rotated from chips back to software." : "semis and software roughly in step."}</div></div>
-        <div class="card"><h3>⚛ TECH BRAIN BOARD — TOP 15 <span class="unit">by unified brain score</span></h3>
-          ${board.map((x, i) => `<div class="pe-row" data-tk="${x.d.ticker}">
-            <span class="pe-tk"><span class="rk-num">${i + 1}</span> ${x.d.ticker}</span>
-            <span class="sub">${x.d.sector} · ${x.r.cagr == null ? "n/m" : (x.r.cagr * 100).toFixed(0) + "%/yr"} · SBC ${x.d.sbcPctRev == null ? "–" : x.d.sbcPctRev.toFixed(1) + "%"}</span>
-            <span class="pe-val"><b style="color:${x.r.composite >= 62 ? "var(--green)" : x.r.composite >= 48 ? "var(--amber)" : "var(--red)"}">${x.r.composite.toFixed(0)}</b> <span style="color:${x.r.C.color};font-size:9px;font-weight:700">${x.r.C.label.split(" — ")[0]}</span></span>
-          </div>`).join("")}</div>
-      </div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
-  const showTech = () => showView("tech", renderTech, "techBtn");
 
   /* ------------------------ EST OWNER-EARNINGS P/E SCREENER view ------------------------ */
   const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
   const bucketColor = (b) => BUCKETS[b].color;
 
-  function peRow(d, cap) {
-    const fwd = forwardPEOf(d);
-    const hw = clamp((d.headlinePE / cap) * 100, 1, 100);
-    const xw = clamp(((d.truePE - d.headlinePE) / cap) * 100, 0, 100 - hw);
-    return `<div class="pe-row" data-tk="${d.ticker}" title="${d.name} — headline ${d.headlinePE}x to owner ${d.truePE}x · forward ${fwd.pe == null ? "n/m" : fwd.pe.toFixed(1) + "x"} (${fwd.source})">
-      <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(d.bucket)}"></i>${d.ticker}</span>
-      <div class="pe-bar"><i style="width:${hw}%;background:var(--cyan)"></i><i style="width:${xw}%;background:var(--red)"></i></div>
-      <span class="pe-val"><b style="color:var(--amber)">${d.truePE.toFixed(1)}x</b> <span class="sub">${d.headlinePE.toFixed(0)}x hdl</span><br><span class="sub"><b style="color:var(--cyan)">${fwd.pe == null ? "n/m" : fwd.pe.toFixed(1) + "x"}</b> fwd</span></span>
-    </div>`;
-  }
-
-  function renderValuation() {
-    const groups = {};
-    const rankableUniverse = DATA.filter(d => dataConfidenceOf(d).rankable);
-    DATA.forEach(d => { const etf = SECTOR_MAP[d.sector] || "XLK"; (groups[etf] = groups[etf] || []).push(d); });
-    const secs = Object.entries(groups).map(([etf, ds]) => {
-      const withPE = ds.filter(d => dataConfidenceOf(d).rankable && d.truePE && d.headlinePE).sort((a, b) => a.truePE - b.truePE);
-      const noPE = ds.filter(d => !dataConfidenceOf(d).rankable || !d.truePE || !d.headlinePE);
-      return { etf, s: secByT(etf), withPE, noPE, med: medianOf(withPE.map(d => d.truePE)) };
-    }).filter(g => g.withPE.length || g.noPE.length)
-      .sort((a, b) => (a.med ?? 1e9) - (b.med ?? 1e9));
-
-    const all = rankableUniverse.filter(d => d.truePE && d.headlinePE);
-    const map = allMapSVG();
-    const globalCap = all.length ? Math.min(120, Math.max(...all.map(d => d.truePE))) : 30;
-    const cheapest = [...all].sort((a, b) => a.truePE - b.truePE).slice(0, 10);
-    const dearest = [...all].sort((a, b) => b.truePE - a.truePE).slice(0, 10);
-    const fwdAll = rankableUniverse.map(d => ({ d, f: forwardPEOf(d) })).filter(x => x.f.pe != null);
-    const fwdCheap = [...fwdAll].sort((a, b) => a.f.pe - b.f.pe).slice(0, 10);
-    const fwdRow = (x) => `<div class="pe-row" data-tk="${x.d.ticker}" title="${x.d.name} — forward P/E ${x.f.pe.toFixed(1)}x (${x.f.source})">
-      <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(x.d.bucket)}"></i>${x.d.ticker}</span>
-      <span class="sub">${x.d.sector} · owner ${x.d.truePE ? x.d.truePE.toFixed(1) + "x" : "n/m"} · ${x.f.source}</span>
-      <span class="pe-val"><b style="color:var(--cyan)">${x.f.pe.toFixed(1)}x</b> <span class="sub">fwd</span></span>
-    </div>`;
-
-    const secCards = secs.map(g => {
-      const cap = Math.min(120, Math.max(...(g.withPE.length ? g.withPE.map(d => d.truePE) : [30])) * 1.05);
-      const r3 = g.s ? retOver(g.s, 3) : null;
-      return `<div class="card">
-        <h3>${(g.s ? g.s.name : g.etf).toUpperCase()} · ${g.etf}
-          <span class="unit">median owner P/E <b style="color:var(--amber)">${g.med ? g.med.toFixed(1) + "x" : "n/m"}</b>${r3 != null ? ` · 3M <b class="${r3 >= 0 ? "up" : "down"}">${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%</b>` : ""}</span></h3>
-        ${g.withPE.map(d => peRow(d, cap)).join("")}
-        ${g.noPE.length ? `<div class="sub" style="margin-top:6px">n/m (GAAP loss or no P/E): ${g.noPE.map(d => `<span class="tag" data-tk="${d.ticker}" style="cursor:pointer">${d.ticker}</span>`).join("")}</div>` : ""}
-      </div>`;
-    }).join("");
-
-    el("main").innerHTML = `
-      <div class="hdr">
-        <div>
-          <div class="tick" style="color:var(--green)">⊞ EST OWNER-EARNINGS P/E SCREENER</div>
-          <div class="co">SBC-adjusted owner valuation + Forward P/E vs sector competitors</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right">
-          <div class="sub">MEDIAN OWNER P/E · RANKED ${all.length}/${DATA.length}</div>
-          <div class="stat sm" style="color:var(--amber)">${medianOf(all.map(d => d.truePE)) == null ? "n/m" : medianOf(all.map(d => d.truePE)).toFixed(1) + "x"}</div>
-        </div>
-      </div>
-      <div class="note" style="margin-bottom:12px">
-        <b style="color:var(--cyan)">Cyan</b> = headline / forward P/E · <b style="color:var(--red)">red</b> = the owner-economics premium you actually pay · <b style="color:var(--amber)">amber number</b> = owner P/E. Forward P/E uses next-year consensus when collected; otherwise Street adjusted EPS proxy. Tap any row to open the stock.
-      </div>
-      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
-        <h3>THE ALL MAP — WHERE EVERY PITCH LANDS <span class="unit">IV-ladder DCF on SBC-adj owner earnings · ${map.counts.fat} fat pitches · ${map.counts.just} just outside · ${map.counts.out} out field · tap a dot</span></h3>
-        ${map.svg}
-        <div class="sub" style="margin-top:6px">Distance from home plate = the 15-year CAGR today's price offers, from the IV ladder (see any stock's Overview). A low multiple is not necessarily a value — quality sets each name's growth and exit multiple. GAAP-loss names are parked in the Out Field.</div>
-      </div>
-      <div class="grid g2" style="margin-bottom:12px">
-        <div class="card" style="border-left:3px solid var(--green)">
-          <h3>CHEAPEST IN THE MARKET <span class="unit">est owner-earnings P/E, whole board</span></h3>
-          ${cheapest.map(d => peRow(d, globalCap)).join("")}
-        </div>
-        <div class="card" style="border-left:3px solid var(--cyan)">
-          <h3>CHEAPEST FORWARD P/E <span class="unit">Street EPS / forward estimate view</span></h3>
-          ${fwdCheap.map(fwdRow).join("")}
-        </div>
-        <div class="card" style="border-left:3px solid var(--red)">
-          <h3>MOST EXPENSIVE <span class="unit">est owner-earnings P/E, whole board</span></h3>
-          ${dearest.map(d => peRow(d, globalCap)).join("")}
-        </div>
-      </div>
-      <div class="grid g2">${secCards}</div>`;
-
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
-
-  function showValuation() {
-    state.view = "valuation";
-    setViewBtn("valBtn");
-    renderWatchlist();
-    renderValuation();
-    closeDrawer();
-    window.scrollTo({ top: 0 });
-    syncNav();
-    pushNav();
-  }
-  function showQualityMap() {
-    showView("qualityMap", renderQualityMap, "mapBtn");
-  }
 
   const DAILY_SECTOR_LENS = {
     SMH: { watch: "AI capex, compute supply, export controls, memory/equipment read-through", tickers: ["NVDA", "AMD", "AVGO", "ASML", "AMAT", "LRCX", "SMCI", "NBIS", "IREN"] },
@@ -4514,84 +3954,6 @@
     showView("directionEdge", renderDirectionEdge, "edgeBtn");
   }
 
-  function renderHome() {
-    const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
-    const ranked = scored.filter(x => !x.r.noRank);
-    const combo = (x) => Math.round(((x.m?.businessQuality?.score || 0) + (x.m?.marketReward?.score || 0)) / 2);
-    const leaders = [...ranked].sort((a, b) => combo(b) - combo(a)).slice(0, 6);
-    const buyList = [...ranked].map(x => ({ ...x, L: ivLadder(x.d) }))
-      .filter(x => x.L && (x.m?.businessQuality?.score || 0) >= 60)
-      .sort((a, b) => (b.m.businessQuality.score - a.m.businessQuality.score) || ((b.L.IV15 / b.L.price) - (a.L.IV15 / a.L.price)))
-      .slice(0, 8);
-    const cheap = [...ranked].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE).slice(0, 6);
-    const hot = [...ranked].filter(x => x.r.truePE).sort((a, b) => (b.r.truePE || 0) - (a.r.truePE || 0)).slice(0, 6);
-    const movers = [...DATA].sort((a, b) => Math.abs(b.change || 0) - Math.abs(a.change || 0)).slice(0, 6);
-    const sectors = SECTORS.series.filter(s => s.t !== "SPY").map(s => ({ s, r3: retOver(s, 3), fd: flowDelta(s) }))
-      .sort((a, b) => b.r3 - a.r3).slice(0, 5);
-    const medianPE = medianOf(ranked.map(x => x.r.truePE).filter(Boolean));
-    const fat = ranked.filter(x => x.r.zone === "fat").length;
-    const row = (x, right, sub = "") => `<div class="home-row" data-tk="${x.d.ticker}">
-      <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
-      <div class="sub">${sub || x.m?.finalLabel?.label || ""}</div>
-      <strong>${right}</strong>
-    </div>`;
-    const buyRow = (x) => {
-      const great = x.L.IV15, starter = x.L.IV12, px = x.L.price;
-      const gap = great / px - 1;
-      return `<div class="home-row buy-row" data-tk="${x.d.ticker}">
-        <div><b>${x.d.ticker}</b><span>BQ ${x.m.businessQuality.score} · ${x.d.sector}</span></div>
-        <div class="sub">now $${px.toFixed(px >= 100 ? 0 : 2)} · starter $${starter.toFixed(starter >= 100 ? 0 : 2)}</div>
-        <strong class="${gap >= 0 ? "up" : "down"}">$${great.toFixed(great >= 100 ? 0 : 2)}</strong>
-      </div>`;
-    };
-    const moverRow = (d) => `<div class="home-row" data-tk="${d.ticker}">
-      <div><b>${d.ticker}</b><span>${d.sector}</span></div>
-      <div class="sub">${d.name}</div>
-      <strong class="${signCls(d.change || 0)}">${arrow(d.change || 0)}${Math.abs(d.change || 0).toFixed(2)}%</strong>
-    </div>`;
-    el("main").innerHTML = `
-      <div class="hdr home-hero">
-        <div>
-          <div class="tick gradient-title">HOME DASHBOARD</div>
-          <div class="co">market reward + business quality command center · ${DATA.length} official names · ${ranked.length} ranked</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right">
-          <div class="sub">BEST SETUP</div>
-          <div class="stat sm" style="color:var(--green)">${leaders[0]?.d.ticker || "--"}</div>
-        </div>
-      </div>
-      <div class="grid g4 home-metrics" style="margin-bottom:12px">
-        <div class="card"><h3>RANKED UNIVERSE</h3><div class="stat" style="color:var(--green)">${ranked.length}/${DATA.length}</div><div class="sub">all official names scored</div></div>
-        <div class="card"><h3>FAT PITCHES</h3><div class="stat" style="color:var(--green)">${fat}</div><div class="sub">IV ladder in the zone</div></div>
-        <div class="card"><h3>MEDIAN OWNER P/E</h3><div class="stat" style="color:var(--amber)">${medianPE ? medianPE.toFixed(1) + "x" : "--"}</div><div class="sub">ranked positive owner EPS</div></div>
-        <div class="card"><h3>TOP COMBO</h3><div class="stat" style="color:var(--cyan)">${leaders[0] ? combo(leaders[0]) : "--"}</div><div class="sub">business quality + market reward</div></div>
-      </div>
-      <div class="grid g2" style="margin-bottom:12px">
-        ${dailyReviewPreviewCard()}
-        ${directionEdgePreviewCard()}
-      </div>
-      <div class="grid g2">
-        <div class="card" style="border-left:3px solid var(--green)"><h3>GREAT BUSINESSES — BUY PRICES <span class="unit">great buy = IV15 · starter = IV12</span></h3>
-          <div class="note" style="margin-bottom:8px">These are model watch prices, not automatic orders. <b style="color:var(--green)">Great buy</b> means the IV ladder estimates a 15% required-return entry; <b style="color:var(--amber)">starter</b> is the 12% zone for scaling/watching.</div>
-          ${buyList.map(buyRow).join("")}
-        </div>
-        <div class="card"><h3>BEST BUSINESS + MARKET REWARD</h3>${leaders.map(x => row(x, combo(x) + "/100", `BQ ${x.m.businessQuality.score} · MR ${x.m.marketReward.score}`)).join("")}</div>
-        <div class="card"><h3>CHEAPEST OWNER P/E</h3>${cheap.map(x => row(x, x.r.truePE.toFixed(1) + "x", x.m.finalLabel.label)).join("")}</div>
-        <div class="card"><h3>OVERHEATED WATCH</h3>${hot.map(x => row(x, x.r.truePE.toFixed(1) + "x", `Valuation ${x.m.valuation.score}/100`)).join("")}</div>
-        <div class="card"><h3>BIGGEST MOVES</h3>${movers.map(moverRow).join("")}</div>
-        <div class="card"><h3>SECTOR PULSE</h3>${sectors.map(x => `<div class="home-row" data-sector="${x.s.t}"><div><b>${x.s.t}</b><span>${x.s.name}</span></div><div class="sub">flow ${x.fd >= 0 ? "+" : ""}${x.fd.toFixed(1)}pp</div><strong class="${signCls(x.r3)}">${x.r3 >= 0 ? "+" : ""}${x.r3.toFixed(1)}%</strong></div>`).join("")}</div>
-        <div class="card"><h3>OPEN NEXT</h3>
-          <div class="note">Start with the combo leaders, then compare them against Cheapest Owner P/E and Overheated Watch. Use Sector Pulse to decide whether the market is confirming the thesis or fighting it.</div>
-        </div>
-      </div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-    el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = showSectors);
-    const openDaily = el("openDailyReview");
-    if (openDaily) openDaily.onclick = showDailyReview;
-    const openEdge = el("openDirectionEdge");
-    if (openEdge) openEdge.onclick = showDirectionEdge;
-  }
   function renderHomeMobileDashboard() {
     const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
     const ranked = scored.filter(x => !x.r.noRank);
@@ -5360,21 +4722,15 @@
     if (["EDGE", "DIRECTION", "DIRECTION EDGE", "UP DOWN", "UP/DOWN", "SIGNAL", "SIGNALS"].includes(q)) {
       showDirectionEdge(); flash("Direction edge", "ok"); return;
     }
-    if (["GRAHAM", "VALUE", "NETNET", "NET-NET", "MOS", "SAFETY", "DEFENSIVE"].includes(q)) {
-      showGraham(); flash("Graham value screener", "ok"); return;
-    }
     if (["SCREEN", "SCREENER", "FILTER"].includes(q)) { showScreener(); return; }
     if (["COMPARE", "VS", "COMPARISON"].includes(q)) { showCompare(); return; }
-    if (["MAP", "QUALITY", "QUALITY MAP", "MARKET MAP", "BUSINESS QUALITY"].includes(q)) { showQualityMap(); flash("Quality x Market map", "ok"); return; }
-    if (["TRIGGERS", "TRIGGER", "ALERTS", "BUY"].includes(q)) { showTriggers(); return; }
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
     if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
-    if (["TECH", "SW50", "SOFTWARE", "SEMIS", "TECHDESK"].includes(q)) { showTech(); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["TRACK", "RECORD", "SCORECARD", "PROOF"].includes(q)) { showTrack(); return; }
     if (["JOURNAL", "THESIS", "THESES"].includes(q)) { showJournal(); return; }
-    if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
-      showValuation(); flash("Est owner-earnings P/E screener", "ok"); return;
+    if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "CHEAP", "GRAHAM", "VALUE", "MAP", "QUALITY"].includes(q)) {
+      showRankings(); flash("Master rankings — sort by owner P/E, Graham or quality", "ok"); return;
     }
     if (["SECTORS", "SECTOR", "FLOW", "ROTATION"].includes(q) || SECTORS.series.some(s => s.t === q)) {
       showSectors();
@@ -5454,23 +4810,18 @@
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
     el("sectorBtn").onclick = showSectors;
-    el("valBtn").onclick = showValuation;
 
     // mobile bottom nav + drawer
     el("navList").onclick = () => $("aside").classList.contains("open") ? closeDrawer() : openDrawer();
     el("navSectors").onclick = showSectors;
     el("navNarr").onclick = showCalendar;
-    el("navPE").onclick = showValuation;
+    el("navPE").onclick = showScreener;
     el("navRank").onclick = showRankings;
     el("rankBtn").onclick = showRankings;
-    el("grahamBtn").onclick = showGraham;
     el("screenBtn").onclick = showScreener;
     el("compareBtn").onclick = showCompare;
-    el("trigBtn").onclick = showTriggers;
-    el("mapBtn").onclick = showQualityMap;
     el("portBtn").onclick = showPortfolio;
     el("calBtn").onclick = showCalendar;
-    el("techBtn").onclick = showTech;
     el("auditBtn").onclick = showAudit;
     el("trackBtn").onclick = showTrack;
     el("journalBtn").onclick = showJournal;
@@ -5501,7 +4852,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=62").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=63").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only

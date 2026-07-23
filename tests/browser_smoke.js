@@ -117,9 +117,7 @@ async function main() {
       ["#auditBtn", "DATA AUDIT"],
       ["#compareBtn", "COMPARE"],
       ["#screenBtn", "CUSTOM SCREENER"],
-      ["#valBtn", "OWNER-EARNINGS P/E"],
       ["#sectorBtn", "SECTOR FLOW"],
-      ["#mapBtn", "QUALITY x MARKET MAP"],
       ["#calBtn", "EARNINGS COMMAND CENTER"],  // keep last: the earnings checks below read this view
     ];
     // Nav moved to the top bar; the legacy drawer buttons still carry the wiring
@@ -148,14 +146,14 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 17, "all 17 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.tools === 12, "all 12 tools reachable from the top nav", String(topnav.tools));
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
-      const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="valBtn"]'));
+      const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));
       g.querySelector(":scope > button").click();
-      g.querySelector('[data-tool="valBtn"]').click();
+      g.querySelector('[data-tool="screenBtn"]').click();
     });
-    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("OWNER-EARNINGS P/E"), { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("CUSTOM SCREENER"), { timeout: 3000 });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "domcontentloaded" });
@@ -180,7 +178,7 @@ async function main() {
     ok(mobileList.rowHeight >= 80, "mobile market-list rows too cramped");
     await page.click("#drawerClose");
     await page.evaluate(() => document.querySelector("#navPE").click());
-    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Forward P/E"), { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("CUSTOM SCREENER"), { timeout: 3000 });
 
     const swSupported = await page.evaluate(() => "serviceWorker" in navigator);
     if (swSupported) {

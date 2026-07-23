@@ -1,5 +1,12 @@
 # SBC Model Changelog
 
+## Deep declutter: 12-view terminal - 2026-07-23
+
+- Consolidated six overlapping stock-ranking surfaces into two: Rankings (master leaderboard, sortable by owner P/E, Graham, quality) and Screener (custom filters). Removed the standalone Owner-Earnings P/E view, Graham Value screener view, Quality × Market Map, Triggers Today, and Tech Desk. All engines (grahamOf, quality map model, IV ladder) remain and still power the ranking columns, per-ticker tabs, and Home buy list.
+- Per-ticker tabs trimmed from 10 to 7: removed EXPECTATIONS (its gap card already lives on OVERVIEW), ALERTS (device-local thesis rules that only fired when the app was open), and FRAMEWORK (static methodology essay). OVERVIEW, QUALITY, SBC X-RAY, GRAHAM VALUE, FINANCIALS, EARNINGS, NEWS remain.
+- Removed the unused desktop-only Home renderer (dead code since the unified dashboard shipped).
+- Final view set (12): Home, Earnings Command Center, Daily Review, Direction Edge, Sectors, Rankings, Screener, Compare, Portfolio, Thesis Journal, Track Record, Data Audit. App shell v63.
+
 ## Earnings Command Center + focus cleanup - 2026-07-23
 
 - New EARNINGS COMMAND CENTER (replaces the plain calendar): season beat/miss tape (live Finnhub actuals with automatic fast-lane polling during report windows, or next-morning bundled results), upcoming reports with a per-name Beat Odds composite, season scorecard, and sector read-through.
