@@ -1,8 +1,8 @@
 {
  "ticker": "TSLA",
  "cik": "0001318605",
- "entityName": "Tesla,\u00a0Inc.",
- "retrievedAt": "2026-07-22T12:26:50.935642Z",
+ "entityName": "Tesla, Inc.",
+ "retrievedAt": "2026-07-23T12:23:28.101026Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",
@@ -1562,12 +1562,12 @@
     "confidence": 100
    },
    {
-    "value": 3752431984,
+    "value": 3949547394,
     "unit": "shares",
-    "periodEnd": "2026-01-23",
-    "form": "10-K/A",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001104659-26-053166",
+    "periodEnd": "2026-07-16",
+    "form": "10-Q",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0001628280-26-049270",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

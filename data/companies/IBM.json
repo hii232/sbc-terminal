@@ -1,8 +1,8 @@
 {
  "ticker": "IBM",
  "cik": "0000051143",
- "entityName": "INTERNATIONAL BUSINESS MACHINES CORP",
- "retrievedAt": "2026-07-22T12:27:08.465507Z",
+ "entityName": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+ "retrievedAt": "2026-07-23T12:23:42.583063Z",
  "fields": {
   "buyback": [
    {
@@ -1786,12 +1786,12 @@
     "confidence": 100
    },
    {
-    "value": 939885280,
+    "value": 942134390,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-23",
-    "accessionNumber": "0000051143-26-000038",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0000051143-26-000078",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

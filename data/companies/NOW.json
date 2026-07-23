@@ -1,8 +1,8 @@
 {
  "ticker": "NOW",
  "cik": "0001373715",
- "entityName": "ServiceNow, Inc.",
- "retrievedAt": "2026-07-22T12:27:01.276023Z",
+ "entityName": "SERVICENOW, INC.",
+ "retrievedAt": "2026-07-23T12:23:36.353499Z",
  "fields": {
   "buyback": [
    {
@@ -1962,12 +1962,12 @@
     "confidence": 100
    },
    {
-    "value": 1031000000,
+    "value": 1034000000,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-23",
-    "accessionNumber": "0001373715-26-000056",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0001373715-26-000076",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
