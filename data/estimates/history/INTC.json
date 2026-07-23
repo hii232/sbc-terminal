@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "INTC"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 5.29037,
+      "currentYearRevenue": 73561257363.0,
+      "date": "2026-07-23",
+      "nextYearEps": 1.95919,
+      "nextYearRevenue": 63500298309.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "INTC"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

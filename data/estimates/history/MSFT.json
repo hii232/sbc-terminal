@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "MSFT"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 7.76866,
+      "currentYearRevenue": 166227084187.0,
+      "date": "2026-07-23",
+      "nextYearEps": 9.27199,
+      "nextYearRevenue": 198704709367.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "MSFT"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

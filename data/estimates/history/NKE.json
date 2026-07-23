@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "NKE"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 3.1427,
+      "currentYearRevenue": 43240329104.0,
+      "date": "2026-07-23",
+      "nextYearEps": 3.66787,
+      "nextYearRevenue": 46559561711.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "NKE"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

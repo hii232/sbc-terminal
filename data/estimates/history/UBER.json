@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "UBER"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": -1.03594,
+      "currentYearRevenue": 17128494134.0,
+      "date": "2026-07-23",
+      "nextYearEps": -5.08039,
+      "nextYearRevenue": 31776721092.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "UBER"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",
