@@ -14,7 +14,7 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network in tests"));
 
 const root = path.join(__dirname, "..");
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "scores.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -38,21 +38,10 @@ const ok = (cond, name, detail = "") => {
   ok(sample && sample.peak === 130, "drawdown preserves running peak", String(sample?.peak));
 }
 
-// =============== 1. Black-Scholes correctness ===============
+// =============== 1. Null-safety primitives ===============
 {
   ok(E.lastVal([]) === null, "lastVal([]) -> null, never fake zero");
   ok(E.lastVal([null, undefined, 0]) === 0, "lastVal preserves real zero");
-  // put-call parity: C - P = S - K·e^(-rT)
-  for (const [S, K, iv, dte] of [[100, 100, 0.3, 35], [250, 220, 0.6, 60], [50, 65, 0.9, 20]]) {
-    const c = E.bsPrice("call", S, K, iv, dte), p = E.bsPrice("put", S, K, iv, dte);
-    const parity = S - K * Math.exp(-0.04 * dte / 365);
-    ok(Math.abs((c - p) - parity) < 0.02, `put-call parity S=${S} K=${K}`, `${(c - p).toFixed(3)} vs ${parity.toFixed(3)}`);
-  }
-  // call ≥ intrinsic, value increases with IV
-  ok(E.bsPrice("call", 120, 100, 0.4, 30) >= 20, "call >= intrinsic");
-  ok(E.bsPrice("call", 100, 100, 0.6, 35) > E.bsPrice("call", 100, 100, 0.3, 35), "call value rises with IV");
-  ok(E.bsPrice("put", 100, 100, 0.3, 0) === null, "zero dte -> null (no fake price)");
-  ok(E.normCdf(0) > 0.499 && E.normCdf(0) < 0.501, "normCdf(0) ~ 0.5");
 }
 
 // =============== 2. IV ladder invariants (production data) ===============
@@ -118,26 +107,6 @@ const ok = (cond, name, detail = "") => {
   const blocked = E.trueOwnerEarnings(missing);
   ok(blocked.insufficientData === true && blocked.owner === null && blocked.trueCost === null, "missing SBC cannot produce owner earnings");
   ok(E.verdictOf(missing).noRank === true, "missing required data cannot enter verdict/ranking");
-}
-
-// =============== 5. Options staleness (the real-money bug) ===============
-{
-  const mk = (exp, dteAtFetch) => ({ ticker: "TST", price: 100, ownersKeep: 0.9, bucket: "clean",
-    gaapEPS: 5, sbcAdjEPS: 4.5, revenue: [10, 11, 12, 13], fy: ["2022", "2023", "2024", "2025"],
-    shares: [1, 1, 1, 1], buyback: [0, 0, 0, 0], sbc: [0, 0, 0, 0], ni: [5, 5, 5, 5],
-    opt: { iv: 0.4, rv: 0.3, pcr: 1, exp, dte: dteAtFetch } });
-  // expired chain: play may exist but premium must be null (no stale-IV pricing)
-  const expired = mk("2025-01-17", 35);
-  const V = E.verdictOf(expired);
-  const play = E.optionPlayOf(expired, V);
-  if (play) ok(play.prem == null, "EXPIRED chain -> no premium estimate", JSON.stringify({ prem: play.prem }));
-  else ok(true, "expired chain produced no play (acceptable)");
-  // fresh chain: premium allowed
-  const freshExp = new Date(Date.now() + 40 * 864e5).toISOString().slice(0, 10);
-  const fresh = mk(freshExp, 40);
-  const play2 = E.optionPlayOf(fresh, E.verdictOf(fresh));
-  if (play2) ok(play2.prem == null || Number.isFinite(play2.prem), "fresh chain premium finite when present");
-  else ok(true, "no play for fixture (call gates) — acceptable");
 }
 
 // =============== 6. Brain sanity across the full production universe ===============
@@ -345,14 +314,13 @@ const ok = (cond, name, detail = "") => {
   ok(map.every(p => p.ticker && p.label), "quality map rows have ticker and label");
 }
 
-// =============== 12. Inflation desk ===============
+// =============== 12. Macro regime (computed from sector tape, never hardcoded) ===============
 {
-  ok(E.INFLATION && E.INFLATION.series.length >= 6, "inflation macro snapshot includes CPI/PPI drivers");
-  const rows = DATA.map(d => ({ d, x: E.inflationOf(d) }));
-  ok(rows.length === 126, "inflation model covers exactly 126 tickers", String(rows.length));
-  ok(rows.every(r => r.x.score >= 0 && r.x.score <= 100 && r.x.profile && r.x.label), "inflation scores are bounded and labelled");
-  const nvda = rows.find(r => r.d.ticker === "NVDA");
-  ok(nvda && nvda.x.bits.some(b => /multiple|pricing|input|demand/i.test(b)), "NVDA inflation x-ray explains the stock-price channel");
+  const r = E.macroRegimeOf();
+  ok(r && r.score >= 0 && r.score <= 100, "macro regime score bounded 0..100", JSON.stringify(r && r.score));
+  ok(r && ["RISK-ON", "NEUTRAL", "RISK-OFF"].includes(r.label), "macro regime label is valid", r && r.label);
+  ok(r && Number.isFinite(r.spy3) && Number.isFinite(r.breadth3), "regime derives from real SPY + breadth tape");
+  ok(r && /^\d{4}-\d{2}-\d{2}$/.test(r.asOf), "regime carries the sector tape asOf date", r && r.asOf);
 }
 
 // =============== 13. Earnings focus calendar ===============
@@ -380,32 +348,46 @@ const ok = (cond, name, detail = "") => {
   ok(merged.find(e => e.symbol === probe.symbol && e.date === probe.date).epsEstimate === 9.99, "live earnings row overrides bundled estimate when available");
 }
 
-// =============== 13b. Social buzz desk ===============
+// =============== 13b. Earnings intelligence engine ===============
 {
-  const t = E.normalizeTrending({ symbols: [{ symbol: "NVDA", title: "NVIDIA", watchlist_count: 512 }, { symbol: "bad sym!", title: "junk" }, { symbol: "BRK.B", title: "Berkshire" }, null] });
-  ok(t.length === 2 && t[0].symbol === "NVDA" && t[0].watchers === 512, "trending payload normalizes and rejects junk symbols", JSON.stringify(t));
-  ok(E.normalizeTrending(null).length === 0 && E.normalizeTrending({}).length === 0, "missing trending payload -> empty, not fabricated");
-  const now = Date.parse("2026-07-20T12:00:00Z");
-  const msgs = [0, 10, 20, 30, 40, 50].map(m => ({ created_at: new Date(now - m * 60e3).toISOString() }));
-  const v = E.buzzVelocity(msgs, now);
-  ok(v && v.lastHour === 6 && v.perHour != null && v.perHour > 5, "buzz velocity computes posts/hour from real timestamps", JSON.stringify(v));
-  ok(E.buzzVelocity([], now) == null && E.buzzVelocity([{ created_at: new Date(now).toISOString() }], now) == null, "fewer than two posts -> velocity unavailable, not zero");
-
-  // Sentiment timeline: bullish share of tagged posts, bucketed over real time.
-  const bull = (mins, basic) => ({ created_at: new Date(now - mins * 60e3).toISOString(), entities: { sentiment: basic ? { basic } : null } });
-  const stream = [
-    bull(300, "Bullish"), bull(290, "Bullish"), bull(280, "Bearish"), bull(270, "Bullish"),
-    bull(30, "Bearish"), bull(25, "Bearish"), bull(20, "Bullish"), bull(10, "Bearish"), bull(5, null),
-  ];
-  const ser = E.buzzSentimentSeries(stream, 3);
-  ok(ser && ser.labels.length === 3 && ser.tagged === 8 && ser.total === 9, "sentiment series buckets tagged posts over the span", JSON.stringify(ser && { t: ser.tagged, n: ser.total }));
-  ok(ser.bullPct.every(v => v === null || (v >= 0 && v <= 100)), "bullish-share buckets are 0..100 or null (never fabricated)");
-  ok(E.msgSentiment(bull(1, "Bullish")) === 1 && E.msgSentiment(bull(1, "Bearish")) === -1 && E.msgSentiment(bull(1, null)) === 0, "message sentiment classifies Bullish/Bearish/untagged");
-  ok(E.buzzSentimentSeries([bull(5, "Bullish"), bull(4, null)]) === null, "too few tagged posts -> no fabricated timeline");
-  ok(E.buzzOverallBull(stream) != null && E.buzzOverallBull([bull(1, null)]) === null, "overall bullish share needs tagged posts, else unavailable");
+  // Works with an empty seed AND a populated pipeline bundle — never crashes,
+  // never fabricates. Missing inputs must lower coverage, not fake neutrality.
+  ok(typeof EARNINGS_INTEL !== "undefined" && EARNINGS_INTEL.tickers && typeof EARNINGS_INTEL.tickers === "object",
+    "EARNINGS_INTEL bundle is loaded with a tickers map");
+  ok(E.earnIntelOf("__NOPE__") === null, "unknown ticker -> null intel, not a fake row");
+  let bad = [], nullScores = 0, scored = 0;
+  const validLabels = new Set(["STRONG BEAT SETUP", "LEAN BEAT", "COIN FLIP", "AT RISK", "MISS RISK", "NOT ENOUGH DATA"]);
+  for (const d of DATA) {
+    const o = E.beatOddsOf(d);
+    if (!o || !Array.isArray(o.parts) || o.parts.length !== 6) { bad.push(`${d.ticker}:parts`); continue; }
+    if (o.score != null && (!Number.isFinite(o.score) || o.score < 0 || o.score > 100)) bad.push(`${d.ticker}:score`);
+    if (!Number.isFinite(o.coverage) || o.coverage < 0 || o.coverage > 100) bad.push(`${d.ticker}:coverage`);
+    if (!validLabels.has(o.label)) bad.push(`${d.ticker}:label:${o.label}`);
+    if (o.parts.some(p => p.score != null && (p.score < 0 || p.score > 100))) bad.push(`${d.ticker}:part-range`);
+    if (o.score == null) nullScores++; else scored++;
+  }
+  ok(bad.length === 0, "beatOddsOf: 6 bounded components, bounded score/coverage, valid label for all 126", bad.slice(0, 6).join(","));
+  ok(scored + nullScores === DATA.length, "every name resolves to scored or explicitly not-enough-data");
+  const stats = E.earnBeatStats("__NOPE__");
+  ok(stats === null, "beat stats for unknown ticker are null, never zeroed");
+  const ledger = E.earningsLedger();
+  ok(Array.isArray(ledger), "earnings ledger is always an array");
+  ok(ledger.every(r => r.symbol && /^\d{4}-\d{2}-\d{2}$/.test(r.date) && r.epsActual != null),
+    "ledger rows carry symbol, ISO date and a real reported EPS");
+  ok(ledger.every((r, i) => i === 0 || ledger[i - 1].date >= r.date), "ledger is sorted newest first");
+  const up = E.upcomingEarningsRows(21);
+  const today = new Date().toISOString().slice(0, 10);
+  ok(Array.isArray(up) && up.every(e => e.date >= today), "upcoming rows are all in the future window");
+  ok(up.every((e, i) => i === 0 || up[i - 1].date <= e.date), "upcoming rows are sorted by date");
+  const sc = E.seasonScorecard(ledger);
+  ok(sc.reported === ledger.length && (sc.beatRate == null || (sc.beatRate >= 0 && sc.beatRate <= 1)),
+    "season scorecard counts reported rows and keeps beat rate in [0,1] or null");
+  const nvda = DATA.find(d => d.ticker === "NVDA");
+  const rt = E.peerReadThrough(nvda, ledger);
+  ok(rt === null || (rt.n >= 2 && rt.beatShare >= 0 && rt.beatShare <= 1), "peer read-through needs >=2 peers or stays null");
 }
 
-// =============== 13c. Time machine (price over time) ===============
+// =============== 13c. Price-window helpers ===============
 {
   const d = DATA.find(x => x.px && Array.isArray(x.px.v) && x.px.v.length >= 20);
   ok(d, "at least one name carries a weekly price series for the time machine");

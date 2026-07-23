@@ -1,5 +1,13 @@
 # SBC Model Changelog
 
+## Earnings Command Center + focus cleanup - 2026-07-23
+
+- New EARNINGS COMMAND CENTER (replaces the plain calendar): season beat/miss tape (live Finnhub actuals with automatic fast-lane polling during report windows, or next-morning bundled results), upcoming reports with a per-name Beat Odds composite, season scorecard, and sector read-through.
+- New Beat Odds model: six weighted, inspectable components — beat track record (28), revision momentum (24), pre-report tape (14), sector read-through (14, peers' season results flow in automatically), macro regime (10), expectation bar (10). Missing inputs reduce coverage; they are never scored as neutral 50. Per-ticker breakdown lives in the EARNINGS tab.
+- New earnings data pipeline: `scripts/collect_earnings.py` (keyless Yahoo quoteSummary) generates `earnings.js` / `data/earnings_intel.json` in the daily data-refresh workflow; stamps `reportedOn` the first morning a new quarter appears (never backfills fake report dates on first ingest).
+- Direction Edge macro layer replaced: the hardcoded inflation-profile snapshot gave way to a macro regime computed live from the SPY/sector tape (trend, breadth, defensive flows) that refreshes with every data run.
+- Removed low-signal views: Social Buzz (scraped Stocktwits), Inflation Desk (static CPI snapshot), Narratives (incl. Polymarket), and Options Desk play tickets (bundled IV/RV/put-call data still feeds Direction Edge). Top nav regrouped; app shell v62.
+
 ## Social buzz sentiment timeline - 2026-07-21
 
 - Added a sentiment-over-time line chart to Social Buzz: bullish share of tagged posts bucketed across each stream's real time span (📈 per trending ticker; empty buckets stay null, never a fabricated 50%).
