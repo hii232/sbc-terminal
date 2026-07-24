@@ -111,6 +111,7 @@ async function main() {
     await page.waitForFunction((count) => document.querySelector("#wlCount")?.textContent.trim().startsWith(`1/${count}`), OFFICIAL_COUNT, { timeout: 3000 });
 
     const views = [
+      ["#easyBtn", "TODAY'S GAME PLAN"],
       ["#signalsBtn", "WHAT CHANGED"],
       ["#dailyBtn", "DAILY REVIEW"],
       ["#edgeBtn", "DIRECTION EDGE"],
@@ -149,7 +150,7 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 13, "all 13 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.tools === 14, "all 14 tools reachable from the top nav", String(topnav.tools));
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
       const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));

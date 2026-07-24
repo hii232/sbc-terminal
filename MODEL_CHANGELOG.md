@@ -1,5 +1,9 @@
 # SBC Model Changelog
 
+## Easy Mode - 2026-07-24
+
+- New EASY MODE — TODAY'S GAME PLAN view (Home menu): the whole terminal translated into plain language a 10-year-old can follow. Letter grades (A-F, honest "?" for unknown), one-sentence verdicts per stock, and five sections: great companies at fair prices, report cards coming up (Beat Odds), winning streaks (drift), be-careful list (miss risk + tier-1 downgrades + downside drift), and what-just-happened (the signals feed translated). Same engines underneath — only the language is simplified; "we don't know" is said out loud, and the golden-rules card states plainly that scores are hints, not promises. Shell v67.
+
 ## Analyst ratings layer - 2026-07-24
 
 - Daily collector now ingests analyst rating actions (upgradeDowngradeHistory): firm, from -> to grade, action, dated — last 45 days per ticker, keyless.

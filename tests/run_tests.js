@@ -436,6 +436,15 @@ const ok = (cond, name, detail = "") => {
   ok(why && why.url === "y", "reason = the time-adjacent headline naming the firm and the action", JSON.stringify(why));
   ok(E.ratingReasonFrom([{ headline: "unrelated", datetime: ts }], rating) === null, "no matching headline -> null reason, never invented");
   ok(E.ratingReasonFrom(null, rating) === null, "no news loaded -> null reason");
+
+  // easy mode: grades and plain-language translators are total and honest
+  ok(E.gradeOf(null).g === "?", "unknown score -> '?' grade, not a fake letter");
+  ok(E.gradeOf(85).g === "A" && E.gradeOf(67).g === "B" && E.gradeOf(52).g === "C" && E.gradeOf(40).g === "D" && E.gradeOf(10).g === "F", "grade bands map correctly");
+  ok(DATA.every(d => typeof E.easySentence(d) === "string" && E.easySentence(d).length > 10), "every ticker gets a plain-English sentence");
+  for (const type of ["filing", "analyst", "earnings", "revisions", "edge", "score", "unknown"]) {
+    const words = E.easyEventWords({ tk: "NVDA", type, title: "UPGRADED x", detail: "" });
+    ok(typeof words === "string" && words.length > 5, `easy translator handles '${type}' events`);
+  }
 }
 
 // =============== 13c. Price-window helpers ===============
