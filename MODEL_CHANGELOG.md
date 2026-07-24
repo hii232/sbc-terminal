@@ -1,5 +1,14 @@
 # SBC Model Changelog
 
+## 4.1.0 — Market Narratives + Conviction Board - 2026-07-24
+
+- New MARKET NARRATIVES view (Signals menu): eleven curated story clusters — AI compute, AI power/datacenter, software under AI pressure, memory cycle, banks/rates, capital markets, managed care, defense, consumer trade-down, freight, energy — each scored 0-100 for heat, measured ONLY from members' own data: avg 1-month tape (weekly closes), breadth, net 30d analyst revisions, season beat share, tier-1 desk actions inside 10 days, whale 13F flows. Honesty gates: fewer than 2 present members or fewer than 2 live inputs -> no reading; every input used is evidenced on-screen as a "what the data says" bit; heat is never derived from opinions or scraped commentary.
+- New CONVICTION BOARD atop Best Setups (pinned on Home + Easy Mode): convictionOf() fuses up to nine INDEPENDENT signals per name — Direction Edge, Beat Odds (reports inside 21 days, coverage >=55), post-earnings drift, RSI setup (washed-out only counts on quality names), analyst revisions, tier-1 rating actions, whale 13Fs (Berkshire weighted as its own voice), fresh filing diffs, narrative heat. Each votes +1/0/-1 with a stated reason; only 3+ agreeing signals make the board; objections are displayed, silent signals counted as silent, and HIGH CONFLUENCE requires 4+ bulls with zero bears. Framed on-screen as confluence, never certainty.
+- Signals feed gains NARRATIVE events: build_signals.js loads the app bundle and runs the app's own narrativeHeatAll() (no duplicated math; whales.js added to its bundle so 13F flows feed CI heat) and diffs per-story heat/label vs the prior pass — label changes emit regime shifts (68), >=10-point heat moves emit momentum warnings (58). First pass records the baseline silently.
+- Easy Mode gains "THE MARKET'S STORIES" (kid-language per heat label) and "WHEN ALL THE CLUES AGREE" (conviction translated); narrative events get plain-word translations.
+- Tests: +18 assertions (187 total) — membership/input honesty gates, heat bounds and label bands, evidence-bit accounting, exact bull/bear/silent vote accounting, no-double-vote, board admission and net-agreement ranking, universe-membership typo guard for all 100 cluster members. Browser smoke walks the new view and pins app model 4.1.0 separately from the SEC pipeline stamp (4.0.0).
+- SBC_MODEL_VERSION 4.0.0 -> 4.1.0 (additive engines; no existing formula changed). App shell v73.
+
 ## Universe expanded to 224 names - 2026-07-24
 
 - Official universe grew 126 -> 224. 100 candidates were added across sectors the original set covered thinly (analog semis, regional banks, exchanges/ratings, managed care, staples, rails, defense); 98 promoted with full data. FI and MMC were dropped by reconcile_universe.py for insufficient annual revenue history, and ANSS/DFS were replaced (CTSH/SYF) after SEC's ticker map showed them acquired. The shipped count is the number of fully-backed names, never a target.

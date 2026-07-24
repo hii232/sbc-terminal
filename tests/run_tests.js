@@ -528,5 +528,41 @@ const ok = (cond, name, detail = "") => {
   ok(E.companyOf("JPM") && DATA.some(d => d.ticker === "JPM"), "JPM lookup is available as a normal official DATA row");
 }
 
+// =============== 15. Narrative engine + conviction (signal confluence) ===============
+{
+  // membership honesty: fewer than 2 present members -> no reading, ever
+  ok(E.narrativeStats({ key: "x", name: "X", icon: "?", story: "", members: ["NVDA"] }) === null,
+    "narrative with 1 present member reports nothing");
+  ok(E.narrativeStats({ key: "y", name: "Y", icon: "?", story: "", members: ["ZZZQ1", "ZZZQ2"] }) === null,
+    "narrative with 0 present members reports nothing");
+  // every curated member must be a real universe ticker (typo guard)
+  const badMembers = E.NARRATIVES.flatMap(n => n.members).filter(tk => !E.companyOf(tk));
+  ok(badMembers.length === 0, "all narrative members exist in the universe", badMembers.join(","));
+  // production clusters: shape + honesty invariants
+  const heats = E.narrativeHeatAll();
+  ok(Array.isArray(heats) && heats.length >= 5, "most curated narratives measurable on production data", String(heats.length));
+  ok(heats.every(h => h.heat >= 0 && h.heat <= 100), "narrative heat bounded 0..100");
+  ok(heats.every(h => h.inputs >= 2), "no narrative reading from fewer than 2 live inputs");
+  ok(heats.every(h => h.bits.length === h.inputs), "every input used is evidenced in bits");
+  ok(heats.every(h => ["HOT", "WARMING", "MIXED", "COOLING", "COLD"].includes(h.label)), "labels come from the fixed vocabulary");
+  ok(heats.every((h, i, a) => i === 0 || a[i - 1].heat >= h.heat), "narrativeHeatAll sorted hottest first");
+  ok(heats.every(h => (h.label === "HOT") === (h.heat >= 68)), "HOT label exactly matches its heat band");
+  // conviction: vote accounting must be exact, reasons mandatory
+  const c = E.convictionOf(E.companyOf("NVDA"));
+  ok(c && Array.isArray(c.votes), "convictionOf returns a votes array");
+  ok(c.bulls === c.votes.filter(v => v.dir > 0).length && c.bears === c.votes.filter(v => v.dir < 0).length,
+    "bull/bear counts match the votes exactly");
+  ok(c.silent === c.votes.filter(v => v.dir === 0).length, "silent = votes that neither agree nor object");
+  ok(c.votes.every(v => v.why && v.label), "every vote states its reason");
+  ok(new Set(c.votes.map(v => v.key)).size === c.votes.length, "no signal votes twice on one name");
+  if (/HIGH CONFLUENCE/.test(c.label)) ok(c.bulls >= 4 && c.bears === 0, "HIGH CONFLUENCE requires 4+ bulls and 0 bears");
+  // the board only shows real agreement, ranked by net agreement
+  const board = E.convictionBoard(8);
+  ok(board.every(x => x.bulls >= 3 || x.bears >= 3), "conviction board admits only 3+ agreeing signals");
+  ok(board.every((x, i, a) => i === 0 || (a[i - 1].bulls - a[i - 1].bears) >= (x.bulls - x.bears)),
+    "conviction board ranked by net signal agreement");
+  ok(E.whaleActionMap() !== null && typeof E.whaleActionMap() === "object", "whale action map builds");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

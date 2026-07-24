@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "72"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "73"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -798,7 +798,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -810,6 +810,7 @@
     ] },
     { name: "Signals", icon: "💡", tools: [
       { id: "signalsBtn", label: "What Changed", ic: "💡" },
+      { id: "narrBtn", label: "Market Narratives", ic: "🧠" },
     ] },
     { name: "Earnings", icon: "🎯", tools: [
       { id: "calBtn", label: "Earnings Command Center", ic: "🎯" },
@@ -968,7 +969,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, easy: showEasy, signals: showSignals, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+        const map = { home: showHome, easy: showEasy, signals: showSignals, narratives: showNarratives, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
           rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -1962,6 +1963,187 @@
     return rows.filter(x => x.score != null).sort((a, b) => (b.aligned - a.aligned) || b.score - a.score);
   }
 
+  /* ------------------- MARKET NARRATIVE ENGINE -------------------
+     A narrative is a cluster of names the market trades as one story.
+     Heat is MEASURED from members' own data — tape, breadth, analyst
+     revisions, season beats, tier-1 rating actions, whale flows — never
+     from scraped opinions. Clusters are curated; membership is filtered
+     to names actually in the universe, and a cluster below 2 present
+     members reports nothing rather than a fake reading. */
+  const NARRATIVES = [
+    { key: "ai-compute", name: "AI Compute Supercycle", icon: "🤖",
+      story: "GPUs, foundry, HBM and the equipment chain — the market's core growth story.",
+      members: ["NVDA", "AMD", "AVGO", "TSM", "ARM", "MRVL", "MU", "SMCI", "ANET", "ASML", "AMAT", "LRCX", "KLAC", "ENTG", "TER"] },
+    { key: "ai-power", name: "AI Power & Datacenter Buildout", icon: "⚡",
+      story: "Electrons for AI: independent power, turbines, grid and electrical equipment.",
+      members: ["VST", "CEG", "NRG", "GEV", "ETN", "NEE", "SO", "DUK"] },
+    { key: "software-ai-pressure", name: "Software Under AI Pressure", icon: "🧨",
+      story: "Seat-based software repriced on the fear that AI compresses seats and pricing.",
+      members: ["ADBE", "CRM", "NOW", "INTU", "WDAY", "ADSK", "TEAM", "HUBS", "DOCU", "ZM", "VEEV", "OKTA"] },
+    { key: "memory-cycle", name: "Memory & Storage Cycle", icon: "💾",
+      story: "DRAM/NAND pricing cycle — violent both directions, watched via MU and WDC.",
+      members: ["MU", "WDC"] },
+    { key: "rate-trade", name: "Banks & the Rate Trade", icon: "🏦",
+      story: "Net interest margins, credit and the curve — money-center and regional banks.",
+      members: ["JPM", "BAC", "WFC", "C", "USB", "PNC", "TFC", "FITB", "MTB", "RF", "KEY", "CFG", "ALLY"] },
+    { key: "capital-markets", name: "Capital Markets Revival", icon: "📈",
+      story: "Deals, trading, listings and alt-asset flows — the risk-appetite barometer.",
+      members: ["GS", "MS", "SCHW", "IBKR", "BX", "KKR", "APO", "ARES", "ICE", "CME", "NDAQ", "CBOE", "COIN", "HOOD"] },
+    { key: "managed-care", name: "Managed Care Reset", icon: "🏥",
+      story: "Medical-cost trend vs pricing — insurers and the care/distribution chain.",
+      members: ["UNH", "CI", "ELV", "HCA", "MCK", "COR"] },
+    { key: "defense", name: "Defense Rearmament", icon: "🛡️",
+      story: "Rearmament budgets and mission tech across the primes.",
+      members: ["RTX", "LMT", "GD", "NOC", "LHX", "AXON"] },
+    { key: "trade-down", name: "Consumer Trade-Down", icon: "🛒",
+      story: "Value retail wins when wallets tighten — discounters and off-price.",
+      members: ["WMT", "COST", "TJX", "ROST", "DG", "DLTR", "MCD", "YUM"] },
+    { key: "freight", name: "Freight & Goods Economy", icon: "🚂",
+      story: "Rails and parcels as the real-time read on physical demand.",
+      members: ["UNP", "CSX", "NSC", "ODFL", "UPS", "FDX"] },
+    { key: "energy", name: "Energy & Hard Assets", icon: "🛢️",
+      story: "Oil, gas, refining and metals — the inflation-and-scarcity trade.",
+      members: ["XOM", "CVX", "COP", "SLB", "EOG", "OXY", "MPC", "VLO", "LNG", "FCX", "SCCO", "NUE"] },
+  ];
+  function whaleActionMap() {
+    // ticker -> strongest recent 13F action per manager class
+    const out = {};
+    const W = whalesIntel();
+    for (const [key, B] of Object.entries((W && W.whales) || {})) {
+      const H = B && B.holdings;
+      if (!H) continue;
+      const tag = (tk, action) => {
+        if (!tk) return;
+        const cur = out[tk] || {};
+        if (key === "berkshire") cur.berkshire = action;
+        else if (!cur.other) cur.other = { mgr: B.label, action };
+        out[tk] = cur;
+      };
+      (H.new || []).forEach(r => tag(r.ticker, "new"));
+      (H.exits || []).forEach(r => tag(r.ticker, "exit"));
+      (H.adds || []).forEach(r => { if (r.sharesChgPct >= 8) tag(r.ticker, "add"); });
+      (H.trims || []).forEach(r => { if (r.sharesChgPct <= -8) tag(r.ticker, "trim"); });
+    }
+    return out;
+  }
+  function narrativeStats(n, ctx) {
+    const members = n.members.map(companyOf).filter(Boolean);
+    if (members.length < 2) return null;
+    const ledger = ctx && ctx.ledger || earningsLedger();
+    const whales = ctx && ctx.whales || whaleActionMap();
+    const m1s = members.map(d => pctMoveFrom(d.px && d.px.v || [], 4)).filter(hasNum);
+    const ret1m = m1s.length ? m1s.reduce((a, v) => a + v, 0) / m1s.length : null;
+    const breadth = m1s.length ? m1s.filter(v => v > 0).length / m1s.length : null;
+    let revNet = 0, revCount = 0, t1up = 0, t1down = 0;
+    const cutoff10 = new Date(Date.now() - 10 * 864e5).toISOString().slice(0, 10);
+    members.forEach(d => {
+      const it = earnIntelOf(d.ticker);
+      const t = it && it.trend;
+      if (t && hasNum(t.revUp30) && hasNum(t.revDown30)) { revNet += t.revUp30 - t.revDown30; revCount++; }
+      for (const r of (it && it.ratings) || []) {
+        if (r.date >= cutoff10 && RATING_TIER1.has((r.firm || "").toLowerCase())) {
+          if (r.action === "up") t1up++; else if (r.action === "down") t1down++;
+        }
+      }
+    });
+    const memberSet = new Set(members.map(d => d.ticker));
+    const season = ledger.filter(r => memberSet.has(r.symbol) && r.surprisePct != null);
+    const beatShare = season.length ? season.filter(r => r.surprisePct > 0).length / season.length : null;
+    let whaleBull = 0, whaleBear = 0;
+    members.forEach(d => {
+      const w = whales[d.ticker];
+      if (!w) return;
+      const acts = [w.berkshire, w.other && w.other.action].filter(Boolean);
+      acts.forEach(a => { if (a === "new" || a === "add") whaleBull++; else whaleBear++; });
+    });
+    // heat: tape leads, confirmation layers adjust; every input optional
+    let heat = 50, used = 0;
+    const bits = [];
+    if (ret1m != null) { heat += clamp(ret1m, -15, 15) * 2.2; used++;
+      bits.push(`members ${ret1m >= 0 ? "+" : ""}${ret1m.toFixed(1)}% avg over 1M`); }
+    if (breadth != null) { heat += (breadth - 0.5) * 30; used++;
+      bits.push(`${Math.round(breadth * 100)}% of members positive`); }
+    if (revCount) { heat += clamp(revNet / revCount, -8, 8) * 1.6; used++;
+      bits.push(`net analyst revisions ${revNet >= 0 ? "+" : ""}${revNet} across ${revCount} covered`); }
+    if (beatShare != null) { heat += (beatShare - 0.5) * 24; used++;
+      bits.push(`${Math.round(beatShare * 100)}% beat this season (${season.length} reported)`); }
+    if (t1up + t1down > 0) { heat += (t1up - t1down) * 4; used++;
+      bits.push(`tier-1 desks: ${t1up}▲ / ${t1down}▼ in 10 days`); }
+    if (whaleBull + whaleBear > 0) { heat += (whaleBull - whaleBear) * 2.5; used++;
+      bits.push(`whale 13Fs: ${whaleBull} adds/new vs ${whaleBear} trims/exits`); }
+    if (used < 2) return null; // one input is a guess, not a narrative reading
+    heat = Math.round(clamp(heat, 0, 100));
+    const label = heat >= 68 ? "HOT" : heat >= 56 ? "WARMING" : heat >= 44 ? "MIXED" : heat >= 32 ? "COOLING" : "COLD";
+    const color = heat >= 68 ? "var(--green)" : heat >= 56 ? "var(--cyan)" : heat >= 44 ? "var(--amber)" : heat >= 32 ? "var(--orange)" : "var(--red)";
+    return { key: n.key, name: n.name, icon: n.icon, story: n.story, members, present: members.length,
+      heat, label, color, ret1m, breadth, revNet, beatShare, t1up, t1down, whaleBull, whaleBear, bits, inputs: used };
+  }
+  function narrativeHeatAll() {
+    const ctx = { ledger: earningsLedger(), whales: whaleActionMap() };
+    return NARRATIVES.map(n => narrativeStats(n, ctx)).filter(Boolean).sort((a, b) => b.heat - a.heat);
+  }
+
+  /* ------------------- CONVICTION (SIGNAL CONFLUENCE) -------------------
+     The closest honest thing to prediction: several INDEPENDENT signals
+     pointing the same way at once, with the disagreements shown. Output is
+     confluence, never certainty — the label says how many signals agree
+     and how many object, and silent signals are counted as silent. */
+  function convictionOf(d, ctx) {
+    const ledger = ctx && ctx.ledger || earningsLedger();
+    const narrs = ctx && ctx.narrs || narrativeHeatAll();
+    const whales = ctx && ctx.whales || whaleActionMap();
+    const today = todayISO();
+    const votes = [];
+    const vote = (key, label, dir, why) => votes.push({ key, label, dir, why });
+    const edge = directionEdgeOf(d);
+    if (edge && edge.score != null && edge.label !== "LOW CONFIDENCE")
+      vote("edge", "Direction Edge", ["LIKELY UP", "UP BIAS"].includes(edge.label) ? 1 : ["LIKELY DOWN", "DOWN BIAS"].includes(edge.label) ? -1 : 0, `${edge.label} (${edge.score})`);
+    const it = earnIntelOf(d.ticker);
+    if (it && it.nextDate && it.nextDate >= today && (Date.parse(it.nextDate) - Date.parse(today)) <= 21 * 864e5) {
+      const o = beatOddsOf(d, ledger);
+      if (o && o.score != null && o.coverage >= 55)
+        vote("beat", "Beat Odds", o.score >= 68 ? 1 : o.score <= 40 ? -1 : 0, `${o.score} for ${it.nextDate} report`);
+    }
+    const led = ledger.find(r => r.symbol === d.ticker);
+    if (led) { const ds = driftScoreOf(led, d);
+      if (ds) vote("drift", "Post-earnings drift", ds.up && ds.score >= 58 ? 1 : !ds.up && ds.score <= 34 ? -1 : 0, `${ds.label} (${ds.score}), ${ds.windowLeft}d left`); }
+    const r = rsiOf(d);
+    if (r) { const ms = marketScoreOf(d);
+      const quality = ms && (ms.businessQuality.score ?? 0) >= 65;
+      vote("rsi", "RSI setup", quality && r.value <= 38 ? 1 : r.value >= 72 ? -1 : 0, `RSI(14) ${r.value}${quality && r.value <= 38 ? " washed out on a quality name" : r.value >= 72 ? " overheated" : ""}`); }
+    const t = it && it.trend;
+    if (t && hasNum(t.revUp30) && hasNum(t.revDown30)) { const net = t.revUp30 - t.revDown30;
+      vote("revisions", "Analyst revisions", net >= 5 ? 1 : net <= -5 ? -1 : 0, `net 30d ${net >= 0 ? "+" : ""}${net}`); }
+    const cutoff10 = new Date(Date.now() - 10 * 864e5).toISOString().slice(0, 10);
+    const t1 = ((it && it.ratings) || []).find(x => x.date >= cutoff10 && RATING_TIER1.has((x.firm || "").toLowerCase()) && (x.action === "up" || x.action === "down"));
+    if (t1) vote("tier1", "Tier-1 rating action", t1.action === "up" ? 1 : -1, `${t1.firm} ${t1.action === "up" ? "upgrade" : "downgrade"} ${t1.date}`);
+    const w = whales[d.ticker];
+    if (w && w.berkshire) vote("whale", "Berkshire 13F", (w.berkshire === "new" || w.berkshire === "add") ? 1 : -1, `Berkshire ${w.berkshire} (45-day lag)`);
+    else if (w && w.other) vote("whale", `${w.other.mgr} 13F`, (w.other.action === "new" || w.other.action === "add") ? 1 : -1, `${w.other.mgr} ${w.other.action} (45-day lag)`);
+    const cut14 = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
+    const filing = signalsEvents().find(e => e.tk === d.ticker && e.type === "filing" && e.d >= cut14 && /(ACCELERATED|DECELERATED)/.test(e.detail || ""));
+    if (filing) vote("filing", "Fresh filing", /ACCELERATED/.test(filing.detail) ? 1 : -1, /ACCELERATED/.test(filing.detail) ? "growth accelerated in the new filing" : "growth decelerated in the new filing");
+    const myNarrs = narrs.filter(n => n.members.some(m => m.ticker === d.ticker));
+    if (myNarrs.length) { const hot = myNarrs.sort((a, b) => b.heat - a.heat)[0];
+      vote("narrative", "Narrative heat", hot.heat >= 65 ? 1 : hot.heat <= 35 ? -1 : 0, `${hot.name} is ${hot.label} (${hot.heat})`); }
+    const bulls = votes.filter(v => v.dir > 0), bears = votes.filter(v => v.dir < 0);
+    const active = bulls.length + bears.length;
+    const score = votes.length ? Math.round(clamp(50 + bulls.length * 9 - bears.length * 12, 0, 100)) : null;
+    let label = "NO SIGNAL", color = "var(--dim)";
+    if (bulls.length >= 4 && bears.length === 0) { label = `HIGH CONFLUENCE — ${bulls.length} signals agree, none object`; color = "var(--green)"; }
+    else if (bulls.length >= 3 && bears.length <= 1) { label = `ALIGNED — ${bulls.length} bullish vs ${bears.length} bearish`; color = "var(--cyan)"; }
+    else if (bears.length >= 3 && bulls.length <= 1) { label = `NEGATIVE CONFLUENCE — ${bears.length} signals object`; color = "var(--red)"; }
+    else if (active) { label = `MIXED — ${bulls.length} bullish, ${bears.length} bearish`; color = "var(--amber)"; }
+    return { d, votes, bulls: bulls.length, bears: bears.length, silent: votes.length - active, score, label, color };
+  }
+  function convictionBoard(limit = 8) {
+    const ctx = { ledger: earningsLedger(), narrs: narrativeHeatAll(), whales: whaleActionMap() };
+    return DATA.map(d => convictionOf(d, ctx))
+      .filter(c => c.score != null && (c.bulls >= 3 || c.bears >= 3))
+      .sort((a, b) => (b.bulls - b.bears) - (a.bulls - a.bears) || b.score - a.score)
+      .slice(0, limit);
+  }
+
   /* ------------------- SIGNAL CALIBRATION -------------------
      Grades every recorded signal against what prices actually did next.
      Pure function over TRACK_HISTORY snapshots so it is unit-testable.
@@ -2917,8 +3099,8 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
-  const FORMULA_VERSION = "v4.0 (2026-07)";
-  const SBC_MODEL_VERSION = "4.0.0"; // bump when any engine formula changes
+  const FORMULA_VERSION = "v4.1 (2026-07)";
+  const SBC_MODEL_VERSION = "4.1.0"; // bump when any engine formula changes
   // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
   // line-by-line audit. Retention/owner-earnings remain model estimates.
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts
@@ -3678,6 +3860,17 @@
     const prime = rows.filter(x => x.aligned);
     const rest = rows.filter(x => !x.aligned).slice(0, 14);
     const anyRsi = rows.some(x => x.rsi);
+    const board = convictionBoard(6);
+    const voteRow = (v) => `<div class="kv"><span class="k" style="color:${v.dir > 0 ? "var(--green)" : v.dir < 0 ? "var(--red)" : "var(--dim)"}">${v.dir > 0 ? "▲" : v.dir < 0 ? "▼" : "·"} ${v.label}</span><span class="v"><span class="sub" style="white-space:normal">${escapeHtml(v.why)}</span></span></div>`;
+    const convCard = (c) => {
+      const active = c.votes.filter(v => v.dir !== 0), quiet = c.votes.length - active.length;
+      return `<div class="card" style="border-left:3px solid ${c.color}" data-tk="${c.d.ticker}">
+        <h3>${c.d.ticker} <span class="unit">${escapeHtml(c.d.name)}</span></h3>
+        <div style="margin:4px 0 8px"><b style="color:${c.color};font-size:11px">${c.label}</b></div>
+        ${active.sort((a, b) => b.dir - a.dir).map(voteRow).join("")}
+        ${quiet ? `<div class="sub" style="margin-top:6px">${quiet} signal${quiet === 1 ? "" : "s"} silent — counted as silent, not as agreement.</div>` : ""}
+      </div>`;
+    };
     const rsiChip = (r) => {
       const z = rsiZone(r ? r.value : null);
       return `<span class="rk-pill" style="background:${z.color};color:#071018" title="RSI(14) daily${r && r.asOf ? " · closes to " + r.asOf : ""}">${r ? r.value : "?"}</span>`;
@@ -3705,6 +3898,12 @@
         <div style="text-align:right"><div class="sub">CANDIDATES PASSING THE GATE</div><div class="stat sm" style="color:var(--gold)">${rows.length}</div></div>
       </div>
       <div class="note" style="margin-bottom:12px"><b>How this list works:</b> a name must FIRST pass the brain's gate (business quality ≥65, long-term view ≥55, verified data, not LIKELY DOWN). Only then does the tape matter: RSI(14) on real daily closes at/near the bottom (≤38) plus proximity to the IV15 buy price marks a <b style="color:var(--green)">PRIME</b> setup. Oversold RSI on a weak business is a falling knife — those names are filtered out before you ever see them. ${anyRsi ? "" : "<b>RSI arms on the next data refresh (daily closes are being added to the bundle).</b>"} Research signals, not advice.</div>
+      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
+        <h3>🎯 CONVICTION BOARD <span class="unit">where independent signals stack — confluence, never certainty</span></h3>
+        <div class="sub" style="line-height:1.6;margin:4px 0 10px">Nobody on Earth predicts the future. What CAN be measured is agreement: up to nine independent signals — Direction Edge, Beat Odds, post-earnings drift, RSI setup, analyst revisions, tier-1 desk actions, whale 13Fs, fresh filing diffs, narrative heat — each votes, and only names where <b>3 or more agree</b> make this board. Objections are shown, silence is counted as silence.</div>
+        ${board.length ? `<div class="grid g2">${board.map(convCard).join("")}</div>`
+          : `<div class="sub" style="padding:6px 0;line-height:1.6">No name currently has 3+ independent signals pointing the same way with fewer objections than agreements. That is information too — a mixed tape is exactly when the patient investor waits. Signals re-vote on every data refresh.</div>`}
+      </div>
       ${prime.length ? `<div class="grid g2" style="margin-bottom:12px">${prime.slice(0, 6).map(primeCard).join("")}</div>`
         : `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--amber)"><h3>NO PRIME SETUPS RIGHT NOW</h3>
           <div class="sub" style="padding:8px 0;line-height:1.6">${anyRsi ? "Nothing on the board is both brain-approved AND at a washed-out RSI today. That is normal — prime setups appear in selloffs, which is exactly when they're hardest to act on. The watch list below shows what gets promoted the moment its RSI breaks down." : "The quality side is ranked below; RSI alignment switches on after the next data refresh."}</div></div>`}
@@ -3718,6 +3917,53 @@
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
   }
   const showSetups = () => showView("setups", renderSetups, "setupsBtn");
+
+  /* ============================================================================
+     🧠 MARKET NARRATIVES — the stories the market is trading, measured.
+     Every name lives inside a story, and the story usually moves it more
+     than its own numbers do. Heat comes only from the members' own data:
+     tape, breadth, revisions, season beats, tier-1 desks, whale 13Fs.
+     A story without enough live inputs reports nothing — never a guess. */
+  function renderNarratives() {
+    const ctx = { ledger: earningsLedger(), whales: whaleActionMap() };
+    const heats = NARRATIVES.map(n => narrativeStats(n, ctx)).filter(Boolean).sort((a, b) => b.heat - a.heat);
+    const silent = NARRATIVES.filter(n => !heats.some(h => h.key === n.key));
+    const heatPill = (h) => `<span class="rk-pill" style="background:${h.color};color:#071018" title="${h.inputs} of 6 inputs live">${h.heat}</span>`;
+    const memberChip = (d) => {
+      const mv = pctMoveFrom(d.px && d.px.v || [], 4);
+      const col = mv == null ? "var(--dim)" : mv > 0 ? "var(--green)" : "var(--red)";
+      return `<button type="button" data-tk="${d.ticker}" class="sec-chip" style="border-color:${col}">
+        ${d.ticker} <span style="color:${col}">${mv == null ? "" : (mv >= 0 ? "+" : "") + mv.toFixed(1) + "%"}</span></button>`;
+    };
+    const card = (h) => {
+      const movers = [...h.members].map(d => ({ d, mv: pctMoveFrom(d.px && d.px.v || [], 4) }))
+        .filter(x => hasNum(x.mv)).sort((a, b) => b.mv - a.mv);
+      return `<div class="card" id="narr-${h.key}" style="border-left:3px solid ${h.color}">
+        <h3>${h.icon} ${h.name} ${heatPill(h)} <b style="color:${h.color};font-size:11px">${h.label}</b>
+          <span class="unit">${h.present} names tracked</span></h3>
+        <div class="sub" style="line-height:1.55;margin:4px 0 8px">${escapeHtml(h.story)}</div>
+        <div class="kv"><span class="k">WHAT THE DATA SAYS</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.7">${h.bits.map(escapeHtml).join(" · ")}</span></span></div>
+        ${movers.length ? `<div class="kv"><span class="k">DRIVING IT</span><span class="v"><span class="sub">${movers.slice(0, 2).map(x => `${x.d.ticker} ${x.mv >= 0 ? "+" : ""}${x.mv.toFixed(1)}%`).join(" · ")}${movers.length > 2 ? ` · laggard: ${movers.at(-1).d.ticker} ${movers.at(-1).mv >= 0 ? "+" : ""}${movers.at(-1).mv.toFixed(1)}%` : ""} (1M)</span></span></div>` : ""}
+        <div class="sec-chips" style="margin-top:8px">${h.members.map(memberChip).join("")}</div>
+      </div>`;
+    };
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">🧠 MARKET NARRATIVES</div>
+        <div class="co">The stories the market is actually trading — and how hot each one runs right now. Heat is measured from the members' own tape, revisions, beats, whale filings and tier-1 desk actions. Never from opinions.</div></div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">HOTTEST STORY</div><div class="stat sm" style="color:${heats[0] ? heats[0].color : "var(--dim)"}">${heats[0] ? heats[0].name.toUpperCase() : "—"}</div></div>
+      </div>
+      ${heats.length ? `<div class="sec-chips" style="margin-bottom:12px">${heats.map(h => `<button type="button" class="sec-chip" data-nk="${h.key}" style="border-color:${h.color}">${h.icon} ${h.name} <b style="color:${h.color}">${h.heat}</b></button>`).join("")}</div>` : ""}
+      <div class="note" style="margin-bottom:12px"><b>Why this matters:</b> most days, a stock moves because of the story it lives in, not its own news. Elite investors know the story FIRST — a great company inside a story the market hates stays cheap longer; an average one inside a hot story gets rewarded anyway. <b style="color:var(--green)">HOT</b> stories reward momentum but punish late buyers. <b style="color:var(--red)">COLD</b> stories are where the Best Setups quality gate finds real bargains. Shifts land in the What Changed feed the day they happen.</div>
+      ${heats.length ? heats.map(card).join("") : `<div class="card"><h3>NARRATIVE HEAT IS ARMING</h3><div class="sub" style="padding:8px 0;line-height:1.6">Heat needs at least two live inputs per story (tape, breadth, revisions, season beats, tier-1 actions, whale flows). Those arrive with the daily data refresh — nothing is shown until it can be measured.</div></div>`}
+      ${silent.length ? `<div class="note" style="margin-top:4px"><b>Not enough data today:</b> ${silent.map(n => `${n.icon} ${n.name}`).join(" · ")} — fewer than 2 tracked members or fewer than 2 live inputs. Silence beats a made-up number.</div>` : ""}
+      <div class="card" style="margin-top:12px"><h3>HOW TO USE THIS PAGE</h3>
+        <div class="sub" style="line-height:1.7">1 · Before buying anything, find its story here — you're not just buying a company, you're buying its narrative's flow. 2 · A <b>WARMING</b> story with improving revisions is the classic early entry; <b>HOT</b> means you're no longer early. 3 · <b>COOLING</b> on a name you own is a signal to re-check the thesis, not an order to sell. 4 · The strongest single pattern this terminal can show you: a quality name (Best Setups gate) at a washed-out RSI inside a story that is turning back up.</div></div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(b => b.onclick = () => selectTicker(b.dataset.tk));
+    el("main").querySelectorAll("[data-nk]").forEach(b => b.onclick = () => { const c = el("narr-" + b.dataset.nk); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); });
+  }
+  const showNarratives = () => showView("narratives", renderNarratives, "narrBtn");
 
   /* ============================================================================
      🐋 WHALE TRACKER — the biggest owners, from the primary source.
@@ -3844,6 +4090,7 @@
       case "revisions": return /POSITIVE|UP/.test(e.title) ? `The experts are raising their guesses for ${nm}. That's usually a good sign.` : `The experts are lowering their guesses for ${nm}. That's usually a warning.`;
       case "edge": return /LIKELY UP|UP BIAS/.test(e.title) ? `Our robot's arrows turned UP for ${nm}.` : `Our robot's arrows turned DOWN for ${nm}.`;
       case "score": return /ABOVE|jumped/.test(e.title) ? `${nm}'s report card just got better.` : `${nm}'s report card just got worse.`;
+      case "narrative": return /HOT|WARMING|heating/.test(e.title) ? `The "${e.tk}" story is heating up — money is flowing toward these stocks.` : /COLD|COOLING|cooling/.test(e.title) ? `The "${e.tk}" story is cooling off — money is leaving these stocks.` : `The "${e.tk}" story just changed mood.`;
       default: return e.title;
     }
   }
@@ -3881,6 +4128,14 @@
     const carefulTop = [...new Map(careful.map(c => [c.tk, c])).values()].slice(0, 6);
     // 5 · what just happened, in plain words
     const happened = signalsEvents().slice().sort((a, b) => b.d.localeCompare(a.d) || b.m - a.m).slice(0, 6);
+    // 6 · the market's stories + where the clues agree, kid-simple
+    const easyHeats = narrativeHeatAll();
+    const easyConv = convictionBoard(3);
+    const storyWords = (h) => h.label === "HOT" ? "Everyone wants these stocks right now. Exciting — but careful about paying too much."
+      : h.label === "WARMING" ? "People are starting to like these again. Often the best time to look."
+      : h.label === "COOLING" ? "People are losing interest in these. If you own one, check your homework."
+      : h.label === "COLD" ? "Nobody wants these right now. This is where patient bargain hunters shop."
+      : "The market can't make up its mind about these.";
     const gradeChip = (s) => { const g = gradeOf(s); return `<span class="grade" style="display:inline-grid;width:34px;height:34px;font-size:16px;color:${g.c};border-color:${g.c}">${g.g}</span>`; };
     el("main").innerHTML = `
       <div class="hdr">
@@ -3912,6 +4167,23 @@
           <h3>📣 WHAT JUST HAPPENED <span class="unit">the news feed, translated</span></h3>
           ${happened.length ? happened.map(e => easyRow(e.tk, easyEventWords(e), e.m, e.m >= 80 ? "var(--red)" : e.m >= 65 ? "var(--orange)" : "var(--muted)", e.d)).join("") : `<div class="sub" style="padding:12px">Quiet day so far. The robot checks everything again every school-day morning.</div>`}
         </div>
+        <div class="card" style="border-left:3px solid var(--orange)">
+          <h3>📖 THE MARKET'S STORIES <span class="unit">stocks move in packs — know which pack yours runs with</span></h3>
+          ${easyHeats.length ? easyHeats.slice(0, 3).map(h => `<div class="home-row" data-easy-narr="1" style="grid-template-columns:minmax(0,1fr) auto;padding:11px 0">
+              <div><b>${h.icon} ${h.name}</b><span style="max-width:none;white-space:normal;color:var(--text);font-size:12px;margin-top:3px">${storyWords(h)}</span></div>
+              <strong style="color:${h.color};font-size:15px">${h.label}</strong>
+            </div>`).join("") + (easyHeats.length > 3 ? `<div class="home-row" data-easy-narr="1" style="grid-template-columns:minmax(0,1fr) auto;padding:11px 0">
+              <div><b>${easyHeats.at(-1).icon} ${easyHeats.at(-1).name}</b><span style="max-width:none;white-space:normal;color:var(--text);font-size:12px;margin-top:3px">${storyWords(easyHeats.at(-1))}</span></div>
+              <strong style="color:${easyHeats.at(-1).color};font-size:15px">${easyHeats.at(-1).label}</strong>
+            </div>` : "")
+            : `<div class="sub" style="padding:12px">The story meter turns on with the next data refresh.</div>`}
+        </div>
+        <div class="card" style="border-left:3px solid var(--gold)">
+          <h3>🤝 WHEN ALL THE CLUES AGREE <span class="unit">our strongest page — several different clues, same answer</span></h3>
+          <div class="sub" style="margin:2px 0 6px;line-height:1.5">One clue can fool you. ${easyConv.length ? "These stocks have LOTS of different clues pointing the same way at once:" : ""}</div>
+          ${easyConv.length ? easyConv.map(c => easyRow(c.d.ticker, `${c.bulls} different clues look good here${c.bears ? ` (but ${c.bears} disagree${c.bears === 1 ? "s" : ""} — read them on the Best Setups page)` : " and none disagree"}. More agreeing clues = a stronger hint. Still a hint, never a promise.`, `${c.bulls}▲`, c.color)).join("")
+            : `<div class="sub" style="padding:12px">Right now no stock has lots of clues agreeing. That's the market telling you to be patient today.</div>`}
+        </div>
         <div class="card" style="grid-column:span 2">
           <h3>🥇 THE GOLDEN RULES <span class="unit">what elite investors actually do — it's boringly simple</span></h3>
           <div class="sub" style="line-height:1.8;font-size:12.5px">
@@ -3924,6 +4196,7 @@
         </div>
       </div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-easy-narr]").forEach(r => r.onclick = () => showNarratives());
   }
   const showEasy = () => showView("easy", renderEasy, "easyBtn");
 
@@ -3937,6 +4210,7 @@
   const signalsAsOf = () => (typeof SIGNALS !== "undefined" && SIGNALS.asOf) || null;
   const SIG_TYPES = {
     filing: { label: "FILING", color: "var(--purple)" },
+    narrative: { label: "NARRATIVE", color: "var(--orange)" },
     whale: { label: "WHALES", color: "var(--ice)" },
     analyst: { label: "ANALYST", color: "var(--pink)" },
     earnings: { label: "EARNINGS", color: "var(--gold)" },
@@ -4699,6 +4973,8 @@
       </div>`;
     };
     const analystRows = [...ranked].filter(x => x.f.pe != null).sort((a, b) => combo(b) - combo(a)).slice(0, 4);
+    const narrHeats = narrativeHeatAll();
+    const convTop = convictionBoard(3);
     const analystRow = (x) => `<div class="bz-rating-row" data-tk="${x.d.ticker}">
       <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
       <div><span>FWD P/E</span><b>${x.f.pe.toFixed(1)}x</b></div>
@@ -4764,6 +5040,27 @@
               : `<div class="note">The signals engine diffs every score, revision tape and SEC filing each weekday refresh. ${signalsAsOf() ? `Baseline recorded ${signalsAsOf()} — first deltas land on the next refresh.` : "First pipeline run records the baseline."}</div>`;
           })()}
         </section>
+        <section class="bz-panel">
+          <div class="bz-section-head"><h2>🧠 Market Stories</h2><button id="openNarrs" type="button">All Stories</button></div>
+          ${narrHeats.length ? narrHeats.slice(0, 3).map(h => `<div class="home-row" data-narr="${h.key}">
+              <div><b>${h.icon} ${h.name}</b><span>${escapeHtml(h.bits[0] || h.present + " names tracked")}</span></div>
+              <div class="sub">${h.label}</div>
+              <strong style="color:${h.color}">${h.heat}</strong>
+            </div>`).join("") + (narrHeats.length > 4 ? `<div class="home-row" data-narr="${narrHeats.at(-1).key}">
+              <div><b>${narrHeats.at(-1).icon} ${narrHeats.at(-1).name}</b><span>coldest story — where bargain hunters look</span></div>
+              <div class="sub">${narrHeats.at(-1).label}</div>
+              <strong style="color:${narrHeats.at(-1).color}">${narrHeats.at(-1).heat}</strong>
+            </div>` : "")
+            : `<div class="note">Narrative heat arms with the daily refresh — measured from member tape, breadth, revisions, beats, whale 13Fs and tier-1 desks. Never from opinions.</div>`}
+        </section>
+        <section class="bz-panel">
+          <div class="bz-section-head"><h2>🎯 Signal Confluence</h2><button id="openConv" type="button">Full Board</button></div>
+          ${convTop.length ? convTop.map(c => `<div class="home-row" data-tk="${c.d.ticker}">
+              <div><b>${c.d.ticker}</b><span>${c.votes.filter(v => v.dir > 0).slice(0, 2).map(v => v.label).join(" + ") || c.d.sector}${c.bulls > 2 ? " + " + (c.bulls - 2) + " more agree" : ""}</span></div>
+              <div class="sub">${c.bulls}▲ ${c.bears}▼</div>
+              <strong style="color:${c.color}">${c.bulls - c.bears > 0 ? "+" + (c.bulls - c.bears) : c.bulls - c.bears}</strong>
+            </div>`).join("") : `<div class="note">No name has 3+ independent signals agreeing right now. Signals re-vote on every data refresh — a mixed tape is honest information, not a broken page.</div>`}
+        </section>
         <section class="bz-feature" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
           <div class="bz-feature-pill">${stockDay?.d.ticker || "--"}</div>
           <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: best combined business quality and market reward setup on the board.` : "No ranked setup loaded."}</p></div>
@@ -4814,6 +5111,11 @@
     if (openSig) openSig.onclick = showSignals;
     const openSetupsBtn = el("openSetups");
     if (openSetupsBtn) openSetupsBtn.onclick = showSetups;
+    const openNarrsBtn = el("openNarrs");
+    if (openNarrsBtn) openNarrsBtn.onclick = showNarratives;
+    const openConvBtn = el("openConv");
+    if (openConvBtn) openConvBtn.onclick = showSetups;
+    el("main").querySelectorAll("[data-narr]").forEach(r => r.onclick = (e) => { e.stopPropagation(); showNarratives(); });
     const refreshBtn = el("homeRefreshPrices");
     if (refreshBtn) refreshBtn.onclick = async () => {
       refreshBtn.textContent = "↻ refreshing…"; refreshBtn.disabled = true;
@@ -4845,7 +5147,7 @@
     pushNav();
   }
 
-  /* ------------------------ NARRATIVES view ------------------------ */
+  /* ------------------- shared tape helpers ------------------- */
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   function flowShareOf(s) { // sector's % of total sector-ETF dollar volume per month
     const secOnly = SECTORS.series.filter(x => x.t !== "SPY");
@@ -5469,6 +5771,7 @@
     el("blackrockBtn").onclick = showBlackrock;
     el("setupsBtn").onclick = showSetups;
     el("signalsBtn").onclick = showSignals;
+    el("narrBtn").onclick = showNarratives;
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
     el("sectorBtn").onclick = showSectors;
@@ -5526,6 +5829,7 @@
     directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
+    NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
