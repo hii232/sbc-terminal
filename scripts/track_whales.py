@@ -39,7 +39,7 @@ UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 WHALES = [
     {"key": "berkshire", "label": "Berkshire Hathaway", "ciks": [1067983],
      "style": "Warren Buffett's concentrated ACTIVE book — the highest-signal 13F filed. New buys and exits here are deliberate decisions."},
-    {"key": "blackrock", "label": "BlackRock", "ciks": [1364742, 1086364],
+    {"key": "blackrock", "label": "BlackRock", "ciks": [2012383, 1364742, 1086364],  # 2012383 = post-2024 holdco
      "style": "~90% index autopilot — routine moves are index flows, not opinions. Watch the deviations: new positions, exits, outsized trims."},
     {"key": "citadel", "label": "Citadel", "ciks": [1423053],
      "style": "Multi-strategy hedge fund + market maker — the book is full of hedges and inventory, so single-position moves are the WEAKEST signal of the three. Directional reads here need extra skepticism."},
@@ -59,15 +59,22 @@ def get_json(url):
 
 
 def pick_filer(candidates):
+    """Among candidate CIKs, pick the one with the MOST RECENT 13F-HR.
+    (Corporate reorganizations move filers to new CIKs — e.g. BlackRock's
+    2024 holdco swap — so 'first CIK with any 13F' can be years stale.)"""
+    best = None
     for cik in candidates:
         try:
             sub = get_json(f"https://data.sec.gov/submissions/CIK{cik:010d}.json")
         except Exception:
             continue
-        forms = (sub.get("filings") or {}).get("recent") or {}
-        if "13F-HR" in (forms.get("form") or []):
-            return cik, sub
-    raise ValueError("no candidate CIK files 13F-HR")
+        r = (sub.get("filings") or {}).get("recent") or {}
+        dates = [d for f, d in zip(r.get("form", []), r.get("filingDate", [])) if f == "13F-HR"]
+        if dates and (best is None or max(dates) > best[2]):
+            best = (cik, sub, max(dates))
+    if not best:
+        raise ValueError("no candidate CIK files 13F-HR")
+    return best[0], best[1]
 
 
 def recent_filings(sub, limit=30):
