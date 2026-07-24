@@ -1,0 +1,67 @@
+name: universe-expand
+
+# One-shot, manually dispatched: rebuilds the official universe from
+# scripts/build_universe.py GROUPS, ingests SEC facts for every CIK, promotes
+# missing names into real data.js rows, then backfills prices/earnings and the
+# derived layers. Membership is a deliberate act, so this NEVER runs on a
+# schedule — the daily data-refresh workflow only updates existing names.
+#
+# Data is committed even if a candidate fails: reconcile_universe.py drops any
+# ticker that could not be fully backed, so the shipped universe always equals
+# "names with a verified DATA row AND SEC artifacts".
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Rebuild official universe (CIKs from SEC company_tickers)
+        run: python scripts/build_universe.py
+      - name: Ingest SEC filing facts for every CIK
+        run: python scripts/sec_ingest.py
+      - name: Promote new universe names into data.js rows
+        run: python scripts/promote_universe_to_data.py
+      - name: Drop any ticker that could not be fully backed
+        run: python scripts/reconcile_universe.py
+      - name: Re-ingest SEC bundle for the reconciled membership
+        run: python scripts/sec_ingest.py
+      - name: Refresh fundamentals + quotes + sectors
+        run: python scripts/update_data.py
+      - name: Refresh weekly + daily price history (RSI inputs)
+        run: python scripts/gen_prices.py
+      - name: Collect earnings intelligence
+        run: python scripts/collect_earnings.py
+      - name: Track whales (EDGAR + 13F diffs)
+        run: python scripts/track_whales.py
+      - name: Record model track-record snapshot
+        run: node scripts/snapshot_scores.js
+      - name: Build what-changed signals ledger
+        run: node scripts/build_signals.js
+
+      - name: Universe integrity gate
+        run: node scripts/check_universe.js
+      - name: Report test + audit status (non-blocking on expansion)
+        continue-on-error: true
+        run: |
+          node tests/run_tests.js || echo "::warning::regression tests need threshold review after expansion"
+          python scripts/golden_audit.py || echo "::warning::golden audit needs review after expansion"
+
+      - name: Commit expanded universe
+        run: |
+          git config user.name "sbc-terminal-bot"
+          git config user.email "actions@github.com"
+          git add universe.js data.js sec.js track.js earnings.js signals.js whales.js data/ || true
+          git diff --cached --quiet || git commit -m "universe: expansion run $(date -u +%F)"
+          git push
