@@ -1,5 +1,5 @@
 /* SBC Terminal — service worker: cache app shell for offline / phone use */
-const V = "70";
+const V = "71";
 const CACHE = "sbc-terminal-v" + V;
 const SHELL = ["./", "./index.html", "./manifest.json", "./icon.svg"].concat(
   ["app.js", "charts.js", "universe.js", "data.js", "sec.js", "track.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "scores.js"].map((f) => `./${f}?v=${V}`)
