@@ -121,6 +121,7 @@ async function main() {
       ["#compareBtn", "COMPARE"],
       ["#screenBtn", "CUSTOM SCREENER"],
       ["#sectorBtn", "SECTOR FLOW"],
+      ["#blackrockBtn", "BLACKROCK TRACKER"],
       ["#calBtn", "EARNINGS COMMAND CENTER"],  // keep last: the earnings checks below read this view
     ];
     // Nav moved to the top bar; the legacy drawer buttons still carry the wiring
@@ -150,7 +151,7 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 14, "all 14 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.tools === 15, "all 15 tools reachable from the top nav", String(topnav.tools));
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
       const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));

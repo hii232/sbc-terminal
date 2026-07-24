@@ -14,7 +14,7 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network in tests"));
 
 const root = path.join(__dirname, "..");
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "scores.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "blackrock.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -441,7 +441,11 @@ const ok = (cond, name, detail = "") => {
   ok(E.gradeOf(null).g === "?", "unknown score -> '?' grade, not a fake letter");
   ok(E.gradeOf(85).g === "A" && E.gradeOf(67).g === "B" && E.gradeOf(52).g === "C" && E.gradeOf(40).g === "D" && E.gradeOf(10).g === "F", "grade bands map correctly");
   ok(DATA.every(d => typeof E.easySentence(d) === "string" && E.easySentence(d).length > 10), "every ticker gets a plain-English sentence");
-  for (const type of ["filing", "analyst", "earnings", "revisions", "edge", "score", "unknown"]) {
+  // BlackRock bundle: empty-safe structure
+  const B = E.blkIntel();
+  ok(B && Array.isArray(B.filings) && "holdings" in B, "BlackRock bundle loads with filings array and holdings slot");
+  ok(B.holdings === null || (Array.isArray(B.holdings.top) && Array.isArray(B.holdings.universe)), "holdings are null (arming) or carry top/universe arrays");
+  for (const type of ["filing", "analyst", "earnings", "revisions", "edge", "score", "whale", "unknown"]) {
     const words = E.easyEventWords({ tk: "NVDA", type, title: "UPGRADED x", detail: "" });
     ok(typeof words === "string" && words.length > 5, `easy translator handles '${type}' events`);
   }

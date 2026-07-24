@@ -1,5 +1,11 @@
 # SBC Model Changelog
 
+## BlackRock tracker - 2026-07-24
+
+- New BLACKROCK TRACKER view (Market menu): recent EDGAR filings feed (click-through to the actual documents) plus the two latest 13F-HR holdings reports parsed and diffed — new positions, full exits, adds/trims >=3%, top 25 holdings, and BlackRock's stake (with QoQ change) in every universe name. Pipeline: scripts/track_blackrock.py (keyless SEC EDGAR; heavy 13F parse cached per accession).
+- Signals feed gains BLACKROCK (whale) events when a new 13F lands: new positions/exits in universe names (78), adds/trims >=8% (66); every event states the quarter and the 45-day legal lag.
+- Honesty on-screen: 13Fs are quarterly with a 45-day lag, and BlackRock is mostly an index manager — the page says both, and frames deviations (not routine flows) as the signal. Shell v68.
+
 ## Easy Mode - 2026-07-24
 
 - New EASY MODE — TODAY'S GAME PLAN view (Home menu): the whole terminal translated into plain language a 10-year-old can follow. Letter grades (A-F, honest "?" for unknown), one-sentence verdicts per stock, and five sections: great companies at fair prices, report cards coming up (Beat Odds), winning streaks (drift), be-careful list (miss risk + tier-1 downgrades + downside drift), and what-just-happened (the signals feed translated). Same engines underneath — only the language is simplified; "we don't know" is said out loud, and the golden-rules card states plainly that scores are hints, not promises. Shell v67.
