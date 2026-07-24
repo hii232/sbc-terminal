@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "69"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "70"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -795,7 +795,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -818,6 +818,7 @@
       { id: "blackrockBtn", label: "Whale Tracker", ic: "🐋" },
     ] },
     { name: "Stocks", icon: "🔍", tools: [
+      { id: "setupsBtn", label: "Best Setups", ic: "⭐" },
       { id: "rankBtn", label: "Rankings", ic: "⚡" },
       { id: "screenBtn", label: "Screener", ic: "📊" },
       { id: "compareBtn", label: "Compare", ic: "⚖" },
@@ -964,7 +965,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, easy: showEasy, signals: showSignals, blackrock: showBlackrock, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+        const map = { home: showHome, easy: showEasy, signals: showSignals, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
           rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -1879,6 +1880,83 @@
     else if (!up && score <= 34) { label = "DOWNSIDE DRIFT"; color = "var(--red)"; }
     else { label = "NO CLEAR DRIFT"; color = "var(--amber)"; }
     return { symbol: r.symbol, score, label, color, daysSince, windowLeft: Math.max(0, 60 - daysSince), bits, up };
+  }
+
+  /* ------------------- RSI + BEST SETUPS -------------------
+     RSI(14) on real daily closes (Wilder smoothing) from the bundled pd:{}
+     blocks. A Best Setup = the brain's quality/valuation gate AND the tape
+     at a washed-out RSI — great business, fair price, seller exhaustion.
+     RSI-oversold on a WEAK business is a falling knife, so the quality
+     gate is applied first and the page says so. */
+  function rsiOf(d, period = 14) {
+    const closes = (d && d.pd && Array.isArray(d.pd.v) ? d.pd.v : []).filter(v => Number.isFinite(v) && v > 0);
+    if (closes.length < period + 2) return null;
+    let gain = 0, loss = 0;
+    for (let i = 1; i <= period; i++) {
+      const ch = closes[i] - closes[i - 1];
+      if (ch >= 0) gain += ch; else loss -= ch;
+    }
+    let avgG = gain / period, avgL = loss / period, prev = null;
+    const rsiAt = (g, l) => l === 0 && g === 0 ? 50 : l === 0 ? 100 : g === 0 ? 0 : 100 - 100 / (1 + g / l);
+    let value = rsiAt(avgG, avgL);
+    for (let i = period + 1; i < closes.length; i++) {
+      const ch = closes[i] - closes[i - 1];
+      avgG = (avgG * (period - 1) + Math.max(ch, 0)) / period;
+      avgL = (avgL * (period - 1) + Math.max(-ch, 0)) / period;
+      prev = value;
+      value = rsiAt(avgG, avgL);
+    }
+    return { value: +value.toFixed(1), prev: prev == null ? null : +prev.toFixed(1), asOf: d.pd.to || null, days: closes.length };
+  }
+  const rsiZone = (v) => v == null ? { label: "n/a", color: "var(--dim)" }
+    : v <= 30 ? { label: "OVERSOLD — at the bottom", color: "var(--green)" }
+    : v <= 38 ? { label: "washed out", color: "var(--cyan)" }
+    : v <= 55 ? { label: "neutral", color: "var(--muted)" }
+    : v <= 70 ? { label: "warm", color: "var(--amber)" }
+    : { label: "OVERBOUGHT — chasing", color: "var(--red)" };
+  function bestSetupsOf() {
+    const rows = [];
+    for (const d of DATA) {
+      const ms = marketScoreOf(d);
+      if (!ms || !dataConfidenceOf(d).rankable) continue;
+      const bq = ms.businessQuality.score, lt = ms.longTermView.score, val = ms.valuation.score;
+      if (bq == null || lt == null || bq < 65 || lt < 55) continue; // quality gate FIRST
+      const edge = directionEdgeOf(d);
+      if (edge && edge.label === "LIKELY DOWN") continue;
+      const r = rsiOf(d);
+      const L = ivLadder(d);
+      const price = priceOf(d);
+      // technical alignment: max points when RSI sits at the bottom on a
+      // quality name; crossing back UP through 30 is the classic trigger
+      let tech = null, techWhy = "RSI unavailable — daily closes land with the next data refresh";
+      if (r) {
+        tech = r.value <= 30 ? 100 : r.value <= 35 ? 88 : r.value <= 40 ? 74 : r.value <= 50 ? 56 : r.value <= 60 ? 42 : r.value <= 70 ? 26 : 10;
+        if (r.prev != null && r.prev < 30 && r.value >= 30) tech = Math.min(100, tech + 8);
+        techWhy = `RSI(14) ${r.value}${r.prev != null && r.prev < 30 && r.value >= 30 ? " — just crossed UP out of oversold (classic trigger)" : " — " + rsiZone(r.value).label}`;
+      }
+      let pxPos = null, pxWhy = "no IV15 buy target (owner earnings unavailable)";
+      if (L && price) {
+        const ratio = price / L.IV15;
+        pxPos = ratio <= 1 ? 100 : ratio <= 1.1 ? 82 : ratio <= 1.25 ? 62 : ratio <= 1.5 ? 42 : 20;
+        pxWhy = ratio <= 1 ? `price $${price.toFixed(0)} is AT/BELOW the IV15 buy target $${L.IV15.toFixed(0)}` : `price is ${((ratio - 1) * 100).toFixed(0)}% above the IV15 buy target $${L.IV15.toFixed(0)}`;
+      }
+      const parts = [
+        { k: "brain", label: "Brain (long-term view)", s: lt, w: 0.30, why: `LTV ${lt} · quality ${bq}` },
+        { k: "value", label: "Valuation", s: val, w: 0.16, why: `valuation score ${val ?? "?"}` },
+        { k: "rsi", label: "RSI position", s: tech, w: 0.30, why: techWhy },
+        { k: "buyzone", label: "Buy-zone proximity", s: pxPos, w: 0.14, why: pxWhy },
+        { k: "edge", label: "Direction edge", s: edge ? edge.score : null, w: 0.10, why: edge ? `${edge.label} (${edge.score})` : "edge unavailable" },
+      ];
+      const used = parts.filter(p => p.s != null);
+      const wSum = used.reduce((a, p) => a + p.w, 0);
+      const score = wSum ? Math.round(clamp(used.reduce((a, p) => a + p.s * p.w, 0) / wSum, 0, 100)) : null;
+      const coverage = Math.round(wSum / parts.reduce((a, p) => a + p.w, 0) * 100);
+      const aligned = r != null && r.value <= 38 && bq >= 70 && (pxPos == null || pxPos >= 62);
+      rows.push({ d, score, coverage, aligned, rsi: r, edge, L, parts,
+        label: aligned ? "PRIME — BRAIN + RSI ALIGNED" : r == null ? "BRAIN ONLY (RSI pending)" : r.value > 65 ? "QUALITY BUT OVERHEATED" : "QUALITY WATCH",
+        color: aligned ? "var(--green)" : r == null ? "var(--dim)" : r.value > 65 ? "var(--orange)" : "var(--amber)" });
+    }
+    return rows.filter(x => x.score != null).sort((a, b) => (b.aligned - a.aligned) || b.score - a.score);
   }
 
   /* ------------------- SIGNAL CALIBRATION -------------------
@@ -3588,6 +3666,57 @@
     return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
   }
   /* ============================================================================
+     ⭐ BEST SETUPS — the brain's picks, only when the tape agrees.
+     Quality gate first (great business, sane price), then RSI(14) on real
+     daily closes decides alignment: washed-out RSI on a quality name is
+     the setup; oversold junk is a falling knife and never shows here. */
+  function renderSetups() {
+    const rows = bestSetupsOf();
+    const prime = rows.filter(x => x.aligned);
+    const rest = rows.filter(x => !x.aligned).slice(0, 14);
+    const anyRsi = rows.some(x => x.rsi);
+    const rsiChip = (r) => {
+      const z = rsiZone(r ? r.value : null);
+      return `<span class="rk-pill" style="background:${z.color};color:#071018" title="RSI(14) daily${r && r.asOf ? " · closes to " + r.asOf : ""}">${r ? r.value : "?"}</span>`;
+    };
+    const row = (x) => `<tr data-tk="${x.d.ticker}">
+      <td style="text-align:left"><span class="rk-tk">${x.d.ticker}</span> <span class="sub">${x.d.sector}</span></td>
+      <td><span class="rk-pill" style="background:${x.color};color:#071018">${x.score}</span></td>
+      <td>${rsiChip(x.rsi)} <span class="sub">${x.rsi ? rsiZone(x.rsi.value).label : "pending"}</span></td>
+      <td class="sub">${x.parts.find(p => p.k === "buyzone").why}</td>
+      <td><b style="color:${x.color};font-size:10px">${x.label}</b></td>
+    </tr>`;
+    const primeCard = (x) => `<div class="card" style="border-left:3px solid var(--green)" data-tk="${x.d.ticker}">
+      <h3>${x.d.ticker} — ${x.score} <span class="unit">${escapeHtml(x.d.name)}</span></h3>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 8px">
+        ${rsiChip(x.rsi)} <b style="color:var(--green)">${x.rsi ? rsiZone(x.rsi.value).label : ""}</b>
+        ${x.rsi && x.rsi.prev != null && x.rsi.prev < 30 && x.rsi.value >= 30 ? `<span class="impact-chip hot">CROSSED UP OUT OF OVERSOLD</span>` : ""}
+      </div>
+      ${x.parts.map(p => `<div class="kv"><span class="k">${p.label}</span><span class="v" style="color:${scoreColorOf(p.s)}">${p.s == null ? "–" : Math.round(p.s)} <span class="sub">${escapeHtml(p.why)}</span></span></div>`).join("")}
+    </div>`;
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">⭐ BEST SETUPS</div>
+        <div class="co">Only the brain's highest-conviction names — surfaced when the tape hands them to you at a washed-out RSI. Quality first, technicals as the trigger.</div></div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">CANDIDATES PASSING THE GATE</div><div class="stat sm" style="color:var(--gold)">${rows.length}</div></div>
+      </div>
+      <div class="note" style="margin-bottom:12px"><b>How this list works:</b> a name must FIRST pass the brain's gate (business quality ≥65, long-term view ≥55, verified data, not LIKELY DOWN). Only then does the tape matter: RSI(14) on real daily closes at/near the bottom (≤38) plus proximity to the IV15 buy price marks a <b style="color:var(--green)">PRIME</b> setup. Oversold RSI on a weak business is a falling knife — those names are filtered out before you ever see them. ${anyRsi ? "" : "<b>RSI arms on the next data refresh (daily closes are being added to the bundle).</b>"} Research signals, not advice.</div>
+      ${prime.length ? `<div class="grid g2" style="margin-bottom:12px">${prime.slice(0, 6).map(primeCard).join("")}</div>`
+        : `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--amber)"><h3>NO PRIME SETUPS RIGHT NOW</h3>
+          <div class="sub" style="padding:8px 0;line-height:1.6">${anyRsi ? "Nothing on the board is both brain-approved AND at a washed-out RSI today. That is normal — prime setups appear in selloffs, which is exactly when they're hardest to act on. The watch list below shows what gets promoted the moment its RSI breaks down." : "The quality side is ranked below; RSI alignment switches on after the next data refresh."}</div></div>`}
+      <div class="card">
+        <h3>THE WATCH LIST — QUALITY WAITING FOR A TAPE TRIGGER <span class="unit">sorted by setup score · promoted to PRIME when RSI washes out</span></h3>
+        <div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th style="text-align:left">TICKER</th><th>SETUP</th><th>RSI(14)</th><th>BUY ZONE</th><th>STATUS</th></tr></thead>
+          <tbody>${rest.map(row).join("") || `<tr><td colspan="5" class="sub" style="padding:14px">Nothing passes the quality gate right now.</td></tr>`}</tbody>
+        </table></div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+  const showSetups = () => showView("setups", renderSetups, "setupsBtn");
+
+  /* ============================================================================
      🐋 WHALE TRACKER — the biggest owners, from the primary source.
      Per whale (Berkshire, BlackRock, Citadel): recent EDGAR filings + the
      two latest 13F holdings reports, diffed. Honesty on-screen: 13Fs are
@@ -3759,7 +3888,7 @@
       <div class="grid g2">
         <div class="card" style="border-left:3px solid var(--green)">
           <h3>🏆 GREAT COMPANIES AT FAIR PRICES <span class="unit">the main list — strong business + sane price</span></h3>
-          ${great.length ? great.map(x => easyRow(x.d.ticker, easySentence(x.d), gradeOf(x.ms.longTermView.score).g, gradeOf(x.ms.longTermView.score).c)).join("") : `<div class="sub" style="padding:12px">Right now nothing is both great AND fairly priced. That happens! Waiting is allowed — it's what the best investors do most of the time.</div>`}
+          ${great.length ? great.map(x => { const r = rsiOf(x.d); const extra = r && r.value <= 35 ? " 🔥 And right now sellers are exhausted (RSI at the bottom) — this is what a real sale looks like." : ""; return easyRow(x.d.ticker, easySentence(x.d) + extra, gradeOf(x.ms.longTermView.score).g, gradeOf(x.ms.longTermView.score).c); }).join("") : `<div class="sub" style="padding:12px">Right now nothing is both great AND fairly priced. That happens! Waiting is allowed — it's what the best investors do most of the time.</div>`}
         </div>
         <div class="card" style="border-left:3px solid var(--cyan)">
           <h3>📝 REPORT CARDS COMING UP <span class="unit">companies about to tell everyone how they did</span></h3>
@@ -5228,6 +5357,7 @@
     if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
     if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
     if (["EASY", "SIMPLE", "GAME PLAN", "GAMEPLAN", "PLAN", "KID", "HELP ME"].includes(q)) { showEasy(); flash("Easy mode — today's game plan", "ok"); return; }
+    if (["SETUPS", "SETUP", "BEST", "BEST SETUPS", "RSI", "ALIGN", "PRIME"].includes(q)) { showSetups(); flash("Best setups — brain + RSI", "ok"); return; }
     if (["BLACKROCK", "13F", "WHALE", "WHALES", "BLACK ROCK"].includes(q)) { showBlackrock(); flash("Whale tracker", "ok"); return; }
     if (["BERKSHIRE", "BUFFETT", "WARREN"].includes(q)) { whaleState.focus = "berkshire"; showBlackrock(); flash("Whale tracker — Berkshire", "ok"); return; }
     if (["CITADEL", "GRIFFIN"].includes(q)) { whaleState.focus = "citadel"; showBlackrock(); flash("Whale tracker — Citadel", "ok"); return; }
@@ -5314,6 +5444,7 @@
     el("homeBtn").onclick = showHome;
     el("easyBtn").onclick = showEasy;
     el("blackrockBtn").onclick = showBlackrock;
+    el("setupsBtn").onclick = showSetups;
     el("signalsBtn").onclick = showSignals;
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
@@ -5360,7 +5491,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=69").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=70").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5371,7 +5502,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
-    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel,
+    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

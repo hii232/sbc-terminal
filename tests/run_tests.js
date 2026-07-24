@@ -437,6 +437,26 @@ const ok = (cond, name, detail = "") => {
   ok(E.ratingReasonFrom([{ headline: "unrelated", datetime: ts }], rating) === null, "no matching headline -> null reason, never invented");
   ok(E.ratingReasonFrom(null, rating) === null, "no news loaded -> null reason");
 
+  // RSI(14): Wilder smoothing on daily closes, missing-safe, bounded
+  const mkPd = (vals) => ({ pd: { v: vals, to: "2026-07-24" } });
+  const upOnly = mkPd(Array.from({ length: 30 }, (_, i) => 100 + i));
+  const dnOnly = mkPd(Array.from({ length: 30 }, (_, i) => 130 - i));
+  ok(E.rsiOf(upOnly).value === 100, "all-gains series -> RSI 100", String(E.rsiOf(upOnly).value));
+  ok(E.rsiOf(dnOnly).value === 0, "all-losses series -> RSI 0", String(E.rsiOf(dnOnly).value));
+  const mixed = E.rsiOf(mkPd(Array.from({ length: 40 }, (_, i) => 100 + Math.sin(i / 3) * 5)));
+  ok(mixed && mixed.value > 0 && mixed.value < 100 && Number.isFinite(mixed.prev), "oscillating series -> interior RSI with prev bar");
+  ok(E.rsiOf({ pd: { v: [1, 2, 3] } }) === null, "too few closes -> null, never fabricated");
+  ok(E.rsiOf({}) === null, "no daily closes -> null");
+  // best setups: quality gate first, bounded, missing-RSI tolerated
+  const setups = E.bestSetupsOf();
+  ok(Array.isArray(setups) && setups.every(x => x.score >= 0 && x.score <= 100 && x.coverage >= 0 && x.coverage <= 100),
+    "setups are bounded with coverage");
+  ok(setups.every(x => {
+    const ms = E.marketScoreOf(x.d);
+    return ms && ms.businessQuality.score >= 65 && ms.longTermView.score >= 55;
+  }), "every setup passed the quality gate FIRST (no oversold junk)");
+  ok(setups.every(x => !x.aligned || (x.rsi && x.rsi.value <= 38)), "PRIME alignment requires a real washed-out RSI");
+
   // easy mode: grades and plain-language translators are total and honest
   ok(E.gradeOf(null).g === "?", "unknown score -> '?' grade, not a fake letter");
   ok(E.gradeOf(85).g === "A" && E.gradeOf(67).g === "B" && E.gradeOf(52).g === "C" && E.gradeOf(40).g === "D" && E.gradeOf(10).g === "F", "grade bands map correctly");
