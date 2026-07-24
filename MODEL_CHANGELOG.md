@@ -1,5 +1,11 @@
 # SBC Model Changelog
 
+## Best Setups: brain + RSI alignment - 2026-07-24
+
+- gen_prices.py now also bundles pd:{} blocks — the last ~70 real daily closes per ticker — enabling true RSI(14) with Wilder smoothing (rsiOf; all-gain=100, all-loss=0, short series=null).
+- New BEST SETUPS view (Stocks menu): quality gate FIRST (business quality >=65, long-term view >=55, verified data, not LIKELY DOWN), then the tape decides alignment — RSI(14) at/near the bottom (<=38) plus IV15 buy-zone proximity marks a PRIME setup; a cross back up through 30 is flagged as the classic trigger. Oversold weak businesses are filtered out before display (falling-knife guard, stated on-screen). Setup score = brain 30% + RSI 30% + valuation 16% + buy-zone 14% + direction edge 10%, coverage-weighted, missing-safe.
+- Easy Mode's great-companies list gains a plain-words RSI tag ("sellers are exhausted — this is what a real sale looks like"). Shell v70.
+
 ## BlackRock tracker - 2026-07-24
 
 - New BLACKROCK TRACKER view (Market menu): recent EDGAR filings feed (click-through to the actual documents) plus the two latest 13F-HR holdings reports parsed and diffed — new positions, full exits, adds/trims >=3%, top 25 holdings, and BlackRock's stake (with QoQ change) in every universe name. Pipeline: scripts/track_blackrock.py (keyless SEC EDGAR; heavy 13F parse cached per accession).

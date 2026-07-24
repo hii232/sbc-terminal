@@ -1,5 +1,6 @@
-"""Add px:{} blocks: REAL 12-month weekly closing prices per ticker (Yahoo),
-so the terminal never renders synthetic price charts.
+"""Add px:{} blocks (REAL 12-month weekly closes) and pd:{} blocks (last ~70
+daily closes for RSI/technicals) per ticker, from Yahoo — the terminal never
+renders synthetic price data.
     python scripts/gen_prices.py
 """
 import json, re, sys, time
@@ -30,6 +31,18 @@ def fetch_px(tk):
     d1 = time.strftime("%Y-%m-%d", time.gmtime(grid[-1][0]))
     return f'px:{{v:[{vals}], from:"{d0}", to:"{d1}"}},'
 
+def fetch_pd(tk):
+    """Last ~70 daily closes (gaps dropped — RSI needs consecutive prints)."""
+    d = json.loads(U.get(f"https://query1.finance.yahoo.com/v8/finance/chart/{tk}?interval=1d&range=6mo"))
+    r = d["chart"]["result"][0]
+    closes = [c for c in r["indicators"]["quote"][0]["close"] if c is not None][-70:]
+    ts = r["timestamp"]
+    if len(closes) < 20:
+        return None
+    vals = ",".join(f"{c:.2f}" for c in closes)
+    d1 = time.strftime("%Y-%m-%d", time.gmtime(ts[-1]))
+    return f'pd:{{v:[{vals}], to:"{d1}"}},'
+
 src = DATA_JS.read_text(encoding="utf-8")
 only = {t.upper() for t in sys.argv[1:]}
 tickers = re.findall(r'co\(\{ ticker:"([A-Z]+)"', src)
@@ -37,7 +50,7 @@ if only:
     tickers = [t for t in tickers if t in only]
 print(f"{len(tickers)} tickers", flush=True)
 
-out, fails = {}, []
+out, outd, fails = {}, {}, []
 for i, tk in enumerate(tickers):
     try:
         p = fetch_px(tk)
@@ -47,21 +60,33 @@ for i, tk in enumerate(tickers):
             fails.append(tk)
     except Exception:
         fails.append(tk)
+    try:
+        pdb = fetch_pd(tk)
+        if pdb:
+            outd[tk] = pdb
+    except Exception:
+        pass  # daily closes are an enhancement; weekly px is the required layer
     if (i + 1) % 80 == 0:
-        print(f"  {i+1}/{len(tickers)} — got {len(out)}", flush=True)
+        print(f"  {i+1}/{len(tickers)} — got {len(out)} px / {len(outd)} pd", flush=True)
     time.sleep(0.22)
-print(f"built {len(out)}, failed {len(fails)}", flush=True)
+print(f"built {len(out)} px / {len(outd)} pd, failed {len(fails)}", flush=True)
 
 pat = re.compile(r'co\(\{ ticker:"([A-Z]+)".*?\}\)', re.S)
 def patch(m):
     tk, block = m.group(1), m.group(0)
-    p = out.get(tk)
-    if not p:
-        return block
-    if "px:{" in block:
-        return re.sub(r"px:\{[^}]*\},", p, block)
-    return block.replace("    note:", "    " + p + "\n    note:")
+    p, pdl = out.get(tk), outd.get(tk)
+    if p:
+        if "px:{" in block:
+            block = re.sub(r"px:\{[^}]*\},", p, block)
+        else:
+            block = block.replace("    note:", "    " + p + "\n    note:")
+    if pdl:
+        if "pd:{" in block:
+            block = re.sub(r"pd:\{[^}]*\},", pdl, block)
+        elif "px:{" in block:
+            block = re.sub(r"(px:\{[^}]*\},)", r"\1\n    " + pdl.replace("\\", "\\\\"), block, count=1)
+    return block
 
 src = pat.sub(patch, src)
 DATA_JS.write_text(src, encoding="utf-8")
-print(f"WROTE data.js — {len(out)} px blocks", flush=True)
+print(f"WROTE data.js — {len(out)} px / {len(outd)} pd blocks", flush=True)
