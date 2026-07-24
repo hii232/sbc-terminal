@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "64"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "65"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -1685,17 +1685,28 @@
     }, 45 * 1000);
   }
 
-  /* season ledger: everything that has REPORTED in the window, live-first */
+  /* season ledger: everything that has REPORTED in the window, live-first.
+     Three honesty tiers: live Finnhub rows carry the exact report date;
+     pipeline-stamped rows carry the morning the result first appeared (≈);
+     and quarters whose END falls inside the window with actuals on file are
+     PROVABLY reported (a company cannot have actuals without reporting) —
+     shown with the fiscal quarter end as the approximate date. */
   function earningsLedger(daysBack = 45) {
     const cutoff = new Date(Date.now() - daysBack * 864e5).toISOString().slice(0, 10);
+    const qCutoff = new Date(Date.now() - 65 * 864e5).toISOString().slice(0, 10);
     const today = todayISO();
     const out = new Map();
     DATA.forEach(d => {
       const it = earnIntelOf(d.ticker);
       (it && it.history || []).forEach(h => {
-        if (!h.reportedOn || h.reportedOn < cutoff || h.epsActual == null) return;
-        out.set(d.ticker, { symbol: d.ticker, date: h.reportedOn, dateIsApprox: true, quarter: h.quarter,
-          epsActual: h.epsActual, epsEstimate: h.epsEstimate, surprisePct: h.surprisePct, source: "bundled" });
+        if (h.epsActual == null) return;
+        if (h.reportedOn && h.reportedOn >= cutoff) {
+          out.set(d.ticker, { symbol: d.ticker, date: h.reportedOn, dateIsApprox: true, quarter: h.quarter,
+            epsActual: h.epsActual, epsEstimate: h.epsEstimate, surprisePct: h.surprisePct, source: "bundled" });
+        } else if (!h.reportedOn && h.quarter && h.quarter >= qCutoff && h.quarter <= today && !out.has(d.ticker)) {
+          out.set(d.ticker, { symbol: d.ticker, date: h.quarter, dateIsApprox: true, postQuarter: true, quarter: h.quarter,
+            epsActual: h.epsActual, epsEstimate: h.epsEstimate, surprisePct: h.surprisePct, source: "bundled" });
+        }
       });
     });
     Object.values(state.earnLive.rows).forEach(e => {
@@ -3576,6 +3587,39 @@
         ${chip("all", `ALL ${all.length}`)}
         ${Object.entries(SIG_TYPES).map(([k, t]) => chip(k, `${t.label} ${counts[k] || 0}`)).join("")}
       </div>
+      ${(() => {
+        // ACTIVE SETUPS NOW — computed live from current data so this page is
+        // useful even on a quiet ledger day. These are states, not deltas.
+        const ledger = earningsLedger();
+        const setups = upcomingEarningsRows(21)
+          .map(e => ({ e, o: companyOf(e.symbol) ? beatOddsOf(companyOf(e.symbol), ledger) : null }))
+          .filter(x => x.o && x.o.score != null && x.o.score >= 65 && x.o.coverage >= 55)
+          .sort((a, b) => b.o.score - a.o.score).slice(0, 5);
+        const drifts = ledger.map(r => ({ r, ds: driftScoreOf(r) }))
+          .filter(x => x.ds && (x.ds.label === "STRONG DRIFT" || x.ds.label === "DRIFT CANDIDATE"))
+          .sort((a, b) => b.ds.score - a.ds.score).slice(0, 5);
+        const tapes = DATA.map(d => {
+          const t = earnIntelOf(d.ticker)?.trend;
+          return t && hasNum(t.revUp30) && hasNum(t.revDown30) ? { tk: d.ticker, net: t.revUp30 - t.revDown30 } : null;
+        }).filter(Boolean).sort((a, b) => b.net - a.net);
+        const hot = tapes.filter(x => x.net >= 5).slice(0, 4);
+        const cold = tapes.filter(x => x.net <= -5).slice(-4).reverse();
+        const mini = (title, color, items) => `<div>
+          <h3 style="margin:0 0 4px;color:${color}">${title}</h3>
+          ${items.length ? items.join("") : `<div class="sub" style="padding:6px 0">none right now</div>`}
+        </div>`;
+        const li = (tk, right, sub, color) => `<div class="home-row" data-tk="${tk}" style="padding:6px 0">
+          <div><b>${tk}</b><span>${sub}</span></div><div></div><strong style="color:${color}">${right}</strong></div>`;
+        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
+          <h3>ACTIVE SETUPS RIGHT NOW <span class="unit">current states computed live — the feed below tracks how they change day over day</span></h3>
+          <div class="grid g3" style="margin-top:6px">
+            ${mini("🎯 STRONG BEAT SETUPS", "var(--green)", setups.map(x => li(x.e.symbol, x.o.score, `reports ${x.e.date}`, x.o.color)))}
+            ${mini("📈 DRIFT CANDIDATES", "var(--cyan)", drifts.map(x => li(x.r.symbol, x.ds.score, `${x.ds.label} · ${x.ds.windowLeft}d window left`, x.ds.color)))}
+            ${mini("🔥 REVISION TAPES", "var(--amber)", hot.map(x => li(x.tk, "+" + x.net, "net 30d EPS revisions", "var(--green)"))
+              .concat(cold.map(x => li(x.tk, String(x.net), "net 30d EPS revisions", "var(--red)"))))}
+          </div>
+        </div>`;
+      })()}
       ${rows.length ? [...byDate.entries()].map(([dt, evs]) => `<div class="card" style="margin-bottom:12px">
         <h3>${dateLabel(dt)} <span class="unit">${evs.length} signal${evs.length === 1 ? "" : "s"} · sorted by impact</span></h3>
         ${evs.sort((a, b) => b.m - a.m).map(signalRow).join("")}
@@ -3639,7 +3683,7 @@
       const d = companyOf(r.symbol);
       const w1 = d ? pctMoveFrom(d.px && d.px.v || [], 1) : null;
       return `<tr data-tk="${r.symbol}">
-        <td>${r.date}${r.dateIsApprox ? `<span class="sub" title="approximate — stamped by the daily pipeline">≈</span>` : ""}${r.source === "live" ? ` <b style="color:var(--green)" title="live Finnhub actuals">⚡</b>` : ""}</td>
+        <td>${r.postQuarter ? `<span title="quarter ended ${r.date}; actuals on file prove it reported — exact date unknown">qtr ${r.date}≈</span>` : `${r.date}${r.dateIsApprox ? `<span class="sub" title="approximate — stamped by the daily pipeline">≈</span>` : ""}`}${r.source === "live" ? ` <b style="color:var(--green)" title="live Finnhub actuals">⚡</b>` : ""}</td>
         <td><span class="rk-tk">${r.symbol}</span> <span class="sub">${d ? d.sector : ""}</span></td>
         <td>${surpriseChip(r)}</td>
         <td>${r.epsActual != null ? "$" + (+r.epsActual).toFixed(2) : "–"} <span class="sub">vs ${r.epsEstimate != null ? "$" + (+r.epsEstimate).toFixed(2) : "?"}</span></td>
@@ -3698,7 +3742,7 @@
         ${statCard("MACRO REGIME", regime ? regime.label : "–", regime ? regime.bits[0] : "sector tape unavailable", regime ? regime.color : "var(--dim)")}
       </div>
       <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
-        <h3>JUST REPORTED — THE BEAT/MISS TAPE <span class="unit">last 45 days · ⚡ = live actuals · ≈ = report date stamped by the daily pipeline</span></h3>
+        <h3>JUST REPORTED — THE BEAT/MISS TAPE <span class="unit">last 45 days · ⚡ = live actuals · ≈ = approximate date (qtr = fiscal quarter end; actuals on file prove the report)</span></h3>
         ${ledger.length ? `<div style="overflow-x:auto"><table class="rank">
           <thead><tr><th>DATE</th><th>TICKER</th><th>EPS RESULT</th><th>EPS ACT vs EST</th><th>REVENUE</th><th>1W TAPE</th></tr></thead>
           <tbody>${ledger.slice(0, 40).map(reportedRow).join("")}</tbody></table></div>`
@@ -5051,7 +5095,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=64").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=65").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
