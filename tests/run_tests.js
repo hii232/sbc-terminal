@@ -423,6 +423,19 @@ const ok = (cond, name, detail = "") => {
   const evs = E.signalsEvents();
   ok(Array.isArray(evs), "signals events always an array");
   ok(evs.every(e => e.d && e.tk && e.type && Number.isFinite(e.m) && e.title), "every signal event carries date, ticker, type, materiality, title");
+
+  // analyst rating reason matching: attaches only a genuine, time-adjacent headline
+  const rating = { date: "2026-07-20", firm: "Morgan Stanley", from: "Equal-Weight", to: "Overweight", action: "up" };
+  const ts = Math.floor(Date.parse("2026-07-20T14:00:00Z") / 1000);
+  const news = [
+    { headline: "Random market story", datetime: ts, url: "x" },
+    { headline: "Morgan Stanley upgrades on AI server demand", summary: "price target to $250", datetime: ts, url: "y" },
+    { headline: "Morgan Stanley upgrades again much later", datetime: ts + 30 * 86400, url: "z" },
+  ];
+  const why = E.ratingReasonFrom(news, rating);
+  ok(why && why.url === "y", "reason = the time-adjacent headline naming the firm and the action", JSON.stringify(why));
+  ok(E.ratingReasonFrom([{ headline: "unrelated", datetime: ts }], rating) === null, "no matching headline -> null reason, never invented");
+  ok(E.ratingReasonFrom(null, rating) === null, "no news loaded -> null reason");
 }
 
 // =============== 13c. Price-window helpers ===============
