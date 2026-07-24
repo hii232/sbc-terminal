@@ -405,7 +405,7 @@ const DATA = [
 
   co({ ticker:"ZS", name:"Zscaler", sector:"Cybersecurity", bucket:"tragic", grade:"F",
     price:139.70, change:-1.80, mktCap:22.6, headlinePE:null, ownersKeep:0.35,
-    gaapEPS:-0.48, nonGaapEPS:3.20,
+    gaapEPS:-0.47, nonGaapEPS:3.20,
     fy:["2022","2023","2024","2025"], sbcPctRev:24.7, sbcPctOCF:68.0, sbcPctNI:null,
     revenue:[1.09,1.62,2.17,2.67], ni:[-0.39,-0.2,-0.06,-0.04], sbc:[0.41,0.445,0.528,0.661],
     buyback:[0,0,0,0], shares:[0.141,0.145,0.15,0.154],
