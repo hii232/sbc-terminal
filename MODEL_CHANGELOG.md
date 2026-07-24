@@ -1,5 +1,27 @@
 # SBC Model Changelog
 
+## The edge layer: signals, drift, filing diffs, calibration - 2026-07-24
+
+- New WHAT CHANGED signals feed (own nav group, default panel on Home): `scripts/build_signals.js` runs in the daily pipeline and diffs every tracked input against yesterday — business-quality/market-reward/long-term score inflections and threshold crossings, Direction Edge label flips, analyst revision-tape sign flips and consensus-drift inflections, Beat Odds regime entries for reports inside 3 weeks, fresh beats/misses, and same-day SEC filing diffs (revenue growth acceleration/deceleration, SBC-burden change, share-count turns, computed from filing facts the day a new accession lands). Events are materiality-ranked; the ledger keeps 21 days; nothing is backfilled or invented.
+- New DRIFT BOARD (post-earnings drift / PEAD) on the Earnings Command Center: each recent reporter scored on surprise size, revenue confirmation, post-report revisions and tape confirmation, decaying across the ~60-day research window. Direction-aware (misses flag downside drift); stale or unconsensused reports are excluded, not guessed.
+- New SIGNAL CALIBRATION on Track Record: daily snapshots now also record Direction Edge score/label, Beat Odds (only when a report is inside its 45-day horizon), and Market Reward tier. `calibrationOf()` grades every bucket against 4-week and 12-week forward returns with hit rates; verdicts are withheld below 20 observations, and overlapping windows are labelled as such. Signals that prove non-predictive are to be deleted.
+- App shell v64.
+
+## Deep declutter: 12-view terminal - 2026-07-23
+
+- Consolidated six overlapping stock-ranking surfaces into two: Rankings (master leaderboard, sortable by owner P/E, Graham, quality) and Screener (custom filters). Removed the standalone Owner-Earnings P/E view, Graham Value screener view, Quality × Market Map, Triggers Today, and Tech Desk. All engines (grahamOf, quality map model, IV ladder) remain and still power the ranking columns, per-ticker tabs, and Home buy list.
+- Per-ticker tabs trimmed from 10 to 7: removed EXPECTATIONS (its gap card already lives on OVERVIEW), ALERTS (device-local thesis rules that only fired when the app was open), and FRAMEWORK (static methodology essay). OVERVIEW, QUALITY, SBC X-RAY, GRAHAM VALUE, FINANCIALS, EARNINGS, NEWS remain.
+- Removed the unused desktop-only Home renderer (dead code since the unified dashboard shipped).
+- Final view set (12): Home, Earnings Command Center, Daily Review, Direction Edge, Sectors, Rankings, Screener, Compare, Portfolio, Thesis Journal, Track Record, Data Audit. App shell v63.
+
+## Earnings Command Center + focus cleanup - 2026-07-23
+
+- New EARNINGS COMMAND CENTER (replaces the plain calendar): season beat/miss tape (live Finnhub actuals with automatic fast-lane polling during report windows, or next-morning bundled results), upcoming reports with a per-name Beat Odds composite, season scorecard, and sector read-through.
+- New Beat Odds model: six weighted, inspectable components — beat track record (28), revision momentum (24), pre-report tape (14), sector read-through (14, peers' season results flow in automatically), macro regime (10), expectation bar (10). Missing inputs reduce coverage; they are never scored as neutral 50. Per-ticker breakdown lives in the EARNINGS tab.
+- New earnings data pipeline: `scripts/collect_earnings.py` (keyless Yahoo quoteSummary) generates `earnings.js` / `data/earnings_intel.json` in the daily data-refresh workflow; stamps `reportedOn` the first morning a new quarter appears (never backfills fake report dates on first ingest).
+- Direction Edge macro layer replaced: the hardcoded inflation-profile snapshot gave way to a macro regime computed live from the SPY/sector tape (trend, breadth, defensive flows) that refreshes with every data run.
+- Removed low-signal views: Social Buzz (scraped Stocktwits), Inflation Desk (static CPI snapshot), Narratives (incl. Polymarket), and Options Desk play tickets (bundled IV/RV/put-call data still feeds Direction Edge). Top nav regrouped; app shell v62.
+
 ## Social buzz sentiment timeline - 2026-07-21
 
 - Added a sentiment-over-time line chart to Social Buzz: bullish share of tagged posts bucketed across each stream's real time span (📈 per trending ticker; empty buckets stay null, never a fabricated 50%).

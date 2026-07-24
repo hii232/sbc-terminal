@@ -2,7 +2,7 @@
  "ticker": "JNJ",
  "cik": "0000200406",
  "entityName": "Johnson & Johnson",
- "retrievedAt": "2026-07-23T12:23:56.308008Z",
+ "retrievedAt": "2026-07-24T02:46:27.326269Z",
  "fields": {
   "buyback": [
    {
@@ -1574,12 +1574,12 @@
     "confidence": 100
    },
    {
-    "value": 2407216971,
+    "value": 2409898597,
     "unit": "shares",
-    "periodEnd": "2026-04-17",
+    "periodEnd": "2026-07-17",
     "form": "10-Q",
-    "filedDate": "2026-04-22",
-    "accessionNumber": "0000200406-26-000087",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0000200406-26-000153",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

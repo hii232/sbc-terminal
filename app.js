@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "61"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "64"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -55,32 +55,6 @@
     "Consumer Disc": "XLY", "Comm Services": "XLC",
   };
   const sectorETF = (sec) => SECTOR_MAP[sec] || "SPY"; // safe fallback
-  const INFLATION = {
-    asOf: "May 2026", nextRelease: "June CPI scheduled July 14, 2026 8:30 ET",
-    source: "BLS CPI/PPI public data snapshot bundled 2026-07-13",
-    series: [
-      { k: "Headline CPI", yoy: 4.2, latest: 335.123, heat: "hot", why: "all-items inflation is still above the Fed comfort zone" },
-      { k: "Core CPI", yoy: 2.9, latest: 336.846, heat: "sticky", why: "core excludes food/energy and drives rate expectations" },
-      { k: "Shelter", yoy: 3.4, latest: 428.677, heat: "sticky", why: "rent/OER lag keeps services inflation slow to cool" },
-      { k: "Energy", yoy: 23.5, latest: 346.042, heat: "shock", why: "energy shock hits transports, consumers and input costs first" },
-      { k: "Food", yoy: 3.1, latest: 349.032, heat: "warm", why: "food pressure hits staples volumes and low-income consumer spend" },
-      { k: "PPI Final Demand", yoy: 6.5, latest: 158.012, heat: "margin", why: "producer prices lead margin pressure unless pricing power holds" },
-    ],
-  };
-  const INFLATION_SECTORS = {
-    SMH: { name: "Semis / AI", multiple: 3, input: 2, demand: 1, pass: 1, note: "long-duration multiples and capex cycles are vulnerable to sticky rates; energy/input shocks pressure fabs and equipment." },
-    XLK: { name: "Software / Tech", multiple: 3, input: 1, demand: 1, pass: 2, note: "high multiples re-rate when inflation keeps rates high; best software offsets with pricing power and low physical input costs." },
-    XLY: { name: "Consumer Discretionary", multiple: 2, input: 2, demand: 3, pass: 1, note: "inflation taxes the consumer; weak pass-through names lose volume or margin." },
-    XLP: { name: "Staples", multiple: 1, input: 2, demand: 0, pass: 2, note: "defensive demand helps, but food/freight inflation tests gross margin and private-label trade-down." },
-    XLE: { name: "Energy", multiple: 0, input: 0, demand: 1, pass: 3, note: "energy inflation is usually a revenue tailwind, unless demand destruction appears." },
-    XLF: { name: "Financials", multiple: 1, input: 0, demand: 2, pass: 2, note: "higher rates can help net interest income, but credit losses and weaker asset prices are the offset." },
-    XLV: { name: "Health Care", multiple: 1, input: 1, demand: 0, pass: 2, note: "defensive demand and regulated/reimbursed pricing make the sector less cyclical." },
-    XLI: { name: "Industrials", multiple: 1, input: 3, demand: 1, pass: 1, note: "labor, freight, metals and energy feed directly into margins unless backlog pricing resets." },
-    XLC: { name: "Comms / Media", multiple: 2, input: 1, demand: 2, pass: 1, note: "ad budgets and subscriptions weaken if inflation squeezes consumers and SMBs." },
-    XLB: { name: "Materials", multiple: 1, input: 2, demand: 1, pass: 2, note: "commodity inflation can help revenue, but spread businesses need pricing over input costs." },
-    XLRE: { name: "Real Estate", multiple: 3, input: 2, demand: 2, pass: 1, note: "rate-sensitive cap rates and financing costs dominate; rent escalators help only with a lag." },
-    SPY: { name: "Market", multiple: 2, input: 2, demand: 1, pass: 1, note: "sticky inflation raises discount rates and compresses multiples first." },
-  };
   const EARNINGS_FOCUS = {
     asOf: "2026-07-20",
     source: "Company IR dates + market-calendar cross-check (CNBC / Yahoo / MarketBeat)",
@@ -539,32 +513,6 @@
       : s[key]?.score;
   };
   const scoreColorOf = (v) => v == null ? "var(--dim)" : v >= 75 ? "var(--green)" : v >= 58 ? "var(--amber)" : v >= 42 ? "var(--orange)" : "var(--red)";
-  function inflationOf(d) {
-    const etf = sectorETF(d.sector);
-    const p = INFLATION_SECTORS[etf] || INFLATION_SECTORS.SPY;
-    const m = marketScoreOf(d) || {};
-    const bq = m.businessQuality?.score ?? 50;
-    const val = m.valuation?.score ?? 50;
-    const margin = d.revenue?.length && d.ni?.length ? (lastVal(d.ni) / Math.max(0.001, lastVal(d.revenue))) * 100 : null;
-    const duration = d.truePE == null ? 3 : d.truePE > 70 ? 3 : d.truePE > 40 ? 2 : d.truePE > 25 ? 1 : 0;
-    const pricing = bq >= 75 ? 3 : bq >= 62 ? 2 : bq >= 48 ? 1 : 0;
-    const marginShield = margin == null ? 1 : margin >= 25 ? 2 : margin >= 12 ? 1 : 0;
-    const inputCost = p.input + (d.bucket === "tragic" ? 1 : d.bucket === "high" ? 0.5 : 0);
-    const demandHit = p.demand + (["Retail", "Travel", "Restaurants", "Apparel", "Auto/AI", "Ride-Hailing", "Gaming"].includes(d.sector) ? 1 : 0);
-    const rateHit = p.multiple + duration + (val < 35 ? 1 : 0);
-    const passThrough = p.pass + pricing + marginShield;
-    const raw = passThrough - inputCost - demandHit - rateHit;
-    const score = Math.max(0, Math.min(100, Math.round(50 + raw * 8)));
-    const label = score >= 68 ? "inflation resilient" : score >= 52 ? "mixed" : score >= 38 ? "pressured" : "high risk";
-    const color = score >= 68 ? "var(--green)" : score >= 52 ? "var(--amber)" : score >= 38 ? "var(--orange)" : "var(--red)";
-    const bits = [];
-    if (rateHit >= 5) bits.push("multiple pressure from sticky rates");
-    if (inputCost >= 3) bits.push("input-cost margin pressure");
-    if (demandHit >= 3) bits.push("consumer/demand squeeze");
-    if (passThrough >= 5) bits.push("pricing power offsets inflation");
-    if (etf === "XLE") bits.push("energy inflation can be a revenue tailwind");
-    return { etf, profile: p, score, label, color, rateHit, inputCost, demandHit, passThrough, margin, bits };
-  }
 
   /* ------------------------ direction edge engine ------------------------ */
   function pctMoveFrom(vals, lookback) {
@@ -681,10 +629,34 @@
     const score = (ms.businessQuality.score * 0.35) + (ms.growthExecution.score * 0.25) + (ms.marketReward.score * 0.30) + (ms.shareholderEconomics.score * 0.10);
     return scorePart("quality", "Business/market score", score, 10, `BQ ${ms.businessQuality.score}, growth ${ms.growthExecution.score}, market reward ${ms.marketReward.score}`, "score engine", {});
   }
+  /* Market regime computed from the daily-refreshed sector/SPY tape — no
+     hardcoded macro snapshots. Auto-updates with every data refresh. */
+  function macroRegimeOf() {
+    const spy = secByT("SPY");
+    if (!spy || !SECTORS.series || SECTORS.series.length < 5) return null;
+    const secOnly = SECTORS.series.filter(s => s.t !== "SPY");
+    const spy1 = retOver(spy, 1), spy3 = retOver(spy, 3);
+    const breadth3 = secOnly.filter(s => retOver(s, 3) > 0).length / secOnly.length * 100;
+    const defensives = ["XLP", "XLV", "XLU"];
+    const defFlow = secOnly.filter(s => defensives.includes(s.t)).reduce((a, s) => a + (flowDelta(s) || 0), 0);
+    const score = clamp(Math.round(50 + spy3 * 1.6 + spy1 * 2.2 + (breadth3 - 50) * 0.35 - defFlow * 2.5), 0, 100);
+    const label = score >= 66 ? "RISK-ON" : score >= 45 ? "NEUTRAL" : "RISK-OFF";
+    const color = score >= 66 ? "var(--green)" : score >= 45 ? "var(--amber)" : "var(--red)";
+    const bits = [
+      `SPY 1M ${spy1 >= 0 ? "+" : ""}${spy1.toFixed(1)}% / 3M ${spy3 >= 0 ? "+" : ""}${spy3.toFixed(1)}%`,
+      `${Math.round(breadth3)}% of sectors positive over 3M`,
+      defFlow > 0.6 ? "dollars rotating INTO defensives (caution)" : defFlow < -0.6 ? "dollars rotating out of defensives" : "defensive flows balanced",
+    ];
+    return { score, label, color, bits, spy1, spy3, breadth3, defFlow, asOf: SECTORS.asof };
+  }
   function macroPart(d) {
-    const inf = inflationOf(d);
-    const score = inf.score + (inf.rateHit >= 5 ? -6 : 0) + (inf.passThrough >= 5 ? 4 : 0);
-    return scorePart("macro", "Inflation/macro", score, 3, `${inf.label}: ${inf.bits.join(" - ") || inf.profile.note}`, "inflation desk", { inflationScore: inf.score });
+    const regime = macroRegimeOf();
+    if (!regime) return scorePart("macro", "Macro regime", null, 3, "sector/SPY tape unavailable", "missing");
+    const etf = sectorETF(d.sector);
+    const s = secByT(etf);
+    const align = s ? (retOver(s, 3) - regime.spy3) * 0.8 : 0;
+    return scorePart("macro", "Macro regime", regime.score + align, 3,
+      `${regime.label}: ${regime.bits[0]} - ${regime.bits[1]}`, `sector tape as of ${regime.asOf}`, { regime: regime.score, align });
   }
   function directionEdgeOf(d) {
     const parts = [
@@ -735,10 +707,8 @@
   const loadJSON = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } };
   state.favs = new Set(loadJSON("sbc_favs", []));
   state.portfolio = loadJSON("sbc_portfolio", {}); // ticker -> {shares, cost}
-  state.thesisRules = loadJSON("sbc_thesis_rules", {});
   const saveFavs = () => localStorage.setItem("sbc_favs", JSON.stringify([...state.favs]));
   const savePort = () => localStorage.setItem("sbc_portfolio", JSON.stringify(state.portfolio));
-  const saveThesis = () => localStorage.setItem("sbc_thesis_rules", JSON.stringify(state.thesisRules));
   function toggleFav(tk) { state.favs.has(tk) ? state.favs.delete(tk) : state.favs.add(tk); saveFavs(); renderWatchlist(); }
   const priceOf = (d) => state.live[d.ticker]?.quote?.price ?? d.price;
   const allCompanies = () => DATA;
@@ -825,42 +795,34 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "narrBtn", "valBtn", "rankBtn", "grahamBtn", "screenBtn", "compareBtn", "trigBtn", "mapBtn", "portBtn", "calBtn", "buzzBtn", "techBtn", "optBtn", "macroBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "auditBtn", "trackBtn", "journalBtn"];
 
-  // Condensed top navigation: the 21 tool views grouped into a few labelled
+  // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
   // show*() wiring stays intact. (Group membership finalized from a design pass.)
   const NAV_GROUPS = [
     { name: "Home", icon: "🏠", tools: [
       { id: "homeBtn", label: "Home Dashboard", ic: "🏠" },
     ] },
+    { name: "Signals", icon: "💡", tools: [
+      { id: "signalsBtn", label: "What Changed", ic: "💡" },
+    ] },
+    { name: "Earnings", icon: "🎯", tools: [
+      { id: "calBtn", label: "Earnings Command Center", ic: "🎯" },
+    ] },
     { name: "Market", icon: "📈", tools: [
       { id: "dailyBtn", label: "Daily Review", ic: "📰" },
       { id: "edgeBtn", label: "Direction Edge", ic: "🧭" },
       { id: "sectorBtn", label: "Sectors", ic: "◈" },
-      { id: "buzzBtn", label: "Social Buzz & Charts", ic: "🗣" },
-      { id: "calBtn", label: "Earnings Calendar", ic: "📅" },
     ] },
-    { name: "Find", icon: "🔍", tools: [
+    { name: "Stocks", icon: "🔍", tools: [
       { id: "rankBtn", label: "Rankings", ic: "⚡" },
       { id: "screenBtn", label: "Screener", ic: "📊" },
-      { id: "mapBtn", label: "Quality × Market Map", ic: "◎" },
-    ] },
-    { name: "Value", icon: "💰", tools: [
-      { id: "grahamBtn", label: "Graham Value", ic: "🛡" },
-      { id: "valBtn", label: "Owner-Earnings P/E", ic: "⊞" },
       { id: "compareBtn", label: "Compare", ic: "⚖" },
-      { id: "narrBtn", label: "Narratives", ic: "◆" },
-    ] },
-    { name: "Desks", icon: "🖥️", tools: [
-      { id: "techBtn", label: "Tech Desk", ic: "⌬" },
-      { id: "optBtn", label: "Options Desk", ic: "⚄" },
-      { id: "macroBtn", label: "Inflation Desk", ic: "🔥" },
     ] },
     { name: "Mine", icon: "💼", tools: [
       { id: "portBtn", label: "Portfolio", ic: "💼" },
       { id: "journalBtn", label: "Thesis Journal", ic: "✎" },
-      { id: "trigBtn", label: "Triggers", ic: "🎯" },
       { id: "trackBtn", label: "Track Record", ic: "📈" },
       { id: "auditBtn", label: "Data Audit — sources & trust", ic: "🧾" },
     ] },
@@ -964,8 +926,8 @@
     el("navList").setAttribute("aria-expanded", drawerOpen ? "true" : "false");
     $("aside").setAttribute("aria-hidden", drawerMode && !drawerOpen ? "true" : "false");
     el("navSectors").classList.toggle("active", !drawerOpen && state.view === "sectors");
-    el("navNarr").classList.toggle("active", !drawerOpen && state.view === "narratives");
-    el("navPE").classList.toggle("active", !drawerOpen && state.view === "valuation");
+    el("navNarr").classList.toggle("active", !drawerOpen && state.view === "calendar");
+    el("navPE").classList.toggle("active", !drawerOpen && state.view === "screener");
     el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
     syncTopNav();
   }
@@ -1000,9 +962,9 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors, narratives: showNarratives, valuation: showValuation, inflation: showInflation,
-          rankings: showRankings, graham: showGraham, screener: showScreener, compare: showCompare, qualityMap: showQualityMap,
-          triggers: showTriggers, portfolio: showPortfolio, calendar: showCalendar, tech: showTech, options: showOptions, audit: showAudit, track: showTrack, journal: showJournal };
+        const map = { home: showHome, signals: showSignals, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+          rankings: showRankings, screener: showScreener, compare: showCompare,
+          portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
     } finally { navRestoring = false; }
@@ -1066,7 +1028,7 @@
       </div>`;
 
     const tabs = `<div class="tabs">
-      ${[["overview", "OVERVIEW"], ["quality", "QUALITY"], ["gap", "EXPECTATIONS"], ["alerts", "ALERTS"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["earnings", "EARNINGS"], ["news", "NEWS"], ["framework", "FRAMEWORK"]]
+      ${[["overview", "OVERVIEW"], ["quality", "QUALITY"], ["sbc", "★ SBC X-RAY"], ["graham", "🛡 GRAHAM VALUE"], ["financials", "FINANCIALS"], ["earnings", "EARNINGS"], ["news", "NEWS"]]
         .map(([k, l]) => `<button data-tab="${k}" class="${currentTab === k ? "active" : ""}">${l}</button>`).join("")}
     </div>`;
 
@@ -1100,11 +1062,6 @@
     }
     else if (currentTab === "sbc") body.innerHTML = tabSBC(d);
     else if (currentTab === "quality") body.innerHTML = tabQuality(d);
-    else if (currentTab === "gap") body.innerHTML = tabGap(d);
-    else if (currentTab === "alerts") {
-      body.innerHTML = tabAlerts(d);
-      wireThesisForm(d);
-    }
     else if (currentTab === "financials") {
       body.innerHTML = tabFinancials(d);
       body.querySelectorAll(".fin-toggle").forEach(b =>
@@ -1113,7 +1070,6 @@
     else if (currentTab === "graham") body.innerHTML = tabGraham(d);
     else if (currentTab === "earnings") body.innerHTML = tabEarnings(d);
     else if (currentTab === "news") body.innerHTML = tabNews(d);
-    else if (currentTab === "framework") body.innerHTML = tabFramework(d);
     body.querySelectorAll("[data-news-tk]").forEach(x =>
       x.onclick = (e) => { e.preventDefault(); e.stopPropagation(); selectTicker(x.dataset.newsTk); });
   }
@@ -1274,67 +1230,6 @@
         ${scoreDetailCard("DATA CONFIDENCE", { score: ms.dataConfidence.score, coverage: 100, details: [{ k: "Separate trust gate", score: ms.dataConfidence.score, why: ms.dataConfidence.reason }] })}
       </div>`;
   }
-  function tabGap(d) {
-    return `<div class="grid g3">
-      ${expectationsGapCard(d)}
-      ${valuationCasesCard(d)}
-      ${whatChangedCard(d)}
-    </div>`;
-  }
-  function thesisRuleFor(d) {
-    return state.thesisRules[d.ticker] || {};
-  }
-  function tabAlerts(d) {
-    const t = thesisRuleFor(d);
-    const out = window.ScoreEngine ? window.ScoreEngine.thesisAlerts(d, t, marketContext()) : { alerts: [] };
-    const alertHtml = out.alerts.length
-      ? out.alerts.map(a => `<div class="note callout" style="margin-top:8px">${a}</div>`).join("")
-      : `<div class="note" style="margin-top:8px;border-left-color:var(--green)">No thesis-breaking alerts fired for the saved rules.</div>`;
-    return `<div class="grid g2">
-      <div class="card">
-        <h3>THESIS-BREAKING ALERTS <span class="unit">saved per ticker on this device</span></h3>
-        <div class="thesis-grid">
-          <label>Min revenue growth %<input id="thMinRev" type="number" value="${t.minRevenueGrowth ?? ""}" placeholder="e.g. 10"></label>
-          <label>Min operating margin %<input id="thMinOp" type="number" value="${t.minOperatingMargin ?? ""}" placeholder="e.g. 20"></label>
-          <label>Max SBC / revenue %<input id="thMaxSbc" type="number" value="${t.maxSbcRevenue ?? ""}" placeholder="e.g. 12"></label>
-          <label>Min 3M RS vs sector pp<input id="thMinRs" type="number" value="${t.minRelativeStrength ?? ""}" placeholder="e.g. -5"></label>
-          <label>Max owner P/E<input id="thMaxPe" type="number" value="${t.maxOwnerPE ?? ""}" placeholder="e.g. 35"></label>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:12px">
-          <button class="action-btn" id="saveThesis">SAVE ALERTS</button>
-          <button class="ghost-btn" id="clearThesis">CLEAR</button>
-        </div>
-      </div>
-      <div class="card">
-        <h3>ALERT STATUS <span class="unit">${out.broken || 0} fired</span></h3>
-        ${alertHtml}
-      </div>
-      ${whatChangedCard(d)}
-    </div>`;
-  }
-  function wireThesisForm(d) {
-    const val = (id) => {
-      const raw = el(id)?.value;
-      return raw === "" || raw == null ? null : +raw;
-    };
-    const cleanRule = (r) => Object.fromEntries(Object.entries(r).filter(([, v]) => v != null && Number.isFinite(v)));
-    const save = () => {
-      state.thesisRules[d.ticker] = cleanRule({
-        minRevenueGrowth: val("thMinRev"),
-        minOperatingMargin: val("thMinOp"),
-        maxSbcRevenue: val("thMaxSbc"),
-        minRelativeStrength: val("thMinRs"),
-        maxOwnerPE: val("thMaxPe"),
-      });
-      if (!Object.keys(state.thesisRules[d.ticker]).length) delete state.thesisRules[d.ticker];
-      saveThesis();
-      flash("Thesis alerts saved for " + d.ticker, "ok");
-      renderTab(d);
-    };
-    const s = el("saveThesis"); if (s) s.onclick = save;
-    const c = el("clearThesis"); if (c) c.onclick = () => { delete state.thesisRules[d.ticker]; saveThesis(); flash("Thesis alerts cleared", "ok"); renderTab(d); };
-  }
-
   function tickerDrawdown(d) {
     const px = d.px && Array.isArray(d.px.v) ? d.px : null;
     if (!px) return null;
@@ -1422,8 +1317,6 @@
       ${qualityCard(d)}
 
       ${analystCard(d)}
-
-      ${inflationCard(d)}
 
       ${sectorContextCard(d)}
 
@@ -1716,6 +1609,303 @@
     .filter(r => r.date || r.epsAvg != null || r.revAvg != null)
     .sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999")) : []);
 
+  /* ====================================================================
+     EARNINGS INTELLIGENCE ENGINE
+     Bundled layer: EARNINGS_INTEL (earnings.js) — beat/miss history,
+     next-report consensus and estimate revisions, refreshed daily by the
+     data pipeline. Live layer: Finnhub universe calendar — actual EPS and
+     revenue appear the same session a company reports, polled automatically
+     while the Command Center is open. Every component is missing-safe:
+     an unavailable input stays null and lowers coverage, it never fakes 50.
+     ==================================================================== */
+  const earnIntelOf = (tk) => (typeof EARNINGS_INTEL !== "undefined" && EARNINGS_INTEL.tickers && EARNINGS_INTEL.tickers[tk]) || null;
+  const earnIntelAsOf = () => (typeof EARNINGS_INTEL !== "undefined" && EARNINGS_INTEL.asOf) || null;
+  const todayISO = () => new Date().toISOString().slice(0, 10);
+
+  function earnBeatStats(tk) {
+    const it = earnIntelOf(tk);
+    const rows = (it && it.history || []).filter(h => h.epsActual != null && h.epsEstimate != null);
+    if (!rows.length) return null;
+    const beats = rows.filter(h => h.epsActual > h.epsEstimate).length;
+    const surprises = rows.map(h => h.surprisePct).filter(hasNum);
+    const avgSurprise = surprises.length ? surprises.reduce((a, v) => a + v, 0) / surprises.length : null;
+    return { n: rows.length, beats, beatRate: beats / rows.length, avgSurprise, rows };
+  }
+
+  /* live Finnhub layer: symbol -> latest calendar row (with actuals once reported) */
+  state.earnLive = { rows: {}, fetchedAt: null, error: "", loading: false, timer: null };
+  async function refreshEarningsLive(force = false) {
+    const key = state.keys.finnhub;
+    const L = state.earnLive;
+    if (!key || L.loading) return false;
+    if (!force && L.fetchedAt && Date.now() - L.fetchedAt < 3 * 60e3) return false;
+    L.loading = true;
+    const fmt = (dt) => dt.toISOString().slice(0, 10);
+    const from = fmt(new Date(Date.now() - 14 * 864e5)), to = fmt(new Date(Date.now() + 21 * 864e5));
+    try {
+      const j = await fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${from}&to=${to}&token=${key}`,
+        { provider: "Finnhub earnings calendar", ticker: "UNIVERSE" });
+      const uni = new Set(DATA.map(d => d.ticker));
+      const fresh = [];
+      const rows = {};
+      (j.earningsCalendar || []).forEach(e => {
+        if (!uni.has(e.symbol)) return;
+        rows[e.symbol] = e;
+        const old = L.rows[e.symbol];
+        if (hasNum(e.epsActual) && (!old || !hasNum(old.epsActual))) fresh.push(e);
+      });
+      const hadData = L.fetchedAt != null;
+      state.earnLive = { ...L, rows, fetchedAt: Date.now(), error: "", loading: false };
+      if (hadData && fresh.length) {
+        const line = fresh.slice(0, 3).map(e => `${e.symbol} ${hasNum(e.epsEstimate) ? (e.epsActual > e.epsEstimate ? "BEAT" : e.epsActual < e.epsEstimate ? "MISSED" : "IN-LINE") : "reported"}`).join(" · ");
+        flash(`⚡ New results: ${line}`, "ok");
+      }
+      return true;
+    } catch {
+      state.earnLive = { ...L, error: "Finnhub earnings calendar unavailable", loading: false };
+      return false;
+    }
+  }
+  /* during BMO/AMC report windows poll fast; otherwise slow */
+  function inEarningsWindow(now = new Date()) {
+    const p = etParts(now);
+    if (p.day === 0 || p.day === 6) return false;
+    const mins = p.hour * 60 + p.minute;
+    return (mins >= 5 * 60 + 30 && mins <= 9 * 60 + 45) || (mins >= 15 * 60 + 55 && mins <= 20 * 60);
+  }
+  function startEarningsAutoPoll() {
+    if (state.earnLive.timer) clearInterval(state.earnLive.timer);
+    state.earnLive.timer = setInterval(async () => {
+      if (state.view !== "calendar" || document.hidden || !state.keys.finnhub) return;
+      const fastLane = inEarningsWindow();
+      const age = state.earnLive.fetchedAt ? Date.now() - state.earnLive.fetchedAt : Infinity;
+      if (age < (fastLane ? 3 * 60e3 : 12 * 60e3)) return;
+      const changed = await refreshEarningsLive(true);
+      if (changed && state.view === "calendar") renderEarningsCmd();
+    }, 45 * 1000);
+  }
+
+  /* season ledger: everything that has REPORTED in the window, live-first */
+  function earningsLedger(daysBack = 45) {
+    const cutoff = new Date(Date.now() - daysBack * 864e5).toISOString().slice(0, 10);
+    const today = todayISO();
+    const out = new Map();
+    DATA.forEach(d => {
+      const it = earnIntelOf(d.ticker);
+      (it && it.history || []).forEach(h => {
+        if (!h.reportedOn || h.reportedOn < cutoff || h.epsActual == null) return;
+        out.set(d.ticker, { symbol: d.ticker, date: h.reportedOn, dateIsApprox: true, quarter: h.quarter,
+          epsActual: h.epsActual, epsEstimate: h.epsEstimate, surprisePct: h.surprisePct, source: "bundled" });
+      });
+    });
+    Object.values(state.earnLive.rows).forEach(e => {
+      if (!hasNum(e.epsActual) || !e.date || e.date < cutoff || e.date > today) return;
+      const surprise = hasNum(e.epsEstimate) && Math.abs(e.epsEstimate) > 1e-9
+        ? ((e.epsActual - e.epsEstimate) / Math.abs(e.epsEstimate)) * 100 : null;
+      out.set(e.symbol, { symbol: e.symbol, date: e.date, dateIsApprox: false, quarter: e.quarter ? `${e.year}Q${e.quarter}` : null,
+        epsActual: e.epsActual, epsEstimate: hasNum(e.epsEstimate) ? e.epsEstimate : null,
+        revActual: hasNum(e.revenueActual) ? e.revenueActual : null, revEstimate: hasNum(e.revenueEstimate) ? e.revenueEstimate : null,
+        surprisePct: surprise != null ? +surprise.toFixed(2) : null, hour: e.hour, source: "live" });
+    });
+    return [...out.values()].sort((a, b) => b.date.localeCompare(a.date) || a.symbol.localeCompare(b.symbol));
+  }
+
+  /* upcoming reports: live calendar > bundled intel > curated focus week */
+  function upcomingEarningsRows(daysAhead = 21) {
+    const today = todayISO();
+    const to = new Date(Date.now() + daysAhead * 864e5).toISOString().slice(0, 10);
+    const out = new Map();
+    DATA.forEach(d => {
+      const it = earnIntelOf(d.ticker);
+      if (!it || !it.nextDate || it.nextDate < today || it.nextDate > to) return;
+      out.set(d.ticker, { symbol: d.ticker, date: it.nextDate, dateEnd: it.nextDateEnd, estimated: !!it.nextDateEstimate,
+        epsEstimate: it.epsEstimate, revEstimate: it.revEstimate, source: "bundled" });
+    });
+    Object.values(state.earnLive.rows).forEach(e => {
+      if (hasNum(e.epsActual) || !e.date || e.date < today || e.date > to) return;
+      out.set(e.symbol, { symbol: e.symbol, date: e.date, hour: e.hour,
+        epsEstimate: hasNum(e.epsEstimate) ? e.epsEstimate : (out.get(e.symbol) || {}).epsEstimate ?? null,
+        revEstimate: hasNum(e.revenueEstimate) ? e.revenueEstimate : (out.get(e.symbol) || {}).revEstimate ?? null, source: "live" });
+    });
+    bundledEarningsRows(new Date(), new Date(Date.now() + daysAhead * 864e5), true).forEach(e => {
+      if (!out.has(e.symbol)) out.set(e.symbol, { symbol: e.symbol, date: e.date, hour: e.hour, epsEstimate: e.epsEstimate ?? null, revEstimate: null, source: "focus" });
+    });
+    return [...out.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
+  }
+
+  /* micro read-through: how the stock's own sector is clearing the bar this season */
+  function peerReadThrough(d, ledger) {
+    const rows = (ledger || earningsLedger()).filter(r => {
+      if (r.symbol === d.ticker || r.surprisePct == null) return false;
+      const peer = companyOf(r.symbol);
+      return peer && sectorETF(peer.sector) === sectorETF(d.sector);
+    });
+    if (rows.length < 2) return null;
+    const beats = rows.filter(r => r.surprisePct > 0).length;
+    const avg = rows.reduce((a, r) => a + r.surprisePct, 0) / rows.length;
+    return { n: rows.length, beatShare: beats / rows.length, avgSurprise: avg, symbols: rows.map(r => r.symbol) };
+  }
+
+  /* ------------------- BEAT ODDS MODEL -------------------
+     A transparent, weighted composite answering one question: how loaded is
+     the setup for this company to clear the Street's EPS bar next report?
+     It is a research signal on 0-100 — NOT a probability, NOT a guarantee. */
+  function beatOddsOf(d, ledger) {
+    const it = earnIntelOf(d.ticker);
+    const parts = [];
+    // 1 · beat track record (companies that habitually guide-to-beat keep doing it)
+    const bs = earnBeatStats(d.ticker);
+    parts.push(scorePart("track", "Beat track record",
+      bs ? 50 + (bs.beatRate - 0.5) * 85 + clamp(bs.avgSurprise ?? 0, -12, 12) * 1.6 : null, 28,
+      bs ? `beat ${bs.beats}/${bs.n} recent quarters, avg surprise ${bs.avgSurprise == null ? "n/a" : (bs.avgSurprise >= 0 ? "+" : "") + bs.avgSurprise.toFixed(1) + "%"}` : "no bundled beat history yet — runs after first data refresh",
+      bs ? "bundled earnings history" : "missing"));
+    // 2 · estimate revision momentum (analysts walking numbers up = de-risked bar)
+    const t = it && it.trend;
+    let revScore = null, revWhy = "no revision tape for the current quarter";
+    if (t) {
+      const totalAnalysts = hasNum(t.analystsEps) && t.analystsEps > 0 ? t.analystsEps : null;
+      const up = t.revUp30, down = t.revDown30;
+      const net = hasNum(up) && hasNum(down) && totalAnalysts ? (up - down) / totalAnalysts : hasNum(up) && hasNum(down) && (up + down) > 0 ? (up - down) / (up + down) : null;
+      const drift = hasNum(t.epsNow) && hasNum(t.eps90dAgo) && Math.abs(t.eps90dAgo) > 1e-9 ? ((t.epsNow - t.eps90dAgo) / Math.abs(t.eps90dAgo)) * 100 : null;
+      if (net != null || drift != null) {
+        revScore = 50 + (net ?? 0) * 55 + clamp(drift ?? 0, -15, 15) * 1.4;
+        revWhy = `30d revisions ${hasNum(up) ? up : "?"}▲/${hasNum(down) ? down : "?"}▼${drift != null ? ` · consensus EPS drift 90d ${(drift >= 0 ? "+" : "") + drift.toFixed(1)}%` : ""}`;
+      }
+    }
+    if (revScore == null) {
+      const est = estimateSetupPart(d);
+      if (est.score != null) { revScore = est.score; revWhy = est.why; }
+    }
+    parts.push(scorePart("revisions", "Revision momentum", revScore, 24, revWhy, t ? "analyst revision tape" : "estimate snapshots"));
+    // 3 · pre-earnings tape (relative strength into the print)
+    const m1 = pctMoveFrom(d.px && d.px.v || [], 4);
+    const s = secByT(sectorETF(d.sector));
+    const sec1 = s ? retOver(s, 1) : null;
+    parts.push(scorePart("tape", "Pre-report tape",
+      m1 == null ? null : 50 + (sec1 != null ? (m1 - sec1) * 1.7 : 0) + m1 * 0.7, 14,
+      m1 == null ? "no recent price tape" : `1M ${m1 >= 0 ? "+" : ""}${m1.toFixed(1)}%${sec1 != null ? ` vs sector ${(m1 - sec1) >= 0 ? "+" : ""}${(m1 - sec1).toFixed(1)}pp` : ""}`,
+      m1 == null ? "missing" : "weekly price history"));
+    // 4 · peer read-through (micro events: sector peers already cleared/failed the bar)
+    const rt = peerReadThrough(d, ledger);
+    parts.push(scorePart("peers", "Sector read-through",
+      rt ? 50 + (rt.beatShare - 0.5) * 62 + clamp(rt.avgSurprise, -10, 10) * 1.9 : null, 14,
+      rt ? `${rt.n} sector peers reported: ${Math.round(rt.beatShare * 100)}% beat, avg surprise ${(rt.avgSurprise >= 0 ? "+" : "") + rt.avgSurprise.toFixed(1)}%` : "fewer than 2 sector peers reported this season yet",
+      rt ? "season ledger" : "missing"));
+    // 5 · macro regime (macro events: risk appetite decides how beats get paid)
+    const regime = macroRegimeOf();
+    parts.push(scorePart("macro", "Macro regime",
+      regime ? regime.score : null, 10,
+      regime ? `${regime.label} — ${regime.bits[0]}` : "sector/SPY tape unavailable",
+      regime ? `sector tape as of ${regime.asOf}` : "missing"));
+    // 6 · expectation bar (a bar priced for acceleration is harder to clear)
+    let barScore = null, barWhy = "consensus growth ask unavailable";
+    const askGrowth = t && hasNum(t.growth) ? t.growth * 100 : null;
+    const recentYoY = d.qd ? yoyPct(d.qd.ni.map((n, i) => n == null || !d.qd.shares[i] ? null : n / d.qd.shares[i])) : null;
+    if (askGrowth != null) {
+      const gap = recentYoY != null ? askGrowth - recentYoY : null;
+      barScore = 50 - clamp(gap ?? (askGrowth > 25 ? 10 : 0), -25, 25) * 1.1;
+      barWhy = `Street asks ${askGrowth >= 0 ? "+" : ""}${askGrowth.toFixed(0)}% EPS growth${gap != null ? ` — ${Math.abs(gap).toFixed(0)}pp ${gap > 0 ? "ABOVE" : "below"} the recent trend` : ""}`;
+    }
+    parts.push(scorePart("bar", "Expectation bar", barScore, 10, barWhy, askGrowth != null ? "consensus vs filings" : "missing"));
+
+    const totalWeight = parts.reduce((a, p) => a + p.weight, 0);
+    const used = parts.filter(p => p.score != null);
+    const usedWeight = used.reduce((a, p) => a + p.weight, 0);
+    const score = usedWeight ? Math.round(clamp(used.reduce((a, p) => a + p.score * p.weight, 0) / usedWeight, 0, 100)) : null;
+    const coverage = Math.round((usedWeight / totalWeight) * 100);
+    let label = "COIN FLIP", color = "var(--amber)";
+    if (score == null || coverage < 40) { label = "NOT ENOUGH DATA"; color = "var(--dim)"; }
+    else if (score >= 68) { label = "STRONG BEAT SETUP"; color = "var(--green)"; }
+    else if (score >= 57) { label = "LEAN BEAT"; color = "var(--cyan)"; }
+    else if (score <= 35) { label = "MISS RISK"; color = "var(--red)"; }
+    else if (score <= 44) { label = "AT RISK"; color = "var(--orange)"; }
+    const drivers = used.sort((a, b) => Math.abs(b.score - 50) - Math.abs(a.score - 50)).slice(0, 2);
+    return { d, score, coverage, label, color, parts, drivers, intel: it };
+  }
+
+  /* ------------------- POST-EARNINGS DRIFT (PEAD) -------------------
+     The most durable public-data anomaly: stocks that beat with rising
+     estimates tend to keep drifting for weeks because the market
+     underreacts. This scores each recent reporter's drift setup. It is a
+     research signal grounded in published research, not a guarantee. */
+  function driftScoreOf(r, dNow) {
+    if (!r || r.epsActual == null || r.epsEstimate == null || !r.date) return null;
+    const daysSince = Math.round((Date.now() - Date.parse(r.date + "T16:00:00Z")) / 864e5);
+    if (daysSince < 0 || daysSince > 60) return null;
+    const d = dNow || companyOf(r.symbol);
+    if (!d) return null;
+    const bits = [];
+    const surprise = r.surprisePct != null ? clamp(r.surprisePct, -15, 15) : (r.epsActual > r.epsEstimate ? 3 : -3);
+    let score = 50 + surprise * 2.6;
+    bits.push(`EPS surprise ${r.surprisePct != null ? (r.surprisePct >= 0 ? "+" : "") + r.surprisePct.toFixed(1) + "%" : r.epsActual > r.epsEstimate ? "beat" : "miss"}`);
+    if (hasNum(r.revActual) && hasNum(r.revEstimate)) {
+      const revBeat = r.revActual > r.revEstimate;
+      score += revBeat ? 7 : -8;
+      bits.push(revBeat ? "revenue also beat" : "revenue missed");
+    }
+    const it = earnIntelOf(r.symbol);
+    if (it && it.trend && hasNum(it.trend.revUp30) && hasNum(it.trend.revDown30)) {
+      const net = it.trend.revUp30 - it.trend.revDown30;
+      score += clamp(net, -10, 10) * 0.9;
+      bits.push(`revisions since: ${net >= 0 ? "+" : ""}${net} net`);
+    }
+    const weeksBack = Math.max(1, Math.round(daysSince / 7));
+    const reaction = pctMoveFrom(d.px && d.px.v || [], weeksBack);
+    if (reaction != null) {
+      // PEAD needs the initial reaction to CONFIRM the surprise's direction
+      score += clamp(reaction * Math.sign(surprise || 1), -8, 8);
+      bits.push(`tape since report ${reaction >= 0 ? "+" : ""}${reaction.toFixed(1)}%`);
+    }
+    score = Math.round(clamp(score, 3, 97));
+    const up = surprise >= 0;
+    let label, color;
+    if (up && score >= 70) { label = "STRONG DRIFT"; color = "var(--green)"; }
+    else if (up && score >= 58) { label = "DRIFT CANDIDATE"; color = "var(--cyan)"; }
+    else if (!up && score <= 34) { label = "DOWNSIDE DRIFT"; color = "var(--red)"; }
+    else { label = "NO CLEAR DRIFT"; color = "var(--amber)"; }
+    return { symbol: r.symbol, score, label, color, daysSince, windowLeft: Math.max(0, 60 - daysSince), bits, up };
+  }
+
+  /* ------------------- SIGNAL CALIBRATION -------------------
+     Grades every recorded signal against what prices actually did next.
+     Pure function over TRACK_HISTORY snapshots so it is unit-testable.
+     Windows overlap (daily snapshots); n counts observations, not
+     independent bets — stated in the UI. No verdicts before n >= 20. */
+  function calibrationOf(history, horizonDays) {
+    const H = Array.isArray(history) ? history : [];
+    const groups = {}; // groupKey -> bucket -> {n, hits, sum}
+    const rec = (group, bucket, ret) => {
+      if (!Number.isFinite(ret)) return;
+      const g = groups[group] = groups[group] || {};
+      const b = g[bucket] = g[bucket] || { n: 0, hits: 0, sum: 0 };
+      b.n++; if (ret > 0) b.hits++; b.sum += ret;
+    };
+    let windows = 0;
+    for (let i = 0; i < H.length; i++) {
+      const base = H[i];
+      const target = H.find(sn => (Date.parse(sn.date) - Date.parse(base.date)) / 864e5 >= horizonDays);
+      if (!target) continue;
+      windows++;
+      const nowP = {};
+      target.entries.forEach(e => { if (e.p > 0) nowP[e.t] = e.p; });
+      for (const e of base.entries) {
+        if (!(e.p > 0) || !(nowP[e.t] > 0)) continue;
+        const ret = (nowP[e.t] / e.p - 1) * 100;
+        if (e.dl) rec("Direction Edge", e.dl, ret);
+        if (e.bo != null) rec("Beat Odds (report ≤45d)", e.bo >= 68 ? "68+ strong setup" : e.bo >= 40 ? "40–67 mixed" : "<40 miss risk", ret);
+        if (e.c && e.c !== "NO_SCORE") rec("Verdict call", e.c, ret);
+        if (e.mr != null) rec("Market Reward", e.mr >= 70 ? "70+" : e.mr >= 50 ? "50–69" : "<50", ret);
+      }
+    }
+    const out = { horizonDays, windows, groups: {} };
+    for (const [g, buckets] of Object.entries(groups)) {
+      out.groups[g] = Object.entries(buckets).map(([bucket, b]) => ({
+        bucket, n: b.n, hitRate: b.hits / b.n, avg: b.sum / b.n, judged: b.n >= 20,
+      })).sort((a, b) => b.avg - a.avg);
+    }
+    return out;
+  }
+
   async function loadEarningsIntel(tk) {
     const live = state.live[tk] = state.live[tk] || {};
     if (live.earningsLoading) return;
@@ -1771,8 +1961,9 @@
     const ttmRev = qd ? ttm(qd.revenue) : null;
     const revYoy = qd ? yoyPct(qd.revenue) : null;
     const epsYoy = qd ? yoyPct(qEps) : null;
-    const streetRev = nextQ?.revAvg ?? revToB(numFrom(nextCal, ["revenueEstimate"]));
-    const streetEps = nextQ?.epsAvg ?? numFrom(nextCal, ["epsEstimate"]);
+    const bundledIntel = earnIntelOf(d.ticker);
+    const streetRev = nextQ?.revAvg ?? revToB(numFrom(nextCal, ["revenueEstimate"])) ?? revToB(bundledIntel?.revEstimate ?? null);
+    const streetEps = nextQ?.epsAvg ?? numFrom(nextCal, ["epsEstimate"]) ?? (bundledIntel?.epsEstimate ?? null);
     const fyStreetRev = nextFY?.revAvg;
     const fyStreetEps = nextFY?.epsAvg;
     const qRevGrowthNeed = streetRev != null && lastRev ? (streetRev / lastRev - 1) * 100 : null;
@@ -1815,12 +2006,38 @@
       ? `<div class="note callout" style="margin-bottom:12px">Connect Finnhub/FMP keys with the gear to unlock live earnings dates, EPS estimates, revenue estimates and analyst forecast tables. Offline, this tab uses the bundled quarterly filing trend only.</div>`
       : live.earningsLoading ? `<div class="note" style="margin-bottom:12px">Loading live Street estimates...</div>`
       : "";
+    const odds = beatOddsOf(d);
+    const intel = odds.intel;
+    const intelNext = intel && intel.nextDate && intel.nextDate >= new Date().toISOString().slice(0, 10) ? intel.nextDate : null;
+    const beatHistRows = (intel && intel.history || []).slice(-4).reverse();
+    const oddsCard = `<div class="card edge-card" style="grid-column:span 3;border-left:3px solid ${odds.color}">
+      <h3>BEAT ODDS <span class="unit">will they clear the Street's bar next report? research signal, not a probability · coverage ${odds.coverage}%</span></h3>
+      <div class="edge-hero">
+        <div class="edge-score" style="color:${odds.color}">${odds.score == null ? "--" : odds.score}<small>${odds.label}</small></div>
+        <div>
+          <div class="note" style="border-left-color:${odds.color}">${odds.drivers.length ? odds.drivers.map(p => `<b style="color:${scoreColorOf(p.score)}">${p.label} ${Math.round(p.score)}</b> — ${escapeHtml(p.why)}`).join("<br>") : "Not enough bundled data yet — the daily pipeline fills beat history and revision tape."}</div>
+          ${beatHistRows.length ? `<div style="overflow-x:auto;margin-top:8px"><table class="fin">
+            <tr><th style="text-align:left">FISCAL QTR</th><th>EPS ACTUAL</th><th>EPS EST</th><th>SURPRISE</th><th>RESULT</th></tr>
+            ${beatHistRows.map(h => `<tr><td>${h.quarter || "-"}</td><td>${h.epsActual != null ? "$" + h.epsActual.toFixed(2) : "–"}</td><td>${h.epsEstimate != null ? "$" + h.epsEstimate.toFixed(2) : "–"}</td>
+              <td class="${(h.surprisePct ?? 0) >= 0 ? "up" : "down"}">${h.surprisePct != null ? (h.surprisePct >= 0 ? "+" : "") + h.surprisePct.toFixed(1) + "%" : "–"}</td>
+              <td>${h.epsActual != null && h.epsEstimate != null ? (h.epsActual > h.epsEstimate ? `<b style="color:var(--green)">BEAT</b>` : h.epsActual < h.epsEstimate ? `<b style="color:var(--red)">MISS</b>` : `<b style="color:var(--amber)">IN-LINE</b>`) : "–"}</td></tr>`).join("")}
+          </table></div>` : ""}
+        </div>
+      </div>
+      <div class="edge-grid">${odds.parts.map(p => `<div class="edge-part ${p.score == null ? "missing" : ""}">
+        <span>${escapeHtml(p.label)}</span>
+        <b style="color:${scoreColorOf(p.score)}">${p.score == null ? "--" : Math.round(p.score)}</b>
+        <small>${escapeHtml(p.why).slice(0, 120)}</small>
+      </div>`).join("")}</div>
+    </div>`;
     return `${keyNote}
     <div class="grid g3">
+      ${oddsCard}
       <div class="card" style="grid-column:span 2;border-left:3px solid ${riskColor}">
         <h3>EARNINGS SETUP <span class="unit">consensus vs actual trend</span></h3>
         <div style="display:flex;flex-wrap:wrap;gap:14px">
-          ${cardStat("Next report", nextCal ? shortDate(nextCal.date) : "-", nextCal ? `${eventDays} days · ${nextCal.hour || "time n/a"} · Finnhub` : "connect Finnhub or wait for calendar")}
+          ${cardStat("Next report", nextCal ? shortDate(nextCal.date) : intelNext ? shortDate(intelNext) : "-",
+            nextCal ? `${eventDays} days · ${nextCal.hour || "time n/a"} · Finnhub` : intelNext ? `${daysTo(intelNext)} days · bundled pipeline${intel.nextDateEstimate ? " · provider-estimated" : ""}` : "connect Finnhub or wait for the pipeline")}
           ${cardStat("Street next EPS", streetEps != null ? fmtDollar(streetEps) : "-", epsPremium != null ? `${epsPremium >= 0 ? "+" : ""}${epsPremium.toFixed(0)}% vs latest owner EPS` : "consensus / non-GAAP", epsPremium != null && epsPremium > 20 ? "var(--orange)" : "var(--text)")}
           ${cardStat("Street next revenue", streetRev != null ? money(streetRev) : "-", qRevGrowthNeed != null ? `${qRevGrowthNeed >= 0 ? "+" : ""}${qRevGrowthNeed.toFixed(1)}% vs latest qtr` : "consensus revenue")}
           ${cardStat("FY street revenue", fyStreetRev != null ? money(fyStreetRev) : "-", fyRevGrowthNeed != null ? `${fyRevGrowthNeed >= 0 ? "+" : ""}${fyRevGrowthNeed.toFixed(1)}% vs TTM` : "annual consensus")}
@@ -1867,24 +2084,6 @@
     </div>`;
   }
 
-  function inflationCard(d) {
-    const x = inflationOf(d);
-    const bits = x.bits.length ? x.bits.join(" · ") : x.profile.note;
-    const channel = x.rateHit >= 5 ? "multiple compression first" :
-      x.inputCost >= 3 ? "margin pressure first" :
-      x.demandHit >= 3 ? "revenue pressure first" :
-      x.passThrough >= 5 ? "pricing power can defend EPS" : "mixed EPS and multiple effects";
-    return `<div class="card" style="border-left:3px solid ${x.color}">
-      <h3>INFLATION X-RAY <span class="unit">${x.profile.name}</span></h3>
-      <div class="stat" style="color:${x.color}">${x.score}</div>
-      <div class="sub">${x.label} · ${channel}</div>
-      <div class="kv"><span class="k">Stock-price channel</span><span class="v">${bits}</span></div>
-      <div class="kv"><span class="k">Rates / P/E pressure</span><span class="v">${x.rateHit.toFixed(1)} / 7</span></div>
-      <div class="kv"><span class="k">Input-cost pressure</span><span class="v">${x.inputCost.toFixed(1)} / 4</span></div>
-      <div class="kv"><span class="k">Consumer demand hit</span><span class="v">${x.demandHit.toFixed(1)} / 4</span></div>
-      <div class="kv"><span class="k">Pricing-power shield</span><span class="v">${x.passThrough.toFixed(1)} / 8</span></div>
-    </div>`;
-  }
 
   const NEWS_RULES = [
     {
@@ -2059,67 +2258,6 @@
     </div>`;
   }
 
-  function tabFramework(d) {
-    return `<div class="card"><h3>THE PERMANENT FRAMEWORK — SBC / DILUTION / TRUE-OWNER-EARNINGS</h3>
-      <div class="note" style="margin-bottom:12px">Core claim: GAAP earnings can overstate what shareholders keep, and Wall-Street adjusted earnings are usually <b>worse</b> because analysts add SBC back as if it's free. In the NASDAQ-100 sample the author cites, GAAP overstated true owner earnings by ~19.78% and adjusted earnings by ~42.12% — shareholders kept only ~83.49¢ of each GAAP dollar.</div>
-      <div class="grid g2">
-        <div>
-          <h3 style="margin-top:0">7-STEP CHECK</h3>
-          ${[
-            ["1 · Reported-earnings quality", "How much better does non-GAAP look than GAAP, and is SBC the reason?"],
-            ["2 · SBC burden", "SBC / revenue, gross profit, OCF, net income, market cap."],
-            ["3 · Share-count truth", "Diluted shares over 1/3/5/10y — falling, flat, rising, or exploding?"],
-            ["4 · Buyback quality", "Split anti-dilution (offsets SBC) vs real reduction; only bullish if shares fall AND price < intrinsic value."],
-            ["5 · True owner earnings", "GAAP NI + SBC add-back − true economic SBC cost (offset buyback + withholding − option/ESPP inflows)."],
-            ["6 · Valuation re-rate", "Owner EPS = adjusted owner earnings / diluted shares; owner P/E = price / owner EPS."],
-            ["7 · Management score", "A→F on SBC discipline, buyback honesty, share-count direction."],
-          ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
-        </div>
-        <div>
-          <h3 style="margin-top:0">3 SBC SITUATIONS</h3>
-          <div class="note" style="margin-bottom:8px"><b style="color:var(--cyan)">Pure dilution</b> — company hands employees stock, share count rises, you own less.</div>
-          <div class="note" style="margin-bottom:8px"><b style="color:var(--amber)">Buyback treadmill</b> — buybacks only offset issuance. You think you got capital return; the company just paid cash to prevent dilution.</div>
-          <div class="note callout" style="margin-bottom:14px"><b style="color:var(--red)">Hybrid</b> — some buybacks offset SBC, some truly cut shares. You must separate the two.</div>
-          <h3>WHERE THIS CAN BE WRONG</h3>
-          <div class="sub" style="line-height:1.7">
-            • SBC can be rational if $1B of stock creates $10B of durable value.<br>
-            • The market may already know (PLTR/CRWD/DDOG long debated) — it's a <b>quality filter & haircut</b>, not an auto-short.<br>
-            • Buybacks below intrinsic value can still be fine even while offsetting dilution.<br>
-            • Young post-IPO names distort on one-time founder/retention grants — separate recurring vs one-time.<br>
-            • It only adjusts SBC — not capitalized software, leases, goodwill, customer concentration, or debt.
-          </div>
-        </div>
-      </div>
-      <div class="note" style="margin-top:14px;border-left-color:var(--green)"><b>One-sentence rule:</b> A stock is not truly cheap until it is cheap on SBC-adjusted owner earnings per share, not Wall Street adjusted EPS.</div>
-    </div>
-
-    <div class="card" style="margin-top:12px"><h3>THE IV15 OVERLAY — FROM EARNINGS QUALITY TO A BUY PRICE</h3>
-      <div class="note" style="margin-bottom:12px">A low multiple is not necessarily a value. <b style="color:var(--amber)">IV15</b> is the price at which you'd expect <b>15% compounded annual returns over 15 years</b> — a buy target from a multi-stage DCF built on SBC-adjusted owner earnings and business quality, not a simple P/E. A higher-quality business can be a fat pitch above IV15; a lower-quality one only well below it.</div>
-      <div class="grid g2">
-        <div>
-          ${[
-            ["The IV ladder", "IV20 < IV18 < IV15 < IV12 < IV10 < IV8 in price. Set alerts at every rung; IV15 ★ is the swing trigger."],
-            ["Baseline intrinsic value", "Sits between IV8 and IV10 depending on quality — this terminal uses IV8 for clean names, IV9 middle, IV10 lower tiers."],
-            ["The buyback nuance", "Buybacks BELOW baseline IV are accretive to intrinsic value per share. Above it, they pull shares in but DILUTE IV/share — which is what most tech companies do when offsetting SBC at high prices."],
-            ["Inflecting companies", "Get a 4th DCF stage (growth cap lifted to 25%) — e.g. DKNG. The value is in the transition."],
-            ["The All Map", "Baseball-field view on the ⊞ EST P/E tab: Fat Pitches (≥15% implied), Just Outside (10–15%), The Out Field (<10%)."],
-          ].map(([k, v]) => `<div class="kv"><span class="k" style="max-width:150px">${k}</span><span class="v" style="text-align:right;font-weight:400;color:var(--muted);font-size:10.5px">${v}</span></div>`).join("")}
-        </div>
-        <div>
-          <div class="sub" style="line-height:1.7">
-            <b style="color:var(--text)">How this terminal computes it</b> (simplified but faithful):<br>
-            • Base = SBC-adjusted owner EPS (the Step-5 number).<br>
-            • Stage 1 (yrs 1–5): revenue growth blend, haircut &amp; capped by quality tier.<br>
-            • Stage 2 (yrs 6–10): 60% of stage 1 · Stage 3 (yrs 11–15): ≤4%.<br>
-            • Exit multiple by quality: clean 18x → tragic 10x.<br>
-            • IVr = year-15 value ÷ (1+r)¹⁵ · implied CAGR = what today's price offers.<br><br>
-            <b style="color:var(--red)">Caveats:</b> it's a screen, not the full model — no per-name debt, serial-acquirer, or bedeviled-accounting adjustments. Use it to rank pitches, then do the work.
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }
-
   /* sector-context strip shown on each stock's overview */
   function sectorContextCard(d) {
     const etf = sectorETF(d.sector);
@@ -2154,6 +2292,7 @@
      net current asset value (net-net); Graham Number; the defensive checklist;
      and the investment-vs-speculation test. Complements the modern IV15 lens.
      ============================================================================ */
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function grahamOf(d) {
     const g = d.gd;
     if (!g) return null;
@@ -2432,54 +2571,6 @@
     </div>`;
   }
 
-  /* ---- ALL MAP: baseball-field view of the whole board ---- */
-  function allMapSVG() {
-    const W = 700, H = 400, hx = W / 2, hy = H - 18;
-    const pt = (deg, rad) => { const a = (deg * Math.PI) / 180; return [hx + rad * Math.sin(a), hy - rad * Math.cos(a)]; };
-    const arc = (rad) => { const [x1, y1] = pt(-45, rad), [x2, y2] = pt(45, rad); return `M${x1.toFixed(1)} ${y1.toFixed(1)} A${rad} ${rad} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`; };
-    const band = (r1, r2, fill) => {
-      const [ax, ay] = pt(-45, r1), [bx, by] = pt(-45, r2), [cx2, cy2] = pt(45, r2), [dx, dy] = pt(45, r1);
-      return `<path d="M${ax} ${ay} L${bx} ${by} A${r2} ${r2} 0 0 1 ${cx2} ${cy2} L${dx} ${dy} A${r1} ${r1} 0 0 0 ${ax} ${ay}" fill="${fill}"/>`;
-    };
-    const zones = { fat: [], just: [], out: [] };
-    DATA.filter(d => dataConfidenceOf(d).rankable).forEach(d => { const L = ivLadder(d); zones[L ? L.zone : "out"].push({ d, L }); });
-    Object.values(zones).forEach(z => z.sort((a, b) => (b.L?.impliedCAGR ?? -1) - (a.L?.impliedCAGR ?? -1)));
-    const RB = { fat: [70, 155], just: [168, 248], out: [260, 345] };
-    let dots = "";
-    Object.entries(zones).forEach(([zn, arr]) => {
-      const [r1, r2] = RB[zn];
-      arr.forEach((it, i) => {
-        const n = arr.length;
-        const deg = n === 1 ? 0 : -41 + (82 * i) / (n - 1);
-        const rad = r1 + (r2 - r1) * (0.2 + 0.6 * ((i % 3) / 2));
-        const [x, y] = pt(deg, rad);
-        const col = { fat: "#26d07c", just: "#ffb000", out: "#ff5b6b" }[zn];
-        const cagr = it.L ? (it.L.impliedCAGR * 100).toFixed(1) + "%" : "n/m (GAAP loss)";
-        const showLabel = zn !== "out";
-        dots += `<g data-tk="${it.d.ticker}" style="cursor:pointer">
-          <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${zn === "fat" ? 6 : 4.5}" fill="${col}" stroke="#05070c" stroke-width="1.2"><title>${it.d.ticker} — implied 15y CAGR ${cagr}</title></circle>
-          ${showLabel ? `<text x="${x.toFixed(1)}" y="${(y - 8).toFixed(1)}" fill="${col}" font-size="8.5" font-weight="700" text-anchor="middle">${it.d.ticker}</text>` : ""}</g>`;
-      });
-    });
-    const [flx, fly] = pt(-45, 350), [frx, fry] = pt(45, 350);
-    return { svg: `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">
-      ${band(60, 158, "rgba(38,208,124,.07)")}${band(158, 251, "rgba(255,176,0,.06)")}${band(251, 348, "rgba(255,91,107,.05)")}
-      <path d="${arc(158)}" stroke="#26d07c" stroke-dasharray="4 4" fill="none" opacity=".5"/>
-      <path d="${arc(251)}" stroke="#ffb000" stroke-dasharray="4 4" fill="none" opacity=".5"/>
-      <path d="${arc(348)}" stroke="#ff5b6b" stroke-dasharray="4 4" fill="none" opacity=".4"/>
-      <line x1="${hx}" y1="${hy}" x2="${flx}" y2="${fly}" stroke="#31405c"/><line x1="${hx}" y1="${hy}" x2="${frx}" y2="${fry}" stroke="#31405c"/>
-      <rect x="${hx - 5}" y="${hy - 5}" width="10" height="10" fill="#d8e0ea" transform="rotate(45 ${hx} ${hy})"/>
-      <text x="${hx}" y="${hy - 42}" fill="#26d07c" font-size="11" font-weight="800" text-anchor="middle">FAT PITCHES ≥15%</text>
-      <text x="${hx}" y="${hy - 192}" fill="#ffb000" font-size="10" font-weight="700" text-anchor="middle" opacity=".85">JUST OUTSIDE 10–15%</text>
-      <text x="${hx}" y="${hy - 288}" fill="#ff5b6b" font-size="10" font-weight="700" text-anchor="middle" opacity=".85">THE OUT FIELD &lt;10%</text>
-      ${dots}
-    </svg>`, counts: { fat: zones.fat.length, just: zones.just.length, out: zones.out.length }, zones };
-  }
-
-  /* ------------------------ MASTER RANKING ENGINE ------------------------ */
-  // Rankings ARE the brain: rankOf() reads verdictOf(), so the leaderboard,
-  // the screener and every stock page share ONE unified conclusion.
-  const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function rankOf(d) {
     const V = verdictOf(d);
     if (V.noRank) return { noRank: true, dataConfidence: V.dataConfidence, composite: null, truePE: null,
@@ -2622,98 +2713,6 @@
     el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
   }
 
-  /* ------------------------ 🛡 GRAHAM VALUE SCREENER ------------------------ */
-  const grahamState = { sort: "score", dir: -1 };
-  function renderGraham() {
-    const rows = DATA.map(d => ({ d, G: grahamOf(d) })).filter(x => x.G);
-    const netnets = rows.filter(x => x.G.netnet).sort((a, b) => a.G.priceToNcav - b.G.priceToNcav);
-    const stalwarts = rows.filter(x => x.G.passed >= 6).sort((a, b) => b.G.passed - a.G.passed || b.G.score - a.G.score);
-    const byMOS = rows.filter(x => x.G.grahamMOS != null).sort((a, b) => b.G.grahamMOS - a.G.grahamMOS);
-
-    const raw = (o, k) => k === "score" ? o.G.score : k === "mos" ? o.G.grahamMOS : k === "pb" ? o.G.pb
-      : k === "cr" ? o.G.currentRatio : k === "ncav" ? o.G.priceToNcav : k === "passed" ? o.G.passed
-      : k === "div" ? o.G.divYield : o.d[k];
-    const sorted = [...rows].sort((a, b) => {
-      const va = raw(a, grahamState.sort), vb = raw(b, grahamState.sort);
-      if (va == null && vb == null) return 0; if (va == null) return 1; if (vb == null) return -1;
-      return (va - vb) * grahamState.dir;
-    });
-
-    const COLS = [
-      { k: "score", label: "G-SCORE" }, { k: "passed", label: "CHECKS" },
-      { k: "mos", label: "GRAHAM MOS" }, { k: "pb", label: "P/B" },
-      { k: "cr", label: "CURR RATIO" }, { k: "ncav", label: "PRICE/NCAV" },
-      { k: "div", label: "DIV YLD" }, { k: "mktCap", label: "MKT CAP" },
-    ];
-    const th = COLS.map(c => `<th data-gsort="${c.k}" class="${grahamState.sort === c.k ? "sorted" : ""}">${c.label}${grahamState.sort === c.k ? (grahamState.dir < 0 ? " ▾" : " ▴") : ""}</th>`).join("");
-    const body = sorted.map((x, i) => {
-      const d = x.d, G = x.G;
-      const sc = G.score >= 60 ? "var(--green)" : G.score >= 45 ? "var(--amber)" : "var(--red)";
-      return `<tr data-tk="${d.ticker}">
-        <td><span class="rk-num">${i + 1}</span></td>
-        <td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
-        <td><span class="rk-score" style="color:${sc}">${G.score.toFixed(0)}</span></td>
-        <td class="${G.passed >= 5 ? "up" : G.passed <= 2 ? "down" : ""}">${G.passed}/7</td>
-        <td class="${G.grahamMOS == null ? "" : G.grahamMOS >= 0 ? "up" : "down"}">${G.grahamMOS == null ? "n/m" : (G.grahamMOS >= 0 ? "+" : "") + (G.grahamMOS * 100).toFixed(0) + "%"}</td>
-        <td class="${G.pb == null ? "" : G.pb <= 1.5 ? "up" : G.pb > 4 ? "down" : ""}">${G.pb ? G.pb.toFixed(2) + "×" : "–"}</td>
-        <td class="${G.currentRatio == null ? "" : G.currentRatio >= 2 ? "up" : G.currentRatio < 1 ? "down" : ""}">${G.currentRatio ? G.currentRatio.toFixed(2) : "–"}</td>
-        <td class="${G.netnet ? "up" : ""}">${G.priceToNcav != null ? (G.priceToNcav * 100).toFixed(0) + "%" : "–"}</td>
-        <td class="${G.paysDiv ? "up" : "sub"}">${G.paysDiv ? G.divYield.toFixed(1) + "%" : "–"}</td>
-        <td class="sub">${money(d.mktCap)}</td>
-      </tr>`;
-    }).join("");
-
-    el("main").innerHTML = `
-      <div class="hdr">
-        <div>
-          <div class="tick" style="color:#5aa9d6">🛡 GRAHAM VALUE</div>
-          <div class="co">classic Security Analysis — margin of safety · net current asset value · defensive checklist</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right"><div class="sub">NET-NETS</div><div class="stat sm" style="color:var(--green)">${netnets.length}</div></div>
-        <div style="text-align:right;border-left:1px solid var(--line);padding-left:14px"><div class="sub">DEFENSIVE (6-7/7)</div><div class="stat sm" style="color:var(--cyan)">${stalwarts.length}</div></div>
-      </div>
-
-      <div class="note" style="margin-bottom:12px;border-left-color:#5aa9d6">
-        <b style="color:#5aa9d6">“The margin of safety is the central concept of investment.”</b> Graham valued a business by its assets, average earning power and dividends — not its story — then demanded a discount to that value. <b>Graham Number</b> = √(22.5 × EPS × book/share). <b>Net current asset value</b> = current assets − all liabilities; a stock under NCAV means you get the operating business for free. Tap a column to re-rank, a row to open.
-      </div>
-
-      ${netnets.length ? `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
-        <h3>★ NET-NET BARGAINS <span class="unit">trading below net current asset value — the rarest Graham signal</span></h3>
-        ${Chart.hbars(netnets.slice(0, 10).map(x => ({ label: x.d.ticker, value: x.G.priceToNcav * 100, color: x.G.deepNetnet ? "var(--green)" : "var(--amber)", display: (x.G.priceToNcav * 100).toFixed(0) + "% of NCAV" })), { max: 105, labelW: 52 })}
-        <div class="sub" style="margin-top:6px">Under 100% = below liquid assets net of all debt · under 67% (green) = Graham's deep two-thirds bargain.</div>
-      </div>` : `<div class="note" style="margin-bottom:12px">No classic net-nets in this 126-name large-cap universe right now — expected. True net-nets are almost always tiny, forgotten micro-caps; in 1932 over 40% of NYSE industrials were net-nets, today a handful.</div>`}
-
-      <div class="grid g2" style="margin-bottom:12px">
-        <div class="card" style="border-left:3px solid var(--green)"><h3>DEEPEST MARGIN OF SAFETY <span class="unit">discount to Graham Number</span></h3>
-          ${Chart.hbars(byMOS.slice(0, 10).map(x => ({ label: x.d.ticker, value: Math.max(0, x.G.grahamMOS * 100), color: "var(--green)", display: (x.G.grahamMOS >= 0 ? "+" : "") + (x.G.grahamMOS * 100).toFixed(0) + "%" })), { labelW: 52 })}</div>
-        <div class="card" style="border-left:3px solid var(--cyan)"><h3>DEFENSIVE STALWARTS <span class="unit">6–7 of 7 Graham criteria</span></h3>
-          ${stalwarts.length ? stalwarts.slice(0, 10).map(x => `<div class="pe-row" data-tk="${x.d.ticker}"><span class="pe-tk">${x.d.ticker}</span><span class="sub">${x.d.name}</span><span class="pe-val"><b style="color:var(--cyan)">${x.G.passed}/7</b> ${x.G.paysDiv ? x.G.divYield.toFixed(1) + "%" : ""}</span></div>`).join("") : `<div class="sub">None clear 6/7 — modern large caps rarely pass Graham's strict P/B ≤1.5 test.</div>`}</div>
-      </div>
-
-      <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:64vh;overflow-y:auto"><table class="rank">
-        <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
-        <tbody>${body}</tbody>
-      </table></div></div>`;
-
-    el("main").querySelectorAll("th[data-gsort]").forEach(h => h.onclick = () => {
-      const k = h.dataset.gsort;
-      if (grahamState.sort === k) grahamState.dir *= -1;
-      else { grahamState.sort = k; grahamState.dir = (k === "pb" || k === "ncav") ? 1 : -1; }
-      renderGraham();
-    });
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
-  function showGraham() {
-    state.view = "graham";
-    setViewBtn("grahamBtn");
-    renderWatchlist();
-    renderGraham();
-    closeDrawer();
-    window.scrollTo({ top: 0 });
-    syncNav();
-    pushNav();
-  }
 
   /* ============================================================================
      QUALITY / COMPOUNDER + FCF ENGINE (uses qm:{} blocks when present)
@@ -3109,56 +3108,6 @@
 
   /* ------------------------ 📊 CUSTOM SCREENER ------------------------ */
   const screenState = { bucket: "all", zone: "all", gMin: 0, peMax: "", sbcMax: "", capMin: "", sector: "all", favOnly: false, divOnly: false, sort: "composite" };
-  function renderQualityMap() {
-    const points = window.ScoreEngine ? window.ScoreEngine.qualityMarketMap(DATA, marketContext()) : [];
-    const count = points.length;
-    const dots = points.map(p => {
-      const x = Math.max(6, Math.min(94, 8 + (p.businessQuality || 0) * 0.84));
-      const y = Math.max(6, Math.min(94, 92 - (p.marketReward || 0) * 0.84));
-      const val = p.valuation == null ? 50 : p.valuation;
-      const bg = val >= 70 ? "var(--green)" : val >= 55 ? "var(--amber)" : val >= 40 ? "var(--orange)" : "var(--red)";
-      const fg = val >= 55 ? "#081019" : "#fff";
-      const size = Math.max(28, Math.min(44, 28 + ((p.longTermView || 0) / 100) * 16));
-      return `<button class="map-dot" data-tk="${p.ticker}" title="${p.ticker} · BQ ${fmtScore(p.businessQuality)} · MR ${fmtScore(p.marketReward)} · Val ${fmtScore(p.valuation)} · ${p.label}"
-        style="left:${x}%;top:${y}%;width:${size}px;height:${size}px;background:${bg};color:${fg}">${p.ticker}</button>`;
-    }).join("");
-    el("main").innerHTML = toolHeader("◎", "QUALITY x MARKET MAP", "Business Quality on X axis, Market Reward on Y axis, dot color is valuation support",
-      `<div style="text-align:right"><div class="sub">UNIVERSE</div><div class="stat sm" style="color:var(--cyan)">${count}</div></div>`)
-      + `<div class="grid g3">
-        <div class="card" style="grid-column:span 3">
-          <h3>QUALITY VS MARKET REWARD <span class="unit">click any ticker</span></h3>
-          <div class="map-wrap">
-            <div class="map-axis" style="left:10px;top:8px">Market Reward ↑</div>
-            <div class="map-axis" style="right:12px;bottom:8px">Business Quality →</div>
-            <div class="map-axis" style="left:50%;top:50%;transform:translate(-50%,-50%);color:#263145">50 / 50</div>
-            <div style="position:absolute;left:50%;top:0;bottom:0;border-left:1px dashed #263145"></div>
-            <div style="position:absolute;left:0;right:0;top:50%;border-top:1px dashed #263145"></div>
-            ${dots}
-          </div>
-          <div class="chart-legend">
-            <span><i style="background:var(--green)"></i>valuation supportive</span>
-            <span><i style="background:var(--amber)"></i>fair/mixed</span>
-            <span><i style="background:var(--orange)"></i>demanding</span>
-            <span><i style="background:var(--red)"></i>expensive/risky</span>
-          </div>
-        </div>
-        <div class="card" style="grid-column:span 3">
-          <h3>TOP QUADRANTS <span class="unit">sorted by long-term score</span></h3>
-          <div style="overflow:auto"><table class="rank">
-            <thead><tr><th>TICKER</th><th>LABEL</th><th>BUSINESS</th><th>MARKET</th><th>VALUATION</th><th>LONG TERM</th></tr></thead>
-            <tbody>${points.slice().sort((a, b) => (b.longTermView || 0) - (a.longTermView || 0)).slice(0, 25).map(p => `<tr data-tk="${p.ticker}">
-              <td><span class="rk-tk">${p.ticker}</span> <span class="sub">${p.sector}</span></td>
-              <td>${p.label}</td>
-              <td style="color:${scoreColorOf(p.businessQuality)}">${fmtScore(p.businessQuality)}</td>
-              <td style="color:${scoreColorOf(p.marketReward)}">${fmtScore(p.marketReward)}</td>
-              <td style="color:${scoreColorOf(p.valuation)}">${fmtScore(p.valuation)}</td>
-              <td style="color:${scoreColorOf(p.longTermView)}">${fmtScore(p.longTermView)}</td>
-            </tr>`).join("")}</tbody>
-          </table></div>
-        </div>
-      </div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
   function renderScreener() {
     const sectors = [...new Set(DATA.map(d => sectorETF(d.sector)))];
     const S = screenState;
@@ -3253,26 +3202,6 @@
     el("main").querySelectorAll("[data-rem]").forEach(x => x.onclick = () => { compareState.tickers = compareState.tickers.filter(t => t !== x.dataset.rem); renderCompare(); });
   }
 
-  /* ------------------------ 🎯 TRIGGERS TODAY ------------------------ */
-  function renderTriggers() {
-    const fats = [], belowGraham = [], netnets = [], nearLow = [];
-    DATA.forEach(d => {
-      const L = ivLadder(d), G = grahamOf(d);
-      if (L && L.zone === "fat") fats.push({ d, v: L.impliedCAGR });
-      if (G && G.grahamMOS != null && G.grahamMOS > 0.1) belowGraham.push({ d, v: G.grahamMOS });
-      if (G && G.netnet) netnets.push({ d, v: G.priceToNcav });
-    });
-    fats.sort((a, b) => b.v - a.v); belowGraham.sort((a, b) => b.v - a.v);
-    const section = (title, color, items, fmt, empty) => `<div class="card" style="border-left:3px solid ${color};margin-bottom:12px">
-      <h3>${title} <span class="unit">${items.length} names</span></h3>
-      ${items.length ? items.slice(0, 25).map(x => `<div class="pe-row" data-tk="${x.d.ticker}"><span class="pe-tk"><span class="star ${state.favs.has(x.d.ticker) ? "on" : ""}" data-fav="${x.d.ticker}">${state.favs.has(x.d.ticker) ? "★" : "☆"}</span> ${x.d.ticker}</span><span class="sub">${x.d.name}</span><span class="pe-val" style="color:${color}">${fmt(x.v)}</span></div>`).join("") : `<div class="sub">${empty}</div>`}</div>`;
-    el("main").innerHTML = toolHeader("🎯", "TRIGGERS TODAY", "where the frameworks say ACT right now — refreshes with live prices",
-      `<div style="text-align:right"><div class="sub">SIGNALS</div><div class="stat sm" style="color:var(--red)">${fats.length + belowGraham.length + netnets.length}</div></div>`)
-      + section("★ FAT PITCHES — priced for ≥15%/yr (IV15)", "var(--green)", fats, v => (v * 100).toFixed(1) + "%/yr", "Nothing priced for 15%+ right now — patience is a position.")
-      + section("BELOW GRAHAM NUMBER — classic margin of safety", "#5aa9d6", belowGraham, v => (v * 100).toFixed(0) + "% below fair", "Nothing trading meaningfully below its Graham Number.")
-      + section("NET-NETS — below net current asset value", "var(--amber)", netnets, v => (v * 100).toFixed(0) + "% of NCAV", "No large-cap net-nets — expected.");
-    el("main").querySelectorAll(".pe-row").forEach(r => r.onclick = (e) => { if (e.target.dataset.fav) { toggleFav(e.target.dataset.fav); e.stopPropagation(); renderTriggers(); } else selectTicker(r.dataset.tk); });
-  }
 
   /* ------------------------ 💼 PORTFOLIO ------------------------ */
   const usd = (n) => { // raw dollars -> $, K, M, B
@@ -3341,220 +3270,9 @@
     el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = (e) => { if (!e.target.dataset.rem) selectTicker(r.dataset.tk); });
   }
 
-  /* ------------------------ 📅 EARNINGS CALENDAR (live Finnhub) ------------------------ */
-  function renderCalendar() {
-    el("main").innerHTML = toolHeader("📅", "EARNINGS CALENDAR", "upcoming reports across your universe — with the framework verdict for each")
-      + `<div class="card" id="calBody"><div class="sub" style="padding:16px">Loading upcoming earnings…</div></div>`;
-    const key = state.keys.finnhub;
-    if (!key) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">Connect a free Finnhub key (⚙ gear) to load the live earnings calendar.</div>`; return; }
-    const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
-    const fmt = dt => dt.toISOString().slice(0, 10);
-    fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${fmt(today)}&to=${fmt(to)}&token=${key}`, { provider: "Finnhub calendar", ticker: "UNIVERSE" })
-      .then(j => {
-        const uni = new Set(DATA.map(d => d.ticker));
-        const items = (j.earningsCalendar || []).filter(e => uni.has(e.symbol)).sort((a, b) => a.date.localeCompare(b.date));
-        if (!items.length) { el("calBody").innerHTML = `<div class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</div>`; return; }
-        el("calBody").innerHTML = `<div style="overflow-x:auto"><table class="rank">
-          <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
-          <tbody>${items.slice(0, DATA.length).map(e => { const d = DATA.find(x => x.ticker === e.symbol), L = d && ivLadder(d), z = L ? ZONE[L.zone].label : "n/m";
-            return `<tr data-tk="${e.symbol}"><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span></td>
-              <td>${e.epsEstimate != null ? "$" + e.epsEstimate.toFixed(2) : "–"}</td>
-              <td class="sub">${e.hour === "bmo" ? "pre-open" : e.hour === "amc" ? "after-close" : e.hour || ""}</td>
-              <td style="color:${d ? BUCKETS[d.bucket].color : "var(--muted)"}">${d ? d.bucket : "?"}</td>
-              <td style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${z}</td></tr>`; }).join("")}</tbody></table></div>`;
-        el("calBody").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-      }).catch(() => { el("calBody").innerHTML = `<div class="sub" style="padding:16px">Couldn't load the calendar (rate limit or network). Try again shortly.</div>`; });
-  }
-
-  /* ============================================================================
-     ⚄ OPTIONS DESK — the frameworks turned into option plays.
-     Real ~35-day ATM implied vol + realized vol + put/call OI per name
-     (opt:{} blocks). Premium estimates are Black-Scholes on the stored ATM
-     vol — approximations for sizing the idea, not executable quotes.
-     ============================================================================ */
-  const normCdf = (x) => {
-    const t = 1 / (1 + 0.2316419 * Math.abs(x));
-    const dNorm = Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI);
-    const p = dNorm * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
-    return x >= 0 ? 1 - p : p;
-  };
-  function bsPrice(type, S, K, iv, dte, r = 0.04) {
-    if (!S || !K || !iv || !dte || dte <= 0) return null;
-    const T = dte / 365, sq = iv * Math.sqrt(T);
-    const d1 = (Math.log(S / K) + (r + iv * iv / 2) * T) / sq, d2 = d1 - sq;
-    return type === "put"
-      ? K * Math.exp(-r * T) * normCdf(-d2) - S * normCdf(-d1)
-      : S * normCdf(d1) - K * Math.exp(-r * T) * normCdf(d2);
-  }
-  const roundStrike = (p) => { const inc = p < 25 ? 2.5 : p < 100 ? 5 : p < 250 ? 10 : p < 500 ? 25 : 50; return Math.round(p / inc) * inc; };
-
-  // one stock -> its best option play (or null)
-  function optionPlayOf(d, V) {
-    V = V || verdictOf(d);
-    if (V.noRank) return null;
-    const L = V.L, o = d.opt;
-    const price = L ? L.price : (state.live[d.ticker]?.quote?.price ?? d.price);
-    if (!price || price <= 0) return null;
-    // dte recomputed from stored expiry so it can never silently age; chains
-    // inside 7 days (or expired) are excluded from premium estimates.
-    let dte = 35, chainStale = false;
-    if (o && o.exp) {
-      dte = Math.round((Date.parse(o.exp + "T21:00:00Z") - Date.now()) / 864e5);
-      if (dte < 7) chainStale = true;
-    }
-    const iv = o && !chainStale ? o.iv : null, rv = o ? o.rv : null;
-    const rich = iv && rv ? iv / rv : null; // premium richness: IV vs realized
-    // null keep fails every retention gate below (null >= x is false) without
-    // masquerading as a measured 0¢ retention.
-    const keep = hasNum(d.ownersKeep) ? d.ownersKeep : null;
-
-    // 1 · GET PAID TO WAIT — cash-secured put at the IV15 buy target
-    if (L && ["STALK", "WATCH", "ACC"].includes(V.call) && keep >= 0.8 && V.score >= 55
-        && price > L.IV15 && price <= L.IV15 * 1.5) {
-      const K = roundStrike(Math.min(L.IV15, price * 0.97));
-      if (K > 0 && K < price) {
-        const prem = iv ? bsPrice("put", price, K, iv, dte) : null;
-        const annYield = prem && K ? (prem / K) * (365 / dte) * 100 : null;
-        return { type: "csp", label: "SELL PUT — PAID TO WAIT", color: "var(--green)", K, prem, annYield, rich, iv, dte, exp: o && o.exp,
-          why: `${V.C.label.split(" — ")[0]} at $${price.toFixed(0)} · IV15 buy target $${L.IV15.toFixed(0)} — sell the $${K} put: collect ${annYield ? annYield.toFixed(0) + "%/yr" : "premium"} or get the entry you already wanted${rich ? (rich >= 1.15 ? " · premium RICH (IV " + (iv * 100).toFixed(0) + "% vs " + (rv * 100).toFixed(0) + "% realized)" : rich <= 0.9 ? " · premium thin — smaller edge" : "") : ""}` };
-      }
-    }
-    // 2 · FAT-PITCH CALLS — leverage the swing
-    if (L && (V.call === "SWING" || (V.call === "ACC" && V.cagr >= 0.13)) && keep >= 0.7) {
-      const K = roundStrike(price);
-      const prem = iv ? bsPrice("call", price, K, iv, dte) : null;
-      return { type: "call", label: "LONG CALLS / LEAPS — FAT PITCH", color: "#7dd87d", K, prem, rich, iv, dte, exp: o && o.exp,
-        why: `${V.C.label.split(" — ")[0]} · priced for ${(V.cagr * 100).toFixed(0)}%/yr on the range — ${rich != null ? (rich <= 1.05 ? "options fairly priced (IV " + (iv * 100).toFixed(0) + "% ≈ realized " + (rv * 100).toFixed(0) + "%) — leverage the pitch with LEAPS" : "premium rich — prefer stock, deep-ITM LEAPS or call spreads") : "prefer long-dated, deep-ITM strikes"}` };
-    }
-    // 3 · PREMIUM HARVEST — covered calls on clean, fully-priced names
-    if (L && keep >= 0.85 && V.cagr != null && V.cagr < 0.09 && rich != null && rich >= 1.15 && V.call !== "TRAP" && V.call !== "AVOID") {
-      const K = roundStrike(price * 1.08);
-      const prem = iv ? bsPrice("call", price, K, iv, dte) : null;
-      const annYield = prem ? (prem / price) * (365 / dte) * 100 : null;
-      return { type: "cc", label: "COVERED CALL — HARVEST", color: "var(--amber)", K, prem, annYield, rich, iv, dte, exp: o && o.exp,
-        why: `clean earnings but only ${(V.cagr * 100).toFixed(0)}%/yr at this price · IV ${(iv * 100).toFixed(0)}% vs ${(rv * 100).toFixed(0)}% realized — sell the $${K} call against stock for ${annYield ? "~" + annYield.toFixed(0) + "%/yr" : "premium"} while you wait` };
-    }
-    // 4 · BEARISH — dilution machines priced for negative returns
-    if ((V.call === "AVOID" || V.call === "TRAP") && V.cagr != null && V.cagr < 0.02) {
-      const K = roundStrike(price * 0.9);
-      const prem = iv ? bsPrice("put", price, K, iv, dte) : null;
-      return { type: "bear", label: "BEARISH — PUTS / SPREADS", color: "var(--red)", K, prem, rich, iv, dte, exp: o && o.exp,
-        why: `${V.C.label.split(" — ")[0]} · priced for ${(V.cagr * 100).toFixed(1)}%/yr even on the friendly case${rich != null ? (rich >= 1.2 ? " · IV already rich (" + (iv * 100).toFixed(0) + "%) — use put SPREADS, not naked longs" : " · downside not fully priced (IV " + (iv * 100).toFixed(0) + "%)") : ""} · momentum can run — size small, define risk` };
-    }
-    return null;
-  }
 
   const optDteNow = (o) => o && o.exp ? Math.round((Date.parse(o.exp + "T21:00:00Z") - Date.now()) / 864e5) : null;
-  const optAsOf = (o) => o && o.exp && o.dte != null ? new Date(Date.parse(o.exp + "T21:00:00Z") - o.dte * 864e5) : null;
-  const optState = { earnings: {}, earnLoaded: false, earnFailed: false, sort: "iv", dir: -1 };
-  function renderOptions() {
-    const key = state.keys.finnhub;
-    const withOpt = DATA.filter(d => d.opt && d.opt.iv);
-    const plays = [];
-    DATA.forEach(d => { const p = optionPlayOf(d); if (p) plays.push({ d, p }); });
-    const buckets = { csp: [], call: [], cc: [], bear: [] };
-    plays.forEach(x => buckets[x.p.type].push(x));
-    buckets.csp.sort((a, b) => (b.p.annYield || 0) - (a.p.annYield || 0));
-    buckets.call.sort((a, b) => (a.p.rich || 9) - (b.p.rich || 9));
-    buckets.cc.sort((a, b) => (b.p.annYield || 0) - (a.p.annYield || 0));
-    buckets.bear.sort((a, b) => (a.p.rich || 9) - (b.p.rich || 9));
 
-    const earn = optState.earnings;
-    const row = (x) => {
-      const d = x.d, p = x.p;
-      const e = earn[d.ticker];
-      return `<div class="op-row" data-tk="${d.ticker}">
-        <span class="pe-tk">${d.ticker}${e ? ` <span title="earnings ${e}" style="color:var(--orange)">⚠</span>` : ""}</span>
-        <span class="sub">${p.why}${e ? ` · <b style="color:var(--orange)">earnings ${e} — premium juiced, expect a move</b>` : ""}</span>
-        <span class="op-strike" style="color:${p.color}">$${p.K}${p.exp ? `<br><span class="sub" style="font-weight:400">${p.exp.slice(5)} · ${p.prem != null ? "≈$" + p.prem.toFixed(2) : "est n/a"}${p.annYield ? " · " + p.annYield.toFixed(0) + "%/yr" : ""}</span>` : ""}</span>
-      </div>`;
-    };
-    const section = (title, color, arr, sub) => arr.length ? `<div class="card" style="margin-bottom:12px;border-left:3px solid ${color}">
-      <h3>${title} <span class="unit">${sub} · ${arr.length} names</span></h3>${arr.slice(0, 12).map(row).join("")}</div>` : "";
-
-    const sorted = [...withOpt].map(d => ({ d, r: d.opt.rv ? d.opt.iv / d.opt.rv : null }))
-      .sort((a, b) => {
-        const k = optState.sort;
-        const va = k === "iv" ? a.d.opt.iv : k === "rv" ? (a.d.opt.rv ?? -1) : k === "rich" ? (a.r ?? -1) : (a.d.opt.pcr ?? -1);
-        const vb = k === "iv" ? b.d.opt.iv : k === "rv" ? (b.d.opt.rv ?? -1) : k === "rich" ? (b.r ?? -1) : (b.d.opt.pcr ?? -1);
-        return (va - vb) * optState.dir;
-      });
-
-    el("main").innerHTML = toolHeader("⚄", "OPTIONS DESK", "the frameworks turned into trades — strikes from the IV ladder, direction from the brain, pricing vs realized vol",
-      `<div style="text-align:right"><div class="sub">PLAYS ON THE TAPE</div><div class="stat sm" style="color:#d6a2ff">${plays.length}</div></div>`)
-      + `<div class="note" style="margin-bottom:12px;border-left-color:#d6a2ff">Plays surface here automatically when a setup qualifies: <b style="color:var(--green)">sell puts</b> where you already want to own at the IV15 target · <b style="color:#7dd87d">long calls</b> on fat pitches with fair vol · <b style="color:var(--amber)">covered calls</b> on clean-but-priced names with rich premium · <b style="color:var(--red)">puts/spreads</b> on dilution machines. Premiums are Black-Scholes estimates on the stored ~35-day ATM vol — for sizing the idea, not executable quotes. ⚠ = earnings inside 3 weeks. ${!key ? '<b style="color:var(--orange)">No Finnhub key — earnings dates are NOT being checked; verify before trading premium.</b>' : optState.earnFailed ? '<b style="color:var(--orange)">Earnings-calendar check FAILED — verify earnings dates yourself.</b>' : !optState.earnLoaded ? "Checking earnings calendar…" : "Earnings dates checked live."}</div>`
-      + section("🟢 GET PAID TO WAIT — CASH-SECURED PUTS AT YOUR BUY PRICE", "var(--green)", buckets.csp, "strike ≈ IV15 buy target · EST. annualized yield · capital at risk = strike × 100/contract — highest yields carry the highest assignment risk")
-      + section("🚀 FAT-PITCH CALLS — LEVERAGE THE SWING", "#7dd87d", buckets.call, "brain says swing/accumulate · cheapest vol first · max loss = 100% of premium paid")
-      + section("🌾 PREMIUM HARVEST — COVERED CALLS", "var(--amber)", buckets.cc, "clean earnings, fully priced, rich IV")
-      + section("🔻 BEARISH — DEFINED-RISK PUTS", "var(--red)", buckets.bear, "dilution machines priced for negative returns")
-      + (withOpt.length ? `<div class="card" style="padding:6px 8px"><h3 style="padding:6px 8px 0">THE VOL BOARD <span class="unit">${withOpt.length} names · IV snapshot ${(() => { const a = optAsOf(withOpt[0] && withOpt[0].opt); if (!a) return "date unknown"; const days = Math.round((Date.now() - a.getTime()) / 864e5); return a.toISOString().slice(0, 10) + (days > 7 ? " · <b style=&quot;color:var(--orange)&quot;>⚠ " + days + "d OLD — refresh --options before trading</b>" : ""); })()} · tap a column to sort · IV/RV &gt; 1.15 = premium rich (sell) · &lt; 0.9 = cheap (buy)</span></h3>
-        <div style="overflow-x:auto;max-height:56vh;overflow-y:auto"><table class="rank">
-        <thead><tr><th>TICKER</th><th data-osort="iv" class="${optState.sort === "iv" ? "sorted" : ""}">ATM IV</th><th data-osort="rv" class="${optState.sort === "rv" ? "sorted" : ""}">REALIZED</th><th data-osort="rich" class="${optState.sort === "rich" ? "sorted" : ""}">IV/RV</th><th data-osort="pcr" class="${optState.sort === "pcr" ? "sorted" : ""}">PUT/CALL OI</th><th>EXPIRY</th><th>PLAY</th></tr></thead>
-        <tbody>${sorted.slice(0, DATA.length).map((y) => { const d = y.d, r = y.r; const pl = plays.find(x => x.d.ticker === d.ticker); const p = pl && pl.p;
-          return `<tr data-tk="${d.ticker}"><td><span class="rk-tk">${d.ticker}</span> <span class="sub">${d.sector}</span></td>
-          <td>${(d.opt.iv * 100).toFixed(0)}%</td><td class="sub">${d.opt.rv ? (d.opt.rv * 100).toFixed(0) + "%" : "–"}</td>
-          <td class="${r == null ? "" : r >= 1.15 ? "up" : r <= 0.9 ? "down" : ""}">${r ? r.toFixed(2) : "–"}</td>
-          <td class="${d.opt.pcr == null ? "" : d.opt.pcr >= 1.3 ? "down" : d.opt.pcr <= 0.6 ? "up" : ""}">${d.opt.pcr ?? "–"}</td>
-          <td class="${(optDteNow(d.opt) ?? 99) < 7 ? "down" : "sub"}">${d.opt.exp ? d.opt.exp.slice(5) + " (" + (optDteNow(d.opt) ?? "?") + "d)" + ((optDteNow(d.opt) ?? 99) < 7 ? " ⚠" : "") : "–"}</td>
-          <td>${p ? `<span class="op-badge" style="color:${p.color};border-color:${p.color}">${p.label.split(" — ")[0]}</span>` : ""}</td></tr>`; }).join("")}</tbody>
-        </table></div></div>`
-      : `<div class="note">Options data hasn't been baked in yet — ask me to refresh options and I'll pull ~35-day implied vol, realized vol and open interest for the whole universe. The play sections above still work off the frameworks.</div>`);
-
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-    el("main").querySelectorAll("th[data-osort]").forEach(h => h.onclick = (ev) => {
-      ev.stopPropagation();
-      const k = h.dataset.osort;
-      if (optState.sort === k) optState.dir *= -1; else { optState.sort = k; optState.dir = -1; }
-      renderOptions();
-    });
-
-    // earnings flags (live, async — re-annotate once loaded)
-    if (key && !optState.earnLoaded && !optState.earnFailed) {
-      const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
-      const fmtD = dt => dt.toISOString().slice(0, 10);
-      fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${fmtD(today)}&to=${fmtD(to)}&token=${key}`, { provider: "Finnhub options earnings", ticker: "UNIVERSE" })
-        .then(j => {
-          const uni = new Set(DATA.map(d => d.ticker));
-          (j.earningsCalendar || []).forEach(e => { if (uni.has(e.symbol)) optState.earnings[e.symbol] = e.date; });
-          optState.earnLoaded = true;
-          if (state.view === "options") renderOptions();
-        }).catch(() => { optState.earnFailed = true; if (state.view === "options") renderOptions(); });
-    }
-  }
-  const showOptions = () => showView("options", renderOptions, "optBtn");
-
-  function renderInflation() {
-    const rows = DATA.map(d => ({ d, inf: inflationOf(d), m: marketScoreOf(d), L: ivLadder(d) }));
-    const resilient = [...rows].sort((a, b) => b.inf.score - a.inf.score || (b.m?.businessQuality?.score || 0) - (a.m?.businessQuality?.score || 0)).slice(0, 10);
-    const pressured = [...rows].sort((a, b) => a.inf.score - b.inf.score || (b.d.truePE || 0) - (a.d.truePE || 0)).slice(0, 10);
-    const sectorRows = Object.entries(INFLATION_SECTORS).filter(([k]) => k !== "SPY").map(([k, p]) => {
-      const names = rows.filter(x => x.inf.etf === k);
-      const avg = names.length ? names.reduce((a, x) => a + x.inf.score, 0) / names.length : 50;
-      return { k, p, avg };
-    }).sort((a, b) => a.avg - b.avg);
-    const macroCard = (s) => `<div class="card"><h3>${s.k}</h3><div class="stat" style="color:${s.yoy >= 6 ? "var(--red)" : s.yoy >= 4 ? "var(--orange)" : s.yoy >= 3 ? "var(--amber)" : "var(--green)"}">${s.yoy.toFixed(1)}%</div><div class="sub">YoY · ${s.heat}</div><div class="sub" style="margin-top:6px">${s.why}</div></div>`;
-    const stockRow = (x) => `<div class="home-row" data-tk="${x.d.ticker}"><div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div><div class="sub">${x.inf.bits.slice(0, 2).join(" · ") || x.inf.profile.note}</div><strong style="color:${x.inf.color}">${x.inf.score}</strong></div>`;
-    el("main").innerHTML = `
-      <div class="hdr">
-        <div><div class="tick" style="color:var(--orange)">INFLATION DESK</div><div class="co">CPI · Core CPI · Shelter · Energy · Food · PPI -> sector pressure -> ticker impact</div></div>
-        <div class="spacer"></div><div style="text-align:right"><div class="sub">SNAPSHOT</div><div class="stat sm">${INFLATION.asOf}</div></div>
-      </div>
-      <div class="note" style="margin-bottom:12px">Bundled official macro snapshot: ${INFLATION.source}. ${INFLATION.nextRelease}. This desk estimates how inflation can affect stock prices through <b>valuation multiples</b>, <b>margins</b>, <b>consumer demand</b>, and <b>sector pass-through</b>.</div>
-      <div class="grid g3" style="margin-bottom:12px">${INFLATION.series.map(macroCard).join("")}</div>
-      <div class="grid g2">
-        <div class="card"><h3>SECTOR INFLATION PRESSURE <span class="unit">higher score = more resilient</span></h3>${sectorRows.map(x => `<div class="home-row"><div><b>${x.k}</b><span>${x.p.name}</span></div><div class="sub">${x.p.note}</div><strong style="color:${scoreColorOf(x.avg)}">${x.avg.toFixed(0)}</strong></div>`).join("")}</div>
-        <div class="card"><h3>INFLATION RESILIENT WATCHLIST</h3>${resilient.map(stockRow).join("")}</div>
-        <div class="card"><h3>INFLATION PRESSURED WATCHLIST</h3>${pressured.map(stockRow).join("")}</div>
-        <div class="card"><h3>HOW TO READ IT</h3>
-          <div class="note" style="margin-bottom:8px"><b style="color:var(--red)">Sticky core/shelter</b> raises discount rates and hurts long-duration P/E. <b style="color:var(--orange)">PPI/energy</b> hits margins first. <b style="color:var(--green)">Pricing power</b> and high margins are the shield.</div>
-          <div class="kv"><span class="k">Stock price path</span><span class="v">multiple compression + EPS revisions</span></div>
-          <div class="kv"><span class="k">Best defense</span><span class="v">pricing power, low input cost, clean balance sheet</span></div>
-          <div class="kv"><span class="k">Worst setup</span><span class="v">high P/E, weak margins, consumer sensitivity</span></div>
-        </div>
-      </div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
-  function showInflation() { showView("inflation", renderInflation, "macroBtn"); }
 
   /* ============ 🧾 DATA AUDIT — can this terminal be trusted? ============ */
   function renderAudit() {
@@ -3694,10 +3412,29 @@
       fwdHtml = `<div class="note" style="margin-bottom:12px;border-left-color:var(--amber)"><b>No forward-return evidence yet.</b> Tracking since <b>${first ? first.date : "today"}</b> (${H.length} snapshot${H.length === 1 ? "" : "s"}, ${daysSpan} days). The first cohort comparison unlocks at 30 days of history; a real verdict needs a year. Until then every score in this terminal is an <b>untested hypothesis</b> — size accordingly.</div>`;
     }
 
+    /* signal calibration: which signals actually predict? */
+    let calHtml = "";
+    {
+      const horizons = [[28, "4 WEEKS"], [84, "12 WEEKS"]].map(([days, label]) => ({ label, cal: calibrationOf(H, days) }));
+      const withData = horizons.filter(h => h.cal.windows > 0 && Object.keys(h.cal.groups).length);
+      const fmtRet = (v) => `<span class="${v >= 0 ? "up" : "down"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</span>`;
+      const grpTable = (name, rows) => `<h3 style="margin-top:12px">${name}</h3>
+        <div style="overflow-x:auto"><table class="rank"><thead><tr><th>BUCKET</th><th>OBS</th><th>HIT RATE</th><th>AVG FWD RETURN</th><th>VERDICT</th></tr></thead><tbody>
+        ${rows.map(r => `<tr><td style="text-align:left">${escapeHtml(r.bucket)}</td><td>${r.n}</td>
+          <td>${Math.round(r.hitRate * 100)}%</td><td>${fmtRet(r.avg)}</td>
+          <td class="sub">${r.judged ? (r.avg > 1 && r.hitRate >= 0.55 ? '<b style="color:var(--green)">earning trust</b>' : r.avg < -1 ? '<b style="color:var(--red)">inverse / avoid-signal</b>' : "indistinct so far") : `collecting — n&lt;20`}</td></tr>`).join("")}
+        </tbody></table></div>`;
+      calHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
+        <h3>SIGNAL CALIBRATION — WHICH SIGNALS ACTUALLY PREDICT <span class="unit">forward returns per signal bucket · overlapping daily windows, obs ≠ independent bets</span></h3>
+        ${withData.length ? withData.map(h => `<div class="sub" style="margin-top:6px;font-weight:800;letter-spacing:.6px">${h.label} FORWARD (${h.cal.windows} window${h.cal.windows === 1 ? "" : "s"})</div>
+          ${Object.entries(h.cal.groups).map(([g, rows]) => grpTable(g, rows)).join("")}`).join("")
+        : `<div class="sub" style="padding:10px 0;line-height:1.6">No signal is old enough to grade yet — snapshots must age ${28}+ days before their first forward window closes (recording since <b>${first ? first.date : "today"}</b>). Every signal the terminal shows — Direction Edge labels, Beat Odds buckets, Market Reward tiers, verdict calls — is being recorded daily and will be graded here automatically. Until a bucket reaches 20 observations its verdict is withheld; anything that proves non-predictive should be deleted from the app.</div>`}
+      </div>`;
+    }
     el("main").innerHTML = toolHeader("📈", "MODEL TRACK RECORD", "the terminal grading itself — do high scores actually earn their returns?",
       `<div style="text-align:right"><div class="sub">SNAPSHOTS</div><div class="stat sm">${H.length}</div></div>`)
-      + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's brain score, call and price (scripts/snapshot_scores.js). This page compares past scores against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
-      + fwdHtml + cohortHtml;
+      + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's brain score, call, Direction Edge, Beat Odds and price (scripts/snapshot_scores.js). This page compares past signals against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
+      + calHtml + fwdHtml + cohortHtml;
   }
   const showTrack = () => showView("track", renderTrack, "trackBtn");
 
@@ -3771,7 +3508,6 @@
 
   const showScreener = () => showView("screener", renderScreener, "screenBtn");
   const showCompare = () => showView("compare", renderCompare, "compareBtn");
-  const showTriggers = () => showView("triggers", renderTriggers, "trigBtn");
   const showPortfolio = () => showView("portfolio", renderPortfolio, "portBtn");
   const fmtEarningsDate = (dt) => dt.toISOString().slice(0, 10);
   const earningsWhen = (hour) => hour === "bmo" ? "pre-open" : hour === "amc" ? "after-close" : hour || "";
@@ -3791,322 +3527,244 @@
     });
     return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
   }
-  function renderCalendar() {
-    el("main").innerHTML = toolHeader("📅", "EARNINGS CALENDAR", "market focus + upcoming reports across your universe")
-      + `<div class="card" id="calBody"><div class="sub" style="padding:16px">Loading upcoming earnings...</div></div>`;
-    const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
-    const uni = new Set(allCompanies().map(d => d.ticker));
-    const focusRows = bundledEarningsRows(today, to, false);
-    const bundledUniRows = bundledEarningsRows(today, to, true);
-    const rowHtml = (e, showTheme = false) => {
-      const d = companyOf(e.symbol), L = d ? ivLadder(d) : null, z = L ? ZONE[L.zone].label : "market focus";
-      const src = e.live ? "live" : e.bundled ? "focus" : "";
-      const bucketColor = d ? BUCKETS[d.bucket].color : "var(--muted)";
-      return `<tr ${d ? `data-tk="${e.symbol}"` : ""}><td>${e.date}</td><td><span class="rk-tk">${e.symbol}</span>${!d ? ` <span class="unit">${e.name || ""}</span>` : ""}</td>
-        <td>${e.epsEstimate != null ? "$" + (+e.epsEstimate).toFixed(2) : "-"}</td>
-        <td class="sub">${earningsWhen(e.hour)}</td>
-        ${showTheme ? `<td class="sub">${e.theme || src}</td>` : `<td style="color:${bucketColor}">${d ? d.bucket : src}</td><td style="color:${L ? ZONE[L.zone].color : "var(--muted)"}">${z}</td>`}
-      </tr>`;
-    };
-    const renderBody = (items, sourceLine) => {
-      const focus = focusRows.length ? `<div class="card" style="margin-bottom:12px">
-        <h3>THIS WEEK'S MARKET EARNINGS TAPE <span class="unit">${EARNINGS_FOCUS.source}</span></h3>
-        <div class="note" style="margin-bottom:10px">${EARNINGS_FOCUS.note}</div>
-        <div style="overflow-x:auto"><table class="rank">
-          <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>WHY IT MATTERS</th></tr></thead>
-          <tbody>${focusRows.map(e => rowHtml(e, true)).join("")}</tbody>
-        </table></div>
-      </div>` : "";
-      el("calBody").outerHTML = focus + `<div class="card" id="calBody">
-        <h3>YOUR ${uni.size}-STOCK EARNINGS CALENDAR <span class="unit">${sourceLine}</span></h3>
-        <div style="overflow-x:auto"><table class="rank">
-          <thead><tr><th>DATE</th><th>TICKER</th><th>EPS EST</th><th>WHEN</th><th>SBC BUCKET</th><th>IV15 ZONE</th></tr></thead>
-          <tbody>${items.slice(0, 80).map(e => rowHtml(e, false)).join("") || `<tr><td colspan="6" class="sub" style="padding:16px">No upcoming reports for your universe in the next 3 weeks.</td></tr>`}</tbody>
-        </table></div>
-      </div>`;
-      el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-    };
-    const key = state.keys.finnhub;
-    if (!key) { renderBody(bundledUniRows, "bundled focus week; connect Finnhub for the full live feed"); return; }
-    fetchJsonWithRetry(`https://finnhub.io/api/v1/calendar/earnings?from=${fmtEarningsDate(today)}&to=${fmtEarningsDate(to)}&token=${key}`, { provider: "Finnhub calendar", ticker: "UNIVERSE" })
-      .then(j => {
-        const live = (j.earningsCalendar || []).filter(e => uni.has(e.symbol));
-        renderBody(mergeEarningsRows(live, bundledUniRows), "bundled focus week merged with live Finnhub");
-      }).catch(() => { renderBody(bundledUniRows, "Finnhub unavailable; showing bundled focus week"); });
+  /* ============================================================================
+     💡 WHAT CHANGED — THE SIGNALS FEED
+     Levels are what everyone knows; the edge is in the deltas. This view
+     renders the daily diff ledger built by scripts/build_signals.js:
+     score inflections, direction-edge flips, revision flips, fresh
+     beats/misses, and same-day SEC filing diffs — ranked by materiality. */
+  const signalsEvents = () => (typeof SIGNALS !== "undefined" && Array.isArray(SIGNALS.events)) ? SIGNALS.events : [];
+  const signalsAsOf = () => (typeof SIGNALS !== "undefined" && SIGNALS.asOf) || null;
+  const SIG_TYPES = {
+    filing: { label: "FILING", color: "var(--purple)" },
+    earnings: { label: "EARNINGS", color: "var(--gold)" },
+    revisions: { label: "REVISIONS", color: "var(--cyan)" },
+    edge: { label: "EDGE FLIP", color: "var(--green)" },
+    score: { label: "SCORE", color: "var(--amber)" },
+  };
+  const sigState = { filter: "all" };
+  function signalRow(e) {
+    const t = SIG_TYPES[e.type] || { label: e.type.toUpperCase(), color: "var(--muted)" };
+    const d = companyOf(e.tk);
+    return `<div class="home-row" ${d ? `data-tk="${e.tk}"` : ""} style="grid-template-columns:56px minmax(0,1fr) auto">
+      <div><strong style="color:${e.m >= 80 ? "var(--red)" : e.m >= 65 ? "var(--orange)" : "var(--muted)"};font-size:16px">${e.m}</strong><span class="sub" style="font-size:8.5px">IMPACT</span></div>
+      <div><b>${e.tk} <span class="impact-chip" style="color:${t.color};border-color:${t.color}">${t.label}</span></b>
+        <span style="white-space:normal;color:var(--text);font-size:12px">${escapeHtml(e.title)}</span>
+        <span style="white-space:normal">${escapeHtml(e.detail || "")}</span></div>
+      <div class="sub" style="white-space:nowrap">${d ? d.sector : ""}</div>
+    </div>`;
   }
-  const showCalendar = () => showView("calendar", renderCalendar, "calBtn");
+  function renderSignals() {
+    const all = signalsEvents();
+    const rows = sigState.filter === "all" ? all : all.filter(e => e.type === sigState.filter);
+    const byDate = new Map();
+    rows.forEach(e => { if (!byDate.has(e.d)) byDate.set(e.d, []); byDate.get(e.d).push(e); });
+    const today = todayISO();
+    const dateLabel = (dt) => dt === today ? "TODAY" : Math.round((Date.parse(today) - Date.parse(dt)) / 864e5) === 1 ? "YESTERDAY" : dt;
+    const chip = (key, label) => `<button class="sec-chip ${sigState.filter === key ? "on" : ""}" data-sigf="${key}"
+      style="${sigState.filter === key ? "background:var(--cyan)" : ""}">${label}</button>`;
+    const counts = {};
+    all.forEach(e => counts[e.type] = (counts[e.type] || 0) + 1);
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">💡 WHAT CHANGED</div>
+        <div class="co">The daily diff of every signal the terminal tracks — inflections, flips and filings, ranked by impact. Deltas are the edge; levels are the encyclopedia.</div></div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">LEDGER</div><div class="stat sm">${signalsAsOf() ? "diffed " + signalsAsOf() : "arming"}</div></div>
+      </div>
+      <div class="sec-chips" style="margin-bottom:12px">
+        ${chip("all", `ALL ${all.length}`)}
+        ${Object.entries(SIG_TYPES).map(([k, t]) => chip(k, `${t.label} ${counts[k] || 0}`)).join("")}
+      </div>
+      ${rows.length ? [...byDate.entries()].map(([dt, evs]) => `<div class="card" style="margin-bottom:12px">
+        <h3>${dateLabel(dt)} <span class="unit">${evs.length} signal${evs.length === 1 ? "" : "s"} · sorted by impact</span></h3>
+        ${evs.sort((a, b) => b.m - a.m).map(signalRow).join("")}
+      </div>`).join("")
+      : `<div class="card"><h3>THE FEED IS ARMING</h3>
+        <div class="sub" style="line-height:1.6;padding:6px 0">The signals engine diffs every tracked input once per weekday data refresh: business-quality / market-reward / long-term score inflections, Direction Edge label flips, analyst revision-tape flips, consensus drift inflections, Beat Odds regime entries for reports inside 3 weeks, fresh beats and misses, and same-day SEC filing diffs (growth acceleration, SBC burden, share-count turns). ${signalsAsOf() ? `The baseline was recorded <b>${signalsAsOf()}</b> — the first deltas appear on the next refresh, and every weekday after.` : "The first pipeline run records the baseline."} Nothing is backfilled or invented: a quiet tape shows a quiet feed.</div></div>`}
+      <div class="card" style="margin-top:12px"><h3>WHY DELTAS, NOT LEVELS</h3>
+        <div class="sub" style="line-height:1.6">A score of 75 is public knowledge the moment it is computed. The tradeable information is the day it <b>became</b> 75 — the inflection, before attention catches up. This feed exists so the terminal opens with "what changed since yesterday" instead of "here are 126 rated stocks." Filing diffs carry the highest impact weight because almost nobody reads filings the day they land.</div></div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-sigf]").forEach(b => b.onclick = () => { sigState.filter = b.dataset.sigf; renderSignals(); });
+  }
+  const showSignals = () => showView("signals", renderSignals, "signalsBtn");
 
   /* ============================================================================
-     🗣 SOCIAL BUZZ — the crowd tape.
-     Which tickers the market is piling into right now, and how fast the chatter
-     is moving. Source is the Stocktwits public trending/stream API (finance-
-     native, keyless). This terminal does not scrape X: X volume data requires
-     their paid API plus a server, so it is labeled out of scope, not faked.
-     ============================================================================ */
-  const BUZZ_TRENDING_URL = "https://api.stocktwits.com/api/2/trending/symbols.json";
-  const buzzStreamUrl = (sym) => `https://api.stocktwits.com/api/2/streams/symbol/${encodeURIComponent(sym)}.json`;
-  // Stocktwits sends no CORS headers for third-party origins, so browser calls
-  // from GitHub Pages fail. Escalating chain: direct fetch -> JSONP (first-party,
-  // no CORS needed) -> two independent CORS relays -> r.jina.ai text extraction.
-  function fetchJsonp(url, timeoutMs = 7000) {
-    return new Promise((resolve, reject) => {
-      const cb = `__stBuzz${Date.now()}_${Math.floor(Math.random() * 1e6)}`;
-      const s = document.createElement("script");
-      const timer = setTimeout(() => { cleanup(); reject(new Error("jsonp timeout")); }, timeoutMs);
-      function cleanup() { clearTimeout(timer); try { delete window[cb]; } catch {} s.remove(); }
-      window[cb] = (data) => { cleanup(); resolve(data); };
-      s.onerror = () => { cleanup(); reject(new Error("jsonp load error")); };
-      s.src = url + (url.includes("?") ? "&" : "?") + "callback=" + cb;
-      document.head.appendChild(s);
-    });
-  }
-  async function fetchBuzzJson(target, meta) {
-    const tried = [];
-    try { return await fetchJsonWithRetry(target, { ...meta, retries: 0, timeoutMs: 6000 }); }
-    catch { tried.push("direct"); }
-    try { const j = await fetchJsonp(target); if (j && typeof j === "object") return j; tried.push("jsonp-shape"); }
-    catch { tried.push("jsonp"); }
-    const relays = [
-      { name: "allorigins", wrap: (t) => `https://api.allorigins.win/raw?url=${encodeURIComponent(t)}` },
-      { name: "corsproxy", wrap: (t) => `https://corsproxy.io/?url=${encodeURIComponent(t)}` },
-    ];
-    for (const r of relays) {
-      try { return await fetchJsonWithRetry(r.wrap(target), { ...meta, provider: `${meta.provider} via ${r.name}`, retries: 0, timeoutMs: 8000 }); }
-      catch { tried.push(r.name); }
-    }
-    try {
-      const txt = await fetchTextWithRetry(`https://r.jina.ai/http://${target.replace(/^https?:\/\//, "")}`,
-        { ...meta, provider: `${meta.provider} via Jina`, timeoutMs: 9500, retries: 0 });
-      const start = txt.indexOf('{"response"');
-      const end = txt.lastIndexOf("}");
-      if (start >= 0 && end > start) return JSON.parse(txt.slice(start, end + 1));
-      tried.push("jina-parse");
-    } catch { tried.push("jina"); }
-    const err = new Error(`buzz tape unreachable (tried ${tried.join(" → ")})`);
-    err.tried = tried;
-    throw err;
-  }
-  function normalizeTrending(j) {
-    const rows = j && Array.isArray(j.symbols) ? j.symbols : [];
-    return rows
-      .filter(s => s && typeof s.symbol === "string" && /^[A-Z][A-Z.]{0,5}$/.test(s.symbol))
-      .map(s => ({ symbol: s.symbol, title: s.title || "", watchers: hasNum(s.watchlist_count) ? +s.watchlist_count : null }));
-  }
-  function buzzVelocity(messages, nowTs) {
-    const ts = (Array.isArray(messages) ? messages : [])
-      .map(m => Date.parse(m && m.created_at))
-      .filter(t => Number.isFinite(t))
-      .sort((a, b) => a - b);
-    if (ts.length < 2) return null; // one post is not a rate — unavailable, not zero
-    const now = Number.isFinite(nowTs) ? nowTs : Date.now();
-    const lastHour = ts.filter(t => now - t <= 3600e3).length;
-    const spanMin = (ts[ts.length - 1] - ts[0]) / 60e3;
-    const perHour = spanMin > 0 ? +(ts.length / (spanMin / 60)).toFixed(1) : null;
-    return { lastHour, perHour, newest: ts[ts.length - 1], sample: ts.length };
-  }
-  // Stocktwits tags posts Bullish/Bearish (or leaves them untagged). +1/-1/0.
-  const msgSentiment = (m) => {
-    const b = m && m.entities && m.entities.sentiment && m.entities.sentiment.basic;
-    return b === "Bullish" ? 1 : b === "Bearish" ? -1 : 0;
+     🎯 EARNINGS COMMAND CENTER
+     One screen for the whole season: who just beat or missed (live the moment
+     actuals hit when a Finnhub key is connected, next-morning via the bundled
+     pipeline otherwise), who reports next, and how loaded each setup is —
+     the Beat Odds composite recomputes automatically as macro (regime tape)
+     and micro (peer results) inputs change. ================================= */
+  const oddsPillHtml = (o) => o.score == null
+    ? `<span class="rk-pill" style="background:rgba(118,133,156,.16);color:var(--dim)">n/a</span>`
+    : `<span class="rk-pill" style="background:${o.color};color:#071018" title="coverage ${o.coverage}%">${o.score}</span>`;
+  const surpriseChip = (r) => {
+    if (r.epsActual == null || r.epsEstimate == null) return `<span class="sub">reported</span>`;
+    const beat = r.epsActual > r.epsEstimate, inline = r.epsActual === r.epsEstimate;
+    const col = inline ? "var(--amber)" : beat ? "var(--green)" : "var(--red)";
+    const word = inline ? "IN-LINE" : beat ? "BEAT" : "MISS";
+    return `<b style="color:${col}">${word}</b>${r.surprisePct != null ? ` <span class="sub">${r.surprisePct >= 0 ? "+" : ""}${r.surprisePct.toFixed(1)}%</span>` : ""}`;
   };
-  // Bullish share of TAGGED posts, bucketed across the stream's real time span.
-  // Buckets with no tagged posts stay null (a gap), never a fabricated 50%.
-  function buzzSentimentSeries(messages, nBuckets = 6) {
-    const msgs = (Array.isArray(messages) ? messages : [])
-      .map(m => ({ t: Date.parse(m && m.created_at), s: msgSentiment(m) }))
-      .filter(m => Number.isFinite(m.t))
-      .sort((a, b) => a.t - b.t);
-    const tagged = msgs.filter(m => m.s !== 0);
-    if (tagged.length < 4) return null; // too thin to draw a trend honestly
-    const t0 = msgs[0].t, t1 = msgs[msgs.length - 1].t, span = Math.max(6e4, t1 - t0);
-    const width = span / nBuckets, useDate = span > 36 * 3600e3;
-    const labels = [], bullPct = [], volume = [];
-    for (let i = 0; i < nBuckets; i++) {
-      const lo = t0 + i * width, hi = i === nBuckets - 1 ? t1 + 1 : t0 + (i + 1) * width;
-      const inB = msgs.filter(m => m.t >= lo && m.t < hi);
-      const bull = inB.filter(m => m.s > 0).length, bear = inB.filter(m => m.s < 0).length;
-      const mid = new Date(lo + width / 2);
-      labels.push(useDate ? mid.toLocaleDateString([], { month: "numeric", day: "numeric" })
-                          : mid.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
-      bullPct.push(bull + bear > 0 ? Math.round((bull / (bull + bear)) * 100) : null);
-      volume.push(inB.length);
-    }
-    return { labels, bullPct, volume, tagged: tagged.length, total: msgs.length, from: t0, to: t1, span };
+  function seasonScorecard(ledger) {
+    const withEst = ledger.filter(r => r.epsActual != null && r.epsEstimate != null);
+    const beats = withEst.filter(r => r.epsActual > r.epsEstimate).length;
+    const surprises = withEst.map(r => r.surprisePct).filter(hasNum);
+    const avg = surprises.length ? surprises.reduce((a, v) => a + v, 0) / surprises.length : null;
+    const revRows = ledger.filter(r => hasNum(r.revActual) && hasNum(r.revEstimate));
+    const revBeats = revRows.filter(r => r.revActual > r.revEstimate).length;
+    return { reported: ledger.length, scored: withEst.length, beats,
+      beatRate: withEst.length ? beats / withEst.length : null, avgSurprise: avg,
+      revScored: revRows.length, revBeatRate: revRows.length ? revBeats / revRows.length : null };
   }
-  function buzzOverallBull(messages) {
-    const tagged = (Array.isArray(messages) ? messages : []).map(msgSentiment).filter(s => s !== 0);
-    if (tagged.length < 3) return null;
-    return Math.round((tagged.filter(s => s > 0).length / tagged.length) * 100);
-  }
-  // Day-over-day history lives in this device's localStorage (a static site has
-  // no server to log it). One reading per ticker per day; capped, best-effort.
-  const BUZZ_HIST_KEY = "sbc_buzz_hist_v1";
-  function buzzHistLoad() {
-    try { return JSON.parse(localStorage.getItem(BUZZ_HIST_KEY)) || {}; } catch { return {}; }
-  }
-  function buzzHistRecord(ticker, bullPct, volume, watchers) {
-    if (!ticker || bullPct == null) return;
-    try {
-      const all = buzzHistLoad();
-      const day = new Date().toISOString().slice(0, 10);
-      const arr = Array.isArray(all[ticker]) ? all[ticker] : [];
-      const row = { d: day, bull: bullPct, vol: volume ?? null, watch: watchers ?? null };
-      if (arr.length && arr[arr.length - 1].d === day) arr[arr.length - 1] = row;
-      else arr.push(row);
-      all[ticker] = arr.slice(-45);
-      localStorage.setItem(BUZZ_HIST_KEY, JSON.stringify(all));
-    } catch { /* storage full/blocked — history is best-effort */ }
-  }
-  function buzzHistSeries(ticker) {
-    const arr = buzzHistLoad()[ticker];
-    if (!Array.isArray(arr) || arr.length < 2) return null;
-    return {
-      labels: arr.map(r => { const [y, m, d] = r.d.split("-"); return `${+m}/${+d}`; }),
-      bull: arr.map(r => (hasNum(r.bull) ? +r.bull : null)),
+  function renderEarningsCmd() {
+    refreshEarningsLive();
+    const ledger = earningsLedger();
+    const upcoming = upcomingEarningsRows();
+    const card = seasonScorecard(ledger);
+    const regime = macroRegimeOf();
+    const asOf = earnIntelAsOf();
+    const live = !!state.keys.finnhub;
+    const liveAge = state.earnLive.fetchedAt ? Math.round((Date.now() - state.earnLive.fetchedAt) / 1000) : null;
+    const oddsByTk = new Map();
+    const oddsFor = (tk) => {
+      if (!oddsByTk.has(tk)) { const d = companyOf(tk); oddsByTk.set(tk, d ? beatOddsOf(d, ledger) : null); }
+      return oddsByTk.get(tk);
     };
-  }
-  // Unified SOCIAL + CHARTS view: crowd trending, price-over-time overlay,
-  // rising/falling, and price×sentiment — one tab, no separate "time machine".
-  function renderBuzz() {
-    const S = tmState();
-    const W = S.window;
-    const winLabel = (TM_WINDOWS.find(x => x.w === W) || { label: "6M" }).label;
-    const labels = tmDateLabels(W);
+    const statCard = (label, val, sub, color = "var(--text)") => `<div class="card"><h3>${label}</h3>
+      <div class="stat" style="color:${color}">${val}</div><div class="sub">${sub}</div></div>`;
+    const pctOrDash = (v) => v == null ? "–" : Math.round(v * 100) + "%";
 
-    // ── performance overlay (normalized % return) ──
-    const overlay = S.tickers.map((tk, i) => {
-      const d = companyOf(tk), raw = pxNormalized(d, W);
-      if (!raw) return null;
-      const pts = labels.length > raw.length ? Array(labels.length - raw.length).fill(null).concat(raw) : raw.slice(raw.length - labels.length);
-      return { tk, name: d.name, points: pts, color: TM_COLORS[i % TM_COLORS.length], ret: pxReturn(d, W) };
-    }).filter(Boolean);
-    const overlayChart = overlay.length
-      ? Chart.line(overlay.map(s => ({ points: s.points, color: s.color })), labels, { h: 240, zero: true })
-      : `<div class="sub" style="padding:24px 10px;text-align:center">Tap ＋ on any name below to plot how it moved over ${winLabel}.</div>`;
-    const legend = overlay.map(s => `<button data-tmfocus="${s.tk}" class="tm-leg" style="cursor:pointer;background:none;border:none;display:inline-flex;align-items:center;gap:6px;margin:0 10px 4px 0;color:var(--text)">
-      <span style="width:10px;height:10px;border-radius:2px;background:${s.color};display:inline-block"></span>
-      <b>${s.tk}</b> <span class="${s.ret >= 0 ? "up" : "down"}" style="font-family:var(--mono)">${s.ret >= 0 ? "+" : ""}${s.ret.toFixed(1)}%</span>
-      <span data-tmremove="${s.tk}" style="color:var(--dim);margin-left:2px">✕</span>
-    </button>`).join("");
-
-    // ── rising / falling over the window ──
-    const ranked = DATA.map(d => ({ d, r: pxReturn(d, W) })).filter(x => x.r != null).sort((a, b) => b.r - a.r);
-    const rising = ranked.slice(0, 10), falling = ranked.slice(-10).reverse();
-    const moverRow = (x) => {
-      const sel = S.tickers.includes(x.d.ticker);
-      return `<tr>
-        <td><span class="rk-tk" data-tmfocus="${x.d.ticker}" style="cursor:pointer">${x.d.ticker}</span></td>
-        <td class="bz-spark" style="width:110px">${miniSpark(x.d)}</td>
-        <td class="${x.r >= 0 ? "up" : "down"}" style="text-align:right;font-family:var(--mono);font-weight:700">${x.r >= 0 ? "+" : ""}${x.r.toFixed(1)}%</td>
-        <td style="text-align:right"><button data-tmadd="${x.d.ticker}" style="cursor:pointer;background:none;border:1px solid var(--line);border-radius:5px;color:${sel ? "var(--green)" : "var(--cyan)"};padding:1px 7px">${sel ? "✓" : "＋"}</button></td>
+    const reportedRow = (r) => {
+      const d = companyOf(r.symbol);
+      const w1 = d ? pctMoveFrom(d.px && d.px.v || [], 1) : null;
+      return `<tr data-tk="${r.symbol}">
+        <td>${r.date}${r.dateIsApprox ? `<span class="sub" title="approximate — stamped by the daily pipeline">≈</span>` : ""}${r.source === "live" ? ` <b style="color:var(--green)" title="live Finnhub actuals">⚡</b>` : ""}</td>
+        <td><span class="rk-tk">${r.symbol}</span> <span class="sub">${d ? d.sector : ""}</span></td>
+        <td>${surpriseChip(r)}</td>
+        <td>${r.epsActual != null ? "$" + (+r.epsActual).toFixed(2) : "–"} <span class="sub">vs ${r.epsEstimate != null ? "$" + (+r.epsEstimate).toFixed(2) : "?"}</span></td>
+        <td>${hasNum(r.revActual) ? fmtRevEst(r.revActual) : "–"} <span class="sub">${hasNum(r.revEstimate) ? "vs " + fmtRevEst(r.revEstimate) : ""}</span>${hasNum(r.revActual) && hasNum(r.revEstimate) ? (r.revActual >= r.revEstimate ? ` <b style="color:var(--green)">✓</b>` : ` <b style="color:var(--red)">✗</b>`) : ""}</td>
+        <td class="${w1 == null ? "sub" : w1 >= 0 ? "up" : "down"}">${w1 == null ? "–" : (w1 >= 0 ? "+" : "") + w1.toFixed(1) + "%"}</td>
       </tr>`;
     };
-    const moversTable = (title, rows, col) => `<div class="card" style="flex:1;min-width:250px">
-      <h3 style="color:${col}">${title} <span class="unit">${winLabel}</span></h3>
-      <div style="overflow-x:auto"><table class="rank"><tbody>${rows.map(moverRow).join("")}</tbody></table></div>
-    </div>`;
-
-    // ── price × sentiment for the focused ticker ──
-    const fd = S.focus ? companyOf(S.focus) : null;
-    const focusRaw = fd ? pxWindowSlice(fd, W) : null;
-    const focusPrice = focusRaw
-      ? (labels.length > focusRaw.length ? Array(labels.length - focusRaw.length).fill(null).concat(focusRaw) : focusRaw.slice(focusRaw.length - labels.length))
-      : null;
-    const focusRet = fd ? pxReturn(fd, W) : null;
-    const priceChart = focusPrice
-      ? Chart.line([{ points: focusPrice, color: "#37c6ff" }], labels, { h: 180, area: true })
-      : `<div class="sub" style="padding:20px;text-align:center">Pick a ticker above to chart it.</div>`;
-
-    el("main").innerHTML = toolHeader("🗣", "SOCIAL BUZZ", "the crowd and the tape in one place — what's trending, how it moved over time, and whether sentiment is with it")
-      + `<div class="tm-winbar" style="display:flex;gap:6px;margin-bottom:12px">
-          ${TM_WINDOWS.map(x => `<button data-tmwin="${x.w}" class="navbtn ${x.w === W ? "c-cyan" : ""}" style="padding:5px 14px;${x.w === W ? "" : "opacity:.6"}">${x.label}</button>`).join("")}
-        </div>
-        <div class="card">
-          <h3>PERFORMANCE OVER TIME <span class="unit">normalized % return · ${winLabel} · ${overlay.length} tickers</span></h3>
-          <div style="margin-bottom:8px">${overlayChart}</div>
-          <div style="border-top:1px solid var(--line);padding-top:8px">${legend || `<span class="sub">Tap ＋ on any trending or rising name to plot it.</span>`}</div>
-          ${S.tickers.length > overlay.length ? `<div class="sub" style="margin-top:6px">${S.tickers.length - overlay.length} selected name(s) hidden — not enough price history to cover ${winLabel}. Try a shorter window.</div>` : ""}
-        </div>
-        <div class="card" style="margin-top:12px">
-          <h3>${S.focus || "—"} · PRICE × SENTIMENT <span class="unit">${focusRet != null ? `${winLabel} ${focusRet >= 0 ? "+" : ""}${focusRet.toFixed(1)}%` : ""}</span></h3>
-          <div style="margin-bottom:4px">${priceChart}</div>
-          <div id="tmSentiment"><div class="sub" style="padding:8px">Loading crowd sentiment for ${S.focus || "—"}…</div></div>
-        </div>
-        <div class="card" id="buzzBody" style="margin-top:12px"><div class="sub" style="padding:16px">Loading the trending tape…</div></div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          ${moversTable("▲ RISING", rising, "var(--green)")}
-          ${moversTable("▼ FALLING", falling, "var(--red)")}
-        </div>
-        <div class="note" style="margin-top:10px">Prices are 53 weeks of real Yahoo weekly closes bundled per name (daily refresh). Trending + sentiment are the live Stocktwits public tape plus this device's day-over-day log — finance-native crowd chatter, not X (which needs a paid API + server; this terminal does not scrape). Gaps stay gaps, nothing is synthesized. Crowd heat is a sentiment input, never a valuation input. Not investment advice. · build v${SHELL_BUILD}</div>`;
-
-    wireTmControls(S);
-    renderTmSentiment(S.focus);
-
-    // ── trending tape (async; fills its card) ──
-    fetchBuzzJson(BUZZ_TRENDING_URL, { provider: "Stocktwits trending", ticker: "MARKET", cacheMs: 120e3 })
-      .then((j) => {
-        const rows = normalizeTrending(j).slice(0, 20);
-        if (!rows.length) throw new Error("empty trending payload");
-        const inUni = rows.filter(r => companyOf(r.symbol)).length;
-        const rowHtml = (r, i) => {
-          const d = companyOf(r.symbol);
-          const sel = d && S.tickers.includes(r.symbol);
-          return `<tr>
-            <td class="sub">${i + 1}</td>
-            <td><span class="rk-tk" ${d ? `data-tmfocus="${r.symbol}"` : `data-open="${r.symbol}"`} style="cursor:pointer">${r.symbol}</span>${r.title && r.title.toUpperCase() !== r.symbol ? ` <span class="unit">${r.title}</span>` : ""}</td>
-            <td class="sub">${r.watchers != null ? r.watchers.toLocaleString() : "–"}</td>
-            <td id="buzzVel-${r.symbol}" class="sub">…</td>
-            <td style="text-align:right">${d ? `<button data-tmadd="${r.symbol}" style="cursor:pointer;background:none;border:1px solid var(--line);border-radius:5px;color:${sel ? "var(--green)" : "var(--cyan)"};padding:1px 8px">${sel ? "✓" : "＋ chart"}</button>` : `<span class="sub">not in universe</span>`}</td>
-          </tr>`;
-        };
-        el("buzzBody").innerHTML = `<h3>TRENDING NOW <span class="unit">top ${rows.length} on the tape · ${inUni} in your universe · ＋ adds to the charts above</span></h3>
-          <div style="overflow-x:auto"><table class="rank">
-            <thead><tr><th>#</th><th>TICKER</th><th>CROWD SIZE</th><th>CHATTER VELOCITY</th><th>CHART</th></tr></thead>
-            <tbody>${rows.map(rowHtml).join("")}</tbody>
-          </table></div>`;
-        wireTmControls(S); // re-bind now that trending rows exist
-        el("main").querySelectorAll("[data-open]").forEach(s => s.onclick = () => selectTicker(s.dataset.open));
-        rows.slice(0, 8).forEach((r) => {
-          fetchBuzzJson(buzzStreamUrl(r.symbol), { provider: "Stocktwits stream", ticker: r.symbol, cacheMs: 120e3 })
-            .then((sj) => {
-              const v = buzzVelocity(sj && sj.messages);
-              buzzHistRecord(r.symbol, buzzOverallBull(sj && sj.messages), Array.isArray(sj && sj.messages) ? sj.messages.length : null, r.watchers);
-              const cell = document.getElementById(`buzzVel-${r.symbol}`);
-              if (cell) cell.innerHTML = v ? `<b style="color:var(--cyan)">${v.lastHour}</b> last hr · ~${v.perHour ?? "?"}/hr` : "quiet";
-            })
-            .catch(() => { const cell = document.getElementById(`buzzVel-${r.symbol}`); if (cell) cell.textContent = "n/a"; });
-        });
-      })
-      .catch((e) => {
-        const body = el("buzzBody");
-        if (body) body.innerHTML = `<h3>TRENDING NOW</h3>
-          <div class="sub" style="padding:16px">Stocktwits tape unreachable right now${e && e.tried ? ` (tried ${e.tried.join(" → ")})` : ""}. The price charts above still work — they're bundled, not fetched.</div>
-          <div style="padding:0 16px 16px"><button class="navbtn c-cyan" id="buzzRetry">↻ RETRY</button></div>`;
-        const b = el("buzzRetry");
-        if (b) b.onclick = renderBuzz;
-      });
-  }
-  // Shared wiring for the window / add / remove / focus controls.
-  function wireTmControls(S) {
-    el("main").querySelectorAll("[data-tmwin]").forEach(b => b.onclick = () => { S.window = +b.dataset.tmwin; renderBuzz(); });
-    el("main").querySelectorAll("[data-tmremove]").forEach(b => b.onclick = (e) => { e.stopPropagation(); S.tickers = S.tickers.filter(t => t !== b.dataset.tmremove); if (S.focus === b.dataset.tmremove) S.focus = S.tickers[0] || null; renderBuzz(); });
-    el("main").querySelectorAll("[data-tmadd]").forEach(b => b.onclick = () => {
-      const tk = b.dataset.tmadd;
-      if (S.tickers.includes(tk)) {
-        S.tickers = S.tickers.filter(t => t !== tk);
-        if (S.focus === tk) S.focus = S.tickers[0] || null;
-      } else if (S.tickers.length < 6) { S.tickers.push(tk); S.focus = tk; }
-      else { S.focus = tk; }
-      renderBuzz();
+    const upcomingRow = (e) => {
+      const d = companyOf(e.symbol);
+      const o = oddsFor(e.symbol);
+      const dd = daysTo(e.date);
+      const topDriver = o && o.drivers.length ? o.drivers[0] : null;
+      return `<tr ${d ? `data-tk="${e.symbol}"` : ""}>
+        <td>${e.date}${e.dateEnd ? `<span class="sub">→${e.dateEnd.slice(5)}</span>` : ""}${e.estimated ? `<span class="sub" title="date is provider-estimated">*</span>` : ""} <span class="sub">${dd != null ? (dd === 0 ? "today" : dd + "d") : ""}</span></td>
+        <td><span class="rk-tk">${e.symbol}</span> <span class="sub">${d ? d.sector : "market focus"}</span></td>
+        <td class="sub">${earningsWhen(e.hour) || (e.source === "bundled" ? "time TBC" : "")}</td>
+        <td>${e.epsEstimate != null ? "$" + (+e.epsEstimate).toFixed(2) : "–"}</td>
+        <td>${e.revEstimate != null ? fmtRevEst(e.revEstimate) : "–"}</td>
+        <td>${o ? oddsPillHtml(o) : "–"} ${o && o.score != null ? `<b style="color:${o.color};font-size:10px">${o.label}</b>` : ""}</td>
+        <td class="sub" style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${topDriver ? `${topDriver.label}: ${escapeHtml(topDriver.why)}` : ""}</td>
+      </tr>`;
+    };
+    // sector read-through: which bars are being cleared this season
+    const bySector = new Map();
+    ledger.forEach(r => {
+      const d = companyOf(r.symbol);
+      if (!d || r.surprisePct == null) return;
+      const etf = sectorETF(d.sector);
+      if (!bySector.has(etf)) bySector.set(etf, []);
+      bySector.get(etf).push(r);
     });
-    el("main").querySelectorAll("[data-tmfocus]").forEach(b => b.onclick = (e) => {
-      if (e.target.dataset && e.target.dataset.tmremove) return;
-      S.focus = b.dataset.tmfocus;
-      if (!S.tickers.includes(S.focus) && S.tickers.length < 6) S.tickers.push(S.focus);
-      renderBuzz();
-    });
+    const sectorRows = [...bySector.entries()].map(([etf, rows]) => {
+      const avg = rows.reduce((a, r) => a + r.surprisePct, 0) / rows.length;
+      const beats = rows.filter(r => r.surprisePct > 0).length;
+      return { etf, n: rows.length, avg, beatShare: beats / rows.length, symbols: rows.map(r => r.symbol) };
+    }).sort((a, b) => b.avg - a.avg);
+    const bestOdds = upcoming.map(e => oddsFor(e.symbol)).filter(o => o && o.score != null && o.coverage >= 55)
+      .sort((a, b) => b.score - a.score).slice(0, 8);
+
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">🎯 EARNINGS COMMAND CENTER</div>
+        <div class="co">Beat/miss tape · Beat Odds on every upcoming report · macro regime + sector read-through, recomputed as results land</div></div>
+        <div class="spacer"></div>
+        <div style="text-align:right">
+          <div class="sub">${live ? `⚡ LIVE AUTO-UPDATE${liveAge != null ? ` · synced ${liveAge < 90 ? liveAge + "s" : Math.round(liveAge / 60) + "m"} ago` : " · syncing…"}` : "BUNDLED MODE"}</div>
+          <div class="stat sm" style="color:${live ? "var(--green)" : "var(--amber)"}">${live ? (inEarningsWindow() ? "REPORT WINDOW — polling fast" : "watching the tape") : asOf ? "pipeline " + asOf : "first refresh pending"}</div>
+        </div>
+      </div>
+      ${!live ? `<div class="note" style="margin-bottom:12px">Bundled mode: the beat/miss ledger updates every weekday morning via the data pipeline. Add a <b>free Finnhub key</b> (⚙ gear) and this screen re-checks the tape automatically every few minutes — beats and misses appear the same session they are reported, with a flash alert.</div>` : ""}
+      ${state.earnLive.error ? `<div class="note callout" style="margin-bottom:12px">${state.earnLive.error} — showing bundled data.</div>` : ""}
+      <div class="grid g4" style="margin-bottom:12px">
+        ${statCard("REPORTED THIS SEASON", card.reported, `${card.scored} with consensus on file`, "var(--cyan)")}
+        ${statCard("EPS BEAT RATE", pctOrDash(card.beatRate), card.scored ? `${card.beats}/${card.scored} cleared the bar` : "no scored reports yet", card.beatRate == null ? "var(--dim)" : card.beatRate >= 0.6 ? "var(--green)" : card.beatRate >= 0.45 ? "var(--amber)" : "var(--red)")}
+        ${statCard("AVG EPS SURPRISE", card.avgSurprise == null ? "–" : (card.avgSurprise >= 0 ? "+" : "") + card.avgSurprise.toFixed(1) + "%", card.revBeatRate != null ? `revenue beat rate ${pctOrDash(card.revBeatRate)}` : "vs consensus", card.avgSurprise == null ? "var(--dim)" : card.avgSurprise >= 0 ? "var(--green)" : "var(--red)")}
+        ${statCard("MACRO REGIME", regime ? regime.label : "–", regime ? regime.bits[0] : "sector tape unavailable", regime ? regime.color : "var(--dim)")}
+      </div>
+      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
+        <h3>JUST REPORTED — THE BEAT/MISS TAPE <span class="unit">last 45 days · ⚡ = live actuals · ≈ = report date stamped by the daily pipeline</span></h3>
+        ${ledger.length ? `<div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>DATE</th><th>TICKER</th><th>EPS RESULT</th><th>EPS ACT vs EST</th><th>REVENUE</th><th>1W TAPE</th></tr></thead>
+          <tbody>${ledger.slice(0, 40).map(reportedRow).join("")}</tbody></table></div>`
+        : `<div class="sub" style="padding:14px">No reported results in the window yet. ${live ? "The live tape will populate as companies report." : asOf ? "The daily pipeline stamps results as they appear." : "Run the data-refresh pipeline once to seed the ledger."}</div>`}
+      </div>
+      ${(() => {
+        const drifts = ledger.map(r => ({ r, ds: driftScoreOf(r) })).filter(x => x.ds)
+          .sort((a, b) => b.ds.score - a.ds.score);
+        const actionable = drifts.filter(x => x.ds.label !== "NO CLEAR DRIFT");
+        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
+        <h3>DRIFT BOARD — POST-EARNINGS DRIFT (PEAD) <span class="unit">beats with confirmation tend to keep drifting for ~60 days (documented anomaly) · research signal, not advice</span></h3>
+        ${actionable.length ? `<div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>TICKER</th><th>REPORTED</th><th>DRIFT SCORE</th><th>SETUP</th><th>WINDOW LEFT</th><th>EVIDENCE</th></tr></thead>
+          <tbody>${actionable.slice(0, 15).map(x => { const d = companyOf(x.r.symbol); return `<tr data-tk="${x.r.symbol}">
+            <td><span class="rk-tk">${x.r.symbol}</span> <span class="sub">${d ? d.sector : ""}</span></td>
+            <td class="sub">${x.r.date}${x.r.dateIsApprox ? "≈" : ""} (${x.ds.daysSince}d ago)</td>
+            <td><span class="rk-pill" style="background:${x.ds.color};color:#071018">${x.ds.score}</span></td>
+            <td><b style="color:${x.ds.color};font-size:10px">${x.ds.label}</b></td>
+            <td><div class="meter" style="width:90px;margin-top:0"><i style="width:${Math.round((x.ds.windowLeft / 60) * 100)}%;background:${x.ds.color}"></i></div><span class="sub">${x.ds.windowLeft}d</span></td>
+            <td class="sub" style="max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${x.ds.bits.join(" · ")}</td>
+          </tr>`; }).join("")}</tbody></table></div>
+        <div class="sub" style="margin-top:8px">Drift = surprise size + revenue confirmation + post-report revisions + tape confirmation, decaying over the ~60-day research window. Beats that the market shrugged off score low — the anomaly needs confirmation, not hope.</div>`
+        : `<div class="sub" style="padding:14px">No drift setups in the window — the board fills as season results land${live ? "" : " (or connect a Finnhub key for same-day results)"}.</div>`}
+      </div>`;
+      })()}
+      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
+        <h3>UP NEXT — EVERY REPORT WITH ITS BEAT ODDS <span class="unit">next 3 weeks · odds are a research signal, not a probability · * = estimated date</span></h3>
+        ${upcoming.length ? `<div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>DATE</th><th>TICKER</th><th>WHEN</th><th>EPS EST</th><th>REV EST</th><th>BEAT ODDS</th><th>TOP DRIVER</th></tr></thead>
+          <tbody>${upcoming.slice(0, 60).map(upcomingRow).join("")}</tbody></table></div>`
+        : `<div class="sub" style="padding:14px">No upcoming reports on file for the next 3 weeks${asOf ? "" : " — the first pipeline run fills this"}.</div>`}
+      </div>
+      <div class="grid g2">
+        <div class="card" style="border-left:3px solid var(--gold)">
+          <h3>HIGHEST BEAT ODDS ON THE BOARD <span class="unit">upcoming reports · coverage ≥ 55%</span></h3>
+          ${bestOdds.length ? bestOdds.map(o => `<div class="home-row" data-tk="${o.d.ticker}">
+            <div><b>${o.d.ticker}</b><span>${o.d.sector}${o.intel && o.intel.nextDate ? " · " + o.intel.nextDate : ""}</span></div>
+            <div class="sub">${o.drivers.map(p => `${p.label} ${Math.round(p.score)}`).join(" · ")}</div>
+            <strong style="color:${o.color}">${o.score}</strong>
+          </div>`).join("") : `<div class="sub" style="padding:14px">Not enough data coverage yet — odds appear once beat history and revision tape are bundled.</div>`}
+        </div>
+        <div class="card" style="border-left:3px solid var(--purple)">
+          <h3>SECTOR READ-THROUGH <span class="unit">how each sector is clearing the bar this season — feeds peers' Beat Odds automatically</span></h3>
+          ${sectorRows.length ? sectorRows.map(s => `<div class="home-row" data-sector="${s.etf}">
+            <div><b>${s.etf}</b><span>${s.n} reported</span></div>
+            <div class="sub">${Math.round(s.beatShare * 100)}% beat · ${s.symbols.slice(0, 6).join(", ")}</div>
+            <strong class="${s.avg >= 0 ? "up" : "down"}">${s.avg >= 0 ? "+" : ""}${s.avg.toFixed(1)}%</strong>
+          </div>`).join("") : `<div class="sub" style="padding:14px">Read-through builds as season results land.</div>`}
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>HOW BEAT ODDS WORK — NO BLACK BOX</h3>
+        <div class="sub" style="line-height:1.6">Six weighted, fully-inspectable components: <b>beat track record</b> (28) · <b>revision momentum</b> (24) · <b>pre-report tape</b> (14) · <b>sector read-through</b> (14, micro events — peers' results flow in automatically) · <b>macro regime</b> (10, computed from the live sector/SPY tape, never a hardcoded snapshot) · <b>expectation bar</b> (10, how demanding the consensus ask is vs the filed trend). Missing inputs stay missing and reduce coverage — they are never scored as neutral 50. Open any ticker's EARNINGS tab for its full component breakdown. This is a research signal, not investment advice.</div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = () => { state.secOn.add(r.dataset.sector); showSectors(); });
+    if (live && !state.earnLive.fetchedAt) {
+      // first paint fired the fetch above; repaint once the tape arrives
+      const t = setInterval(() => {
+        if (state.view !== "calendar") { clearInterval(t); return; }
+        if (state.earnLive.fetchedAt || state.earnLive.error) { clearInterval(t); renderEarningsCmd(); }
+      }, 600);
+    }
   }
-  const showBuzz = () => showView("buzz", renderBuzz, "buzzBtn");
+  const showCalendar = () => { showView("calendar", renderEarningsCmd, "calBtn"); startEarningsAutoPoll(); };
+
 
   /* ============================================================================
      📈 TIME MACHINE — tickers moving over time + social sentiment.
@@ -4114,8 +3772,6 @@
      (d.px.v), plus the Stocktwits sentiment stream / day-over-day log. Nothing
      is synthesized; a name without price history is simply skipped.
      ============================================================================ */
-  const TM_COLORS = ["#37c6ff", "#26d07c", "#ffb000", "#b48cff", "#ff8a3d", "#ff5b6b"];
-  const TM_WINDOWS = [{ w: 13, label: "3M" }, { w: 26, label: "6M" }, { w: 52, label: "1Y" }];
   // Grid-preserving: a missing weekly close stays null in place so index->date
   // never slides. Consumers use the first/last FINITE value and skip null gaps.
   const pxVals = (d) => (d && d.px && Array.isArray(d.px.v)) ? d.px.v.map(v => Number.isFinite(v) ? v : null) : null;
@@ -4164,265 +3820,12 @@
     }
     return out;
   }
-  function tmState() {
-    if (!state.tm) {
-      const seedFavs = allCompanies().filter(d => state.favs.has(d.ticker) && pxVals(d)).map(d => d.ticker);
-      const seed = seedFavs.length ? seedFavs.slice(0, 5)
-        : DATA.map(d => ({ d, r: pxReturn(d, 26) })).filter(x => x.r != null)
-            .sort((a, b) => b.r - a.r).slice(0, 4).map(x => x.d.ticker);
-      state.tm = { tickers: seed, window: 26, focus: seed[0] || null };
-    }
-    return state.tm;
-  }
-  function renderTmSentiment(ticker) {
-    const box = el("tmSentiment");
-    if (!box || !ticker) return;
-    // Guard the async race: if focus changed by the time the stream returns,
-    // don't overwrite the newer panel with a stale ticker's sentiment.
-    const stillFocused = () => state.tm && state.tm.focus === ticker && el("tmSentiment");
-    const hist = buzzHistSeries(ticker);
-    if (hist) {
-      box.innerHTML = `<h4 style="margin:6px 0 2px;color:var(--muted);font-size:11px;letter-spacing:1px">CROWD MOOD · DAY OVER DAY <span class="unit">${hist.labels.length} days · this device</span></h4>
-        ${Chart.line([{ points: hist.bull, color: "#26d07c" }], hist.labels, { h: 130, min: 0, max: 100 })}
-        <div class="sub" style="padding:2px 4px">Bullish share of tagged posts, 50% = balanced. Builds as you revisit.</div>`;
-      return;
-    }
-    fetchBuzzJson(buzzStreamUrl(ticker), { provider: "Stocktwits stream", ticker, cacheMs: 120e3 })
-      .then((sj) => {
-        const ser = buzzSentimentSeries(sj && sj.messages);
-        const overall = buzzOverallBull(sj && sj.messages);
-        buzzHistRecord(ticker, overall, Array.isArray(sj && sj.messages) ? sj.messages.length : null, null);
-        const b2 = stillFocused();
-        if (!b2) return;
-        if (!ser) {
-          b2.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment for ${ticker}: ${overall != null ? `<b style="color:${overall >= 50 ? "var(--green)" : "var(--red)"}">${overall}% bullish</b> now, but` : "not enough tagged posts yet —"} a trend line builds here as you revisit. Day-over-day is stored on this device.</div>`;
-          return;
-        }
-        b2.innerHTML = `<h4 style="margin:6px 0 2px;color:var(--muted);font-size:11px;letter-spacing:1px">CROWD SENTIMENT · INTRADAY <span class="unit">${ser.tagged}/${ser.total} tagged posts</span></h4>
-          ${Chart.line([{ points: ser.bullPct, color: "#37c6ff" }], ser.labels, { h: 130, min: 0, max: 100 })}
-          <div class="sub" style="padding:2px 4px">Bullish share of tagged posts over the live stream. 50% = balanced · gaps = no tagged posts.</div>`;
-      })
-      .catch(() => { const b2 = stillFocused(); if (b2) b2.innerHTML = `<div class="sub" style="padding:8px">Crowd sentiment stream for ${ticker} is unreachable right now.</div>`; });
-  }
 
-  /* ============================================================================
-     ⌬ TECH DESK — the whole framework pointed at tech only.
-     Tech is where SBC lives: software, semis, internet, payments/fintech.
-     ============================================================================ */
-  const TECH_EXTRA = new Set(["Social Media", "Streaming", "Gaming", "E-commerce", "E-commerce/Cloud",
-    "Payments", "Crypto Exchange", "Fintech Brokerage", "Gaming/Betting"]);
-  const isTech = (d) => ["XLK", "SMH"].includes(sectorETF(d.sector)) || TECH_EXTRA.has(d.sector);
-
-  function techScatter(items) {
-    // x = revenue CAGR %, y = SBC % of revenue → "is the SBC buying growth?"
-    const W = 700, H = 380, P = { t: 26, r: 16, b: 34, l: 44 };
-    const iw = W - P.l - P.r, ih = H - P.t - P.b;
-    const X = (g) => P.l + clamp((g + 10) / 50, 0, 1) * iw;      // -10%..+40%
-    const Y = (s) => P.t + ih - clamp(s / 30, 0, 1) * ih;        // 0..30%+
-    let g = "";
-    // quadrant shading (split at 15% growth, 10% SBC)
-    const mx = X(15), my = Y(10);
-    g += `<rect x="${P.l}" y="${P.t}" width="${mx - P.l}" height="${my - P.t}" fill="rgba(255,91,107,.06)"/>`;      // low growth, high SBC
-    g += `<rect x="${mx}" y="${my}" width="${P.l + iw - mx}" height="${P.t + ih - my}" fill="rgba(38,208,124,.06)"/>`; // high growth, low SBC
-    [0, 10, 20, 30].forEach(s => { const y = Y(s); g += `<line x1="${P.l}" y1="${y}" x2="${W - P.r}" y2="${y}" stroke="#1c2434"/><text x="${P.l - 5}" y="${y + 3}" fill="#7d8798" font-size="8.5" text-anchor="end">${s}%</text>`; });
-    [-10, 0, 10, 20, 30, 40].forEach(x => { const xx = X(x); g += `<text x="${xx}" y="${H - 16}" fill="#7d8798" font-size="8.5" text-anchor="middle">${x >= 0 ? "+" : ""}${x}%</text>`; });
-    g += `<text x="${P.l + 6}" y="${P.t + 12}" fill="var(--red)" font-size="9.5" font-weight="700">WORST: DILUTION WITHOUT GROWTH</text>`;
-    g += `<text x="${W - P.r - 6}" y="${P.t + ih - 8}" fill="var(--green)" font-size="9.5" font-weight="700" text-anchor="end">ELITE: GROWTH WITHOUT DILUTION</text>`;
-    g += `<text x="${W / 2}" y="${H - 4}" fill="#576072" font-size="9" text-anchor="middle">REVENUE CAGR →</text>`;
-    g += `<text x="12" y="${P.t + ih / 2}" fill="#576072" font-size="9" text-anchor="middle" transform="rotate(-90 12 ${P.t + ih / 2})">SBC % OF REVENUE →</text>`;
-    const bcol = { clean: "#26d07c", middle: "#ffb000", high: "#ff8a3d", tragic: "#ff5b6b" };
-    const byCap = [...items].sort((a, b) => b.d.mktCap - a.d.mktCap);
-    const labeled = new Set(byCap.slice(0, 22).map(x => x.d.ticker));
-    let dots = "";
-    items.forEach(({ d, q }) => {
-      if (q.revCAGR == null || d.sbcPctRev == null) return;
-      const x = X(q.revCAGR), y = Y(d.sbcPctRev);
-      dots += `<g data-tk="${d.ticker}" style="cursor:pointer">
-        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${labeled.has(d.ticker) ? 5 : 3.5}" fill="${bcol[d.bucket]}" stroke="#05070c" stroke-width="1"><title>${d.ticker} — rev CAGR ${q.revCAGR.toFixed(0)}%, SBC ${d.sbcPctRev.toFixed(1)}% of rev</title></circle>
-        ${labeled.has(d.ticker) ? `<text x="${x.toFixed(1)}" y="${(y - 7).toFixed(1)}" fill="${bcol[d.bucket]}" font-size="8.5" font-weight="700" text-anchor="middle">${d.ticker}</text>` : ""}</g>`;
-    });
-    return `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">${g}${dots}</svg>`;
-  }
-
-  function renderTech() {
-    const tech = DATA.filter(isTech);
-    const rest = DATA.filter(d => !isTech(d));
-    const items = tech.map(d => ({ d, q: qualityOf(d), r: rankOf(d), X: capexOf(d) }));
-    const med = (arr) => medianOf(arr);
-    const stat = {
-      sbcT: med(tech.map(d => d.sbcPctRev)), sbcR: med(rest.map(d => d.sbcPctRev)),
-      keepT: med(tech.map(d => d.ownersKeep)), keepR: med(rest.map(d => d.ownersKeep)),
-      peT: med(tech.map(d => d.truePE)), peR: med(rest.map(d => d.truePE)),
-      gapT: med(tech.filter(d => d.gaapEPS > 0 && d.nonGaapEPS > 0).map(d => (d.nonGaapEPS / d.gaapEPS - 1) * 100)),
-      gapR: med(rest.filter(d => d.gaapEPS > 0 && d.nonGaapEPS > 0).map(d => (d.nonGaapEPS / d.gaapEPS - 1) * 100)),
-    };
-    const fats = items.filter(x => x.r.zone === "fat").length;
-    const worst = [...tech].filter(d => d.sbcPctRev != null).sort((a, b) => b.sbcPctRev - a.sbcPctRev).slice(0, 12);
-    const cleanest = [...tech].filter(d => d.sbcPctRev != null && d.mktCap > 20).sort((a, b) => a.sbcPctRev - b.sbcPctRev).slice(0, 12);
-    const board = [...items].sort((a, b) => b.r.composite - a.r.composite).slice(0, 15);
-    const smh = secByT("SMH"), xlk = secByT("XLK"), spy = secByT("SPY");
-    const relSemis = +(retOver(smh, 3) - retOver(xlk, 3)).toFixed(1);
-
-    const cell = (k, vT, vR, fmt, goodLow) => {
-      const better = vT != null && vR != null ? (goodLow ? vT < vR : vT > vR) : null;
-      return `<div style="flex:1;min-width:118px;text-align:center;border-right:1px solid var(--line)">
-        <div class="sub">${k}</div>
-        <div class="stat sm" style="color:${better == null ? "var(--text)" : better ? "var(--green)" : "var(--red)"}">${fmt(vT)}</div>
-        <div class="sub">rest of market: ${fmt(vR)}</div></div>`;
-    };
-
-    el("main").innerHTML = toolHeader("⌬", "TECH DESK", `the whole framework pointed at ${tech.length} tech names — software · semis · internet · payments`,
-      `<div style="text-align:right"><div class="sub">FAT PITCHES IN TECH</div><div class="stat sm" style="color:${fats ? "var(--green)" : "var(--red)"}">${fats}</div></div>`)
-      + `<div class="card" style="margin-bottom:12px;padding:10px 6px"><div style="display:flex;flex-wrap:wrap;align-items:center">
-          <div style="min-width:96px;text-align:center"><div class="sub" style="color:#7da2ff;font-weight:700;letter-spacing:1px">TECH vs<br>THE REST</div></div>
-          ${cell("MEDIAN SBC / REVENUE", stat.sbcT, stat.sbcR, v => v == null ? "–" : v.toFixed(1) + "%", true)}
-          ${cell("OWNER-¢ KEPT / $1", stat.keepT, stat.keepR, v => v == null ? "–" : (v * 100).toFixed(0) + "¢", false)}
-          ${cell("MEDIAN EST P/E", stat.peT, stat.peR, v => v == null ? "–" : v.toFixed(1) + "x", true)}
-          ${cell("NON-GAAP INFLATION", stat.gapT, stat.gapR, v => v == null ? "–" : "+" + v.toFixed(0) + "%", true)}
-        </div>
-        <div class="sub" style="padding:8px 12px 2px">This strip is the whole thesis in four numbers: tech pays more of your earnings to employees, keeps less per GAAP dollar, trades richer on true earnings, and inflates non-GAAP harder than the rest of the market.</div></div>`
-      + `<div class="card" style="margin-bottom:12px;border-left:3px solid #7da2ff">
-          <h3>DILUTION vs GROWTH — IS THE SBC BUYING ANYTHING? <span class="unit">each dot a tech name · tap to open · quadrants split at 15% growth / 10% SBC</span></h3>
-          ${techScatter(items)}
-          <div class="sub" style="margin-top:6px">The framework's one allowance: high SBC can be rational <i>if</i> it buys elite growth (top-right). Top-left — heavy dilution with slowing growth — is where shareholder value goes to die.</div></div>`
-      + `<div class="grid g2" style="margin-bottom:12px">
-        <div class="card" style="border-left:3px solid var(--red)"><h3>THE DILUTION LEAGUE — WORST SBC/REVENUE</h3>
-          ${Chart.hbars(worst.map(d => ({ label: d.ticker, value: d.sbcPctRev, color: d.sbcPctRev >= 20 ? "var(--red)" : "var(--orange)", display: d.sbcPctRev.toFixed(1) + "%" })), { labelW: 52 })}</div>
-        <div class="card" style="border-left:3px solid var(--green)"><h3>CLEANEST BIG TECH — LOWEST SBC/REVENUE <span class="unit">&gt;$20B cap</span></h3>
-          ${Chart.hbars(cleanest.map(d => ({ label: d.ticker, value: Math.max(d.sbcPctRev, 0.1), color: "var(--green)", display: d.sbcPctRev.toFixed(1) + "%" })), { labelW: 52 })}</div>
-      </div>`
-      + (() => {
-        const spenders = items.filter(x => x.X && x.X.lastCapex > 1).sort((a, b) => b.X.lastCapex - a.X.lastCapex).slice(0, 10);
-        const holes = items.filter(x => x.X && !x.X.assetLight && x.X.score < 35).length;
-        const paying = items.filter(x => x.X && !x.X.assetLight && x.X.score >= 60).length;
-        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--orange)">
-          <h3>🏗 THE AI CAPEX CYCLE — WHO'S SPENDING, AND IS IT WORKING? <span class="unit">top tech capex budgets · bar = latest-FY capex · color = efficiency score</span></h3>
-          ${Chart.hbars(spenders.map(x => ({
-            label: x.d.ticker, value: x.X.lastCapex,
-            color: x.X.score >= 60 ? "var(--green)" : x.X.score >= 35 ? "var(--amber)" : "var(--red)",
-            display: "$" + x.X.lastCapex.toFixed(0) + "B · " + x.X.score,
-          })), { labelW: 52 })}
-          <div class="sub" style="margin-top:6px"><b class="up">${paying}</b> tech names' capex is paying for itself in revenue · <b class="down">${holes}</b> are spending into a hole. Green = revenue justifies the spend, red = buildout on faith. Tap a stock and open its 🏗 CAPEX X-RAY for the full picture.</div>
-        </div>`;
-      })()
-      + `<div class="grid g2" style="margin-bottom:12px">
-        <div class="card"><h3>SEMIS vs SOFTWARE — WHERE'S TECH'S MONEY GOING? <span class="unit">12M cumulative return</span></h3>
-          ${Chart.line([{ points: perfSeries(smh), color: "#ffb000" }, { points: perfSeries(xlk), color: "#37c6ff" }, { points: perfSeries(spy), color: "#d8e0ea" }], SECTORS.labels, { h: 190, zero: true })}
-          <div class="chart-legend"><span><i style="background:#ffb000"></i>SMH semis</span><span><i style="background:#37c6ff"></i>XLK software/tech</span><span><i style="background:#d8e0ea"></i>SPY</span></div>
-          <div class="sub" style="margin-top:5px">Semis ${relSemis >= 0 ? "+" : ""}${relSemis}pp vs software over 3M — ${relSemis >= 2 ? "the AI-hardware trade is still leading tech." : relSemis <= -2 ? "leadership has rotated from chips back to software." : "semis and software roughly in step."}</div></div>
-        <div class="card"><h3>⚛ TECH BRAIN BOARD — TOP 15 <span class="unit">by unified brain score</span></h3>
-          ${board.map((x, i) => `<div class="pe-row" data-tk="${x.d.ticker}">
-            <span class="pe-tk"><span class="rk-num">${i + 1}</span> ${x.d.ticker}</span>
-            <span class="sub">${x.d.sector} · ${x.r.cagr == null ? "n/m" : (x.r.cagr * 100).toFixed(0) + "%/yr"} · SBC ${x.d.sbcPctRev == null ? "–" : x.d.sbcPctRev.toFixed(1) + "%"}</span>
-            <span class="pe-val"><b style="color:${x.r.composite >= 62 ? "var(--green)" : x.r.composite >= 48 ? "var(--amber)" : "var(--red)"}">${x.r.composite.toFixed(0)}</b> <span style="color:${x.r.C.color};font-size:9px;font-weight:700">${x.r.C.label.split(" — ")[0]}</span></span>
-          </div>`).join("")}</div>
-      </div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
-  const showTech = () => showView("tech", renderTech, "techBtn");
 
   /* ------------------------ EST OWNER-EARNINGS P/E SCREENER view ------------------------ */
   const medianOf = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
   const bucketColor = (b) => BUCKETS[b].color;
 
-  function peRow(d, cap) {
-    const fwd = forwardPEOf(d);
-    const hw = clamp((d.headlinePE / cap) * 100, 1, 100);
-    const xw = clamp(((d.truePE - d.headlinePE) / cap) * 100, 0, 100 - hw);
-    return `<div class="pe-row" data-tk="${d.ticker}" title="${d.name} — headline ${d.headlinePE}x to owner ${d.truePE}x · forward ${fwd.pe == null ? "n/m" : fwd.pe.toFixed(1) + "x"} (${fwd.source})">
-      <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(d.bucket)}"></i>${d.ticker}</span>
-      <div class="pe-bar"><i style="width:${hw}%;background:var(--cyan)"></i><i style="width:${xw}%;background:var(--red)"></i></div>
-      <span class="pe-val"><b style="color:var(--amber)">${d.truePE.toFixed(1)}x</b> <span class="sub">${d.headlinePE.toFixed(0)}x hdl</span><br><span class="sub"><b style="color:var(--cyan)">${fwd.pe == null ? "n/m" : fwd.pe.toFixed(1) + "x"}</b> fwd</span></span>
-    </div>`;
-  }
-
-  function renderValuation() {
-    const groups = {};
-    const rankableUniverse = DATA.filter(d => dataConfidenceOf(d).rankable);
-    DATA.forEach(d => { const etf = SECTOR_MAP[d.sector] || "XLK"; (groups[etf] = groups[etf] || []).push(d); });
-    const secs = Object.entries(groups).map(([etf, ds]) => {
-      const withPE = ds.filter(d => dataConfidenceOf(d).rankable && d.truePE && d.headlinePE).sort((a, b) => a.truePE - b.truePE);
-      const noPE = ds.filter(d => !dataConfidenceOf(d).rankable || !d.truePE || !d.headlinePE);
-      return { etf, s: secByT(etf), withPE, noPE, med: medianOf(withPE.map(d => d.truePE)) };
-    }).filter(g => g.withPE.length || g.noPE.length)
-      .sort((a, b) => (a.med ?? 1e9) - (b.med ?? 1e9));
-
-    const all = rankableUniverse.filter(d => d.truePE && d.headlinePE);
-    const map = allMapSVG();
-    const globalCap = all.length ? Math.min(120, Math.max(...all.map(d => d.truePE))) : 30;
-    const cheapest = [...all].sort((a, b) => a.truePE - b.truePE).slice(0, 10);
-    const dearest = [...all].sort((a, b) => b.truePE - a.truePE).slice(0, 10);
-    const fwdAll = rankableUniverse.map(d => ({ d, f: forwardPEOf(d) })).filter(x => x.f.pe != null);
-    const fwdCheap = [...fwdAll].sort((a, b) => a.f.pe - b.f.pe).slice(0, 10);
-    const fwdRow = (x) => `<div class="pe-row" data-tk="${x.d.ticker}" title="${x.d.name} — forward P/E ${x.f.pe.toFixed(1)}x (${x.f.source})">
-      <span class="pe-tk"><i class="sec-dot" style="background:${bucketColor(x.d.bucket)}"></i>${x.d.ticker}</span>
-      <span class="sub">${x.d.sector} · owner ${x.d.truePE ? x.d.truePE.toFixed(1) + "x" : "n/m"} · ${x.f.source}</span>
-      <span class="pe-val"><b style="color:var(--cyan)">${x.f.pe.toFixed(1)}x</b> <span class="sub">fwd</span></span>
-    </div>`;
-
-    const secCards = secs.map(g => {
-      const cap = Math.min(120, Math.max(...(g.withPE.length ? g.withPE.map(d => d.truePE) : [30])) * 1.05);
-      const r3 = g.s ? retOver(g.s, 3) : null;
-      return `<div class="card">
-        <h3>${(g.s ? g.s.name : g.etf).toUpperCase()} · ${g.etf}
-          <span class="unit">median owner P/E <b style="color:var(--amber)">${g.med ? g.med.toFixed(1) + "x" : "n/m"}</b>${r3 != null ? ` · 3M <b class="${r3 >= 0 ? "up" : "down"}">${r3 >= 0 ? "+" : ""}${r3.toFixed(1)}%</b>` : ""}</span></h3>
-        ${g.withPE.map(d => peRow(d, cap)).join("")}
-        ${g.noPE.length ? `<div class="sub" style="margin-top:6px">n/m (GAAP loss or no P/E): ${g.noPE.map(d => `<span class="tag" data-tk="${d.ticker}" style="cursor:pointer">${d.ticker}</span>`).join("")}</div>` : ""}
-      </div>`;
-    }).join("");
-
-    el("main").innerHTML = `
-      <div class="hdr">
-        <div>
-          <div class="tick" style="color:var(--green)">⊞ EST OWNER-EARNINGS P/E SCREENER</div>
-          <div class="co">SBC-adjusted owner valuation + Forward P/E vs sector competitors</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right">
-          <div class="sub">MEDIAN OWNER P/E · RANKED ${all.length}/${DATA.length}</div>
-          <div class="stat sm" style="color:var(--amber)">${medianOf(all.map(d => d.truePE)) == null ? "n/m" : medianOf(all.map(d => d.truePE)).toFixed(1) + "x"}</div>
-        </div>
-      </div>
-      <div class="note" style="margin-bottom:12px">
-        <b style="color:var(--cyan)">Cyan</b> = headline / forward P/E · <b style="color:var(--red)">red</b> = the owner-economics premium you actually pay · <b style="color:var(--amber)">amber number</b> = owner P/E. Forward P/E uses next-year consensus when collected; otherwise Street adjusted EPS proxy. Tap any row to open the stock.
-      </div>
-      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
-        <h3>THE ALL MAP — WHERE EVERY PITCH LANDS <span class="unit">IV-ladder DCF on SBC-adj owner earnings · ${map.counts.fat} fat pitches · ${map.counts.just} just outside · ${map.counts.out} out field · tap a dot</span></h3>
-        ${map.svg}
-        <div class="sub" style="margin-top:6px">Distance from home plate = the 15-year CAGR today's price offers, from the IV ladder (see any stock's Overview). A low multiple is not necessarily a value — quality sets each name's growth and exit multiple. GAAP-loss names are parked in the Out Field.</div>
-      </div>
-      <div class="grid g2" style="margin-bottom:12px">
-        <div class="card" style="border-left:3px solid var(--green)">
-          <h3>CHEAPEST IN THE MARKET <span class="unit">est owner-earnings P/E, whole board</span></h3>
-          ${cheapest.map(d => peRow(d, globalCap)).join("")}
-        </div>
-        <div class="card" style="border-left:3px solid var(--cyan)">
-          <h3>CHEAPEST FORWARD P/E <span class="unit">Street EPS / forward estimate view</span></h3>
-          ${fwdCheap.map(fwdRow).join("")}
-        </div>
-        <div class="card" style="border-left:3px solid var(--red)">
-          <h3>MOST EXPENSIVE <span class="unit">est owner-earnings P/E, whole board</span></h3>
-          ${dearest.map(d => peRow(d, globalCap)).join("")}
-        </div>
-      </div>
-      <div class="grid g2">${secCards}</div>`;
-
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-  }
-
-  function showValuation() {
-    state.view = "valuation";
-    setViewBtn("valBtn");
-    renderWatchlist();
-    renderValuation();
-    closeDrawer();
-    window.scrollTo({ top: 0 });
-    syncNav();
-    pushNav();
-  }
-  function showQualityMap() {
-    showView("qualityMap", renderQualityMap, "mapBtn");
-  }
 
   const DAILY_SECTOR_LENS = {
     SMH: { watch: "AI capex, compute supply, export controls, memory/equipment read-through", tickers: ["NVDA", "AMD", "AVGO", "ASML", "AMAT", "LRCX", "SMCI", "NBIS", "IREN"] },
@@ -4738,84 +4141,6 @@
     showView("directionEdge", renderDirectionEdge, "edgeBtn");
   }
 
-  function renderHome() {
-    const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
-    const ranked = scored.filter(x => !x.r.noRank);
-    const combo = (x) => Math.round(((x.m?.businessQuality?.score || 0) + (x.m?.marketReward?.score || 0)) / 2);
-    const leaders = [...ranked].sort((a, b) => combo(b) - combo(a)).slice(0, 6);
-    const buyList = [...ranked].map(x => ({ ...x, L: ivLadder(x.d) }))
-      .filter(x => x.L && (x.m?.businessQuality?.score || 0) >= 60)
-      .sort((a, b) => (b.m.businessQuality.score - a.m.businessQuality.score) || ((b.L.IV15 / b.L.price) - (a.L.IV15 / a.L.price)))
-      .slice(0, 8);
-    const cheap = [...ranked].filter(x => x.r.truePE).sort((a, b) => a.r.truePE - b.r.truePE).slice(0, 6);
-    const hot = [...ranked].filter(x => x.r.truePE).sort((a, b) => (b.r.truePE || 0) - (a.r.truePE || 0)).slice(0, 6);
-    const movers = [...DATA].sort((a, b) => Math.abs(b.change || 0) - Math.abs(a.change || 0)).slice(0, 6);
-    const sectors = SECTORS.series.filter(s => s.t !== "SPY").map(s => ({ s, r3: retOver(s, 3), fd: flowDelta(s) }))
-      .sort((a, b) => b.r3 - a.r3).slice(0, 5);
-    const medianPE = medianOf(ranked.map(x => x.r.truePE).filter(Boolean));
-    const fat = ranked.filter(x => x.r.zone === "fat").length;
-    const row = (x, right, sub = "") => `<div class="home-row" data-tk="${x.d.ticker}">
-      <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
-      <div class="sub">${sub || x.m?.finalLabel?.label || ""}</div>
-      <strong>${right}</strong>
-    </div>`;
-    const buyRow = (x) => {
-      const great = x.L.IV15, starter = x.L.IV12, px = x.L.price;
-      const gap = great / px - 1;
-      return `<div class="home-row buy-row" data-tk="${x.d.ticker}">
-        <div><b>${x.d.ticker}</b><span>BQ ${x.m.businessQuality.score} · ${x.d.sector}</span></div>
-        <div class="sub">now $${px.toFixed(px >= 100 ? 0 : 2)} · starter $${starter.toFixed(starter >= 100 ? 0 : 2)}</div>
-        <strong class="${gap >= 0 ? "up" : "down"}">$${great.toFixed(great >= 100 ? 0 : 2)}</strong>
-      </div>`;
-    };
-    const moverRow = (d) => `<div class="home-row" data-tk="${d.ticker}">
-      <div><b>${d.ticker}</b><span>${d.sector}</span></div>
-      <div class="sub">${d.name}</div>
-      <strong class="${signCls(d.change || 0)}">${arrow(d.change || 0)}${Math.abs(d.change || 0).toFixed(2)}%</strong>
-    </div>`;
-    el("main").innerHTML = `
-      <div class="hdr home-hero">
-        <div>
-          <div class="tick gradient-title">HOME DASHBOARD</div>
-          <div class="co">market reward + business quality command center · ${DATA.length} official names · ${ranked.length} ranked</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right">
-          <div class="sub">BEST SETUP</div>
-          <div class="stat sm" style="color:var(--green)">${leaders[0]?.d.ticker || "--"}</div>
-        </div>
-      </div>
-      <div class="grid g4 home-metrics" style="margin-bottom:12px">
-        <div class="card"><h3>RANKED UNIVERSE</h3><div class="stat" style="color:var(--green)">${ranked.length}/${DATA.length}</div><div class="sub">all official names scored</div></div>
-        <div class="card"><h3>FAT PITCHES</h3><div class="stat" style="color:var(--green)">${fat}</div><div class="sub">IV ladder in the zone</div></div>
-        <div class="card"><h3>MEDIAN OWNER P/E</h3><div class="stat" style="color:var(--amber)">${medianPE ? medianPE.toFixed(1) + "x" : "--"}</div><div class="sub">ranked positive owner EPS</div></div>
-        <div class="card"><h3>TOP COMBO</h3><div class="stat" style="color:var(--cyan)">${leaders[0] ? combo(leaders[0]) : "--"}</div><div class="sub">business quality + market reward</div></div>
-      </div>
-      <div class="grid g2" style="margin-bottom:12px">
-        ${dailyReviewPreviewCard()}
-        ${directionEdgePreviewCard()}
-      </div>
-      <div class="grid g2">
-        <div class="card" style="border-left:3px solid var(--green)"><h3>GREAT BUSINESSES — BUY PRICES <span class="unit">great buy = IV15 · starter = IV12</span></h3>
-          <div class="note" style="margin-bottom:8px">These are model watch prices, not automatic orders. <b style="color:var(--green)">Great buy</b> means the IV ladder estimates a 15% required-return entry; <b style="color:var(--amber)">starter</b> is the 12% zone for scaling/watching.</div>
-          ${buyList.map(buyRow).join("")}
-        </div>
-        <div class="card"><h3>BEST BUSINESS + MARKET REWARD</h3>${leaders.map(x => row(x, combo(x) + "/100", `BQ ${x.m.businessQuality.score} · MR ${x.m.marketReward.score}`)).join("")}</div>
-        <div class="card"><h3>CHEAPEST OWNER P/E</h3>${cheap.map(x => row(x, x.r.truePE.toFixed(1) + "x", x.m.finalLabel.label)).join("")}</div>
-        <div class="card"><h3>OVERHEATED WATCH</h3>${hot.map(x => row(x, x.r.truePE.toFixed(1) + "x", `Valuation ${x.m.valuation.score}/100`)).join("")}</div>
-        <div class="card"><h3>BIGGEST MOVES</h3>${movers.map(moverRow).join("")}</div>
-        <div class="card"><h3>SECTOR PULSE</h3>${sectors.map(x => `<div class="home-row" data-sector="${x.s.t}"><div><b>${x.s.t}</b><span>${x.s.name}</span></div><div class="sub">flow ${x.fd >= 0 ? "+" : ""}${x.fd.toFixed(1)}pp</div><strong class="${signCls(x.r3)}">${x.r3 >= 0 ? "+" : ""}${x.r3.toFixed(1)}%</strong></div>`).join("")}</div>
-        <div class="card"><h3>OPEN NEXT</h3>
-          <div class="note">Start with the combo leaders, then compare them against Cheapest Owner P/E and Overheated Watch. Use Sector Pulse to decide whether the market is confirming the thesis or fighting it.</div>
-        </div>
-      </div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-    el("main").querySelectorAll("[data-sector]").forEach(r => r.onclick = showSectors);
-    const openDaily = el("openDailyReview");
-    if (openDaily) openDaily.onclick = showDailyReview;
-    const openEdge = el("openDirectionEdge");
-    if (openEdge) openEdge.onclick = showDirectionEdge;
-  }
   function renderHomeMobileDashboard() {
     const scored = DATA.map(d => ({ d, m: marketScoreOf(d), r: rankOf(d), f: forwardPEOf(d) }));
     const ranked = scored.filter(x => !x.r.noRank);
@@ -4856,9 +4181,7 @@
     const gainers = [...DATA].filter(d => moverChange(d) > 0).sort((a, b) => moverChange(b) - moverChange(a)).slice(0, 3);
     const losers = [...DATA].filter(d => moverChange(d) < 0).sort((a, b) => moverChange(a) - moverChange(b)).slice(0, 3);
     const stockDay = leaders[0] || ranked[0];
-    const eFrom = new Date(today.getTime() - 3 * 864e5);
-    const eTo = new Date(today.getTime() + 21 * 864e5);
-    let earningsRows = bundledEarningsRows(eFrom, eTo, true);
+    let earningsRows = upcomingEarningsRows(21);
     if (!earningsRows.length) {
       const asOf = new Date(`${EARNINGS_FOCUS.asOf}T00:00:00`);
       earningsRows = bundledEarningsRows(asOf, new Date(asOf.getTime() + 33 * 864e5), true);
@@ -4931,13 +4254,13 @@
       <div class="bz-chips">${s.tickers.map(tk => `<button type="button" data-tk="${tk}">${tk}</button>`).join("")}</div>
     </div>`;
     const earningsRow = (e) => {
-      const d = companyOf(e.symbol), L = d ? ivLadder(d) : null, de = d ? directionEdgeOf(d) : null;
+      const d = companyOf(e.symbol), o = d ? beatOddsOf(d) : null;
       const eps = hasNum(e.epsEstimate) ? +e.epsEstimate : d && hasNum(d.forwardEPS) ? +d.forwardEPS : null;
       return `<div class="bz-earn-row" ${d ? `data-tk="${e.symbol}"` : ""}>
         <div><b>${e.symbol}</b><span>${escapeHtml(e.name || d?.name || "")}</span></div>
         <div><span>${e.date}</span><em>${earningsWhen(e.hour) || "time n/a"}</em></div>
         <div><span>EPS EST</span><b>${eps == null ? "--" : "$" + eps.toFixed(2)}</b></div>
-        <strong style="color:${de?.color || "var(--muted)"}">${de ? de.score : "--"}<span>${L ? ZONE[L.zone].label : "focus"}</span></strong>
+        <strong style="color:${o?.color || "var(--muted)"}">${o && o.score != null ? o.score : "--"}<span>${o && o.score != null ? "BEAT ODDS" : "focus"}</span></strong>
       </div>`;
     };
     const analystRows = [...ranked].filter(x => x.f.pe != null).sort((a, b) => combo(b) - combo(a)).slice(0, 4);
@@ -4980,6 +4303,14 @@
           </div>
           <button id="openDailyReviewTop" type="button">Read Details</button>
         </section>
+        <section class="bz-panel">
+          <div class="bz-section-head"><h2>What Changed</h2><button id="openSignals" type="button">Full Feed</button></div>
+          ${(() => {
+            const evs = signalsEvents().slice().sort((a, b) => b.d.localeCompare(a.d) || b.m - a.m).slice(0, 5);
+            return evs.length ? evs.map(signalRow).join("")
+              : `<div class="note">The signals engine diffs every score, revision tape and SEC filing each weekday refresh. ${signalsAsOf() ? `Baseline recorded ${signalsAsOf()} — first deltas land on the next refresh.` : "First pipeline run records the baseline."}</div>`;
+          })()}
+        </section>
         <section class="bz-feature" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
           <div class="bz-feature-pill">${stockDay?.d.ticker || "--"}</div>
           <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: best combined business quality and market reward setup on the board.` : "No ranked setup loaded."}</p></div>
@@ -4990,7 +4321,7 @@
           ${stories.length ? stories.map(storyCard).join("") : `<div class="note">No news driver loaded yet. Open Daily Review to scan headlines.</div>`}
         </section>
         <section class="bz-panel">
-          <h2>Recent / Upcoming Earnings</h2>
+          <div class="bz-section-head"><h2>Upcoming Earnings</h2><button id="openEarnCmd" type="button">Command Center</button></div>
           <div class="bz-earnings">${earningsRows.length ? earningsRows.map(earningsRow).join("") : `<div class="note">No bundled earnings in the current window.</div>`}</div>
         </section>
         <section class="bz-panel">
@@ -5024,6 +4355,10 @@
     if (openDaily) openDaily.onclick = showDailyReview;
     const openMovers = el("openAllMovers");
     if (openMovers) openMovers.onclick = showRankings;
+    const openEarn = el("openEarnCmd");
+    if (openEarn) openEarn.onclick = showCalendar;
+    const openSig = el("openSignals");
+    if (openSig) openSig.onclick = showSignals;
     const refreshBtn = el("homeRefreshPrices");
     if (refreshBtn) refreshBtn.onclick = async () => {
       refreshBtn.textContent = "↻ refreshing…"; refreshBtn.disabled = true;
@@ -5067,208 +4402,6 @@
     const avg6 = sh.slice(Math.max(0, n - 6), n).reduce((a, v) => a + v, 0) / Math.min(6, n);
     return (sh[n] ?? sh[n - 1]) - avg6;
   }
-  const oddsPill = (p, label) => {
-    const col = p >= 70 ? "var(--green)" : p >= 50 ? "var(--amber)" : "var(--red)";
-    return `<div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-      <div class="meter" style="flex:1;margin-top:0"><i style="width:${p}%;background:${col}"></i></div>
-      <span style="font-size:11px;font-weight:800;color:${col};white-space:nowrap">${p.toFixed(0)}/100</span>
-      <span class="sub" style="white-space:nowrap">${label}</span>
-    </div>`;
-  };
-  const narrCard = (headline, sub, body, odds, oddsLabel, accent = "var(--amber)") => `
-    <div class="card" style="border-left:3px solid ${accent}">
-      <div style="font-size:15px;font-weight:800;letter-spacing:.5px;line-height:1.3;color:var(--text)">${headline}</div>
-      <div class="sub" style="margin:4px 0 10px">${sub}</div>
-      ${body}
-      ${odds != null ? oddsPill(clamp(odds, 5, 95), oddsLabel) : ""}
-    </div>`;
-
-  function renderNarratives() {
-    const secOnly = SECTORS.series.filter(s => s.t !== "SPY");
-    const spy = secByT("SPY");
-    const spy3 = retOver(spy, 3);
-    const ranked = [...secOnly].sort((a, b) => retOver(b, 3) - retOver(a, 3));
-    const leader = ranked[0], second = ranked[1], laggard = ranked[ranked.length - 1];
-    const byDelta = [...secOnly].sort((a, b) => flowDelta(b) - flowDelta(a));
-    const rotIn = byDelta[0], rotOut = byDelta[byDelta.length - 1];
-
-    // 1) leadership
-    const leadEdge = retOver(leader, 3) - spy3;
-    const n1 = narrCard(
-      `MARKET IS REWARDING ${leader.name.toUpperCase()} RIGHT NOW`,
-      `${leader.t} +${retOver(leader, 3).toFixed(1)}% over 3M vs S&P ${spy3 >= 0 ? "+" : ""}${spy3.toFixed(1)}% · activity share ${flowDelta(leader) >= 0 ? "confirms — trading dollars concentrating here" : "diverges — price up but activity share falling (fragile)"}`,
-      Chart.line([
-        { points: perfSeries(leader), color: leader.color },
-        { points: perfSeries(second), color: second.color },
-        { points: perfSeries(spy), color: spy.color },
-      ], SECTORS.labels, { h: 160, zero: true }) +
-      `<div class="chart-legend"><span><i style="background:${leader.color}"></i>${leader.t}</span><span><i style="background:${second.color}"></i>${second.t}</span><span><i style="background:${spy.color}"></i>SPY</span></div>`,
-      50 + leadEdge * 2.5 + flowDelta(leader) * 8, "leadership momentum score (heuristic, not a probability)", leader.color);
-
-    // 2) money rotation
-    const n2 = narrCard(
-      `TRADING ACTIVITY SHIFTING TOWARD ${rotIn.name.toUpperCase()}, AWAY FROM ${rotOut.name.toUpperCase()}`,
-      `${rotIn.t} taking ${flowDelta(rotIn) >= 0 ? "+" : ""}${flowDelta(rotIn).toFixed(1)}pp more of all sector dollars vs its 6M average · ${rotOut.t} ${flowDelta(rotOut).toFixed(1)}pp`,
-      Chart.line([
-        { points: flowShareOf(rotIn), color: rotIn.color },
-        { points: flowShareOf(rotOut), color: rotOut.color },
-      ], SECTORS.labels, { h: 150 }) +
-      `<div class="chart-legend"><span><i style="background:${rotIn.color}"></i>${rotIn.t} $-share</span><span><i style="background:${rotOut.color}"></i>${rotOut.t} $-share</span></div>`,
-      50 + flowDelta(rotIn) * 10, "activity-shift momentum score (heuristic, not a probability)", rotIn.color);
-
-    // 3) laggard
-    const lagGap = retOver(laggard, 3) - spy3;
-    const n3 = narrCard(
-      `MARKET IS PUNISHING ${laggard.name.toUpperCase()}`,
-      `${laggard.t} ${retOver(laggard, 3) >= 0 ? "+" : ""}${retOver(laggard, 3).toFixed(1)}% over 3M, ${Math.abs(lagGap).toFixed(1)}pp behind the S&P · 12M: ${retOver(laggard, 12) >= 0 ? "+" : ""}${retOver(laggard, 12).toFixed(1)}%`,
-      Chart.line([
-        { points: perfSeries(laggard), color: laggard.color },
-        { points: perfSeries(spy), color: spy.color },
-      ], SECTORS.labels, { h: 150, zero: true }) +
-      `<div class="chart-legend"><span><i style="background:${laggard.color}"></i>${laggard.t}</span><span><i style="background:${spy.color}"></i>SPY</span></div>`,
-      50 - lagGap * 2.5, "weakness momentum score (heuristic, not a probability)", "var(--red)");
-
-    // 4) buyback mirage (across all tickers, TTM)
-    let totBB = 0, totAnti = 0, totReal = 0;
-    DATA.forEach(d => {
-      if (!d.qd) return;
-      const bb = ttm(d.qd.buyback) || 0, sbc = ttm(d.qd.sbc) || 0;
-      totBB += bb; totAnti += Math.min(bb, sbc); totReal += Math.max(0, bb - sbc);
-    });
-    const realPct = totBB ? (totReal / totBB) * 100 : 0;
-    const n4 = narrCard(
-      `THE BUYBACK MIRAGE: ONLY ${realPct.toFixed(0)}¢ OF EVERY BUYBACK DOLLAR SHRINKS THE SHARE COUNT`,
-      `Across all ${DATA.length} names (TTM): $${totBB.toFixed(0)}B announced buybacks — $${totAnti.toFixed(0)}B just offsets SBC issuance`,
-      Chart.hbars([
-        { label: "Announced", value: totBB, color: "var(--cyan)", display: "$" + totBB.toFixed(0) + "B" },
-        { label: "Anti-dilution", value: totAnti, color: "var(--red)", display: "$" + totAnti.toFixed(0) + "B" },
-        { label: "REAL return", value: totReal, color: "var(--green)", display: "$" + totReal.toFixed(0) + "B" },
-      ], { labelW: 96 }),
-      null, "", "var(--orange)");
-
-    // 5) dilution tax by tier (median TTM SBC/revenue per bucket)
-    const med = (arr) => { const a = arr.filter(v => v != null).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; };
-    const tierSbc = Object.keys(BUCKETS).map(b => {
-      const vals = DATA.filter(d => d.bucket === b && d.qd).map(d => {
-        const r = ttm(d.qd.revenue), s = ttm(d.qd.sbc);
-        return r && s != null ? (s / r) * 100 : null;
-      });
-      return { b, v: med(vals) };
-    });
-    const n5 = narrCard(
-      `THE DILUTION TAX: TRAGIC TIER PAYS ${tierSbc[3].v?.toFixed(0) ?? "?"}x THE SBC OF CLEAN NAMES`,
-      `Median TTM stock-comp as % of revenue, by quality tier — this is the framework in one chart`,
-      Chart.hbars(tierSbc.map(t => ({
-        label: BUCKETS[t.b].label.split(" ")[0].toUpperCase(),
-        value: t.v || 0, color: BUCKETS[t.b].color, display: (t.v ?? 0).toFixed(1) + "%",
-      })), { labelW: 96 }),
-      null, "", "var(--purple)");
-
-    // 6) today's tape
-    const tape = DATA.map(d => ({ tk: d.ticker, ch: state.live[d.ticker]?.quote?.changePct ?? d.change }))
-      .sort((a, b) => b.ch - a.ch);
-    const green = tape.filter(t => t.ch > 0).length;
-    const movers = [...tape.slice(0, 5), ...tape.slice(-5)];
-    const n6 = narrCard(
-      `TODAY'S TAPE: ${green} OF ${tape.length} NAMES GREEN`,
-      `${green > tape.length / 2 ? "Breadth positive — buyers in control" : "Breadth negative — risk-off tape"} · biggest movers below ${state.keys.finnhub ? "(live quotes streaming)" : ""}`,
-      Chart.hbars(movers.map(m => ({
-        label: m.tk, value: Math.abs(m.ch), color: m.ch >= 0 ? "var(--green)" : "var(--red)",
-        display: (m.ch >= 0 ? "+" : "−") + Math.abs(m.ch).toFixed(1) + "%",
-      })), { labelW: 52 }),
-      (green / tape.length) * 100, "of the board is green", green > tape.length / 2 ? "var(--green)" : "var(--red)");
-
-    // 7) fat pitches (IV15 engine)
-    const map = allMapSVG();
-    const fats = map.zones.fat.slice(0, 10);
-    const n7 = narrCard(
-      `${map.counts.fat} FAT PITCHES ON THE FIELD`,
-      map.counts.fat ? `Priced for ≥15%/yr over 15 years on SBC-adjusted owner earnings — the only zone where you swing. ${map.counts.just} just outside, ${map.counts.out} in the out field.`
-        : `Nothing on the board is priced for 15%/yr right now — patience is a position. ${map.counts.just} names sit just outside (10–15%).`,
-      fats.length ? Chart.hbars(fats.map(f => ({
-        label: f.d.ticker, value: f.L.impliedCAGR * 100, color: "var(--green)",
-        display: (f.L.impliedCAGR * 100).toFixed(1) + "%/yr",
-      })), { labelW: 52 }) : Chart.hbars(map.zones.just.slice(0, 8).map(f => ({
-        label: f.d.ticker, value: f.L.impliedCAGR * 100, color: "var(--amber)",
-        display: (f.L.impliedCAGR * 100).toFixed(1) + "%/yr",
-      })), { labelW: 52 }),
-      null, "", "var(--green)");
-
-    // 8) live Polymarket odds (graceful fallback)
-    const pm = `<div class="card" style="border-left:3px solid var(--cyan)">
-      <div style="font-size:15px;font-weight:800;color:var(--text)">PREDICTION MARKETS — LIVE POLYMARKET ODDS</div>
-      <div class="sub" style="margin:4px 0 10px">What real-money bettors price in right now · highest-volume open markets</div>
-      <div id="pmBody"><div class="sub">Loading Polymarket…</div></div>
-    </div>`;
-
-    el("main").innerHTML = `
-      <div class="hdr">
-        <div>
-          <div class="tick" style="color:var(--amber)">◆ NARRATIVES</div>
-          <div class="co">What the market is telling you — computed live from price, money flow, and the SBC framework</div>
-        </div>
-        <div class="spacer"></div>
-        <div style="text-align:right"><div class="sub">DATA AS OF</div><div class="stat sm">${SECTORS.asof}</div></div>
-      </div>
-      <div class="grid g2">${n1}${n2}${n3}${n6}${n7}${n4}${n5}
-        <div style="grid-column:span 2">${pm}</div>
-      </div>`;
-    el("main").querySelectorAll(".card [data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
-    loadPolymarket();
-  }
-
-  async function loadPolymarket() {
-    const box = el("pmBody");
-    if (!box) return;
-    try {
-      const base = "https://gamma-api.polymarket.com/events?closed=false&order=volume24hr&ascending=false&limit=6&tag_slug=";
-      const [eco, cry] = await Promise.all([
-        fetchJsonWithRetry(base + "economy", { provider: "Polymarket economy", ticker: "NARRATIVE", cacheMs: 10 * 60 * 1000 }).catch(() => []),
-        fetchJsonWithRetry(base + "crypto", { provider: "Polymarket crypto", ticker: "NARRATIVE", cacheMs: 10 * 60 * 1000 }).catch(() => []),
-      ]);
-      const events = [...(Array.isArray(eco) ? eco : []), ...(Array.isArray(cry) ? cry : [])]
-        .sort((a, b) => (+b.volume24hr || 0) - (+a.volume24hr || 0)).slice(0, 7);
-      const rows = events.map(ev => {
-        try {
-          const ms = (ev.markets || []).filter(m => m.outcomePrices);
-          if (!ms.length) return "";
-          // grouped events: show the most contested outcome (nearest 50/50); binary: show YES odds
-          const scored = ms.map(m => ({ m, p: JSON.parse(m.outcomePrices).map(Number)[0] }))
-            .sort((a, b) => Math.abs(a.p - 0.5) - Math.abs(b.p - 0.5));
-          const top = ms.length > 1 ? scored[0] : scored.sort((a, b) => b.p - a.p)[0];
-          const p = clamp(top.p * 100, 0, 100);
-          const label = ms.length > 1 ? escapeHtml(top.m.groupItemTitle || top.m.question) : "YES";
-          const col = p >= 65 ? "var(--green)" : p >= 40 ? "var(--amber)" : "var(--red)";
-          const vol = ev.volume24hr ? "$" + (+ev.volume24hr / 1e6).toFixed(1) + "M/24h" : "";
-          return `<div style="padding:8px 0;border-bottom:1px solid var(--line)">
-            <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
-              <span style="font-size:12px;color:var(--text)">${escapeHtml(ev.title)}</span>
-              <b style="color:${col};white-space:nowrap">${p.toFixed(0)}% — ${label}</b>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
-              <div class="meter" style="flex:1;margin-top:0"><i style="width:${p}%;background:${col}"></i></div>
-              <span class="sub" style="white-space:nowrap">${vol}</span>
-            </div>
-          </div>`;
-        } catch { return ""; }
-      }).filter(Boolean);
-      box.innerHTML = rows.length ? rows.join("") : `<div class="sub">No markets returned — try again later.</div>`;
-    } catch {
-      box.innerHTML = `<div class="sub">Polymarket unreachable right now — the odds above are computed from market data instead.</div>`;
-    }
-  }
-
-  function showNarratives() {
-    state.view = "narratives";
-    setViewBtn("narrBtn");
-    renderWatchlist();
-    renderNarratives();
-    closeDrawer();
-    window.scrollTo({ top: 0 });
-    syncNav();
-    pushNav();
-  }
-
   /* ------------------------ SECTOR FLOW view ------------------------ */
   function renderSectors() {
     const S = SECTORS.series;
@@ -5786,26 +4919,16 @@
     if (["EDGE", "DIRECTION", "DIRECTION EDGE", "UP DOWN", "UP/DOWN", "SIGNAL", "SIGNALS"].includes(q)) {
       showDirectionEdge(); flash("Direction edge", "ok"); return;
     }
-    if (["GRAHAM", "VALUE", "NETNET", "NET-NET", "MOS", "SAFETY", "DEFENSIVE"].includes(q)) {
-      showGraham(); flash("Graham value screener", "ok"); return;
-    }
     if (["SCREEN", "SCREENER", "FILTER"].includes(q)) { showScreener(); return; }
     if (["COMPARE", "VS", "COMPARISON"].includes(q)) { showCompare(); return; }
-    if (["MAP", "QUALITY", "QUALITY MAP", "MARKET MAP", "BUSINESS QUALITY"].includes(q)) { showQualityMap(); flash("Quality x Market map", "ok"); return; }
-    if (["TRIGGERS", "TRIGGER", "ALERTS", "BUY"].includes(q)) { showTriggers(); return; }
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
-    if (["CALENDAR", "EARNINGS", "CAL"].includes(q)) { showCalendar(); return; }
-    if (["TECH", "SW50", "SOFTWARE", "SEMIS", "TECHDESK"].includes(q)) { showTech(); return; }
-    if (["OPTIONS", "OPTS", "PUTS", "CALLS", "VOL", "IV"].includes(q)) { showOptions(); return; }
-    if (["INFLATION", "CPI", "PPI", "MACRO", "RATES", "FED"].includes(q)) { showInflation(); flash("Inflation desk", "ok"); return; }
+    if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
+    if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["TRACK", "RECORD", "SCORECARD", "PROOF"].includes(q)) { showTrack(); return; }
     if (["JOURNAL", "THESIS", "THESES"].includes(q)) { showJournal(); return; }
-    if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "SCREENER", "CHEAP"].includes(q)) {
-      showValuation(); flash("Est owner-earnings P/E screener", "ok"); return;
-    }
-    if (["NARRATIVES", "NARRATIVE", "NARR", "STORIES", "STORY", "POLYMARKET"].includes(q)) {
-      showNarratives(); flash("Narratives view", "ok"); return;
+    if (["PE", "P/E", "TRUEPE", "TRUE PE", "VALUATION", "CHEAP", "GRAHAM", "VALUE", "MAP", "QUALITY"].includes(q)) {
+      showRankings(); flash("Master rankings — sort by owner P/E, Graham or quality", "ok"); return;
     }
     if (["SECTORS", "SECTOR", "FLOW", "ROTATION"].includes(q) || SECTORS.series.some(s => s.t === q)) {
       showSectors();
@@ -5882,30 +5005,22 @@
     };
     el("liveBtn").onclick = () => startLiveTape();
     el("homeBtn").onclick = showHome;
+    el("signalsBtn").onclick = showSignals;
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
     el("sectorBtn").onclick = showSectors;
-    el("narrBtn").onclick = showNarratives;
-    el("valBtn").onclick = showValuation;
 
     // mobile bottom nav + drawer
     el("navList").onclick = () => $("aside").classList.contains("open") ? closeDrawer() : openDrawer();
     el("navSectors").onclick = showSectors;
-    el("navNarr").onclick = showNarratives;
-    el("navPE").onclick = showValuation;
+    el("navNarr").onclick = showCalendar;
+    el("navPE").onclick = showScreener;
     el("navRank").onclick = showRankings;
     el("rankBtn").onclick = showRankings;
-    el("grahamBtn").onclick = showGraham;
     el("screenBtn").onclick = showScreener;
     el("compareBtn").onclick = showCompare;
-    el("trigBtn").onclick = showTriggers;
-    el("mapBtn").onclick = showQualityMap;
     el("portBtn").onclick = showPortfolio;
     el("calBtn").onclick = showCalendar;
-    el("buzzBtn").onclick = showBuzz;
-    el("techBtn").onclick = showTech;
-    el("optBtn").onclick = showOptions;
-    el("macroBtn").onclick = showInflation;
     el("auditBtn").onclick = showAudit;
     el("trackBtn").onclick = showTrack;
     el("journalBtn").onclick = showJournal;
@@ -5936,17 +5051,18 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=61").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=64").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
-    buybackQuality, optionPlayOf, bsPrice, normCdf, shareTrend, medianOf, trueOwnerEarnings,
+    buybackQuality, shareTrend, medianOf, trueOwnerEarnings,
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
-    inflationOf, directionEdgeOf, INFLATION, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
-    normalizeTrending, buzzVelocity, buzzSentimentSeries, buzzOverallBull, msgSentiment,
+    directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
+    driftScoreOf, calibrationOf, signalsEvents,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

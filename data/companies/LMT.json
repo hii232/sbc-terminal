@@ -2,7 +2,7 @@
  "ticker": "LMT",
  "cik": "0000936468",
  "entityName": "LOCKHEED MARTIN CORPORATION",
- "retrievedAt": "2026-07-23T12:24:07.018405Z",
+ "retrievedAt": "2026-07-24T02:46:39.490352Z",
  "fields": {
   "buyback": [
    {
@@ -1607,12 +1607,12 @@
     "confidence": 100
    },
    {
-    "value": 230563608,
+    "value": 230790753,
     "unit": "shares",
-    "periodEnd": "2026-04-20",
+    "periodEnd": "2026-07-20",
     "form": "10-Q",
-    "filedDate": "2026-04-23",
-    "accessionNumber": "0001628280-26-026836",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0001628280-26-049411",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

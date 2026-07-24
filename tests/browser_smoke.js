@@ -105,25 +105,22 @@ async function main() {
     ok((await page.textContent("#main")).includes("Business Quality"), "six-score dashboard missing");
     ok((await page.textContent("#main")).includes("EXPECTATIONS GAP"), "expectations gap card missing");
     ok((await page.textContent("#main")).includes("DIRECTION EDGE"), "direction edge card missing");
-    ok((await page.textContent("#main")).includes("INFLATION X-RAY"), "ticker-level inflation x-ray missing");
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');
     await page.waitForFunction((count) => document.querySelector("#wlCount")?.textContent.trim().startsWith(`1/${count}`), OFFICIAL_COUNT, { timeout: 3000 });
 
     const views = [
+      ["#signalsBtn", "WHAT CHANGED"],
       ["#dailyBtn", "DAILY REVIEW"],
       ["#edgeBtn", "DIRECTION EDGE"],
       ["#rankBtn", "MASTER RANKINGS"],
+      ["#trackBtn", "SIGNAL CALIBRATION"],
       ["#auditBtn", "DATA AUDIT"],
       ["#compareBtn", "COMPARE"],
       ["#screenBtn", "CUSTOM SCREENER"],
-      ["#valBtn", "OWNER-EARNINGS P/E"],
       ["#sectorBtn", "SECTOR FLOW"],
-      ["#mapBtn", "QUALITY x MARKET MAP"],
-      ["#macroBtn", "INFLATION DESK"],
-      ["#buzzBtn", "SOCIAL BUZZ"],
-      ["#calBtn", "EARNINGS CALENDAR"],  // keep last: the focus-tape check below reads this view
+      ["#calBtn", "EARNINGS COMMAND CENTER"],  // keep last: the earnings checks below read this view
     ];
     // Nav moved to the top bar; the legacy drawer buttons still carry the wiring
     // but are display:none, so drive them programmatically (their handlers are
@@ -132,21 +129,18 @@ async function main() {
       await page.evaluate((s) => document.querySelector(s).click(), selector);
       await page.waitForFunction((txt) => document.querySelector("#main")?.textContent.includes(txt), expected, { timeout: 3000 });
     }
-    // Focus tape is time-windowed: it must render exactly when bundled rows fall
-    // inside the next-21-days window, whatever week the bundle currently holds.
-    const cal = await page.evaluate(() => {
-      const today = new Date(), to = new Date(today.getTime() + 21 * 864e5);
-      return {
-        focusCount: window.__engines.bundledEarningsRows(today, to, false).length,
-        text: document.querySelector("#main")?.textContent || "",
-      };
-    });
-    if (cal.focusCount > 0) {
-      ok(cal.text.includes("THIS WEEK'S MARKET EARNINGS TAPE"), "focus tape missing despite current bundled rows");
-    } else {
-      ok(!cal.text.includes("THIS WEEK'S MARKET EARNINGS TAPE"), "focus tape shown with no rows in window");
-    }
-    ok(cal.text.includes("EARNINGS CALENDAR"), "universe earnings calendar missing");
+    // Earnings Command Center: season tape + beat-odds board render in bundled
+    // mode with any bundle state (empty seed or populated pipeline output).
+    const cal = await page.evaluate(() => ({
+      upcoming: window.__engines.upcomingEarningsRows(21).length,
+      ledger: window.__engines.earningsLedger().length,
+      text: document.querySelector("#main")?.textContent || "",
+    }));
+    ok(cal.text.includes("BEAT/MISS TAPE"), "beat/miss tape section missing");
+    ok(cal.text.includes("DRIFT BOARD"), "PEAD drift board missing");
+    ok(cal.text.includes("BEAT ODDS"), "beat odds board missing");
+    ok(cal.text.includes("MACRO REGIME"), "macro regime card missing");
+    if (cal.upcoming > 0) ok(cal.text.includes("UP NEXT"), "upcoming reports table missing despite rows");
 
     // Condensed TOP navigation: a few groups, and clicking a group's item navigates.
     const topnav = await page.evaluate(() => ({
@@ -155,14 +149,14 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 21, "all 21 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.tools === 13, "all 13 tools reachable from the top nav", String(topnav.tools));
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
-      const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="valBtn"]'));
+      const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));
       g.querySelector(":scope > button").click();
-      g.querySelector('[data-tool="valBtn"]').click();
+      g.querySelector('[data-tool="screenBtn"]').click();
     });
-    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("OWNER-EARNINGS P/E"), { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("CUSTOM SCREENER"), { timeout: 3000 });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "domcontentloaded" });
@@ -187,7 +181,7 @@ async function main() {
     ok(mobileList.rowHeight >= 80, "mobile market-list rows too cramped");
     await page.click("#drawerClose");
     await page.evaluate(() => document.querySelector("#navPE").click());
-    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Forward P/E"), { timeout: 3000 });
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("CUSTOM SCREENER"), { timeout: 3000 });
 
     const swSupported = await page.evaluate(() => "serviceWorker" in navigator);
     if (swSupported) {

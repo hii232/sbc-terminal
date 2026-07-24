@@ -2,7 +2,7 @@
  "ticker": "HIG",
  "cik": "0000874766",
  "entityName": "The Hartford Insurance Group, Inc.",
- "retrievedAt": "2026-07-23T12:24:19.583265Z",
+ "retrievedAt": "2026-07-24T02:46:55.741822Z",
  "fields": {
   "buyback": [
    {
@@ -1714,12 +1714,12 @@
     "confidence": 100
    },
    {
-    "value": 274130820,
+    "value": 270872002,
     "unit": "shares",
-    "periodEnd": "2026-04-22",
+    "periodEnd": "2026-07-22",
     "form": "10-Q",
-    "filedDate": "2026-04-23",
-    "accessionNumber": "0000874766-26-000037",
+    "filedDate": "2026-07-23",
+    "accessionNumber": "0000874766-26-000060",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
