@@ -45,23 +45,31 @@ jobs:
         run: python scripts/collect_earnings.py
       - name: Track whales (EDGAR + 13F diffs)
         run: python scripts/track_whales.py
-      - name: Record model track-record snapshot
-        run: node scripts/snapshot_scores.js
-      - name: Build what-changed signals ledger
-        run: node scripts/build_signals.js
 
+      # The expensive, network-bound generation is done. Gate on structure and
+      # commit HERE so a failure in a derived step can never throw away a
+      # 20-minute rebuild — the derived layers regenerate every weekday anyway.
       - name: Universe integrity gate
         run: node scripts/check_universe.js
+      - name: Commit expanded universe
+        run: |
+          git config user.name "sbc-terminal-bot"
+          git config user.email "actions@github.com"
+          git add universe.js data.js sec.js earnings.js whales.js data/ || true
+          git diff --cached --quiet || git commit -m "universe: expansion run $(date -u +%F)"
+          git push
+
+      - name: Rebuild derived layers (snapshot + signals)
+        continue-on-error: true
+        run: |
+          node scripts/snapshot_scores.js || echo "::warning::snapshot_scores failed — see log, regenerates on next daily refresh"
+          node scripts/build_signals.js || echo "::warning::build_signals failed — see log, regenerates on next daily refresh"
       - name: Report test + audit status (non-blocking on expansion)
         continue-on-error: true
         run: |
           node tests/run_tests.js || echo "::warning::regression tests need threshold review after expansion"
           python scripts/golden_audit.py || echo "::warning::golden audit needs review after expansion"
-
-      - name: Commit expanded universe
+      - name: Commit derived layers if they rebuilt
         run: |
-          git config user.name "sbc-terminal-bot"
-          git config user.email "actions@github.com"
-          git add universe.js data.js sec.js track.js earnings.js signals.js whales.js data/ || true
-          git diff --cached --quiet || git commit -m "universe: expansion run $(date -u +%F)"
-          git push
+          git add track.js signals.js data/ || true
+          git diff --cached --quiet || (git commit -m "universe: derived layers $(date -u +%F)" && git push)
