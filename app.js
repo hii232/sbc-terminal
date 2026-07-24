@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "71"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "72"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -297,7 +297,10 @@
     if (typeof UNIVERSE_LIST === "undefined") fail("universe.js not loaded");
     const uni = UNIVERSE_LIST.map(u => u.ticker);
     const expected = uni.length;
-    if (expected !== 126) fail("universe has " + expected + " tickers, expected exactly 126");
+    // Membership lives in universe.json (see scripts/check_universe.js); the
+    // runtime guard enforces a floor so a truncated/corrupt bundle still fails
+    // loudly, while the real integrity work below is agreement between layers.
+    if (!(expected >= 126)) fail("universe has " + expected + " tickers, below the 126-name floor");
     if (new Set(uni).size !== expected) fail("duplicate tickers in universe");
     if (UNIVERSE_LIST.some(u => !u.cik || !u.name)) fail("ticker missing identity/CIK");
     const have = DATA.map(d => d.ticker);
@@ -2790,7 +2793,7 @@
         <b style="color:var(--purple)">The brain score</b> merges every engine's weighted vote: IV15 DCF 25% · SBC x-ray 20% · quality &amp; cash (ROIC + FCF-after-SBC) 20% · Graham 15% · buyback truth 10% · sector flow 10% (+ insiders when live). The CALL column is the one-line conclusion — open any stock to see the full vote breakdown and written thesis on ⚛ THE VERDICT card. Tap a column to re-rank, a row to open.
       </div>
 
-      <div class="note" style="margin-bottom:12px">The official 126-name universe enters the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete. If required SBC/share facts are missing, the ticker stays in Not Ranked instead of getting fake numbers.</div>
+      <div class="note" style="margin-bottom:12px">The official universe enters the main ranking when owner-earnings can be computed. The DATA column is a separate trust gauge: 80+ means filing-verified, lower scores mean ranked with caution because SEC cross-check coverage is incomplete. If required SBC/share facts are missing, the ticker stays in Not Ranked instead of getting fake numbers.</div>
       <div class="card" style="padding:6px 8px"><div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
         <thead><tr><th>#</th><th>TICKER · SECTOR</th>${th}</tr></thead>
         <tbody>${body}</tbody>
@@ -4015,7 +4018,7 @@
       : `<div class="card"><h3>THE FEED IS ARMING</h3>
         <div class="sub" style="line-height:1.6;padding:6px 0">The signals engine diffs every tracked input once per weekday data refresh: business-quality / market-reward / long-term score inflections, Direction Edge label flips, analyst revision-tape flips, consensus drift inflections, Beat Odds regime entries for reports inside 3 weeks, fresh beats and misses, and same-day SEC filing diffs (growth acceleration, SBC burden, share-count turns). ${signalsAsOf() ? `The baseline was recorded <b>${signalsAsOf()}</b> — the first deltas appear on the next refresh, and every weekday after.` : "The first pipeline run records the baseline."} Nothing is backfilled or invented: a quiet tape shows a quiet feed.</div></div>`}
       <div class="card" style="margin-top:12px"><h3>WHY DELTAS, NOT LEVELS</h3>
-        <div class="sub" style="line-height:1.6">A score of 75 is public knowledge the moment it is computed. The tradeable information is the day it <b>became</b> 75 — the inflection, before attention catches up. This feed exists so the terminal opens with "what changed since yesterday" instead of "here are 126 rated stocks." Filing diffs carry the highest impact weight because almost nobody reads filings the day they land.</div></div>`;
+        <div class="sub" style="line-height:1.6">A score of 75 is public knowledge the moment it is computed. The tradeable information is the day it <b>became</b> 75 — the inflection, before attention catches up. This feed exists so the terminal opens with "what changed since yesterday" instead of "here is every rated stock." Filing diffs carry the highest impact weight because almost nobody reads filings the day they land.</div></div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
     el("main").querySelectorAll("[data-sigf]").forEach(b => b.onclick = () => { sigState.filter = b.dataset.sigf; renderSignals(); });
   }
@@ -5511,7 +5514,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=71").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=72").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
