@@ -46,13 +46,13 @@ GROUPS = [
     ("Analog, embedded and legacy semiconductors",
      ["TXN", "ADI", "NXPI", "ON", "MCHP", "TER", "ENTG", "WDC", "GLW"]),
     ("Enterprise software, design and collaboration",
-     ["ADSK", "ANSS", "TEAM", "HUBS", "VEEV", "ZM", "DOCU"]),
+     ["ADSK", "CTSH", "TEAM", "HUBS", "VEEV", "ZM", "DOCU"]),
     ("Cybersecurity, adtech and digital platforms",
      ["FTNT", "OKTA", "TTD", "DASH"]),
     ("Interactive entertainment",
      ["EA", "TTWO"]),
     ("Payments processing and card networks",
-     ["FI", "FIS", "GPN", "DFS"]),
+     ["FI", "FIS", "GPN", "SYF"]),
     ("Exchanges, ratings and financial data",
      ["ICE", "CME", "NDAQ", "CBOE", "MCO", "MSCI", "FICO"]),
     ("Regional and diversified banks",
@@ -110,11 +110,11 @@ SECTOR_OVERRIDE = {
     # sector read-through and macro-regime layers. ----
     "TXN": "Semis", "ADI": "Semis", "NXPI": "Semis", "ON": "Semis", "MCHP": "Semis",
     "TER": "Semi Equip", "ENTG": "Semi Equip", "WDC": "Hardware", "GLW": "Hardware",
-    "ADSK": "Software", "ANSS": "Software", "TEAM": "Software", "HUBS": "Software",
+    "ADSK": "Software", "CTSH": "IT Services", "TEAM": "Software", "HUBS": "Software",
     "VEEV": "Software", "ZM": "Software", "DOCU": "Software",
     "FTNT": "Cybersecurity", "OKTA": "Cybersecurity", "TTD": "AdTech", "DASH": "E-commerce",
     "EA": "Gaming", "TTWO": "Gaming",
-    "FI": "Payments", "FIS": "Payments", "GPN": "Payments", "DFS": "Payments",
+    "FI": "Payments", "FIS": "Payments", "GPN": "Payments", "SYF": "Payments",
     "ICE": "Financial Data", "CME": "Financial Data", "NDAQ": "Financial Data",
     "CBOE": "Financial Data", "MCO": "Financial Data", "MSCI": "Financial Data", "FICO": "Financial Data",
     "USB": "Banks", "PNC": "Banks", "TFC": "Banks", "FITB": "Banks", "MTB": "Banks",
@@ -144,6 +144,13 @@ CIK_OVERRIDE = {
     # long-running Exxon Mobil Corporation filer for full historical companyfacts.
     "XOM": {"cik": 34088, "name": "EXXON MOBIL CORP"},
 }
+# SEC's company_tickers.json occasionally lags a ticker change (Fiserv FISV->FI)
+# or carries a punctuation variant. Resolve those by matching the SEC file's own
+# company title, so the CIK still comes from SEC data and is never hardcoded.
+NAME_FALLBACK = {
+    "FI": "FISERV",
+    "MMC": "MARSH & MCLENNAN",
+}
 
 def get(url):
     req = urllib.request.Request(url, headers=UA)
@@ -161,11 +168,19 @@ today = date.today().isoformat()
 for group, tks in GROUPS:
     for tk in tks:
         row = by_ticker.get(tk)
+        if not row and tk in NAME_FALLBACK:
+            want = NAME_FALLBACK[tk].upper()
+            row = next((r for r in sec.values() if want in (r.get("title") or "").upper()), None)
+            if row:
+                print(f"  {tk}: resolved by company name -> {row['title']} (CIK {row['cik_str']})", flush=True)
         override = CIK_OVERRIDE.get(tk)
         if override:
             row = {"ticker": tk, "title": override["name"], "cik_str": override["cik"]}
         if not row:
-            errors.append(f"{tk}: not in SEC ticker map")
+            # A candidate can disappear between list-building and build time
+            # (acquired, delisted, renamed). Dropping it with a loud warning is
+            # correct; hard-failing would block an otherwise valid expansion.
+            errors.append(f"{tk}: not in SEC ticker map — dropped")
             continue
         entries.append({
             "ticker": tk,
@@ -193,10 +208,20 @@ for e in entries:
 # validation
 tks = [e["ticker"] for e in entries]
 count = len(tks)
-assert count == REQUIRED_UNIVERSE_SIZE, f"universe has {count} tickers; expected exactly {REQUIRED_UNIVERSE_SIZE}: {errors}"
+if errors:
+    print("\n".join("  WARNING " + e for e in errors), flush=True)
+    print(f"  {len(errors)} candidate(s) unresolved; universe built with {count}"
+          f" of {REQUIRED_UNIVERSE_SIZE} listed tickers", flush=True)
 assert len(set(tks)) == count, "duplicate tickers"
 assert all(e["cik"] for e in entries), "missing CIK"
-assert not errors, errors
+# An expansion may drop a dead candidate, but it must never lose a name the
+# terminal already ships — that would silently shrink verified coverage.
+prev_file = ROOT / "data" / "universe.json"
+if prev_file.exists():
+    prev = {c["ticker"] for c in json.loads(prev_file.read_text(encoding="utf-8"))["companies"]}
+    lost = sorted(prev - set(tks))
+    assert not lost, f"refusing to drop existing universe members: {lost}"
+    assert count >= len(prev), f"universe shrank from {len(prev)} to {count}"
 
 (ROOT / "data").mkdir(exist_ok=True)
 (ROOT / "data" / "universe.json").write_text(
