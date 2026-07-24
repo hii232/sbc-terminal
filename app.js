@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "67"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "68"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -795,7 +795,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -815,6 +815,7 @@
       { id: "dailyBtn", label: "Daily Review", ic: "📰" },
       { id: "edgeBtn", label: "Direction Edge", ic: "🧭" },
       { id: "sectorBtn", label: "Sectors", ic: "◈" },
+      { id: "blackrockBtn", label: "BlackRock Tracker", ic: "⬛" },
     ] },
     { name: "Stocks", icon: "🔍", tools: [
       { id: "rankBtn", label: "Rankings", ic: "⚡" },
@@ -963,7 +964,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, easy: showEasy, signals: showSignals, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+        const map = { home: showHome, easy: showEasy, signals: showSignals, blackrock: showBlackrock, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
           rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -3587,6 +3588,81 @@
     return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
   }
   /* ============================================================================
+     ⬛ BLACKROCK TRACKER — the world's biggest owner, from the primary source.
+     Recent EDGAR filings + the two latest 13F holdings reports, diffed:
+     what they bought, what they sold, what they hold, in whose names.
+     Honesty on-screen: 13Fs are quarterly with a 45-day legal lag, and
+     BlackRock is mostly an INDEX manager — deviations are the signal. */
+  const blkIntel = () => (typeof BLACKROCK_INTEL !== "undefined" ? BLACKROCK_INTEL : null);
+  const blkMoney = (v) => v == null ? "–" : v >= 1e12 ? "$" + (v / 1e12).toFixed(2) + "T" : v >= 1e9 ? "$" + (v / 1e9).toFixed(1) + "B" : "$" + (v / 1e6).toFixed(0) + "M";
+  const blkShares = (s) => s == null ? "–" : s >= 1e9 ? (s / 1e9).toFixed(2) + "B" : s >= 1e6 ? (s / 1e6).toFixed(1) + "M" : String(s);
+  function renderBlackrock() {
+    const B = blkIntel();
+    const H = B && B.holdings;
+    const edgarDoc = (f) => B && B.cik && f.doc ? `https://www.sec.gov/Archives/edgar/data/${B.cik}/${f.accn.replace(/-/g, "")}/${f.doc}` : null;
+    const nameCell = (r) => `${r.ticker ? `<span class="rk-tk">${r.ticker}</span> ` : ""}<span class="${r.ticker ? "sub" : ""}">${escapeHtml(r.name)}</span>`;
+    const chgCell = (v) => v == null ? `<span class="sub">new</span>` : `<span class="${v >= 0 ? "up" : "down"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</span>`;
+    const moveRow = (r, right, rightCls = "") => `<tr ${r.ticker ? `data-tk="${r.ticker}"` : ""}>
+      <td style="text-align:left">${nameCell(r)}</td><td class="${rightCls}">${right}</td></tr>`;
+    const moveCard = (title, color, rows, rightHead, note) => `<div class="card" style="border-left:3px solid ${color}">
+      <h3>${title} <span class="unit">${note}</span></h3>
+      ${rows.length ? `<div style="overflow-x:auto"><table class="rank"><thead><tr><th style="text-align:left">NAME</th><th>${rightHead}</th></tr></thead><tbody>${rows.join("")}</tbody></table></div>`
+        : `<div class="sub" style="padding:12px">none this quarter</div>`}
+    </div>`;
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">⬛ BLACKROCK TRACKER</div>
+        <div class="co">What the world's biggest asset manager files, buys and sells — straight from SEC EDGAR, no middleman.</div></div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">EDGAR ${B && B.cik ? "CIK " + B.cik : ""}</div><div class="stat sm">${B && B.asOf ? "checked " + B.asOf : "first run pending"}</div></div>
+      </div>
+      <div class="note" style="margin-bottom:12px"><b>Read this first:</b> 13F holdings are a quarterly snapshot the SEC lets managers file up to 45 days late — that lag is the law, not a glitch. And ~90% of BlackRock's money runs on autopilot (index funds), so routine buys/sells are index flows, not opinions. The signal lives in the <b>deviations</b>: brand-new positions, outright exits, and outsized adds or trims. That is exactly what this page surfaces.</div>
+      ${!H ? `<div class="card"><h3>ARMING</h3><div class="sub" style="padding:10px 0;line-height:1.6">The tracker pulls BlackRock's EDGAR submissions and parses their two most recent 13F holdings reports (thousands of positions) on the next data refresh. Everything lands automatically — filings feed, buy/sell diff, top holdings, and their stake in every one of your ${DATA.length} names.</div></div>` : `
+      <div class="grid g4" style="margin-bottom:12px">
+        <div class="card"><h3>PORTFOLIO (13F)</h3><div class="stat" style="color:var(--cyan)">${blkMoney(H.totalValue)}</div><div class="sub">${H.positions.toLocaleString()} positions · quarter ended ${H.period || "?"}</div></div>
+        <div class="card"><h3>FILED</h3><div class="stat sm">${H.filed || "–"}</div><div class="sub">vs prior quarter ${H.prevPeriod || "–"}</div></div>
+        <div class="card"><h3>YOUR UNIVERSE OVERLAP</h3><div class="stat" style="color:var(--gold)">${H.universe.length}</div><div class="sub">of ${DATA.length} names held by BlackRock</div></div>
+        <div class="card"><h3>DEVIATIONS</h3><div class="stat" style="color:var(--purple)">${H.new.length + H.exits.length}</div><div class="sub">${H.new.length} new positions · ${H.exits.length} exits</div></div>
+      </div>
+      <div class="grid g2" style="margin-bottom:12px">
+        ${moveCard("🟢 BOUGHT — NEW POSITIONS", "var(--green)", H.new.map(r => moveRow(r, blkMoney(r.value))), "POSITION SIZE", "did not exist last quarter")}
+        ${moveCard("🔴 SOLD — FULL EXITS", "var(--red)", H.exits.map(r => moveRow(r, blkMoney(r.prevValue))), "WAS WORTH", "held last quarter, gone now")}
+        ${moveCard("▲ ADDED TO", "var(--cyan)", H.adds.map(r => moveRow(r, chgCell(r.sharesChgPct))), "SHARES QoQ", "share count up ≥3% quarter over quarter")}
+        ${moveCard("▼ TRIMMED", "var(--orange)", H.trims.map(r => moveRow(r, chgCell(r.sharesChgPct))), "SHARES QoQ", "share count down ≥3% quarter over quarter")}
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <h3>TOP HOLDINGS <span class="unit">by market value · quarter ended ${H.period || "?"}</span></h3>
+        <div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>#</th><th style="text-align:left">NAME</th><th>VALUE</th><th>% OF PORTFOLIO</th><th>SHARES</th><th>SHARES QoQ</th></tr></thead>
+          <tbody>${H.top.map((r, i) => `<tr ${r.ticker ? `data-tk="${r.ticker}"` : ""}>
+            <td class="rk-num">${i + 1}</td><td style="text-align:left">${nameCell(r)}</td>
+            <td>${blkMoney(r.value)}</td><td>${r.pctOfPortfolio != null ? r.pctOfPortfolio.toFixed(2) + "%" : "–"}</td>
+            <td class="sub">${blkShares(r.shares)}</td><td>${r.isNew ? `<b style="color:var(--green)">NEW</b>` : chgCell(r.sharesChgPct)}</td></tr>`).join("")}</tbody>
+        </table></div>
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <h3>BLACKROCK × YOUR ${DATA.length}-STOCK UNIVERSE <span class="unit">their stake in your names, QoQ</span></h3>
+        <div style="overflow-x:auto;max-height:52vh;overflow-y:auto"><table class="rank">
+          <thead><tr><th style="text-align:left">TICKER</th><th>VALUE</th><th>SHARES</th><th>SHARES QoQ</th></tr></thead>
+          <tbody>${H.universe.map(r => `<tr data-tk="${r.ticker}">
+            <td style="text-align:left"><span class="rk-tk">${r.ticker}</span> <span class="sub">${escapeHtml(r.name)}</span></td>
+            <td>${blkMoney(r.value)}</td><td class="sub">${blkShares(r.shares)}</td>
+            <td>${r.isNew ? `<b style="color:var(--green)">NEW</b>` : chgCell(r.sharesChgPct)}</td></tr>`).join("")}</tbody>
+        </table></div>
+      </div>`}
+      <div class="card">
+        <h3>THEIR RECENT SEC FILINGS <span class="unit">live EDGAR feed · click to read the actual document</span></h3>
+        ${(B && B.filings || []).length ? (B.filings || []).slice(0, 20).map(f => {
+          const u = edgarDoc(f);
+          return `<div class="kv"><span class="k">${f.filed} · <b style="color:var(--text)">${escapeHtml(f.form)}</b></span>
+            <span class="v">${u ? `<a href="${u}" target="_blank" rel="noopener" style="color:var(--cyan)">open on EDGAR →</a>` : `<span class="sub">${f.accn}</span>`}</span></div>`;
+        }).join("") : `<div class="sub" style="padding:12px">Filing feed fills on the next data refresh.</div>`}
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+  const showBlackrock = () => showView("blackrock", renderBlackrock, "blackrockBtn");
+
+  /* ============================================================================
      🧭 EASY MODE — TODAY'S GAME PLAN
      Every engine in the terminal, translated into words a 10-year-old can
      act on: letter grades, traffic lights, one plain sentence per idea.
@@ -3618,6 +3694,7 @@
     switch (e.type) {
       case "filing": return `${nm} handed in its official report to the government. ${/DECELERATED/.test(e.detail) ? "It's growing slower than before." : /ACCELERATED/.test(e.detail) ? "It's growing faster than before." : "We checked it against the last one."}`;
       case "analyst": return /DOWNGRADED/.test(e.title) ? `A big bank now likes ${nm} less than before.` : /UPGRADED/.test(e.title) ? `A big bank now likes ${nm} more than before.` : `A big bank started following ${nm}.`;
+      case "whale": return /NEW|ADDED/.test(e.title) ? `BlackRock — the world's biggest investor — bought more of ${nm}.` : `BlackRock — the world's biggest investor — sold some or all of its ${nm}.`;
       case "earnings": return /BEAT/.test(e.title) ? `${nm} made MORE money than the experts guessed. Nice.` : /MISS/.test(e.title) ? `${nm} made LESS money than the experts guessed. Careful.` : `${nm} has a report coming and it looks ${/STRONG/.test(e.title) ? "strong" : "shaky"}.`;
       case "revisions": return /POSITIVE|UP/.test(e.title) ? `The experts are raising their guesses for ${nm}. That's usually a good sign.` : `The experts are lowering their guesses for ${nm}. That's usually a warning.`;
       case "edge": return /LIKELY UP|UP BIAS/.test(e.title) ? `Our robot's arrows turned UP for ${nm}.` : `Our robot's arrows turned DOWN for ${nm}.`;
@@ -3715,6 +3792,7 @@
   const signalsAsOf = () => (typeof SIGNALS !== "undefined" && SIGNALS.asOf) || null;
   const SIG_TYPES = {
     filing: { label: "FILING", color: "var(--purple)" },
+    whale: { label: "BLACKROCK", color: "var(--ice)" },
     analyst: { label: "ANALYST", color: "var(--pink)" },
     earnings: { label: "EARNINGS", color: "var(--gold)" },
     revisions: { label: "REVISIONS", color: "var(--cyan)" },
@@ -5137,6 +5215,7 @@
     if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
     if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
     if (["EASY", "SIMPLE", "GAME PLAN", "GAMEPLAN", "PLAN", "KID", "HELP ME"].includes(q)) { showEasy(); flash("Easy mode — today's game plan", "ok"); return; }
+    if (["BLACKROCK", "13F", "WHALE", "WHALES", "BLACK ROCK"].includes(q)) { showBlackrock(); flash("BlackRock tracker", "ok"); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["TRACK", "RECORD", "SCORECARD", "PROOF"].includes(q)) { showTrack(); return; }
     if (["JOURNAL", "THESIS", "THESES"].includes(q)) { showJournal(); return; }
@@ -5219,6 +5298,7 @@
     el("liveBtn").onclick = () => startLiveTape();
     el("homeBtn").onclick = showHome;
     el("easyBtn").onclick = showEasy;
+    el("blackrockBtn").onclick = showBlackrock;
     el("signalsBtn").onclick = showSignals;
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
@@ -5265,7 +5345,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=67").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=68").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5276,7 +5356,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
-    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords,
+    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

@@ -22,6 +22,8 @@ jobs:
         run: python scripts/sec_ingest.py
       - name: Collect earnings intelligence (beat/miss ledger + consensus + revisions)
         run: python scripts/collect_earnings.py
+      - name: Track BlackRock (EDGAR filings + 13F holdings diff)
+        run: python scripts/track_blackrock.py
       - name: Record model track-record snapshot
         run: node scripts/snapshot_scores.js
       - name: Build what-changed signals ledger (deltas + filing diffs)
@@ -34,6 +36,6 @@ jobs:
         run: |
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
-          git add data.js sec.js track.js earnings.js signals.js data/ || true
+          git add data.js sec.js track.js earnings.js signals.js blackrock.js data/ || true
           git diff --cached --quiet || git commit -m "data: automated refresh $(date -u +%F)"
           git push
