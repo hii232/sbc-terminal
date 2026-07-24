@@ -1,0 +1,23 @@
+{
+  "name": "COCA COLA CO",
+  "notes": [
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
+  ],
+  "snapshots": [
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 2.29107,
+      "currentYearRevenue": 38125940355.0,
+      "date": "2026-07-24",
+      "nextYearEps": 2.49032,
+      "nextYearRevenue": 42833977378.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "KO"
+    }
+  ],
+  "source": "Financial Modeling Prep analyst estimates",
+  "ticker": "KO"
+}
