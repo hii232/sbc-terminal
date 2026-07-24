@@ -9,8 +9,7 @@ from datetime import date
 ROOT = Path(__file__).resolve().parent.parent
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 
-UNIVERSE_VERSION = "1.2.0"
-REQUIRED_UNIVERSE_SIZE = 126
+UNIVERSE_VERSION = "1.3.0"
 
 GROUPS = [
     ("Large technology and internet platforms",
@@ -41,7 +40,53 @@ GROUPS = [
      ["LIN", "FCX", "NUE", "SCCO", "VST", "NRG", "SO", "DUK", "UPS", "FDX"]),
     ("Insurance underwriting discipline (the terminal's own top scorers)",
      ["PGR", "TRV", "ALL", "HIG", "CB"]),
+    # ---- 2026-07 expansion: +100 liquid US domestic filers (10-K), chosen to
+    # broaden sector coverage where the original 126 was thin (analog semis,
+    # regional banks, exchanges, managed care, staples, rails, defense). ----
+    ("Analog, embedded and legacy semiconductors",
+     ["TXN", "ADI", "NXPI", "ON", "MCHP", "TER", "ENTG", "WDC", "GLW"]),
+    ("Enterprise software, design and collaboration",
+     ["ADSK", "ANSS", "TEAM", "HUBS", "VEEV", "ZM", "DOCU"]),
+    ("Cybersecurity, adtech and digital platforms",
+     ["FTNT", "OKTA", "TTD", "DASH"]),
+    ("Interactive entertainment",
+     ["EA", "TTWO"]),
+    ("Payments processing and card networks",
+     ["FI", "FIS", "GPN", "DFS"]),
+    ("Exchanges, ratings and financial data",
+     ["ICE", "CME", "NDAQ", "CBOE", "MCO", "MSCI", "FICO"]),
+    ("Regional and diversified banks",
+     ["USB", "PNC", "TFC", "FITB", "MTB", "RF", "KEY", "CFG", "ALLY"]),
+    ("Alternative asset managers and brokers",
+     ["BX", "KKR", "APO", "ARES", "IBKR"]),
+    ("Insurance and risk intermediaries",
+     ["AIG", "MET", "PRU", "AFL", "ACGL", "MMC"]),
+    ("Biotechnology and large-molecule pharma",
+     ["AMGN", "GILD", "VRTX", "REGN", "BIIB", "BMY", "ZTS"]),
+    ("Managed care, hospitals and drug distribution",
+     ["CI", "ELV", "HCA", "MCK", "COR"]),
+    ("Medical devices and diagnostics",
+     ["SYK", "BSX", "EW", "DXCM"]),
+    ("Life-science tools and research services",
+     ["IQV", "A", "IDXX"]),
+    ("Beverages and packaged food",
+     ["PEP", "KO", "STZ", "GIS", "HSY", "KHC", "MDLZ"]),
+    ("Household and personal care staples",
+     ["PG", "CL", "KMB"]),
+    ("Off-price, discount and auto-parts retail",
+     ["TJX", "ROST", "DG", "DLTR", "ORLY", "AZO"]),
+    ("Restaurants, lodging and travel brands",
+     ["YUM", "MAR", "HLT"]),
+    ("Premium apparel and footwear",
+     ["LULU", "DECK"]),
+    ("Railroads and freight networks",
+     ["UNP", "CSX", "NSC", "ODFL"]),
+    ("Defense primes and mission systems",
+     ["GD", "NOC", "LHX"]),
 ]
+# Membership is controlled by GROUPS above; the size gate is derived from it so
+# an expansion cannot silently drop names, but also never needs a magic number.
+REQUIRED_UNIVERSE_SIZE = sum(len(tks) for _, tks in GROUPS)
 COUNTRY = {"ASML": "NL", "ARM": "GB", "TSM": "TW", "SHOP": "CA", "MELI": "AR/UY (US filer)",
            "IREN": "AU", "NBIS": "NL", "SPGI": "US", "LIN": "IE/UK (US filer)",
            "SCCO": "PE/US filer"}
@@ -60,6 +105,39 @@ SECTOR_OVERRIDE = {
     "NRG": "Utilities", "SO": "Utilities", "DUK": "Utilities", "UPS": "Industrials", "FDX": "Industrials",
     "TSM": "Semis/Foundry",
     "PGR": "Insurance", "TRV": "Insurance", "ALL": "Insurance", "HIG": "Insurance", "CB": "Insurance",
+    # ---- 2026-07 expansion. Every value below must already exist in app.js
+    # SECTOR_MAP so each new name inherits a real sector-ETF for the tape,
+    # sector read-through and macro-regime layers. ----
+    "TXN": "Semis", "ADI": "Semis", "NXPI": "Semis", "ON": "Semis", "MCHP": "Semis",
+    "TER": "Semi Equip", "ENTG": "Semi Equip", "WDC": "Hardware", "GLW": "Hardware",
+    "ADSK": "Software", "ANSS": "Software", "TEAM": "Software", "HUBS": "Software",
+    "VEEV": "Software", "ZM": "Software", "DOCU": "Software",
+    "FTNT": "Cybersecurity", "OKTA": "Cybersecurity", "TTD": "AdTech", "DASH": "E-commerce",
+    "EA": "Gaming", "TTWO": "Gaming",
+    "FI": "Payments", "FIS": "Payments", "GPN": "Payments", "DFS": "Payments",
+    "ICE": "Financial Data", "CME": "Financial Data", "NDAQ": "Financial Data",
+    "CBOE": "Financial Data", "MCO": "Financial Data", "MSCI": "Financial Data", "FICO": "Financial Data",
+    "USB": "Banks", "PNC": "Banks", "TFC": "Banks", "FITB": "Banks", "MTB": "Banks",
+    "RF": "Banks", "KEY": "Banks", "CFG": "Banks", "ALLY": "Banks",
+    "BX": "Asset Mgmt", "KKR": "Asset Mgmt", "APO": "Asset Mgmt", "ARES": "Asset Mgmt",
+    "IBKR": "Fintech Brokerage",
+    "AIG": "Insurance", "MET": "Insurance", "PRU": "Insurance", "AFL": "Insurance",
+    "ACGL": "Insurance", "MMC": "Insurance",
+    "AMGN": "Biotech", "GILD": "Biotech", "VRTX": "Biotech", "REGN": "Biotech", "BIIB": "Biotech",
+    "BMY": "Pharma", "ZTS": "Pharma",
+    "CI": "Managed Care", "ELV": "Managed Care", "HCA": "Managed Care",
+    "MCK": "Managed Care", "COR": "Managed Care",
+    "SYK": "Medical Devices", "BSX": "Medical Devices", "EW": "Medical Devices", "DXCM": "Medical Devices",
+    "IQV": "Life Sciences", "A": "Life Sciences", "IDXX": "Life Sciences",
+    "PEP": "Beverages", "KO": "Beverages", "STZ": "Beverages",
+    "GIS": "Staples", "HSY": "Staples", "KHC": "Staples", "MDLZ": "Staples",
+    "PG": "Staples", "CL": "Staples", "KMB": "Staples",
+    "TJX": "Retail", "ROST": "Retail", "DG": "Retail", "DLTR": "Retail",
+    "ORLY": "Retail", "AZO": "Retail",
+    "YUM": "Restaurants", "MAR": "Travel", "HLT": "Travel",
+    "LULU": "Apparel", "DECK": "Apparel",
+    "UNP": "Rails", "CSX": "Rails", "NSC": "Rails", "ODFL": "Industrials",
+    "GD": "Defense", "NOC": "Defense", "LHX": "Defense",
 }
 CIK_OVERRIDE = {
     # SEC company_tickers can map XOM to a newer holding-company shell. Use the

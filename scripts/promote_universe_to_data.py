@@ -179,7 +179,7 @@ def main():
     tickers = [c["ticker"] for c in missing]
     print(f"Generating DATA rows for {len(tickers)} tickers: {', '.join(tickers)}", flush=True)
     quotes = U.fetch_quotes(tickers)
-    blocks = []
+    blocks, failed = [], []
     for c in missing:
         tk = c["ticker"]
         try:
@@ -188,9 +188,18 @@ def main():
             blocks.append(record(tk, c, quotes.get(tk, {}), f, fields))
             print(f"  {tk}: data row ok", flush=True)
         except Exception as exc:
-            print(f"  {tk}: failed {exc}", flush=True)
-            raise
+            # One thin/absent filer must not abort a 100-name expansion. The
+            # ticker is reported and left OUT of data.js; reconcile_universe.py
+            # then drops it from the official universe so the invariant
+            # "every universe ticker has a verified DATA row" still holds.
+            print(f"  {tk}: FAILED — {exc}", flush=True)
+            failed.append(tk)
         time.sleep(0.25)
+    if failed:
+        print(f"\n{len(failed)} ticker(s) produced no DATA row: {', '.join(failed)}", flush=True)
+    if not blocks:
+        print("no rows generated — data.js left untouched", flush=True)
+        return
     insert = "\n\n  /* ================= EXPANDED OFFICIAL UNIVERSE COVERAGE ================= */\n" + "\n\n".join(blocks) + "\n"
     src = src.replace("\n];\n\n/* ordering for the framework legend */", "\n" + insert + "];\n\n/* ordering for the framework legend */")
     DATA_JS.write_text(src, encoding="utf-8")
