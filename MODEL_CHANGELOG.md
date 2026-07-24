@@ -1,5 +1,11 @@
 # SBC Model Changelog
 
+## Analyst ratings layer - 2026-07-24
+
+- Daily collector now ingests analyst rating actions (upgradeDowngradeHistory): firm, from -> to grade, action, dated — last 45 days per ticker, keyless.
+- Signals feed gains ANALYST events: upgrades/downgrades within 10 days, tier-1 desks (Morgan Stanley, Goldman, JPMorgan, BofA, UBS, Barclays, Citi, ...) weighted 72, others 58; reiterations skipped unless tier-1 initiations.
+- Ticker overview gains an ANALYST RATING ACTIONS tape. The stated reasoning is honest: the free feed carries the action only, so the app attaches the time-adjacent headline naming the firm and action when a news key is connected, and explicitly marks the reason unavailable otherwise — it is never invented. Shell v66.
+
 ## The edge layer: signals, drift, filing diffs, calibration - 2026-07-24
 
 - New WHAT CHANGED signals feed (own nav group, default panel on Home): `scripts/build_signals.js` runs in the daily pipeline and diffs every tracked input against yesterday — business-quality/market-reward/long-term score inflections and threshold crossings, Direction Edge label flips, analyst revision-tape sign flips and consensus-drift inflections, Beat Odds regime entries for reports inside 3 weeks, fresh beats/misses, and same-day SEC filing diffs (revenue growth acceleration/deceleration, SBC-burden change, share-count turns, computed from filing facts the day a new accession lands). Events are materiality-ranked; the ledger keeps 21 days; nothing is backfilled or invented.

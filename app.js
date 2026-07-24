@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "65"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "66"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -1317,6 +1317,8 @@
       ${qualityCard(d)}
 
       ${analystCard(d)}
+
+      ${ratingsTapeCard(d)}
 
       ${sectorContextCard(d)}
 
@@ -3117,6 +3119,51 @@
     </div>`;
   }
 
+  /* analyst rating actions (bundled, keyless) + best-effort stated reason
+     from live headlines. The free ratings feed carries firm/from/to only —
+     when a matching headline exists it is shown AS the stated reason; when
+     none does, the reason is marked unavailable, never invented. */
+  const RATING_TIER1 = new Set(["morgan stanley", "goldman sachs", "jpmorgan", "j.p. morgan", "jp morgan",
+    "bofa securities", "bank of america", "ubs", "barclays", "citigroup", "citi", "wells fargo",
+    "deutsche bank", "evercore isi", "bernstein", "jefferies", "rbc capital", "hsbc"]);
+  function ratingReasonFrom(newsRows, r) {
+    if (!Array.isArray(newsRows)) return null;
+    const firmWord = (r.firm || "").split(" ")[0].toLowerCase();
+    const from = Date.parse(r.date) - 4 * 864e5, to = Date.parse(r.date) + 4 * 864e5;
+    const hit = newsRows.find(n => {
+      const ms = (n.datetime || 0) * 1000;
+      if (ms < from || ms > to) return false;
+      const txt = `${n.headline || ""} ${n.summary || ""}`.toLowerCase();
+      return txt.includes(firmWord) && /upgrad|downgrad|overweight|underweight|outperform|price target|initiat|rating/.test(txt);
+    });
+    return hit ? { headline: hit.headline, url: hit.url } : null;
+  }
+  function ratingsTapeCard(d) {
+    const ratings = (earnIntelOf(d.ticker)?.ratings || []);
+    if (!ratings.length) return "";
+    const news = state.live[d.ticker]?.news;
+    const row = (r) => {
+      const tier1 = RATING_TIER1.has((r.firm || "").toLowerCase());
+      const col = r.action === "up" ? "var(--green)" : r.action === "down" ? "var(--red)" : "var(--muted)";
+      const verb = r.action === "up" ? "UPGRADE" : r.action === "down" ? "DOWNGRADE" : r.action === "init" ? "NEW COVERAGE" : "MAINTAINED";
+      const why = ratingReasonFrom(news, r);
+      return `<div style="padding:9px 0;border-bottom:1px solid rgba(132,158,194,.13)">
+        <div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap">
+          <b style="color:${col}">${verb}</b>
+          <b>${escapeHtml(r.firm)}</b>${tier1 ? `<span class="impact-chip hot">TIER-1</span>` : ""}
+          <span class="sub">${r.from && r.to ? `${escapeHtml(r.from)} → ${escapeHtml(r.to)}` : escapeHtml(r.to || "")} · ${r.date}</span>
+        </div>
+        <div class="sub" style="margin-top:3px">${why
+          ? `stated reason: ${why.url ? `<a href="${why.url}" target="_blank" rel="noopener" style="color:var(--cyan)">${escapeHtml(why.headline)}</a>` : escapeHtml(why.headline)}`
+          : `reasoning not published in the free ratings feed${state.keys.finnhub ? " — no matching headline found" : " — connect a Finnhub key to auto-match the announcing headline"}`}</div>
+      </div>`;
+    };
+    return `<div class="card" style="grid-column:span 3">
+      <h3>ANALYST RATING ACTIONS <span class="unit">last 45 days · bundled daily · reasons attached from headlines, never invented</span></h3>
+      ${ratings.slice(0, 8).map(row).join("")}
+    </div>`;
+  }
+
   /* ------------------------ 📊 CUSTOM SCREENER ------------------------ */
   const screenState = { bucket: "all", zone: "all", gMin: 0, peMax: "", sbcMax: "", capMin: "", sector: "all", favOnly: false, divOnly: false, sort: "composite" };
   function renderScreener() {
@@ -3548,6 +3595,7 @@
   const signalsAsOf = () => (typeof SIGNALS !== "undefined" && SIGNALS.asOf) || null;
   const SIG_TYPES = {
     filing: { label: "FILING", color: "var(--purple)" },
+    analyst: { label: "ANALYST", color: "var(--pink)" },
     earnings: { label: "EARNINGS", color: "var(--gold)" },
     revisions: { label: "REVISIONS", color: "var(--cyan)" },
     edge: { label: "EDGE FLIP", color: "var(--green)" },
@@ -5095,7 +5143,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=65").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=66").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5106,7 +5154,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
-    driftScoreOf, calibrationOf, signalsEvents,
+    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

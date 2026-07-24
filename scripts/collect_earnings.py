@@ -31,7 +31,7 @@ UNIVERSE = ROOT / "data" / "universe.json"
 INTEL_JSON = ROOT / "data" / "earnings_intel.json"
 EARNINGS_JS = ROOT / "earnings.js"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
-MODULES = "earningsHistory,calendarEvents,earningsTrend"
+MODULES = "earningsHistory,calendarEvents,earningsTrend,upgradeDowngradeHistory"
 
 
 def get(url, opener=None):
@@ -99,6 +99,35 @@ def parse_ticker(result):
         "revEstimate": raw(cal.get("revenueAverage")),
         "history": history,
     }
+
+    # analyst rating actions (firm, from -> to). The free feed carries the
+    # ACTION only — the analyst's reasoning is not included and is never
+    # invented; the app attaches a matching news headline when one exists.
+    from datetime import timedelta
+    ratings = []
+    hist45 = (date.today() - timedelta(days=45)).isoformat()
+    for g in (result.get("upgradeDowngradeHistory") or {}).get("history") or []:
+        gd = None
+        t = g.get("epochGradeDate")
+        if isinstance(t, (int, float)):
+            try:
+                gd = datetime.fromtimestamp(t, tz=timezone.utc).strftime("%Y-%m-%d")
+            except (OverflowError, OSError, ValueError):
+                gd = None
+        if not gd or gd < hist45:
+            continue
+        firm = (g.get("firm") or "").strip()
+        if not firm:
+            continue
+        ratings.append({
+            "date": gd,
+            "firm": firm,
+            "from": (g.get("fromGrade") or "").strip() or None,
+            "to": (g.get("toGrade") or "").strip() or None,
+            "action": (g.get("action") or "").strip() or None,  # up|down|init|main|reit
+        })
+    ratings.sort(key=lambda r: r["date"], reverse=True)
+    out["ratings"] = ratings[:12]
 
     trend = (result.get("earningsTrend") or {}).get("trend") or []
     cq = next((t for t in trend if t.get("period") == "0q"), None)
