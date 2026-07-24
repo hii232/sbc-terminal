@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "68"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "69"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -815,7 +815,7 @@
       { id: "dailyBtn", label: "Daily Review", ic: "📰" },
       { id: "edgeBtn", label: "Direction Edge", ic: "🧭" },
       { id: "sectorBtn", label: "Sectors", ic: "◈" },
-      { id: "blackrockBtn", label: "BlackRock Tracker", ic: "⬛" },
+      { id: "blackrockBtn", label: "Whale Tracker", ic: "🐋" },
     ] },
     { name: "Stocks", icon: "🔍", tools: [
       { id: "rankBtn", label: "Rankings", ic: "⚡" },
@@ -3588,12 +3588,18 @@
     return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
   }
   /* ============================================================================
-     ⬛ BLACKROCK TRACKER — the world's biggest owner, from the primary source.
-     Recent EDGAR filings + the two latest 13F holdings reports, diffed:
-     what they bought, what they sold, what they hold, in whose names.
-     Honesty on-screen: 13Fs are quarterly with a 45-day legal lag, and
-     BlackRock is mostly an INDEX manager — deviations are the signal. */
-  const blkIntel = () => (typeof BLACKROCK_INTEL !== "undefined" ? BLACKROCK_INTEL : null);
+     🐋 WHALE TRACKER — the biggest owners, from the primary source.
+     Per whale (Berkshire, BlackRock, Citadel): recent EDGAR filings + the
+     two latest 13F holdings reports, diffed. Honesty on-screen: 13Fs are
+     quarterly with a 45-day legal lag, and each whale's style note says
+     how much signal its moves actually carry (active vs index vs hedged). */
+  const whalesIntel = () => (typeof WHALES_INTEL !== "undefined" ? WHALES_INTEL : null);
+  const whaleState = { focus: "berkshire" };
+  const blkIntel = () => {
+    const W = whalesIntel();
+    if (!W || !W.whales) return null;
+    return W.whales[whaleState.focus] || Object.values(W.whales)[0] || null;
+  };
   const blkMoney = (v) => v == null ? "–" : v >= 1e12 ? "$" + (v / 1e12).toFixed(2) + "T" : v >= 1e9 ? "$" + (v / 1e9).toFixed(1) + "B" : "$" + (v / 1e6).toFixed(0) + "M";
   const blkShares = (s) => s == null ? "–" : s >= 1e9 ? (s / 1e9).toFixed(2) + "B" : s >= 1e6 ? (s / 1e6).toFixed(1) + "M" : String(s);
   function renderBlackrock() {
@@ -3609,19 +3615,25 @@
       ${rows.length ? `<div style="overflow-x:auto"><table class="rank"><thead><tr><th style="text-align:left">NAME</th><th>${rightHead}</th></tr></thead><tbody>${rows.join("")}</tbody></table></div>`
         : `<div class="sub" style="padding:12px">none this quarter</div>`}
     </div>`;
+    const W = whalesIntel();
+    const whaleChips = ["berkshire", "blackrock", "citadel"].map(k => {
+      const label = k === "berkshire" ? "🎩 BERKSHIRE" : k === "blackrock" ? "⬛ BLACKROCK" : "🏰 CITADEL";
+      return `<button class="sec-chip ${whaleState.focus === k ? "on" : ""}" data-whale="${k}" style="${whaleState.focus === k ? "background:var(--cyan)" : ""}">${label}</button>`;
+    }).join("");
     el("main").innerHTML = `
       <div class="hdr">
-        <div><div class="tick gradient-title">⬛ BLACKROCK TRACKER</div>
-        <div class="co">What the world's biggest asset manager files, buys and sells — straight from SEC EDGAR, no middleman.</div></div>
+        <div><div class="tick gradient-title">🐋 WHALE TRACKER</div>
+        <div class="co">What the biggest investors on Earth file, buy and sell — straight from SEC EDGAR, no middleman.</div></div>
         <div class="spacer"></div>
-        <div style="text-align:right"><div class="sub">EDGAR ${B && B.cik ? "CIK " + B.cik : ""}</div><div class="stat sm">${B && B.asOf ? "checked " + B.asOf : "first run pending"}</div></div>
+        <div style="text-align:right"><div class="sub">EDGAR ${B && B.cik ? "CIK " + B.cik : ""}</div><div class="stat sm">${W && W.asOf ? "checked " + W.asOf : "first run pending"}</div></div>
       </div>
-      <div class="note" style="margin-bottom:12px"><b>Read this first:</b> 13F holdings are a quarterly snapshot the SEC lets managers file up to 45 days late — that lag is the law, not a glitch. And ~90% of BlackRock's money runs on autopilot (index funds), so routine buys/sells are index flows, not opinions. The signal lives in the <b>deviations</b>: brand-new positions, outright exits, and outsized adds or trims. That is exactly what this page surfaces.</div>
-      ${!H ? `<div class="card"><h3>ARMING</h3><div class="sub" style="padding:10px 0;line-height:1.6">The tracker pulls BlackRock's EDGAR submissions and parses their two most recent 13F holdings reports (thousands of positions) on the next data refresh. Everything lands automatically — filings feed, buy/sell diff, top holdings, and their stake in every one of your ${DATA.length} names.</div></div>` : `
+      <div class="sec-chips" style="margin-bottom:10px">${whaleChips}</div>
+      <div class="note" style="margin-bottom:12px"><b>${B ? escapeHtml(B.label || "") : ""} — read this first:</b> 13F holdings are a quarterly snapshot the SEC lets managers file up to 45 days late — that lag is the law, not a glitch. ${B && B.style ? escapeHtml(B.style) : ""} The signal lives in the <b>deviations</b>: brand-new positions, outright exits, and outsized adds or trims — exactly what this page surfaces.</div>
+      ${!B ? `<div class="card"><h3>ARMING</h3><div class="sub" style="padding:10px 0;line-height:1.6">The tracker pulls each whale's EDGAR submissions and parses their two most recent 13F holdings reports on the next data refresh — Berkshire Hathaway, BlackRock and Citadel. Filings feed, buy/sell diff, top holdings, and their stake in every one of your ${DATA.length} names, all automatic.</div></div>` : !H ? `<div class="card"><h3>ARMING — HOLDINGS PARSE PENDING</h3><div class="sub" style="padding:10px 0;line-height:1.6">${escapeHtml(B.label)}'s filings feed below is live; the 13F holdings diff lands on the next data refresh.</div></div>` : `
       <div class="grid g4" style="margin-bottom:12px">
         <div class="card"><h3>PORTFOLIO (13F)</h3><div class="stat" style="color:var(--cyan)">${blkMoney(H.totalValue)}</div><div class="sub">${H.positions.toLocaleString()} positions · quarter ended ${H.period || "?"}</div></div>
         <div class="card"><h3>FILED</h3><div class="stat sm">${H.filed || "–"}</div><div class="sub">vs prior quarter ${H.prevPeriod || "–"}</div></div>
-        <div class="card"><h3>YOUR UNIVERSE OVERLAP</h3><div class="stat" style="color:var(--gold)">${H.universe.length}</div><div class="sub">of ${DATA.length} names held by BlackRock</div></div>
+        <div class="card"><h3>YOUR UNIVERSE OVERLAP</h3><div class="stat" style="color:var(--gold)">${H.universe.length}</div><div class="sub">of ${DATA.length} names held by ${escapeHtml(B.label)}</div></div>
         <div class="card"><h3>DEVIATIONS</h3><div class="stat" style="color:var(--purple)">${H.new.length + H.exits.length}</div><div class="sub">${H.new.length} new positions · ${H.exits.length} exits</div></div>
       </div>
       <div class="grid g2" style="margin-bottom:12px">
@@ -3641,7 +3653,7 @@
         </table></div>
       </div>
       <div class="card" style="margin-bottom:12px">
-        <h3>BLACKROCK × YOUR ${DATA.length}-STOCK UNIVERSE <span class="unit">their stake in your names, QoQ</span></h3>
+        <h3>${escapeHtml((B.label || "").toUpperCase())} × YOUR ${DATA.length}-STOCK UNIVERSE <span class="unit">their stake in your names, QoQ</span></h3>
         <div style="overflow-x:auto;max-height:52vh;overflow-y:auto"><table class="rank">
           <thead><tr><th style="text-align:left">TICKER</th><th>VALUE</th><th>SHARES</th><th>SHARES QoQ</th></tr></thead>
           <tbody>${H.universe.map(r => `<tr data-tk="${r.ticker}">
@@ -3659,6 +3671,7 @@
         }).join("") : `<div class="sub" style="padding:12px">Filing feed fills on the next data refresh.</div>`}
       </div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-whale]").forEach(b => b.onclick = () => { whaleState.focus = b.dataset.whale; renderBlackrock(); });
   }
   const showBlackrock = () => showView("blackrock", renderBlackrock, "blackrockBtn");
 
@@ -3694,7 +3707,7 @@
     switch (e.type) {
       case "filing": return `${nm} handed in its official report to the government. ${/DECELERATED/.test(e.detail) ? "It's growing slower than before." : /ACCELERATED/.test(e.detail) ? "It's growing faster than before." : "We checked it against the last one."}`;
       case "analyst": return /DOWNGRADED/.test(e.title) ? `A big bank now likes ${nm} less than before.` : /UPGRADED/.test(e.title) ? `A big bank now likes ${nm} more than before.` : `A big bank started following ${nm}.`;
-      case "whale": return /NEW|ADDED/.test(e.title) ? `BlackRock — the world's biggest investor — bought more of ${nm}.` : `BlackRock — the world's biggest investor — sold some or all of its ${nm}.`;
+      case "whale": { const mgr = e.title.split(" ")[0]; return /NEW|ADDED/.test(e.title) ? `${mgr} — one of the biggest investors on Earth — bought more of ${nm}.` : `${mgr} — one of the biggest investors on Earth — sold some or all of its ${nm}.`; }
       case "earnings": return /BEAT/.test(e.title) ? `${nm} made MORE money than the experts guessed. Nice.` : /MISS/.test(e.title) ? `${nm} made LESS money than the experts guessed. Careful.` : `${nm} has a report coming and it looks ${/STRONG/.test(e.title) ? "strong" : "shaky"}.`;
       case "revisions": return /POSITIVE|UP/.test(e.title) ? `The experts are raising their guesses for ${nm}. That's usually a good sign.` : `The experts are lowering their guesses for ${nm}. That's usually a warning.`;
       case "edge": return /LIKELY UP|UP BIAS/.test(e.title) ? `Our robot's arrows turned UP for ${nm}.` : `Our robot's arrows turned DOWN for ${nm}.`;
@@ -3792,7 +3805,7 @@
   const signalsAsOf = () => (typeof SIGNALS !== "undefined" && SIGNALS.asOf) || null;
   const SIG_TYPES = {
     filing: { label: "FILING", color: "var(--purple)" },
-    whale: { label: "BLACKROCK", color: "var(--ice)" },
+    whale: { label: "WHALES", color: "var(--ice)" },
     analyst: { label: "ANALYST", color: "var(--pink)" },
     earnings: { label: "EARNINGS", color: "var(--gold)" },
     revisions: { label: "REVISIONS", color: "var(--cyan)" },
@@ -5215,7 +5228,9 @@
     if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
     if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
     if (["EASY", "SIMPLE", "GAME PLAN", "GAMEPLAN", "PLAN", "KID", "HELP ME"].includes(q)) { showEasy(); flash("Easy mode — today's game plan", "ok"); return; }
-    if (["BLACKROCK", "13F", "WHALE", "WHALES", "BLACK ROCK"].includes(q)) { showBlackrock(); flash("BlackRock tracker", "ok"); return; }
+    if (["BLACKROCK", "13F", "WHALE", "WHALES", "BLACK ROCK"].includes(q)) { showBlackrock(); flash("Whale tracker", "ok"); return; }
+    if (["BERKSHIRE", "BUFFETT", "WARREN"].includes(q)) { whaleState.focus = "berkshire"; showBlackrock(); flash("Whale tracker — Berkshire", "ok"); return; }
+    if (["CITADEL", "GRIFFIN"].includes(q)) { whaleState.focus = "citadel"; showBlackrock(); flash("Whale tracker — Citadel", "ok"); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["TRACK", "RECORD", "SCORECARD", "PROOF"].includes(q)) { showTrack(); return; }
     if (["JOURNAL", "THESIS", "THESES"].includes(q)) { showJournal(); return; }
@@ -5345,7 +5360,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=68").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=69").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5356,7 +5371,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
-    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel,
+    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
