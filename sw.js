@@ -1,8 +1,8 @@
 /* SBC Terminal — service worker: cache app shell for offline / phone use */
-const V = "68";
+const V = "69";
 const CACHE = "sbc-terminal-v" + V;
 const SHELL = ["./", "./index.html", "./manifest.json", "./icon.svg"].concat(
-  ["app.js", "charts.js", "universe.js", "data.js", "sec.js", "track.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "blackrock.js", "scores.js"].map((f) => `./${f}?v=${V}`)
+  ["app.js", "charts.js", "universe.js", "data.js", "sec.js", "track.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "scores.js"].map((f) => `./${f}?v=${V}`)
 );
 
 self.addEventListener("install", (e) => {

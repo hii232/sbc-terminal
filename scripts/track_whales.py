@@ -1,27 +1,27 @@
 """
-SBC TERMINAL — BlackRock tracker (SEC EDGAR, keyless)
-=====================================================
-Tracks the world's largest asset manager straight from the primary source:
+SBC TERMINAL — whale tracker (SEC EDGAR, keyless)
+=================================================
+Tracks the biggest institutional owners straight from the primary source —
+for each configured whale (BlackRock, Berkshire Hathaway, Citadel):
 
-  - recent EDGAR filings by BlackRock Inc. (10-K/Q, 8-K, 13F-HR, SC 13G/A, ...)
+  - recent EDGAR filings (10-K/Q, 8-K, 13F-HR, SC 13G/A, ...)
   - the two most recent 13F-HR holdings reports, parsed and DIFFED:
       new positions · exits · biggest adds · biggest trims · top holdings
-  - universe overlay: BlackRock's stake (and quarter-over-quarter change)
+  - universe overlay: the whale's stake (and quarter-over-quarter change)
     in every official-universe name it holds
 
 Honesty notes baked into the output:
-  - 13F data is a QUARTERLY snapshot filed up to 45 days late (that is the
-    SEC deadline, not a data defect) — the asOf/filed dates are shown.
-  - BlackRock is overwhelmingly an INDEX manager; most position changes are
-    index flows, not conviction bets. The diff view exists to surface the
-    deviations (new/exited names, outsized adds/trims), which is where any
-    signal lives.
+  - 13F data is a QUARTERLY snapshot filed up to 45 days late (the SEC
+    deadline, not a data defect) — asOf/filed dates are always shown.
+  - Each whale carries a style note the app displays: Berkshire is a
+    concentrated ACTIVE book (highest-signal 13F filed); BlackRock is
+    overwhelmingly INDEX flows; Citadel is a hedged multi-strategy /
+    market-making book where position moves are the weakest signal.
 
-Writes data/blackrock.json (source of truth) and blackrock.js (app bundle).
-Heavy 13F parsing is cached: it only re-downloads when a new 13F accession
-appears. Runs in the daily data-refresh workflow.
+Writes data/whales.json (source of truth) and whales.js (app bundle).
+Heavy 13F parsing is cached per accession. Runs in the daily workflow.
 
-Usage:  python scripts/track_blackrock.py
+Usage:  python scripts/track_whales.py
 """
 import json, re, sys, time, urllib.request
 import xml.etree.ElementTree as ET
@@ -29,14 +29,21 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT_JSON = ROOT / "data" / "blackrock.json"
-OUT_JS = ROOT / "blackrock.js"
+OUT_JSON = ROOT / "data" / "whales.json"
+OUT_JS = ROOT / "whales.js"
 UNIVERSE = ROOT / "data" / "universe.json"
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 
-# Candidate filer CIKs for BlackRock, Inc. — the script self-selects the one
-# actually filing 13F-HR (EDGAR has legacy/subsidiary CIKs; no guessing).
-CIK_CANDIDATES = [1364742, 1086364]
+# Per-whale candidate filer CIKs — the script self-selects whichever CIK
+# actually files 13F-HR (EDGAR has legacy/subsidiary CIKs; no guessing).
+WHALES = [
+    {"key": "berkshire", "label": "Berkshire Hathaway", "ciks": [1067983],
+     "style": "Warren Buffett's concentrated ACTIVE book — the highest-signal 13F filed. New buys and exits here are deliberate decisions."},
+    {"key": "blackrock", "label": "BlackRock", "ciks": [1364742, 1086364],
+     "style": "~90% index autopilot — routine moves are index flows, not opinions. Watch the deviations: new positions, exits, outsized trims."},
+    {"key": "citadel", "label": "Citadel", "ciks": [1423053],
+     "style": "Multi-strategy hedge fund + market maker — the book is full of hedges and inventory, so single-position moves are the WEAKEST signal of the three. Directional reads here need extra skepticism."},
+]
 
 
 def get(url, binary=False):
@@ -51,8 +58,8 @@ def get_json(url):
     return json.loads(get(url))
 
 
-def pick_filer():
-    for cik in CIK_CANDIDATES:
+def pick_filer(candidates):
+    for cik in candidates:
         try:
             sub = get_json(f"https://data.sec.gov/submissions/CIK{cik:010d}.json")
         except Exception:
@@ -60,7 +67,7 @@ def pick_filer():
         forms = (sub.get("filings") or {}).get("recent") or {}
         if "13F-HR" in (forms.get("form") or []):
             return cik, sub
-    raise SystemExit("no candidate CIK files 13F-HR — check CIK_CANDIDATES")
+    raise ValueError("no candidate CIK files 13F-HR")
 
 
 def recent_filings(sub, limit=30):
@@ -196,6 +203,33 @@ def diff_holdings(cur, prev):
             "exits": [e for e in exits if e["ticker"] or (e["prevValue"] or 0) >= 100e6][:20]}
 
 
+def track_one(w, prev_whale):
+    cik, sub = pick_filer(w["ciks"])
+    out = {"key": w["key"], "label": w["label"], "style": w["style"],
+           "cik": cik, "name": sub.get("name") or w["label"],
+           "filings": recent_filings(sub), "holdings": (prev_whale or {}).get("holdings"),
+           "f13": list_13f(sub, 2)}
+    f13 = out["f13"]
+    if f13 and (not (prev_whale or {}).get("f13") or prev_whale["f13"][0]["accn"] != f13[0]["accn"]
+                or not (prev_whale or {}).get("holdings")):
+        print(f"  [{w['key']}] parsing 13F {f13[0]['accn']} (period {f13[0]['period']})…")
+        cur = parse_13f_holdings(cik, f13[0]["accn"])
+        prevH = {}
+        if len(f13) > 1:
+            print(f"  [{w['key']}] parsing prior 13F {f13[1]['accn']}…")
+            prevH = parse_13f_holdings(cik, f13[1]["accn"])
+        d = diff_holdings(cur, prevH)
+        d["period"] = f13[0]["period"]
+        d["filed"] = f13[0]["filed"]
+        d["prevPeriod"] = f13[1]["period"] if len(f13) > 1 else None
+        out["holdings"] = d
+        print(f"  [{w['key']}] {d['positions']} positions, ${d['totalValue']/1e9:,.0f}B, "
+              f"{len(d['universe'])} universe matches, {len(d['new'])} new, {len(d['exits'])} exits")
+    else:
+        print(f"  [{w['key']}] 13F unchanged — refreshed filings list only")
+    return out
+
+
 def main():
     prev_out = {}
     if OUT_JSON.exists():
@@ -203,37 +237,26 @@ def main():
             prev_out = json.loads(OUT_JSON.read_text())
         except Exception:
             prev_out = {}
-    cik, sub = pick_filer()
-    name = sub.get("name") or "BlackRock Inc."
-    filings = recent_filings(sub)
-    f13 = list_13f(sub, 2)
-    out = {"asOf": date.today().isoformat(), "cik": cik, "name": name,
-           "source": "SEC EDGAR (submissions + 13F-HR info tables)",
-           "filings": filings, "holdings": prev_out.get("holdings"), "f13": f13}
-    if f13 and (not prev_out.get("f13") or prev_out["f13"][0]["accn"] != f13[0]["accn"]
-                or not prev_out.get("holdings")):
-        print(f"parsing 13F {f13[0]['accn']} (period {f13[0]['period']})…")
-        cur = parse_13f_holdings(cik, f13[0]["accn"])
-        prevH = {}
-        if len(f13) > 1:
-            print(f"parsing prior 13F {f13[1]['accn']} (period {f13[1]['period']})…")
-            prevH = parse_13f_holdings(cik, f13[1]["accn"])
-        d = diff_holdings(cur, prevH)
-        d["period"] = f13[0]["period"]
-        d["filed"] = f13[0]["filed"]
-        d["prevPeriod"] = f13[1]["period"] if len(f13) > 1 else None
-        out["holdings"] = d
-        print(f"holdings: {d['positions']} positions, ${d['totalValue']/1e12:.2f}T, "
-              f"{len(d['universe'])} universe matches, {len(d['new'])} new, {len(d['exits'])} exits")
-    else:
-        print("13F unchanged — refreshed filings list only")
+    prev_whales = prev_out.get("whales") or {}
+    out = {"asOf": date.today().isoformat(),
+           "source": "SEC EDGAR (submissions + 13F-HR info tables)", "whales": {}}
+    for w in WHALES:
+        try:
+            out["whales"][w["key"]] = track_one(w, prev_whales.get(w["key"]))
+        except Exception as e:  # one broken whale must not sink the others
+            print(f"  [{w['key']}] FAILED: {e}", file=sys.stderr)
+            if prev_whales.get(w["key"]):
+                out["whales"][w["key"]] = prev_whales[w["key"]]
+    if not out["whales"]:
+        print("no whale data at all — keeping previous bundle", file=sys.stderr)
+        sys.exit(1)
     OUT_JSON.write_text(json.dumps(out) + "\n")
     OUT_JS.write_text(
-        "/* AUTO-GENERATED by scripts/track_blackrock.py — BlackRock via SEC EDGAR.\n"
-        "   13F = quarterly snapshot with a 45-day legal filing lag; BlackRock is\n"
-        "   mostly an index manager, so deviations (new/exits/big trims) are the\n"
-        "   signal, not routine flows. Missing data stays missing. */\n"
-        "const BLACKROCK_INTEL = " + json.dumps(out) + ";\n")
+        "/* AUTO-GENERATED by scripts/track_whales.py — institutional whales via\n"
+        "   SEC EDGAR. 13F = quarterly snapshot with a 45-day legal filing lag.\n"
+        "   Each whale carries a style note (active vs index vs hedged) that the\n"
+        "   app must display. Missing data stays missing. */\n"
+        "const WHALES_INTEL = " + json.dumps(out) + ";\n")
     print(f"wrote {OUT_JSON.relative_to(ROOT)} and {OUT_JS.relative_to(ROOT)}")
 
 

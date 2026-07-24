@@ -121,7 +121,7 @@ async function main() {
       ["#compareBtn", "COMPARE"],
       ["#screenBtn", "CUSTOM SCREENER"],
       ["#sectorBtn", "SECTOR FLOW"],
-      ["#blackrockBtn", "BLACKROCK TRACKER"],
+      ["#blackrockBtn", "WHALE TRACKER"],
       ["#calBtn", "EARNINGS COMMAND CENTER"],  // keep last: the earnings checks below read this view
     ];
     // Nav moved to the top bar; the legacy drawer buttons still carry the wiring
