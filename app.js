@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "66"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "67"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -795,7 +795,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -803,6 +803,7 @@
   const NAV_GROUPS = [
     { name: "Home", icon: "🏠", tools: [
       { id: "homeBtn", label: "Home Dashboard", ic: "🏠" },
+      { id: "easyBtn", label: "Easy Mode — Game Plan", ic: "🧭" },
     ] },
     { name: "Signals", icon: "💡", tools: [
       { id: "signalsBtn", label: "What Changed", ic: "💡" },
@@ -962,7 +963,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, signals: showSignals, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+        const map = { home: showHome, easy: showEasy, signals: showSignals, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
           rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -3586,6 +3587,125 @@
     return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
   }
   /* ============================================================================
+     🧭 EASY MODE — TODAY'S GAME PLAN
+     Every engine in the terminal, translated into words a 10-year-old can
+     act on: letter grades, traffic lights, one plain sentence per idea.
+     Same math underneath — nothing is dumbed down, only the language.
+     Honesty rules still apply: "we don't know" is said out loud. */
+  const gradeOf = (s) => s == null ? { g: "?", c: "var(--dim)" }
+    : s >= 80 ? { g: "A", c: "var(--green)" } : s >= 65 ? { g: "B", c: "var(--cyan)" }
+    : s >= 50 ? { g: "C", c: "var(--amber)" } : s >= 35 ? { g: "D", c: "var(--orange)" } : { g: "F", c: "var(--red)" };
+  function easySentence(d) {
+    const ms = marketScoreOf(d);
+    if (!ms) return "We don't have enough checked numbers to grade this one yet.";
+    const b = ms.businessQuality.score, v = ms.valuation.score, m = ms.marketReward.score;
+    const biz = b == null ? "We can't grade the business yet" : b >= 75 ? "Great business" : b >= 60 ? "Good business" : b >= 45 ? "OK business" : "Weak business";
+    const px = v == null ? "price grade unknown" : v >= 65 ? "the price looks fair or cheap" : v >= 45 ? "the price is not a bargain" : "the price is expensive";
+    const crowd = m == null ? "" : m >= 65 ? " Other investors are noticing it too." : m < 45 ? " Other investors are ignoring it right now." : "";
+    return `${biz}, and ${px}.${crowd}`;
+  }
+  function easyRow(tk, sentence, right, rightColor, sub = "") {
+    const d = companyOf(tk);
+    return `<div class="home-row" data-tk="${tk}" style="grid-template-columns:minmax(0,1fr) auto;padding:11px 0">
+      <div><b>${tk}</b><span style="max-width:none;white-space:normal">${escapeHtml(d ? d.name : "")}${sub ? " · " + sub : ""}</span>
+        <span style="white-space:normal;color:var(--text);font-size:12px;margin-top:3px">${sentence}</span></div>
+      <strong style="color:${rightColor};font-size:22px">${right}</strong>
+    </div>`;
+  }
+  function easyEventWords(e) {
+    const d = companyOf(e.tk);
+    const nm = d ? d.name.split(" ")[0] : e.tk;
+    switch (e.type) {
+      case "filing": return `${nm} handed in its official report to the government. ${/DECELERATED/.test(e.detail) ? "It's growing slower than before." : /ACCELERATED/.test(e.detail) ? "It's growing faster than before." : "We checked it against the last one."}`;
+      case "analyst": return /DOWNGRADED/.test(e.title) ? `A big bank now likes ${nm} less than before.` : /UPGRADED/.test(e.title) ? `A big bank now likes ${nm} more than before.` : `A big bank started following ${nm}.`;
+      case "earnings": return /BEAT/.test(e.title) ? `${nm} made MORE money than the experts guessed. Nice.` : /MISS/.test(e.title) ? `${nm} made LESS money than the experts guessed. Careful.` : `${nm} has a report coming and it looks ${/STRONG/.test(e.title) ? "strong" : "shaky"}.`;
+      case "revisions": return /POSITIVE|UP/.test(e.title) ? `The experts are raising their guesses for ${nm}. That's usually a good sign.` : `The experts are lowering their guesses for ${nm}. That's usually a warning.`;
+      case "edge": return /LIKELY UP|UP BIAS/.test(e.title) ? `Our robot's arrows turned UP for ${nm}.` : `Our robot's arrows turned DOWN for ${nm}.`;
+      case "score": return /ABOVE|jumped/.test(e.title) ? `${nm}'s report card just got better.` : `${nm}'s report card just got worse.`;
+      default: return e.title;
+    }
+  }
+  function renderEasy() {
+    const ledger = earningsLedger();
+    const scored = DATA.map(d => ({ d, ms: marketScoreOf(d), L: ivLadder(d) })).filter(x => x.ms);
+    // 1 · great businesses at fair prices (the whole game in one list)
+    const great = scored
+      .filter(x => (x.ms.businessQuality.score ?? 0) >= 70 && (x.ms.valuation.score ?? 0) >= 55 && dataConfidenceOf(x.d).rankable)
+      .sort((a, b) => (b.ms.longTermView.score ?? 0) - (a.ms.longTermView.score ?? 0)).slice(0, 6);
+    // 2 · report cards coming up, looking strong
+    const upcoming = upcomingEarningsRows(14)
+      .map(e => ({ e, o: companyOf(e.symbol) ? beatOddsOf(companyOf(e.symbol), ledger) : null }))
+      .filter(x => x.o && x.o.score != null && x.o.score >= 65 && x.o.coverage >= 55)
+      .sort((a, b) => b.o.score - a.o.score).slice(0, 5);
+    // 3 · winning streaks (drift)
+    const streaks = ledger.map(r => ({ r, ds: driftScoreOf(r) }))
+      .filter(x => x.ds && x.ds.up && x.ds.score >= 58)
+      .sort((a, b) => b.ds.score - a.ds.score).slice(0, 5);
+    // 4 · be careful list: miss risk, downside drift, tier-1 downgrades
+    const careful = [];
+    upcomingEarningsRows(14).forEach(e => {
+      const d = companyOf(e.symbol); if (!d) return;
+      const o = beatOddsOf(d, ledger);
+      if (o && o.score != null && o.score <= 40 && o.coverage >= 55)
+        careful.push({ tk: e.symbol, why: `Report coming ${e.date} and the signs look weak — experts guess it might disappoint.` });
+    });
+    ledger.forEach(r => {
+      const ds = driftScoreOf(r);
+      if (ds && !ds.up && ds.label === "DOWNSIDE DRIFT")
+        careful.push({ tk: r.symbol, why: "Just disappointed everyone. Stocks that disappoint often stay weak for a while." });
+    });
+    signalsEvents().filter(e => e.type === "analyst" && /DOWNGRADED/.test(e.title) && e.m >= 70).slice(0, 4)
+      .forEach(e => careful.push({ tk: e.tk, why: "A big famous bank just said it likes this stock less." }));
+    const carefulTop = [...new Map(careful.map(c => [c.tk, c])).values()].slice(0, 6);
+    // 5 · what just happened, in plain words
+    const happened = signalsEvents().slice().sort((a, b) => b.d.localeCompare(a.d) || b.m - a.m).slice(0, 6);
+    const gradeChip = (s) => { const g = gradeOf(s); return `<span class="grade" style="display:inline-grid;width:34px;height:34px;font-size:16px;color:${g.c};border-color:${g.c}">${g.g}</span>`; };
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">🧭 TODAY'S GAME PLAN</div>
+        <div class="co">The whole terminal in plain words. Same math, simpler language. A = awesome, F = stay away, ? = we honestly don't know.</div></div>
+      </div>
+      <div class="note" style="margin-bottom:12px;border-left-color:var(--gold)"><b>The whole game in one sentence:</b> buy pieces of great companies when the price is fair, let them grow for years, and don't panic when the line wiggles. Everything below just helps you do that.</div>
+      <div class="grid g2">
+        <div class="card" style="border-left:3px solid var(--green)">
+          <h3>🏆 GREAT COMPANIES AT FAIR PRICES <span class="unit">the main list — strong business + sane price</span></h3>
+          ${great.length ? great.map(x => easyRow(x.d.ticker, easySentence(x.d), gradeOf(x.ms.longTermView.score).g, gradeOf(x.ms.longTermView.score).c)).join("") : `<div class="sub" style="padding:12px">Right now nothing is both great AND fairly priced. That happens! Waiting is allowed — it's what the best investors do most of the time.</div>`}
+        </div>
+        <div class="card" style="border-left:3px solid var(--cyan)">
+          <h3>📝 REPORT CARDS COMING UP <span class="unit">companies about to tell everyone how they did</span></h3>
+          ${upcoming.length ? upcoming.map(x => {
+            const bs = earnBeatStats(x.e.symbol);
+            return easyRow(x.e.symbol, `Report day is ${x.e.date}. ${bs ? `It has beaten the experts' guesses ${bs.beats} of its last ${bs.n} times.` : ""} The signs look strong — but strong signs are a hint, not a promise.`, x.o.score, x.o.color, "");
+          }).join("") : `<div class="sub" style="padding:12px">No strong-looking report cards in the next two weeks.</div>`}
+        </div>
+        <div class="card" style="border-left:3px solid var(--gold)">
+          <h3>🔥 ON A WINNING STREAK <span class="unit">just beat expectations — winners often keep winning for a few weeks</span></h3>
+          ${streaks.length ? streaks.map(x => easyRow(x.r.symbol, `Just made more money than the experts guessed${x.r.surprisePct != null ? ` (${x.r.surprisePct >= 0 ? "+" : ""}${x.r.surprisePct.toFixed(0)}% more)` : ""}. History says stocks like this often keep climbing for a few weeks — not always.`, x.ds.score, x.ds.color)).join("") : `<div class="sub" style="padding:12px">No fresh winning streaks right now.</div>`}
+        </div>
+        <div class="card" style="border-left:3px solid var(--red)">
+          <h3>⚠️ BE CAREFUL HERE <span class="unit">warning signs our robot found</span></h3>
+          ${carefulTop.length ? carefulTop.map(c => easyRow(c.tk, c.why, "⚠", "var(--red)")).join("") : `<div class="sub" style="padding:12px">No big warning signs on the board today.</div>`}
+        </div>
+        <div class="card" style="grid-column:span 2;border-left:3px solid var(--purple)">
+          <h3>📣 WHAT JUST HAPPENED <span class="unit">the news feed, translated</span></h3>
+          ${happened.length ? happened.map(e => easyRow(e.tk, easyEventWords(e), e.m, e.m >= 80 ? "var(--red)" : e.m >= 65 ? "var(--orange)" : "var(--muted)", e.d)).join("") : `<div class="sub" style="padding:12px">Quiet day so far. The robot checks everything again every school-day morning.</div>`}
+        </div>
+        <div class="card" style="grid-column:span 2">
+          <h3>🥇 THE GOLDEN RULES <span class="unit">what elite investors actually do — it's boringly simple</span></h3>
+          <div class="sub" style="line-height:1.8;font-size:12.5px">
+            1. <b>Only buy what you understand.</b> If you can't explain what the company sells in one sentence, skip it.<br>
+            2. <b>Great company + fair price + patience</b> beats everything else. The 🏆 list is exactly that.<br>
+            3. <b>Never bet money you need.</b> Elite investors survive being wrong — that's their real secret.<br>
+            4. <b>Winning slowly IS winning.</b> Getting rich fast is luck; getting rich slow is skill.<br>
+            5. <b>This app does homework, not magic.</b> Grades and scores are strong hints from real numbers — nobody on Earth knows for sure what a stock does next, and anyone who says they do is selling something.
+          </div>
+        </div>
+      </div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+  }
+  const showEasy = () => showView("easy", renderEasy, "easyBtn");
+
+  /* ============================================================================
      💡 WHAT CHANGED — THE SIGNALS FEED
      Levels are what everyone knows; the edge is in the deltas. This view
      renders the daily diff ledger built by scripts/build_signals.js:
@@ -5016,6 +5136,7 @@
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
     if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
     if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
+    if (["EASY", "SIMPLE", "GAME PLAN", "GAMEPLAN", "PLAN", "KID", "HELP ME"].includes(q)) { showEasy(); flash("Easy mode — today's game plan", "ok"); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["TRACK", "RECORD", "SCORECARD", "PROOF"].includes(q)) { showTrack(); return; }
     if (["JOURNAL", "THESIS", "THESES"].includes(q)) { showJournal(); return; }
@@ -5097,6 +5218,7 @@
     };
     el("liveBtn").onclick = () => startLiveTape();
     el("homeBtn").onclick = showHome;
+    el("easyBtn").onclick = showEasy;
     el("signalsBtn").onclick = showSignals;
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
@@ -5143,7 +5265,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=66").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=67").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -5154,7 +5276,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
-    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom,
+    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
