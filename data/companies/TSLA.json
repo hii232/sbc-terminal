@@ -2,7 +2,7 @@
  "ticker": "TSLA",
  "cik": "0001318605",
  "entityName": "Tesla, Inc.",
- "retrievedAt": "2026-07-24T06:03:41.165567Z",
+ "retrievedAt": "2026-07-24T12:18:04.336132Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",

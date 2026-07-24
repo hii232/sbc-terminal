@@ -1,8 +1,8 @@
 {
  "ticker": "INTC",
  "cik": "0000050863",
- "entityName": "INTEL CORP",
- "retrievedAt": "2026-07-24T06:03:43.081576Z",
+ "entityName": "INTEL CORPORATION",
+ "retrievedAt": "2026-07-24T12:18:06.276573Z",
  "fields": {
   "buyback": [
    {
@@ -1945,12 +1945,12 @@
     "confidence": 100
    },
    {
-    "value": 5026000000,
+    "value": 5044000000,
     "unit": "shares",
-    "periodEnd": "2026-04-17",
+    "periodEnd": "2026-07-17",
     "form": "10-Q",
-    "filedDate": "2026-04-24",
-    "accessionNumber": "0000050863-26-000079",
+    "filedDate": "2026-07-24",
+    "accessionNumber": "0000050863-26-000157",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

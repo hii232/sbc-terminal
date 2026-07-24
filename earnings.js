@@ -4551,9 +4551,9 @@ const EARNINGS_INTEL = {
      "surprisePct": 18.5
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-22",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -4661,7 +4661,7 @@ const EARNINGS_INTEL = {
      "surprisePct": 6.01
     }
    ],
-   "nextDate": null,
+   "nextDate": "2026-06-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
@@ -5466,9 +5466,9 @@ const EARNINGS_INTEL = {
      "surprisePct": 7.22
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-22",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -5866,10 +5866,24 @@ const EARNINGS_INTEL = {
      "surprisePct": 92.49
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-22",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-24",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-24",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-20",
@@ -6912,9 +6926,9 @@ const EARNINGS_INTEL = {
      "surprisePct": -3.78
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -7332,6 +7346,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-24",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-23",
@@ -9869,8 +9890,15 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "up",
+     "date": "2026-07-24",
+     "firm": "Morgan Stanley",
+     "from": "Underweight",
+     "to": "Equal-Weight"
+    },
     {
      "action": "main",
      "date": "2026-07-16",
@@ -9947,13 +9975,6 @@ const EARNINGS_INTEL = {
      "firm": "UBS",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-18",
-     "firm": "Keefe, Bruyette & Woods",
-     "from": "Market Perform",
-     "to": "Market Perform"
     }
    ],
    "revEstimate": 22322671430,
@@ -10084,6 +10105,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "up",
+     "date": "2026-07-24",
+     "firm": "Truist Securities",
+     "from": "Sell",
+     "to": "Hold"
+    },
     {
      "action": "up",
      "date": "2026-07-16",
@@ -10375,10 +10403,18 @@ const EARNINGS_INTEL = {
      "surprisePct": 13.71
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
-   "ratings": [],
+   "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-24",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 23771712420,
    "trend": {
     "analystsEps": 18,
@@ -10761,17 +10797,11 @@ const EARNINGS_INTEL = {
    }
   },
   "SLB": {
-   "epsEstimate": 0.51831,
-   "epsHigh": 0.63,
-   "epsLow": 0.5,
+   "epsEstimate": 0.64355,
+   "epsHigh": 0.76,
+   "epsLow": 0.55,
    "fetchedAt": "2026-07-24",
    "history": [
-    {
-     "epsActual": 0.74,
-     "epsEstimate": 0.72776,
-     "quarter": "2025-06-30",
-     "surprisePct": 1.68
-    },
     {
      "epsActual": 0.69,
      "epsEstimate": 0.66375,
@@ -10789,6 +10819,13 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.5142,
      "quarter": "2026-03-31",
      "surprisePct": 1.13
+    },
+    {
+     "epsActual": 0.55,
+     "epsEstimate": 0.51831,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-07-24",
+     "surprisePct": 6.11
     }
    ],
    "nextDate": "2026-07-24",
@@ -10859,22 +10896,22 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 8684742450,
+   "revEstimate": 9144335130,
    "trend": {
-    "analystsEps": 25,
-    "analystsRev": 22,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.5243,
-    "eps60dAgo": 0.52622,
-    "eps7dAgo": 0.51707,
-    "eps90dAgo": 0.57314,
-    "epsNow": 0.51831,
-    "growth": -0.2996,
+    "analystsEps": 22,
+    "analystsRev": 20,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.68516,
+    "eps60dAgo": 0.69095,
+    "eps7dAgo": 0.66642,
+    "eps90dAgo": 0.71659,
+    "epsNow": 0.64355,
+    "growth": -0.0673,
     "revDown30": 6,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 8684742450
+    "revenueAvg": 9144335130
    }
   },
   "SMCI": {
@@ -11399,9 +11436,9 @@ const EARNINGS_INTEL = {
      "surprisePct": 5.57
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-21",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
