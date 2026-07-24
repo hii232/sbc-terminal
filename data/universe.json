@@ -1,7 +1,7 @@
 {
- "universeVersion": "1.2.0",
- "asOf": "2026-07-19",
- "count": 126,
+ "universeVersion": "1.3.0",
+ "asOf": "2026-07-24",
+ "count": 224,
  "companies": [
   {
    "ticker": "AAPL",
@@ -14,8 +14,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -29,8 +29,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -44,8 +44,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -59,8 +59,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -74,8 +74,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -89,8 +89,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -104,8 +104,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -119,8 +119,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -134,8 +134,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -149,8 +149,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Large technology and internet platforms",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -164,8 +164,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -179,8 +179,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -194,8 +194,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -209,8 +209,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -224,8 +224,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -239,8 +239,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -254,8 +254,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -269,8 +269,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -284,8 +284,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -299,8 +299,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -314,8 +314,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -329,8 +329,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -344,8 +344,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -359,8 +359,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -374,8 +374,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Semiconductors and AI infrastructure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -389,8 +389,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -404,8 +404,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -419,8 +419,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -434,8 +434,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -449,8 +449,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -464,8 +464,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -479,8 +479,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -494,8 +494,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -509,8 +509,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -524,8 +524,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -539,8 +539,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -554,8 +554,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -569,8 +569,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -584,8 +584,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -599,8 +599,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -614,8 +614,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -629,8 +629,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -644,8 +644,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Software, cloud and cybersecurity",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -659,8 +659,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -674,8 +674,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -689,8 +689,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -704,8 +704,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -719,8 +719,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -734,8 +734,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -749,8 +749,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -764,8 +764,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -779,8 +779,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -794,8 +794,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Internet, payments and fintech",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -809,8 +809,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -824,8 +824,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -839,8 +839,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -854,8 +854,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "New AI and computing companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -869,8 +869,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -884,8 +884,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -899,8 +899,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -914,8 +914,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "High-quality comparison companies",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -929,8 +929,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -944,8 +944,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -959,8 +959,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -974,8 +974,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -989,8 +989,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1004,8 +1004,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1019,8 +1019,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1034,8 +1034,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1049,8 +1049,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1064,8 +1064,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Financials, credit and market structure",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1079,8 +1079,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1094,8 +1094,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1109,8 +1109,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1124,8 +1124,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1139,8 +1139,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1154,8 +1154,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1169,8 +1169,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1184,8 +1184,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1199,8 +1199,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1214,8 +1214,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Healthcare, pharma and medical devices",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1229,8 +1229,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1244,8 +1244,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1259,8 +1259,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1274,8 +1274,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1289,8 +1289,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1304,8 +1304,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1319,8 +1319,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1334,8 +1334,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1349,8 +1349,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1364,8 +1364,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Consumer, retail, restaurants and media",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1379,8 +1379,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1394,8 +1394,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1409,8 +1409,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1424,8 +1424,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1439,8 +1439,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1454,8 +1454,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1469,8 +1469,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1484,8 +1484,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1499,8 +1499,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1514,8 +1514,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Industrials, aerospace, defense and power",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1529,8 +1529,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1544,8 +1544,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1559,8 +1559,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1574,8 +1574,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1589,8 +1589,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1604,8 +1604,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1619,8 +1619,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1634,8 +1634,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1649,8 +1649,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1664,8 +1664,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Energy, utilities and commodity cyclicals",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1679,8 +1679,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1694,8 +1694,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1709,8 +1709,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1724,8 +1724,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1739,8 +1739,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1754,8 +1754,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1769,8 +1769,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1784,8 +1784,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1799,8 +1799,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1814,8 +1814,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Materials, power, utilities and logistics",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1829,8 +1829,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1844,8 +1844,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1859,8 +1859,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1874,8 +1874,8 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   },
   {
@@ -1889,8 +1889,1478 @@
    "reportingCurrency": "USD",
    "exchange": "NASDAQ/NYSE (US listing)",
    "reason": "Insurance underwriting discipline (the terminal's own top scorers)",
-   "universeVersion": "1.2.0",
-   "dateAdded": "2026-07-19",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "TXN",
+   "name": "TEXAS INSTRUMENTS INC",
+   "cik": 97476,
+   "cik10": "0000097476",
+   "sector": "Semis",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ADI",
+   "name": "ANALOG DEVICES INC",
+   "cik": 6281,
+   "cik10": "0000006281",
+   "sector": "Semis",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "NXPI",
+   "name": "NXP Semiconductors N.V.",
+   "cik": 1413447,
+   "cik10": "0001413447",
+   "sector": "Semis",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ON",
+   "name": "ON SEMICONDUCTOR CORP",
+   "cik": 1097864,
+   "cik10": "0001097864",
+   "sector": "Semis",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MCHP",
+   "name": "MICROCHIP TECHNOLOGY INC",
+   "cik": 827054,
+   "cik10": "0000827054",
+   "sector": "Semis",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "TER",
+   "name": "TERADYNE, INC",
+   "cik": 97210,
+   "cik10": "0000097210",
+   "sector": "Semi Equip",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ENTG",
+   "name": "ENTEGRIS INC",
+   "cik": 1101302,
+   "cik10": "0001101302",
+   "sector": "Semi Equip",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "WDC",
+   "name": "WESTERN DIGITAL CORP",
+   "cik": 106040,
+   "cik10": "0000106040",
+   "sector": "Hardware",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "GLW",
+   "name": "CORNING INC /NY",
+   "cik": 24741,
+   "cik10": "0000024741",
+   "sector": "Hardware",
+   "industry": "Analog, embedded and legacy semiconductors",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Analog, embedded and legacy semiconductors",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ADSK",
+   "name": "Autodesk, Inc.",
+   "cik": 769397,
+   "cik10": "0000769397",
+   "sector": "Software",
+   "industry": "Enterprise software, design and collaboration",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Enterprise software, design and collaboration",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "CTSH",
+   "name": "COGNIZANT TECHNOLOGY SOLUTIONS CORP",
+   "cik": 1058290,
+   "cik10": "0001058290",
+   "sector": "IT Services",
+   "industry": "Enterprise software, design and collaboration",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Enterprise software, design and collaboration",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "TEAM",
+   "name": "Atlassian Corp",
+   "cik": 1650372,
+   "cik10": "0001650372",
+   "sector": "Software",
+   "industry": "Enterprise software, design and collaboration",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Enterprise software, design and collaboration",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "HUBS",
+   "name": "HUBSPOT INC",
+   "cik": 1404655,
+   "cik10": "0001404655",
+   "sector": "Software",
+   "industry": "Enterprise software, design and collaboration",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Enterprise software, design and collaboration",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "VEEV",
+   "name": "VEEVA SYSTEMS INC",
+   "cik": 1393052,
+   "cik10": "0001393052",
+   "sector": "Software",
+   "industry": "Enterprise software, design and collaboration",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Enterprise software, design and collaboration",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ZM",
+   "name": "Zoom Communications, Inc.",
+   "cik": 1585521,
+   "cik10": "0001585521",
+   "sector": "Software",
+   "industry": "Enterprise software, design and collaboration",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Enterprise software, design and collaboration",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "DOCU",
+   "name": "DOCUSIGN, INC.",
+   "cik": 1261333,
+   "cik10": "0001261333",
+   "sector": "Software",
+   "industry": "Enterprise software, design and collaboration",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Enterprise software, design and collaboration",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "FTNT",
+   "name": "Fortinet, Inc.",
+   "cik": 1262039,
+   "cik10": "0001262039",
+   "sector": "Cybersecurity",
+   "industry": "Cybersecurity, adtech and digital platforms",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Cybersecurity, adtech and digital platforms",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "OKTA",
+   "name": "Okta, Inc.",
+   "cik": 1660134,
+   "cik10": "0001660134",
+   "sector": "Cybersecurity",
+   "industry": "Cybersecurity, adtech and digital platforms",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Cybersecurity, adtech and digital platforms",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "TTD",
+   "name": "Trade Desk, Inc.",
+   "cik": 1671933,
+   "cik10": "0001671933",
+   "sector": "AdTech",
+   "industry": "Cybersecurity, adtech and digital platforms",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Cybersecurity, adtech and digital platforms",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "DASH",
+   "name": "DoorDash, Inc.",
+   "cik": 1792789,
+   "cik10": "0001792789",
+   "sector": "E-commerce",
+   "industry": "Cybersecurity, adtech and digital platforms",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Cybersecurity, adtech and digital platforms",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "EA",
+   "name": "ELECTRONIC ARTS INC.",
+   "cik": 712515,
+   "cik10": "0000712515",
+   "sector": "Gaming",
+   "industry": "Interactive entertainment",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Interactive entertainment",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "TTWO",
+   "name": "TAKE TWO INTERACTIVE SOFTWARE INC",
+   "cik": 946581,
+   "cik10": "0000946581",
+   "sector": "Gaming",
+   "industry": "Interactive entertainment",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Interactive entertainment",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "FIS",
+   "name": "Fidelity National Information Services, Inc.",
+   "cik": 1136893,
+   "cik10": "0001136893",
+   "sector": "Payments",
+   "industry": "Payments processing and card networks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Payments processing and card networks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "GPN",
+   "name": "GLOBAL PAYMENTS INC",
+   "cik": 1123360,
+   "cik10": "0001123360",
+   "sector": "Payments",
+   "industry": "Payments processing and card networks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Payments processing and card networks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "SYF",
+   "name": "Synchrony Financial",
+   "cik": 1601712,
+   "cik10": "0001601712",
+   "sector": "Payments",
+   "industry": "Payments processing and card networks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Payments processing and card networks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ICE",
+   "name": "Intercontinental Exchange, Inc.",
+   "cik": 1571949,
+   "cik10": "0001571949",
+   "sector": "Financial Data",
+   "industry": "Exchanges, ratings and financial data",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Exchanges, ratings and financial data",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "CME",
+   "name": "CME GROUP INC.",
+   "cik": 1156375,
+   "cik10": "0001156375",
+   "sector": "Financial Data",
+   "industry": "Exchanges, ratings and financial data",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Exchanges, ratings and financial data",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "NDAQ",
+   "name": "NASDAQ, INC.",
+   "cik": 1120193,
+   "cik10": "0001120193",
+   "sector": "Financial Data",
+   "industry": "Exchanges, ratings and financial data",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Exchanges, ratings and financial data",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "CBOE",
+   "name": "Cboe Global Markets, Inc.",
+   "cik": 1374310,
+   "cik10": "0001374310",
+   "sector": "Financial Data",
+   "industry": "Exchanges, ratings and financial data",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Exchanges, ratings and financial data",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MCO",
+   "name": "MOODYS CORP /DE/",
+   "cik": 1059556,
+   "cik10": "0001059556",
+   "sector": "Financial Data",
+   "industry": "Exchanges, ratings and financial data",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Exchanges, ratings and financial data",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MSCI",
+   "name": "MSCI Inc.",
+   "cik": 1408198,
+   "cik10": "0001408198",
+   "sector": "Financial Data",
+   "industry": "Exchanges, ratings and financial data",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Exchanges, ratings and financial data",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "FICO",
+   "name": "FAIR ISAAC CORP",
+   "cik": 814547,
+   "cik10": "0000814547",
+   "sector": "Financial Data",
+   "industry": "Exchanges, ratings and financial data",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Exchanges, ratings and financial data",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "USB",
+   "name": "US BANCORP DE",
+   "cik": 36104,
+   "cik10": "0000036104",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "PNC",
+   "name": "PNC FINANCIAL SERVICES GROUP, INC.",
+   "cik": 713676,
+   "cik10": "0000713676",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "TFC",
+   "name": "TRUIST FINANCIAL CORP",
+   "cik": 92230,
+   "cik10": "0000092230",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "FITB",
+   "name": "FIFTH THIRD BANCORP",
+   "cik": 35527,
+   "cik10": "0000035527",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MTB",
+   "name": "M&T BANK CORP",
+   "cik": 36270,
+   "cik10": "0000036270",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "RF",
+   "name": "REGIONS FINANCIAL CORP",
+   "cik": 1281761,
+   "cik10": "0001281761",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "KEY",
+   "name": "KEYCORP /NEW/",
+   "cik": 91576,
+   "cik10": "0000091576",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "CFG",
+   "name": "CITIZENS FINANCIAL GROUP INC/RI",
+   "cik": 759944,
+   "cik10": "0000759944",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ALLY",
+   "name": "Ally Financial Inc.",
+   "cik": 40729,
+   "cik10": "0000040729",
+   "sector": "Banks",
+   "industry": "Regional and diversified banks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Regional and diversified banks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "BX",
+   "name": "Blackstone Inc.",
+   "cik": 1393818,
+   "cik10": "0001393818",
+   "sector": "Asset Mgmt",
+   "industry": "Alternative asset managers and brokers",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Alternative asset managers and brokers",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "KKR",
+   "name": "KKR & Co. Inc.",
+   "cik": 1404912,
+   "cik10": "0001404912",
+   "sector": "Asset Mgmt",
+   "industry": "Alternative asset managers and brokers",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Alternative asset managers and brokers",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "APO",
+   "name": "Apollo Global Management, Inc.",
+   "cik": 1858681,
+   "cik10": "0001858681",
+   "sector": "Asset Mgmt",
+   "industry": "Alternative asset managers and brokers",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Alternative asset managers and brokers",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ARES",
+   "name": "Ares Management Corp",
+   "cik": 1176948,
+   "cik10": "0001176948",
+   "sector": "Asset Mgmt",
+   "industry": "Alternative asset managers and brokers",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Alternative asset managers and brokers",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "IBKR",
+   "name": "Interactive Brokers Group, Inc.",
+   "cik": 1381197,
+   "cik10": "0001381197",
+   "sector": "Fintech Brokerage",
+   "industry": "Alternative asset managers and brokers",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Alternative asset managers and brokers",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "AIG",
+   "name": "AMERICAN INTERNATIONAL GROUP, INC.",
+   "cik": 5272,
+   "cik10": "0000005272",
+   "sector": "Insurance",
+   "industry": "Insurance and risk intermediaries",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance and risk intermediaries",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MET",
+   "name": "METLIFE INC",
+   "cik": 1099219,
+   "cik10": "0001099219",
+   "sector": "Insurance",
+   "industry": "Insurance and risk intermediaries",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance and risk intermediaries",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "PRU",
+   "name": "PRUDENTIAL FINANCIAL INC",
+   "cik": 1137774,
+   "cik10": "0001137774",
+   "sector": "Insurance",
+   "industry": "Insurance and risk intermediaries",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance and risk intermediaries",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "AFL",
+   "name": "AFLAC INC",
+   "cik": 4977,
+   "cik10": "0000004977",
+   "sector": "Insurance",
+   "industry": "Insurance and risk intermediaries",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance and risk intermediaries",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ACGL",
+   "name": "ARCH CAPITAL GROUP LTD.",
+   "cik": 947484,
+   "cik10": "0000947484",
+   "sector": "Insurance",
+   "industry": "Insurance and risk intermediaries",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Insurance and risk intermediaries",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "AMGN",
+   "name": "AMGEN INC",
+   "cik": 318154,
+   "cik10": "0000318154",
+   "sector": "Biotech",
+   "industry": "Biotechnology and large-molecule pharma",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Biotechnology and large-molecule pharma",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "GILD",
+   "name": "GILEAD SCIENCES, INC.",
+   "cik": 882095,
+   "cik10": "0000882095",
+   "sector": "Biotech",
+   "industry": "Biotechnology and large-molecule pharma",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Biotechnology and large-molecule pharma",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "VRTX",
+   "name": "VERTEX PHARMACEUTICALS INC / MA",
+   "cik": 875320,
+   "cik10": "0000875320",
+   "sector": "Biotech",
+   "industry": "Biotechnology and large-molecule pharma",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Biotechnology and large-molecule pharma",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "REGN",
+   "name": "REGENERON PHARMACEUTICALS, INC.",
+   "cik": 872589,
+   "cik10": "0000872589",
+   "sector": "Biotech",
+   "industry": "Biotechnology and large-molecule pharma",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Biotechnology and large-molecule pharma",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "BIIB",
+   "name": "BIOGEN INC.",
+   "cik": 875045,
+   "cik10": "0000875045",
+   "sector": "Biotech",
+   "industry": "Biotechnology and large-molecule pharma",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Biotechnology and large-molecule pharma",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "BMY",
+   "name": "BRISTOL MYERS SQUIBB CO",
+   "cik": 14272,
+   "cik10": "0000014272",
+   "sector": "Pharma",
+   "industry": "Biotechnology and large-molecule pharma",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Biotechnology and large-molecule pharma",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ZTS",
+   "name": "Zoetis Inc.",
+   "cik": 1555280,
+   "cik10": "0001555280",
+   "sector": "Pharma",
+   "industry": "Biotechnology and large-molecule pharma",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Biotechnology and large-molecule pharma",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "CI",
+   "name": "Cigna Group",
+   "cik": 1739940,
+   "cik10": "0001739940",
+   "sector": "Managed Care",
+   "industry": "Managed care, hospitals and drug distribution",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Managed care, hospitals and drug distribution",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ELV",
+   "name": "Elevance Health, Inc.",
+   "cik": 1156039,
+   "cik10": "0001156039",
+   "sector": "Managed Care",
+   "industry": "Managed care, hospitals and drug distribution",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Managed care, hospitals and drug distribution",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "HCA",
+   "name": "HCA Healthcare, Inc.",
+   "cik": 860730,
+   "cik10": "0000860730",
+   "sector": "Managed Care",
+   "industry": "Managed care, hospitals and drug distribution",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Managed care, hospitals and drug distribution",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MCK",
+   "name": "MCKESSON CORP",
+   "cik": 927653,
+   "cik10": "0000927653",
+   "sector": "Managed Care",
+   "industry": "Managed care, hospitals and drug distribution",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Managed care, hospitals and drug distribution",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "COR",
+   "name": "Cencora, Inc.",
+   "cik": 1140859,
+   "cik10": "0001140859",
+   "sector": "Managed Care",
+   "industry": "Managed care, hospitals and drug distribution",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Managed care, hospitals and drug distribution",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "SYK",
+   "name": "STRYKER CORP",
+   "cik": 310764,
+   "cik10": "0000310764",
+   "sector": "Medical Devices",
+   "industry": "Medical devices and diagnostics",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Medical devices and diagnostics",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "BSX",
+   "name": "BOSTON SCIENTIFIC CORP",
+   "cik": 885725,
+   "cik10": "0000885725",
+   "sector": "Medical Devices",
+   "industry": "Medical devices and diagnostics",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Medical devices and diagnostics",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "EW",
+   "name": "Edwards Lifesciences Corp",
+   "cik": 1099800,
+   "cik10": "0001099800",
+   "sector": "Medical Devices",
+   "industry": "Medical devices and diagnostics",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Medical devices and diagnostics",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "DXCM",
+   "name": "DEXCOM INC",
+   "cik": 1093557,
+   "cik10": "0001093557",
+   "sector": "Medical Devices",
+   "industry": "Medical devices and diagnostics",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Medical devices and diagnostics",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "IQV",
+   "name": "IQVIA HOLDINGS INC.",
+   "cik": 1478242,
+   "cik10": "0001478242",
+   "sector": "Life Sciences",
+   "industry": "Life-science tools and research services",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Life-science tools and research services",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "A",
+   "name": "AGILENT TECHNOLOGIES, INC.",
+   "cik": 1090872,
+   "cik10": "0001090872",
+   "sector": "Life Sciences",
+   "industry": "Life-science tools and research services",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Life-science tools and research services",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "IDXX",
+   "name": "IDEXX LABORATORIES INC /DE",
+   "cik": 874716,
+   "cik10": "0000874716",
+   "sector": "Life Sciences",
+   "industry": "Life-science tools and research services",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Life-science tools and research services",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "PEP",
+   "name": "PEPSICO INC",
+   "cik": 77476,
+   "cik10": "0000077476",
+   "sector": "Beverages",
+   "industry": "Beverages and packaged food",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Beverages and packaged food",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "KO",
+   "name": "COCA COLA CO",
+   "cik": 21344,
+   "cik10": "0000021344",
+   "sector": "Beverages",
+   "industry": "Beverages and packaged food",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Beverages and packaged food",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "STZ",
+   "name": "CONSTELLATION BRANDS, INC.",
+   "cik": 16918,
+   "cik10": "0000016918",
+   "sector": "Beverages",
+   "industry": "Beverages and packaged food",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Beverages and packaged food",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "GIS",
+   "name": "GENERAL MILLS INC",
+   "cik": 40704,
+   "cik10": "0000040704",
+   "sector": "Staples",
+   "industry": "Beverages and packaged food",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Beverages and packaged food",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "HSY",
+   "name": "HERSHEY CO",
+   "cik": 47111,
+   "cik10": "0000047111",
+   "sector": "Staples",
+   "industry": "Beverages and packaged food",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Beverages and packaged food",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "KHC",
+   "name": "Kraft Heinz Co",
+   "cik": 1637459,
+   "cik10": "0001637459",
+   "sector": "Staples",
+   "industry": "Beverages and packaged food",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Beverages and packaged food",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MDLZ",
+   "name": "Mondelez International, Inc.",
+   "cik": 1103982,
+   "cik10": "0001103982",
+   "sector": "Staples",
+   "industry": "Beverages and packaged food",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Beverages and packaged food",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "PG",
+   "name": "PROCTER & GAMBLE Co",
+   "cik": 80424,
+   "cik10": "0000080424",
+   "sector": "Staples",
+   "industry": "Household and personal care staples",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Household and personal care staples",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "CL",
+   "name": "COLGATE PALMOLIVE CO",
+   "cik": 21665,
+   "cik10": "0000021665",
+   "sector": "Staples",
+   "industry": "Household and personal care staples",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Household and personal care staples",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "KMB",
+   "name": "KIMBERLY CLARK CORP",
+   "cik": 55785,
+   "cik10": "0000055785",
+   "sector": "Staples",
+   "industry": "Household and personal care staples",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Household and personal care staples",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "TJX",
+   "name": "TJX COMPANIES INC /DE/",
+   "cik": 109198,
+   "cik10": "0000109198",
+   "sector": "Retail",
+   "industry": "Off-price, discount and auto-parts retail",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Off-price, discount and auto-parts retail",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ROST",
+   "name": "ROSS STORES, INC.",
+   "cik": 745732,
+   "cik10": "0000745732",
+   "sector": "Retail",
+   "industry": "Off-price, discount and auto-parts retail",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Off-price, discount and auto-parts retail",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "DG",
+   "name": "DOLLAR GENERAL CORP",
+   "cik": 29534,
+   "cik10": "0000029534",
+   "sector": "Retail",
+   "industry": "Off-price, discount and auto-parts retail",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Off-price, discount and auto-parts retail",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "DLTR",
+   "name": "DOLLAR TREE, INC.",
+   "cik": 935703,
+   "cik10": "0000935703",
+   "sector": "Retail",
+   "industry": "Off-price, discount and auto-parts retail",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Off-price, discount and auto-parts retail",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ORLY",
+   "name": "O REILLY AUTOMOTIVE INC",
+   "cik": 898173,
+   "cik10": "0000898173",
+   "sector": "Retail",
+   "industry": "Off-price, discount and auto-parts retail",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Off-price, discount and auto-parts retail",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "AZO",
+   "name": "AUTOZONE INC",
+   "cik": 866787,
+   "cik10": "0000866787",
+   "sector": "Retail",
+   "industry": "Off-price, discount and auto-parts retail",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Off-price, discount and auto-parts retail",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "YUM",
+   "name": "YUM BRANDS INC",
+   "cik": 1041061,
+   "cik10": "0001041061",
+   "sector": "Restaurants",
+   "industry": "Restaurants, lodging and travel brands",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Restaurants, lodging and travel brands",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "MAR",
+   "name": "MARRIOTT INTERNATIONAL INC /MD/",
+   "cik": 1048286,
+   "cik10": "0001048286",
+   "sector": "Travel",
+   "industry": "Restaurants, lodging and travel brands",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Restaurants, lodging and travel brands",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "HLT",
+   "name": "Hilton Worldwide Holdings Inc.",
+   "cik": 1585689,
+   "cik10": "0001585689",
+   "sector": "Travel",
+   "industry": "Restaurants, lodging and travel brands",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Restaurants, lodging and travel brands",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "LULU",
+   "name": "lululemon athletica inc.",
+   "cik": 1397187,
+   "cik10": "0001397187",
+   "sector": "Apparel",
+   "industry": "Premium apparel and footwear",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Premium apparel and footwear",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "DECK",
+   "name": "DECKERS OUTDOOR CORP",
+   "cik": 910521,
+   "cik10": "0000910521",
+   "sector": "Apparel",
+   "industry": "Premium apparel and footwear",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Premium apparel and footwear",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "UNP",
+   "name": "UNION PACIFIC CORP",
+   "cik": 100885,
+   "cik10": "0000100885",
+   "sector": "Rails",
+   "industry": "Railroads and freight networks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Railroads and freight networks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "CSX",
+   "name": "CSX CORP",
+   "cik": 277948,
+   "cik10": "0000277948",
+   "sector": "Rails",
+   "industry": "Railroads and freight networks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Railroads and freight networks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "NSC",
+   "name": "NORFOLK SOUTHERN CORP",
+   "cik": 702165,
+   "cik10": "0000702165",
+   "sector": "Rails",
+   "industry": "Railroads and freight networks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Railroads and freight networks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "ODFL",
+   "name": "OLD DOMINION FREIGHT LINE, INC.",
+   "cik": 878927,
+   "cik10": "0000878927",
+   "sector": "Industrials",
+   "industry": "Railroads and freight networks",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Railroads and freight networks",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "GD",
+   "name": "GENERAL DYNAMICS CORP",
+   "cik": 40533,
+   "cik10": "0000040533",
+   "sector": "Defense",
+   "industry": "Defense primes and mission systems",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Defense primes and mission systems",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "NOC",
+   "name": "NORTHROP GRUMMAN CORP /DE/",
+   "cik": 1133421,
+   "cik10": "0001133421",
+   "sector": "Defense",
+   "industry": "Defense primes and mission systems",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Defense primes and mission systems",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
+   "status": "active"
+  },
+  {
+   "ticker": "LHX",
+   "name": "L3HARRIS TECHNOLOGIES, INC. /DE/",
+   "cik": 202058,
+   "cik10": "0000202058",
+   "sector": "Defense",
+   "industry": "Defense primes and mission systems",
+   "country": "US",
+   "reportingCurrency": "USD",
+   "exchange": "NASDAQ/NYSE (US listing)",
+   "reason": "Defense primes and mission systems",
+   "universeVersion": "1.3.0",
+   "dateAdded": "2026-07-24",
    "status": "active"
   }
  ]

@@ -1,0 +1,1030 @@
+{
+ "ticker": "ARES",
+ "cik": "0001176948",
+ "entityName": "ARES MANAGEMENT CORPORATION",
+ "retrievedAt": "2026-07-24T18:42:24.401966Z",
+ "fields": {
+  "buyback": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "capex": [
+   {
+    "value": 16664000,
+    "unit": "USD",
+    "periodStart": "2014-01-01",
+    "periodEnd": "2014-12-31",
+    "fiscalYear": 2016,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2017-02-27",
+    "accessionNumber": "0001628280-17-001756",
+    "xbrlTag": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 16664000,
+     "filed": "2016-02-29",
+     "accn": "0001558370-16-003647"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 10676000,
+    "unit": "USD",
+    "periodStart": "2015-01-01",
+    "periodEnd": "2015-12-31",
+    "fiscalYear": 2017,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2018-03-01",
+    "accessionNumber": "0001628280-18-002576",
+    "xbrlTag": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 10676000,
+     "filed": "2017-02-27",
+     "accn": "0001628280-17-001756"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 11913000,
+    "unit": "USD",
+    "periodStart": "2016-01-01",
+    "periodEnd": "2016-12-31",
+    "fiscalYear": 2018,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2019-02-26",
+    "accessionNumber": "0001628280-19-001988",
+    "xbrlTag": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 11913000,
+     "filed": "2018-03-01",
+     "accn": "0001628280-18-002576"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 33160000,
+    "unit": "USD",
+    "periodStart": "2017-01-01",
+    "periodEnd": "2017-12-31",
+    "fiscalYear": 2018,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2019-02-26",
+    "accessionNumber": "0001628280-19-001988",
+    "xbrlTag": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 33160000,
+     "filed": "2018-03-01",
+     "accn": "0001628280-18-002576"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 18419000,
+    "unit": "USD",
+    "periodStart": "2018-01-01",
+    "periodEnd": "2018-12-31",
+    "fiscalYear": 2018,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2019-02-26",
+    "accessionNumber": "0001628280-19-001988",
+    "xbrlTag": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   }
+  ],
+  "dilShares": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "esppProceeds": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "netIncome": [
+   {
+    "value": 111808000,
+    "unit": "USD",
+    "periodStart": "2016-01-01",
+    "periodEnd": "2016-12-31",
+    "fiscalYear": 2018,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2019-02-26",
+    "accessionNumber": "0001628280-19-001988",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 111808000,
+     "filed": "2018-03-01",
+     "accn": "0001628280-18-002576"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 76178000,
+    "unit": "USD",
+    "periodStart": "2017-01-01",
+    "periodEnd": "2017-12-31",
+    "fiscalYear": 2019,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2020-02-28",
+    "accessionNumber": "0001628280-20-002489",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 76178000,
+     "filed": "2019-02-26",
+     "accn": "0001628280-19-001988"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 57020000,
+    "unit": "USD",
+    "periodStart": "2018-01-01",
+    "periodEnd": "2018-12-31",
+    "fiscalYear": 2020,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2021-02-25",
+    "accessionNumber": "0001628280-21-003314",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 57020000,
+     "filed": "2020-02-28",
+     "accn": "0001628280-20-002489"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 148884000,
+    "unit": "USD",
+    "periodStart": "2019-01-01",
+    "periodEnd": "2019-12-31",
+    "fiscalYear": 2021,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2022-02-28",
+    "accessionNumber": "0001628280-22-004289",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 148884000,
+     "filed": "2021-02-25",
+     "accn": "0001628280-21-003314"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 152142000,
+    "unit": "USD",
+    "periodStart": "2020-01-01",
+    "periodEnd": "2020-12-31",
+    "fiscalYear": 2022,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2023-02-24",
+    "accessionNumber": "0001628280-23-005081",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 152142000,
+     "filed": "2022-02-28",
+     "accn": "0001628280-22-004289"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 408837000,
+    "unit": "USD",
+    "periodStart": "2021-01-01",
+    "periodEnd": "2021-12-31",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2024-02-27",
+    "accessionNumber": "0001628280-24-007014",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 408837000,
+     "filed": "2023-02-24",
+     "accn": "0001628280-23-005081"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 167541000,
+    "unit": "USD",
+    "periodStart": "2022-01-01",
+    "periodEnd": "2022-12-31",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2025-02-27",
+    "accessionNumber": "0001628280-25-008665",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 167541000,
+     "filed": "2024-02-27",
+     "accn": "0001628280-24-007014"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 474326000,
+    "unit": "USD",
+    "periodStart": "2023-01-01",
+    "periodEnd": "2023-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 474326000,
+     "filed": "2025-02-27",
+     "accn": "0001628280-25-008665"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 463742000,
+    "unit": "USD",
+    "periodStart": "2024-01-01",
+    "periodEnd": "2024-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 463742000,
+     "filed": "2025-02-27",
+     "accn": "0001628280-25-008665"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 527362000,
+    "unit": "USD",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:NetIncomeLoss",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   }
+  ],
+  "ocf": [
+   {
+    "value": -625655000,
+    "unit": "USD",
+    "periodStart": "2016-01-01",
+    "periodEnd": "2016-12-31",
+    "fiscalYear": 2018,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2019-02-26",
+    "accessionNumber": "0001628280-19-001988",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -625655000,
+     "filed": "2018-03-01",
+     "accn": "0001628280-18-002576"
+    },
+    "confidence": 100
+   },
+   {
+    "value": -1863014000,
+    "unit": "USD",
+    "periodStart": "2017-01-01",
+    "periodEnd": "2017-12-31",
+    "fiscalYear": 2019,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2020-02-28",
+    "accessionNumber": "0001628280-20-002489",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -1863095000,
+     "filed": "2019-02-26",
+     "accn": "0001628280-19-001988"
+    },
+    "confidence": 100
+   },
+   {
+    "value": -1417058000,
+    "unit": "USD",
+    "periodStart": "2018-01-01",
+    "periodEnd": "2018-12-31",
+    "fiscalYear": 2020,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2021-02-25",
+    "accessionNumber": "0001628280-21-003314",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -1417058000,
+     "filed": "2020-02-28",
+     "accn": "0001628280-20-002489"
+    },
+    "confidence": 100
+   },
+   {
+    "value": -2083021000,
+    "unit": "USD",
+    "periodStart": "2019-01-01",
+    "periodEnd": "2019-12-31",
+    "fiscalYear": 2021,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2022-02-28",
+    "accessionNumber": "0001628280-22-004289",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -2083021000,
+     "filed": "2021-02-25",
+     "accn": "0001628280-21-003314"
+    },
+    "confidence": 100
+   },
+   {
+    "value": -425659000,
+    "unit": "USD",
+    "periodStart": "2020-01-01",
+    "periodEnd": "2020-12-31",
+    "fiscalYear": 2022,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2023-02-24",
+    "accessionNumber": "0001628280-23-005081",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -425659000,
+     "filed": "2022-02-28",
+     "accn": "0001628280-22-004289"
+    },
+    "confidence": 100
+   },
+   {
+    "value": -2596045000,
+    "unit": "USD",
+    "periodStart": "2021-01-01",
+    "periodEnd": "2021-12-31",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2024-02-27",
+    "accessionNumber": "0001628280-24-007014",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -2596045000,
+     "filed": "2023-02-24",
+     "accn": "0001628280-23-005081"
+    },
+    "confidence": 100
+   },
+   {
+    "value": -734112000,
+    "unit": "USD",
+    "periodStart": "2022-01-01",
+    "periodEnd": "2022-12-31",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2025-02-27",
+    "accessionNumber": "0001628280-25-008665",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -734112000,
+     "filed": "2024-02-27",
+     "accn": "0001628280-24-007014"
+    },
+    "confidence": 100
+   },
+   {
+    "value": -233261000,
+    "unit": "USD",
+    "periodStart": "2023-01-01",
+    "periodEnd": "2023-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": -233261000,
+     "filed": "2025-02-27",
+     "accn": "0001628280-25-008665"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 2791154000,
+    "unit": "USD",
+    "periodStart": "2024-01-01",
+    "periodEnd": "2024-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 2791154000,
+     "filed": "2025-02-27",
+     "accn": "0001628280-25-008665"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 3266959000,
+    "unit": "USD",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   }
+  ],
+  "revenue": [
+   {
+    "value": 964800000,
+    "unit": "USD",
+    "periodStart": "2016-01-01",
+    "periodEnd": "2016-12-31",
+    "fiscalYear": 2018,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2019-02-26",
+    "accessionNumber": "0001628280-19-001988",
+    "xbrlTag": "us-gaap:Revenues",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 1199205000,
+     "filed": "2018-03-01",
+     "accn": "0001628280-18-002576"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 1479943000,
+    "unit": "USD",
+    "periodStart": "2017-01-01",
+    "periodEnd": "2017-12-31",
+    "fiscalYear": 2019,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2020-02-28",
+    "accessionNumber": "0001628280-20-002489",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   },
+   {
+    "value": 958461000,
+    "unit": "USD",
+    "periodStart": "2018-01-01",
+    "periodEnd": "2018-12-31",
+    "fiscalYear": 2020,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2021-02-25",
+    "accessionNumber": "0001628280-21-003314",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 958461000,
+     "filed": "2020-02-28",
+     "accn": "0001628280-20-002489"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 1765438000,
+    "unit": "USD",
+    "periodStart": "2019-01-01",
+    "periodEnd": "2019-12-31",
+    "fiscalYear": 2021,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2022-02-28",
+    "accessionNumber": "0001628280-22-004289",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 1765438000,
+     "filed": "2021-02-25",
+     "accn": "0001628280-21-003314"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 1764046000,
+    "unit": "USD",
+    "periodStart": "2020-01-01",
+    "periodEnd": "2020-12-31",
+    "fiscalYear": 2022,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2023-02-24",
+    "accessionNumber": "0001628280-23-005081",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 1764046000,
+     "filed": "2022-02-28",
+     "accn": "0001628280-22-004289"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 4212091000,
+    "unit": "USD",
+    "periodStart": "2021-01-01",
+    "periodEnd": "2021-12-31",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2024-02-27",
+    "accessionNumber": "0001628280-24-007014",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 4212091000,
+     "filed": "2023-02-24",
+     "accn": "0001628280-23-005081"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 3055443000,
+    "unit": "USD",
+    "periodStart": "2022-01-01",
+    "periodEnd": "2022-12-31",
+    "fiscalYear": 2024,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2025-02-27",
+    "accessionNumber": "0001628280-25-008665",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 3055443000,
+     "filed": "2024-02-27",
+     "accn": "0001628280-24-007014"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 3631884000,
+    "unit": "USD",
+    "periodStart": "2023-01-01",
+    "periodEnd": "2023-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 3631884000,
+     "filed": "2025-02-27",
+     "accn": "0001628280-25-008665"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 3884781000,
+    "unit": "USD",
+    "periodStart": "2024-01-01",
+    "periodEnd": "2024-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 3884781000,
+     "filed": "2025-02-27",
+     "accn": "0001628280-25-008665"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 5601482000,
+    "unit": "USD",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   }
+  ],
+  "sbc": [
+   {
+    "value": 39065000,
+    "unit": "USD",
+    "periodStart": "2016-01-01",
+    "periodEnd": "2016-12-31",
+    "fiscalYear": 2018,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2019-02-26",
+    "accessionNumber": "0001628280-19-001988",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 39065000,
+     "filed": "2018-03-01",
+     "accn": "0001628280-18-002576"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 69711000,
+    "unit": "USD",
+    "periodStart": "2017-01-01",
+    "periodEnd": "2017-12-31",
+    "fiscalYear": 2019,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2020-02-28",
+    "accessionNumber": "0001628280-20-002489",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 69711000,
+     "filed": "2019-02-26",
+     "accn": "0001628280-19-001988"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 89724000,
+    "unit": "USD",
+    "periodStart": "2018-01-01",
+    "periodEnd": "2018-12-31",
+    "fiscalYear": 2020,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2021-02-25",
+    "accessionNumber": "0001628280-21-003314",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 89724000,
+     "filed": "2020-02-28",
+     "accn": "0001628280-20-002489"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 97691000,
+    "unit": "USD",
+    "periodStart": "2019-01-01",
+    "periodEnd": "2019-12-31",
+    "fiscalYear": 2021,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2022-02-28",
+    "accessionNumber": "0001628280-22-004289",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 97691000,
+     "filed": "2021-02-25",
+     "accn": "0001628280-21-003314"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 122986000,
+    "unit": "USD",
+    "periodStart": "2020-01-01",
+    "periodEnd": "2020-12-31",
+    "fiscalYear": 2022,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2023-02-24",
+    "accessionNumber": "0001628280-23-005081",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 122986000,
+     "filed": "2022-02-28",
+     "accn": "0001628280-22-004289"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 237191000,
+    "unit": "USD",
+    "periodStart": "2021-01-01",
+    "periodEnd": "2021-12-31",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2024-02-27",
+    "accessionNumber": "0001628280-24-007014",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 237191000,
+     "filed": "2023-02-24",
+     "accn": "0001628280-23-005081"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 200391000,
+    "unit": "USD",
+    "periodStart": "2022-01-01",
+    "periodEnd": "2022-12-31",
+    "fiscalYear": 2023,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2024-02-27",
+    "accessionNumber": "0001628280-24-007014",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 200391000,
+     "filed": "2023-02-24",
+     "accn": "0001628280-23-005081"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 255965000,
+    "unit": "USD",
+    "periodStart": "2023-01-01",
+    "periodEnd": "2023-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": true,
+    "supersedes": {
+     "value": 255965000,
+     "filed": "2024-02-27",
+     "accn": "0001628280-24-007014"
+    },
+    "confidence": 100
+   },
+   {
+    "value": 352851000,
+    "unit": "USD",
+    "periodStart": "2024-01-01",
+    "periodEnd": "2024-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   },
+   {
+    "value": 740549000,
+    "unit": "USD",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "fiscalYear": 2025,
+    "fiscalPeriod": "FY",
+    "form": "10-K",
+    "filedDate": "2026-02-25",
+    "accessionNumber": "0001628280-26-011413",
+    "xbrlTag": "us-gaap:AllocatedShareBasedCompensationExpense",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "restated": false,
+    "supersedes": null,
+    "confidence": 100
+   }
+  ],
+  "taxWithholding": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "periodEndShares": [
+   {
+    "value": 80667664,
+    "unit": "shares",
+    "periodEnd": "2014-11-11",
+    "form": "10-Q",
+    "filedDate": "2014-11-12",
+    "accessionNumber": "0001047469-14-009068",
+    "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "confidence": 100
+   },
+   {
+    "value": 80676995,
+    "unit": "shares",
+    "periodEnd": "2015-11-10",
+    "form": "10-Q",
+    "filedDate": "2015-11-10",
+    "accessionNumber": "0001558370-15-002556",
+    "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "confidence": 100
+   },
+   {
+    "value": 80802687,
+    "unit": "shares",
+    "periodEnd": "2016-11-01",
+    "form": "10-Q",
+    "filedDate": "2016-11-07",
+    "accessionNumber": "0001558370-16-009414",
+    "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "confidence": 100
+   },
+   {
+    "value": 82211302,
+    "unit": "shares",
+    "periodEnd": "2017-10-27",
+    "form": "10-Q",
+    "filedDate": "2017-11-06",
+    "accessionNumber": "0001628280-17-010895",
+    "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "confidence": 100
+   },
+   {
+    "value": 101494220,
+    "unit": "shares",
+    "periodEnd": "2018-10-26",
+    "form": "10-Q",
+    "filedDate": "2018-11-05",
+    "accessionNumber": "0001628280-18-013522",
+    "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "confidence": 100
+   },
+   {
+    "value": 103332418,
+    "unit": "shares",
+    "periodEnd": "2019-04-29",
+    "form": "10-Q",
+    "filedDate": "2019-05-06",
+    "accessionNumber": "0001628280-19-005931",
+    "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "confidence": 100
+   }
+  ]
+ },
+ "latestFiling": {
+  "filed": "2026-02-25",
+  "form": "10-K",
+  "accn": "0001628280-26-011413"
+ }
+}

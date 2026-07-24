@@ -1,8 +1,8 @@
 {
  "ticker": "AXP",
  "cik": "0000004962",
- "entityName": "AMERICAN EXPRESS CO",
- "retrievedAt": "2026-07-24T12:18:31.715930Z",
+ "entityName": "AMERICAN EXPRESS COMPANY",
+ "retrievedAt": "2026-07-24T18:41:25.832531Z",
  "fields": {
   "buyback": [
    {
@@ -1762,12 +1762,12 @@
     "confidence": 100
    },
    {
-    "value": 682326443,
+    "value": 675309833,
     "unit": "shares",
-    "periodEnd": "2026-04-17",
+    "periodEnd": "2026-07-14",
     "form": "10-Q",
-    "filedDate": "2026-04-23",
-    "accessionNumber": "0000004962-26-000192",
+    "filedDate": "2026-07-24",
+    "accessionNumber": "0000004962-26-000322",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
