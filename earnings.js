@@ -39,6 +39,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-17",
+     "firm": "HSBC",
+     "from": "Hold",
+     "to": "Buy"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Sector Weight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-25",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-22",
+     "firm": "KGI Securities",
+     "from": "Outperform",
+     "to": "Hold"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-18",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-09",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-09",
+     "firm": "Maxim Group",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-09",
+     "firm": "Rosenblatt",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-09",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-09",
+     "firm": "Needham",
+     "from": "Hold",
+     "to": "Hold"
+    }
+   ],
    "revEstimate": 108890141050,
    "trend": {
     "analystsEps": 31,
@@ -91,6 +177,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-31",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-23",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-23",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 16759688480,
    "trend": {
     "analystsEps": 20,
@@ -143,6 +315,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-06",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Baird",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    }
+   ],
    "revEstimate": 3573774140,
    "trend": {
     "analystsEps": 31,
@@ -195,6 +397,85 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-17",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-17",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-17",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-01",
+     "firm": "Baird",
+     "from": null,
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-22",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 12996901390,
    "trend": {
     "analystsEps": 22,
@@ -247,6 +528,85 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-24",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-23",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-22",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Susquehanna",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-15",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 18040245700,
    "trend": {
     "analystsEps": 20,
@@ -299,6 +659,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-10",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-21",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Underweight"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-20",
+     "firm": "CLSA",
+     "from": null,
+     "to": "Outperform"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-02",
+     "firm": "HSBC",
+     "from": "Hold",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Goldman Sachs",
+     "from": "Sell",
+     "to": "Sell"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Jefferies",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "BMO Capital",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Barclays",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-12",
+     "firm": "Citizens",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    }
+   ],
    "revEstimate": 6695163470,
    "trend": {
     "analystsEps": 29,
@@ -351,6 +797,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-21",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Stifel",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    }
+   ],
    "revEstimate": 5440552830,
    "trend": {
     "analystsEps": 15,
@@ -403,6 +893,78 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-15",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Raymond James",
+     "from": "Strong Buy",
+     "to": "Strong Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-06",
+     "firm": "HSBC",
+     "from": "Buy",
+     "to": "Hold"
+    }
+   ],
    "revEstimate": 17289000000,
    "trend": {
     "analystsEps": 21,
@@ -455,6 +1017,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-13",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "B. Riley Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 9006637960,
    "trend": {
     "analystsEps": 29,
@@ -507,6 +1155,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Benchmark",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-17",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-12",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 11300934900,
    "trend": {
     "analystsEps": 41,
@@ -559,6 +1293,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "Wedbush",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-15",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 195978593380,
    "trend": {
     "analystsEps": 45,
@@ -611,6 +1389,43 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 2831187800,
    "trend": {
     "analystsEps": 24,
@@ -663,6 +1478,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-29",
+     "firm": "Raymond James",
+     "from": null,
+     "to": "Strong Buy"
+    }
+   ],
    "revEstimate": 1942004700,
    "trend": {
     "analystsEps": 17,
@@ -715,6 +1546,78 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-14",
+     "firm": "HSBC",
+     "from": "Buy",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-23",
+     "firm": "B of A Securities",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-18",
+     "firm": "New Street Research",
+     "from": "Buy",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "B of A Securities",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 1264775180,
    "trend": {
     "analystsEps": 32,
@@ -767,6 +1670,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 11571902950,
    "trend": {
     "analystsEps": 14,
@@ -819,6 +1773,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-03",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-07",
+     "firm": "Erste Group",
+     "from": "Buy",
+     "to": "Hold"
+    }
+   ],
    "revEstimate": 29435187950,
    "trend": {
     "analystsEps": 37,
@@ -871,6 +1834,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-25",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    }
+   ],
    "revEstimate": 876458440,
    "trend": {
     "analystsEps": 18,
@@ -923,6 +1909,85 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-24",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "HSBC",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-13",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Barclays",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-30",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "BTIG",
+     "from": "Sell",
+     "to": "Sell"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-16",
+     "firm": "BTIG",
+     "from": "Sell",
+     "to": "Sell"
+    }
+   ],
    "revEstimate": 19702980380,
    "trend": {
     "analystsEps": 24,
@@ -975,6 +2040,7 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-28",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [],
    "revEstimate": 24270692960,
    "trend": {
     "analystsEps": 20,
@@ -1027,6 +2093,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Baird",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-30",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Perform"
+    }
+   ],
    "revEstimate": 31149146350,
    "trend": {
     "analystsEps": 16,
@@ -1079,6 +2231,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Jefferies",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 7177673440,
    "trend": {
     "analystsEps": 23,
@@ -1131,6 +2299,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-16",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 7581625600,
    "trend": {
     "analystsEps": 12,
@@ -1183,6 +2437,85 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-13",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-15",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-30",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 23625211020,
    "trend": {
     "analystsEps": 8,
@@ -1235,6 +2568,7 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [],
    "revEstimate": 19174761460,
    "trend": {
     "analystsEps": 20,
@@ -1287,6 +2621,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-21",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-22",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 13472000000,
    "trend": {
     "analystsEps": 22,
@@ -1339,6 +2759,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-27",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "init",
+     "date": "2026-07-16",
+     "firm": "Benchmark",
+     "from": null,
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-09",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 1576116340,
    "trend": {
     "analystsEps": 19,
@@ -1391,6 +2834,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-06",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-18",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Neutral"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-17",
+     "firm": "Bernstein",
+     "from": null,
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 8058516070,
    "trend": {
     "analystsEps": 13,
@@ -1443,6 +2909,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 3331189900,
    "trend": {
     "analystsEps": 33,
@@ -1495,6 +2977,64 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-13",
+     "firm": "HSBC",
+     "from": "Hold",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-30",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 16272899640,
    "trend": {
     "analystsEps": 15,
@@ -1547,6 +3087,85 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-17",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-17",
+     "firm": "Benchmark",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-17",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-17",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-17",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 1294288600,
    "trend": {
     "analystsEps": 11,
@@ -1599,6 +3218,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-06",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-22",
+     "firm": "Roth Capital",
+     "from": "Neutral",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 20011141840,
    "trend": {
     "analystsEps": 19,
@@ -1651,6 +3314,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-24",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 94487228760,
    "trend": {
     "analystsEps": 28,
@@ -1703,6 +3375,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-02",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-21",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-20",
+     "firm": "CLSA",
+     "from": null,
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-09",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Sector Weight"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-01",
+     "firm": "Guggenheim",
+     "from": "Neutral",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-16",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-16",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 11315611360,
    "trend": {
     "analystsEps": 43,
@@ -1755,6 +3478,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-01",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Benchmark",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 1440295020,
    "trend": {
     "analystsEps": 43,
@@ -1807,6 +3616,78 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-12",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "up",
+     "date": "2026-07-22",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Buy"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-22",
+     "firm": "Baird",
+     "from": null,
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Barclays",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Macquarie",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-25",
+     "firm": "Rosenblatt",
+     "from": null,
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-16",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-11",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 2557435580,
    "trend": {
     "analystsEps": 16,
@@ -1859,6 +3740,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-12",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 16827267250,
    "trend": {
     "analystsEps": 22,
@@ -1911,6 +3808,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-31",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-02",
+     "firm": "Wolfe Research",
+     "from": "Peer Perform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 61459052140,
    "trend": {
     "analystsEps": 18,
@@ -1963,6 +3883,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-06",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-21",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-06",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Market Perform"
+    }
+   ],
    "revEstimate": 1079450980,
    "trend": {
     "analystsEps": 39,
@@ -2015,6 +4021,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-20",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 10770583920,
    "trend": {
     "analystsEps": 17,
@@ -2067,6 +4096,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-11",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 6539707650,
    "trend": {
     "analystsEps": 19,
@@ -2119,6 +4199,64 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-13",
+     "firm": "Benchmark",
+     "from": null,
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "Raymond James",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-12",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 25416361230,
    "trend": {
     "analystsEps": 22,
@@ -2171,6 +4309,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "up",
+     "date": "2026-07-23",
+     "firm": "Keybanc",
+     "from": "Sector Weight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 7692279990,
    "trend": {
     "analystsEps": 18,
@@ -2223,6 +4405,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 7988517900,
    "trend": {
     "analystsEps": 24,
@@ -2275,6 +4501,7 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-31",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [],
    "revEstimate": 8155060710,
    "trend": {
     "analystsEps": 21,
@@ -2327,6 +4554,64 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-15",
+     "firm": "Scotiabank",
+     "from": "Sector Outperform",
+     "to": "Sector Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-10",
+     "firm": "Bernstein",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    }
+   ],
    "revEstimate": 7646341140,
    "trend": {
     "analystsEps": 10,
@@ -2379,6 +4664,64 @@ const EARNINGS_INTEL = {
    "nextDate": null,
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "init",
+     "date": "2026-07-15",
+     "firm": "Citizens",
+     "from": null,
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-17",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 22651050000,
    "trend": {
     "analystsEps": 2,
@@ -2431,6 +4774,71 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-17",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 12779736860,
    "trend": {
     "analystsEps": 15,
@@ -2483,6 +4891,71 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-21",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-17",
+     "firm": "Bernstein",
+     "from": null,
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 11912354080,
    "trend": {
     "analystsEps": 3,
@@ -2535,6 +5008,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-22",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "DA Davidson",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Roth Capital",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "Wedbush",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 123897334720,
    "trend": {
     "analystsEps": 41,
@@ -2587,6 +5146,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-13",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "up",
+     "date": "2026-07-21",
+     "firm": "HSBC",
+     "from": "Reduce",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "BMO Capital",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "BMO Capital",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 17475681330,
    "trend": {
     "analystsEps": 17,
@@ -2639,6 +5284,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-18",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "reit",
+     "date": "2026-07-20",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-23",
+     "firm": "Wolfe Research",
+     "from": "Outperform",
+     "to": "Peer Perform"
+    }
+   ],
    "revEstimate": 47240376730,
    "trend": {
     "analystsEps": 30,
@@ -2691,6 +5352,71 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-15",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 7386165550,
    "trend": {
     "analystsEps": 21,
@@ -2743,6 +5469,78 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Deutsche Bank",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-30",
+     "firm": "Daiwa Capital",
+     "from": "Neutral",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-11",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-10",
+     "firm": "Bernstein",
+     "from": null,
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-10",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 5268254950,
    "trend": {
     "analystsEps": 9,
@@ -2795,6 +5593,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-02",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Deutsche Bank",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-26",
+     "firm": "BTIG",
+     "from": null,
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-17",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 1281470670,
    "trend": {
     "analystsEps": 16,
@@ -2847,6 +5731,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-21",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "BMO Capital",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-22",
+     "firm": "Baird",
+     "from": null,
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 16733399930,
    "trend": {
     "analystsEps": 15,
@@ -2899,6 +5869,78 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Susquehanna",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Stifel",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-25",
+     "firm": "Goldman Sachs",
+     "from": "Sell",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-23",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-11",
+     "firm": "B of A Securities",
+     "from": "Underperform",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 15163555710,
    "trend": {
     "analystsEps": 32,
@@ -2951,6 +5993,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-20",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-21",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "down",
+     "date": "2026-06-18",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Hold"
+    }
+   ],
    "revEstimate": 4269043710,
    "trend": {
     "analystsEps": 27,
@@ -3003,6 +6068,43 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-27",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "HC Wainwright & Co.",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Macquarie",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-06",
+     "firm": "Freedom Broker",
+     "from": "Hold",
+     "to": "Buy"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-18",
+     "firm": "Jefferies",
+     "from": null,
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 145034970,
    "trend": {
     "analystsEps": 11,
@@ -3055,6 +6157,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Raymond James",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-17",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Leerink Partners",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 2901900490,
    "trend": {
     "analystsEps": 24,
@@ -3107,6 +6295,85 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-13",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "reit",
+     "date": "2026-07-17",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Raymond James",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-16",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "B of A Securities",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 25318402070,
    "trend": {
     "analystsEps": 16,
@@ -3159,6 +6426,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-13",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Baird",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 50911529800,
    "trend": {
     "analystsEps": 7,
@@ -3211,6 +6564,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-28",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-23",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-15",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 3602913010,
    "trend": {
     "analystsEps": 23,
@@ -3263,6 +6702,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-31",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 9014791510,
    "trend": {
     "analystsEps": 20,
@@ -3315,6 +6777,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Leerink Partners",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-09",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 20646814650,
    "trend": {
     "analystsEps": 21,
@@ -3367,6 +6915,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-01",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 19328515310,
    "trend": {
     "analystsEps": 15,
@@ -3419,6 +6983,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-06",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-17",
+     "firm": "Bernstein",
+     "from": null,
+     "to": "Market Outperform"
+    }
+   ],
    "revEstimate": 4901650010,
    "trend": {
     "analystsEps": 3,
@@ -3471,6 +7058,7 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-19",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [],
    "revEstimate": 26233395680,
    "trend": {
     "analystsEps": 29,
@@ -3523,6 +7111,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-23",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-17",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-15",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 6664421090,
    "trend": {
     "analystsEps": 27,
@@ -3575,6 +7249,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "init",
+     "date": "2026-07-08",
+     "firm": "Barclays",
+     "from": null,
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Baird",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-30",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 9077141830,
    "trend": {
     "analystsEps": 30,
@@ -3627,6 +7331,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Tigress Financial",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 7131098860,
    "trend": {
     "analystsEps": 27,
@@ -3679,6 +7427,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-26",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 734495570,
    "trend": {
     "analystsEps": 36,
@@ -3731,6 +7495,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-01",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-17",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 9547484670,
    "trend": {
     "analystsEps": 24,
@@ -3783,6 +7570,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 9748475260,
    "trend": {
     "analystsEps": 9,
@@ -3835,6 +7631,7 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [],
    "revEstimate": 60258129600,
    "trend": {
     "analystsEps": 45,
@@ -3887,6 +7684,64 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Raymond James",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 41364856690,
    "trend": {
     "analystsEps": 17,
@@ -3939,6 +7794,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 903343230,
    "trend": {
     "analystsEps": 13,
@@ -3991,6 +7855,78 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-08",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-06",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Scotiabank",
+     "from": "Sector Outperform",
+     "to": "Sector Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-24",
+     "firm": "CICC",
+     "from": null,
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 16385885269,
    "trend": {
     "analystsEps": 13,
@@ -4043,6 +7979,71 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-27",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-07",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-23",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "B. Riley Securities",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 2702565000,
    "trend": {
     "analystsEps": 32,
@@ -4095,6 +8096,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "HSBC",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-17",
+     "firm": "Freedom Broker",
+     "from": "Hold",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 20909484280,
    "trend": {
     "analystsEps": 14,
@@ -4147,6 +8234,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "reit",
+     "date": "2026-07-22",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-22",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-22",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-20",
+     "firm": "CLSA",
+     "from": null,
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Wolfe Research",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 87672487440,
    "trend": {
     "analystsEps": 30,
@@ -4199,6 +8372,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Goldman Sachs",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Raymond James",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Deutsche Bank",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Wedbush",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 50838974970,
    "trend": {
     "analystsEps": 31,
@@ -4251,6 +8510,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-06",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "init",
+     "date": "2026-07-22",
+     "firm": "Baird",
+     "from": null,
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Northland Capital Markets",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-20",
+     "firm": "Freedom Capital Markets",
+     "from": "Hold",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 582783260,
    "trend": {
     "analystsEps": 4,
@@ -4303,6 +8585,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-24",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "B of A Securities",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Barclays",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-17",
+     "firm": "Bernstein",
+     "from": null,
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 8152077010,
    "trend": {
     "analystsEps": 15,
@@ -4355,6 +8667,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-06",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-07",
+     "firm": "Scotiabank",
+     "from": "Sector Perform",
+     "to": "Sector Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-15",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 666362910,
    "trend": {
     "analystsEps": 29,
@@ -4407,6 +8805,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Baird",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-17",
+     "firm": "KGI Securities",
+     "from": "Outperform",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Rosenblatt",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Wedbush",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 12877994430,
    "trend": {
     "analystsEps": 33,
@@ -4459,6 +8943,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-29",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Telsey Advisory Group",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-01",
+     "firm": "Baird",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-01",
+     "firm": "BNP Paribas",
+     "from": "Underperform",
+     "to": "Underperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Stifel",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-01",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 11377564920,
    "trend": {
     "analystsEps": 20,
@@ -4511,6 +9081,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-22",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Macquarie",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Baird",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-22",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 3927415300,
    "trend": {
     "analystsEps": 40,
@@ -4563,6 +9219,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Scotiabank",
+     "from": "Sector Outperform",
+     "to": "Sector Outperform"
+    }
+   ],
    "revEstimate": 7461716900,
    "trend": {
     "analystsEps": 6,
@@ -4615,6 +9287,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-27",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-24",
+     "firm": "Keybanc",
+     "from": "Sector Weight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-10",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 10129744030,
    "trend": {
     "analystsEps": 10,
@@ -4667,6 +9383,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-26",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 91821907760,
    "trend": {
     "analystsEps": 40,
@@ -4719,6 +9444,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-09",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "init",
+     "date": "2026-07-20",
+     "firm": "CLSA",
+     "from": null,
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-11",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-11",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-11",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Wedbush",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-11",
+     "firm": "Stephens & Co.",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-11",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Scotiabank",
+     "from": "Sector Outperform",
+     "to": "Sector Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 19122456910,
    "trend": {
     "analystsEps": 33,
@@ -4771,6 +9582,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Stephens & Co.",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-08",
+     "firm": "Evercore ISI Group",
+     "from": "Underperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 7074255520,
    "trend": {
     "analystsEps": 17,
@@ -4823,6 +9664,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-18",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Tigress Financial",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 3351771170,
    "trend": {
     "analystsEps": 46,
@@ -4875,6 +9767,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-04",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "B of A Securities",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-06",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-06",
+     "firm": "HSBC",
+     "from": "Buy",
+     "to": "Hold"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-10",
+     "firm": "RBC Capital",
+     "from": "Underperform",
+     "to": "Sector Perform"
+    }
+   ],
    "revEstimate": 14413335500,
    "trend": {
     "analystsEps": 19,
@@ -4927,6 +9870,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "BMO Capital",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-14",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "HSBC",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    }
+   ],
    "revEstimate": 22322671430,
    "trend": {
     "analystsEps": 20,
@@ -4979,6 +10008,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-03",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-02",
+     "firm": "DA Davidson",
+     "from": "Neutral",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-16",
+     "firm": "Wolfe Research",
+     "from": "Underperform",
+     "to": "Peer Perform"
+    }
+   ],
    "revEstimate": 1810817530,
    "trend": {
     "analystsEps": 23,
@@ -5031,6 +10083,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-28",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "up",
+     "date": "2026-07-16",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Canaccord Genuity",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Macquarie",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Goldman Sachs",
+     "from": "Sell",
+     "to": "Sell"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-08",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 8475142330,
    "trend": {
     "analystsEps": 35,
@@ -5083,6 +10179,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-25",
+     "firm": "Morgan Stanley",
+     "from": "Underweight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Bernstein",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-25",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Susquehanna",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 9675027540,
    "trend": {
     "analystsEps": 29,
@@ -5135,6 +10317,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 1597998640,
    "trend": {
     "analystsEps": 16,
@@ -5187,6 +10378,7 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [],
    "revEstimate": 23771712420,
    "trend": {
     "analystsEps": 18,
@@ -5239,6 +10431,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 9111912610,
    "trend": {
     "analystsEps": 26,
@@ -5291,6 +10506,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-27",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Morgan Stanley",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-30",
+     "firm": "UBS",
+     "from": "Sell",
+     "to": "Sell"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-17",
+     "firm": "JP Morgan",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-15",
+     "firm": "Scotiabank",
+     "from": "Sector Underperform",
+     "to": "Sector Underweight"
+    }
+   ],
    "revEstimate": 4144345110,
    "trend": {
     "analystsEps": 4,
@@ -5343,6 +10609,64 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-15",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-20",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 7210079600,
    "trend": {
     "analystsEps": 16,
@@ -5395,6 +10719,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-21",
+     "firm": "Rothschild & Co",
+     "from": "Buy",
+     "to": "Neutral"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-13",
+     "firm": "Jefferies",
+     "from": "Hold",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-10",
+     "firm": "Stifel",
+     "from": "Hold",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 3441971820,
    "trend": {
     "analystsEps": 34,
@@ -5447,6 +10794,71 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-24",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "Raymond James",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-16",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-10",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 8684742450,
    "trend": {
     "analystsEps": 25,
@@ -5499,6 +10911,7 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-11",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [],
    "revEstimate": 11599394770,
    "trend": {
     "analystsEps": 17,
@@ -5551,6 +10964,29 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-26",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 1482171070,
    "trend": {
     "analystsEps": 43,
@@ -5603,6 +11039,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-26",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "init",
+     "date": "2026-07-16",
+     "firm": "Benchmark",
+     "from": null,
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-23",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 2438802960,
    "trend": {
     "analystsEps": 17,
@@ -5655,6 +11107,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-23",
+     "firm": "Keybanc",
+     "from": "Sector Weight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-18",
+     "firm": "Barclays",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 7244107350,
    "trend": {
     "analystsEps": 16,
@@ -5707,6 +11189,78 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-28",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Baird",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-10",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-08",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 4117735890,
    "trend": {
     "analystsEps": 12,
@@ -5759,6 +11313,43 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-19",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-23",
+     "firm": "Wolfe Research",
+     "from": "Peer Perform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 26022905490,
    "trend": {
     "analystsEps": 31,
@@ -5811,6 +11402,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-11",
+     "firm": "Piper Sandler",
+     "from": null,
+     "to": "Neutral"
+    }
+   ],
    "revEstimate": 11962866700,
    "trend": {
     "analystsEps": 21,
@@ -5863,6 +11470,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-15",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Roth Capital",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Morgan Stanley",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-21",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "B of A Securities",
+     "from": "Underperform",
+     "to": "Underperform"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-15",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Sell"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-10",
+     "firm": "Truist Securities",
+     "from": null,
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 11016444440,
    "trend": {
     "analystsEps": 23,
@@ -5915,6 +11608,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-21",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Roth Capital",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-23",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-23",
+     "firm": "Needham",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-21",
+     "firm": "GLJ Research",
+     "from": "Sell",
+     "to": "Sell"
+    }
+   ],
    "revEstimate": 27314475600,
    "trend": {
     "analystsEps": 26,
@@ -5967,6 +11746,50 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-15",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-24",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-22",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    }
+   ],
    "revEstimate": 1446304992240,
    "trend": {
     "analystsEps": 6,
@@ -6019,6 +11842,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-05",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "reit",
+     "date": "2026-07-17",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-16",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-26",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Tigress Financial",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 14260440230,
    "trend": {
     "analystsEps": 32,
@@ -6071,6 +11945,92 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-16",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-20",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-17",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "up",
+     "date": "2026-07-16",
+     "firm": "Baird",
+     "from": "Underperform",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 111489442600,
    "trend": {
     "analystsEps": 23,
@@ -6123,6 +12083,43 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-28",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-15",
+     "firm": "Citizens",
+     "from": null,
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "Morgan Stanley",
+     "from": "Underweight",
+     "to": "Underweight"
+    }
+   ],
    "revEstimate": 21840524290,
    "trend": {
     "analystsEps": 24,
@@ -6175,6 +12172,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-28",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-08",
+     "firm": "Barclays",
+     "from": null,
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "Baird",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "init",
+     "date": "2026-06-30",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 11399328110,
    "trend": {
     "analystsEps": 31,
@@ -6227,6 +12254,64 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-22",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-21",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-14",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "Raymond James",
+     "from": "Strong Buy",
+     "to": "Strong Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-01",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-12",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    }
+   ],
    "revEstimate": 38428840350,
    "trend": {
     "analystsEps": 17,
@@ -6279,6 +12364,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-07",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Scotiabank",
+     "from": "Sector Outperform",
+     "to": "Sector Outperform"
+    }
+   ],
    "revEstimate": 5748463210,
    "trend": {
     "analystsEps": 8,
@@ -6331,6 +12425,22 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-20",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-21",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Underweight"
+    },
+    {
+     "action": "init",
+     "date": "2026-07-20",
+     "firm": "CLSA",
+     "from": null,
+     "to": "Underperform"
+    }
+   ],
    "revEstimate": 2635178690,
    "trend": {
     "analystsEps": 37,
@@ -6383,6 +12493,57 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-13",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Baird",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-15",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "B of A Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-07",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-06",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-26",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 22353142860,
    "trend": {
     "analystsEps": 19,
@@ -6435,6 +12596,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-20",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "reit",
+     "date": "2026-07-22",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
    "revEstimate": 186955506720,
    "trend": {
     "analystsEps": 33,
@@ -6487,6 +12657,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-07-31",
    "nextDateEnd": null,
    "nextDateEstimate": null,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-09",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-29",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "up",
+     "date": "2026-06-16",
+     "firm": "B of A Securities",
+     "from": "Neutral",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 97782459200,
    "trend": {
     "analystsEps": 18,
@@ -6539,6 +12739,85 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-09-02",
    "nextDateEnd": null,
    "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-16",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-25",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-12",
+     "firm": "Stephens & Co.",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-11",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-10",
+     "firm": "Macquarie",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-10",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-10",
+     "firm": "Wedbush",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-10",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-10",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-06-10",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-06-10",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 877605040,
    "trend": {
     "analystsEps": 42,
