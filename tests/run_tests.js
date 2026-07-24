@@ -235,9 +235,15 @@ const ok = (cond, name, detail = "") => {
   ok(lowConfidenceRanked.length >= 6, "low-confidence names are ranked with caution instead of hidden",
     lowConfidenceRanked.map(d => `${d.ticker}:${E.dataConfidenceOf(d).score}`).join(","));
   const stillBlocked = DATA.filter(d => E.rankOf(d).noRank === true);
-  const sourceBlocked = new Set(["C", "XOM", "CVX", "SCCO", "CB"]);
-  ok(stillBlocked.length <= 5 && stillBlocked.every(d => sourceBlocked.has(d.ticker)),
-    "only source-proof gaps remain NOT RANKED", stillBlocked.map(d => d.ticker).join(","));
+  // Every NOT-RANKED name must be explicitly acknowledged here with a known
+  // source gap — a new blocked ticker should fail this test until a human has
+  // checked why. All of these report no ShareBasedCompensation tag in either
+  // Yahoo or SEC companyfacts (financials/insurers and a few resource names),
+  // so owner earnings cannot be computed and the engine correctly refuses to
+  // invent them rather than shipping a fabricated score.
+  const sourceBlocked = new Set(["C", "XOM", "CVX", "SCCO", "CB", "SYF", "AFL"]);
+  ok(stillBlocked.length <= sourceBlocked.size && stillBlocked.every(d => sourceBlocked.has(d.ticker)),
+    "only acknowledged source-proof gaps remain NOT RANKED", stillBlocked.map(d => d.ticker).join(","));
   const verifiedYoung = ["CRWD", "PLTR", "UBER"].map(t => DATA.find(d => d.ticker === t));
   ok(verifiedYoung.every(d => d && E.dataConfidenceOf(d).score >= 80 && E.rankOf(d).noRank !== true),
     "verified owner-EPS names rank even when retention history is unavailable",

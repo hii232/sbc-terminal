@@ -1,5 +1,12 @@
 # SBC Model Changelog
 
+## Universe expanded to 224 names - 2026-07-24
+
+- Official universe grew 126 -> 224. 100 candidates were added across sectors the original set covered thinly (analog semis, regional banks, exchanges/ratings, managed care, staples, rails, defense); 98 promoted with full data. FI and MMC were dropped by reconcile_universe.py for insufficient annual revenue history, and ANSS/DFS were replaced (CTSH/SYF) after SEC's ticker map showed them acquired. The shipped count is the number of fully-backed names, never a target.
+- Membership is data-driven everywhere: build_universe derives its size from GROUPS, run_tests reads UNIVERSE_COUNT from universe.json with proportional coverage gates, new check_universe.js gates layer agreement, and app.js's runtime validator now enforces a 126-name floor instead of an exact count.
+- SYF and AFL join the acknowledged NOT-RANKED list: like C/CB, neither Yahoo nor SEC populates a ShareBasedCompensation tag for them, so owner earnings cannot be computed and are correctly refused rather than invented.
+- Coverage at 224: 217 ranked, RSI on all 224, 35 names passing the Best Setups quality gate, 55 sectors. App shell v72.
+
 ## Best Setups: brain + RSI alignment - 2026-07-24
 
 - gen_prices.py now also bundles pd:{} blocks — the last ~70 real daily closes per ticker — enabling true RSI(14) with Wilder smoothing (rsiOf; all-gain=100, all-loss=0, short series=null).
