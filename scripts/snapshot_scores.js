@@ -17,7 +17,7 @@ global.fetch = () => Promise.reject(new Error("no network"));
 
 const root = path.join(__dirname, "..");
 const files = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "charts.js",
-  "scores.js", "estimates.js", "news.js", "app.js"].filter(f => fs.existsSync(path.join(root, f)));
+  "scores.js", "estimates.js", "earnings.js", "news.js", "app.js"].filter(f => fs.existsSync(path.join(root, f)));
 vm.runInThisContext(files.map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n"));
 global.Chart = global.window.Chart;
 const E = global.window.__engines;
@@ -29,7 +29,26 @@ const entries = DATA.map(d => {
   // names the engine refuses to score (insufficient data) are recorded as
   // null — never fabricated into a number, and excluded from cohort math
   const score = V && Number.isFinite(V.score) ? +V.score.toFixed(1) : null;
-  return { t: d.ticker, s: score, c: V && V.call ? V.call : "NO_SCORE", p: d.price };
+  const row = { t: d.ticker, s: score, c: V && V.call ? V.call : "NO_SCORE", p: d.price };
+  // point-in-time signal snapshot for the calibration layer: every signal the
+  // terminal shows gets graded against forward returns; null stays null.
+  try {
+    const edge = E.directionEdgeOf(d);
+    if (edge && Number.isFinite(edge.score)) { row.de = edge.score; row.dl = edge.label; }
+    const ms = E.marketScoreOf(d);
+    if (ms) {
+      if (Number.isFinite(ms.businessQuality?.score)) row.bq = ms.businessQuality.score;
+      if (Number.isFinite(ms.marketReward?.score)) row.mr = ms.marketReward.score;
+      if (Number.isFinite(ms.longTermView?.score)) row.lt = ms.longTermView.score;
+    }
+    const odds = E.beatOddsOf(d);
+    if (odds && odds.score != null && odds.coverage >= 55) {
+      const next = odds.intel && odds.intel.nextDate;
+      // only record Beat Odds when a report is inside the horizon it predicts
+      if (next && next >= today && (Date.parse(next) - Date.parse(today)) <= 45 * 864e5) row.bo = odds.score;
+    }
+  } catch (err) { /* a signal that fails to compute is simply not recorded */ }
+  return row;
 });
 console.log(`scored: ${entries.filter(e => e.s != null).length}, unscored (insufficient data): ${entries.filter(e => e.s == null).length}`);
 

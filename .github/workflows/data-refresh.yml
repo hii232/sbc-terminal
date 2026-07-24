@@ -24,6 +24,8 @@ jobs:
         run: python scripts/collect_earnings.py
       - name: Record model track-record snapshot
         run: node scripts/snapshot_scores.js
+      - name: Build what-changed signals ledger (deltas + filing diffs)
+        run: node scripts/build_signals.js
       - name: Tests must pass before commit
         run: node tests/run_tests.js
       - name: Golden audit must pass before commit
@@ -32,6 +34,6 @@ jobs:
         run: |
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
-          git add data.js sec.js track.js earnings.js data/ || true
+          git add data.js sec.js track.js earnings.js signals.js data/ || true
           git diff --cached --quiet || git commit -m "data: automated refresh $(date -u +%F)"
           git push

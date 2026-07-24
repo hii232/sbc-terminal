@@ -111,9 +111,11 @@ async function main() {
     await page.waitForFunction((count) => document.querySelector("#wlCount")?.textContent.trim().startsWith(`1/${count}`), OFFICIAL_COUNT, { timeout: 3000 });
 
     const views = [
+      ["#signalsBtn", "WHAT CHANGED"],
       ["#dailyBtn", "DAILY REVIEW"],
       ["#edgeBtn", "DIRECTION EDGE"],
       ["#rankBtn", "MASTER RANKINGS"],
+      ["#trackBtn", "SIGNAL CALIBRATION"],
       ["#auditBtn", "DATA AUDIT"],
       ["#compareBtn", "COMPARE"],
       ["#screenBtn", "CUSTOM SCREENER"],
@@ -135,6 +137,7 @@ async function main() {
       text: document.querySelector("#main")?.textContent || "",
     }));
     ok(cal.text.includes("BEAT/MISS TAPE"), "beat/miss tape section missing");
+    ok(cal.text.includes("DRIFT BOARD"), "PEAD drift board missing");
     ok(cal.text.includes("BEAT ODDS"), "beat odds board missing");
     ok(cal.text.includes("MACRO REGIME"), "macro regime card missing");
     if (cal.upcoming > 0) ok(cal.text.includes("UP NEXT"), "upcoming reports table missing despite rows");
@@ -146,7 +149,7 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 12, "all 12 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.tools === 13, "all 13 tools reachable from the top nav", String(topnav.tools));
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
       const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));

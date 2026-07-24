@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "63"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "64"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -795,7 +795,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "signalsBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -803,6 +803,9 @@
   const NAV_GROUPS = [
     { name: "Home", icon: "🏠", tools: [
       { id: "homeBtn", label: "Home Dashboard", ic: "🏠" },
+    ] },
+    { name: "Signals", icon: "💡", tools: [
+      { id: "signalsBtn", label: "What Changed", ic: "💡" },
     ] },
     { name: "Earnings", icon: "🎯", tools: [
       { id: "calBtn", label: "Earnings Command Center", ic: "🎯" },
@@ -959,7 +962,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+        const map = { home: showHome, signals: showSignals, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
           rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -1818,6 +1821,89 @@
     else if (score <= 44) { label = "AT RISK"; color = "var(--orange)"; }
     const drivers = used.sort((a, b) => Math.abs(b.score - 50) - Math.abs(a.score - 50)).slice(0, 2);
     return { d, score, coverage, label, color, parts, drivers, intel: it };
+  }
+
+  /* ------------------- POST-EARNINGS DRIFT (PEAD) -------------------
+     The most durable public-data anomaly: stocks that beat with rising
+     estimates tend to keep drifting for weeks because the market
+     underreacts. This scores each recent reporter's drift setup. It is a
+     research signal grounded in published research, not a guarantee. */
+  function driftScoreOf(r, dNow) {
+    if (!r || r.epsActual == null || r.epsEstimate == null || !r.date) return null;
+    const daysSince = Math.round((Date.now() - Date.parse(r.date + "T16:00:00Z")) / 864e5);
+    if (daysSince < 0 || daysSince > 60) return null;
+    const d = dNow || companyOf(r.symbol);
+    if (!d) return null;
+    const bits = [];
+    const surprise = r.surprisePct != null ? clamp(r.surprisePct, -15, 15) : (r.epsActual > r.epsEstimate ? 3 : -3);
+    let score = 50 + surprise * 2.6;
+    bits.push(`EPS surprise ${r.surprisePct != null ? (r.surprisePct >= 0 ? "+" : "") + r.surprisePct.toFixed(1) + "%" : r.epsActual > r.epsEstimate ? "beat" : "miss"}`);
+    if (hasNum(r.revActual) && hasNum(r.revEstimate)) {
+      const revBeat = r.revActual > r.revEstimate;
+      score += revBeat ? 7 : -8;
+      bits.push(revBeat ? "revenue also beat" : "revenue missed");
+    }
+    const it = earnIntelOf(r.symbol);
+    if (it && it.trend && hasNum(it.trend.revUp30) && hasNum(it.trend.revDown30)) {
+      const net = it.trend.revUp30 - it.trend.revDown30;
+      score += clamp(net, -10, 10) * 0.9;
+      bits.push(`revisions since: ${net >= 0 ? "+" : ""}${net} net`);
+    }
+    const weeksBack = Math.max(1, Math.round(daysSince / 7));
+    const reaction = pctMoveFrom(d.px && d.px.v || [], weeksBack);
+    if (reaction != null) {
+      // PEAD needs the initial reaction to CONFIRM the surprise's direction
+      score += clamp(reaction * Math.sign(surprise || 1), -8, 8);
+      bits.push(`tape since report ${reaction >= 0 ? "+" : ""}${reaction.toFixed(1)}%`);
+    }
+    score = Math.round(clamp(score, 3, 97));
+    const up = surprise >= 0;
+    let label, color;
+    if (up && score >= 70) { label = "STRONG DRIFT"; color = "var(--green)"; }
+    else if (up && score >= 58) { label = "DRIFT CANDIDATE"; color = "var(--cyan)"; }
+    else if (!up && score <= 34) { label = "DOWNSIDE DRIFT"; color = "var(--red)"; }
+    else { label = "NO CLEAR DRIFT"; color = "var(--amber)"; }
+    return { symbol: r.symbol, score, label, color, daysSince, windowLeft: Math.max(0, 60 - daysSince), bits, up };
+  }
+
+  /* ------------------- SIGNAL CALIBRATION -------------------
+     Grades every recorded signal against what prices actually did next.
+     Pure function over TRACK_HISTORY snapshots so it is unit-testable.
+     Windows overlap (daily snapshots); n counts observations, not
+     independent bets — stated in the UI. No verdicts before n >= 20. */
+  function calibrationOf(history, horizonDays) {
+    const H = Array.isArray(history) ? history : [];
+    const groups = {}; // groupKey -> bucket -> {n, hits, sum}
+    const rec = (group, bucket, ret) => {
+      if (!Number.isFinite(ret)) return;
+      const g = groups[group] = groups[group] || {};
+      const b = g[bucket] = g[bucket] || { n: 0, hits: 0, sum: 0 };
+      b.n++; if (ret > 0) b.hits++; b.sum += ret;
+    };
+    let windows = 0;
+    for (let i = 0; i < H.length; i++) {
+      const base = H[i];
+      const target = H.find(sn => (Date.parse(sn.date) - Date.parse(base.date)) / 864e5 >= horizonDays);
+      if (!target) continue;
+      windows++;
+      const nowP = {};
+      target.entries.forEach(e => { if (e.p > 0) nowP[e.t] = e.p; });
+      for (const e of base.entries) {
+        if (!(e.p > 0) || !(nowP[e.t] > 0)) continue;
+        const ret = (nowP[e.t] / e.p - 1) * 100;
+        if (e.dl) rec("Direction Edge", e.dl, ret);
+        if (e.bo != null) rec("Beat Odds (report ≤45d)", e.bo >= 68 ? "68+ strong setup" : e.bo >= 40 ? "40–67 mixed" : "<40 miss risk", ret);
+        if (e.c && e.c !== "NO_SCORE") rec("Verdict call", e.c, ret);
+        if (e.mr != null) rec("Market Reward", e.mr >= 70 ? "70+" : e.mr >= 50 ? "50–69" : "<50", ret);
+      }
+    }
+    const out = { horizonDays, windows, groups: {} };
+    for (const [g, buckets] of Object.entries(groups)) {
+      out.groups[g] = Object.entries(buckets).map(([bucket, b]) => ({
+        bucket, n: b.n, hitRate: b.hits / b.n, avg: b.sum / b.n, judged: b.n >= 20,
+      })).sort((a, b) => b.avg - a.avg);
+    }
+    return out;
   }
 
   async function loadEarningsIntel(tk) {
@@ -3326,10 +3412,29 @@
       fwdHtml = `<div class="note" style="margin-bottom:12px;border-left-color:var(--amber)"><b>No forward-return evidence yet.</b> Tracking since <b>${first ? first.date : "today"}</b> (${H.length} snapshot${H.length === 1 ? "" : "s"}, ${daysSpan} days). The first cohort comparison unlocks at 30 days of history; a real verdict needs a year. Until then every score in this terminal is an <b>untested hypothesis</b> — size accordingly.</div>`;
     }
 
+    /* signal calibration: which signals actually predict? */
+    let calHtml = "";
+    {
+      const horizons = [[28, "4 WEEKS"], [84, "12 WEEKS"]].map(([days, label]) => ({ label, cal: calibrationOf(H, days) }));
+      const withData = horizons.filter(h => h.cal.windows > 0 && Object.keys(h.cal.groups).length);
+      const fmtRet = (v) => `<span class="${v >= 0 ? "up" : "down"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</span>`;
+      const grpTable = (name, rows) => `<h3 style="margin-top:12px">${name}</h3>
+        <div style="overflow-x:auto"><table class="rank"><thead><tr><th>BUCKET</th><th>OBS</th><th>HIT RATE</th><th>AVG FWD RETURN</th><th>VERDICT</th></tr></thead><tbody>
+        ${rows.map(r => `<tr><td style="text-align:left">${escapeHtml(r.bucket)}</td><td>${r.n}</td>
+          <td>${Math.round(r.hitRate * 100)}%</td><td>${fmtRet(r.avg)}</td>
+          <td class="sub">${r.judged ? (r.avg > 1 && r.hitRate >= 0.55 ? '<b style="color:var(--green)">earning trust</b>' : r.avg < -1 ? '<b style="color:var(--red)">inverse / avoid-signal</b>' : "indistinct so far") : `collecting — n&lt;20`}</td></tr>`).join("")}
+        </tbody></table></div>`;
+      calHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
+        <h3>SIGNAL CALIBRATION — WHICH SIGNALS ACTUALLY PREDICT <span class="unit">forward returns per signal bucket · overlapping daily windows, obs ≠ independent bets</span></h3>
+        ${withData.length ? withData.map(h => `<div class="sub" style="margin-top:6px;font-weight:800;letter-spacing:.6px">${h.label} FORWARD (${h.cal.windows} window${h.cal.windows === 1 ? "" : "s"})</div>
+          ${Object.entries(h.cal.groups).map(([g, rows]) => grpTable(g, rows)).join("")}`).join("")
+        : `<div class="sub" style="padding:10px 0;line-height:1.6">No signal is old enough to grade yet — snapshots must age ${28}+ days before their first forward window closes (recording since <b>${first ? first.date : "today"}</b>). Every signal the terminal shows — Direction Edge labels, Beat Odds buckets, Market Reward tiers, verdict calls — is being recorded daily and will be graded here automatically. Until a bucket reaches 20 observations its verdict is withheld; anything that proves non-predictive should be deleted from the app.</div>`}
+      </div>`;
+    }
     el("main").innerHTML = toolHeader("📈", "MODEL TRACK RECORD", "the terminal grading itself — do high scores actually earn their returns?",
       `<div style="text-align:right"><div class="sub">SNAPSHOTS</div><div class="stat sm">${H.length}</div></div>`)
-      + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's brain score, call and price (scripts/snapshot_scores.js). This page compares past scores against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
-      + fwdHtml + cohortHtml;
+      + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's brain score, call, Direction Edge, Beat Odds and price (scripts/snapshot_scores.js). This page compares past signals against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
+      + calHtml + fwdHtml + cohortHtml;
   }
   const showTrack = () => showView("track", renderTrack, "trackBtn");
 
@@ -3422,6 +3527,68 @@
     });
     return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
   }
+  /* ============================================================================
+     💡 WHAT CHANGED — THE SIGNALS FEED
+     Levels are what everyone knows; the edge is in the deltas. This view
+     renders the daily diff ledger built by scripts/build_signals.js:
+     score inflections, direction-edge flips, revision flips, fresh
+     beats/misses, and same-day SEC filing diffs — ranked by materiality. */
+  const signalsEvents = () => (typeof SIGNALS !== "undefined" && Array.isArray(SIGNALS.events)) ? SIGNALS.events : [];
+  const signalsAsOf = () => (typeof SIGNALS !== "undefined" && SIGNALS.asOf) || null;
+  const SIG_TYPES = {
+    filing: { label: "FILING", color: "var(--purple)" },
+    earnings: { label: "EARNINGS", color: "var(--gold)" },
+    revisions: { label: "REVISIONS", color: "var(--cyan)" },
+    edge: { label: "EDGE FLIP", color: "var(--green)" },
+    score: { label: "SCORE", color: "var(--amber)" },
+  };
+  const sigState = { filter: "all" };
+  function signalRow(e) {
+    const t = SIG_TYPES[e.type] || { label: e.type.toUpperCase(), color: "var(--muted)" };
+    const d = companyOf(e.tk);
+    return `<div class="home-row" ${d ? `data-tk="${e.tk}"` : ""} style="grid-template-columns:56px minmax(0,1fr) auto">
+      <div><strong style="color:${e.m >= 80 ? "var(--red)" : e.m >= 65 ? "var(--orange)" : "var(--muted)"};font-size:16px">${e.m}</strong><span class="sub" style="font-size:8.5px">IMPACT</span></div>
+      <div><b>${e.tk} <span class="impact-chip" style="color:${t.color};border-color:${t.color}">${t.label}</span></b>
+        <span style="white-space:normal;color:var(--text);font-size:12px">${escapeHtml(e.title)}</span>
+        <span style="white-space:normal">${escapeHtml(e.detail || "")}</span></div>
+      <div class="sub" style="white-space:nowrap">${d ? d.sector : ""}</div>
+    </div>`;
+  }
+  function renderSignals() {
+    const all = signalsEvents();
+    const rows = sigState.filter === "all" ? all : all.filter(e => e.type === sigState.filter);
+    const byDate = new Map();
+    rows.forEach(e => { if (!byDate.has(e.d)) byDate.set(e.d, []); byDate.get(e.d).push(e); });
+    const today = todayISO();
+    const dateLabel = (dt) => dt === today ? "TODAY" : Math.round((Date.parse(today) - Date.parse(dt)) / 864e5) === 1 ? "YESTERDAY" : dt;
+    const chip = (key, label) => `<button class="sec-chip ${sigState.filter === key ? "on" : ""}" data-sigf="${key}"
+      style="${sigState.filter === key ? "background:var(--cyan)" : ""}">${label}</button>`;
+    const counts = {};
+    all.forEach(e => counts[e.type] = (counts[e.type] || 0) + 1);
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">💡 WHAT CHANGED</div>
+        <div class="co">The daily diff of every signal the terminal tracks — inflections, flips and filings, ranked by impact. Deltas are the edge; levels are the encyclopedia.</div></div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">LEDGER</div><div class="stat sm">${signalsAsOf() ? "diffed " + signalsAsOf() : "arming"}</div></div>
+      </div>
+      <div class="sec-chips" style="margin-bottom:12px">
+        ${chip("all", `ALL ${all.length}`)}
+        ${Object.entries(SIG_TYPES).map(([k, t]) => chip(k, `${t.label} ${counts[k] || 0}`)).join("")}
+      </div>
+      ${rows.length ? [...byDate.entries()].map(([dt, evs]) => `<div class="card" style="margin-bottom:12px">
+        <h3>${dateLabel(dt)} <span class="unit">${evs.length} signal${evs.length === 1 ? "" : "s"} · sorted by impact</span></h3>
+        ${evs.sort((a, b) => b.m - a.m).map(signalRow).join("")}
+      </div>`).join("")
+      : `<div class="card"><h3>THE FEED IS ARMING</h3>
+        <div class="sub" style="line-height:1.6;padding:6px 0">The signals engine diffs every tracked input once per weekday data refresh: business-quality / market-reward / long-term score inflections, Direction Edge label flips, analyst revision-tape flips, consensus drift inflections, Beat Odds regime entries for reports inside 3 weeks, fresh beats and misses, and same-day SEC filing diffs (growth acceleration, SBC burden, share-count turns). ${signalsAsOf() ? `The baseline was recorded <b>${signalsAsOf()}</b> — the first deltas appear on the next refresh, and every weekday after.` : "The first pipeline run records the baseline."} Nothing is backfilled or invented: a quiet tape shows a quiet feed.</div></div>`}
+      <div class="card" style="margin-top:12px"><h3>WHY DELTAS, NOT LEVELS</h3>
+        <div class="sub" style="line-height:1.6">A score of 75 is public knowledge the moment it is computed. The tradeable information is the day it <b>became</b> 75 — the inflection, before attention catches up. This feed exists so the terminal opens with "what changed since yesterday" instead of "here are 126 rated stocks." Filing diffs carry the highest impact weight because almost nobody reads filings the day they land.</div></div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-sigf]").forEach(b => b.onclick = () => { sigState.filter = b.dataset.sigf; renderSignals(); });
+  }
+  const showSignals = () => showView("signals", renderSignals, "signalsBtn");
+
   /* ============================================================================
      🎯 EARNINGS COMMAND CENTER
      One screen for the whole season: who just beat or missed (live the moment
@@ -3537,6 +3704,26 @@
           <tbody>${ledger.slice(0, 40).map(reportedRow).join("")}</tbody></table></div>`
         : `<div class="sub" style="padding:14px">No reported results in the window yet. ${live ? "The live tape will populate as companies report." : asOf ? "The daily pipeline stamps results as they appear." : "Run the data-refresh pipeline once to seed the ledger."}</div>`}
       </div>
+      ${(() => {
+        const drifts = ledger.map(r => ({ r, ds: driftScoreOf(r) })).filter(x => x.ds)
+          .sort((a, b) => b.ds.score - a.ds.score);
+        const actionable = drifts.filter(x => x.ds.label !== "NO CLEAR DRIFT");
+        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
+        <h3>DRIFT BOARD — POST-EARNINGS DRIFT (PEAD) <span class="unit">beats with confirmation tend to keep drifting for ~60 days (documented anomaly) · research signal, not advice</span></h3>
+        ${actionable.length ? `<div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>TICKER</th><th>REPORTED</th><th>DRIFT SCORE</th><th>SETUP</th><th>WINDOW LEFT</th><th>EVIDENCE</th></tr></thead>
+          <tbody>${actionable.slice(0, 15).map(x => { const d = companyOf(x.r.symbol); return `<tr data-tk="${x.r.symbol}">
+            <td><span class="rk-tk">${x.r.symbol}</span> <span class="sub">${d ? d.sector : ""}</span></td>
+            <td class="sub">${x.r.date}${x.r.dateIsApprox ? "≈" : ""} (${x.ds.daysSince}d ago)</td>
+            <td><span class="rk-pill" style="background:${x.ds.color};color:#071018">${x.ds.score}</span></td>
+            <td><b style="color:${x.ds.color};font-size:10px">${x.ds.label}</b></td>
+            <td><div class="meter" style="width:90px;margin-top:0"><i style="width:${Math.round((x.ds.windowLeft / 60) * 100)}%;background:${x.ds.color}"></i></div><span class="sub">${x.ds.windowLeft}d</span></td>
+            <td class="sub" style="max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${x.ds.bits.join(" · ")}</td>
+          </tr>`; }).join("")}</tbody></table></div>
+        <div class="sub" style="margin-top:8px">Drift = surprise size + revenue confirmation + post-report revisions + tape confirmation, decaying over the ~60-day research window. Beats that the market shrugged off score low — the anomaly needs confirmation, not hope.</div>`
+        : `<div class="sub" style="padding:14px">No drift setups in the window — the board fills as season results land${live ? "" : " (or connect a Finnhub key for same-day results)"}.</div>`}
+      </div>`;
+      })()}
       <div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
         <h3>UP NEXT — EVERY REPORT WITH ITS BEAT ODDS <span class="unit">next 3 weeks · odds are a research signal, not a probability · * = estimated date</span></h3>
         ${upcoming.length ? `<div style="overflow-x:auto"><table class="rank">
@@ -4116,6 +4303,14 @@
           </div>
           <button id="openDailyReviewTop" type="button">Read Details</button>
         </section>
+        <section class="bz-panel">
+          <div class="bz-section-head"><h2>What Changed</h2><button id="openSignals" type="button">Full Feed</button></div>
+          ${(() => {
+            const evs = signalsEvents().slice().sort((a, b) => b.d.localeCompare(a.d) || b.m - a.m).slice(0, 5);
+            return evs.length ? evs.map(signalRow).join("")
+              : `<div class="note">The signals engine diffs every score, revision tape and SEC filing each weekday refresh. ${signalsAsOf() ? `Baseline recorded ${signalsAsOf()} — first deltas land on the next refresh.` : "First pipeline run records the baseline."}</div>`;
+          })()}
+        </section>
         <section class="bz-feature" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
           <div class="bz-feature-pill">${stockDay?.d.ticker || "--"}</div>
           <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: best combined business quality and market reward setup on the board.` : "No ranked setup loaded."}</p></div>
@@ -4162,6 +4357,8 @@
     if (openMovers) openMovers.onclick = showRankings;
     const openEarn = el("openEarnCmd");
     if (openEarn) openEarn.onclick = showCalendar;
+    const openSig = el("openSignals");
+    if (openSig) openSig.onclick = showSignals;
     const refreshBtn = el("homeRefreshPrices");
     if (refreshBtn) refreshBtn.onclick = async () => {
       refreshBtn.textContent = "↻ refreshing…"; refreshBtn.disabled = true;
@@ -4725,7 +4922,8 @@
     if (["SCREEN", "SCREENER", "FILTER"].includes(q)) { showScreener(); return; }
     if (["COMPARE", "VS", "COMPARISON"].includes(q)) { showCompare(); return; }
     if (["PORTFOLIO", "POSITIONS", "HOLDINGS", "MYPORT"].includes(q)) { showPortfolio(); return; }
-    if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
+    if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
+    if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
     if (["AUDIT", "TRUST", "PROVENANCE", "SOURCES"].includes(q)) { showAudit(); return; }
     if (["TRACK", "RECORD", "SCORECARD", "PROOF"].includes(q)) { showTrack(); return; }
     if (["JOURNAL", "THESIS", "THESES"].includes(q)) { showJournal(); return; }
@@ -4807,6 +5005,7 @@
     };
     el("liveBtn").onclick = () => startLiveTape();
     el("homeBtn").onclick = showHome;
+    el("signalsBtn").onclick = showSignals;
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
     el("sectorBtn").onclick = showSectors;
@@ -4852,7 +5051,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=63").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=64").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
@@ -4863,6 +5062,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
+    driftScoreOf, calibrationOf, signalsEvents,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

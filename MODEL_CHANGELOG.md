@@ -1,5 +1,12 @@
 # SBC Model Changelog
 
+## The edge layer: signals, drift, filing diffs, calibration - 2026-07-24
+
+- New WHAT CHANGED signals feed (own nav group, default panel on Home): `scripts/build_signals.js` runs in the daily pipeline and diffs every tracked input against yesterday — business-quality/market-reward/long-term score inflections and threshold crossings, Direction Edge label flips, analyst revision-tape sign flips and consensus-drift inflections, Beat Odds regime entries for reports inside 3 weeks, fresh beats/misses, and same-day SEC filing diffs (revenue growth acceleration/deceleration, SBC-burden change, share-count turns, computed from filing facts the day a new accession lands). Events are materiality-ranked; the ledger keeps 21 days; nothing is backfilled or invented.
+- New DRIFT BOARD (post-earnings drift / PEAD) on the Earnings Command Center: each recent reporter scored on surprise size, revenue confirmation, post-report revisions and tape confirmation, decaying across the ~60-day research window. Direction-aware (misses flag downside drift); stale or unconsensused reports are excluded, not guessed.
+- New SIGNAL CALIBRATION on Track Record: daily snapshots now also record Direction Edge score/label, Beat Odds (only when a report is inside its 45-day horizon), and Market Reward tier. `calibrationOf()` grades every bucket against 4-week and 12-week forward returns with hit rates; verdicts are withheld below 20 observations, and overlapping windows are labelled as such. Signals that prove non-predictive are to be deleted.
+- App shell v64.
+
 ## Deep declutter: 12-view terminal - 2026-07-23
 
 - Consolidated six overlapping stock-ranking surfaces into two: Rankings (master leaderboard, sortable by owner P/E, Graham, quality) and Screener (custom filters). Removed the standalone Owner-Earnings P/E view, Graham Value screener view, Quality × Market Map, Triggers Today, and Tech Desk. All engines (grahamOf, quality map model, IV ladder) remain and still power the ranking columns, per-ticker tabs, and Home buy list.

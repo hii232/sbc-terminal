@@ -14,7 +14,7 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network in tests"));
 
 const root = path.join(__dirname, "..");
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "scores.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -385,6 +385,44 @@ const ok = (cond, name, detail = "") => {
   const nvda = DATA.find(d => d.ticker === "NVDA");
   const rt = E.peerReadThrough(nvda, ledger);
   ok(rt === null || (rt.n >= 2 && rt.beatShare >= 0 && rt.beatShare <= 1), "peer read-through needs >=2 peers or stays null");
+}
+
+// =============== 13d. Edge layer: drift, calibration, signals ===============
+{
+  // PEAD drift score: bounded, direction-aware, missing-safe
+  const today = new Date().toISOString().slice(0, 10);
+  const daysAgo = (n) => new Date(Date.now() - n * 864e5).toISOString().slice(0, 10);
+  const nvda = DATA.find(d => d.ticker === "NVDA");
+  const beat = { symbol: "NVDA", date: daysAgo(7), epsActual: 1.1, epsEstimate: 1.0, surprisePct: 10, revActual: 5e10, revEstimate: 4.8e10 };
+  const ds = E.driftScoreOf(beat, nvda);
+  ok(ds && ds.score >= 3 && ds.score <= 97 && ds.up === true, "fresh clean beat produces a bounded upward drift score", JSON.stringify(ds && ds.score));
+  ok(ds.windowLeft > 0 && ds.windowLeft <= 60, "drift window decays inside the 60-day research window");
+  const miss = { ...beat, epsActual: 0.85, surprisePct: -15, revActual: 4.5e10 };
+  const dm = E.driftScoreOf(miss, nvda);
+  ok(dm && dm.up === false && dm.score < ds.score, "hard miss scores below the beat and is flagged downward", `${dm && dm.score} vs ${ds.score}`);
+  ok(E.driftScoreOf({ ...beat, date: daysAgo(90) }, nvda) === null, "stale reports (>60d) leave the drift board, not linger");
+  ok(E.driftScoreOf({ symbol: "NVDA", date: daysAgo(5) }, nvda) === null, "no actual/estimate -> no drift score, never fabricated");
+
+  // calibration: pure math over synthetic snapshots
+  const mk = (date, px) => ({ date, universe: 2, entries: [
+    { t: "AAA", s: 80, c: "ACC", p: px, dl: "LIKELY UP", bo: 75, mr: 80 },
+    { t: "BBB", s: 20, c: "AVOID", p: px, dl: "LIKELY DOWN", bo: 30, mr: 30 },
+  ] });
+  const hist = [mk("2026-01-01", 100), mk("2026-02-05", 110), mk("2026-03-15", 121)];
+  const cal = E.calibrationOf(hist, 28);
+  ok(cal.windows === 2, "calibration finds every closed forward window", String(cal.windows));
+  const de = cal.groups["Direction Edge"];
+  ok(de && de.length === 2, "both direction-edge buckets present (LIKELY UP + LIKELY DOWN)", JSON.stringify(de && de.map(r => r.bucket)));
+  const upB = de.find(r => r.bucket === "LIKELY UP");
+  ok(upB && upB.n === 2 && upB.hitRate === 1 && upB.avg > 9, "bucket stats: n, hit rate and avg forward return computed", JSON.stringify(upB));
+  ok(upB.judged === false, "n<20 -> verdict withheld (honest small-sample handling)");
+  ok(E.calibrationOf([], 28).windows === 0, "empty history -> zero windows, no crash");
+  ok(E.calibrationOf(hist, 365).windows === 0, "horizon longer than history -> zero windows");
+
+  // signals bundle: empty-safe structure
+  const evs = E.signalsEvents();
+  ok(Array.isArray(evs), "signals events always an array");
+  ok(evs.every(e => e.d && e.tk && e.type && Number.isFinite(e.m) && e.title), "every signal event carries date, ticker, type, materiality, title");
 }
 
 // =============== 13c. Price-window helpers ===============
