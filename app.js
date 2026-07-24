@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "70"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "71"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -4715,6 +4715,24 @@
           </button>
         </section>
         <div class="bz-index-strip">${marketTiles.map(marketTile).join("")}</div>
+        <section class="bz-panel">
+          <div class="bz-section-head"><h2>⭐ Best Setups</h2><button id="openSetups" type="button">Full Board</button></div>
+          ${(() => {
+            const rows = bestSetupsOf();
+            const prime = rows.filter(x => x.aligned);
+            const top = (prime.length ? prime : rows).slice(0, 3);
+            if (!top.length) return `<div class="note">No names currently pass the brain's quality gate (business quality ≥65, long-term view ≥55). Check back after the next refresh.</div>`;
+            const setupRow = (x) => {
+              const z = rsiZone(x.rsi ? x.rsi.value : null);
+              return `<div class="home-row" data-tk="${x.d.ticker}">
+                <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
+                <div class="sub">${x.aligned ? `<b style="color:var(--green)">PRIME</b> — RSI ${x.rsi.value} (${z.label})` : x.rsi ? `RSI ${x.rsi.value} (${z.label}) — watching for a wash-out` : "RSI pending"}</div>
+                <strong style="color:${x.color}">${x.score}</strong>
+              </div>`;
+            };
+            return `${prime.length ? "" : `<div class="sub" style="margin:-4px 0 8px">No PRIME (brain + RSI aligned) setups today — showing the top quality names waiting for a wash-out.</div>`}${top.map(setupRow).join("")}`;
+          })()}
+        </section>
         <section class="bz-panel bz-movers-panel">
           <div class="bz-section-head"><h2>Watchlist Movers <span class="unit" style="font-weight:600">${moverBasis} · ${liveCoverage}/${DATA.length} live</span></h2><button id="openAllMovers" type="button">View All Movers</button></div>
           <div class="note" style="margin:-4px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -4791,6 +4809,8 @@
     if (openEarn) openEarn.onclick = showCalendar;
     const openSig = el("openSignals");
     if (openSig) openSig.onclick = showSignals;
+    const openSetupsBtn = el("openSetups");
+    if (openSetupsBtn) openSetupsBtn.onclick = showSetups;
     const refreshBtn = el("homeRefreshPrices");
     if (refreshBtn) refreshBtn.onclick = async () => {
       refreshBtn.textContent = "↻ refreshing…"; refreshBtn.disabled = true;
@@ -5491,7 +5511,7 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=70").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register("sw.js?v=71").then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
