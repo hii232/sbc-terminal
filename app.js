@@ -2149,6 +2149,18 @@
   const insidersBundle = () => (typeof INSIDERS !== "undefined" ? INSIDERS : null);
   const insiderOf = (tk) => { const B = insidersBundle(); return (B && B.tickers && B.tickers[tk]) || null; };
   // dollar amounts use the shared usd() helper (raw $ -> K/M/B), defined below
+  /* A Form 4 can report a security that is NOT the line you can buy — an
+     issuer's ordinary shares versus its US ADS, a different class, a
+     preferred. Those print at a completely different price, so a
+     transaction whose price bears no relation to the traded price is
+     about a different instrument and must not inform a decision here.
+     Band is deliberately wide (5x either way): it catches instrument
+     mismatches without discarding a stale price or a volatile week. */
+  const insiderOnMarket = (t, price) => {
+    if (!hasNum(price) || price <= 0 || !hasNum(t.price) || t.price <= 0) return true;
+    const ratio = t.price / price;
+    return ratio >= 0.2 && ratio <= 5;
+  };
   function insiderSignalOf(d) {
     const B = insidersBundle();
     if (!B || !B.asOf) return null;              // pipeline has never run
@@ -2156,28 +2168,39 @@
     if (!r) return { ticker: d.ticker, label: "NO FILINGS", score: null, color: "var(--dim)",
       buyers: 0, bits: [`no Form 4 activity in the last ${B.windowDays} days`], window: B.windowDays, asOf: B.asOf };
     const bits = [];
-    const buyers = r.buyerCount || 0;
+    // The conviction set is recomputed here rather than trusted from the
+    // bundle, because only the app knows the live traded price.
+    const px = priceOf(d);
+    const real = (r.buys || []).filter(b => !b.planned && !b.derivative && insiderOnMarket(b, px));
+    const offMarket = (r.buys || []).filter(b => !b.planned && !b.derivative && !insiderOnMarket(b, px));
+    const buyerSet = new Set(real.map(b => b.owner));
+    const buyers = buyerSet.size;
+    const buyValue = real.reduce((a, b) => a + (hasNum(b.value) ? b.value : 0), 0) || null;
+    const seniorBuyer = real.some(b => b.senior);
+    const lastBuy = real.length ? real.map(b => b.date).sort().at(-1) : null;
     let score = 50;
     if (buyers >= 3) { score += 30; bits.push(`${buyers} different insiders bought on the open market`); }
     else if (buyers === 2) { score += 22; bits.push("2 insiders bought on the open market"); }
     else if (buyers === 1) { score += 12; bits.push("1 insider bought on the open market"); }
-    if (r.seniorBuyer) { score += 10; bits.push("a CEO/CFO/chair was among the buyers"); }
-    if (hasNum(r.buyValue) && r.buyValue > 0) bits.push(`${usd(r.buyValue)} of stock bought`);
+    if (seniorBuyer) { score += 10; bits.push("a CEO/CFO/chair was among the buyers"); }
+    if (hasNum(buyValue) && buyValue > 0) bits.push(`${usd(buyValue)} of stock bought`);
     // sales are context, never a mirror image — capped influence, stated as such
-    const sellers = new Set((r.sells || []).filter(s => !s.planned).map(s => s.owner)).size;
+    const sells = (r.sells || []).filter(s => insiderOnMarket(s, px));
+    const sellers = new Set(sells.filter(s => !s.planned).map(s => s.owner)).size;
     if (!buyers && sellers >= 3) { score -= 12; bits.push(`${sellers} insiders sold (sales are weak signal — often tax or diversification)`); }
     else if (sellers) bits.push(`${sellers} insider${sellers === 1 ? "" : "s"} also sold — sales carry little signal on their own`);
     if (r.mechanics) bits.push(`${r.mechanics} grant/exercise/tax filing${r.mechanics === 1 ? "" : "s"} ignored (compensation, not a decision)`);
     if ((r.buys || []).some(b => b.planned)) bits.push("one or more buys were pre-scheduled 10b5-1 trades — excluded from the cluster");
+    if (offMarket.length) bits.push(`${offMarket.length} filing row${offMarket.length === 1 ? "" : "s"} priced far from the traded line (ordinary shares/ADS or another class) — excluded`);
     score = clamp(Math.round(score), 0, 100);
     let label, color;
     if (buyers >= 3) { label = "CLUSTER BUYING"; color = "var(--green)"; }
-    else if (buyers === 2 || (buyers === 1 && r.seniorBuyer)) { label = r.seniorBuyer && buyers === 1 ? "SENIOR INSIDER BUYING" : "INSIDER BUYING"; color = "var(--cyan)"; }
+    else if (buyers === 2 || (buyers === 1 && seniorBuyer)) { label = seniorBuyer && buyers === 1 ? "SENIOR INSIDER BUYING" : "INSIDER BUYING"; color = "var(--cyan)"; }
     else if (buyers === 1) { label = "SINGLE INSIDER BUY"; color = "var(--amber)"; }
     else if (sellers >= 3) { label = "INSIDERS SELLING"; color = "var(--orange)"; }
     else { label = "QUIET"; color = "var(--dim)"; }
-    return { ticker: d.ticker, label, color, score, buyers, sellers, senior: !!r.seniorBuyer,
-      buyValue: r.buyValue, lastBuy: r.lastBuy, buys: r.buys || [], sells: r.sells || [],
+    return { ticker: d.ticker, label, color, score, buyers, sellers, senior: seniorBuyer,
+      buyValue, lastBuy, buys: real, sells, offMarket: offMarket.length,
       complete: r.complete !== false, bits, window: B.windowDays, asOf: B.asOf };
   }
   function insiderClusters(limit = 10) {
