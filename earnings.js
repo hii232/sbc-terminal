@@ -2,14 +2,14 @@
    Beat/miss ledger + next-report consensus + estimate revisions for the
    official universe. Missing values are null, never zero. */
 const EARNINGS_INTEL = {
- "asOf": "2026-07-24",
+ "asOf": "2026-07-25",
  "source": "Yahoo Finance quoteSummary (earningsHistory, calendarEvents, earningsTrend)",
  "tickers": {
   "A": {
    "epsEstimate": 1.48614,
    "epsHigh": 1.5,
    "epsLow": 1.43,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.37,
@@ -84,7 +84,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.89396,
    "epsHigh": 1.99,
    "epsLow": 1.83,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.57,
@@ -163,41 +163,6 @@ const EARNINGS_INTEL = {
      "firm": "B of A Securities",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "TD Cowen",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Maxim Group",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Rosenblatt",
-     "from": "Neutral",
-     "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Morgan Stanley",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-09",
-     "firm": "Needham",
-     "from": "Hold",
-     "to": "Hold"
     }
    ],
    "revEstimate": 108890141050,
@@ -222,7 +187,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.64014,
    "epsHigh": 3.81,
    "epsLow": 3.57,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.97,
@@ -360,7 +325,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.22267,
    "epsHigh": 1.41,
    "epsLow": 0.93,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.03,
@@ -442,7 +407,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.41767,
    "epsHigh": 1.44,
    "epsLow": 1.40577,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.3,
@@ -573,7 +538,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.46174,
    "epsHigh": 2.82392,
    "epsLow": 2.29,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.58,
@@ -676,7 +641,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.17936,
    "epsHigh": 3.23,
    "epsLow": 3.12,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.03,
@@ -807,7 +772,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.07854,
    "epsHigh": 6.35,
    "epsLow": 5.82354,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.31,
@@ -945,7 +910,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.33322,
    "epsHigh": 3.42,
    "epsLow": 3.29,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.05,
@@ -1027,7 +992,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.59887,
    "epsHigh": 2.63,
    "epsLow": 2.55,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.26,
@@ -1123,7 +1088,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.11861,
    "epsHigh": 3.14895,
    "epsLow": 3.07,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.62,
@@ -1191,7 +1156,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.75787,
    "epsHigh": 1.81,
    "epsLow": 1.68,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.78,
@@ -1301,7 +1266,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.92792,
    "epsHigh": 2.21604,
    "epsLow": 1.72,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.81,
@@ -1411,7 +1376,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.0425,
    "epsHigh": 7.51,
    "epsLow": 4.87,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.94,
@@ -1535,7 +1500,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.45153,
    "epsHigh": 1.6,
    "epsLow": 1.37772,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.15,
@@ -1617,7 +1582,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.38874,
    "epsHigh": 3.56,
    "epsLow": 3.17,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.48,
@@ -1755,7 +1720,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.61068,
    "epsHigh": 1.74,
    "epsLow": 1.48,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.48,
@@ -1893,7 +1858,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.61646,
    "epsHigh": 6.28,
    "epsLow": 4.99,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 6.02,
@@ -1996,7 +1961,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.81497,
    "epsHigh": 2.1,
    "epsLow": 1.56,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.68,
@@ -2092,7 +2057,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.88559,
    "epsHigh": 0.92098,
    "epsLow": 0.87,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.73,
@@ -2181,7 +2146,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.15562,
    "epsHigh": 2.3,
    "epsLow": 2.07,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.92,
@@ -2277,7 +2242,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.21,
    "epsHigh": 4.21,
    "epsLow": 4.21,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.39,
@@ -2345,7 +2310,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.2766,
    "epsHigh": 1.34,
    "epsLow": 1.212,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.03,
@@ -2434,7 +2399,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.40192,
    "epsHigh": 0.42,
    "epsLow": 0.37,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.35,
@@ -2558,7 +2523,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 10.58262,
    "epsHigh": 11.5,
    "epsLow": 8.65,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.49,
@@ -2661,7 +2626,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.23823,
    "epsHigh": 3.33,
    "epsLow": 3.08,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.69,
@@ -2722,7 +2687,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.84394,
    "epsHigh": 2.18,
    "epsLow": 1.53,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.12,
@@ -2797,7 +2762,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.59674,
    "epsHigh": 4.78,
    "epsLow": 4.45,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.14,
@@ -2929,7 +2894,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 54.50026,
    "epsHigh": 56.97,
    "epsLow": 51.46,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 48.71,
@@ -2982,7 +2947,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.31472,
    "epsHigh": -0.01,
    "epsLow": -0.62,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": -1.24,
@@ -3035,7 +3000,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.18427,
    "epsHigh": 1.25,
    "epsLow": 1.13,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.06,
@@ -3173,7 +3138,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.11506,
    "epsHigh": 4.26,
    "epsLow": -21.1,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.47,
@@ -3283,7 +3248,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.43927,
    "epsHigh": 2.6424,
    "epsLow": 2.25,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.216,
@@ -3351,7 +3316,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 14.27767,
    "epsHigh": 14.95,
    "epsLow": 13.62994,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 11.55,
@@ -3489,7 +3454,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.59542,
    "epsHigh": 1.68,
    "epsLow": 1.48,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.46,
@@ -3557,7 +3522,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.82813,
    "epsHigh": 0.84,
    "epsLow": 0.81,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.75,
@@ -3667,7 +3632,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.37818,
    "epsHigh": 1.54,
    "epsLow": 1.27,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.52,
@@ -3798,7 +3763,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.59,
    "epsHigh": 2.73,
    "epsLow": 2.3,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.263,
@@ -3929,7 +3894,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.19742,
    "epsHigh": 6.73,
    "epsLow": 5.75,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.72,
@@ -3982,7 +3947,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.3024,
    "epsHigh": 6.85,
    "epsLow": 5.70043,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 7.49,
@@ -4120,7 +4085,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.48982,
    "epsHigh": 3.64,
    "epsLow": 3.45,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.46,
@@ -4195,7 +4160,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.05529,
    "epsHigh": 2.08,
    "epsLow": 2.02537,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.65,
@@ -4239,13 +4204,6 @@ const EARNINGS_INTEL = {
      "firm": "Rosenblatt",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Stifel",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 1576116340,
@@ -4270,7 +4228,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.43277,
    "epsHigh": 3.34,
    "epsLow": 1.12786,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.91,
@@ -4345,7 +4303,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.39169,
    "epsHigh": 1.42,
    "epsLow": 1.35,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.05,
@@ -4483,7 +4441,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 7.59972,
    "epsHigh": 7.73,
    "epsLow": 7.53,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 7.2,
@@ -4544,7 +4502,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.94709,
    "epsHigh": 0.97,
    "epsLow": 0.91094,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.92,
@@ -4647,7 +4605,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.94004,
    "epsHigh": 3.15,
    "epsLow": 2.81,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.68,
@@ -4785,7 +4743,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.31744,
    "epsHigh": 0.33,
    "epsLow": 0.29,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.33,
@@ -4853,7 +4811,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.29295,
    "epsHigh": 5.78,
    "epsLow": 4.01,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.95,
@@ -4963,7 +4921,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.00202,
    "epsHigh": 0.29,
    "epsLow": -0.24,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.14,
@@ -5094,7 +5052,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.88165,
    "epsHigh": 3.42,
    "epsLow": 2.07,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.42,
@@ -5190,7 +5148,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.34768,
    "epsHigh": 4.43,
    "epsLow": 4.29,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.0,
@@ -5258,7 +5216,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.55177,
    "epsHigh": 7.10533,
    "epsLow": 6.28,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.87,
@@ -5319,7 +5277,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.27034,
    "epsHigh": 3.47,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.91,
@@ -5422,7 +5380,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.29206,
    "epsHigh": 0.2975,
    "epsLow": 0.29,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.2325,
@@ -5560,7 +5518,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -1.16371,
    "epsHigh": -0.42,
    "epsLow": -1.82,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": -0.6,
@@ -5684,7 +5642,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.17034,
    "epsHigh": 1.2,
    "epsLow": 1.15,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.99,
@@ -5752,7 +5710,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.53763,
    "epsHigh": 0.56,
    "epsLow": 0.5,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.44,
@@ -5890,7 +5848,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.3787,
    "epsHigh": 1.43,
    "epsLow": 1.36,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.31,
@@ -5969,13 +5927,6 @@ const EARNINGS_INTEL = {
      "firm": "Morgan Stanley",
      "from": "Equal-Weight",
      "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Citigroup",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
    "revEstimate": 5483277180,
@@ -6000,7 +5951,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.54107,
    "epsHigh": 5.91172,
    "epsLow": 3.28,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.77,
@@ -6075,7 +6026,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.22174,
    "epsHigh": 1.31,
    "epsLow": 1.1,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.65,
@@ -6164,7 +6115,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.58306,
    "epsHigh": 0.62,
    "epsLow": 0.567,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.46,
@@ -6302,7 +6253,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.70102,
    "epsHigh": 5.22,
    "epsLow": 4.33,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.75,
@@ -6377,7 +6328,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.79603,
    "epsHigh": 1.86268,
    "epsLow": 1.74,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.82,
@@ -6473,7 +6424,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.99577,
    "epsHigh": 2.09,
    "epsLow": 1.92794,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.86,
@@ -6534,7 +6485,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.9119,
    "epsHigh": 1.99,
    "epsLow": 1.82,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.89,
@@ -6637,7 +6588,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.85575,
    "epsHigh": 2.0,
    "epsLow": 1.762,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.61,
@@ -6747,7 +6698,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.09456,
    "epsHigh": 1.19,
    "epsLow": 1.0,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.77,
@@ -6822,7 +6773,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.0864,
    "epsHigh": 1.13,
    "epsLow": 0.98,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.92,
@@ -6875,7 +6826,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.30765,
    "epsHigh": 1.34,
    "epsLow": 1.27,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.25,
@@ -6971,7 +6922,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.60697,
    "epsHigh": 0.66,
    "epsLow": 0.57,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.48,
@@ -7036,13 +6987,6 @@ const EARNINGS_INTEL = {
      "firm": "TD Cowen",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Mizuho",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
    "revEstimate": 1290429090,
@@ -7067,7 +7011,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.80595,
    "epsHigh": 1.32,
    "epsLow": 0.3741,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.79,
@@ -7120,7 +7064,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.66488,
    "epsHigh": 4.99,
    "epsLow": 4.55,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 6.03,
@@ -7258,7 +7202,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.81988,
    "epsHigh": 0.84598,
    "epsLow": 0.8,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.66,
@@ -7333,7 +7277,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.99359,
    "epsHigh": 5.58,
    "epsLow": 3.61,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.32,
@@ -7429,7 +7373,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.07642,
    "epsHigh": 3.19,
    "epsLow": 3.03,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.95,
@@ -7482,7 +7426,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.73807,
    "epsHigh": 0.77,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.67,
@@ -7599,7 +7543,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.7083,
    "epsHigh": 0.81,
    "epsLow": 0.53,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.5,
@@ -7723,7 +7667,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.14,
    "epsHigh": 4.18,
    "epsLow": 4.1,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.05,
@@ -7833,7 +7777,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 11.77603,
    "epsHigh": 12.94,
    "epsLow": 10.11,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 8.57,
@@ -7877,13 +7821,6 @@ const EARNINGS_INTEL = {
      "firm": "UBS",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-09",
-     "firm": "Needham",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 676731190,
@@ -7908,7 +7845,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.47215,
    "epsHigh": 1.5,
    "epsLow": 1.46,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.36,
@@ -7976,7 +7913,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.06836,
    "epsHigh": 1.12,
    "epsLow": 0.74,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.91,
@@ -8114,7 +8051,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.74643,
    "epsHigh": 0.8,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.64,
@@ -8245,7 +8182,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.97733,
    "epsHigh": 4.12195,
    "epsLow": 3.76,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.74,
@@ -8320,7 +8257,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.99229,
    "epsHigh": 2.09,
    "epsLow": 1.9,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.66,
@@ -8437,7 +8374,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.13521,
    "epsHigh": 4.65,
    "epsLow": 3.35,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.64,
@@ -8554,7 +8491,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -7.27126,
    "epsHigh": -6.4,
    "epsLow": -7.93,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.01,
@@ -8657,7 +8594,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.71593,
    "epsHigh": 0.76,
    "epsLow": 0.67,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.86,
@@ -8781,7 +8718,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.75378,
    "epsHigh": 0.77,
    "epsLow": 0.736,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.6,
@@ -8870,7 +8807,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.01245,
    "epsHigh": 3.68,
    "epsLow": 2.64,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.87,
@@ -9008,7 +8945,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.44133,
    "epsHigh": 3.55,
    "epsLow": 3.4,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.1,
@@ -9097,7 +9034,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 16.29336,
    "epsHigh": 18.98,
    "epsLow": 12.46,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 12.25,
@@ -9235,7 +9172,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.99585,
    "epsHigh": 7.69,
    "epsLow": 6.2,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 6.96,
@@ -9338,7 +9275,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.72761,
    "epsHigh": 4.86216,
    "epsLow": 4.62,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.68,
@@ -9406,7 +9343,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.0483,
    "epsHigh": 3.192,
    "epsLow": 2.76,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.78,
@@ -9523,7 +9460,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.26991,
    "epsHigh": 2.37,
    "epsLow": 2.19,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.2,
@@ -9619,7 +9556,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.1467,
    "epsHigh": 2.32797,
    "epsLow": 1.95,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.64,
@@ -9757,7 +9694,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.54644,
    "epsHigh": 0.57,
    "epsLow": 0.52287,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.42,
@@ -9895,7 +9832,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.42761,
    "epsHigh": 1.62,
    "epsLow": 1.36,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.21,
@@ -9998,7 +9935,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.01566,
    "epsHigh": 3.09,
    "epsLow": 2.99557,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.19,
@@ -10066,7 +10003,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.6953,
    "epsHigh": 0.74,
    "epsLow": 0.65,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.57,
@@ -10155,7 +10092,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.90361,
    "epsHigh": 3.12,
    "epsLow": 2.78,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.65,
@@ -10293,7 +10230,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.83828,
    "epsHigh": 1.87,
    "epsLow": 1.81,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.81,
@@ -10389,7 +10326,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.93417,
    "epsHigh": 4.03,
    "epsLow": 3.81,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.63,
@@ -10442,7 +10379,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.38931,
    "epsHigh": 0.45,
    "epsLow": 0.38,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.23,
@@ -10580,7 +10517,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.58858,
    "epsHigh": 3.72,
    "epsLow": 3.49,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.75,
@@ -10655,7 +10592,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.03072,
    "epsHigh": 3.08,
    "epsLow": 2.93321,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.81,
@@ -10730,7 +10667,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.455,
    "epsHigh": -0.4,
    "epsLow": -0.51,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.2102,
@@ -10819,7 +10756,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.63497,
    "epsHigh": 2.76,
    "epsLow": 2.53,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.4,
@@ -10957,7 +10894,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.04957,
    "epsHigh": 3.18,
    "epsLow": 2.95,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.8,
@@ -11088,7 +11025,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.90243,
    "epsHigh": 6.21,
    "epsLow": 5.71,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.07,
@@ -11226,7 +11163,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.46069,
    "epsHigh": 0.47,
    "epsLow": 0.44,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.41,
@@ -11350,7 +11287,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.53031,
    "epsHigh": 0.5625,
    "epsLow": 0.51,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.69,
@@ -11439,7 +11376,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.42808,
    "epsHigh": 1.58,
    "epsLow": 1.34,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.18,
@@ -11542,7 +11479,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.99866,
    "epsHigh": 1.03166,
    "epsLow": 0.987,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.938,
@@ -11680,7 +11617,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.00599,
    "epsHigh": 2.1,
    "epsLow": 1.93,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.92,
@@ -11762,7 +11699,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.93225,
    "epsHigh": 0.95,
    "epsLow": 0.90415,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.87,
@@ -11858,7 +11795,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.82688,
    "epsHigh": 2.99,
    "epsLow": 2.63,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.78,
@@ -11911,7 +11848,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.48597,
    "epsHigh": 4.57,
    "epsLow": 4.45,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.09,
@@ -11986,7 +11923,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.6604,
    "epsHigh": 9.08,
    "epsLow": 5.28,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 6.31,
@@ -12093,13 +12030,6 @@ const EARNINGS_INTEL = {
      "firm": "Leerink Partners",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Jefferies",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 20685966650,
@@ -12124,7 +12054,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 7.55943,
    "epsHigh": 7.76987,
    "epsLow": 7.1385,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 6.95,
@@ -12207,7 +12137,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.15236,
    "epsHigh": 3.74709,
    "epsLow": 2.48,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.8814,
@@ -12289,7 +12219,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.24995,
    "epsHigh": 4.35,
    "epsLow": 4.21,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.33,
@@ -12342,7 +12272,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.68363,
    "epsHigh": 1.82,
    "epsLow": 1.64,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.33,
@@ -12480,7 +12410,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.80164,
    "epsHigh": 1.91,
    "epsLow": 1.66,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.1,
@@ -12555,7 +12485,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.7714,
    "epsHigh": 4.87,
    "epsLow": 4.61,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.15,
@@ -12644,7 +12574,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.0741,
    "epsHigh": 3.13878,
    "epsLow": 2.9,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.65,
@@ -12754,7 +12684,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.32453,
    "epsHigh": 3.47,
    "epsLow": 3.15256,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.19,
@@ -12857,7 +12787,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.69923,
    "epsHigh": 0.76,
    "epsLow": 0.69,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.27,
@@ -12925,7 +12855,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 9.53552,
    "epsHigh": 9.89,
    "epsLow": 9.25,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 8.26,
@@ -13000,7 +12930,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.26753,
    "epsHigh": 4.53128,
    "epsLow": 3.99,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.92,
@@ -13103,7 +13033,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.61073,
    "epsHigh": 1.77566,
    "epsLow": 1.54,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.0,
@@ -13171,7 +13101,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.67973,
    "epsHigh": 0.71,
    "epsLow": 0.63,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.73,
@@ -13224,7 +13154,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.38719,
    "epsHigh": 1.39311,
    "epsLow": 1.37,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.26,
@@ -13299,7 +13229,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 9.04028,
    "epsHigh": 9.61,
    "epsLow": 8.53141,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 10.31,
@@ -13360,7 +13290,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.2889,
    "epsHigh": 2.39679,
    "epsLow": 2.2,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.02,
@@ -13491,7 +13421,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 7.388,
    "epsHigh": 8.55,
    "epsLow": 6.46,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 7.14,
@@ -13544,7 +13474,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 13.95183,
    "epsHigh": 15.5466,
    "epsLow": 8.56,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.96,
@@ -13654,7 +13584,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.88072,
    "epsHigh": 6.05,
    "epsLow": 5.83,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.21,
@@ -13715,7 +13645,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.25894,
    "epsHigh": -0.02581,
    "epsLow": -0.4,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.13,
@@ -13839,7 +13769,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.92727,
    "epsHigh": 0.94,
    "epsLow": 0.88,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.67,
@@ -13956,7 +13886,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.08647,
    "epsHigh": 3.56,
    "epsLow": 2.90154,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.8,
@@ -14094,7 +14024,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.02283,
    "epsHigh": 5.13,
    "epsLow": 4.92,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.47,
@@ -14204,7 +14134,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.23972,
    "epsHigh": 4.89,
    "epsLow": 4.07,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.65,
@@ -14342,7 +14272,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.90714,
    "epsHigh": 5.16,
    "epsLow": 4.74,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.82,
@@ -14480,7 +14410,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 31.32898,
    "epsHigh": 37.44,
    "epsLow": 28.04,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.03,
@@ -14618,7 +14548,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.60667,
    "epsHigh": -0.47,
    "epsLow": -0.73,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.4482,
@@ -14693,7 +14623,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.02893,
    "epsHigh": 1.09,
    "epsLow": 1.0,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.88,
@@ -14803,7 +14733,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.22991,
    "epsHigh": 1.4,
    "epsLow": 1.03985,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.13,
@@ -14886,7 +14816,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.26976,
    "epsHigh": 0.29,
    "epsLow": 0.25473,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.21,
@@ -15024,7 +14954,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.8213,
    "epsHigh": 0.87,
    "epsLow": 0.79,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.587,
@@ -15162,7 +15092,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.45092,
    "epsHigh": 0.5,
    "epsLow": 0.41,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.49,
@@ -15300,7 +15230,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 7.13676,
    "epsHigh": 7.35,
    "epsLow": 6.68819,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 7.67,
@@ -15410,7 +15340,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.02552,
    "epsHigh": 1.17,
    "epsLow": 0.91,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.964,
@@ -15549,7 +15479,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.65857,
    "epsHigh": 2.04,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.73,
@@ -15617,7 +15547,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.57417,
    "epsHigh": 3.7,
    "epsLow": 3.39817,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.3,
@@ -15748,7 +15678,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.52584,
    "epsHigh": 4.69,
    "epsLow": 4.23,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.6501,
@@ -15844,7 +15774,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.08225,
    "epsHigh": 2.2,
    "epsLow": 2.03128,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.05,
@@ -15905,7 +15835,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.52469,
    "epsHigh": 3.70377,
    "epsLow": 3.49,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.72,
@@ -15977,13 +15907,6 @@ const EARNINGS_INTEL = {
      "firm": "Citigroup",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Wells Fargo",
-     "from": "Equal-Weight",
-     "to": "Equal-Weight"
     }
    ],
    "revEstimate": 3463030000,
@@ -16008,7 +15931,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.53567,
    "epsHigh": 1.61212,
    "epsLow": 1.4,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.27,
@@ -16146,7 +16069,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.96492,
    "epsHigh": 0.98319,
    "epsLow": 0.94,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.91,
@@ -16225,13 +16148,6 @@ const EARNINGS_INTEL = {
      "firm": "Needham",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "UBS",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 793025180,
@@ -16256,7 +16172,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.71532,
    "epsHigh": 0.76,
    "epsLow": 0.7,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.53,
@@ -16363,13 +16279,6 @@ const EARNINGS_INTEL = {
      "firm": "Citigroup",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-09",
-     "firm": "Wells Fargo",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 1589052600,
@@ -16394,7 +16303,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.73873,
    "epsHigh": 1.8,
    "epsLow": 1.64,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.47,
@@ -16532,7 +16441,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.86107,
    "epsHigh": 0.89616,
    "epsLow": 0.83,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.78,
@@ -16600,7 +16509,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.87567,
    "epsHigh": 2.21,
    "epsLow": 1.34,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.39,
@@ -16682,7 +16591,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.97763,
    "epsHigh": 1.08,
    "epsLow": 0.96,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.95,
@@ -16785,7 +16694,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.29973,
    "epsHigh": 2.33,
    "epsLow": 2.26,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.29,
@@ -16923,7 +16832,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.68064,
    "epsHigh": 0.76,
    "epsLow": 0.61,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.78,
@@ -17026,7 +16935,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.40695,
    "epsHigh": 1.44,
    "epsLow": 1.36764,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.48,
@@ -17108,7 +17017,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.6503,
    "epsHigh": 4.21,
    "epsLow": 2.91,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.0511,
@@ -17246,7 +17155,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.34665,
    "epsHigh": 0.4,
    "epsLow": 0.33,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.16,
@@ -17328,7 +17237,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.97504,
    "epsHigh": 5.1,
    "epsLow": 4.82,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.35,
@@ -17466,7 +17375,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.47921,
    "epsHigh": 3.64,
    "epsLow": 3.15437,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.58,
@@ -17559,13 +17468,6 @@ const EARNINGS_INTEL = {
      "firm": "Piper Sandler",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "down",
-     "date": "2026-06-09",
-     "firm": "Argus Research",
-     "from": "Buy",
-     "to": "Hold"
     }
    ],
    "revEstimate": 14396941070,
@@ -17590,7 +17492,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.27761,
    "epsHigh": 1.36,
    "epsLow": 1.25,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.4,
@@ -17693,7 +17595,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.227,
    "epsHigh": 2.52,
    "epsLow": 2.12823,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.77,
@@ -17831,7 +17733,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.375,
    "epsHigh": -0.34,
    "epsLow": -0.45,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": -0.41,
@@ -17899,7 +17801,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 10.25622,
    "epsHigh": 12.33,
    "epsLow": 7.64,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 12.89,
@@ -18009,7 +17911,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.65719,
    "epsHigh": 0.68,
    "epsLow": 0.63,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.63,
@@ -18147,7 +18049,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.91792,
    "epsHigh": 1.96,
    "epsLow": 1.87,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.56,
@@ -18208,7 +18110,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.75343,
    "epsHigh": 1.81,
    "epsLow": 1.69,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.7,
@@ -18283,7 +18185,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.65027,
    "epsHigh": 0.71571,
    "epsLow": 0.54,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.5,
@@ -18358,7 +18260,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.8293,
    "epsHigh": 1.96608,
    "epsLow": 1.62,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.32734,
@@ -18461,7 +18363,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.67038,
    "epsHigh": 1.73,
    "epsLow": 1.63,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.31,
@@ -18571,7 +18473,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.3998,
    "epsHigh": 0.47,
    "epsLow": 0.3,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.35,
@@ -18653,7 +18555,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.62,
    "epsHigh": 0.62,
    "epsLow": 0.62,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.69,
@@ -18771,7 +18673,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.95748,
    "epsHigh": 1.66,
    "epsLow": 0.56755,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.41,
@@ -18824,7 +18726,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.44658,
    "epsHigh": 0.54,
    "epsLow": 0.41,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.35,
@@ -18899,7 +18801,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.67334,
    "epsHigh": 3.78,
    "epsLow": 3.63,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.39,
@@ -18967,7 +18869,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.01115,
    "epsHigh": 1.05155,
    "epsLow": 0.986,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.92,
@@ -19049,7 +18951,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.00271,
    "epsHigh": 5.22,
    "epsLow": 4.84,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.43,
@@ -19173,7 +19075,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.60896,
    "epsHigh": 4.065,
    "epsLow": 3.32,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.63,
@@ -19311,7 +19213,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.39279,
    "epsHigh": 2.67962,
    "epsLow": 2.24,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.86,
@@ -19414,7 +19316,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.48707,
    "epsHigh": 3.61,
    "epsLow": 3.36,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.13,
@@ -19482,7 +19384,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.50207,
    "epsHigh": 1.77,
    "epsLow": 1.31,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.98,
@@ -19571,7 +19473,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.05394,
    "epsHigh": 2.1351,
    "epsLow": 2.0,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.57,
@@ -19667,7 +19569,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.11496,
    "epsHigh": 1.16,
    "epsLow": 1.08,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.06,
@@ -19798,7 +19700,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.25513,
    "epsHigh": 2.76477,
    "epsLow": 2.05,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.05,
@@ -19887,7 +19789,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.18921,
    "epsHigh": 1.26013,
    "epsLow": 1.16,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.1,
@@ -19940,7 +19842,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.3947,
    "epsHigh": 6.559,
    "epsLow": 6.32,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 5.79,
@@ -20022,7 +19924,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.78749,
    "epsHigh": 7.41,
    "epsLow": 6.03,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 8.14,
@@ -20160,7 +20062,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.45688,
    "epsHigh": 0.6,
    "epsLow": 0.27,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.5,
@@ -20298,7 +20200,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.49778,
    "epsHigh": 4.65,
    "epsLow": 4.32,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.92,
@@ -20394,7 +20296,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.402,
    "epsHigh": 0.47,
    "epsLow": 0.32997,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.41,
@@ -20462,7 +20364,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.36003,
    "epsHigh": 1.02,
    "epsLow": 0.25,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": -0.07,
@@ -20579,7 +20481,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.41976,
    "epsHigh": 2.54,
    "epsLow": 2.24,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.48,
@@ -20717,7 +20619,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.80285,
    "epsHigh": 0.84,
    "epsLow": 0.76,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.63,
@@ -20820,7 +20722,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.08244,
    "epsHigh": 4.56,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.92,
@@ -20958,7 +20860,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.44172,
    "epsHigh": 3.57,
    "epsLow": 3.27169,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 3.08,
@@ -21096,7 +20998,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.66427,
    "epsHigh": 1.74,
    "epsLow": 1.56,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.55,
@@ -21185,7 +21087,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.31733,
    "epsHigh": 1.4,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.22,
@@ -21323,7 +21225,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.23073,
    "epsHigh": 3.32,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.98,
@@ -21412,7 +21314,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.22219,
    "epsHigh": 2.27,
    "epsLow": 2.2,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.99,
@@ -21473,7 +21375,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 10.12557,
    "epsHigh": 11.51,
    "epsLow": 9.3966,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.28,
@@ -21583,7 +21485,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.74764,
    "epsHigh": 5.17,
    "epsLow": 4.26,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 4.52,
@@ -21665,7 +21567,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.92,
    "epsHigh": 2.51,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.81,
@@ -21726,7 +21628,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.61139,
    "epsHigh": 2.85,
    "epsLow": 2.41,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 2.21,
@@ -21794,7 +21696,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.29968,
    "epsHigh": 3.59572,
    "epsLow": 3.2,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.66,
@@ -21897,7 +21799,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.80586,
    "epsHigh": 1.88,
    "epsLow": 1.71,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.66,
@@ -22000,7 +21902,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.7428,
    "epsHigh": 0.78,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.68,
@@ -22061,7 +21963,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.69181,
    "epsHigh": 4.46,
    "epsLow": 3.14345,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.64,
@@ -22143,7 +22045,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.56293,
    "epsHigh": 1.63,
    "epsLow": 1.39145,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.44,
@@ -22211,7 +22113,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.4752,
    "epsHigh": 1.6,
    "epsLow": 1.45,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.53,
@@ -22286,7 +22188,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.09001,
    "epsHigh": 1.16,
    "epsLow": 1.076,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 0.89,
@@ -22417,7 +22319,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.85209,
    "epsHigh": 1.9,
    "epsLow": 1.77,
-   "fetchedAt": "2026-07-24",
+   "fetchedAt": "2026-07-25",
    "history": [
     {
      "epsActual": 1.76,

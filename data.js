@@ -27,7 +27,7 @@ function co(o) {
   o.truePE = null; // app.js computes owner P/E directly from owner EPS.
   o.ownerEps = null;
   o.sbcAdjEPS = null;
-  o.snapshot = "quotes + annual fundamentals: Yahoo Finance · 2026-07-24";
+  o.snapshot = "quotes + annual fundamentals: Yahoo Finance · 2026-07-25";
   return o;
 }
 
