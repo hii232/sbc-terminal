@@ -1,5 +1,15 @@
 # SBC Model Changelog
 
+## 4.3.1 — Proof Scoreboard: when does each signal earn its verdict - 2026-07-25
+
+- New PROOF SCOREBOARD at the top of Track Record (`proofStatusOf`, pure over the snapshot history): for every tracked signal, when its clock started, how many names it covers, and the exact DATE its first verdict unlocks. The binding constraint is calendar time, not sample size — a 4-week verdict needs 4 weeks of history regardless of universe size — and signals added later start their OWN clock rather than inheriting an older signal's head start (asserted by test).
+- Signals not yet recording are KEPT in the table and shown as pending. A missing row would read as "nothing to prove here", which is the opposite of true.
+- `snapshot_scores.js` now records the Master Signal score AND universe rank (computed once per run, not re-ranked per name), signal confluence (bulls/bears), RSI(14) and insider buyer count — so all of them start accumulating evidence immediately. Bundle extended with signals.js / whales.js / insiders.js so those engines are available to the snapshot.
+- `calibrationOf` grades four new groups: Master Signal by RANK TIER (top 10% / top 25% / upper half / lower half / bottom 25% — the ranking's actual claim is that the top beats the bottom, so it is graded as a ranking rather than a raw score), Signal Confluence by net agreement, RSI(14) by zone, and Insider buying by cluster size.
+- Live status: recording since 2026-07-19, 7 snapshots. First 4-week evidence unlocks 2026-08-16; 12-week on 2026-10-11. Nothing is backfilled — backfilling a signal against prices it never saw is how backtests lie.
+- Tests: +42 assertions (289 total) covering empty-history safety, per-signal clock independence, calendar-time gating of readiness, and that no observations are reported before a window closes.
+- App shell v76.
+
 ## 4.3.0 — The Master Signal: one score, whole-universe rank - 2026-07-25
 
 - New MASTER SIGNAL (`masterSignalOf`) — one 0-100 number per company built from every engine in the terminal, plus `masterBoard()` ranking all 224 names. Five deliberately independent pillars: BUSINESS 26 (quality, long-term view, shareholder economics, growth) · PRICE 22 (valuation score + measured distance to the IV15 buy price) · TAPE 18 (direction edge, market reward, RSI extension as mean reversion) · CONFLUENCE 24 (the conviction vote) · DATA TRUST 10 (SEC reconciliation). Weights sum to exactly 100, asserted by test.

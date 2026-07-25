@@ -19,7 +19,7 @@ const root = path.join(__dirname, "..");
 // edited in five places — but every layer must still agree with it exactly.
 const UNIVERSE_COUNT = JSON.parse(fs.readFileSync(path.join(root, "data", "universe.json"), "utf8")).count;
 const atLeast = (frac) => Math.floor(UNIVERSE_COUNT * frac);
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "scores.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "track.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -695,6 +695,49 @@ const ok = (cond, name, detail = "") => {
   // cached lookup must agree with the board it came from
   const lookup = E.masterRankOf(board[0].ticker);
   ok(lookup && lookup.rank === 1 && lookup.score === board[0].score, "rank lookup agrees with the board");
+}
+
+// =============== 20. Proof status (when does evidence unlock?) ===============
+{
+  ok(E.proofStatusOf([]).snapshots === 0, "empty history reports zero snapshots, not a fake status");
+  ok(E.proofStatusOf([]).signals.length === 0, "no signals claimed without history");
+
+  const H = typeof TRACK_HISTORY !== "undefined" ? TRACK_HISTORY : [];
+  const ps = E.proofStatusOf(H);
+  ok(ps.snapshots === H.length, "snapshot count matches the history");
+  ok(ps.since === H[0].date, "recording start is the first snapshot's date");
+  ok(ps.signals.length === E.TRACKED_SIGNALS.length,
+    "every tracked signal appears, including ones not yet recording", `${ps.signals.length}/${E.TRACKED_SIGNALS.length}`);
+
+  // the honesty that matters: a horizon cannot be 'ready' before enough
+  // CALENDAR time has passed, no matter how many names are in the universe
+  for (const h of ps.horizons) {
+    ok(h.unlockDate > ps.since, "unlock date is after recording began");
+    const elapsed = Math.round((Date.parse(ps.latest) - Date.parse(ps.since)) / 864e5);
+    ok(h.ready === (elapsed >= h.days), `${h.label} readiness follows elapsed calendar time`, `${elapsed}d vs ${h.days}d`);
+    if (!h.ready) ok(h.daysLeft > 0, "an unready horizon reports the days remaining");
+  }
+  // per-signal clocks start when THAT signal started recording, not at day zero
+  for (const s of ps.signals) {
+    if (!s.recordedSince) {
+      ok(s.horizons.every(h => !h.ready && h.obs === 0), `${s.label}: nothing claimed before it records`);
+      continue;
+    }
+    ok(s.recordedSince >= ps.since, `${s.label}: own clock starts no earlier than the history`);
+    for (const h of s.horizons) {
+      ok(h.unlockDate === new Date(Date.parse(s.recordedSince) + h.days * 864e5).toISOString().slice(0, 10),
+        `${s.label}: ${h.label} unlock is measured from ITS OWN start date`);
+      if (!h.ready) ok(h.obs === 0, `${s.label}: no observations reported before the window closes`);
+    }
+  }
+  // a signal added later must not inherit an older signal's head start
+  const late = ps.signals.filter(s => s.recordedSince && s.recordedSince > ps.since);
+  if (late.length) {
+    const l = late[0];
+    ok(l.horizons[0].unlockDate > ps.horizons[0].unlockDate,
+      "a later-added signal unlocks later than the oldest one", `${l.label} ${l.horizons[0].unlockDate}`);
+  }
+  ok(ps.minObs >= 20, "verdicts still require at least 20 observations", String(ps.minObs));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
