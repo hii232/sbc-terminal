@@ -13,6 +13,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Regression tests (production engines)
         run: node tests/run_tests.js
+      - name: Form 4 parser fixtures
+        run: python tests/test_form4_parse.py
       - name: Browser smoke tests
         run: node tests/browser_smoke.js
       - name: Universe + security checks

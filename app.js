@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "73"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "74"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -1128,6 +1128,55 @@
         </div>
       </div>`;
   }
+  /* The plan card: how much, where, what proves it wrong, when to look again.
+     Percent-of-risk-budget only — the app never knows the user's account size
+     and so never states dollar amounts. */
+  function playbookCard(d) {
+    const pb = playbookOf(d);
+    if (!pb) return "";
+    const c = pb.conv;
+    return `<div class="card" style="grid-column:span 3;border-left:3px solid var(--gold)">
+      <h3>📋 POSITION PLAYBOOK <span class="unit">how much · where · what proves it wrong · when to look again</span></h3>
+      <div class="grid g4" style="margin:6px 0 10px">
+        <div><div class="sub">SUGGESTED SIZE</div><div class="stat sm" style="color:var(--gold)">${pb.sizePct}%</div>
+          <div class="sub">of your equity book${pb.capped ? ` · capped at ${pb.maxPosition}%` : ""}${pb.qualityOk ? "" : " · halved: quality/data gate not passed"}</div></div>
+        <div><div class="sub">INVALIDATION</div><div class="stat sm" style="color:var(--red)">$${pb.stopPrice.toFixed(2)}</div>
+          <div class="sub">−${pb.stopPct.toFixed(0)}%${pb.vol != null ? ` · 3× the ${pb.vol.toFixed(1)}% average daily move` : " · default (no daily closes yet)"}</div></div>
+        <div><div class="sub">SIGNAL AGREEMENT</div><div class="stat sm" style="color:${c ? c.color : "var(--dim)"}">${c ? `${c.bulls}▲ ${c.bears}▼` : "–"}</div>
+          <div class="sub">${c && c.silent ? c.silent + " silent" : "no signals firing"}</div></div>
+        <div><div class="sub">REVIEW ON</div><div class="stat sm">${pb.review}</div>
+          <div class="sub">${pb.reviewIsEarnings ? "next earnings report" : "90-day check-in"}</div></div>
+      </div>
+      <div class="note" style="border-left-color:${pb.entryColor};margin-bottom:8px"><b>Entry:</b> ${escapeHtml(pb.entryNote)}</div>
+      <div class="kv"><span class="k">HOW THE SIZE WAS SET</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.6">Risk ${pb.riskBudget}% of the book if the invalidation level is hit. A ${pb.stopPct.toFixed(0)}% stop means a ${(pb.riskBudget / pb.stopPct * 100).toFixed(1)}% position risks exactly that, then scaled ${pb.convNet >= 3 ? "UP" : pb.convNet <= 0 ? "DOWN" : "modestly"} for ${c ? c.bulls : 0} agreeing vs ${c ? c.bears : 0} objecting signals. Volatile names get smaller positions at equal conviction — that is the point.</span></span></div>
+      <div style="margin-top:8px"><b style="font-size:11px;color:var(--red)">WHAT WOULD PROVE THIS WRONG — decide now, not later</b>
+        <div class="sub" style="line-height:1.75;margin-top:4px">${pb.breaks.map((b, i) => `${i + 1}. ${escapeHtml(b)}`).join("<br>")}</div></div>
+      <div class="sub" style="margin-top:8px;opacity:.8"><b>This is a per-idea template, not a shopping list.</b> Each name is sized as if it were one position in a diversified book — open ten playbooks and the percentages will sum past 100%, which is your signal to choose, not to buy all ten. No single idea is ever allowed past ${pb.maxPosition}%. Sizing is expressed in percent of your own book because the terminal does not know your account and never gives dollar amounts. Research discipline, not investment advice.</div>
+    </div>`;
+  }
+
+  /* Form 4 card — the asymmetry between buys and sales is stated on-screen. */
+  function insiderCard(d) {
+    const s = insiderSignalOf(d);
+    if (!s) return "";
+    if (s.label === "NO FILINGS" || (!s.buyers && !(s.sells || []).length))
+      return `<div class="card"><h3>👤 INSIDER ACTIVITY <span class="unit">SEC Form 4 · ${s.window}d</span></h3>
+        <div class="sub" style="padding:10px 0;line-height:1.6">No insider open-market activity filed in the last ${s.window} days. Quiet is the normal state — most companies go months without an insider buying.</div></div>`;
+    const row = (t, buy) => `<div class="home-row" style="grid-template-columns:minmax(0,1fr) auto;padding:7px 0">
+      <div><b>${escapeHtml(t.owner)}</b><span style="max-width:none;white-space:normal">${escapeHtml(t.role || "insider")}${t.planned ? " · <i>10b5-1 pre-scheduled</i>" : ""}${t.derivative ? " · derivative" : ""}</span></div>
+      <div style="text-align:right"><b style="color:${buy ? "var(--green)" : "var(--orange)"}">${buy ? "BOUGHT" : "SOLD"} ${hasNum(t.value) ? usd(t.value) : hasNum(t.shares) ? Math.round(t.shares).toLocaleString() + " sh" : ""}</b>
+        <span class="sub" style="display:block">${t.date}${hasNum(t.price) ? " @ $" + t.price.toFixed(2) : ""}</span></div>
+    </div>`;
+    return `<div class="card" style="grid-column:span 2;border-left:3px solid ${s.color}">
+      <h3>👤 INSIDER ACTIVITY <span class="unit">SEC Form 4 · last ${s.window} days</span>
+        <b style="color:${s.color};font-size:11px;margin-left:6px">${s.label}</b></h3>
+      <div class="sub" style="line-height:1.6;margin:2px 0 8px">${s.bits.map(escapeHtml).join(" · ")}</div>
+      ${(s.buys || []).slice(0, 5).map(t => row(t, true)).join("")}
+      ${(s.sells || []).slice(0, 3).map(t => row(t, false)).join("")}
+      <div class="sub" style="margin-top:8px;line-height:1.6"><b>Read it this way:</b> an insider BUYING on the open market spends their own money and has no reason to do it except expecting a higher price — that is why cluster buys and CEO/CFO buys are the signal here. Selling is mostly noise: insiders sell for taxes, houses and diversification, so this terminal never treats a sale as the mirror image of a buy.</div>
+    </div>`;
+  }
+
   function marketConclusionCard(d) {
     const ms = marketScoreOf(d);
     const labelColor = scoreColorOf(ms?.longTermView?.score);
@@ -1277,6 +1326,10 @@
       <div style="grid-column:span 3">${marketDashboard(d)}</div>
 
       ${marketConclusionCard(d)}
+
+      ${playbookCard(d)}
+
+      ${insiderCard(d)}
 
       ${directionEdgeCard(d)}
 
@@ -2083,6 +2136,58 @@
     return NARRATIVES.map(n => narrativeStats(n, ctx)).filter(Boolean).sort((a, b) => b.heat - a.heat);
   }
 
+  /* ------------------- INSIDER SIGNAL (SEC FORM 4) -------------------
+     The only input in this terminal that comes from the people running
+     the business, spending their own money. The asymmetry is real and
+     deliberate: open-market PURCHASES carry signal, sales mostly do not
+     (insiders sell for diversification, taxes and houses). Cluster buys
+     — several distinct insiders inside the same window — and CEO/CFO
+     buys are the strongest documented cases. Grants, option exercises,
+     tax withholding and pre-scheduled 10b5-1 trades are filtered out by
+     the collector, and this engine never scores a sale as a mirror
+     image of a buy. Missing data reports NOTHING rather than "quiet". */
+  const insidersBundle = () => (typeof INSIDERS !== "undefined" ? INSIDERS : null);
+  const insiderOf = (tk) => { const B = insidersBundle(); return (B && B.tickers && B.tickers[tk]) || null; };
+  // dollar amounts use the shared usd() helper (raw $ -> K/M/B), defined below
+  function insiderSignalOf(d) {
+    const B = insidersBundle();
+    if (!B || !B.asOf) return null;              // pipeline has never run
+    const r = insiderOf(d.ticker);
+    if (!r) return { ticker: d.ticker, label: "NO FILINGS", score: null, color: "var(--dim)",
+      buyers: 0, bits: [`no Form 4 activity in the last ${B.windowDays} days`], window: B.windowDays, asOf: B.asOf };
+    const bits = [];
+    const buyers = r.buyerCount || 0;
+    let score = 50;
+    if (buyers >= 3) { score += 30; bits.push(`${buyers} different insiders bought on the open market`); }
+    else if (buyers === 2) { score += 22; bits.push("2 insiders bought on the open market"); }
+    else if (buyers === 1) { score += 12; bits.push("1 insider bought on the open market"); }
+    if (r.seniorBuyer) { score += 10; bits.push("a CEO/CFO/chair was among the buyers"); }
+    if (hasNum(r.buyValue) && r.buyValue > 0) bits.push(`${usd(r.buyValue)} of stock bought`);
+    // sales are context, never a mirror image — capped influence, stated as such
+    const sellers = new Set((r.sells || []).filter(s => !s.planned).map(s => s.owner)).size;
+    if (!buyers && sellers >= 3) { score -= 12; bits.push(`${sellers} insiders sold (sales are weak signal — often tax or diversification)`); }
+    else if (sellers) bits.push(`${sellers} insider${sellers === 1 ? "" : "s"} also sold — sales carry little signal on their own`);
+    if (r.mechanics) bits.push(`${r.mechanics} grant/exercise/tax filing${r.mechanics === 1 ? "" : "s"} ignored (compensation, not a decision)`);
+    if ((r.buys || []).some(b => b.planned)) bits.push("one or more buys were pre-scheduled 10b5-1 trades — excluded from the cluster");
+    score = clamp(Math.round(score), 0, 100);
+    let label, color;
+    if (buyers >= 3) { label = "CLUSTER BUYING"; color = "var(--green)"; }
+    else if (buyers === 2 || (buyers === 1 && r.seniorBuyer)) { label = r.seniorBuyer && buyers === 1 ? "SENIOR INSIDER BUYING" : "INSIDER BUYING"; color = "var(--cyan)"; }
+    else if (buyers === 1) { label = "SINGLE INSIDER BUY"; color = "var(--amber)"; }
+    else if (sellers >= 3) { label = "INSIDERS SELLING"; color = "var(--orange)"; }
+    else { label = "QUIET"; color = "var(--dim)"; }
+    return { ticker: d.ticker, label, color, score, buyers, sellers, senior: !!r.seniorBuyer,
+      buyValue: r.buyValue, lastBuy: r.lastBuy, buys: r.buys || [], sells: r.sells || [],
+      complete: r.complete !== false, bits, window: B.windowDays, asOf: B.asOf };
+  }
+  function insiderClusters(limit = 10) {
+    if (!insidersBundle() || !insidersBundle().asOf) return [];
+    return DATA.map(d => ({ d, s: insiderSignalOf(d) }))
+      .filter(x => x.s && x.s.buyers >= 1)
+      .sort((a, b) => (b.s.score - a.s.score) || ((b.s.buyValue || 0) - (a.s.buyValue || 0)))
+      .slice(0, limit);
+  }
+
   /* ------------------- CONVICTION (SIGNAL CONFLUENCE) -------------------
      The closest honest thing to prediction: several INDEPENDENT signals
      pointing the same way at once, with the disagreements shown. Output is
@@ -2120,6 +2225,10 @@
     const w = whales[d.ticker];
     if (w && w.berkshire) vote("whale", "Berkshire 13F", (w.berkshire === "new" || w.berkshire === "add") ? 1 : -1, `Berkshire ${w.berkshire} (45-day lag)`);
     else if (w && w.other) vote("whale", `${w.other.mgr} 13F`, (w.other.action === "new" || w.other.action === "add") ? 1 : -1, `${w.other.mgr} ${w.other.action} (45-day lag)`);
+    const ins = insiderSignalOf(d);
+    if (ins && ins.score != null && ins.label !== "QUIET" && ins.label !== "NO FILINGS")
+      vote("insider", "Insider buying", ins.buyers >= 2 || (ins.buyers === 1 && ins.senior) ? 1 : ins.buyers ? 0 : -1,
+        ins.buyers ? `${ins.buyers} insider${ins.buyers === 1 ? "" : "s"} bought${ins.senior ? " incl. a CEO/CFO" : ""}${hasNum(ins.buyValue) ? " · " + usd(ins.buyValue) : ""}` : `${ins.sellers} insiders selling`);
     const cut14 = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
     const filing = signalsEvents().find(e => e.tk === d.ticker && e.type === "filing" && e.d >= cut14 && /(ACCELERATED|DECELERATED)/.test(e.detail || ""));
     if (filing) vote("filing", "Fresh filing", /ACCELERATED/.test(filing.detail) ? 1 : -1, /ACCELERATED/.test(filing.detail) ? "growth accelerated in the new filing" : "growth decelerated in the new filing");
@@ -2142,6 +2251,168 @@
       .filter(c => c.score != null && (c.bulls >= 3 || c.bears >= 3))
       .sort((a, b) => (b.bulls - b.bears) - (a.bulls - a.bears) || b.score - a.score)
       .slice(0, limit);
+  }
+
+  /* ------------------- POSITION PLAYBOOK -------------------
+     Every other engine answers "is this good?". This one answers the
+     question that actually decides outcomes: HOW MUCH, and WHAT PROVES
+     ME WRONG. Sizing is risk-based, not conviction-based-alone: the
+     stake is set so that being wrong down to the invalidation level
+     costs a fixed slice of the risk budget, then scaled by how many
+     independent signals agree. Volatile names therefore get SMALLER
+     positions at equal conviction — which is the entire point.
+
+     Everything is expressed in PERCENT of the user's own equity risk
+     budget. The app does not know (and never asks for) account size,
+     so it cannot and does not hand out dollar amounts. Research
+     discipline, not advice. */
+  function dailyVolOf(d, days = 30) {
+    const v = (d.pd && d.pd.v || []).filter(hasNum);
+    if (v.length < 12) return null;
+    const w = v.slice(-Math.min(days + 1, v.length));
+    const rets = [];
+    for (let i = 1; i < w.length; i++) if (w[i - 1] > 0) rets.push((w[i] / w[i - 1] - 1) * 100);
+    if (rets.length < 10) return null;
+    const mean = rets.reduce((a, x) => a + x, 0) / rets.length;
+    const sd = Math.sqrt(rets.reduce((a, x) => a + (x - mean) ** 2, 0) / (rets.length - 1));
+    return Number.isFinite(sd) ? +sd.toFixed(2) : null;
+  }
+  const RISK_BUDGET_PCT = 1.0;   // % of the book risked per idea if the stop is hit
+  const MAX_POSITION_PCT = 6.0;  // hard cap on any single idea, however loud the signal
+  function playbookOf(d, ctx) {
+    const price = priceOf(d);
+    if (!hasNum(price) || price <= 0) return null;
+    const conv = (ctx && ctx.conv) || convictionOf(d, ctx);
+    const ms = marketScoreOf(d);
+    const L = ivLadder(d);
+    const vol = dailyVolOf(d);
+    const rsi = rsiOf(d);
+    const conf = dataConfidenceOf(d);
+    // 1 · invalidation: the wider of a volatility stop and a structural stop,
+    //     so a normal wiggle never counts as being wrong.
+    const volStop = vol != null ? clamp(vol * 3, 8, 30) : null;   // ~3 daily sigma
+    const stopPct = +(volStop != null ? volStop : 15).toFixed(1);  // 15 = documented fallback
+    const stopPrice = +(price * (1 - stopPct / 100)).toFixed(2);
+    // 2 · size: fixed fractional risk, then scaled by independent agreement.
+    //     MAX_POSITION_PCT is the hard guard — no single idea, however loud
+    //     the agreement, is allowed to become the whole outcome.
+    const net = conv ? conv.bulls - conv.bears : 0;
+    const convMult = net >= 4 ? 1.3 : net === 3 ? 1.1 : net === 2 ? 0.9 : net <= 0 ? 0.5 : 0.7;
+    const qualityOk = ms && (ms.businessQuality.score ?? 0) >= 60 && conf.rankable;
+    const raw = (RISK_BUDGET_PCT / stopPct) * 100 * convMult * (qualityOk ? 1 : 0.5);
+    const sizePct = +clamp(raw, 0.5, MAX_POSITION_PCT).toFixed(1);
+    const capped = raw > MAX_POSITION_PCT;
+    // 3 · entry: the ladder's own buy zones, never a made-up target
+    const entry = L ? { great: L.IV15, starter: L.IV12, stretch: L.IV10 } : null;
+    const disc = entry && hasNum(entry.great) ? ((price - entry.great) / entry.great) * 100 : null;
+    let entryNote, entryColor;
+    if (!entry) { entryNote = "No IV ladder for this name (owner earnings unavailable) — no model buy price exists, so entry is your call, not the app's."; entryColor = "var(--dim)"; }
+    else if (disc <= 0) { entryNote = `Price is AT or BELOW the IV15 great-buy zone ($${entry.great.toFixed(2)}). This is the zone the model waits for.`; entryColor = "var(--green)"; }
+    else if (price <= entry.starter) { entryNote = `Inside the IV12 starter zone ($${entry.starter.toFixed(2)}) — a partial position is the model's read; full size waits for $${entry.great.toFixed(2)}.`; entryColor = "var(--amber)"; }
+    else { entryNote = `${disc.toFixed(0)}% above the IV15 buy price of $${entry.great.toFixed(2)}. Paying up here is a choice to accept a lower forward return.`; entryColor = "var(--orange)"; }
+    // 4 · what would prove this wrong — written down BEFORE the position exists
+    const breaks = [`Price closes below $${stopPrice.toFixed(2)} (−${stopPct.toFixed(0)}%, ~3 average daily moves — beyond normal noise).`];
+    if (ms) breaks.push(`Business quality falls below ${Math.max(50, Math.round((ms.businessQuality.score ?? 60) - 12))} (now ${ms.businessQuality.score ?? "–"}) — the reason to own it stopped being true.`);
+    breaks.push("A new SEC filing shows revenue growth DECELERATING versus the prior period.");
+    breaks.push("The analyst revision tape flips negative and stays there for two refreshes.");
+    if (conv && conv.bulls >= 3) breaks.push(`Agreement collapses: the ${conv.bulls} signals now agreeing fall to 1 or fewer.`);
+    // 5 · when to look again
+    const it = earnIntelOf(d.ticker);
+    const nextEarn = it && it.nextDate && it.nextDate >= todayISO() ? it.nextDate : null;
+    const review = nextEarn || new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10);
+    return { d, price, conv, sizePct, stopPct, stopPrice, vol, entry, disc, entryNote, entryColor,
+      breaks, review, reviewIsEarnings: !!nextEarn, rsi, qualityOk, capped,
+      riskBudget: RISK_BUDGET_PCT, maxPosition: MAX_POSITION_PCT, convNet: net };
+  }
+
+  /* ------------------- SELL DISCIPLINE (THESIS BREAKS) -------------------
+     The app's only exit-side engine. Every other signal is entry-side,
+     and that asymmetry is how investors actually lose money. This runs
+     over names the user OWNS and reports what has broken — never a
+     "sell" instruction, always the specific fact that changed. */
+  function exitSignalsOf(d, ctx) {
+    if (!d) return null;
+    const breaks = [];
+    const flag = (sev, what, why) => breaks.push({ sev, what, why });
+    const ms = marketScoreOf(d);
+    if (ms && (ms.businessQuality.score ?? 100) < 50)
+      flag(2, "Business quality broke down", `quality score ${ms.businessQuality.score} — below the 50 line the terminal treats as a broken business`);
+    const edge = directionEdgeOf(d);
+    if (edge && ["LIKELY DOWN", "DOWN BIAS"].includes(edge.label))
+      flag(1, "Direction Edge turned down", `${edge.label} (${edge.score})`);
+    const conv = (ctx && ctx.convMap && ctx.convMap[d.ticker]) || convictionOf(d, ctx);
+    if (conv && conv.bears >= 3 && conv.bulls <= 1)
+      flag(2, "Signals now object", `${conv.bears} independent signals negative, only ${conv.bulls} positive`);
+    const led = (ctx && ctx.ledger || earningsLedger()).find(r => r.symbol === d.ticker);
+    if (led) { const ds = driftScoreOf(led, d);
+      if (ds && ds.label === "DOWNSIDE DRIFT") flag(2, "Missed earnings and drifting down", `${ds.label} (${ds.score}) — misses tend to persist for weeks`); }
+    const it = earnIntelOf(d.ticker);
+    const t = it && it.trend;
+    if (t && hasNum(t.revUp30) && hasNum(t.revDown30) && (t.revUp30 - t.revDown30) <= -5)
+      flag(1, "Analysts cutting estimates", `net 30d revisions ${t.revUp30 - t.revDown30}`);
+    const cut10 = new Date(Date.now() - 10 * 864e5).toISOString().slice(0, 10);
+    const dg = ((it && it.ratings) || []).find(x => x.date >= cut10 && x.action === "down" && RATING_TIER1.has((x.firm || "").toLowerCase()));
+    if (dg) flag(1, "Tier-1 desk downgraded", `${dg.firm} on ${dg.date}`);
+    const ins = insiderSignalOf(d);
+    if (ins && ins.label === "INSIDERS SELLING")
+      flag(1, "Insiders selling, none buying", `${ins.sellers} sellers in ${ins.window} days — weak signal alone, but it belongs on this list`);
+    const cut14 = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
+    const dec = signalsEvents().find(e => e.tk === d.ticker && e.type === "filing" && e.d >= cut14 && /DECELERATED/.test(e.detail || ""));
+    if (dec) flag(2, "New filing shows growth decelerating", dec.detail);
+    const sev = breaks.reduce((a, b) => a + b.sev, 0);
+    const label = !breaks.length ? "THESIS INTACT" : sev >= 4 ? "THESIS BREAKING" : sev >= 2 ? "WATCH CLOSELY" : "MINOR CRACKS";
+    const color = !breaks.length ? "var(--green)" : sev >= 4 ? "var(--red)" : sev >= 2 ? "var(--orange)" : "var(--amber)";
+    return { d, breaks, sev, label, color };
+  }
+
+  /* ------------------- PORTFOLIO CONCENTRATION -------------------
+     Owning five AI-compute names is ONE bet wearing five tickers. The
+     narrative engine makes that measurable for the first time, so the
+     portfolio can finally be told the truth about its real diversification. */
+  function portfolioRiskOf() {
+    const held = Object.entries(state.portfolio || {})
+      .map(([tk, p]) => { const d = companyOf(tk); return d ? { d, p, val: (p.shares || 0) * priceOf(d) } : null; })
+      .filter(x => x && x.val > 0);
+    if (!held.length) return null;
+    const total = held.reduce((a, x) => a + x.val, 0);
+    if (!(total > 0)) return null;
+    const warn = [];
+    // 1 · narrative concentration — the hidden single bet
+    const byNarr = {};
+    NARRATIVES.forEach(n => {
+      const members = new Set(n.members);
+      const inside = held.filter(x => members.has(x.d.ticker));
+      if (!inside.length) return;
+      const w = inside.reduce((a, x) => a + x.val, 0) / total * 100;
+      byNarr[n.key] = { n, w, names: inside.map(x => x.d.ticker) };
+    });
+    Object.values(byNarr).sort((a, b) => b.w - a.w).forEach(x => {
+      if (x.w >= 35 && x.names.length >= 2)
+        warn.push({ sev: x.w >= 55 ? 2 : 1, title: `${Math.round(x.w)}% of the book is one story: ${x.n.icon} ${x.n.name}`,
+          detail: `${x.names.join(", ")} move together far more than they move apart. That is ${x.names.length} tickers but roughly ONE bet — if the story breaks, they break together.` });
+    });
+    // 2 · single-position and sector concentration
+    held.slice().sort((a, b) => b.val - a.val).slice(0, 3).forEach(x => {
+      const w = x.val / total * 100;
+      if (w >= 30) warn.push({ sev: w >= 45 ? 2 : 1, title: `${x.d.ticker} is ${Math.round(w)}% of the book`,
+        detail: "Single-name risk this size means one company's bad quarter sets your whole year. Elite investors concentrate — but deliberately, and never by accident." });
+    });
+    const bySector = {};
+    held.forEach(x => { bySector[x.d.sector] = (bySector[x.d.sector] || 0) + x.val; });
+    Object.entries(bySector).forEach(([s, v]) => {
+      const w = v / total * 100;
+      if (w >= 50) warn.push({ sev: 1, title: `${Math.round(w)}% in one sector: ${s}`, detail: "Sector shocks hit every name at once." });
+    });
+    // 3 · quality mix from the terminal's own gate
+    const weak = held.filter(x => { const m = marketScoreOf(x.d); return m && (m.businessQuality.score ?? 100) < 50; });
+    if (weak.length) {
+      const w = weak.reduce((a, x) => a + x.val, 0) / total * 100;
+      warn.push({ sev: w >= 25 ? 2 : 1, title: `${Math.round(w)}% in businesses the terminal rates below 50 for quality`,
+        detail: `${weak.map(x => x.d.ticker).join(", ")} — low-quality names are where permanent losses live, as opposed to temporary ones.` });
+    }
+    const narrTop = Object.values(byNarr).sort((a, b) => b.w - a.w)[0] || null;
+    return { held, total, warn: warn.sort((a, b) => b.sev - a.sev), byNarr, narrTop,
+      realBets: Object.keys(byNarr).length || held.length, positions: held.length };
   }
 
   /* ------------------- SIGNAL CALIBRATION -------------------
@@ -3099,8 +3370,8 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
-  const FORMULA_VERSION = "v4.1 (2026-07)";
-  const SBC_MODEL_VERSION = "4.1.0"; // bump when any engine formula changes
+  const FORMULA_VERSION = "v4.2 (2026-07)";
+  const SBC_MODEL_VERSION = "4.2.0"; // bump when any engine formula changes
   // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
   // line-by-line audit. Retention/owner-earnings remain model estimates.
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts
@@ -3573,6 +3844,36 @@
         <div class="card"><h3>WTD IV15 CAGR · GRAHAM</h3><div class="stat">${cagrDen ? (wCagr / cagrDen * 100).toFixed(1) + "%" : "–"}</div><div class="sub">Graham ${rows.length ? (wGraham).toFixed(1) + "/7 avg" : "–"} · ${totVal ? (tragicVal / totVal * 100).toFixed(0) : 0}% in tragic-tier</div></div>
       </div>
       ${rows.length ? `<div class="card" style="margin-bottom:12px"><h3>QUALITY-BUCKET ALLOCATION</h3>${allocBar}<div class="chart-legend"><span><i style="background:var(--green)"></i>Clean</span><span><i style="background:var(--amber)"></i>Middle</span><span><i style="background:var(--orange)"></i>High</span><span><i style="background:var(--red)"></i>Tragic</span></div></div>` : ""}
+      ${rows.length ? (() => {
+        // SELL DISCIPLINE — the app's only exit-side engine, and the half
+        // that decides outcomes. Facts that changed, never an instruction.
+        const ctx = { ledger: earningsLedger(), narrs: narrativeHeatAll(), whales: whaleActionMap() };
+        const exits = rows.map(r => exitSignalsOf(r.d, ctx)).filter(Boolean).sort((a, b) => b.sev - a.sev);
+        const broken = exits.filter(x => x.breaks.length);
+        const risk = portfolioRiskOf();
+        const exitRow = (x) => `<div class="home-row" data-tk="${x.d.ticker}" style="grid-template-columns:minmax(0,1fr) auto;padding:10px 0">
+          <div><b>${x.d.ticker}</b><span style="max-width:none;white-space:normal;color:var(--text);font-size:12px;margin-top:3px">${x.breaks.map(b => `<b style="color:${b.sev >= 2 ? "var(--red)" : "var(--amber)"}">${escapeHtml(b.what)}</b> — ${escapeHtml(b.why)}`).join("<br>")}</span></div>
+          <strong style="color:${x.color};font-size:11px;text-align:right">${x.label}</strong></div>`;
+        const warnRow = (w) => `<div class="home-row" style="grid-template-columns:minmax(0,1fr);padding:10px 0">
+          <div><b style="color:${w.sev >= 2 ? "var(--red)" : "var(--amber)"}">${escapeHtml(w.title)}</b>
+            <span style="max-width:none;white-space:normal;color:var(--text);font-size:12px;margin-top:3px">${escapeHtml(w.detail)}</span></div></div>`;
+        return `<div class="grid g2" style="margin-bottom:12px">
+          <div class="card" style="border-left:3px solid ${broken.length ? "var(--orange)" : "var(--green)"}">
+            <h3>🚪 SELL DISCIPLINE <span class="unit">what has actually broken on names you own</span></h3>
+            <div class="sub" style="line-height:1.6;margin:2px 0 8px">Every other page in this terminal is about buying. This one is about the harder half. It reports <b>facts that changed</b> — never an instruction to sell, because only you know your taxes, timeframe and why you bought.</div>
+            ${broken.length ? broken.map(exitRow).join("")
+              : `<div class="sub" style="padding:10px 0;line-height:1.6"><b style="color:var(--green)">Nothing has broken.</b> No quality collapse, no negative signal confluence, no downside drift, no tier-1 downgrade, no decelerating filing across your positions. Doing nothing is a real position, and today it is the one the data supports.</div>`}
+          </div>
+          <div class="card" style="border-left:3px solid ${risk && risk.warn.length ? "var(--orange)" : "var(--cyan)"}">
+            <h3>🎯 REAL DIVERSIFICATION <span class="unit">how many bets you actually have</span></h3>
+            ${risk ? `<div class="kv"><span class="k">POSITIONS vs REAL BETS</span><span class="v"><b style="color:${risk.positions > risk.realBets * 1.6 ? "var(--orange)" : "var(--green)"}">${risk.positions} tickers → ~${risk.realBets} distinct bet${risk.realBets === 1 ? "" : "s"}</b></span></div>
+              ${risk.narrTop ? `<div class="kv"><span class="k">BIGGEST STORY</span><span class="v"><span class="sub">${risk.narrTop.n.icon} ${escapeHtml(risk.narrTop.n.name)} — ${Math.round(risk.narrTop.w)}% of the book</span></span></div>` : ""}
+              ${risk.warn.length ? risk.warn.map(warnRow).join("")
+                : `<div class="sub" style="padding:10px 0;line-height:1.6">No concentration warnings: no single story, name, sector or low-quality cluster dominates the book. That is genuinely rare — most portfolios are one bet wearing several tickers.</div>`}`
+              : `<div class="sub" style="padding:10px 0">Add positions to see how many distinct bets you really have.</div>`}
+          </div>
+        </div>`;
+      })() : ""}
       <div class="scr-bar">
         <input id="poTk" class="scr-input" placeholder="ticker" style="width:90px;text-transform:uppercase"/>
         <input id="poSh" class="scr-input" type="number" placeholder="shares" style="width:90px"/>
@@ -4091,6 +4392,7 @@
       case "edge": return /LIKELY UP|UP BIAS/.test(e.title) ? `Our robot's arrows turned UP for ${nm}.` : `Our robot's arrows turned DOWN for ${nm}.`;
       case "score": return /ABOVE|jumped/.test(e.title) ? `${nm}'s report card just got better.` : `${nm}'s report card just got worse.`;
       case "narrative": return /HOT|WARMING|heating/.test(e.title) ? `The "${e.tk}" story is heating up — money is flowing toward these stocks.` : /COLD|COOLING|cooling/.test(e.title) ? `The "${e.tk}" story is cooling off — money is leaving these stocks.` : `The "${e.tk}" story just changed mood.`;
+      case "insider": return /CLUSTER|bought/i.test(e.title) ? `The bosses who run ${nm} just bought its stock with their own money. They know it best — that's a real vote of confidence.` : `People who work at ${nm} sold some shares. Usually that's just paying for a house or taxes, so it means much less than buying does.`;
       default: return e.title;
     }
   }
@@ -4167,6 +4469,13 @@
           <h3>📣 WHAT JUST HAPPENED <span class="unit">the news feed, translated</span></h3>
           ${happened.length ? happened.map(e => easyRow(e.tk, easyEventWords(e), e.m, e.m >= 80 ? "var(--red)" : e.m >= 65 ? "var(--orange)" : "var(--muted)", e.d)).join("") : `<div class="sub" style="padding:12px">Quiet day so far. The robot checks everything again every school-day morning.</div>`}
         </div>
+        <div class="card" style="border-left:3px solid var(--green)">
+          <h3>👤 THE BOSSES ARE BUYING <span class="unit">people who run the company, spending their own money</span></h3>
+          <div class="sub" style="margin:2px 0 6px;line-height:1.5">Nobody knows a company better than the people running it. When they buy its stock with their own savings, that's worth noticing.</div>
+          ${(() => { const cl = insiderClusters(4);
+            return cl.length ? cl.map(x => easyRow(x.d.ticker, `${x.s.buyers === 1 ? "A boss" : `${x.s.buyers} different bosses`} at this company just bought its stock with their own money${x.s.senior ? ", including the top boss (CEO or CFO)" : ""}. They only make money if the price goes up — so this is a real vote of confidence. It's a good clue, not a guarantee.`, x.s.buyers + "▲", x.s.color)).join("")
+              : `<div class="sub" style="padding:12px">No bosses have bought lately. That's normal — it doesn't happen often, which is exactly why it's worth noticing when it does.</div>`; })()}
+        </div>
         <div class="card" style="border-left:3px solid var(--orange)">
           <h3>📖 THE MARKET'S STORIES <span class="unit">stocks move in packs — know which pack yours runs with</span></h3>
           ${easyHeats.length ? easyHeats.slice(0, 3).map(h => `<div class="home-row" data-easy-narr="1" style="grid-template-columns:minmax(0,1fr) auto;padding:11px 0">
@@ -4210,6 +4519,7 @@
   const signalsAsOf = () => (typeof SIGNALS !== "undefined" && SIGNALS.asOf) || null;
   const SIG_TYPES = {
     filing: { label: "FILING", color: "var(--purple)" },
+    insider: { label: "INSIDER", color: "var(--green)" },
     narrative: { label: "NARRATIVE", color: "var(--orange)" },
     whale: { label: "WHALES", color: "var(--ice)" },
     analyst: { label: "ANALYST", color: "var(--pink)" },
@@ -4275,6 +4585,7 @@
         </div>`;
         const li = (tk, right, sub, color) => `<div class="home-row" data-tk="${tk}" style="padding:6px 0">
           <div><b>${tk}</b><span>${sub}</span></div><div></div><strong style="color:${color}">${right}</strong></div>`;
+        const clusters = insiderClusters(6);
         return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
           <h3>ACTIVE SETUPS RIGHT NOW <span class="unit">current states computed live — the feed below tracks how they change day over day</span></h3>
           <div class="grid g3" style="margin-top:6px">
@@ -4283,6 +4594,13 @@
             ${mini("🔥 REVISION TAPES", "var(--amber)", hot.map(x => li(x.tk, "+" + x.net, "net 30d EPS revisions", "var(--green)"))
               .concat(cold.map(x => li(x.tk, String(x.net), "net 30d EPS revisions", "var(--red)"))))}
           </div>
+        </div>
+        <div class="card" style="margin-bottom:12px;border-left:3px solid var(--green)">
+          <h3>👤 INSIDERS BUYING <span class="unit">SEC Form 4 open-market purchases — the people who run the business, spending their own money</span></h3>
+          ${clusters.length ? `<div class="grid g3" style="margin-top:6px">${clusters.map(x => `<div class="home-row" data-tk="${x.d.ticker}" style="grid-template-columns:minmax(0,1fr) auto;padding:7px 0">
+              <div><b>${x.d.ticker}</b><span style="max-width:none;white-space:normal">${x.s.buyers} buyer${x.s.buyers === 1 ? "" : "s"}${x.s.senior ? " · incl. CEO/CFO" : ""}${hasNum(x.s.buyValue) ? " · " + usd(x.s.buyValue) : ""}</span></div>
+              <strong style="color:${x.s.color};font-size:10px;text-align:right">${x.s.label}</strong></div>`).join("")}</div>`
+            : `<div class="sub" style="padding:8px 0;line-height:1.6">${insidersBundle() && insidersBundle().asOf ? `No open-market insider buying across the universe in the last ${insidersBundle().windowDays} days. Insider buys are rare by nature — most quarters most companies have none, which is exactly why a cluster of them matters.` : "The Form 4 collector runs on the next data refresh: every insider purchase, sale, grant and option exercise across all 224 names, straight from SEC EDGAR."}</div>`}
         </div>`;
       })()}
       ${rows.length ? [...byDate.entries()].map(([dt, evs]) => `<div class="card" style="margin-bottom:12px">
@@ -5830,6 +6148,8 @@
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
     NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard,
+    insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
+    dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
