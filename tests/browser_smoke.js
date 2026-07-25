@@ -80,7 +80,7 @@ async function main() {
     ok(globals.universeLen === OFFICIAL_COUNT, `UNIVERSE length ${globals.universeLen}`);
     ok(globals.secCount === OFFICIAL_COUNT && globals.secMetaCompanies === OFFICIAL_COUNT, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0", "SEC pipeline version missing"); // sec_ingest.py's own stamp
-    ok(globals.model === "4.1.0", "app model version missing");
+    ok(globals.model === "4.2.0", "app model version missing");
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");
@@ -106,6 +106,11 @@ async function main() {
     ok((await page.textContent("#main")).includes("Business Quality"), "six-score dashboard missing");
     ok((await page.textContent("#main")).includes("EXPECTATIONS GAP"), "expectations gap card missing");
     ok((await page.textContent("#main")).includes("DIRECTION EDGE"), "direction edge card missing");
+    ok((await page.textContent("#main")).includes("POSITION PLAYBOOK"), "position playbook card missing");
+    ok((await page.textContent("#main")).includes("WHAT WOULD PROVE THIS WRONG"), "playbook invalidation section missing");
+    const pb = await page.evaluate(() => window.__engines.playbookOf(window.__engines.companyOf("AAPL")));
+    ok(pb && pb.sizePct > 0 && pb.sizePct <= pb.maxPosition, "playbook sizes within the cap on a live page", String(pb && pb.sizePct));
+    ok(pb && pb.stopPrice > 0 && pb.stopPrice < pb.price, "playbook invalidation price below the live price");
 
     await page.click("#hdrStar");
     await page.click('#filter button[data-b="fav"]');

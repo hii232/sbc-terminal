@@ -24,6 +24,11 @@ jobs:
         run: python scripts/collect_earnings.py
       - name: Track whales (Berkshire / BlackRock / Citadel — EDGAR + 13F diffs)
         run: python scripts/track_whales.py
+      - name: Collect insider transactions (SEC Form 4)
+        # Budgeted so a cold cache cannot blow the run; whatever it does not
+        # reach today resumes tomorrow. Never blocks the rest of the refresh.
+        run: python scripts/collect_insiders.py || echo "insider collection incomplete — keeping previous bundle"
+        continue-on-error: true
       - name: Record model track-record snapshot
         run: node scripts/snapshot_scores.js
       - name: Build what-changed signals ledger (deltas + filing diffs)
@@ -36,6 +41,6 @@ jobs:
         run: |
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
-          git add data.js sec.js track.js earnings.js signals.js whales.js data/ || true
+          git add data.js sec.js track.js earnings.js signals.js whales.js insiders.js data/ || true
           git diff --cached --quiet || git commit -m "data: automated refresh $(date -u +%F)"
           git push

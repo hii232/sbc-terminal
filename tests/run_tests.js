@@ -19,7 +19,7 @@ const root = path.join(__dirname, "..");
 // edited in five places — but every layer must still agree with it exactly.
 const UNIVERSE_COUNT = JSON.parse(fs.readFileSync(path.join(root, "data", "universe.json"), "utf8")).count;
 const atLeast = (frac) => Math.floor(UNIVERSE_COUNT * frac);
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "scores.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -562,6 +562,76 @@ const ok = (cond, name, detail = "") => {
   ok(board.every((x, i, a) => i === 0 || (a[i - 1].bulls - a[i - 1].bears) >= (x.bulls - x.bears)),
     "conviction board ranked by net signal agreement");
   ok(E.whaleActionMap() !== null && typeof E.whaleActionMap() === "object", "whale action map builds");
+}
+
+// =============== 16. Insider signal (SEC Form 4) ===============
+{
+  const bundle = E.insidersBundle();
+  ok(bundle && typeof bundle === "object", "insiders bundle loads");
+  ok(bundle.windowDays === 90, "insider window is 90 days", String(bundle.windowDays));
+  const d = E.companyOf("AAPL");
+  const sig = E.insiderSignalOf(d);
+  if (!bundle.asOf) {
+    // seed state: the engine must report NOTHING rather than a fake "quiet"
+    ok(sig === null, "no insider reading before the pipeline has ever run");
+    ok(E.insiderClusters().length === 0, "no clusters claimed on an empty bundle");
+  } else {
+    ok(sig && sig.label, "insider signal produced once data exists");
+    ok(E.insiderClusters(5).every(x => x.s.buyers >= 1), "cluster list only contains real buyers");
+  }
+  // asymmetry is the whole point: sales must never score like buys
+  const src = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
+  const eng = src.slice(src.indexOf("function insiderSignalOf"), src.indexOf("function insiderClusters"));
+  ok(/buyers >= 3/.test(eng) && /\+= 30/.test(eng), "cluster buying carries the largest weight");
+  ok(!/sellers >= 3[^)]*\)\s*\{\s*score \+=/.test(eng), "insider selling never adds to the score");
+}
+
+// =============== 17. Position playbook (sizing + invalidation) ===============
+{
+  // volatility from real daily closes, refusing to guess on short series
+  ok(E.dailyVolOf({ pd: { v: [1, 2, 3] } }) === null, "daily vol needs a real series, not 3 points");
+  const flat = { pd: { v: Array.from({ length: 40 }, () => 100) } };
+  ok(E.dailyVolOf(flat) === 0, "a flat series has zero volatility, not null");
+  const noisy = { pd: { v: Array.from({ length: 40 }, (_, i) => 100 * (1 + (i % 2 ? 0.05 : -0.05))) } };
+  ok(E.dailyVolOf(noisy) > E.dailyVolOf(flat), "noisier series measures higher volatility");
+
+  const d = E.companyOf("NVDA");
+  const pb = E.playbookOf(d);
+  ok(pb && pb.sizePct > 0, "playbook produces a position size");
+  ok(pb.sizePct >= 0.5 && pb.sizePct <= pb.maxPosition, "position size stays inside the documented band", String(pb.sizePct));
+  ok(DATA.map(x => E.playbookOf(x)).filter(Boolean).every(p => p.sizePct <= p.maxPosition),
+    "no single idea is ever sized past the hard position cap");
+  ok(pb.stopPct >= 8 && pb.stopPct <= 30, "invalidation distance bounded to 8-30%", String(pb.stopPct));
+  ok(pb.stopPrice < pb.price && pb.stopPrice > 0, "invalidation price sits below the current price");
+  ok(Math.abs(pb.stopPrice - pb.price * (1 - pb.stopPct / 100)) < 0.02, "stop price matches the stated stop percent");
+  ok(pb.breaks.length >= 3, "at least three written invalidation conditions", String(pb.breaks.length));
+  ok(pb.breaks.every(b => typeof b === "string" && b.length > 20), "every invalidation is a full sentence");
+  ok(/^\d{4}-\d{2}-\d{2}$/.test(pb.review), "review date is a real ISO date", pb.review);
+  ok(pb.review > "2026-01-01", "review date is in the future");
+  // the core risk rule: a wider stop must yield a smaller position
+  const wide = DATA.map(x => E.playbookOf(x)).filter(Boolean);
+  const bySize = wide.filter(p => p.qualityOk && p.convNet === 0);
+  if (bySize.length >= 2) {
+    const sorted = [...bySize].sort((a, b) => a.stopPct - b.stopPct);
+    ok(sorted[0].sizePct >= sorted[sorted.length - 1].sizePct,
+      "tighter invalidation earns a larger position than a wider one at equal conviction",
+      `${sorted[0].stopPct}%->${sorted[0].sizePct}% vs ${sorted.at(-1).stopPct}%->${sorted.at(-1).sizePct}%`);
+  }
+  ok(E.playbookOf({ ticker: "X", price: 0 }) === null, "no playbook without a real price");
+}
+
+// =============== 18. Sell discipline + concentration ===============
+{
+  const d = E.companyOf("AAPL");
+  const x = E.exitSignalsOf(d);
+  ok(x && Array.isArray(x.breaks), "exit engine returns a break list");
+  ok(x.breaks.every(b => b.what && b.why && b.sev >= 1), "every thesis break states what broke and why");
+  ok(x.sev === x.breaks.reduce((a, b) => a + b.sev, 0), "severity is the sum of its breaks");
+  ok(!x.breaks.length ? x.label === "THESIS INTACT" : x.label !== "THESIS INTACT",
+    "label agrees with whether anything actually broke", x.label);
+  ok(E.exitSignalsOf(null) === null, "exit engine refuses a missing company");
+  // no positions -> no invented risk report
+  ok(E.portfolioRiskOf() === null, "concentration report is null on an empty portfolio");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
