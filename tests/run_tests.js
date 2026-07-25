@@ -740,5 +740,68 @@ const ok = (cond, name, detail = "") => {
   ok(ps.minObs >= 20, "verdicts still require at least 20 observations", String(ps.minObs));
 }
 
+// =============== 21. Forward P/E curve to 2029 (data vs projection) ===============
+{
+  const curves = DATA.map(d => E.forwardPeCurveOf(d)).filter(Boolean);
+  ok(curves.length > 0, "some names have a forward P/E curve", String(curves.length));
+
+  // THE core invariant: consensus never extends past the next fiscal year.
+  // If this ever fails, the app is presenting invented estimates as real.
+  ok(curves.every(c => c.consensusYears <= 2),
+    "no curve claims more than 2 consensus years — analysts do not publish further out",
+    String(Math.max(...curves.map(c => c.consensusYears))));
+  ok(curves.every(c => c.years.every(y => y.basis === "consensus" || y.basis === "projected")),
+    "every year is labelled either consensus or projected");
+  ok(curves.every(c => {
+    const idx = c.years.map(y => y.basis);
+    const lastC = idx.lastIndexOf("consensus");
+    return lastC === -1 || !idx.slice(0, lastC).includes("projected");
+  }), "consensus years always precede projected years — no interleaving");
+  ok(curves.every(c => c.years.filter(y => y.basis === "projected").every(y => y.source && Number.isFinite(y.growth))),
+    "every projected year states its growth rate and where the rate came from");
+  ok(curves.every(c => c.years.filter(y => y.basis === "consensus").every(y => y.growth === undefined)),
+    "consensus years carry no invented growth rate");
+
+  // a negative/zero EPS must yield NO multiple, never a negative one
+  ok(curves.every(c => c.years.every(y => y.pe === null || y.pe > 0)),
+    "no negative or zero forward P/E is ever produced");
+  ok(curves.every(c => c.years.every(y => y.pe === null || Math.abs(y.pe - c.price / y.eps) < 0.15)),
+    "each P/E equals price divided by that year's EPS");
+
+  // projections must decay toward the terminal rate, never compound forever
+  curves.filter(c => c.projectedYears >= 2).slice(0, 40).forEach(c => {
+    const p = c.years.filter(y => y.basis === "projected");
+    for (let i = 1; i < p.length; i++) {
+      ok(Math.abs(p[i].growth - 0.05) <= Math.abs(p[i - 1].growth - 0.05) + 1e-9,
+        `${c.ticker}: each projected year decays toward the long-run rate`,
+        `${p[i - 1].growth} -> ${p[i].growth}`);
+    }
+  });
+  ok(curves.every(c => c.rate === null || (c.rate >= -0.25 && c.rate <= 0.40)),
+    "projection growth is clamped — no perpetual hypergrowth");
+  ok(curves.every(c => c.years.every((y, i, a) => i === 0 || y.year > a[i - 1].year)),
+    "years are strictly increasing with no duplicates");
+  ok(curves.every(c => !c.complete || c.years[c.years.length - 1].year >= 2029),
+    "a curve marked complete really does reach 2029");
+
+  // no forward EPS anywhere -> no curve at all, rather than a fabricated one
+  ok(E.forwardPeCurveOf({ ticker: "ZZZZ", price: 100 }) === null, "no consensus anywhere yields NO curve");
+  ok(E.forwardPeCurveOf(null) === null, "no company yields no curve");
+  // use a name no earlier live-quote fixture touched, or priceOf would return
+  // the injected quote instead of the zero we are testing
+  const clean = curves.find(c => !["AAPL", "PANW", "JPM"].includes(c.ticker));
+  if (clean) ok(E.forwardPeCurveOf({ ...clean.d, price: 0 }) === null, "a zero price yields no curve", clean.ticker);
+
+  // the universe aggregate
+  const U = E.forwardPeUniverse();
+  if (U) {
+    ok(U.years.every(y => y.q1 <= y.median && y.median <= y.q3), "quartile band brackets the median");
+    ok(U.years.every(y => y.n > 0), "every plotted year is backed by real names");
+    ok(U.years.every((y, i, a) => i === 0 || y.year > a[i - 1].year), "universe years increase");
+    ok(U.covered <= U.universe, "covered names cannot exceed the universe");
+    ok(U.years.every(y => y.consensus + y.projected === y.n), "each year's basis counts sum to its sample");
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

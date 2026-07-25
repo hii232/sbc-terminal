@@ -1,5 +1,15 @@
 # SBC Model Changelog
 
+## 4.4.0 — Forward P/E curve to 2029 - 2026-07-25
+
+- New FORWARD P/E → 2029 view (Market menu): universe median forward P/E by year with a 25th/75th percentile band, a compare-up-to-6-companies chart, and a sortable table of every covered company across 2026-2029.
+- The design problem is that ANALYST CONSENSUS DOES NOT EXTEND PAST THE NEXT FISCAL YEAR — there is no 2028/2029 EPS consensus for essentially any company. `forwardPeCurveOf` therefore labels every year `consensus` (a real estimate, with analyst count) or `projected` (the last consensus year grown at a stated rate). Consensus renders cyan/bold, projections amber/italic, the boundary is stated in the header, and hovering any projected cell shows the rate and its source.
+- Projection rate prefers analysts' own published long-term growth estimate, else consensus FY0→FY1 growth, else nothing is drawn. It is clamped to [-25%, +40%] and DECAYS halfway toward a 5% long-run rate each year, because holding a 30% grower at 30% for four years is how spreadsheets produce fantasies. Negative or zero EPS yields NO multiple — a negative P/E is not a cheap stock.
+- `collect_earnings.py` now also captures Yahoo's ANNUAL earningsTrend periods (0y, +1y) and the +5y long-term growth estimate, so real fiscal-year consensus becomes available keylessly for the whole universe instead of the 47 names FMP currently covers.
+- Aggregates use medians, not means, and exclude multiples above 400x so one absurd number cannot drag the universe line somewhere no company sits.
+- Tests: +59 assertions (348 total) pinning the invariants that matter — no curve may claim more than 2 consensus years, consensus never interleaves with projections, every projected year states its rate and source, consensus years carry no invented growth, no negative P/E is ever produced, each P/E equals price÷EPS, projections strictly decay toward the long-run rate, and the quartile band brackets the median.
+- SBC_MODEL_VERSION 4.3.0 → 4.4.0. App shell v77.
+
 ## 4.3.1 — Proof Scoreboard: when does each signal earn its verdict - 2026-07-25
 
 - New PROOF SCOREBOARD at the top of Track Record (`proofStatusOf`, pure over the snapshot history): for every tracked signal, when its clock started, how many names it covers, and the exact DATE its first verdict unlocks. The binding constraint is calendar time, not sample size — a 4-week verdict needs 4 weeks of history regardless of universe size — and signals added later start their OWN clock rather than inheriting an older signal's head start (asserted by test).

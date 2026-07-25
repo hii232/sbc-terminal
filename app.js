@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "76"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "77"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -798,7 +798,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "fpeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -819,6 +819,7 @@
       { id: "dailyBtn", label: "Daily Review", ic: "📰" },
       { id: "edgeBtn", label: "Direction Edge", ic: "🧭" },
       { id: "sectorBtn", label: "Sectors", ic: "◈" },
+      { id: "fpeBtn", label: "Forward P/E → 2029", ic: "📉" },
       { id: "blackrockBtn", label: "Whale Tracker", ic: "🐋" },
     ] },
     { name: "Stocks", icon: "🔍", tools: [
@@ -969,7 +970,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, easy: showEasy, signals: showSignals, narratives: showNarratives, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+        const map = { home: showHome, easy: showEasy, signals: showSignals, forwardpe: showForwardPE, narratives: showNarratives, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
           rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -2041,6 +2042,114 @@
         color: aligned ? "var(--green)" : r == null ? "var(--dim)" : r.value > 65 ? "var(--orange)" : "var(--amber)" });
     }
     return rows.filter(x => x.score != null).sort((a, b) => (b.aligned - a.aligned) || b.score - a.score);
+  }
+
+  /* ================= FORWARD P/E CURVE (to 2029) =================
+     WHAT IS DATA AND WHAT IS NOT — the whole design rests on this line:
+
+       Analyst consensus does not extend past the NEXT fiscal year. For
+       essentially every company on earth there is no 2028 or 2029 EPS
+       consensus to look up. So this curve marks each year explicitly:
+
+         basis "consensus" — a real analyst EPS estimate (current FY and
+                             next FY), sourced from the earnings pipeline
+                             or the FMP estimate snapshots.
+         basis "projected" — the app growing the last consensus year
+                             forward at a STATED rate. This is arithmetic
+                             on an assumption, not a forecast anyone made.
+
+     The projection rate prefers analysts' own published long-term growth
+     estimate; failing that, the consensus FY0->FY1 growth; failing that,
+     nothing is drawn. The rate is DECAYED toward a long-run market rate
+     each year, because holding a 30% grower at 30% for four straight
+     years is how spreadsheets produce fantasies.
+
+     A negative or zero EPS yields NO P/E — a negative multiple is not a
+     cheap stock, it is a meaningless number. */
+  const FPE_TERMINAL_GROWTH = 0.05;  // long-run rate every projection decays toward
+  const FPE_DECAY = 0.5;             // each projected year moves halfway to it
+  const annualEstOf = (tk) => { const it = earnIntelOf(tk); return (it && it.annual) || null; };
+  function forwardPeCurveOf(d, throughYear) {
+    if (!d) return null;
+    const px = priceOf(d);
+    if (!hasNum(px) || px <= 0) return null;
+    const ann = annualEstOf(d.ticker);
+    const snaps = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY[d.ticker]
+      && ESTIMATE_HISTORY[d.ticker].snapshots) || [];
+    const snap = snaps.length ? snaps[snaps.length - 1] : null;
+    const yearOf = (iso) => (iso && /^\d{4}/.test(iso)) ? +iso.slice(0, 4) : null;
+
+    // --- the consensus anchors: at most two real years -------------------
+    const pts = [];
+    const nowYear = new Date().getFullYear();
+    if (ann && ann.fy0 && hasNum(ann.fy0.eps))
+      pts.push({ year: yearOf(ann.fy0.endDate) || nowYear, eps: +ann.fy0.eps, basis: "consensus",
+        analysts: ann.fy0.analysts, source: "Yahoo consensus (current FY)" });
+    if (ann && ann.fy1 && hasNum(ann.fy1.eps))
+      pts.push({ year: yearOf(ann.fy1.endDate) || nowYear + 1, eps: +ann.fy1.eps, basis: "consensus",
+        analysts: ann.fy1.analysts, source: "Yahoo consensus (next FY)" });
+    if (!pts.length && snap) { // FMP snapshots are the fallback source
+      if (hasNum(snap.currentYearEps)) pts.push({ year: nowYear, eps: +snap.currentYearEps, basis: "consensus",
+        analysts: snap.analystCountEps, source: "FMP consensus (current FY)" });
+      if (hasNum(snap.nextYearEps)) pts.push({ year: nowYear + 1, eps: +snap.nextYearEps, basis: "consensus",
+        analysts: snap.analystCountEps, source: "FMP consensus (next FY)" });
+    }
+    if (!pts.length) return null;   // no real forward EPS anywhere: draw nothing
+    pts.sort((a, b) => a.year - b.year);
+
+    // --- the growth rate used to project, and where it came from ---------
+    let rate = null, rateSource = null;
+    if (ann && hasNum(ann.lt5y) && ann.lt5y > -0.5 && ann.lt5y < 1) {
+      rate = +ann.lt5y; rateSource = "analysts' published long-term growth estimate";
+    } else if (pts.length >= 2 && pts[0].eps > 0) {
+      rate = (pts[1].eps - pts[0].eps) / Math.abs(pts[0].eps);
+      rateSource = "consensus growth from this fiscal year to next";
+    }
+    if (rate != null) rate = clamp(rate, -0.25, 0.40); // no perpetual hypergrowth
+
+    // --- project forward, decaying toward the long-run rate --------------
+    const lastYear = throughYear || 2029;
+    const projected = [];
+    if (rate != null) {
+      let eps = pts[pts.length - 1].eps, g = rate;
+      for (let y = pts[pts.length - 1].year + 1; y <= lastYear; y++) {
+        g = FPE_TERMINAL_GROWTH + (g - FPE_TERMINAL_GROWTH) * FPE_DECAY;
+        eps = eps * (1 + g);
+        projected.push({ year: y, eps, basis: "projected", growth: g, source: rateSource });
+      }
+    }
+    const years = pts.concat(projected).map(p => ({
+      ...p,
+      // a negative or zero EPS has no meaningful multiple — stays null
+      pe: p.eps > 0 ? +(px / p.eps).toFixed(1) : null,
+    }));
+    const consensusYears = years.filter(y => y.basis === "consensus").length;
+    return { d, ticker: d.ticker, price: px, years, rate, rateSource,
+      consensusYears, projectedYears: years.length - consensusYears,
+      lastConsensusYear: pts[pts.length - 1].year,
+      complete: years.length && years[years.length - 1].year >= lastYear };
+  }
+  // Universe-wide curve: median forward P/E per year, plus the quartile band.
+  // Medians (not means) because a single 600x multiple would drag a mean
+  // somewhere no company actually sits.
+  function forwardPeUniverse(list, throughYear) {
+    const rows = (list || DATA).map(d => forwardPeCurveOf(d, throughYear)).filter(Boolean);
+    if (!rows.length) return null;
+    const byYear = {};
+    rows.forEach(r => r.years.forEach(y => {
+      if (y.pe == null || y.pe <= 0 || y.pe > 400) return;  // absurd multiples excluded from the aggregate, counted below
+      (byYear[y.year] = byYear[y.year] || { year: y.year, pes: [], consensus: 0, projected: 0 });
+      byYear[y.year].pes.push(y.pe);
+      byYear[y.year][y.basis === "consensus" ? "consensus" : "projected"]++;
+    }));
+    const pct = (arr, p) => { const s = [...arr].sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(s.length * p))]; };
+    const years = Object.values(byYear).sort((a, b) => a.year - b.year).map(y => ({
+      year: y.year, n: y.pes.length, median: +pct(y.pes, 0.5).toFixed(1),
+      q1: +pct(y.pes, 0.25).toFixed(1), q3: +pct(y.pes, 0.75).toFixed(1),
+      consensus: y.consensus, projected: y.projected,
+      basis: y.consensus >= y.projected ? "consensus" : "projected",
+    }));
+    return { years, covered: rows.length, universe: (list || DATA).length, rows };
   }
 
   /* ------------------- MARKET NARRATIVE ENGINE -------------------
@@ -3621,8 +3730,8 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
-  const FORMULA_VERSION = "v4.3 (2026-07)";
-  const SBC_MODEL_VERSION = "4.3.0"; // bump when any engine formula changes
+  const FORMULA_VERSION = "v4.4 (2026-07)";
+  const SBC_MODEL_VERSION = "4.4.0"; // bump when any engine formula changes
   // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
   // line-by-line audit. Retention/owner-earnings remain model estimates.
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts
@@ -4954,6 +5063,136 @@
     el("main").querySelectorAll("[data-bsort]").forEach(b => b.onclick = () => { sigState.boardSort = b.dataset.bsort; renderSignals(); });
   }
   const showSignals = () => showView("signals", renderSignals, "signalsBtn");
+
+  /* ============================================================================
+     📉 FORWARD P/E CURVE — every company, priced out to 2029.
+     The page's job is to be useful WITHOUT lying about where data ends:
+     consensus years are drawn in one colour, projected years in another,
+     and the boundary is stated in words, in the legend and in the table. */
+  const fpeState = { picks: ["AAPL", "MSFT", "NVDA"], sort: 2029, dir: 1 };
+  function fpeSplitSeries(values, basis, colConsensus, colProjected) {
+    // one line for the consensus stretch, one continuing through the
+    // projection — they share the boundary point so the line stays unbroken
+    const lastC = basis.reduce((a, b, i) => b === "consensus" ? i : a, -1);
+    return [
+      { points: values.map((v, i) => i <= lastC ? v : null), color: colConsensus },
+      { points: values.map((v, i) => i >= lastC ? v : null), color: colProjected },
+    ];
+  }
+  function renderForwardPE() {
+    const U = forwardPeUniverse();
+    const curves = DATA.map(d => forwardPeCurveOf(d)).filter(Boolean);
+    const yearsList = U && U.years.length ? U.years.map(y => y.year) : [2026, 2027, 2028, 2029];
+    const labels = yearsList.map(String);
+    const missing = DATA.length - curves.length;
+
+    let uniChart = "";
+    if (U && U.years.length) {
+      const basis = U.years.map(y => y.basis);
+      uniChart = Chart.line([
+        ...fpeSplitSeries(U.years.map(y => y.median), basis, "var(--cyan)", "var(--amber)"),
+        { points: U.years.map(y => y.q1), color: "rgba(118,133,156,.5)" },
+        { points: U.years.map(y => y.q3), color: "rgba(118,133,156,.5)" },
+      ], labels, { h: 230 });
+    }
+    const palette = ["var(--green)", "var(--cyan)", "var(--gold)", "var(--pink)", "var(--purple)", "var(--orange)"];
+    const picked = fpeState.picks.map(tk => curves.find(c => c.ticker === tk)).filter(Boolean).slice(0, 6);
+    let pickChart = "";
+    if (picked.length) {
+      const series = picked.flatMap((c, i) => {
+        const vals = yearsList.map(y => { const h = c.years.find(x => x.year === y); return h ? h.pe : null; });
+        const bas = yearsList.map(y => { const h = c.years.find(x => x.year === y); return h ? h.basis : null; });
+        return fpeSplitSeries(vals, bas, palette[i % palette.length], "rgba(255,193,94,.85)");
+      });
+      pickChart = Chart.line(series, labels, { h: 230 });
+    }
+    const cell = (c, y) => {
+      const hit = c.years.find(x => x.year === y);
+      if (!hit || hit.pe == null) return `<td class="sub" title="no positive EPS estimate for this year — a negative multiple is not a cheap stock, it is meaningless">–</td>`;
+      const proj = hit.basis === "projected";
+      return `<td style="color:${proj ? "var(--amber)" : "var(--text)"};${proj ? "font-style:italic" : "font-weight:600"}"
+        title="${proj ? "PROJECTED · " + escapeHtml(hit.source || "") + " at " + (hit.growth * 100).toFixed(1) + "%/yr" : "ANALYST CONSENSUS" + (hit.analysts ? " · " + hit.analysts + " analysts" : "")}">${hit.pe}x</td>`;
+    };
+    const sorted = [...curves].sort((a, b) => {
+      const av = a.years.find(x => x.year === fpeState.sort), bv = b.years.find(x => x.year === fpeState.sort);
+      const an = av && av.pe != null ? av.pe : Infinity, bn = bv && bv.pe != null ? bv.pe : Infinity;
+      return (an - bn) * fpeState.dir || a.ticker.localeCompare(b.ticker);
+    });
+    const th = (y) => `<th data-fsort="${y}" style="cursor:pointer;${fpeState.sort === y ? "color:var(--cyan)" : ""}">${y}${fpeState.sort === y ? (fpeState.dir === 1 ? " ▲" : " ▼") : ""}</th>`;
+    const pool = ["AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META", "AVGO", "JPM", "WMT", "COST", "NFLX", "TSLA"]
+      .filter(t => curves.some(c => c.ticker === t));
+    const chip = (tk) => `<button class="sec-chip" data-fpick="${tk}"
+      style="${fpeState.picks.includes(tk) ? "background:var(--cyan);color:#071018" : ""}">${tk}</button>`;
+    const consensusYears = U ? U.years.filter(y => y.basis === "consensus").length : 0;
+
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">📉 FORWARD P/E → 2029</div>
+        <div class="co">What every company costs per dollar of expected earnings, year by year — with the line between real analyst consensus and arithmetic drawn explicitly.</div></div>
+        <div class="spacer"></div>
+        <div style="text-align:right"><div class="sub">COVERAGE</div><div class="stat sm">${curves.length}/${DATA.length}</div></div>
+      </div>
+      <div class="note" style="margin-bottom:12px;border-left-color:var(--amber)"><b>Read this first — where the data stops.</b> Analyst consensus does not extend past the <b>next fiscal year</b>. There is no 2028 or 2029 EPS consensus to look up for essentially any company on earth, so no honest app can simply "show" it to you.
+        <b style="color:var(--cyan)">Cyan / bold = analyst consensus</b> — real estimates with real analyst counts.
+        <b style="color:var(--amber)">Amber italic = this app's projection</b> — the last consensus year grown forward at a stated rate that decays toward ${(FPE_TERMINAL_GROWTH * 100).toFixed(0)}%/yr, because nothing compounds at today's rate forever. That is arithmetic on an assumption, not a forecast anyone made; hover any cell to see the rate behind it.
+        ${consensusYears ? ` Consensus currently covers <b>${consensusYears} year${consensusYears === 1 ? "" : "s"}</b>; every later year is projection.` : ""}
+        ${missing ? ` <b>${missing}</b> of ${DATA.length} names have no forward EPS estimate at all — absent here rather than guessed.` : ""}</div>
+      <div class="grid g2" style="margin-bottom:12px">
+        <div class="card">
+          <h3>UNIVERSE FORWARD P/E <span class="unit">median of ${U ? U.covered : 0} covered names · grey = 25th/75th percentile</span></h3>
+          ${uniChart || `<div class="sub" style="padding:26px;text-align:center">No forward estimates bundled yet — they arrive with the next data refresh.</div>`}
+          <div class="chart-legend"><span><i style="background:var(--cyan)"></i>Consensus</span><span><i style="background:var(--amber)"></i>Projected</span><span><i style="background:rgba(118,133,156,.5)"></i>Quartile band</span></div>
+          ${U ? `<div style="overflow-x:auto;margin-top:6px"><table class="rank"><thead><tr><th>YEAR</th><th>MEDIAN</th><th>25th</th><th>75th</th><th>NAMES</th><th>BASIS</th></tr></thead><tbody>
+            ${U.years.map(y => `<tr><td>${y.year}</td><td><b>${y.median}x</b></td><td class="sub">${y.q1}x</td><td class="sub">${y.q3}x</td><td class="sub">${y.n}</td>
+              <td style="color:${y.basis === "consensus" ? "var(--cyan)" : "var(--amber)"};font-size:10px">${y.basis === "consensus" ? "CONSENSUS" : "PROJECTED"}</td></tr>`).join("")}
+          </tbody></table></div>` : ""}
+        </div>
+        <div class="card">
+          <h3>COMPARE COMPANIES <span class="unit">up to 6 · the amber tail is where consensus ends</span></h3>
+          <div class="sec-chips" style="margin-bottom:8px">${pool.map(chip).join("")}</div>
+          ${pickChart || `<div class="sub" style="padding:26px;text-align:center">Pick a company above to plot its curve.</div>`}
+          <div class="chart-legend">${picked.map((c, i) => `<span><i style="background:${palette[i % palette.length]}"></i>${c.ticker}</span>`).join("")}</div>
+          ${picked.length ? `<div class="sub" style="margin-top:6px;line-height:1.6">${picked.map(c => `<b>${c.ticker}</b>: ${c.consensusYears} consensus year${c.consensusYears === 1 ? "" : "s"}, then projected at ${c.rate != null ? (c.rate * 100).toFixed(1) + "%" : "–"} decaying — ${escapeHtml(c.rateSource || "no rate available")}.`).join("<br>")}</div>` : ""}
+        </div>
+      </div>
+      <div class="card">
+        <h3>EVERY COMPANY <span class="unit">click a year to sort · bold = consensus · amber italic = projected</span></h3>
+        <div style="overflow-x:auto;max-height:70vh;overflow-y:auto"><table class="rank">
+          <thead><tr><th style="text-align:left">TICKER</th><th style="text-align:left">SECTOR</th><th>PRICE</th>
+            ${yearsList.map(th).join("")}<th>GROWTH USED</th><th style="text-align:left">RATE SOURCE</th></tr></thead>
+          <tbody>${sorted.length ? sorted.map(c => `<tr data-tk="${c.ticker}">
+            <td style="text-align:left"><span class="rk-tk">${c.ticker}</span></td>
+            <td style="text-align:left" class="sub">${c.d.sector}</td>
+            <td class="sub">$${c.price.toFixed(2)}</td>
+            ${yearsList.map(y => cell(c, y)).join("")}
+            <td class="sub">${c.rate != null ? (c.rate * 100).toFixed(1) + "%" : "–"}</td>
+            <td style="text-align:left" class="sub">${escapeHtml(c.rateSource || "—")}</td>
+          </tr>`).join("") : `<tr><td colspan="9" class="sub" style="padding:16px">No forward EPS estimates are bundled yet.</td></tr>`}</tbody>
+        </table></div>
+      </div>
+      <div class="card" style="margin-top:12px"><h3>HOW TO USE THIS — AND WHAT IT CANNOT TELL YOU</h3>
+        <div class="sub" style="line-height:1.75">
+          1 · <b>A falling curve is normal, not a bargain signal.</b> Forward P/E almost always declines across future years purely because earnings are assumed to grow. What matters is <b>how fast it falls versus peers</b> — a name whose multiple barely drops is one the market expects little from.<br>
+          2 · <b>Compare the 2029 column to the 2026 column.</b> A company at 60x today falling to 25x by 2029 is priced for roughly tripling its earnings. Decide whether that is plausible before paying for it.<br>
+          3 · <b>Projected years are only as good as their growth rate.</b> The source of that rate is in the last column. Analysts' long-term growth estimates run optimistic on average, and consensus-implied growth is anchored to just two data points.<br>
+          4 · <b>A multiple is not value.</b> This page uses Street EPS, which adds back stock compensation. The IV ladder and owner-earnings P/E elsewhere in this terminal are the stricter measures and will often disagree with what you see here — deliberately.<br>
+          5 · <b>None of this forecasts price.</b> A cheap 2029 multiple assumes the earnings actually arrive. Most of investing is working out whether they will.
+        </div></div>`;
+    el("main").querySelectorAll("tr[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-fpick]").forEach(b => b.onclick = () => {
+      const tk = b.dataset.fpick;
+      if (fpeState.picks.includes(tk)) fpeState.picks = fpeState.picks.filter(x => x !== tk);
+      else if (fpeState.picks.length < 6) fpeState.picks.push(tk);
+      else return flash("Six companies max — deselect one first", "warn");
+      renderForwardPE();
+    });
+    el("main").querySelectorAll("[data-fsort]").forEach(h => h.onclick = () => {
+      const y = +h.dataset.fsort;
+      if (fpeState.sort === y) fpeState.dir *= -1; else { fpeState.sort = y; fpeState.dir = 1; }
+      renderForwardPE();
+    });
+  }
+  const showForwardPE = () => showView("forwardpe", renderForwardPE, "fpeBtn");
 
   /* ============================================================================
      🎯 EARNINGS COMMAND CENTER
@@ -6443,6 +6682,7 @@
     el("setupsBtn").onclick = showSetups;
     el("signalsBtn").onclick = showSignals;
     el("narrBtn").onclick = showNarratives;
+    el("fpeBtn").onclick = showForwardPE;
     el("dailyBtn").onclick = showDailyReview;
     el("edgeBtn").onclick = showDirectionEdge;
     el("sectorBtn").onclick = showSectors;
@@ -6504,6 +6744,7 @@
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
+    forwardPeCurveOf, forwardPeUniverse, annualEstOf,
     TRACKED_SIGNALS, proofStatusOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,

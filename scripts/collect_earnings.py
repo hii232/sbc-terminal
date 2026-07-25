@@ -154,6 +154,40 @@ def parse_ticker(result):
         }
     else:
         out["trend"] = None
+
+    # ---- ANNUAL consensus (fiscal-year EPS) + long-term growth ----------
+    # Yahoo's earningsTrend also carries fiscal-year periods (0y = current FY,
+    # +1y = next FY) and a +5y long-term growth estimate. Consensus does NOT
+    # extend beyond the next fiscal year for essentially any company, so these
+    # two years are the ONLY forward EPS that are real data; anything further
+    # out is a projection the app must label as such.
+    def annual(period):
+        t = next((x for x in trend if x.get("period") == period), None)
+        if not t:
+            return None
+        ee = t.get("earningsEstimate") or {}
+        rr = t.get("revenueEstimate") or {}
+        eps = raw(ee.get("avg"))
+        if eps is None:
+            return None
+        return {
+            "endDate": t.get("endDate"),
+            "eps": eps,
+            "epsLow": raw(ee.get("low")),
+            "epsHigh": raw(ee.get("high")),
+            "analysts": raw(ee.get("numberOfAnalysts")),
+            "growth": raw(t.get("growth")),
+            "revenue": raw(rr.get("avg")),
+        }
+
+    lt = next((x for x in trend if x.get("period") == "+5y"), None)
+    out["annual"] = {
+        "fy0": annual("0y"),
+        "fy1": annual("+1y"),
+        # analysts' own long-term growth estimate — the only forward-looking
+        # rate here that is sourced rather than assumed
+        "lt5y": raw((lt or {}).get("growth")),
+    }
     return out
 
 
