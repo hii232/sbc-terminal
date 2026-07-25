@@ -80,7 +80,7 @@ async function main() {
     ok(globals.universeLen === OFFICIAL_COUNT, `UNIVERSE length ${globals.universeLen}`);
     ok(globals.secCount === OFFICIAL_COUNT && globals.secMetaCompanies === OFFICIAL_COUNT, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0", "SEC pipeline version missing"); // sec_ingest.py's own stamp
-    ok(globals.model === "4.2.0", "app model version missing");
+    ok(globals.model === "4.3.0", "app model version missing");
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");
@@ -118,7 +118,7 @@ async function main() {
 
     const views = [
       ["#easyBtn", "TODAY'S GAME PLAN"],
-      ["#signalsBtn", "WHAT CHANGED"],
+      ["#signalsBtn", "THE MASTER SIGNAL"],
       ["#narrBtn", "MARKET NARRATIVES"],
       ["#dailyBtn", "DAILY REVIEW"],
       ["#edgeBtn", "DIRECTION EDGE"],
@@ -151,6 +151,22 @@ async function main() {
     ok(cal.text.includes("BEAT ODDS"), "beat odds board missing");
     ok(cal.text.includes("MACRO REGIME"), "macro regime card missing");
     if (cal.upcoming > 0) ok(cal.text.includes("UP NEXT"), "upcoming reports table missing despite rows");
+
+    // Master Signal board: the ranked table renders, and its rank/size controls work.
+    await page.evaluate(() => document.querySelector("#signalsBtn").click());
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("THE MASTER SIGNAL"), { timeout: 3000 });
+    const boardRows = await page.evaluate(() => document.querySelectorAll("#main table.rank tbody tr[data-tk]").length);
+    ok(boardRows >= 20, "master signal board renders its ranked rows", String(boardRows));
+    const mb = await page.evaluate(() => {
+      const b = window.__engines.masterBoard();
+      return { n: b.length, top: b[0].score, bottom: b[b.length - 1].score, rank1: b[0].rank };
+    });
+    ok(mb.n >= OFFICIAL_COUNT * 0.8, "master board ranks most of the universe in the browser", String(mb.n));
+    ok(mb.rank1 === 1 && mb.top >= mb.bottom, "board ordering holds in the browser");
+    await page.evaluate(() => document.querySelector('#main [data-bsize="0"]').click());
+    await page.waitForFunction((n) => document.querySelectorAll("#main table.rank tbody tr[data-tk]").length >= n, mb.n, { timeout: 3000 });
+    await page.evaluate(() => document.querySelector('#main [data-bsort="price"]').click());
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("THE MASTER SIGNAL"), { timeout: 3000 });
 
     // Condensed TOP navigation: a few groups, and clicking a group's item navigates.
     const topnav = await page.evaluate(() => ({
