@@ -135,6 +135,21 @@ ok(s2["buyerCount"] == 0, "derivative acquisitions are not open-market convictio
 s3 = summarize("TT", [filing("Ann", "A", "2026-07-10")], "2026-05-01")
 ok(s3["buyerCount"] == 0 and s3["mechanics"] == 1, "grants counted as mechanics, not buys", str(s3["mechanics"]))
 
+# --- issuer identity: a company's EDGAR feed carries Form 4s where it is the
+#     REPORTING OWNER of somebody else's stock. Those must be attributable. ---
+r2 = parse_form4(BUY, "a", "2026-07-11")
+ok(r2["issuerCik"] == 320193, "issuer CIK extracted so foreign filings can be dropped", str(r2["issuerCik"]))
+OTHER = BUY.replace(b"<issuerCik>0000320193</issuerCik>", b"<issuerCik>0001543151</issuerCik>")
+ok(parse_form4(OTHER, "a", "2026-07-11")["issuerCik"] == 1543151,
+   "a filing about another issuer reports that issuer's CIK, not this one")
+NOISSUER = b"""<ownershipDocument><reportingOwner><reportingOwnerId><rptOwnerName>A B</rptOwnerName></reportingOwnerId></reportingOwner>
+  <nonDerivativeTable><nonDerivativeTransaction><transactionCoding><transactionCode>P</transactionCode></transactionCoding>
+  </nonDerivativeTransaction></nonDerivativeTable></ownershipDocument>"""
+ok(parse_form4(NOISSUER, "a", "2026-07-11")["issuerCik"] is None, "absent issuer stays None rather than a wrong guess")
+
+# --- security title is captured so ADS vs ordinary-share rows are separable ---
+ok(r2["txns"][0]["security"] == "Common Stock", "security title recorded", r2["txns"][0]["security"])
+
 if FAILED:
     print("\n".join("  x FAIL: " + f for f in FAILED))
     print(f"\n{len(FAILED)} failed")

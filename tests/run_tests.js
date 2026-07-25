@@ -579,6 +579,19 @@ const ok = (cond, name, detail = "") => {
     ok(sig && sig.label, "insider signal produced once data exists");
     ok(E.insiderClusters(5).every(x => x.s.buyers >= 1), "cluster list only contains real buyers");
   }
+  // price sanity: a Form 4 row priced nowhere near the traded line describes a
+  // different instrument (ordinary shares vs ADS, another class) and must not
+  // count. This is what stopped TSM reporting 27 "buyers" off $74 rows against
+  // a ~$400 traded price.
+  if (bundle.asOf) {
+    const withOff = DATA.map(x => E.insiderSignalOf(x)).filter(s => s && s.offMarket > 0);
+    ok(withOff.every(s => s.buys.every(b => !b.price || (b.price / E.companyOf(s.ticker).price >= 0.2 && b.price / E.companyOf(s.ticker).price <= 5))),
+      "no counted buy sits outside the price-sanity band");
+    ok(withOff.every(s => s.buyers === new Set(s.buys.map(b => b.owner)).size),
+      "buyer count is derived from the surviving rows, not the raw bundle");
+    const tsm = E.insiderSignalOf(E.companyOf("TSM"));
+    if (tsm && tsm.offMarket) ok(tsm.buyers < 10, "off-market rows cannot inflate a cluster", String(tsm.buyers));
+  }
   // asymmetry is the whole point: sales must never score like buys
   const src = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
   const eng = src.slice(src.indexOf("function insiderSignalOf"), src.indexOf("function insiderClusters"));

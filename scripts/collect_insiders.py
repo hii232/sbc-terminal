@@ -154,6 +154,23 @@ def parse_form4(raw, accn, filed):
     transaction is still recorded with what IS known."""
     root = ET.fromstring(raw)
 
+    # WHOSE stock is this? A company's EDGAR feed carries Form 4s where it is
+    # the ISSUER *and* Form 4s where the company itself is the REPORTING OWNER
+    # of somebody else's stock (corporate stakes in other issuers). Only the
+    # former says anything about this ticker, so the issuer CIK is verified by
+    # the caller — without this, "Uber Technologies Inc bought 800,000 shares"
+    # lands on UBER's own page when it was a purchase of another company.
+    issuer_cik = None
+    for node in root.iter():
+        if strip_ns(node.tag) == "issuer":
+            txt = first_text(node, "issuerCik")
+            if txt:
+                try:
+                    issuer_cik = int(str(txt).strip())
+                except ValueError:
+                    issuer_cik = None
+            break
+
     owners, roles, senior = [], [], False
     for node in root.iter():
         if strip_ns(node.tag) != "reportingOwner":
@@ -202,6 +219,7 @@ def parse_form4(raw, accn, filed):
         ad = (first_text(node, "transactionAcquiredDisposedCode") or "").strip().upper()
         txns.append({
             "code": code,
+            "security": (first_text(node, "securityTitle") or "").strip()[:60],
             "kind": DECISION_CODES.get(code) or MECHANIC_CODES.get(code) or "other",
             "decision": code in DECISION_CODES,
             "derivative": tag.startswith("derivative"),
@@ -213,7 +231,7 @@ def parse_form4(raw, accn, filed):
             "held": to_num(first_text(node, "sharesOwnedFollowingTransaction")),
         })
     return {
-        "accn": accn, "filed": filed,
+        "accn": accn, "filed": filed, "issuerCik": issuer_cik,
         "owner": " & ".join(dict.fromkeys(owners)) or "undisclosed",
         "role": "; ".join(dict.fromkeys(roles)) or "insider",
         "senior": senior, "planned": planned, "txns": txns,
@@ -237,6 +255,7 @@ def summarize(ticker, filings, window_start):
                 "date": tdate, "owner": f["owner"], "role": f["role"],
                 "senior": f["senior"], "planned": f["planned"],
                 "shares": t["shares"], "price": t["price"], "value": t["value"],
+                "security": t.get("security") or "",
                 "derivative": t["derivative"], "accn": f["accn"], "filed": f["filed"],
             }
             (buys if t["code"] == "P" else sells).append(row)
@@ -284,7 +303,7 @@ def main():
     window_start = (today - timedelta(days=WINDOW_DAYS)).isoformat()
     since = (today - timedelta(days=LOOKBACK_DAYS)).isoformat()
 
-    tickers, scanned, budget_hit, failed = {}, 0, False, 0
+    tickers, scanned, budget_hit, failed, foreign = {}, 0, False, 0, 0
     spent = 0
     for c in companies:
         tk, cik = c["ticker"], c["cik"]
@@ -300,7 +319,13 @@ def main():
         complete = True
         for f in forms:
             hit = cache.get(f["accn"])
-            if hit is not None:
+            # Records cached before issuer verification existed cannot be
+            # trusted (they may describe another company's stock), so they are
+            # re-fetched once. The None sentinel still means "unparseable".
+            if isinstance(hit, dict) and "issuerCik" not in hit:
+                hit = None
+                cache.pop(f["accn"], None)
+            elif hit is not None:
                 if hit:  # falsy sentinel = permanently unparseable, don't retry
                     parsed.append(hit)
                 continue
@@ -317,9 +342,13 @@ def main():
                 print(f"  [{tk}] {f['accn']} parse failed: {e}", file=sys.stderr)
             spent += 1
 
+        # keep ONLY filings where this company is the issuer — a filing where
+        # the company is the reporting owner is about somebody else's stock
+        own = [r for r in parsed if r.get("issuerCik") in (None, int(cik))]
+        foreign += len(parsed) - len(own)
         if complete:
             scanned += 1
-        rec = summarize(tk, parsed, window_start)
+        rec = summarize(tk, own, window_start)
         rec["complete"] = complete
         if rec["buys"] or rec["sells"] or rec["filings"]:
             tickers[tk] = rec
@@ -338,6 +367,7 @@ def main():
         "universe": len(companies),
         "scanned": scanned,
         "partial": budget_hit,
+        "otherIssuerFilings": foreign,
         "tickers": tickers,
     }
     OUT_JSON.write_text(json.dumps(out) + "\n")
@@ -351,7 +381,7 @@ def main():
         "const INSIDERS = " + json.dumps(out) + ";\n")
     print(f"insiders: {len(tickers)} names with activity, {scanned}/{len(companies)} fully scanned, "
           f"{spent} new filings fetched{' (budget reached — rest resumes next run)' if budget_hit else ''}, "
-          f"{failed} lookup failures")
+          f"{foreign} filings dropped as other-issuer, {failed} lookup failures")
 
 
 if __name__ == "__main__":
