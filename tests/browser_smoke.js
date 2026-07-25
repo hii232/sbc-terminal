@@ -80,7 +80,7 @@ async function main() {
     ok(globals.universeLen === OFFICIAL_COUNT, `UNIVERSE length ${globals.universeLen}`);
     ok(globals.secCount === OFFICIAL_COUNT && globals.secMetaCompanies === OFFICIAL_COUNT, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0", "SEC pipeline version missing"); // sec_ingest.py's own stamp
-    ok(globals.model === "4.3.0", "app model version missing");
+    ok(globals.model === "4.4.0", "app model version missing");
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");
@@ -120,6 +120,7 @@ async function main() {
       ["#easyBtn", "TODAY'S GAME PLAN"],
       ["#signalsBtn", "THE MASTER SIGNAL"],
       ["#narrBtn", "MARKET NARRATIVES"],
+      ["#fpeBtn", "FORWARD P/E"],
       ["#dailyBtn", "DAILY REVIEW"],
       ["#edgeBtn", "DIRECTION EDGE"],
       ["#rankBtn", "MASTER RANKINGS"],
@@ -175,7 +176,7 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 17, "all 17 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.tools === 18, "all 18 tools reachable from the top nav", String(topnav.tools));
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
       const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));
