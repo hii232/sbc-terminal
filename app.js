@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "76"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "77"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -798,7 +798,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "masterBtn", "signalsBtn", "narrBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -809,6 +809,7 @@
       { id: "easyBtn", label: "Easy Mode — Game Plan", ic: "🧭" },
     ] },
     { name: "Signals", icon: "💡", tools: [
+      { id: "masterBtn", label: "Master Signal — ranked", ic: "🏆" },
       { id: "signalsBtn", label: "What Changed", ic: "💡" },
       { id: "narrBtn", label: "Market Narratives", ic: "🧠" },
     ] },
@@ -969,7 +970,7 @@
         if (st && st.tab) currentTab = st.tab;
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
-        const map = { home: showHome, easy: showEasy, signals: showSignals, narratives: showNarratives, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
+        const map = { home: showHome, easy: showEasy, master: showMaster, signals: showSignals, narratives: showNarratives, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
           rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
@@ -4894,7 +4895,19 @@
         <div class="spacer"></div>
         <div style="text-align:right"><div class="sub">LEDGER</div><div class="stat sm">${signalsAsOf() ? "diffed " + signalsAsOf() : "arming"}</div></div>
       </div>
-      ${masterBoardHtml()}
+      ${(() => { // compact pointer — the full board has its own page now
+        const b = masterBoardCached();
+        if (!b.length) return "";
+        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
+          <div class="bz-section-head" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <h3 style="margin:0">🏆 MASTER SIGNAL — TOP RANKED <span class="unit">the terminal's single ranked answer, from every engine</span></h3>
+            <div class="spacer" style="flex:1"></div><button id="openMasterFull" type="button" class="scr-reset">Open full ranking →</button>
+          </div>
+          <div class="grid g4" style="margin-top:8px">${b.slice(0, 8).map(r => `<div class="home-row" data-tk="${r.ticker}" style="grid-template-columns:minmax(0,1fr) auto;padding:7px 0">
+            <div><b>#${r.rank} ${r.ticker}</b><span>${r.label}</span></div>
+            <strong style="color:${r.color}">${r.score}</strong></div>`).join("")}</div>
+        </div>`;
+      })()}
       <div class="sec-chips" style="margin-bottom:12px">
         ${chip("all", `ALL ${all.length}`)}
         ${Object.entries(SIG_TYPES).map(([k, t]) => chip(k, `${t.label} ${counts[k] || 0}`)).join("")}
@@ -4950,10 +4963,39 @@
         <div class="sub" style="line-height:1.6">A score of 75 is public knowledge the moment it is computed. The tradeable information is the day it <b>became</b> 75 — the inflection, before attention catches up. This feed exists so the terminal opens with "what changed since yesterday" instead of "here is every rated stock." Filing diffs carry the highest impact weight because almost nobody reads filings the day they land.</div></div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
     el("main").querySelectorAll("[data-sigf]").forEach(b => b.onclick = () => { sigState.filter = b.dataset.sigf; renderSignals(); });
-    el("main").querySelectorAll("[data-bsize]").forEach(b => b.onclick = () => { sigState.boardSize = +b.dataset.bsize; renderSignals(); });
-    el("main").querySelectorAll("[data-bsort]").forEach(b => b.onclick = () => { sigState.boardSort = b.dataset.bsort; renderSignals(); });
+    const openMF = el("openMasterFull");
+    if (openMF) openMF.onclick = showMaster;
   }
   const showSignals = () => showView("signals", renderSignals, "signalsBtn");
+
+  /* ============================================================================
+     🏆 MASTER SIGNAL — its own destination.
+     This is the single ranked answer the whole terminal adds up to, so it gets
+     a page rather than living inside another view's feed. */
+  function renderMaster() {
+    const all = masterBoardCached();
+    const top = all[0];
+    el("main").innerHTML = `
+      <div class="hdr">
+        <div><div class="tick gradient-title">🏆 MASTER SIGNAL</div>
+        <div class="co">One score per company, built from every engine in this terminal, with all ${all.length} names ranked against each other. This is the terminal's single answer — everything else on every other page is an input to it.</div></div>
+        <div class="spacer"></div>
+        ${top ? `<div style="text-align:right"><div class="sub">TOP RANKED</div><div class="stat sm" style="color:${top.color}">${top.ticker} · ${top.score}</div></div>` : ""}
+      </div>
+      ${masterBoardHtml()}
+      <div class="card"><h3>HOW TO USE THIS PAGE</h3>
+        <div class="sub" style="line-height:1.75">
+          1 · <b>Start at the top.</b> Rank #1 is where the most evidence stacks up today — but check the pillar columns: a name carried purely by PRICE is cheap for a reason worth understanding, while one strong across BUS + CONF has agreement behind it.<br>
+          2 · <b>Re-rank by the pillar you care about.</b> Hunting bargains? Rank by PRICE. Want what the market is already rewarding? Rank by TAPE. Want only where independent signals agree? Rank by CONFLUENCE.<br>
+          3 · <b>Read COV before you trust a row.</b> 100% means all five pillars computed; a lower number means part of the picture is missing and the score rests on less.<br>
+          4 · <b>Open any name</b> for its full Master Signal card, its Position Playbook (size, invalidation, review date) and what is holding it back.<br>
+          5 · <b>Check Track Record before betting on any of it.</b> This ranking is an untested hypothesis until forward returns judge it — the Proof Scoreboard there says exactly when that verdict arrives.
+        </div></div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
+    el("main").querySelectorAll("[data-bsize]").forEach(b => b.onclick = () => { sigState.boardSize = +b.dataset.bsize; renderMaster(); });
+    el("main").querySelectorAll("[data-bsort]").forEach(b => b.onclick = () => { sigState.boardSort = b.dataset.bsort; renderMaster(); });
+  }
+  const showMaster = () => showView("master", renderMaster, "masterBtn");
 
   /* ============================================================================
      🎯 EARNINGS COMMAND CENTER
@@ -5783,7 +5825,7 @@
     const openNarrsBtn = el("openNarrs");
     if (openNarrsBtn) openNarrsBtn.onclick = showNarratives;
     const openBoardBtn = el("openBoard");
-    if (openBoardBtn) openBoardBtn.onclick = showSignals;
+    if (openBoardBtn) openBoardBtn.onclick = showMaster;
     const openConvBtn = el("openConv");
     if (openConvBtn) openConvBtn.onclick = showSetups;
     el("main").querySelectorAll("[data-narr]").forEach(r => r.onclick = (e) => { e.stopPropagation(); showNarratives(); });
@@ -6441,6 +6483,7 @@
     el("easyBtn").onclick = showEasy;
     el("blackrockBtn").onclick = showBlackrock;
     el("setupsBtn").onclick = showSetups;
+    el("masterBtn").onclick = showMaster;
     el("signalsBtn").onclick = showSignals;
     el("narrBtn").onclick = showNarratives;
     el("dailyBtn").onclick = showDailyReview;

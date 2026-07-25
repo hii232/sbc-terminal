@@ -118,7 +118,8 @@ async function main() {
 
     const views = [
       ["#easyBtn", "TODAY'S GAME PLAN"],
-      ["#signalsBtn", "THE MASTER SIGNAL"],
+      ["#masterBtn", "THE MASTER SIGNAL"],
+      ["#signalsBtn", "WHAT CHANGED"],
       ["#narrBtn", "MARKET NARRATIVES"],
       ["#dailyBtn", "DAILY REVIEW"],
       ["#edgeBtn", "DIRECTION EDGE"],
@@ -153,7 +154,7 @@ async function main() {
     if (cal.upcoming > 0) ok(cal.text.includes("UP NEXT"), "upcoming reports table missing despite rows");
 
     // Master Signal board: the ranked table renders, and its rank/size controls work.
-    await page.evaluate(() => document.querySelector("#signalsBtn").click());
+    await page.evaluate(() => document.querySelector("#masterBtn").click());
     await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("THE MASTER SIGNAL"), { timeout: 3000 });
     const boardRows = await page.evaluate(() => document.querySelectorAll("#main table.rank tbody tr[data-tk]").length);
     ok(boardRows >= 20, "master signal board renders its ranked rows", String(boardRows));
@@ -175,7 +176,7 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 17, "all 17 tools reachable from the top nav", String(topnav.tools));
+    ok(topnav.tools === 18, "all 18 tools reachable from the top nav", String(topnav.tools));
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
       const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));
