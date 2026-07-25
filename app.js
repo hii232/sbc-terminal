@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "75"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "76"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -2607,6 +2607,57 @@
      Pure function over TRACK_HISTORY snapshots so it is unit-testable.
      Windows overlap (daily snapshots); n counts observations, not
      independent bets — stated in the UI. No verdicts before n >= 20. */
+  /* ------------------- PROOF STATUS -------------------
+     Everything else in this terminal is a hypothesis until forward
+     returns judge it. This makes the waiting legible instead of hiding
+     it: for every signal recorded, when did the clock start, how many
+     observations exist, and on what DATE does its first verdict unlock.
+     The binding constraint is calendar time, not sample size — a 4-week
+     horizon needs 4 weeks of history no matter how many names there are.
+     Pure over the snapshot history so it is unit-testable. */
+  const TRACKED_SIGNALS = [
+    { key: "mk", label: "Master Signal (rank)", note: "does the top of the board actually beat the bottom" },
+    { key: "cb", label: "Signal Confluence", note: "do names with several agreeing signals outperform" },
+    { key: "dl", label: "Direction Edge", note: "does the tape read predict direction" },
+    { key: "c", label: "Verdict call", note: "the brain's own buy/avoid label" },
+    { key: "bo", label: "Beat Odds", note: "only recorded when a report is inside 45 days" },
+    { key: "mr", label: "Market Reward", note: "is the market rewarding this business model" },
+    { key: "bq", label: "Business Quality", note: "does quality pay over this horizon" },
+    { key: "rs", label: "RSI(14) zone", note: "is washed-out RSI really the better entry" },
+    { key: "ib", label: "Insider buying", note: "do insider purchases lead returns" },
+  ];
+  function proofStatusOf(history, horizons = [[28, "4 weeks"], [84, "12 weeks"]], minObs = 20) {
+    const H = Array.isArray(history) ? history : [];
+    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [] };
+    const since = H[0].date, latest = H[H.length - 1].date;
+    const spanDays = Math.round((Date.parse(latest) - Date.parse(since)) / 864e5);
+    const dayAfter = (iso, n) => new Date(Date.parse(iso) + n * 864e5).toISOString().slice(0, 10);
+    const signals = TRACKED_SIGNALS.map(sig => {
+      // when did this field first appear? signals added later start later
+      const firstSnap = H.find(s => s.entries.some(e => e[sig.key] != null && e[sig.key] !== "NO_SCORE"));
+      const recordedSince = firstSnap ? firstSnap.date : null;
+      const namesNow = H[H.length - 1].entries.filter(e => e[sig.key] != null && e[sig.key] !== "NO_SCORE").length;
+      const hz = horizons.map(([days, label]) => {
+        if (!recordedSince) return { days, label, ready: false, unlockDate: null, daysLeft: null, obs: 0 };
+        const unlockDate = dayAfter(recordedSince, days);
+        const daysLeft = Math.max(0, Math.ceil((Date.parse(unlockDate) - Date.parse(latest)) / 864e5));
+        const cal = calibrationOf(H, days);
+        const grp = Object.values(cal.groups).find(rows => rows.length && rows.some(r => r.n > 0));
+        const obs = daysLeft > 0 ? 0 : (grp ? grp.reduce((a, r) => a + r.n, 0) : 0);
+        return { days, label, ready: daysLeft === 0, unlockDate, daysLeft, obs };
+      });
+      return { ...sig, recordedSince, namesNow, horizons: hz,
+        trackedDays: recordedSince ? Math.round((Date.parse(latest) - Date.parse(recordedSince)) / 864e5) : 0 };
+    }); // signals not yet recording are KEPT and shown as pending — a missing
+        // row would read as "nothing to prove here", which is the opposite of true
+    const hzSummary = horizons.map(([days, label]) => {
+      const unlockDate = dayAfter(since, days);
+      const daysLeft = Math.max(0, Math.ceil((Date.parse(unlockDate) - Date.parse(latest)) / 864e5));
+      return { days, label, unlockDate, daysLeft, ready: daysLeft === 0 };
+    });
+    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs };
+  }
+
   function calibrationOf(history, horizonDays) {
     const H = Array.isArray(history) ? history : [];
     const groups = {}; // groupKey -> bucket -> {n, hits, sum}
@@ -2631,6 +2682,19 @@
         if (e.bo != null) rec("Beat Odds (report ≤45d)", e.bo >= 68 ? "68+ strong setup" : e.bo >= 40 ? "40–67 mixed" : "<40 miss risk", ret);
         if (e.c && e.c !== "NO_SCORE") rec("Verdict call", e.c, ret);
         if (e.mr != null) rec("Market Reward", e.mr >= 70 ? "70+" : e.mr >= 50 ? "50–69" : "<50", ret);
+        // The Master Signal's actual claim is the RANKING: top of the board
+        // should beat the bottom. Graded by rank tier, not by raw score.
+        if (e.mk != null && e.mo) {
+          const pctile = e.mk / e.mo;
+          rec("Master Signal (rank tier)", pctile <= 0.1 ? "top 10%" : pctile <= 0.25 ? "top 25%"
+            : pctile <= 0.5 ? "upper half" : pctile <= 0.75 ? "lower half" : "bottom 25%", ret);
+        }
+        if (e.cb != null && e.cs != null) {
+          const net = e.cb - e.cs;
+          rec("Signal Confluence", net >= 3 ? "3+ net agree" : net >= 1 ? "1–2 net agree" : net === 0 ? "split" : "net objecting", ret);
+        }
+        if (e.rs != null) rec("RSI(14) zone", e.rs <= 30 ? "≤30 oversold" : e.rs <= 45 ? "31–45" : e.rs <= 60 ? "46–60" : e.rs <= 70 ? "61–70" : ">70 overheated", ret);
+        if (e.ib != null && e.ib > 0) rec("Insider buying", e.ib >= 2 ? "2+ buyers (cluster)" : "1 buyer", ret);
       }
     }
     const out = { horizonDays, windows, groups: {} };
@@ -4184,6 +4248,41 @@
     const first = H.length ? H[0] : null;
     const daysSpan = latest && first ? Math.round((Date.parse(latest.date) - Date.parse(first.date)) / 864e5) : 0;
 
+    /* PROOF SCOREBOARD — what has actually been proven, and exactly when
+       each answer arrives. Shown FIRST because it is the honest frame for
+       every number on every other page. */
+    let proofHtml = "";
+    {
+      const ps = proofStatusOf(H);
+      const anyReady = ps.horizons.some(h => h.ready);
+      const sigRow = (s) => `<tr>
+        <td style="text-align:left"><b>${escapeHtml(s.label)}</b><br><span class="sub">${escapeHtml(s.note)}</span></td>
+        <td class="sub">${s.recordedSince || "not yet"}</td>
+        <td>${s.namesNow || "–"}</td>
+        ${s.horizons.map(h => `<td class="sub">${!s.recordedSince ? "–"
+          : h.ready ? `<b style="color:var(--green)">unlocked</b><br>${h.obs} obs`
+          : `<b style="color:var(--amber)">${h.daysLeft}d</b><br>${h.unlockDate}`}</td>`).join("")}
+      </tr>`;
+      proofHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid ${anyReady ? "var(--green)" : "var(--amber)"}">
+        <h3>🔬 PROOF SCOREBOARD <span class="unit">what this terminal has actually proven — and exactly when each answer arrives</span></h3>
+        <div class="note" style="margin:6px 0 10px"><b>Read this before trusting any score on any page.</b> Every signal here is an <b>untested hypothesis</b> until forward returns judge it. The blocker is calendar time, not sample size: a 4-week verdict needs 4 weeks of history no matter how many names are tracked. Recording began <b>${ps.since || "—"}</b> — ${ps.snapshots} snapshot${ps.snapshots === 1 ? "" : "s"} over ${ps.spanDays} day${ps.spanDays === 1 ? "" : "s"}. Signals added later start their own clock, shown per row. Nothing is backfilled, because backfilling a signal against prices it never saw is how backtests lie.</div>
+        <div class="grid g2" style="margin-bottom:10px">
+          ${ps.horizons.map(h => `<div class="card" style="border-left:3px solid ${h.ready ? "var(--green)" : "var(--amber)"};margin:0">
+            <h3>${h.label.toUpperCase()} HORIZON</h3>
+            <div class="stat sm" style="color:${h.ready ? "var(--green)" : "var(--amber)"}">${h.ready ? "EVIDENCE UNLOCKED" : h.daysLeft + " DAYS TO GO"}</div>
+            <div class="sub">${h.ready ? `first ${h.label} window is complete — results below` : `first verdict on <b>${h.unlockDate}</b>`}</div>
+          </div>`).join("")}
+        </div>
+        <div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th style="text-align:left">SIGNAL</th><th>RECORDING SINCE</th><th>NAMES</th>
+            ${ps.horizons.map(h => `<th>${h.label.toUpperCase()}</th>`).join("")}</tr></thead>
+          <tbody>${ps.signals.length ? ps.signals.map(sigRow).join("")
+            : `<tr><td colspan="5" class="sub" style="padding:14px">No snapshots recorded yet — the first pipeline run starts the clock.</td></tr>`}</tbody>
+        </table></div>
+        <div class="sub" style="margin-top:8px;line-height:1.6">A signal only earns a verdict at <b>${ps.minObs}+ observations</b>, and even then observations overlap (daily snapshots of the same names), so they are not independent bets — the count is a floor for confidence, not a p-value. <b>Signals that prove non-predictive get deleted from this app, not defended.</b> That promise is only worth something because this table makes the scoreboard impossible to hide.</div>
+      </div>`;
+    }
+
     let cohortHtml = "";
     if (latest) {
       const sorted = latest.entries.filter(e => e.s != null).sort((a, b) => b.s - a.s);
@@ -4244,8 +4343,8 @@
     }
     el("main").innerHTML = toolHeader("📈", "MODEL TRACK RECORD", "the terminal grading itself — do high scores actually earn their returns?",
       `<div style="text-align:right"><div class="sub">SNAPSHOTS</div><div class="stat sm">${H.length}</div></div>`)
-      + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's brain score, call, Direction Edge, Beat Odds and price (scripts/snapshot_scores.js). This page compares past signals against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
-      + calHtml + fwdHtml + cohortHtml;
+      + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's Master Signal and rank, brain score, call, Direction Edge, Beat Odds, confluence, RSI zone and insider buying against the price of the day (scripts/snapshot_scores.js). This page compares those past signals against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
+      + proofHtml + calHtml + fwdHtml + cohortHtml;
   }
   const showTrack = () => showView("track", renderTrack, "trackBtn");
 
@@ -6405,6 +6504,7 @@
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
+    TRACKED_SIGNALS, proofStatusOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

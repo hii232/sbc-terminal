@@ -17,13 +17,25 @@ global.fetch = () => Promise.reject(new Error("no network"));
 
 const root = path.join(__dirname, "..");
 const files = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "charts.js",
-  "scores.js", "estimates.js", "earnings.js", "news.js", "app.js"].filter(f => fs.existsSync(path.join(root, f)));
+  "scores.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "news.js", "app.js"]
+  .filter(f => fs.existsSync(path.join(root, f)));
 vm.runInThisContext(files.map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n"));
 global.Chart = global.window.Chart;
 const E = global.window.__engines;
 if (!E || !E.verdictOf) { console.error("engines unavailable"); process.exit(1); }
 
 const today = new Date().toISOString().slice(0, 10);
+// The Master Signal is a whole-universe ranking, so it is computed ONCE and
+// each name's rank is read from it — recomputing per name would re-rank 224
+// times. Recorded point-in-time so the ranking can later be graded against
+// what prices actually did: does #1 really beat #200?
+let masterByTicker = {};
+try {
+  if (E.masterBoard) {
+    for (const r of E.masterBoard()) masterByTicker[r.ticker] = { s: r.score, k: r.rank, of: r.of };
+  }
+} catch (err) { console.error("master board unavailable for snapshot:", err.message); }
+
 const entries = DATA.map(d => {
   const V = E.verdictOf(d);
   // names the engine refuses to score (insufficient data) are recorded as
@@ -47,6 +59,16 @@ const entries = DATA.map(d => {
       // only record Beat Odds when a report is inside the horizon it predicts
       if (next && next >= today && (Date.parse(next) - Date.parse(today)) <= 45 * 864e5) row.bo = odds.score;
     }
+    // Master Signal: score + universe rank, so the ranking itself gets graded
+    const mx = masterByTicker[d.ticker];
+    if (mx) { row.mx = mx.s; row.mk = mx.k; row.mo = mx.of; }
+    // Signal confluence: net agreement (bulls - bears) is the testable claim
+    const cv = E.convictionOf && E.convictionOf(d);
+    if (cv && cv.votes && cv.votes.length) { row.cb = cv.bulls; row.cs = cv.bears; }
+    const r14 = E.rsiOf && E.rsiOf(d);
+    if (r14 && Number.isFinite(r14.value)) row.rs = r14.value;
+    const ins = E.insiderSignalOf && E.insiderSignalOf(d);
+    if (ins && Number.isFinite(ins.buyers)) row.ib = ins.buyers;
   } catch (err) { /* a signal that fails to compute is simply not recorded */ }
   return row;
 });
