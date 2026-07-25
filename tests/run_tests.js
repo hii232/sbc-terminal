@@ -647,5 +647,55 @@ const ok = (cond, name, detail = "") => {
   ok(E.portfolioRiskOf() === null, "concentration report is null on an empty portfolio");
 }
 
+// =============== 19. The Master Signal (one score, whole-universe rank) ===============
+{
+  ok(E.MASTER_PILLARS.reduce((a, p) => a + p.weight, 0) === 100, "pillar weights sum to exactly 100");
+  ok(new Set(E.MASTER_PILLARS.map(p => p.key)).size === E.MASTER_PILLARS.length, "no duplicate pillar keys");
+
+  const board = E.masterBoard();
+  ok(board.length > atLeast(0.8), "most of the universe is rankable", `${board.length}/${UNIVERSE_COUNT}`);
+  ok(board.every(r => r.score >= 0 && r.score <= 100), "master score bounded 0..100");
+  ok(board.every(r => r.coverage >= 55), "nothing below 55% coverage is ranked");
+  ok(board.every((r, i, a) => i === 0 || a[i - 1].score >= r.score), "board is sorted by score, descending");
+  ok(board.every((r, i) => r.rank === i + 1), "ranks are dense and 1-based");
+  ok(board.every(r => r.of === board.length), "every row knows the size of the field it was ranked in");
+  ok(new Set(board.map(r => r.ticker)).size === board.length, "each company appears exactly once");
+
+  // the composite must equal the coverage-weighted average of its own pillars
+  const r = board[0];
+  const wsum = E.MASTER_PILLARS.filter(p => r.parts[p.key]).reduce((a, p) => a + p.weight, 0);
+  const expect = Math.round(E.MASTER_PILLARS.filter(p => r.parts[p.key])
+    .reduce((a, p) => a + r.parts[p.key].score * p.weight, 0) / wsum);
+  ok(r.score === expect, "score is exactly the coverage-weighted pillar average", `${r.score} vs ${expect}`);
+  ok(r.coverage === wsum, "coverage is the summed weight of the pillars that computed", `${r.coverage} vs ${wsum}`);
+
+  // a missing pillar must be DROPPED, never silently scored as a neutral 50
+  const partial = DATA.map(d => E.masterSignalOf(d)).filter(x => x && Object.keys(x.parts).length < E.MASTER_PILLARS.length);
+  ok(partial.every(x => x.coverage < 100), "a name missing a pillar cannot report 100% coverage");
+  ok(partial.every(x => Object.values(x.parts).every(p => p.score !== null)), "no pillar is stored with a null score");
+
+  // every pillar must justify itself, and rank-by-pillar must be honest
+  ok(board.every(x => x.pillars.every(p => p.why && p.why.length > 0)), "every pillar states what produced it");
+  ok(board.every(x => !x.best || x.pillars.every(p => p.score <= x.best.score)), "best pillar really is the highest-scoring one");
+  ok(board.every(x => !x.worst || x.pillars.every(p => p.score >= x.worst.score)), "worst pillar really is the lowest-scoring one");
+
+  // ANTI-DOUBLE-COUNT: confluence enters once as a pillar. Its member signals
+  // (insiders, whales, revisions, drift, beat odds, narrative, filings, ratings)
+  // must NOT also appear as pillars of their own.
+  const keys = E.MASTER_PILLARS.map(p => p.key);
+  ["insider", "whale", "revisions", "drift", "beat", "narrative", "filing", "tier1", "rsi", "edge"]
+    .forEach(k => ok(!keys.includes(k), `conviction member '${k}' is not re-added as its own pillar`));
+
+  // the board must actually discriminate, not flatten everything to one label
+  const labels = new Set(board.map(x => x.label));
+  ok(labels.size >= 3, "the board separates names into multiple readings", [...labels].join(","));
+  ok(board[0].score - board[board.length - 1].score >= 20, "meaningful spread between best and worst",
+    `${board[board.length - 1].score}..${board[0].score}`);
+  ok(E.masterSignalOf(null) === null, "no signal without a company");
+  // cached lookup must agree with the board it came from
+  const lookup = E.masterRankOf(board[0].ticker);
+  ok(lookup && lookup.rank === 1 && lookup.score === board[0].score, "rank lookup agrees with the board");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

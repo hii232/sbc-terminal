@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "74"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "75"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -1131,6 +1131,31 @@
   /* The plan card: how much, where, what proves it wrong, when to look again.
      Percent-of-risk-budget only — the app never knows the user's account size
      and so never states dollar amounts. */
+  /* The one-number summary + where this name sits against the whole universe. */
+  function masterSignalCard(d) {
+    const m = masterRankOf(d.ticker) || masterSignalOf(d);
+    if (!m) return "";
+    const bar = (p) => `<div style="flex:1;min-width:104px">
+      <div class="sub" style="display:flex;justify-content:space-between"><span>${p.label.toUpperCase()}</span><b style="color:${scoreColorOf(p.score)}">${p.score}</b></div>
+      <div class="seg-track" style="height:6px;margin:3px 0 2px"><i style="width:${p.score}%;background:${scoreColorOf(p.score)}"></i></div>
+      <div class="sub" style="font-size:9px;line-height:1.35;white-space:normal">${escapeHtml(p.why)}</div></div>`;
+    const missing = MASTER_PILLARS.filter(p => !m.parts[p.key]);
+    return `<div class="card" style="grid-column:span 3;border-color:${m.color}">
+      <h3>🏆 MASTER SIGNAL <span class="unit">the whole terminal in one number — every engine, coverage-weighted</span></h3>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin:6px 0 10px">
+        <div style="min-width:150px">
+          <div class="stat" style="font-size:34px;color:${m.color}">${m.score}</div>
+          <div class="sub"><b style="color:${m.color}">${m.label}</b> · ${m.coverage}% coverage</div>
+        </div>
+        ${m.rank ? `<div style="min-width:130px"><div class="stat sm">#${m.rank}<span class="unit"> of ${m.of}</span></div>
+          <div class="sub">rank across the full universe${m.rank <= 10 ? " — top 10" : m.rank <= 25 ? " — top 25" : ""}</div></div>` : ""}
+        <div style="flex:1;min-width:260px;display:flex;gap:12px;flex-wrap:wrap">${m.pillars.map(bar).join("")}</div>
+      </div>
+      ${m.worst && m.best && m.worst.key !== m.best.key ? `<div class="kv"><span class="k">CARRIED BY / HELD BACK BY</span><span class="v"><span class="sub" style="white-space:normal"><b style="color:var(--green)">${m.best.label}</b> ${escapeHtml(m.best.why)} — held back by <b style="color:var(--orange)">${m.worst.label.toLowerCase()}</b> (${m.worst.score}): ${escapeHtml(m.worst.why)}</span></span></div>` : ""}
+      ${missing.length ? `<div class="sub" style="margin-top:6px">Not computable for this name: ${missing.map(p => p.label.toLowerCase()).join(", ")} — dropped from the average rather than scored as a neutral 50, which is why coverage reads ${m.coverage}%.</div>` : ""}
+    </div>`;
+  }
+
   function playbookCard(d) {
     const pb = playbookOf(d);
     if (!pb) return "";
@@ -1324,6 +1349,8 @@
     const dd = tickerDrawdown(d);
     return `<div class="grid g3">
       <div style="grid-column:span 3">${marketDashboard(d)}</div>
+
+      ${masterSignalCard(d)}
 
       ${marketConclusionCard(d)}
 
@@ -2438,6 +2465,143 @@
       realBets: Object.keys(byNarr).length || held.length, positions: held.length };
   }
 
+  /* ================= THE MASTER SIGNAL =================
+     One number per company, computed from everything this terminal
+     knows, and a rank across the whole universe.
+
+     The hard part is NOT adding things up — it is not counting the same
+     evidence twice. Conviction already fuses the event-driven signals
+     (insiders, whale 13Fs, revisions, drift, beat odds, narrative heat,
+     filing diffs, tier-1 ratings), so it enters as ONE pillar rather
+     than having its members re-added individually. The five pillars are
+     deliberately independent of each other:
+
+       BUSINESS  (26) — is this a good company?      quality, long-term
+                                                      view, shareholder
+                                                      economics, growth
+       PRICE     (22) — am I paying a sane price?    valuation score +
+                                                      distance to the IV15
+                                                      buy price
+       TAPE      (18) — what is price action saying? direction edge,
+                                                      market reward, RSI
+                                                      extension
+       CONFLUENCE(24) — do independent signals agree? the conviction vote
+       TRUST     (10) — can the data be believed?    SEC reconciliation
+
+     Coverage weighting is the honesty mechanism: a pillar that cannot be
+     computed is DROPPED from the average, never scored as a neutral 50,
+     and the coverage percentage travels with the score. Below 55%
+     coverage a name is not ranked at all. */
+  const MASTER_PILLARS = [
+    { key: "business", label: "Business", weight: 26 },
+    { key: "price", label: "Price", weight: 22 },
+    { key: "tape", label: "Tape", weight: 18 },
+    { key: "confluence", label: "Confluence", weight: 24 },
+    { key: "trust", label: "Data trust", weight: 10 },
+  ];
+  function masterSignalOf(d, ctx) {
+    if (!d) return null;
+    const ms = marketScoreOf(d);
+    const parts = {};
+    const add = (key, score, why, inputs) => {
+      if (!hasNum(score)) return;
+      parts[key] = { score: clamp(Math.round(score), 0, 100), why, inputs };
+    };
+    // avg of whatever sub-scores exist; null when the pillar has nothing
+    const avg = (vals) => { const v = vals.filter(hasNum); return v.length ? v.reduce((a, x) => a + x, 0) / v.length : null; };
+
+    // 1 · BUSINESS — is this a company worth owning at any price?
+    if (ms) {
+      const bq = ms.businessQuality?.score, lt = ms.longTermView?.score;
+      const se = ms.shareholderEconomics?.score, ge = ms.growthExecution?.score;
+      const v = avg([bq, lt, se, ge]);
+      const used = [["quality", bq], ["long-term", lt], ["shareholder economics", se], ["growth", ge]].filter(x => hasNum(x[1]));
+      add("business", v, used.map(x => `${x[0]} ${Math.round(x[1])}`).join(" · "), used.length);
+    }
+    // 2 · PRICE — the valuation score plus real distance to the IV15 buy price
+    if (ms) {
+      const val = ms.valuation?.score;
+      const L = ivLadder(d), px = priceOf(d);
+      let prox = null, proxWhy = "";
+      if (L && hasNum(L.IV15) && L.IV15 > 0 && hasNum(px)) {
+        const disc = ((px - L.IV15) / L.IV15) * 100;   // + = above the buy price
+        prox = clamp(100 - disc * 1.2, 0, 100);
+        proxWhy = disc <= 0 ? `${Math.abs(disc).toFixed(0)}% BELOW the IV15 buy price` : `${disc.toFixed(0)}% above the IV15 buy price`;
+      }
+      const v = avg([val, prox]);
+      const bits = [hasNum(val) ? `valuation ${Math.round(val)}` : null, proxWhy || null].filter(Boolean);
+      add("price", v, bits.join(" · "), bits.length);
+    }
+    // 3 · TAPE — trend, how the market is rewarding it, and extension.
+    //     RSI enters as mean reversion: washed-out is opportunity, hot is risk.
+    {
+      const edge = directionEdgeOf(d);
+      const es = edge && edge.label !== "LOW CONFIDENCE" && hasNum(edge.score) ? edge.score : null;
+      const mr = ms && ms.marketReward?.score;
+      const r = rsiOf(d);
+      const rs = r ? clamp(100 - r.value, 15, 90) : null;
+      const v = avg([es, mr, rs]);
+      const bits = [es != null ? `${edge.label.toLowerCase()} (${Math.round(es)})` : null,
+        hasNum(mr) ? `market reward ${Math.round(mr)}` : null,
+        r ? `RSI ${r.value}` : null].filter(Boolean);
+      add("tape", v, bits.join(" · "), bits.length);
+    }
+    // 4 · CONFLUENCE — the independent-signal vote, already de-duplicated
+    {
+      const c = (ctx && ctx.convMap && ctx.convMap[d.ticker]) || convictionOf(d, ctx);
+      if (c && c.score != null && c.votes.length)
+        add("confluence", c.score, `${c.bulls} agree · ${c.bears} object · ${c.silent} silent`, c.votes.length);
+      parts.__conv = c;
+    }
+    // 5 · TRUST — no score deserves weight if the filings do not reconcile
+    {
+      const conf = dataConfidenceOf(d);
+      if (conf && hasNum(conf.score)) add("trust", conf.score, conf.label, 1);
+    }
+    const conv = parts.__conv; delete parts.__conv;
+    // coverage-weighted composite: absent pillars are dropped, never zeroed
+    let num = 0, den = 0, covered = 0;
+    for (const p of MASTER_PILLARS) {
+      const got = parts[p.key];
+      if (!got) continue;
+      num += got.score * p.weight; den += p.weight; covered += p.weight;
+    }
+    if (!den) return null;
+    const coverage = Math.round(covered);
+    const score = Math.round(num / den);
+    const rankable = coverage >= 55;
+    let label, color;
+    if (!rankable) { label = "NOT ENOUGH DATA"; color = "var(--dim)"; }
+    else if (score >= 78) { label = "TOP SIGNAL"; color = "var(--green)"; }
+    else if (score >= 68) { label = "STRONG"; color = "var(--cyan)"; }
+    else if (score >= 58) { label = "CONSTRUCTIVE"; color = "var(--teal)"; }
+    else if (score >= 45) { label = "NEUTRAL"; color = "var(--amber)"; }
+    else if (score >= 35) { label = "WEAK"; color = "var(--orange)"; }
+    else { label = "NEGATIVE"; color = "var(--red)"; }
+    // what is carrying it, and what is holding it back
+    const ranked = MASTER_PILLARS.filter(p => parts[p.key])
+      .map(p => ({ ...p, ...parts[p.key] })).sort((a, b) => b.score - a.score);
+    return { d, ticker: d.ticker, score, label, color, coverage, rankable, parts, pillars: ranked,
+      best: ranked[0] || null, worst: ranked.length > 1 ? ranked[ranked.length - 1] : null, conv };
+  }
+  function masterBoard(limit) {
+    const ctx = { ledger: earningsLedger(), narrs: narrativeHeatAll(), whales: whaleActionMap() };
+    const rows = DATA.map(d => masterSignalOf(d, ctx)).filter(x => x && x.rankable)
+      .sort((a, b) => b.score - a.score || b.coverage - a.coverage || a.ticker.localeCompare(b.ticker));
+    rows.forEach((r, i) => { r.rank = i + 1; r.of = rows.length; });
+    return limit ? rows.slice(0, limit) : rows;
+  }
+  // Ranking the whole universe touches every engine (~150ms), so the board is
+  // memoized briefly — long enough for one render pass, short enough that a
+  // live quote refresh re-ranks.
+  let _mbCache = null, _mbAt = 0;
+  function masterBoardCached() {
+    if (_mbCache && Date.now() - _mbAt < 45000) return _mbCache;
+    _mbCache = masterBoard(); _mbAt = Date.now();
+    return _mbCache;
+  }
+  const masterRankOf = (tk) => masterBoardCached().find(r => r.ticker === tk) || null;
+
   /* ------------------- SIGNAL CALIBRATION -------------------
      Grades every recorded signal against what prices actually did next.
      Pure function over TRACK_HISTORY snapshots so it is unit-testable.
@@ -3393,8 +3557,8 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
-  const FORMULA_VERSION = "v4.2 (2026-07)";
-  const SBC_MODEL_VERSION = "4.2.0"; // bump when any engine formula changes
+  const FORMULA_VERSION = "v4.3 (2026-07)";
+  const SBC_MODEL_VERSION = "4.3.0"; // bump when any engine formula changes
   // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
   // line-by-line audit. Retention/owner-earnings remain model estimates.
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts
@@ -4551,7 +4715,57 @@
     edge: { label: "EDGE FLIP", color: "var(--green)" },
     score: { label: "SCORE", color: "var(--amber)" },
   };
-  const sigState = { filter: "all" };
+  const sigState = { filter: "all", boardSize: 25, boardSort: "score" };
+  /* THE MASTER SIGNAL BOARD — every name the terminal can rank, ordered by
+     one score built from every engine. Each row shows the five pillars that
+     produced it, so the number is never a black box. */
+  function masterBoardHtml() {
+    const all = masterBoardCached();
+    if (!all.length) return "";
+    const sorted = sigState.boardSort === "score" ? all
+      : [...all].sort((a, b) => (b.parts[sigState.boardSort]?.score ?? -1) - (a.parts[sigState.boardSort]?.score ?? -1));
+    const shown = sigState.boardSize === 0 ? sorted : sorted.slice(0, sigState.boardSize);
+    const pillarCell = (r, key) => {
+      const p = r.parts[key];
+      if (!p) return `<td class="sub" style="text-align:center" title="not computable — dropped from the average, not scored as 50">–</td>`;
+      return `<td style="text-align:center"><span style="display:inline-block;min-width:26px;font-weight:700;color:${scoreColorOf(p.score)}">${p.score}</span></td>`;
+    };
+    const row = (r) => `<tr data-tk="${r.ticker}" title="${escapeHtml(r.pillars.map(p => p.label + " " + p.score + ": " + p.why).join(" | "))}">
+      <td style="text-align:center"><b style="color:${r.rank <= 3 ? "var(--gold)" : "var(--muted)"}">${r.rank}</b></td>
+      <td style="text-align:left"><span class="rk-tk">${r.ticker}</span> <span class="sub">${r.d.sector}</span></td>
+      <td><span class="rk-pill" style="background:${r.color};color:#071018">${r.score}</span></td>
+      <td><b style="color:${r.color};font-size:10px">${r.label}</b></td>
+      ${pillarCell(r, "business")}${pillarCell(r, "price")}${pillarCell(r, "tape")}${pillarCell(r, "confluence")}${pillarCell(r, "trust")}
+      <td class="sub" style="text-align:left;white-space:normal;max-width:260px">${escapeHtml(r.best ? `${r.best.label.toLowerCase()}: ${r.best.why}` : "")}</td>
+      <td class="sub" style="text-align:center">${r.coverage}%</td>
+    </tr>`;
+    const sizeChip = (n, lbl) => `<button class="sec-chip ${sigState.boardSize === n ? "on" : ""}" data-bsize="${n}"
+      style="${sigState.boardSize === n ? "background:var(--gold);color:#071018" : ""}">${lbl}</button>`;
+    const sortChip = (k, lbl) => `<button class="sec-chip ${sigState.boardSort === k ? "on" : ""}" data-bsort="${k}"
+      style="${sigState.boardSort === k ? "background:var(--cyan);color:#071018" : ""}">${lbl}</button>`;
+    const dist = {};
+    all.forEach(r => dist[r.label] = (dist[r.label] || 0) + 1);
+    return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
+      <h3>🏆 THE MASTER SIGNAL <span class="unit">one score per company, built from every engine in this terminal — all ${all.length} names ranked</span></h3>
+      <div class="note" style="margin:6px 0 10px"><b>What this is:</b> the single number this whole terminal adds up to. Five independent pillars, weighted: <b>Business ${MASTER_PILLARS[0].weight}%</b> (quality, long-term view, shareholder economics, growth) · <b>Price ${MASTER_PILLARS[1].weight}%</b> (valuation score + distance to the IV15 buy price) · <b>Tape ${MASTER_PILLARS[2].weight}%</b> (direction edge, market reward, RSI extension) · <b>Confluence ${MASTER_PILLARS[3].weight}%</b> (the conviction vote, which already folds in insider buying, whale 13Fs, revisions, drift, beat odds, narrative heat, filing diffs and tier-1 ratings) · <b>Data trust ${MASTER_PILLARS[4].weight}%</b> (SEC reconciliation). Nothing is counted twice — Confluence enters once as a pillar instead of its members being re-added. A pillar that cannot be computed is <b>dropped from the average, never scored as a neutral 50</b>, and coverage travels with the score; below 55% a name is not ranked at all. Research signal, not advice.</div>
+      <div class="sec-chips" style="margin-bottom:8px">
+        ${sizeChip(25, "TOP 25")}${sizeChip(50, "TOP 50")}${sizeChip(0, `ALL ${all.length}`)}
+        <span class="sub" style="margin:0 6px">rank by</span>
+        ${sortChip("score", "MASTER")}${sortChip("business", "BUSINESS")}${sortChip("price", "PRICE")}${sortChip("tape", "TAPE")}${sortChip("confluence", "CONFLUENCE")}
+      </div>
+      <div class="sub" style="margin-bottom:8px">${Object.entries(dist).map(([k, v]) => `${k}: <b>${v}</b>`).join(" · ")}</div>
+      <div style="overflow-x:auto;max-height:${sigState.boardSize === 0 ? "70vh" : "none"};overflow-y:${sigState.boardSize === 0 ? "auto" : "visible"}"><table class="rank">
+        <thead><tr><th>#</th><th style="text-align:left">TICKER</th><th>SIGNAL</th><th>READ</th>
+          <th title="quality, long-term view, shareholder economics, growth">BUS</th>
+          <th title="valuation score + distance to the IV15 buy price">PRC</th>
+          <th title="direction edge, market reward, RSI extension">TAPE</th>
+          <th title="independent signals agreeing: insiders, whales, revisions, drift, beat odds, narrative, filings, ratings">CONF</th>
+          <th title="SEC filing reconciliation">TRUST</th>
+          <th style="text-align:left">WHAT IS CARRYING IT</th><th>COV</th></tr></thead>
+        <tbody>${shown.map(row).join("")}</tbody>
+      </table></div>
+    </div>`;
+  }
   function signalRow(e) {
     const t = SIG_TYPES[e.type] || { label: e.type.toUpperCase(), color: "var(--muted)" };
     const d = companyOf(e.tk);
@@ -4581,6 +4795,7 @@
         <div class="spacer"></div>
         <div style="text-align:right"><div class="sub">LEDGER</div><div class="stat sm">${signalsAsOf() ? "diffed " + signalsAsOf() : "arming"}</div></div>
       </div>
+      ${masterBoardHtml()}
       <div class="sec-chips" style="margin-bottom:12px">
         ${chip("all", `ALL ${all.length}`)}
         ${Object.entries(SIG_TYPES).map(([k, t]) => chip(k, `${t.label} ${counts[k] || 0}`)).join("")}
@@ -4636,6 +4851,8 @@
         <div class="sub" style="line-height:1.6">A score of 75 is public knowledge the moment it is computed. The tradeable information is the day it <b>became</b> 75 — the inflection, before attention catches up. This feed exists so the terminal opens with "what changed since yesterday" instead of "here is every rated stock." Filing diffs carry the highest impact weight because almost nobody reads filings the day they land.</div></div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
     el("main").querySelectorAll("[data-sigf]").forEach(b => b.onclick = () => { sigState.filter = b.dataset.sigf; renderSignals(); });
+    el("main").querySelectorAll("[data-bsize]").forEach(b => b.onclick = () => { sigState.boardSize = +b.dataset.bsize; renderSignals(); });
+    el("main").querySelectorAll("[data-bsort]").forEach(b => b.onclick = () => { sigState.boardSort = b.dataset.bsort; renderSignals(); });
   }
   const showSignals = () => showView("signals", renderSignals, "signalsBtn");
 
@@ -5382,6 +5599,18 @@
           })()}
         </section>
         <section class="bz-panel">
+          <div class="bz-section-head"><h2>🏆 Master Signal — Top Ranked</h2><button id="openBoard" type="button">Full Ranking</button></div>
+          ${(() => {
+            const top = masterBoardCached().slice(0, 5);
+            return top.length ? top.map(r => `<div class="home-row" data-tk="${r.ticker}">
+                <div><b>#${r.rank} ${r.ticker}</b><span>${escapeHtml(r.best ? r.best.why : r.d.sector)}</span></div>
+                <div class="sub">${r.label}</div>
+                <strong style="color:${r.color}">${r.score}</strong>
+              </div>`).join("")
+              : `<div class="note">The master signal ranks every name from all engines at once — it arms as soon as scores are computed.</div>`;
+          })()}
+        </section>
+        <section class="bz-panel">
           <div class="bz-section-head"><h2>🧠 Market Stories</h2><button id="openNarrs" type="button">All Stories</button></div>
           ${narrHeats.length ? narrHeats.slice(0, 3).map(h => `<div class="home-row" data-narr="${h.key}">
               <div><b>${h.icon} ${h.name}</b><span>${escapeHtml(h.bits[0] || h.present + " names tracked")}</span></div>
@@ -5454,6 +5683,8 @@
     if (openSetupsBtn) openSetupsBtn.onclick = showSetups;
     const openNarrsBtn = el("openNarrs");
     if (openNarrsBtn) openNarrsBtn.onclick = showNarratives;
+    const openBoardBtn = el("openBoard");
+    if (openBoardBtn) openBoardBtn.onclick = showSignals;
     const openConvBtn = el("openConv");
     if (openConvBtn) openConvBtn.onclick = showSetups;
     el("main").querySelectorAll("[data-narr]").forEach(r => r.onclick = (e) => { e.stopPropagation(); showNarratives(); });
@@ -6173,6 +6404,7 @@
     NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
+    MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
