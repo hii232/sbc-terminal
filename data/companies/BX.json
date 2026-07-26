@@ -2,7 +2,7 @@
  "ticker": "BX",
  "cik": "0001393818",
  "entityName": "Blackstone Inc.",
- "retrievedAt": "2026-07-26T16:18:35.514504Z",
+ "retrievedAt": "2026-07-26T16:56:28.861281Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",

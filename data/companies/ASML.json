@@ -2,7 +2,7 @@
  "ticker": "ASML",
  "cik": "0000937966",
  "entityName": "ASML HOLDING NV",
- "retrievedAt": "2026-07-26T16:17:16.995215Z",
+ "retrievedAt": "2026-07-26T16:55:15.173483Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",
