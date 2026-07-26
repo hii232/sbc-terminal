@@ -1,5 +1,15 @@
 # SBC Model Changelog
 
+## 4.5.0 — Fairness gate: a ranking must compare like with like - 2026-07-26
+
+- The insider vote can be NEGATIVE, so while the Form 4 sweep was partial (106/224) only scanned names could receive its penalty — an unearned advantage for whichever half of the universe the sweep had not reached. Measured exposure: 10 names carried a penalty and 4 a bonus that 119 unscanned peers could not receive. `convictionOf` now withholds the insider vote from EVERY name until the sweep is complete, then switches it on for all of them at once. Using a real signal unevenly is worse than briefly not using it.
+- `convictionOf` returns `evidence` (fraction of its 10 independent sources that could actually be consulted) and `notEvaluated` (what was missing and why). Evidence counts SOURCES CHECKED, not votes cast — a source consulted that had nothing to say is fully evaluated, so quiet names are not punished for being quiet.
+- `masterSignalOf` scales the Confluence pillar's effective weight by that evidence, so incomplete data shows up as reduced coverage rather than a silent free pass. Coverage is now uniform at 98% across all 224 names.
+- `collect_insiders.py` sorts NEVER-SCANNED names first. Universe order meant every budget-capped run restarted at the top of the alphabet, re-walking finished names and never reaching the tail — which is why coverage sat at 106/224 across runs. Budget raised 2200 → 4200, and names that are scanned but genuinely quiet are now recorded so the app can tell "no insider activity" apart from "not looked at yet".
+- Correction to the 4.3.0 analysis: the ~5-point Confluence gap first attributed to insider coverage was largely a property of the two groups (avg business quality 52.9 vs 57.0), not the bias. The bias was real but small — 14 names scored on evidence unavailable to the rest. Both are now fixed.
+- Tests: +24 assertions (382 total) — no insider vote may be cast while the sweep is incomplete, evidence completeness is identical for scanned and unscanned names, coverage is not split by scan status, and the composite still equals its evidence-adjusted weighted average.
+- SBC_MODEL_VERSION 4.4.0 → 4.5.0. App shell v79.
+
 ## 4.4.0 — Forward P/E curve to 2029 - 2026-07-25
 
 - New FORWARD P/E → 2029 view (Market menu): universe median forward P/E by year with a 25th/75th percentile band, a compare-up-to-6-companies chart, and a sortable table of every covered company across 2026-2029.

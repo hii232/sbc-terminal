@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "78"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "79"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -2352,11 +2352,16 @@
      pointing the same way at once, with the disagreements shown. Output is
      confluence, never certainty — the label says how many signals agree
      and how many object, and silent signals are counted as silent. */
+  // every independent source convictionOf consults: edge, beat odds, drift,
+  // RSI, revisions, tier-1 ratings, whale 13Fs, insider buying, filing diffs,
+  // narrative heat. Fixed, so completeness means the same thing for every name.
+  const CONVICTION_SOURCES = 10;
   function convictionOf(d, ctx) {
     const ledger = ctx && ctx.ledger || earningsLedger();
     const narrs = ctx && ctx.narrs || narrativeHeatAll();
     const whales = ctx && ctx.whales || whaleActionMap();
     const today = todayISO();
+    const B = insidersBundle();
     const votes = [];
     const vote = (key, label, dir, why) => votes.push({ key, label, dir, why });
     const edge = directionEdgeOf(d);
@@ -2384,7 +2389,14 @@
     const w = whales[d.ticker];
     if (w && w.berkshire) vote("whale", "Berkshire 13F", (w.berkshire === "new" || w.berkshire === "add") ? 1 : -1, `Berkshire ${w.berkshire} (45-day lag)`);
     else if (w && w.other) vote("whale", `${w.other.mgr} 13F`, (w.other.action === "new" || w.other.action === "add") ? 1 : -1, `${w.other.mgr} ${w.other.action} (45-day lag)`);
-    const ins = insiderSignalOf(d);
+    // FAIRNESS GATE: the insider vote can be NEGATIVE, so a name whose Form 4s
+    // have not been fetched cannot be penalised while a scanned peer can. In a
+    // RANKING that is not a small gap — it is an unearned head start for
+    // whichever half of the universe the sweep has not reached. So the vote is
+    // cast only when the sweep is COMPLETE, and until then no name gets it.
+    // Comparing like with like beats using a real signal unevenly.
+    const insReady = !!(B && B.asOf && (B.scanned || 0) >= (B.universe || 0) && !B.partial);
+    const ins = insReady ? insiderSignalOf(d) : null;
     if (ins && ins.score != null && ins.label !== "QUIET" && ins.label !== "NO FILINGS")
       vote("insider", "Insider buying", ins.buyers >= 2 || (ins.buyers === 1 && ins.senior) ? 1 : ins.buyers ? 0 : -1,
         ins.buyers ? `${ins.buyers} insider${ins.buyers === 1 ? "" : "s"} bought${ins.senior ? " incl. a CEO/CFO" : ""}${hasNum(ins.buyValue) ? " · " + usd(ins.buyValue) : ""}` : `${ins.sellers} insiders selling`);
@@ -2394,6 +2406,14 @@
     const myNarrs = narrs.filter(n => n.members.some(m => m.ticker === d.ticker));
     if (myNarrs.length) { const hot = myNarrs.sort((a, b) => b.heat - a.heat)[0];
       vote("narrative", "Narrative heat", hot.heat >= 65 ? 1 : hot.heat <= 35 ? -1 : 0, `${hot.name} is ${hot.label} (${hot.heat})`); }
+    // EVIDENCE COMPLETENESS. A signal that was never COLLECTED is not the same
+    // as a signal that was checked and had nothing to say. It matters because
+    // some votes can be negative: a name whose Form 4s have not been fetched
+    // cannot receive an insider penalty, so it would out-rank a scanned peer on
+    // missing evidence rather than merit. Tracking what was evaluable lets the
+    // Master Signal discount that name's confluence instead of rewarding it.
+    const notEvaluated = [];
+    if (!insReady) notEvaluated.push(`insider sweep incomplete (${(B && B.scanned) || 0}/${(B && B.universe) || DATA.length}) — held back from every name so the ranking compares like with like`);
     const bulls = votes.filter(v => v.dir > 0), bears = votes.filter(v => v.dir < 0);
     const active = bulls.length + bears.length;
     const score = votes.length ? Math.round(clamp(50 + bulls.length * 9 - bears.length * 12, 0, 100)) : null;
@@ -2402,7 +2422,13 @@
     else if (bulls.length >= 3 && bears.length <= 1) { label = `ALIGNED — ${bulls.length} bullish vs ${bears.length} bearish`; color = "var(--cyan)"; }
     else if (bears.length >= 3 && bulls.length <= 1) { label = `NEGATIVE CONFLUENCE — ${bears.length} signals object`; color = "var(--red)"; }
     else if (active) { label = `MIXED — ${bulls.length} bullish, ${bears.length} bearish`; color = "var(--amber)"; }
-    return { d, votes, bulls: bulls.length, bears: bears.length, silent: votes.length - active, score, label, color };
+    // Evidence completeness is about SOURCES CHECKED, not votes cast. A source
+    // that was consulted and had nothing to say is fully evaluated; only a
+    // source whose data was never collected counts against completeness. Using
+    // votes.length here would have punished quiet names for being quiet.
+    return { d, votes, bulls: bulls.length, bears: bears.length, silent: votes.length - active,
+      score, label, color, notEvaluated,
+      evidence: (CONVICTION_SOURCES - notEvaluated.length) / CONVICTION_SOURCES };
   }
   function convictionBoard(limit = 8) {
     const ctx = { ledger: earningsLedger(), narrs: narrativeHeatAll(), whales: whaleActionMap() };
@@ -2659,7 +2685,10 @@
     {
       const c = (ctx && ctx.convMap && ctx.convMap[d.ticker]) || convictionOf(d, ctx);
       if (c && c.score != null && c.votes.length)
-        add("confluence", c.score, `${c.bulls} agree · ${c.bears} object · ${c.silent} silent`, c.votes.length);
+        add("confluence", c.score,
+          `${c.bulls} agree · ${c.bears} object · ${c.silent} silent`
+          + (c.notEvaluated && c.notEvaluated.length ? ` · ${c.notEvaluated.join(", ")}` : ""),
+          c.votes.length);
       parts.__conv = c;
     }
     // 5 · TRUST — no score deserves weight if the filings do not reconcile
@@ -2668,12 +2697,19 @@
       if (conf && hasNum(conf.score)) add("trust", conf.score, conf.label, 1);
     }
     const conv = parts.__conv; delete parts.__conv;
-    // coverage-weighted composite: absent pillars are dropped, never zeroed
+    // Coverage-weighted composite: absent pillars are dropped, never zeroed.
+    // Confluence additionally carries an EVIDENCE discount — if a name's
+    // insider filings have not been collected, some of its signals could not
+    // vote, so that pillar speaks for proportionally less of the name and the
+    // shortfall shows up as reduced coverage. Without this, an unscanned name
+    // would out-rank a scanned peer purely because it could not be penalised.
     let num = 0, den = 0, covered = 0;
     for (const p of MASTER_PILLARS) {
       const got = parts[p.key];
       if (!got) continue;
-      num += got.score * p.weight; den += p.weight; covered += p.weight;
+      const ev = p.key === "confluence" && conv && Number.isFinite(conv.evidence) ? conv.evidence : 1;
+      const w = p.weight * ev;
+      num += got.score * w; den += w; covered += w;
     }
     if (!den) return null;
     const coverage = Math.round(covered);
@@ -2691,7 +2727,8 @@
     const ranked = MASTER_PILLARS.filter(p => parts[p.key])
       .map(p => ({ ...p, ...parts[p.key] })).sort((a, b) => b.score - a.score);
     return { d, ticker: d.ticker, score, label, color, coverage, rankable, parts, pillars: ranked,
-      best: ranked[0] || null, worst: ranked.length > 1 ? ranked[ranked.length - 1] : null, conv };
+      best: ranked[0] || null, worst: ranked.length > 1 ? ranked[ranked.length - 1] : null, conv,
+      evidenceGap: (conv && conv.notEvaluated) || [] };
   }
   function masterBoard(limit) {
     const ctx = { ledger: earningsLedger(), narrs: narrativeHeatAll(), whales: whaleActionMap() };
@@ -3730,8 +3767,8 @@
   /* small helpers shared by the tool views */
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
-  const FORMULA_VERSION = "v4.4 (2026-07)";
-  const SBC_MODEL_VERSION = "4.4.0"; // bump when any engine formula changes
+  const FORMULA_VERSION = "v4.5 (2026-07)";
+  const SBC_MODEL_VERSION = "4.5.0"; // bump when any engine formula changes
   // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
   // line-by-line audit. Retention/owner-earnings remain model estimates.
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts

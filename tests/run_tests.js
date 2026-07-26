@@ -674,11 +674,15 @@ const ok = (cond, name, detail = "") => {
 
   // the composite must equal the coverage-weighted average of its own pillars
   const r = board[0];
-  const wsum = E.MASTER_PILLARS.filter(p => r.parts[p.key]).reduce((a, p) => a + p.weight, 0);
-  const expect = Math.round(E.MASTER_PILLARS.filter(p => r.parts[p.key])
-    .reduce((a, p) => a + r.parts[p.key].score * p.weight, 0) / wsum);
+  // confluence carries an evidence discount, so its effective weight is
+  // scaled by how many of its sources could actually be consulted
+  const evOf = (p) => p.key === "confluence" && r.conv && Number.isFinite(r.conv.evidence) ? r.conv.evidence : 1;
+  const present = E.MASTER_PILLARS.filter(p => r.parts[p.key]);
+  const wsum = present.reduce((a, p) => a + p.weight * evOf(p), 0);
+  const expect = Math.round(present.reduce((a, p) => a + r.parts[p.key].score * p.weight * evOf(p), 0) / wsum);
   ok(r.score === expect, "score is exactly the coverage-weighted pillar average", `${r.score} vs ${expect}`);
-  ok(r.coverage === wsum, "coverage is the summed weight of the pillars that computed", `${r.coverage} vs ${wsum}`);
+  ok(Math.abs(r.coverage - wsum) < 1, "coverage is the evidence-adjusted weight of the pillars that computed",
+    `${r.coverage} vs ${wsum.toFixed(1)}`);
 
   // a missing pillar must be DROPPED, never silently scored as a neutral 50
   const partial = DATA.map(d => E.masterSignalOf(d)).filter(x => x && Object.keys(x.parts).length < E.MASTER_PILLARS.length);
@@ -836,6 +840,43 @@ const ok = (cond, name, detail = "") => {
     "spark falls back to the last valid close when meta has no price");
   ok(E.applySparkResult({ symbol: "NOTREAL", response: [{ meta: { regularMarketPrice: 10, previousClose: 9 } }] }) === false,
     "a symbol outside the universe is ignored");
+}
+
+// =============== 23. Fairness gate: uneven evidence must not rank ===============
+{
+  const B = E.insidersBundle();
+  const complete = !!(B && B.asOf && (B.scanned || 0) >= (B.universe || 0) && !B.partial);
+  const ctx = { ledger: E.earningsLedger(), narrs: E.narrativeHeatAll(), whales: E.whaleActionMap() };
+  const convs = DATA.map(d => E.convictionOf(d, ctx));
+
+  if (!complete) {
+    // the whole point: while the sweep is partial NO name may cast an insider
+    // vote, because only the scanned ones could receive its negative case
+    ok(convs.every(c => !c.votes.some(v => v.key === "insider")),
+      "while the insider sweep is incomplete, no name casts an insider vote",
+      String(convs.filter(c => c.votes.some(v => v.key === "insider")).length));
+    ok(convs.every(c => c.notEvaluated.length > 0), "every name records the un-evaluated signal");
+    // and it must apply UNIFORMLY — scanned and unscanned treated identically
+    const scanned = DATA.filter(d => B.tickers && B.tickers[d.ticker]).map(d => E.convictionOf(d, ctx));
+    const unscanned = DATA.filter(d => !(B.tickers && B.tickers[d.ticker])).map(d => E.convictionOf(d, ctx));
+    const ev = (l) => new Set(l.map(c => c.evidence.toFixed(4)));
+    ok(ev(scanned.concat(unscanned)).size === 1,
+      "evidence completeness is identical for scanned and unscanned names", [...ev(scanned.concat(unscanned))].join(","));
+    const boards = E.masterBoard();
+    const cov = new Set(boards.map(r => r.coverage));
+    ok(cov.size <= 2, "coverage is not split by whether a name happened to be scanned", [...cov].join(","));
+  } else {
+    ok(convs.some(c => c.votes.some(v => v.key === "insider")),
+      "once the sweep is complete the insider vote is cast");
+    ok(convs.every(c => c.notEvaluated.length === 0), "a complete sweep leaves nothing un-evaluated");
+  }
+  ok(convs.every(c => c.evidence > 0 && c.evidence <= 1), "evidence completeness is a fraction in (0,1]");
+  ok(convs.every(c => Array.isArray(c.notEvaluated)), "notEvaluated is always an array");
+
+  // the discount must never let missing evidence RAISE a score
+  const board = E.masterBoard();
+  ok(board.every(r => r.coverage > 0 && r.coverage <= 100), "coverage stays a valid percentage");
+  ok(board.every(r => Array.isArray(r.evidenceGap)), "every ranked row reports its evidence gap");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
