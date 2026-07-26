@@ -51,7 +51,7 @@ WINDOW_DAYS = 90        # transactions this recent form the live signal
 LOOKBACK_DAYS = 120     # filings scanned (a Form 4 is filed up to 2 business days late)
 CACHE_KEEP_DAYS = 300   # prune cache entries that can never be in-window again
 MAX_FORMS_PER_TICKER = 30
-DEFAULT_BUDGET = 2200   # max NEW Form 4 documents fetched per run
+DEFAULT_BUDGET = 4200   # max NEW Form 4 documents fetched per run (~9 min at 0.12s)
 
 # Transaction codes that represent a real, discretionary market decision.
 DECISION_CODES = {"P": "buy", "S": "sell"}
@@ -299,6 +299,23 @@ def main():
         except Exception:
             cache = {}
 
+    # NEVER-SCANNED NAMES GO FIRST. Universe order meant every budget-capped run
+    # restarted at the top of the alphabet, re-walking names it had already done
+    # and never reaching the tail — coverage sat at 106/224 across runs. Worse,
+    # partial coverage BIASES the ranked board: a name that has not been scanned
+    # cannot receive an insider penalty, so it out-ranks a scanned peer on
+    # missing evidence rather than merit. Finishing the sweep is the real fix.
+    prev_out = {}
+    if OUT_JSON.exists():
+        try:
+            prev_out = json.loads(OUT_JSON.read_text())
+        except Exception:
+            prev_out = {}
+    done = {tk for tk, r in (prev_out.get("tickers") or {}).items() if r.get("complete") is not False}
+    companies.sort(key=lambda c: (c["ticker"] in done, c["ticker"]))
+    pending = sum(1 for c in companies if c["ticker"] not in done)
+    print(f"insider sweep: {pending} name(s) never fully scanned — those run first", file=sys.stderr)
+
     today = date.today()
     window_start = (today - timedelta(days=WINDOW_DAYS)).isoformat()
     since = (today - timedelta(days=LOOKBACK_DAYS)).isoformat()
@@ -351,6 +368,10 @@ def main():
         rec = summarize(tk, own, window_start)
         rec["complete"] = complete
         if rec["buys"] or rec["sells"] or rec["filings"]:
+            tickers[tk] = rec
+        elif complete:
+            # scanned and genuinely quiet — record it so the app can tell
+            # "no insider activity" apart from "not looked at yet"
             tickers[tk] = rec
 
     # prune cache entries too old to ever matter again
