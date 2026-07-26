@@ -1,12 +1,33 @@
 {
- "asOf": "2026-07-25",
+ "asOf": "2026-07-26",
  "source": "Yahoo Finance quoteSummary (earningsHistory, calendarEvents, earningsTrend)",
  "tickers": {
   "A": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-10-31",
+     "eps": 6.05804,
+     "epsHigh": 6.10055,
+     "epsLow": 6.0,
+     "growth": 0.0837,
+     "revenue": 7448489020
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-10-31",
+     "eps": 6.61176,
+     "epsHigh": 6.76,
+     "epsLow": 6.36,
+     "growth": 0.091400005,
+     "revenue": 7900869670
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.48614,
    "epsHigh": 1.5,
    "epsLow": 1.43,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.37,
@@ -78,10 +99,31 @@
    }
   },
   "AAPL": {
+   "annual": {
+    "fy0": {
+     "analysts": 41,
+     "endDate": "2026-09-30",
+     "eps": 8.76686,
+     "epsHigh": 9.04,
+     "epsLow": 8.29,
+     "growth": 0.1745,
+     "revenue": 478698081510
+    },
+    "fy1": {
+     "analysts": 43,
+     "endDate": "2027-09-30",
+     "eps": 9.71319,
+     "epsHigh": 10.96,
+     "epsLow": 8.81,
+     "growth": 0.1004,
+     "revenue": 523072441950
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.89396,
    "epsHigh": 1.99,
    "epsLow": 1.83,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.57,
@@ -181,10 +223,31 @@
    }
   },
   "ABBV": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 14.12167,
+     "epsHigh": 14.68,
+     "epsLow": 13.75,
+     "growth": 0.4122,
+     "revenue": 67268985920
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 16.27419,
+     "epsHigh": 17.48,
+     "epsLow": 15.23669,
+     "growth": 0.1524,
+     "revenue": 72836420630
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.64014,
    "epsHigh": 3.81,
    "epsLow": 3.57,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.97,
@@ -319,10 +382,31 @@
    }
   },
   "ABNB": {
+   "annual": {
+    "fy0": {
+     "analysts": 39,
+     "endDate": "2026-12-31",
+     "eps": 5.08777,
+     "epsHigh": 5.76,
+     "epsLow": 3.98,
+     "growth": 0.2502,
+     "revenue": 13961375350
+    },
+    "fy1": {
+     "analysts": 39,
+     "endDate": "2027-12-31",
+     "eps": 6.04108,
+     "epsHigh": 7.58,
+     "epsLow": 5.35,
+     "growth": 0.1982,
+     "revenue": 15430711180
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.22267,
    "epsHigh": 1.41,
    "epsLow": 0.93,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.03,
@@ -401,10 +485,31 @@
    }
   },
   "ABT": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 5.51368,
+     "epsHigh": 5.55,
+     "epsLow": 5.48,
+     "growth": 0.0706,
+     "revenue": 50286457600
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 6.06458,
+     "epsHigh": 6.2,
+     "epsLow": 5.88,
+     "growth": 0.0999,
+     "revenue": 54629072250
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.41767,
    "epsHigh": 1.44,
    "epsLow": 1.40577,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.3,
@@ -532,10 +637,31 @@
    }
   },
   "ACGL": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 9.28158,
+     "epsHigh": 9.7,
+     "epsLow": 8.74,
+     "growth": -0.056799997,
+     "revenue": 16188469000
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-12-31",
+     "eps": 9.80667,
+     "epsHigh": 11.02918,
+     "epsLow": 9.13,
+     "growth": 0.056599997,
+     "revenue": 16492124000
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.46174,
    "epsHigh": 2.82392,
    "epsLow": 2.29,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.58,
@@ -635,10 +761,31 @@
    }
   },
   "ACN": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-08-31",
+     "eps": 13.87236,
+     "epsHigh": 14.13,
+     "epsLow": 13.79,
+     "growth": 0.0729,
+     "revenue": 73563940950
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-08-31",
+     "eps": 14.68338,
+     "epsHigh": 15.18,
+     "epsLow": 14.07379,
+     "growth": 0.0585,
+     "revenue": 76614923730
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.17936,
    "epsHigh": 3.23,
    "epsLow": 3.12,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.03,
@@ -766,10 +913,31 @@
    }
   },
   "ADBE": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-11-30",
+     "eps": 24.41073,
+     "epsHigh": 24.99,
+     "epsLow": 24.1,
+     "growth": 0.1657,
+     "revenue": 26523026160
+    },
+    "fy1": {
+     "analysts": 34,
+     "endDate": "2027-11-30",
+     "eps": 27.48687,
+     "epsHigh": 29.15,
+     "epsLow": 25.66,
+     "growth": 0.126,
+     "revenue": 28918650640
+    },
+    "lt5y": null
+   },
    "epsEstimate": 6.07854,
    "epsHigh": 6.35,
    "epsLow": 5.82354,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.31,
@@ -904,10 +1072,31 @@
    }
   },
   "ADI": {
+   "annual": {
+    "fy0": {
+     "analysts": 28,
+     "endDate": "2026-10-31",
+     "eps": 12.43447,
+     "epsHigh": 13.14,
+     "epsLow": 12.24,
+     "growth": 0.5962,
+     "revenue": 14809882520
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-10-31",
+     "eps": 15.06237,
+     "epsHigh": 17.0,
+     "epsLow": 13.61,
+     "growth": 0.21129999,
+     "revenue": 17156024099
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.33322,
    "epsHigh": 3.42,
    "epsLow": 3.29,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.05,
@@ -986,10 +1175,31 @@
    }
   },
   "ADP": {
+   "annual": {
+    "fy0": {
+     "analysts": 14,
+     "endDate": "2026-06-30",
+     "eps": 11.07698,
+     "epsHigh": 11.11,
+     "epsLow": 11.04,
+     "growth": 0.1066,
+     "revenue": 21828196810
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2027-06-30",
+     "eps": 12.20285,
+     "epsHigh": 12.38,
+     "epsLow": 11.85063,
+     "growth": 0.1016,
+     "revenue": 23115209530
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.59887,
    "epsHigh": 2.63,
    "epsLow": 2.55,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.26,
@@ -1082,10 +1292,31 @@
    }
   },
   "ADSK": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2027-01-31",
+     "eps": 12.61556,
+     "epsHigh": 13.17,
+     "epsLow": 12.51,
+     "growth": 0.20950001,
+     "revenue": 8197148789
+    },
+    "fy1": {
+     "analysts": 34,
+     "endDate": "2028-01-31",
+     "eps": 14.25362,
+     "epsHigh": 15.53,
+     "epsLow": 13.44,
+     "growth": 0.12979999,
+     "revenue": 9055877210
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.11861,
    "epsHigh": 3.14895,
    "epsLow": 3.07,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.62,
@@ -1150,10 +1381,31 @@
    }
   },
   "AFL": {
+   "annual": {
+    "fy0": {
+     "analysts": 15,
+     "endDate": "2026-12-31",
+     "eps": 7.01797,
+     "epsHigh": 7.3,
+     "epsLow": 6.765,
+     "growth": -0.063,
+     "revenue": 16971958820
+    },
+    "fy1": {
+     "analysts": 14,
+     "endDate": "2027-12-31",
+     "eps": 7.54642,
+     "epsHigh": 8.55,
+     "epsLow": 6.98,
+     "growth": 0.0753,
+     "revenue": 17276185840
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.75787,
    "epsHigh": 1.81,
    "epsLow": 1.68,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.78,
@@ -1260,10 +1512,31 @@
    }
   },
   "AIG": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 7.98219,
+     "epsHigh": 8.42523,
+     "epsLow": 7.35,
+     "growth": 0.1258,
+     "revenue": 29088394190
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 8.83737,
+     "epsHigh": 9.45,
+     "epsLow": 8.05,
+     "growth": 0.1071,
+     "revenue": 31325895970
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.92792,
    "epsHigh": 2.21604,
    "epsLow": 1.72,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.81,
@@ -1370,10 +1643,31 @@
    }
   },
   "ALL": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 31.30437,
+     "epsHigh": 35.0,
+     "epsLow": 28.3,
+     "growth": -0.1012,
+     "revenue": 70444069140
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 26.50734,
+     "epsHigh": 31.85,
+     "epsLow": 23.011,
+     "growth": -0.1532,
+     "revenue": 73490445060
+    },
+    "lt5y": null
+   },
    "epsEstimate": 6.0425,
    "epsHigh": 7.51,
    "epsLow": 4.87,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.94,
@@ -1494,10 +1788,31 @@
    }
   },
   "ALLY": {
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 5.2535,
+     "epsHigh": 5.71,
+     "epsLow": 5.0,
+     "growth": 0.3789,
+     "revenue": 9027715810
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 6.43168,
+     "epsHigh": 6.91,
+     "epsLow": 6.14,
+     "growth": 0.2243,
+     "revenue": 9602112280
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.45153,
    "epsHigh": 1.6,
    "epsLow": 1.37772,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.15,
@@ -1576,10 +1891,31 @@
    }
   },
   "AMAT": {
+   "annual": {
+    "fy0": {
+     "analysts": 34,
+     "endDate": "2026-10-31",
+     "eps": 12.27359,
+     "epsHigh": 12.95242,
+     "epsLow": 11.51,
+     "growth": 0.30290002,
+     "revenue": 33429559170
+    },
+    "fy1": {
+     "analysts": 33,
+     "endDate": "2027-10-31",
+     "eps": 16.90444,
+     "epsHigh": 20.45,
+     "epsLow": 12.48,
+     "growth": 0.3773,
+     "revenue": 42901669850
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.38874,
    "epsHigh": 3.56,
    "epsLow": 3.17,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.48,
@@ -1714,10 +2050,31 @@
    }
   },
   "AMD": {
+   "annual": {
+    "fy0": {
+     "analysts": 46,
+     "endDate": "2026-12-31",
+     "eps": 7.44881,
+     "epsHigh": 9.8,
+     "epsLow": 6.45,
+     "growth": 0.78629994,
+     "revenue": 49713426140
+    },
+    "fy1": {
+     "analysts": 45,
+     "endDate": "2027-12-31",
+     "eps": 13.65641,
+     "epsHigh": 19.46,
+     "epsLow": 8.0,
+     "growth": 0.83339995,
+     "revenue": 78990707480
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.61068,
    "epsHigh": 1.74,
    "epsLow": 1.48,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.48,
@@ -1748,6 +2105,20 @@
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-25",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-25",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -1817,20 +2188,6 @@
      "firm": "Goldman Sachs",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-30",
-     "firm": "Wells Fargo",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-29",
-     "firm": "Cantor Fitzgerald",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 11305739900,
@@ -1852,10 +2209,31 @@
    }
   },
   "AMGN": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-12-31",
+     "eps": 22.3395,
+     "epsHigh": 23.11,
+     "epsLow": 21.7,
+     "growth": 0.0229,
+     "revenue": 37756137430
+    },
+    "fy1": {
+     "analysts": 31,
+     "endDate": "2027-12-31",
+     "eps": 23.45927,
+     "epsHigh": 25.27,
+     "epsLow": 21.43,
+     "growth": 0.050100002,
+     "revenue": 38689934970
+    },
+    "lt5y": null
+   },
    "epsEstimate": 5.61646,
    "epsHigh": 6.28,
    "epsLow": 4.99,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 6.02,
@@ -1927,13 +2305,6 @@
      "firm": "Mizuho",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Morgan Stanley",
-     "from": "Equal-Weight",
-     "to": "Equal-Weight"
     }
    ],
    "revEstimate": 9427460490,
@@ -1955,10 +2326,31 @@
    }
   },
   "AMZN": {
+   "annual": {
+    "fy0": {
+     "analysts": 58,
+     "endDate": "2026-12-31",
+     "eps": 8.69516,
+     "epsHigh": 9.93,
+     "epsLow": 7.56,
+     "growth": 0.21540001,
+     "revenue": 823798711330
+    },
+    "fy1": {
+     "analysts": 56,
+     "endDate": "2027-12-31",
+     "eps": 9.98174,
+     "epsHigh": 14.30879,
+     "epsLow": 7.75,
+     "growth": 0.1379,
+     "revenue": 931258532900
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.81497,
    "epsHigh": 2.1,
    "epsLow": 1.56,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.68,
@@ -2032,29 +2424,50 @@
      "to": "Overweight"
     }
    ],
-   "revEstimate": 195971105250,
+   "revEstimate": 196178157250,
    "trend": {
-    "analystsEps": 44,
+    "analystsEps": 46,
     "analystsRev": 50,
     "endDate": "2026-06-30",
-    "eps30dAgo": 1.81348,
+    "eps30dAgo": 1.81357,
     "eps60dAgo": 1.81592,
     "eps7dAgo": 1.81765,
     "eps90dAgo": 1.76851,
-    "epsNow": 1.81641,
+    "epsNow": 1.81651,
     "growth": 0.080299996,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 195971105250
+    "revenueAvg": 196178157250
    }
   },
   "ANET": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 3.63631,
+     "epsHigh": 3.77,
+     "epsLow": 3.56,
+     "growth": 0.2202,
+     "revenue": 11616532840
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2027-12-31",
+     "eps": 4.46749,
+     "epsHigh": 5.2,
+     "epsLow": 4.06,
+     "growth": 0.22860001,
+     "revenue": 14378342230
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.88559,
    "epsHigh": 0.92098,
    "epsLow": 0.87,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.73,
@@ -2140,10 +2553,31 @@
    }
   },
   "APO": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-12-31",
+     "eps": 8.84625,
+     "epsHigh": 9.03,
+     "epsLow": 8.53,
+     "growth": 0.0556,
+     "revenue": 5420660000
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 10.66489,
+     "epsHigh": 11.25,
+     "epsLow": 9.83,
+     "growth": 0.2056,
+     "revenue": 6273400000
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.15562,
    "epsHigh": 2.3,
    "epsLow": 2.07,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.92,
@@ -2236,10 +2670,31 @@
    }
   },
   "APP": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 16.05279,
+     "epsHigh": 17.24,
+     "epsLow": 15.0,
+     "growth": 0.55689996,
+     "revenue": 8187016480
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 21.15868,
+     "epsHigh": 25.44,
+     "epsLow": 15.72,
+     "growth": 0.308,
+     "revenue": 10618637340
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.21,
    "epsHigh": 4.21,
    "epsLow": 4.21,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.39,
@@ -2304,10 +2759,31 @@
    }
   },
   "ARES": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 5.90613,
+     "epsHigh": 6.29,
+     "epsLow": 5.75078,
+     "growth": 0.2408,
+     "revenue": 4941141480
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2027-12-31",
+     "eps": 7.2667,
+     "epsHigh": 7.75,
+     "epsLow": 6.80387,
+     "growth": 0.23040001,
+     "revenue": 5867739830
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.2766,
    "epsHigh": 1.34,
    "epsLow": 1.212,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.03,
@@ -2393,10 +2869,31 @@
    }
   },
   "ARM": {
+   "annual": {
+    "fy0": {
+     "analysts": 38,
+     "endDate": "2027-03-31",
+     "eps": 2.16869,
+     "epsHigh": 2.42,
+     "epsLow": 1.9,
+     "growth": 0.2252,
+     "revenue": 5969084210
+    },
+    "fy1": {
+     "analysts": 35,
+     "endDate": "2028-03-31",
+     "eps": 3.07586,
+     "epsHigh": 3.51,
+     "epsLow": 2.59944,
+     "growth": 0.41830003,
+     "revenue": 8081501580
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.40192,
    "epsHigh": 0.42,
    "epsLow": 0.37,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.35,
@@ -2517,10 +3014,31 @@
    }
   },
   "ASML": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-12-31",
+     "eps": 37.9014,
+     "epsHigh": 40.41908,
+     "epsLow": 31.81,
+     "growth": 0.5338,
+     "revenue": 42962571230
+    },
+    "fy1": {
+     "analysts": 35,
+     "endDate": "2027-12-31",
+     "eps": 50.91877,
+     "epsHigh": 59.10128,
+     "epsLow": 37.43,
+     "growth": 0.3435,
+     "revenue": 53842730790
+    },
+    "lt5y": null
+   },
    "epsEstimate": 10.58262,
    "epsHigh": 11.5,
    "epsLow": 8.65,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.49,
@@ -2620,10 +3138,31 @@
    }
   },
   "AVGO": {
+   "annual": {
+    "fy0": {
+     "analysts": 43,
+     "endDate": "2026-10-31",
+     "eps": 11.62835,
+     "epsHigh": 12.1445,
+     "epsLow": 11.23,
+     "growth": 0.705,
+     "revenue": 106049949980
+    },
+    "fy1": {
+     "analysts": 45,
+     "endDate": "2027-10-31",
+     "eps": 19.46067,
+     "epsHigh": 22.01179,
+     "epsLow": 16.22,
+     "growth": 0.6736,
+     "revenue": 172779492500
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.23823,
    "epsHigh": 3.33,
    "epsLow": 3.08,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.69,
@@ -2681,10 +3220,31 @@
    }
   },
   "AXON": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 7.72394,
+     "epsHigh": 9.39,
+     "epsLow": 6.7,
+     "growth": 0.1276,
+     "revenue": 3655444540
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-12-31",
+     "eps": 10.51633,
+     "epsHigh": 11.93,
+     "epsLow": 9.22,
+     "growth": 0.36150002,
+     "revenue": 4722991280
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.84394,
    "epsHigh": 2.18,
    "epsLow": 1.53,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.12,
@@ -2756,10 +3316,31 @@
    }
   },
   "AXP": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 17.6958,
+     "epsHigh": 18.7,
+     "epsLow": 17.03504,
+     "growth": 0.1486,
+     "revenue": 79484199000
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-12-31",
+     "eps": 20.11471,
+     "epsHigh": 20.48,
+     "epsLow": 19.3,
+     "growth": 0.13949999,
+     "revenue": 86624287360
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.59674,
    "epsHigh": 4.78,
    "epsLow": 4.45,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.14,
@@ -2787,9 +3368,9 @@
      "surprisePct": 2.88
     }
    ],
-   "nextDate": "2026-07-24",
+   "nextDate": "2026-10-23",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -2888,10 +3469,31 @@
    }
   },
   "AZO": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-08-31",
+     "eps": 151.0411,
+     "epsHigh": 153.7,
+     "epsLow": 148.0,
+     "growth": 0.0467,
+     "revenue": 20470507360
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-08-31",
+     "eps": 175.41267,
+     "epsHigh": 183.11,
+     "epsLow": 163.8,
+     "growth": 0.1574,
+     "revenue": 21981348050
+    },
+    "lt5y": null
+   },
    "epsEstimate": 54.50026,
    "epsHigh": 56.97,
    "epsLow": 51.46,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 48.71,
@@ -2941,10 +3543,31 @@
    }
   },
   "BA": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": -0.49702,
+     "epsHigh": 0.58,
+     "epsLow": -1.65,
+     "growth": -1.4177,
+     "revenue": 97800878280
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 4.0893,
+     "epsHigh": 6.8,
+     "epsLow": 2.0,
+     "growth": 9.2276,
+     "revenue": 112023636250
+    },
+    "lt5y": null
+   },
    "epsEstimate": -0.31472,
    "epsHigh": -0.01,
    "epsLow": -0.62,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": -1.24,
@@ -2994,10 +3617,31 @@
    }
   },
   "BAC": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 4.6716,
+     "epsHigh": 5.01,
+     "epsLow": 4.56,
+     "growth": 0.22489999,
+     "revenue": 124106095160
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 5.25483,
+     "epsHigh": 5.59,
+     "epsLow": 5.05605,
+     "growth": 0.127,
+     "revenue": 129641754820
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.18427,
    "epsHigh": 1.25,
    "epsLow": 1.13,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.06,
@@ -3132,10 +3776,31 @@
    }
   },
   "BIIB": {
-   "epsEstimate": 2.11506,
-   "epsHigh": 4.26,
+   "annual": {
+    "fy0": {
+     "analysts": 29,
+     "endDate": "2026-12-31",
+     "eps": 11.98094,
+     "epsHigh": 15.325,
+     "epsLow": -10.65,
+     "growth": -0.2159,
+     "revenue": 10063883870
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-12-31",
+     "eps": 16.41589,
+     "epsHigh": 20.1,
+     "epsLow": 14.19,
+     "growth": 0.3702,
+     "revenue": 10318175650
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 2.07357,
+   "epsHigh": 3.8,
    "epsLow": -21.1,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.47,
@@ -3223,7 +3888,7 @@
      "to": "Outperform"
     }
    ],
-   "revEstimate": 2461438870,
+   "revEstimate": 2456705330,
    "trend": {
     "analystsEps": 27,
     "analystsRev": 26,
@@ -3231,21 +3896,42 @@
     "eps30dAgo": 2.09105,
     "eps60dAgo": 1.93966,
     "eps7dAgo": 2.12013,
-    "eps90dAgo": 4.31094,
-    "epsNow": 2.11506,
-    "growth": -0.6133,
+    "eps90dAgo": 4.31193,
+    "epsNow": 2.07357,
+    "growth": -0.6209,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 2461438870
+    "revenueAvg": 2456705330
    }
   },
   "BKNG": {
+   "annual": {
+    "fy0": {
+     "analysts": 30,
+     "endDate": "2026-12-31",
+     "eps": 10.45563,
+     "epsHigh": 10.9744,
+     "epsLow": 10.07,
+     "growth": 0.1461,
+     "revenue": 29354799820
+    },
+    "fy1": {
+     "analysts": 30,
+     "endDate": "2027-12-31",
+     "eps": 12.29806,
+     "epsHigh": 13.68979,
+     "epsLow": 10.53,
+     "growth": 0.1762,
+     "revenue": 32083648580
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.43927,
    "epsHigh": 2.6424,
    "epsLow": 2.25,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.216,
@@ -3310,10 +3996,31 @@
    }
   },
   "BLK": {
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 56.3029,
+     "epsHigh": 60.12,
+     "epsLow": 54.95,
+     "growth": 0.1708,
+     "revenue": 29264374000
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 64.36738,
+     "epsHigh": 68.05,
+     "epsLow": 61.2,
+     "growth": 0.1432,
+     "revenue": 32649843470
+    },
+    "lt5y": null
+   },
    "epsEstimate": 14.27767,
    "epsHigh": 14.95,
    "epsLow": 13.62994,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 11.55,
@@ -3448,10 +4155,31 @@
    }
   },
   "BMY": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 6.34337,
+     "epsHigh": 6.54046,
+     "epsLow": 6.19,
+     "growth": 0.031400003,
+     "revenue": 47457986950
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-12-31",
+     "eps": 6.1966,
+     "epsHigh": 6.85,
+     "epsLow": 5.49661,
+     "growth": -0.0231,
+     "revenue": 46395652990
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.59542,
    "epsHigh": 1.68,
    "epsLow": 1.48,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.46,
@@ -3516,10 +4244,31 @@
    }
   },
   "BSX": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 3.35997,
+     "epsHigh": 3.4,
+     "epsLow": 3.3,
+     "growth": 0.098000005,
+     "revenue": 21573363440
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 3.71255,
+     "epsHigh": 3.9,
+     "epsLow": 3.6,
+     "growth": 0.104899995,
+     "revenue": 23323652430
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.82813,
    "epsHigh": 0.84,
    "epsLow": 0.81,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.75,
@@ -3626,10 +4375,31 @@
    }
   },
   "BX": {
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 6.04902,
+     "epsHigh": 6.18,
+     "epsLow": 5.91,
+     "growth": 0.086,
+     "revenue": 15095065800
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 7.44275,
+     "epsHigh": 8.17,
+     "epsLow": 6.79833,
+     "growth": 0.23040001,
+     "revenue": 18574729810
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.37818,
    "epsHigh": 1.54,
    "epsLow": 1.27,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.52,
@@ -3757,10 +4527,31 @@
    }
   },
   "C": {
+   "annual": {
+    "fy0": {
+     "analysts": 8,
+     "endDate": "2026-12-31",
+     "eps": 11.08956,
+     "epsHigh": 11.51,
+     "epsLow": 10.65,
+     "growth": 0.4729,
+     "revenue": 95526395890
+    },
+    "fy1": {
+     "analysts": 11,
+     "endDate": "2027-12-31",
+     "eps": 12.80655,
+     "epsHigh": 13.35,
+     "epsLow": 12.3466,
+     "growth": 0.1548,
+     "revenue": 99318603360
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.59,
    "epsHigh": 2.73,
    "epsLow": 2.3,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.263,
@@ -3888,10 +4679,31 @@
    }
   },
   "CAT": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 24.72273,
+     "epsHigh": 26.33,
+     "epsLow": 23.05,
+     "growth": 0.29709998,
+     "revenue": 76460487630
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 30.45379,
+     "epsHigh": 35.43,
+     "epsLow": 25.78,
+     "growth": 0.2318,
+     "revenue": 84639474380
+    },
+    "lt5y": null
+   },
    "epsEstimate": 6.19742,
    "epsHigh": 6.73,
    "epsLow": 5.75,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.72,
@@ -3941,10 +4753,31 @@
    }
   },
   "CB": {
-   "epsEstimate": 6.3024,
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 27.55581,
+     "epsHigh": 28.34826,
+     "epsLow": 25.99,
+     "growth": 0.1116,
+     "revenue": 49499200970
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 29.10521,
+     "epsHigh": 30.65358,
+     "epsLow": 25.85,
+     "growth": 0.056199998,
+     "revenue": 51442619450
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 6.31104,
    "epsHigh": 6.85,
    "epsLow": 5.70043,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 7.49,
@@ -4060,29 +4893,50 @@
      "to": "Equal-Weight"
     }
    ],
-   "revEstimate": 13456166670,
+   "revEstimate": 13466714290,
    "trend": {
     "analystsEps": 22,
-    "analystsRev": 6,
+    "analystsRev": 7,
     "endDate": "2026-09-30",
     "eps30dAgo": 6.27978,
     "eps60dAgo": 6.27591,
     "eps7dAgo": 6.2605,
     "eps90dAgo": 6.27002,
-    "epsNow": 6.3024,
-    "growth": -0.1586,
+    "epsNow": 6.31104,
+    "growth": -0.1574,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 13456166670
+    "revenueAvg": 13466714290
    }
   },
   "CBOE": {
+   "annual": {
+    "fy0": {
+     "analysts": 12,
+     "endDate": "2026-12-31",
+     "eps": 13.97562,
+     "epsHigh": 14.82,
+     "epsLow": 13.46,
+     "growth": 0.3098,
+     "revenue": 2841288090
+    },
+    "fy1": {
+     "analysts": 12,
+     "endDate": "2027-12-31",
+     "eps": 15.02072,
+     "epsHigh": 16.44985,
+     "epsLow": 14.17,
+     "growth": 0.0748,
+     "revenue": 2927803970
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.48982,
    "epsHigh": 3.64,
    "epsLow": 3.45,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.46,
@@ -4154,10 +5008,31 @@
    }
   },
   "CDNS": {
+   "annual": {
+    "fy0": {
+     "analysts": 13,
+     "endDate": "2026-12-31",
+     "eps": 4.49826,
+     "epsHigh": 4.66573,
+     "epsLow": 4.38,
+     "growth": 0.1153,
+     "revenue": 6209458800
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 9.40326,
+     "epsHigh": 9.91374,
+     "epsLow": 8.71,
+     "growth": 0.18090001,
+     "revenue": 7030280660
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.05529,
    "epsHigh": 2.08,
    "epsLow": 2.02537,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.65,
@@ -4222,10 +5097,31 @@
    }
   },
   "CEG": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 11.72493,
+     "epsHigh": 12.68,
+     "epsLow": 11.07,
+     "growth": 0.24870001,
+     "revenue": 34663193680
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 13.58351,
+     "epsHigh": 14.79,
+     "epsLow": 12.36,
+     "growth": 0.1585,
+     "revenue": 35604052210
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.43277,
    "epsHigh": 3.34,
    "epsLow": 1.12786,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.91,
@@ -4297,10 +5193,31 @@
    }
   },
   "CFG": {
+   "annual": {
+    "fy0": {
+     "analysts": 14,
+     "endDate": "2026-12-31",
+     "eps": 5.29064,
+     "epsHigh": 5.38,
+     "epsLow": 5.24023,
+     "growth": 0.37060001,
+     "revenue": 9176892720
+    },
+    "fy1": {
+     "analysts": 13,
+     "endDate": "2027-12-31",
+     "eps": 6.50681,
+     "epsHigh": 6.82,
+     "epsLow": 6.34725,
+     "growth": 0.2299,
+     "revenue": 9969634570
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.39169,
    "epsHigh": 1.42,
    "epsLow": 1.35,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.05,
@@ -4435,10 +5352,31 @@
    }
   },
   "CI": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 30.40529,
+     "epsHigh": 30.58,
+     "epsLow": 30.21755,
+     "growth": 0.0189,
+     "revenue": 284495452270
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 33.48265,
+     "epsHigh": 34.26,
+     "epsLow": 32.42,
+     "growth": 0.1012,
+     "revenue": 297064357540
+    },
+    "lt5y": null
+   },
    "epsEstimate": 7.59972,
    "epsHigh": 7.73,
    "epsLow": 7.53,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 7.2,
@@ -4477,10 +5415,10 @@
      "to": "Outperform"
     }
    ],
-   "revEstimate": 70161476740,
+   "revEstimate": 70183055450,
    "trend": {
     "analystsEps": 22,
-    "analystsRev": 12,
+    "analystsRev": 13,
     "endDate": "2026-06-30",
     "eps30dAgo": 7.56583,
     "eps60dAgo": 7.56112,
@@ -4492,14 +5430,35 @@
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 0,
-    "revenueAvg": 70161476740
+    "revenueAvg": 70183055450
    }
   },
   "CL": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 3.81412,
+     "epsHigh": 3.94,
+     "epsLow": 3.76,
+     "growth": 0.0336,
+     "revenue": 21418904460
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-12-31",
+     "eps": 4.05314,
+     "epsHigh": 4.24,
+     "epsLow": 3.94995,
+     "growth": 0.0627,
+     "revenue": 22115850140
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.94709,
    "epsHigh": 0.97,
    "epsLow": 0.91094,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.92,
@@ -4599,10 +5558,31 @@
    }
   },
   "CME": {
+   "annual": {
+    "fy0": {
+     "analysts": 15,
+     "endDate": "2026-12-31",
+     "eps": 12.26652,
+     "epsHigh": 12.62,
+     "epsLow": 11.97197,
+     "growth": 0.0952,
+     "revenue": 7035816570
+    },
+    "fy1": {
+     "analysts": 15,
+     "endDate": "2027-12-31",
+     "eps": 12.9391,
+     "epsHigh": 13.64,
+     "epsLow": 12.1,
+     "growth": 0.0548,
+     "revenue": 7352425780
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.94004,
    "epsHigh": 3.15,
    "epsLow": 2.81,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.68,
@@ -4737,10 +5717,31 @@
    }
   },
   "CMG": {
+   "annual": {
+    "fy0": {
+     "analysts": 34,
+     "endDate": "2026-12-31",
+     "eps": 1.13466,
+     "epsHigh": 1.21,
+     "epsLow": 1.08,
+     "growth": -0.030199999,
+     "revenue": 12992083510
+    },
+    "fy1": {
+     "analysts": 35,
+     "endDate": "2027-12-31",
+     "eps": 1.35411,
+     "epsHigh": 1.46,
+     "epsLow": 1.23,
+     "growth": 0.1934,
+     "revenue": 14387966240
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.31744,
    "epsHigh": 0.33,
    "epsLow": 0.29,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.33,
@@ -4805,10 +5806,31 @@
    }
   },
   "COF": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 20.27633,
+     "epsHigh": 21.28837,
+     "epsLow": 18.85,
+     "growth": 0.034,
+     "revenue": 63973015130
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 24.04335,
+     "epsHigh": 26.19,
+     "epsLow": 22.73,
+     "growth": 0.1858,
+     "revenue": 67615710739
+    },
+    "lt5y": null
+   },
    "epsEstimate": 5.29295,
    "epsHigh": 5.78,
    "epsLow": 4.01,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.95,
@@ -4915,10 +5937,31 @@
    }
   },
   "COIN": {
+   "annual": {
+    "fy0": {
+     "analysts": 12,
+     "endDate": "2026-12-31",
+     "eps": 1.13623,
+     "epsHigh": 2.64,
+     "epsLow": -0.33,
+     "growth": -0.7447,
+     "revenue": 5930273870
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 4.7721,
+     "epsHigh": 9.45,
+     "epsLow": 1.69,
+     "growth": 3.1999,
+     "revenue": 7602863870
+    },
+    "lt5y": null
+   },
    "epsEstimate": -0.00202,
    "epsHigh": 0.29,
    "epsLow": -0.24,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.14,
@@ -5046,10 +6089,31 @@
    }
   },
   "COP": {
-   "epsEstimate": 2.88165,
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 9.4944,
+     "epsHigh": 11.947,
+     "epsLow": 7.09,
+     "growth": 0.5413,
+     "revenue": 71349467680
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 8.96551,
+     "epsHigh": 12.501,
+     "epsLow": 6.44,
+     "growth": -0.0557,
+     "revenue": 66651589649
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 2.88955,
    "epsHigh": 3.42,
    "epsLow": 2.07,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.42,
@@ -5123,29 +6187,50 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 20011141840,
+   "revEstimate": 19830061090,
    "trend": {
     "analystsEps": 19,
     "analystsRev": 4,
     "endDate": "2026-06-30",
     "eps30dAgo": 2.87,
     "eps60dAgo": 2.72534,
-    "eps7dAgo": 2.83594,
-    "eps90dAgo": 2.36444,
-    "epsNow": 2.88165,
-    "growth": 1.0293,
+    "eps7dAgo": 2.85955,
+    "eps90dAgo": 2.39948,
+    "epsNow": 2.88955,
+    "growth": 1.0349,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 20011141840
+    "revenueAvg": 19830061090
    }
   },
   "COR": {
+   "annual": {
+    "fy0": {
+     "analysts": 13,
+     "endDate": "2026-09-30",
+     "eps": 17.78351,
+     "epsHigh": 17.842,
+     "epsLow": 17.7,
+     "growth": 0.111499995,
+     "revenue": 336893213050
+    },
+    "fy1": {
+     "analysts": 14,
+     "endDate": "2027-09-30",
+     "eps": 19.8166,
+     "epsHigh": 20.13,
+     "epsLow": 19.32,
+     "growth": 0.114300005,
+     "revenue": 358031123450
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.34768,
    "epsHigh": 4.43,
    "epsLow": 4.29,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.0,
@@ -5182,13 +6267,6 @@
      "firm": "B of A Securities",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Barclays",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 84148703520,
@@ -5210,10 +6288,31 @@
    }
   },
   "COST": {
+   "annual": {
+    "fy0": {
+     "analysts": 32,
+     "endDate": "2026-08-31",
+     "eps": 20.58606,
+     "epsHigh": 21.12272,
+     "epsLow": 20.35,
+     "growth": 0.1299,
+     "revenue": 301425938300
+    },
+    "fy1": {
+     "analysts": 34,
+     "endDate": "2027-08-31",
+     "eps": 22.69137,
+     "epsHigh": 24.43567,
+     "epsLow": 21.71,
+     "growth": 0.1007,
+     "revenue": 325936827850
+    },
+    "lt5y": null
+   },
    "epsEstimate": 6.55177,
    "epsHigh": 7.10533,
    "epsLow": 6.28,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.87,
@@ -5271,10 +6370,31 @@
    }
   },
   "CRM": {
+   "annual": {
+    "fy0": {
+     "analysts": 51,
+     "endDate": "2027-01-31",
+     "eps": 14.13332,
+     "epsHigh": 15.28,
+     "epsLow": 13.22,
+     "growth": 0.1289,
+     "revenue": 46106759680
+    },
+    "fy1": {
+     "analysts": 53,
+     "endDate": "2028-01-31",
+     "eps": 15.51229,
+     "epsHigh": 17.47,
+     "epsLow": 14.25,
+     "growth": 0.097600006,
+     "revenue": 50513597610
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.27034,
    "epsHigh": 3.47,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.91,
@@ -5374,10 +6494,31 @@
    }
   },
   "CRWD": {
+   "annual": {
+    "fy0": {
+     "analysts": 48,
+     "endDate": "2027-01-31",
+     "eps": 1.23212,
+     "epsHigh": 1.26,
+     "epsLow": 1.21,
+     "growth": 0.3213,
+     "revenue": 5945728150
+    },
+    "fy1": {
+     "analysts": 50,
+     "endDate": "2028-01-31",
+     "eps": 1.56252,
+     "epsHigh": 1.97,
+     "epsLow": 1.4575,
+     "growth": 0.2682,
+     "revenue": 7236243030
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.29206,
    "epsHigh": 0.2975,
    "epsLow": 0.29,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.2325,
@@ -5512,10 +6653,31 @@
    }
   },
   "CRWV": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": -4.92088,
+     "epsHigh": -3.17,
+     "epsLow": -6.05,
+     "growth": -1.7635001,
+     "revenue": 12646949110
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2027-12-31",
+     "eps": -3.67395,
+     "epsHigh": -1.38,
+     "epsLow": -6.91,
+     "growth": 0.5864,
+     "revenue": 25125677430
+    },
+    "lt5y": null
+   },
    "epsEstimate": -1.16371,
    "epsHigh": -0.42,
    "epsLow": -1.82,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": -0.6,
@@ -5636,10 +6798,31 @@
    }
   },
   "CSCO": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-07-31",
+     "eps": 4.27764,
+     "epsHigh": 4.33,
+     "epsLow": 4.25,
+     "growth": 0.122700006,
+     "revenue": 62907079580
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-07-31",
+     "eps": 4.79201,
+     "epsHigh": 5.0,
+     "epsLow": 4.63,
+     "growth": 0.12020001,
+     "revenue": 68788324790
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.17034,
    "epsHigh": 1.2,
    "epsLow": 1.15,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.99,
@@ -5704,10 +6887,31 @@
    }
   },
   "CSX": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 2.00132,
+     "epsHigh": 2.05,
+     "epsLow": 1.95,
+     "growth": 0.24309999,
+     "revenue": 15171012500
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-12-31",
+     "eps": 2.26471,
+     "epsHigh": 2.45,
+     "epsLow": 2.15211,
+     "growth": 0.13159999,
+     "revenue": 15901390880
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.53763,
    "epsHigh": 0.56,
    "epsLow": 0.5,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.44,
@@ -5842,10 +7046,31 @@
    }
   },
   "CTSH": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 5.70871,
+     "epsHigh": 5.76,
+     "epsLow": 5.6,
+     "growth": 0.081199996,
+     "revenue": 22289840160
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-12-31",
+     "eps": 6.18523,
+     "epsHigh": 6.39,
+     "epsLow": 5.95,
+     "growth": 0.083500005,
+     "revenue": 23393859070
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.3787,
    "epsHigh": 1.43,
    "epsLow": 1.36,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.31,
@@ -5945,10 +7170,31 @@
    }
   },
   "CVX": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 14.67688,
+     "epsHigh": 18.1,
+     "epsLow": 8.5,
+     "growth": 1.0133001,
+     "revenue": 228281191960
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 12.66554,
+     "epsHigh": 16.68,
+     "epsLow": 8.47,
+     "growth": -0.137,
+     "revenue": 210868078890
+    },
+    "lt5y": null
+   },
    "epsEstimate": 5.54107,
    "epsHigh": 5.91172,
    "epsLow": 3.28,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.77,
@@ -6020,10 +7266,31 @@
    }
   },
   "DASH": {
+   "annual": {
+    "fy0": {
+     "analysts": 37,
+     "endDate": "2026-12-31",
+     "eps": 2.54433,
+     "epsHigh": 3.52,
+     "epsLow": 1.93,
+     "growth": 0.0934,
+     "revenue": 17588243540
+    },
+    "fy1": {
+     "analysts": 37,
+     "endDate": "2027-12-31",
+     "eps": 4.4087,
+     "epsHigh": 5.77,
+     "epsLow": 2.99,
+     "growth": 0.39349997,
+     "revenue": 21208824920
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.22174,
    "epsHigh": 1.31,
    "epsLow": 1.1,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.65,
@@ -6109,10 +7376,31 @@
    }
   },
   "DDOG": {
+   "annual": {
+    "fy0": {
+     "analysts": 44,
+     "endDate": "2026-12-31",
+     "eps": 2.42258,
+     "epsHigh": 2.69,
+     "epsLow": 2.36,
+     "growth": 0.1817,
+     "revenue": 4352302330
+    },
+    "fy1": {
+     "analysts": 45,
+     "endDate": "2027-12-31",
+     "eps": 2.88439,
+     "epsHigh": 4.20803,
+     "epsLow": 2.59,
+     "growth": 0.1906,
+     "revenue": 5282386710
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.58306,
    "epsHigh": 0.62,
    "epsLow": 0.567,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.46,
@@ -6247,10 +7535,31 @@
    }
   },
   "DE": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-10-31",
+     "eps": 18.11402,
+     "epsHigh": 18.83007,
+     "epsLow": 17.55,
+     "growth": -0.023599999,
+     "revenue": 41452535400
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-10-31",
+     "eps": 22.82973,
+     "epsHigh": 25.26369,
+     "epsLow": 20.4,
+     "growth": 0.2584,
+     "revenue": 44718114000
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.70102,
    "epsHigh": 5.22,
    "epsLow": 4.33,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.75,
@@ -6322,10 +7631,31 @@
    }
   },
   "DECK": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2027-03-31",
+     "eps": 7.51132,
+     "epsHigh": 7.99,
+     "epsLow": 7.35,
+     "growth": 0.0701,
+     "revenue": 5887956730
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2028-03-31",
+     "eps": 8.37881,
+     "epsHigh": 9.45,
+     "epsLow": 7.65,
+     "growth": 0.1099,
+     "revenue": 6319304280
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.79603,
    "epsHigh": 1.86268,
    "epsLow": 1.74,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.82,
@@ -6356,6 +7686,13 @@
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-25",
+     "firm": "Telsey Advisory Group",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -6418,10 +7755,31 @@
    }
   },
   "DG": {
+   "annual": {
+    "fy0": {
+     "analysts": 26,
+     "endDate": "2027-01-31",
+     "eps": 7.37348,
+     "epsHigh": 7.55,
+     "epsLow": 7.2,
+     "growth": 0.0757,
+     "revenue": 44412748260
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2028-01-31",
+     "eps": 7.99148,
+     "epsHigh": 8.67,
+     "epsLow": 7.35,
+     "growth": 0.0867,
+     "revenue": 46282670780
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.99577,
    "epsHigh": 2.09,
    "epsLow": 1.92794,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.86,
@@ -6479,10 +7837,31 @@
    }
   },
   "DHR": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-12-31",
+     "eps": 8.50638,
+     "epsHigh": 8.55,
+     "epsLow": 8.35,
+     "growth": 0.09060001,
+     "revenue": 26304171080
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 9.26327,
+     "epsHigh": 9.485,
+     "epsLow": 9.05,
+     "growth": 0.088999994,
+     "revenue": 28358984880
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.9119,
    "epsHigh": 1.99,
    "epsLow": 1.82,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.89,
@@ -6582,10 +7961,31 @@
    }
   },
   "DIS": {
+   "annual": {
+    "fy0": {
+     "analysts": 28,
+     "endDate": "2026-09-30",
+     "eps": 6.80787,
+     "epsHigh": 6.93,
+     "epsLow": 6.6,
+     "growth": 0.148,
+     "revenue": 101599603670
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-09-30",
+     "eps": 7.467,
+     "epsHigh": 7.76,
+     "epsLow": 7.16,
+     "growth": 0.0968,
+     "revenue": 106072198590
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.85575,
    "epsHigh": 2.0,
    "epsLow": 1.762,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.61,
@@ -6692,10 +8092,31 @@
    }
   },
   "DLTR": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2027-01-31",
+     "eps": 6.96663,
+     "epsHigh": 7.18503,
+     "epsLow": 6.67,
+     "growth": 0.2116,
+     "revenue": 20669391850
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2028-01-31",
+     "eps": 7.67608,
+     "epsHigh": 8.24092,
+     "epsLow": 6.58,
+     "growth": 0.1018,
+     "revenue": 21896882610
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.09456,
    "epsHigh": 1.19,
    "epsLow": 1.0,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.77,
@@ -6767,10 +8188,31 @@
    }
   },
   "DOCU": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2027-01-31",
+     "eps": 4.52524,
+     "epsHigh": 4.64,
+     "epsLow": 4.18,
+     "growth": 0.1784,
+     "revenue": 3495595840
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2028-01-31",
+     "eps": 5.09677,
+     "epsHigh": 5.43,
+     "epsLow": 4.6,
+     "growth": 0.1263,
+     "revenue": 3758152180
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.0864,
    "epsHigh": 1.13,
    "epsLow": 0.98,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.92,
@@ -6820,10 +8262,31 @@
    }
   },
   "DUK": {
-   "epsEstimate": 1.30765,
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 6.70367,
+     "epsHigh": 6.79,
+     "epsLow": 6.62,
+     "growth": 0.0624,
+     "revenue": 33669237710
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 7.16842,
+     "epsHigh": 7.29,
+     "epsLow": 7.08286,
+     "growth": 0.069299996,
+     "revenue": 35280061250
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 1.3062,
    "epsHigh": 1.34,
    "epsLow": 1.27,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.25,
@@ -6897,29 +8360,50 @@
      "to": "Outperform"
     }
    ],
-   "revEstimate": 7681577490,
+   "revEstimate": 7680077490,
    "trend": {
-    "analystsEps": 18,
+    "analystsEps": 19,
     "analystsRev": 8,
     "endDate": "2026-06-30",
     "eps30dAgo": 1.25137,
     "eps60dAgo": 1.2535,
-    "eps7dAgo": 1.30865,
+    "eps7dAgo": 1.30874,
     "eps90dAgo": 1.24724,
-    "epsNow": 1.30765,
-    "growth": 0.0461,
+    "epsNow": 1.3062,
+    "growth": 0.045,
     "revDown30": 3,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 7681577490
+    "revenueAvg": 7680077490
    }
   },
   "DXCM": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 2.58897,
+     "epsHigh": 2.65,
+     "epsLow": 2.45,
+     "growth": 0.2387,
+     "revenue": 5224046780
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 3.07747,
+     "epsHigh": 3.26516,
+     "epsLow": 2.83,
+     "growth": 0.1887,
+     "revenue": 5826645990
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.60697,
    "epsHigh": 0.66,
    "epsLow": 0.57,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.48,
@@ -6977,13 +8461,6 @@
      "firm": "Piper Sandler",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "TD Cowen",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 1290429090,
@@ -7005,10 +8482,31 @@
    }
   },
   "EA": {
+   "annual": {
+    "fy0": {
+     "analysts": 9,
+     "endDate": "2027-03-31",
+     "eps": 5.57726,
+     "epsHigh": 7.59,
+     "epsLow": 4.53,
+     "growth": 0.1246,
+     "revenue": 8262236220
+    },
+    "fy1": {
+     "analysts": 7,
+     "endDate": "2028-03-31",
+     "eps": 6.1276,
+     "epsHigh": 6.92,
+     "epsLow": 5.28,
+     "growth": 0.0866,
+     "revenue": 8709976910
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.80595,
    "epsHigh": 1.32,
    "epsLow": 0.3741,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.79,
@@ -7039,29 +8537,50 @@
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [],
-   "revEstimate": 1451789510,
+   "revEstimate": 1479479560,
    "trend": {
-    "analystsEps": 2,
-    "analystsRev": 8,
+    "analystsEps": 3,
+    "analystsRev": 9,
     "endDate": "2026-06-30",
     "eps30dAgo": 0.91645,
-    "eps60dAgo": 0.91645,
-    "eps7dAgo": 0.94075,
+    "eps60dAgo": 1.27877,
+    "eps7dAgo": 0.91645,
     "eps90dAgo": 1.49316,
-    "epsNow": 0.79613,
+    "epsNow": 0.94075,
     "growth": 2.2238,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 1451789510
+    "revenueAvg": 1479479560
    }
   },
   "ELV": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 27.15838,
+     "epsHigh": 28.25,
+     "epsLow": 27.0,
+     "growth": -0.1034,
+     "revenue": 196237836900
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 29.63423,
+     "epsHigh": 31.0,
+     "epsLow": 29.06,
+     "growth": 0.0912,
+     "revenue": 200388921110
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.66488,
    "epsHigh": 4.99,
    "epsLow": 4.55,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 6.03,
@@ -7196,10 +8715,31 @@
    }
   },
   "ENTG": {
+   "annual": {
+    "fy0": {
+     "analysts": 11,
+     "endDate": "2026-12-31",
+     "eps": 3.66169,
+     "epsHigh": 3.93062,
+     "epsLow": 3.54,
+     "growth": 0.33150002,
+     "revenue": 3453459460
+    },
+    "fy1": {
+     "analysts": 11,
+     "endDate": "2027-12-31",
+     "eps": 4.66718,
+     "epsHigh": 5.28351,
+     "epsLow": 4.15,
+     "growth": 0.2746,
+     "revenue": 3861968660
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.81988,
    "epsHigh": 0.84598,
    "epsLow": 0.8,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.66,
@@ -7271,10 +8811,31 @@
    }
   },
   "EOG": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 16.60818,
+     "epsHigh": 18.93,
+     "epsLow": 13.89,
+     "growth": 0.6347,
+     "revenue": 28837681240
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 14.67082,
+     "epsHigh": 19.25,
+     "epsLow": 11.94092,
+     "growth": -0.1167,
+     "revenue": 26402314890
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.99359,
    "epsHigh": 5.58,
    "epsLow": 3.61,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.32,
@@ -7367,10 +8928,31 @@
    }
   },
   "ETN": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 13.35212,
+     "epsHigh": 13.65291,
+     "epsLow": 13.1,
+     "growth": 0.1062,
+     "revenue": 32210071540
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 15.77623,
+     "epsHigh": 17.26737,
+     "epsLow": 15.0,
+     "growth": 0.1816,
+     "revenue": 35628454820
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.07642,
    "epsHigh": 3.19,
    "epsLow": 3.03,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.95,
@@ -7420,10 +9002,31 @@
    }
   },
   "EW": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 3.00018,
+     "epsHigh": 3.05,
+     "epsLow": 2.96,
+     "growth": 0.1719,
+     "revenue": 6754175250
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2027-12-31",
+     "eps": 3.37371,
+     "epsHigh": 3.46,
+     "epsLow": 3.29,
+     "growth": 0.1245,
+     "revenue": 7423681080
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.73807,
    "epsHigh": 0.77,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.67,
@@ -7454,6 +9057,13 @@
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "up",
+     "date": "2026-07-25",
+     "firm": "Leerink Partners",
+     "from": "Market Perform",
+     "to": "Outperform"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -7537,10 +9147,31 @@
    }
   },
   "FCX": {
+   "annual": {
+    "fy0": {
+     "analysts": 14,
+     "endDate": "2026-12-31",
+     "eps": 3.0317,
+     "epsHigh": 3.41,
+     "epsLow": 2.75,
+     "growth": 0.71279997,
+     "revenue": 29405502230
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2027-12-31",
+     "eps": 4.07845,
+     "epsHigh": 5.37,
+     "epsLow": 2.9,
+     "growth": 0.3453,
+     "revenue": 34961285610
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.7083,
    "epsHigh": 0.81,
    "epsLow": 0.53,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.5,
@@ -7633,13 +9264,6 @@
      "firm": "Scotiabank",
      "from": "Sector Outperform",
      "to": "Sector Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Bernstein",
-     "from": "Market Perform",
-     "to": "Market Perform"
     }
    ],
    "revEstimate": 7235683960,
@@ -7661,10 +9285,31 @@
    }
   },
   "FDX": {
+   "annual": {
+    "fy0": {
+     "analysts": 10,
+     "endDate": "2026-12-31",
+     "eps": 17.918,
+     "epsHigh": 20.24,
+     "epsLow": 17.4,
+     "growth": -0.015,
+     "revenue": 90930150000
+    },
+    "fy1": {
+     "analysts": 14,
+     "endDate": "2027-12-31",
+     "eps": 20.49786,
+     "epsHigh": 22.1,
+     "epsLow": 19.41,
+     "growth": 0.144,
+     "revenue": 94388066670
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.14,
    "epsHigh": 4.18,
    "epsLow": 4.1,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.05,
@@ -7691,7 +9336,7 @@
      "surprisePct": 6.01
     }
    ],
-   "nextDate": null,
+   "nextDate": "2026-06-23",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
@@ -7771,10 +9416,31 @@
    }
   },
   "FICO": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-09-30",
+     "eps": 43.20799,
+     "epsHigh": 45.96,
+     "epsLow": 40.15,
+     "growth": 0.4461,
+     "revenue": 2552504530
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-09-30",
+     "eps": 54.55058,
+     "epsHigh": 62.93,
+     "epsLow": 49.99901,
+     "growth": 0.2625,
+     "revenue": 2933900300
+    },
+    "lt5y": null
+   },
    "epsEstimate": 11.77603,
    "epsHigh": 12.94,
    "epsLow": 10.11,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 8.57,
@@ -7839,10 +9505,31 @@
    }
   },
   "FIS": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 6.27432,
+     "epsHigh": 6.4,
+     "epsLow": 6.07,
+     "growth": 0.0912,
+     "revenue": 13794606740
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2027-12-31",
+     "eps": 6.84939,
+     "epsHigh": 7.02,
+     "epsLow": 6.42,
+     "growth": 0.0917,
+     "revenue": 14436809080
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.47215,
    "epsHigh": 1.5,
    "epsLow": 1.46,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.36,
@@ -7896,7 +9583,7 @@
     "eps30dAgo": 1.47143,
     "eps60dAgo": 1.47234,
     "eps7dAgo": 1.47182,
-    "eps90dAgo": 1.49529,
+    "eps90dAgo": 1.49291,
     "epsNow": 1.47215,
     "growth": 0.0825,
     "revDown30": 15,
@@ -7907,10 +9594,31 @@
    }
   },
   "FITB": {
+   "annual": {
+    "fy0": {
+     "analysts": 15,
+     "endDate": "2026-12-31",
+     "eps": 3.033,
+     "epsHigh": 3.39,
+     "epsLow": 2.68,
+     "growth": 0.1399,
+     "revenue": 12857727680
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 4.88807,
+     "epsHigh": 5.15,
+     "epsLow": 4.16,
+     "growth": 0.1895,
+     "revenue": 13943915960
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.06836,
    "epsHigh": 1.12,
    "epsLow": 0.74,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.91,
@@ -8045,10 +9753,31 @@
    }
   },
   "FTNT": {
+   "annual": {
+    "fy0": {
+     "analysts": 41,
+     "endDate": "2026-12-31",
+     "eps": 3.15926,
+     "epsHigh": 3.37,
+     "epsLow": 3.11,
+     "growth": 0.1447,
+     "revenue": 7814620490
+    },
+    "fy1": {
+     "analysts": 42,
+     "endDate": "2027-12-31",
+     "eps": 3.42948,
+     "epsHigh": 3.93,
+     "epsLow": 2.99,
+     "growth": 0.0855,
+     "revenue": 8643998110
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.74643,
    "epsHigh": 0.8,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.64,
@@ -8176,10 +9905,31 @@
    }
   },
   "GD": {
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2026-12-31",
+     "eps": 16.70161,
+     "epsHigh": 17.15548,
+     "epsLow": 16.34,
+     "growth": 0.080299996,
+     "revenue": 55395674580
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 18.26492,
+     "epsHigh": 19.05795,
+     "epsLow": 17.34,
+     "growth": 0.0916,
+     "revenue": 57840863980
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.97733,
    "epsHigh": 4.12195,
    "epsLow": 3.76,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.74,
@@ -8251,10 +10001,31 @@
    }
   },
   "GE": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 7.9156,
+     "epsHigh": 8.15,
+     "epsLow": 7.73,
+     "growth": 0.24260001,
+     "revenue": 50298851810
+    },
+    "fy1": {
+     "analysts": 12,
+     "endDate": "2027-12-31",
+     "eps": 9.74659,
+     "epsHigh": 10.51,
+     "epsLow": 8.20513,
+     "growth": 0.1445,
+     "revenue": 55560857830
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.99229,
    "epsHigh": 2.09,
    "epsLow": 1.9,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.66,
@@ -8368,10 +10139,31 @@
    }
   },
   "GEV": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 30.73548,
+     "epsHigh": 33.23,
+     "epsLow": 26.83,
+     "growth": -0.1029,
+     "revenue": 46222574830
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-12-31",
+     "eps": 24.84534,
+     "epsHigh": 29.49,
+     "epsLow": 17.16,
+     "growth": 0.65169996,
+     "revenue": 52498702310
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.13521,
    "epsHigh": 4.65,
    "epsLow": 3.35,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.64,
@@ -8485,10 +10277,31 @@
    }
   },
   "GILD": {
+   "annual": {
+    "fy0": {
+     "analysts": 26,
+     "endDate": "2026-12-31",
+     "eps": -0.76463,
+     "epsHigh": -0.26,
+     "epsLow": -1.05,
+     "growth": -1.0938,
+     "revenue": 30421829010
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-12-31",
+     "eps": 9.63117,
+     "epsHigh": 11.2,
+     "epsLow": 9.05,
+     "growth": 13.5959,
+     "revenue": 32282725630
+    },
+    "lt5y": null
+   },
    "epsEstimate": -7.27126,
    "epsHigh": -6.4,
    "epsLow": -7.93,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.01,
@@ -8588,10 +10401,31 @@
    }
   },
   "GIS": {
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2027-05-31",
+     "eps": 3.07912,
+     "epsHigh": 3.15,
+     "epsLow": 3.0,
+     "growth": -0.13260001,
+     "revenue": 17789953720
+    },
+    "fy1": {
+     "analysts": 18,
+     "endDate": "2028-05-31",
+     "eps": 3.21155,
+     "epsHigh": 3.33,
+     "epsLow": 3.08,
+     "growth": 0.043,
+     "revenue": 17931708920
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.71593,
    "epsHigh": 0.76,
    "epsLow": 0.67,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.86,
@@ -8712,10 +10546,31 @@
    }
   },
   "GLW": {
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 3.204,
+     "epsHigh": 3.38,
+     "epsLow": 3.039,
+     "growth": 0.2714,
+     "revenue": 19073952670
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 4.29016,
+     "epsHigh": 5.0,
+     "epsLow": 3.84,
+     "growth": 0.33900002,
+     "revenue": 22720183870
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.75378,
    "epsHigh": 0.77,
    "epsLow": 0.736,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.6,
@@ -8801,10 +10656,31 @@
    }
   },
   "GOOGL": {
+   "annual": {
+    "fy0": {
+     "analysts": 50,
+     "endDate": "2026-12-31",
+     "eps": 19.84155,
+     "epsHigh": 21.92,
+     "epsLow": 14.28,
+     "growth": 0.8287,
+     "revenue": 497810859960
+    },
+    "fy1": {
+     "analysts": 55,
+     "endDate": "2027-12-31",
+     "eps": 14.80867,
+     "epsHigh": 17.21393,
+     "epsLow": 13.39,
+     "growth": -0.2524,
+     "revenue": 603575765690
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.01245,
    "epsHigh": 3.68,
    "epsLow": 2.64,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.87,
@@ -8939,10 +10815,31 @@
    }
   },
   "GPN": {
-   "epsEstimate": 3.44133,
+   "annual": {
+    "fy0": {
+     "analysts": 34,
+     "endDate": "2026-12-31",
+     "eps": 13.79423,
+     "epsHigh": 13.98,
+     "epsLow": 13.58337,
+     "growth": 0.1288,
+     "revenue": 12413874250
+    },
+    "fy1": {
+     "analysts": 34,
+     "endDate": "2027-12-31",
+     "eps": 16.12451,
+     "epsHigh": 17.32,
+     "epsLow": 14.07605,
+     "growth": 0.1689,
+     "revenue": 13114064340
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 3.44062,
    "epsHigh": 3.55,
    "epsLow": 3.4,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.1,
@@ -9009,29 +10906,50 @@
      "to": "Hold"
     }
    ],
-   "revEstimate": 3162337110,
+   "revEstimate": 3161671980,
    "trend": {
     "analystsEps": 28,
     "analystsRev": 23,
     "endDate": "2026-06-30",
-    "eps30dAgo": 3.48205,
+    "eps30dAgo": 3.47946,
     "eps60dAgo": 3.5142,
     "eps7dAgo": 3.45334,
-    "eps90dAgo": 3.53136,
-    "epsNow": 3.44133,
-    "growth": 0.1101,
+    "eps90dAgo": 3.53321,
+    "epsNow": 3.44062,
+    "growth": 0.1099,
     "revDown30": 13,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 3162337110
+    "revenueAvg": 3161671980
    }
   },
   "GS": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 70.78439,
+     "epsHigh": 75.5,
+     "epsLow": 65.25,
+     "growth": 0.3784,
+     "revenue": 72102100190
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 73.58598,
+     "epsHigh": 87.5,
+     "epsLow": 66.2938,
+     "growth": 0.037,
+     "revenue": 72976392670
+    },
+    "lt5y": null
+   },
    "epsEstimate": 16.29336,
    "epsHigh": 18.98,
    "epsLow": 12.46,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 12.25,
@@ -9166,10 +11084,31 @@
    }
   },
   "HCA": {
-   "epsEstimate": 6.99585,
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 29.89383,
+     "epsHigh": 31.21,
+     "epsLow": 28.71,
+     "growth": 0.059699997,
+     "revenue": 78522464910
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 32.68721,
+     "epsHigh": 34.52,
+     "epsLow": 30.72,
+     "growth": 0.0934,
+     "revenue": 81890607900
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 6.9571,
    "epsHigh": 7.69,
    "epsLow": 6.2,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 6.96,
@@ -9196,9 +11135,9 @@
      "surprisePct": 1.23
     }
    ],
-   "nextDate": "2026-07-24",
+   "nextDate": "2026-10-23",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -9250,29 +11189,50 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 19561751660,
+   "revEstimate": 19510172720,
    "trend": {
     "analystsEps": 16,
     "analystsRev": 19,
     "endDate": "2026-09-30",
     "eps30dAgo": 7.27373,
     "eps60dAgo": 7.30173,
-    "eps7dAgo": 7.09455,
+    "eps7dAgo": 7.04891,
     "eps90dAgo": 7.25074,
-    "epsNow": 6.99585,
-    "growth": 0.0052,
+    "epsNow": 6.9571,
+    "growth": -0.0004,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 19561751660
+    "revenueAvg": 19510172720
    }
   },
   "HD": {
+   "annual": {
+    "fy0": {
+     "analysts": 34,
+     "endDate": "2027-01-31",
+     "eps": 14.95531,
+     "epsHigh": 15.16,
+     "epsLow": 14.57,
+     "growth": 0.018099999,
+     "revenue": 170971003540
+    },
+    "fy1": {
+     "analysts": 34,
+     "endDate": "2028-01-31",
+     "eps": 16.09225,
+     "epsHigh": 16.59893,
+     "epsLow": 15.05,
+     "growth": 0.076,
+     "revenue": 177419288390
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.72761,
    "epsHigh": 4.86216,
    "epsLow": 4.62,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.68,
@@ -9337,10 +11297,31 @@
    }
   },
   "HIG": {
-   "epsEstimate": 3.0483,
-   "epsHigh": 3.192,
-   "epsLow": 2.76,
-   "fetchedAt": "2026-07-25",
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2026-12-31",
+     "eps": 12.59649,
+     "epsHigh": 13.193,
+     "epsLow": 12.1,
+     "growth": -0.0614,
+     "revenue": 28787004060
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 13.76865,
+     "epsHigh": 14.41,
+     "epsLow": 13.25,
+     "growth": 0.093100004,
+     "revenue": 29800998710
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 3.04688,
+   "epsHigh": 3.22,
+   "epsLow": 2.79,
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.78,
@@ -9437,15 +11418,15 @@
    ],
    "revEstimate": 7386165550,
    "trend": {
-    "analystsEps": 19,
+    "analystsEps": 20,
     "analystsRev": 3,
     "endDate": "2026-09-30",
     "eps30dAgo": 3.11257,
     "eps60dAgo": 3.23359,
     "eps7dAgo": 3.07529,
     "eps90dAgo": 3.22613,
-    "epsNow": 3.0483,
-    "growth": -0.1936,
+    "epsNow": 3.04688,
+    "growth": -0.19389999,
     "revDown30": 11,
     "revDown7": null,
     "revUp30": 0,
@@ -9454,10 +11435,31 @@
    }
   },
   "HLT": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 9.00658,
+     "epsHigh": 9.3,
+     "epsLow": 8.2,
+     "growth": 0.1106,
+     "revenue": 13056419200
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-12-31",
+     "eps": 10.44812,
+     "epsHigh": 11.24,
+     "epsLow": 9.96721,
+     "growth": 0.1601,
+     "revenue": 14156145440
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.26991,
    "epsHigh": 2.37,
    "epsLow": 2.19,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.2,
@@ -9550,10 +11552,31 @@
    }
   },
   "HON": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 8.23174,
+     "epsHigh": 8.4,
+     "epsLow": 8.05,
+     "growth": -0.57919997,
+     "revenue": 20190802180
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2027-12-31",
+     "eps": 9.91086,
+     "epsHigh": 10.72,
+     "epsLow": 9.25,
+     "growth": 0.204,
+     "revenue": 20457056580
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.1467,
    "epsHigh": 2.32797,
    "epsLow": 1.95,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.64,
@@ -9653,20 +11676,6 @@
      "firm": "RBC Capital",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "init",
-     "date": "2026-06-10",
-     "firm": "Bernstein",
-     "from": null,
-     "to": "Market Perform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Barclays",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 5057835260,
@@ -9688,10 +11697,31 @@
    }
   },
   "HOOD": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 1.88128,
+     "epsHigh": 2.16,
+     "epsLow": 1.51,
+     "growth": -0.0178,
+     "revenue": 5064883770
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-12-31",
+     "eps": 2.62796,
+     "epsHigh": 3.25,
+     "epsLow": 2.3,
+     "growth": 0.3396,
+     "revenue": 6354474820
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.54644,
    "epsHigh": 0.57,
    "epsLow": 0.52287,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.42,
@@ -9826,10 +11856,31 @@
    }
   },
   "HSY": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 8.42391,
+     "epsHigh": 8.58,
+     "epsLow": 8.25325,
+     "growth": 0.335,
+     "revenue": 12243993670
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 9.85792,
+     "epsHigh": 10.23,
+     "epsLow": 9.31,
+     "growth": 0.1702,
+     "revenue": 12588759050
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.42761,
    "epsHigh": 1.62,
    "epsLow": 1.36,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.21,
@@ -9929,10 +11980,31 @@
    }
   },
   "HUBS": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-12-31",
+     "eps": 13.11567,
+     "epsHigh": 13.41083,
+     "epsLow": 13.00538,
+     "growth": 0.35209998,
+     "revenue": 3707490730
+    },
+    "fy1": {
+     "analysts": 34,
+     "endDate": "2027-12-31",
+     "eps": 15.62788,
+     "epsHigh": 16.72,
+     "epsLow": 14.09,
+     "growth": 0.1915,
+     "revenue": 4286213890
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.01566,
    "epsHigh": 3.09,
    "epsLow": 2.99557,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.19,
@@ -9997,10 +12069,31 @@
    }
   },
   "IBKR": {
+   "annual": {
+    "fy0": {
+     "analysts": 11,
+     "endDate": "2026-12-31",
+     "eps": 2.72373,
+     "epsHigh": 2.82,
+     "epsLow": 2.59,
+     "growth": 0.24370001,
+     "revenue": 7507771170
+    },
+    "fy1": {
+     "analysts": 12,
+     "endDate": "2027-12-31",
+     "eps": 3.16898,
+     "epsHigh": 3.53,
+     "epsLow": 2.98,
+     "growth": 0.16350001,
+     "revenue": 8709030670
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.6953,
    "epsHigh": 0.74,
    "epsLow": 0.65,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.57,
@@ -10086,10 +12179,31 @@
    }
   },
   "IBM": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 12.32993,
+     "epsHigh": 12.63,
+     "epsLow": 12.08,
+     "growth": 0.0638,
+     "revenue": 70346634950
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 13.21074,
+     "epsHigh": 13.96,
+     "epsLow": 12.30183,
+     "growth": 0.0714,
+     "revenue": 73400626210
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.90361,
    "epsHigh": 3.12,
    "epsLow": 2.78,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.65,
@@ -10224,10 +12338,31 @@
    }
   },
   "ICE": {
+   "annual": {
+    "fy0": {
+     "analysts": 15,
+     "endDate": "2026-12-31",
+     "eps": 8.02577,
+     "epsHigh": 8.298,
+     "epsLow": 7.84,
+     "growth": 0.1548,
+     "revenue": 10931994450
+    },
+    "fy1": {
+     "analysts": 15,
+     "endDate": "2027-12-31",
+     "eps": 8.72123,
+     "epsHigh": 9.19,
+     "epsLow": 8.21171,
+     "growth": 0.0867,
+     "revenue": 11468039190
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.83828,
    "epsHigh": 1.87,
    "epsLow": 1.81,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.81,
@@ -10320,10 +12455,31 @@
    }
   },
   "IDXX": {
+   "annual": {
+    "fy0": {
+     "analysts": 14,
+     "endDate": "2026-12-31",
+     "eps": 14.62325,
+     "epsHigh": 14.81523,
+     "epsLow": 14.29,
+     "growth": 0.118,
+     "revenue": 4707914090
+    },
+    "fy1": {
+     "analysts": 14,
+     "endDate": "2027-12-31",
+     "eps": 16.51678,
+     "epsHigh": 16.97,
+     "epsLow": 16.2,
+     "growth": 0.1295,
+     "revenue": 5114414430
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.93417,
    "epsHigh": 4.03,
    "epsLow": 3.81,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.63,
@@ -10373,10 +12529,31 @@
    }
   },
   "INTC": {
+   "annual": {
+    "fy0": {
+     "analysts": 26,
+     "endDate": "2026-12-31",
+     "eps": 1.53056,
+     "epsHigh": 1.69,
+     "epsLow": 1.42,
+     "growth": 2.6442,
+     "revenue": 63029190390
+    },
+    "fy1": {
+     "analysts": 38,
+     "endDate": "2027-12-31",
+     "eps": 1.92274,
+     "epsHigh": 3.44,
+     "epsLow": 0.94,
+     "growth": 0.25620002,
+     "revenue": 70429480730
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.38931,
    "epsHigh": 0.45,
    "epsLow": 0.38,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.23,
@@ -10407,6 +12584,13 @@
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-25",
+     "firm": "DA Davidson",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -10483,13 +12667,6 @@
      "firm": "Morgan Stanley",
      "from": "Equal-Weight",
      "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-16",
-     "firm": "Susquehanna",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
    "revEstimate": 16403553880,
@@ -10511,10 +12688,31 @@
    }
   },
   "INTU": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-07-31",
+     "eps": 23.83165,
+     "epsHigh": 23.96,
+     "epsLow": 23.681,
+     "growth": 0.18270001,
+     "revenue": 21366749140
+    },
+    "fy1": {
+     "analysts": 33,
+     "endDate": "2027-07-31",
+     "eps": 27.33035,
+     "epsHigh": 28.9288,
+     "epsLow": 26.33,
+     "growth": 0.1468,
+     "revenue": 23812843010
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.58858,
    "epsHigh": 3.72,
    "epsLow": 3.49,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.75,
@@ -10586,10 +12784,31 @@
    }
   },
   "IQV": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 12.80452,
+     "epsHigh": 12.9,
+     "epsLow": 12.62035,
+     "growth": 0.074200004,
+     "revenue": 17285210480
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 14.16942,
+     "epsHigh": 14.81809,
+     "epsLow": 13.7,
+     "growth": 0.1066,
+     "revenue": 18278561230
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.03072,
    "epsHigh": 3.08,
    "epsLow": 2.93321,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.81,
@@ -10661,10 +12880,31 @@
    }
   },
   "IREN": {
+   "annual": {
+    "fy0": {
+     "analysts": 2,
+     "endDate": "2026-06-30",
+     "eps": -2.05,
+     "epsHigh": -0.98,
+     "epsLow": -3.12,
+     "growth": -6.7992,
+     "revenue": 723129380
+    },
+    "fy1": {
+     "analysts": 10,
+     "endDate": "2027-06-30",
+     "eps": -0.47806,
+     "epsHigh": 2.69,
+     "epsLow": -2.5,
+     "growth": 0.54150003,
+     "revenue": 2989413620
+    },
+    "lt5y": null
+   },
    "epsEstimate": -0.455,
    "epsHigh": -0.4,
    "epsLow": -0.51,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.2102,
@@ -10750,10 +12990,31 @@
    }
   },
   "ISRG": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 10.7927,
+     "epsHigh": 11.08,
+     "epsLow": 10.66,
+     "growth": 0.2086,
+     "revenue": 11774005060
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 12.01954,
+     "epsHigh": 12.72,
+     "epsLow": 11.28,
+     "growth": 0.1137,
+     "revenue": 13239642400
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.63497,
    "epsHigh": 2.76,
    "epsLow": 2.53,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.4,
@@ -10888,10 +13149,31 @@
    }
   },
   "JNJ": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 11.67516,
+     "epsHigh": 11.89,
+     "epsLow": 11.45,
+     "growth": 0.081999995,
+     "revenue": 101261294740
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 12.83218,
+     "epsHigh": 13.54,
+     "epsLow": 12.25,
+     "growth": 0.0991,
+     "revenue": 108382105230
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.04957,
    "epsHigh": 3.18,
    "epsLow": 2.95,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.8,
@@ -11000,14 +13282,14 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 25318402070,
+   "revEstimate": 25321615410,
    "trend": {
     "analystsEps": 16,
     "analystsRev": 15,
     "endDate": "2026-09-30",
     "eps30dAgo": 3.02322,
     "eps60dAgo": 3.02738,
-    "eps7dAgo": 3.04707,
+    "eps7dAgo": 3.04957,
     "eps90dAgo": 3.01738,
     "epsNow": 3.04957,
     "growth": 0.089099996,
@@ -11015,14 +13297,35 @@
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 25318402070
+    "revenueAvg": 25321615410
    }
   },
   "JPM": {
+   "annual": {
+    "fy0": {
+     "analysts": 9,
+     "endDate": "2026-12-31",
+     "eps": 24.07178,
+     "epsHigh": 25.0,
+     "epsLow": 23.5,
+     "growth": 0.2201,
+     "revenue": 208469796550
+    },
+    "fy1": {
+     "analysts": 13,
+     "endDate": "2027-12-31",
+     "eps": 24.73692,
+     "epsHigh": 25.65,
+     "epsLow": 23.55093,
+     "growth": 0.0276,
+     "revenue": 211789899170
+    },
+    "lt5y": null
+   },
    "epsEstimate": 5.90243,
    "epsHigh": 6.21,
    "epsLow": 5.71,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.07,
@@ -11157,10 +13460,31 @@
    }
   },
   "KEY": {
+   "annual": {
+    "fy0": {
+     "analysts": 14,
+     "endDate": "2026-12-31",
+     "eps": 1.83117,
+     "epsHigh": 1.86,
+     "epsLow": 1.8,
+     "growth": 0.2208,
+     "revenue": 8068990500
+    },
+    "fy1": {
+     "analysts": 15,
+     "endDate": "2027-12-31",
+     "eps": 2.14352,
+     "epsHigh": 2.21,
+     "epsLow": 2.06,
+     "growth": 0.1706,
+     "revenue": 8606050440
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.46069,
    "epsHigh": 0.47,
    "epsLow": 0.44,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.41,
@@ -11262,7 +13586,7 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 2040600890,
+   "revEstimate": 2038191930,
    "trend": {
     "analystsEps": 13,
     "analystsRev": 9,
@@ -11277,14 +13601,35 @@
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 2040600890
+    "revenueAvg": 2038191930
    }
   },
   "KHC": {
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2026-12-31",
+     "eps": 2.05978,
+     "epsHigh": 2.14,
+     "epsLow": 1.97,
+     "growth": -0.2078,
+     "revenue": 24452715220
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 2.09856,
+     "epsHigh": 2.42,
+     "epsLow": 1.91,
+     "growth": 0.0188,
+     "revenue": 24557048010
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.53031,
    "epsHigh": 0.5625,
    "epsLow": 0.51,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.69,
@@ -11370,10 +13715,31 @@
    }
   },
   "KKR": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 6.11654,
+     "epsHigh": 6.35392,
+     "epsLow": 5.85,
+     "growth": 0.256,
+     "revenue": 10336726720
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 7.35066,
+     "epsHigh": 7.82,
+     "epsLow": 6.75,
+     "growth": 0.2018,
+     "revenue": 12284556980
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.42808,
    "epsHigh": 1.58,
    "epsLow": 1.34,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.18,
@@ -11473,10 +13839,31 @@
    }
   },
   "KLAC": {
+   "annual": {
+    "fy0": {
+     "analysts": 28,
+     "endDate": "2026-06-30",
+     "eps": 3.70459,
+     "epsHigh": 3.755,
+     "epsLow": 3.637,
+     "growth": 0.113199994,
+     "revenue": 13519252700
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2027-06-30",
+     "eps": 5.13135,
+     "epsHigh": 6.468,
+     "epsLow": 4.409,
+     "growth": 0.38509998,
+     "revenue": 17214452980
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.99866,
    "epsHigh": 1.03166,
    "epsLow": 0.987,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.938,
@@ -11611,10 +13998,31 @@
    }
   },
   "KMB": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 7.53751,
+     "epsHigh": 7.71183,
+     "epsLow": 7.35,
+     "growth": 0.001,
+     "revenue": 16961026360
+    },
+    "fy1": {
+     "analysts": 14,
+     "endDate": "2027-12-31",
+     "eps": 7.55722,
+     "epsHigh": 7.84,
+     "epsLow": 7.28,
+     "growth": 0.0026,
+     "revenue": 17553018410
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.00599,
    "epsHigh": 2.1,
    "epsLow": 1.93,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.92,
@@ -11693,10 +14101,31 @@
    }
   },
   "KO": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 3.26639,
+     "epsHigh": 3.30909,
+     "epsLow": 3.23809,
+     "growth": 0.0888,
+     "revenue": 49050064720
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 3.48341,
+     "epsHigh": 3.56,
+     "epsLow": 3.383,
+     "growth": 0.0664,
+     "revenue": 49786791690
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.93225,
    "epsHigh": 0.95,
    "epsLow": 0.90415,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.87,
@@ -11770,7 +14199,7 @@
      "to": "Market Perform"
     }
    ],
-   "revEstimate": 13174831590,
+   "revEstimate": 13174838260,
    "trend": {
     "analystsEps": 17,
     "analystsRev": 15,
@@ -11785,14 +14214,35 @@
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 0,
-    "revenueAvg": 13174831590
+    "revenueAvg": 13174838260
    }
   },
   "LHX": {
+   "annual": {
+    "fy0": {
+     "analysts": 7,
+     "endDate": "2026-12-31",
+     "eps": 11.763,
+     "epsHigh": 12.61,
+     "epsLow": 11.26,
+     "growth": 0.0963,
+     "revenue": 23576371380
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 13.63323,
+     "epsHigh": 14.14,
+     "epsLow": 12.84,
+     "growth": 0.159,
+     "revenue": 25439238010
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.82688,
    "epsHigh": 2.99,
    "epsLow": 2.63,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.78,
@@ -11842,10 +14292,31 @@
    }
   },
   "LIN": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 17.89299,
+     "epsHigh": 18.05334,
+     "epsLow": 17.66063,
+     "growth": 0.0871,
+     "revenue": 35946491630
+    },
+    "fy1": {
+     "analysts": 10,
+     "endDate": "2027-12-31",
+     "eps": 18.30576,
+     "epsHigh": 20.08,
+     "epsLow": 17.31,
+     "growth": 0.096599996,
+     "revenue": 37783698820
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.48597,
    "epsHigh": 4.57,
    "epsLow": 4.45,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.09,
@@ -11917,10 +14388,31 @@
    }
   },
   "LLY": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 34.52796,
+     "epsHigh": 37.63,
+     "epsLow": 24.44,
+     "growth": 0.4262,
+     "revenue": 85394920560
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 44.86561,
+     "epsHigh": 49.75361,
+     "epsLow": 39.45,
+     "growth": 0.2994,
+     "revenue": 98734815490
+    },
+    "lt5y": null
+   },
    "epsEstimate": 6.6604,
    "epsHigh": 9.08,
    "epsLow": 5.28,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 6.31,
@@ -12048,10 +14540,31 @@
    }
   },
   "LMT": {
-   "epsEstimate": 7.55943,
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2026-12-31",
+     "eps": 30.28873,
+     "epsHigh": 30.8182,
+     "epsLow": 29.7,
+     "growth": 0.4112,
+     "revenue": 80396112240
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 32.46598,
+     "epsHigh": 35.02,
+     "epsLow": 30.71,
+     "growth": 0.0717,
+     "revenue": 84697178170
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 7.57531,
    "epsHigh": 7.76987,
    "epsLow": 7.1385,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 6.95,
@@ -12112,29 +14625,50 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 20161495780,
+   "revEstimate": 20277207680,
    "trend": {
-    "analystsEps": 15,
-    "analystsRev": 13,
+    "analystsEps": 16,
+    "analystsRev": 15,
     "endDate": "2026-09-30",
     "eps30dAgo": 7.56984,
     "eps60dAgo": 7.57609,
     "eps7dAgo": 7.601,
     "eps90dAgo": 7.57061,
-    "epsNow": 7.56792,
-    "growth": 0.0877,
+    "epsNow": 7.58238,
+    "growth": 0.09,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 20161495780
+    "revenueAvg": 20277207680
    }
   },
   "LNG": {
+   "annual": {
+    "fy0": {
+     "analysts": 4,
+     "endDate": "2026-12-31",
+     "eps": 17.93182,
+     "epsHigh": 20.70726,
+     "epsLow": 15.25,
+     "growth": 0.6707,
+     "revenue": 22576110000
+    },
+    "fy1": {
+     "analysts": 4,
+     "endDate": "2027-12-31",
+     "eps": 19.73808,
+     "epsHigh": 23.52232,
+     "epsLow": 16.78,
+     "growth": 0.1007,
+     "revenue": 23900748820
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.15236,
    "epsHigh": 3.74709,
    "epsLow": 2.48,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.8814,
@@ -12194,7 +14728,7 @@
      "to": "Market Outperform"
     }
    ],
-   "revEstimate": 4901650010,
+   "revEstimate": 4935368580,
    "trend": {
     "analystsEps": 3,
     "analystsRev": 7,
@@ -12209,14 +14743,35 @@
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 2,
-    "revenueAvg": 4901650010
+    "revenueAvg": 4935368580
    }
   },
   "LOW": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2027-01-31",
+     "eps": 12.49718,
+     "epsHigh": 12.71059,
+     "epsLow": 12.0,
+     "growth": 0.0177,
+     "revenue": 93146539030
+    },
+    "fy1": {
+     "analysts": 33,
+     "endDate": "2028-01-31",
+     "eps": 13.47766,
+     "epsHigh": 14.14,
+     "epsLow": 12.11,
+     "growth": 0.0785,
+     "revenue": 96084251590
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.24995,
    "epsHigh": 4.35,
    "epsLow": 4.21,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.33,
@@ -12266,10 +14821,31 @@
    }
   },
   "LRCX": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-06-30",
+     "eps": 5.69461,
+     "epsHigh": 5.82,
+     "epsLow": 5.62412,
+     "growth": 0.3755,
+     "revenue": 23202045360
+    },
+    "fy1": {
+     "analysts": 32,
+     "endDate": "2027-06-30",
+     "eps": 8.18042,
+     "epsHigh": 10.82,
+     "epsLow": 7.25,
+     "growth": 0.4365,
+     "revenue": 31006961490
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.68363,
    "epsHigh": 1.82,
    "epsLow": 1.64,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.33,
@@ -12404,10 +14980,31 @@
    }
   },
   "LULU": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2027-01-31",
+     "eps": 11.04672,
+     "epsHigh": 11.59834,
+     "epsLow": 10.0,
+     "growth": -0.1719,
+     "revenue": 11043366020
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2028-01-31",
+     "eps": 11.48186,
+     "epsHigh": 13.17,
+     "epsLow": 8.0,
+     "growth": 0.026500002,
+     "revenue": 11349578670
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.80164,
    "epsHigh": 1.91,
    "epsLow": 1.66,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.1,
@@ -12451,13 +15048,6 @@
      "firm": "Truist Securities",
      "from": "Hold",
      "to": "Sell"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Citigroup",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
    "revEstimate": 2461351660,
@@ -12479,10 +15069,31 @@
    }
   },
   "MA": {
-   "epsEstimate": 4.7714,
-   "epsHigh": 4.87,
+   "annual": {
+    "fy0": {
+     "analysts": 38,
+     "endDate": "2026-12-31",
+     "eps": 19.6632,
+     "epsHigh": 20.0,
+     "epsLow": 19.46,
+     "growth": 0.156,
+     "revenue": 37081503990
+    },
+    "fy1": {
+     "analysts": 38,
+     "endDate": "2027-12-31",
+     "eps": 22.79623,
+     "epsHigh": 23.46,
+     "epsLow": 21.95,
+     "growth": 0.1593,
+     "revenue": 41749304640
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 4.77606,
+   "epsHigh": 4.88,
    "epsLow": 4.61,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.15,
@@ -12549,29 +15160,50 @@
      "to": "Overweight"
     }
    ],
-   "revEstimate": 9077538260,
+   "revEstimate": 9077859690,
    "trend": {
     "analystsEps": 30,
     "analystsRev": 28,
     "endDate": "2026-06-30",
     "eps30dAgo": 4.76134,
     "eps60dAgo": 4.76384,
-    "eps7dAgo": 4.76492,
-    "eps90dAgo": 4.8521,
-    "epsNow": 4.7714,
-    "growth": 0.1497,
+    "eps7dAgo": 4.77216,
+    "eps90dAgo": 4.85246,
+    "epsNow": 4.77606,
+    "growth": 0.1509,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 9077538260
+    "revenueAvg": 9077859690
    }
   },
   "MAR": {
-   "epsEstimate": 3.0741,
-   "epsHigh": 3.13878,
+   "annual": {
+    "fy0": {
+     "analysts": 26,
+     "endDate": "2026-12-31",
+     "eps": 11.62972,
+     "epsHigh": 12.21,
+     "epsLow": 11.45,
+     "growth": 0.1607,
+     "revenue": 27922921540
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-12-31",
+     "eps": 13.11196,
+     "epsHigh": 14.63,
+     "epsLow": 12.63549,
+     "growth": 0.1275,
+     "revenue": 29544588380
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 3.0782,
+   "epsHigh": 3.14,
    "epsLow": 2.9,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.65,
@@ -12659,29 +15291,50 @@
      "to": "Neutral"
     }
    ],
-   "revEstimate": 7190305930,
+   "revEstimate": 7192555930,
    "trend": {
     "analystsEps": 22,
     "analystsRev": 16,
     "endDate": "2026-06-30",
     "eps30dAgo": 3.05042,
     "eps60dAgo": 3.0558,
-    "eps7dAgo": 3.05542,
-    "eps90dAgo": 3.05905,
-    "epsNow": 3.0741,
-    "growth": 0.16,
+    "eps7dAgo": 3.062,
+    "eps90dAgo": 3.0559,
+    "epsNow": 3.0782,
+    "growth": 0.1616,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 7190305930
+    "revenueAvg": 7192555930
    }
   },
   "MCD": {
+   "annual": {
+    "fy0": {
+     "analysts": 29,
+     "endDate": "2026-12-31",
+     "eps": 12.92278,
+     "epsHigh": 13.28,
+     "epsLow": 12.47,
+     "growth": 0.0592,
+     "revenue": 28401723760
+    },
+    "fy1": {
+     "analysts": 33,
+     "endDate": "2027-12-31",
+     "eps": 14.12222,
+     "epsHigh": 15.0,
+     "epsLow": 13.47,
+     "growth": 0.0928,
+     "revenue": 30029576580
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.32453,
    "epsHigh": 3.47,
    "epsLow": 3.15256,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.19,
@@ -12781,10 +15434,31 @@
    }
   },
   "MCHP": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2027-03-31",
+     "eps": 3.18916,
+     "epsHigh": 3.62,
+     "epsLow": 2.85,
+     "growth": 0.9446,
+     "revenue": 6208720690
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2028-03-31",
+     "eps": 4.2014,
+     "epsHigh": 5.41641,
+     "epsLow": 3.49,
+     "growth": 0.3174,
+     "revenue": 7203583450
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.69923,
    "epsHigh": 0.76,
    "epsLow": 0.69,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.27,
@@ -12849,10 +15523,31 @@
    }
   },
   "MCK": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2027-03-31",
+     "eps": 44.25456,
+     "epsHigh": 44.56,
+     "epsLow": 44.09,
+     "growth": 0.13149999,
+     "revenue": 431192558090
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2028-03-31",
+     "eps": 50.37005,
+     "epsHigh": 52.58172,
+     "epsLow": 49.48,
+     "growth": 0.1382,
+     "revenue": 463460796820
+    },
+    "lt5y": null
+   },
    "epsEstimate": 9.53552,
    "epsHigh": 9.89,
    "epsLow": 9.25,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 8.26,
@@ -12896,13 +15591,6 @@
      "firm": "TD Cowen",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Barclays",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 103737605180,
@@ -12924,10 +15612,31 @@
    }
   },
   "MCO": {
-   "epsEstimate": 4.26753,
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 16.88724,
+     "epsHigh": 17.23,
+     "epsLow": 16.37,
+     "growth": 0.1303,
+     "revenue": 8280799680
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 18.83101,
+     "epsHigh": 20.0,
+     "epsLow": 17.78,
+     "growth": 0.115100004,
+     "revenue": 8891120430
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 4.26372,
    "epsHigh": 4.53128,
    "epsLow": 3.99,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.92,
@@ -13008,7 +15717,7 @@
      "to": "Market Perform"
     }
    ],
-   "revEstimate": 2077229560,
+   "revEstimate": 2076392720,
    "trend": {
     "analystsEps": 21,
     "analystsRev": 19,
@@ -13017,20 +15726,41 @@
     "eps60dAgo": 4.36527,
     "eps7dAgo": 4.36274,
     "eps90dAgo": 4.35077,
-    "epsNow": 4.26753,
-    "growth": 0.0887,
+    "epsNow": 4.26372,
+    "growth": 0.0877,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 2077229560
+    "revenueAvg": 2076392720
    }
   },
   "MDB": {
+   "annual": {
+    "fy0": {
+     "analysts": 37,
+     "endDate": "2027-01-31",
+     "eps": 6.13317,
+     "epsHigh": 6.8443,
+     "epsLow": 5.95,
+     "growth": 0.234,
+     "revenue": 2961292230
+    },
+    "fy1": {
+     "analysts": 38,
+     "endDate": "2028-01-31",
+     "eps": 7.33829,
+     "epsHigh": 8.7885,
+     "epsLow": 6.84,
+     "growth": 0.1965,
+     "revenue": 3483761080
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.61073,
    "epsHigh": 1.77566,
    "epsLow": 1.54,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.0,
@@ -13095,10 +15825,31 @@
    }
   },
   "MDLZ": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 3.04691,
+     "epsHigh": 3.09,
+     "epsLow": 2.99,
+     "growth": 0.0435,
+     "revenue": 39886680010
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 3.37141,
+     "epsHigh": 3.61,
+     "epsLow": 3.3,
+     "growth": 0.1065,
+     "revenue": 41038955220
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.67973,
    "epsHigh": 0.71,
    "epsLow": 0.63,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.73,
@@ -13129,7 +15880,7 @@
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [],
-   "revEstimate": 9198067120,
+   "revEstimate": 9198036350,
    "trend": {
     "analystsEps": 16,
     "analystsRev": 13,
@@ -13144,14 +15895,35 @@
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 9198067120
+    "revenueAvg": 9198036350
    }
   },
   "MDT": {
+   "annual": {
+    "fy0": {
+     "analysts": 28,
+     "endDate": "2027-04-30",
+     "eps": 5.94786,
+     "epsHigh": 6.02,
+     "epsLow": 5.88,
+     "growth": 0.0756,
+     "revenue": 38833063140
+    },
+    "fy1": {
+     "analysts": 29,
+     "endDate": "2028-04-30",
+     "eps": 6.40498,
+     "epsHigh": 6.65,
+     "epsLow": 6.2,
+     "growth": 0.0769,
+     "revenue": 40186817780
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.38719,
    "epsHigh": 1.39311,
    "epsLow": 1.37,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.26,
@@ -13223,10 +15995,31 @@
    }
   },
   "MELI": {
-   "epsEstimate": 9.04028,
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 39.96754,
+     "epsHigh": 51.52,
+     "epsLow": 35.1,
+     "growth": 0.04,
+     "revenue": 40704414520
+    },
+    "fy1": {
+     "analysts": 18,
+     "endDate": "2027-12-31",
+     "eps": 57.4008,
+     "epsHigh": 73.46,
+     "epsLow": 49.78083,
+     "growth": 0.4246,
+     "revenue": 51766823430
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 9.07828,
    "epsHigh": 9.61,
    "epsLow": 8.53141,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 10.31,
@@ -13265,29 +16058,50 @@
      "to": "Neutral"
     }
    ],
-   "revEstimate": 9757445560,
+   "revEstimate": 9761454310,
    "trend": {
     "analystsEps": 9,
     "analystsRev": 16,
     "endDate": "2026-06-30",
     "eps30dAgo": 9.00883,
     "eps60dAgo": 9.00883,
-    "eps7dAgo": 9.00883,
-    "eps90dAgo": 11.99436,
-    "epsNow": 8.90376,
-    "growth": -0.1232,
+    "eps7dAgo": 8.90376,
+    "eps90dAgo": 11.65736,
+    "epsNow": 8.92487,
+    "growth": -0.1195,
     "revDown30": 8,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 9757445560
+    "revenueAvg": 9761454310
    }
   },
   "MET": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 9.85166,
+     "epsHigh": 10.25,
+     "epsLow": 9.55,
+     "growth": 0.1157,
+     "revenue": 79684560160
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2027-12-31",
+     "eps": 10.98767,
+     "epsHigh": 11.63333,
+     "epsLow": 10.6,
+     "growth": 0.1153,
+     "revenue": 83281766270
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.2889,
    "epsHigh": 2.39679,
    "epsLow": 2.2,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.02,
@@ -13415,10 +16229,31 @@
    }
   },
   "META": {
+   "annual": {
+    "fy0": {
+     "analysts": 55,
+     "endDate": "2026-12-31",
+     "eps": 33.04647,
+     "epsHigh": 38.62,
+     "epsLow": 29.2,
+     "growth": 0.0689,
+     "revenue": 253303567320
+    },
+    "fy1": {
+     "analysts": 54,
+     "endDate": "2027-12-31",
+     "eps": 35.14428,
+     "epsHigh": 43.23372,
+     "epsLow": 30.19803,
+     "growth": 0.1667,
+     "revenue": 304223244080
+    },
+    "lt5y": null
+   },
    "epsEstimate": 7.388,
    "epsHigh": 8.55,
    "epsLow": 6.46,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 7.14,
@@ -13468,10 +16303,31 @@
    }
   },
   "MPC": {
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 40.21916,
+     "epsHigh": 58.5,
+     "epsLow": 22.09,
+     "growth": 2.7588,
+     "revenue": 152434094600
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 29.19172,
+     "epsHigh": 54.8,
+     "epsLow": 16.79,
+     "growth": -0.2742,
+     "revenue": 138946702890
+    },
+    "lt5y": null
+   },
    "epsEstimate": 13.95183,
    "epsHigh": 15.5466,
    "epsLow": 8.56,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.96,
@@ -13578,10 +16434,31 @@
    }
   },
   "MPWR": {
+   "annual": {
+    "fy0": {
+     "analysts": 14,
+     "endDate": "2026-12-31",
+     "eps": 24.1741,
+     "epsHigh": 24.98,
+     "epsLow": 23.66,
+     "growth": 0.36040002,
+     "revenue": 3711422910
+    },
+    "fy1": {
+     "analysts": 14,
+     "endDate": "2027-12-31",
+     "eps": 30.59062,
+     "epsHigh": 34.97,
+     "epsLow": 27.77,
+     "growth": 0.26540002,
+     "revenue": 4551393580
+    },
+    "lt5y": null
+   },
    "epsEstimate": 5.88072,
    "epsHigh": 6.05,
    "epsLow": 5.83,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.21,
@@ -13639,10 +16516,31 @@
    }
   },
   "MRK": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 2.7449,
+     "epsHigh": 3.18518,
+     "epsLow": 2.55,
+     "growth": -0.6943,
+     "revenue": 66879928889
+    },
+    "fy1": {
+     "analysts": 18,
+     "endDate": "2027-12-31",
+     "eps": 9.65726,
+     "epsHigh": 10.19297,
+     "epsLow": 8.9,
+     "growth": 2.5183,
+     "revenue": 70115955810
+    },
+    "lt5y": null
+   },
    "epsEstimate": -0.25894,
    "epsHigh": -0.02581,
    "epsLow": -0.4,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.13,
@@ -13763,10 +16661,31 @@
    }
   },
   "MRVL": {
+   "annual": {
+    "fy0": {
+     "analysts": 38,
+     "endDate": "2027-01-31",
+     "eps": 4.04907,
+     "epsHigh": 4.19659,
+     "epsLow": 3.81,
+     "growth": 0.4257,
+     "revenue": 11529799650
+    },
+    "fy1": {
+     "analysts": 39,
+     "endDate": "2028-01-31",
+     "eps": 6.24094,
+     "epsHigh": 7.89,
+     "epsLow": 5.34,
+     "growth": 0.5413,
+     "revenue": 16732272130
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.92727,
    "epsHigh": 0.94,
    "epsLow": 0.88,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.67,
@@ -13880,10 +16799,31 @@
    }
   },
   "MS": {
-   "epsEstimate": 3.08647,
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 12.98336,
+     "epsHigh": 13.67,
+     "epsLow": 12.50916,
+     "growth": 0.2705,
+     "revenue": 82646180240
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 13.62595,
+     "epsHigh": 15.1,
+     "epsLow": 11.54,
+     "growth": 0.049099997,
+     "revenue": 86285095650
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 3.1034,
    "epsHigh": 3.56,
    "epsLow": 2.90154,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.8,
@@ -13999,29 +16939,50 @@
      "to": "Outperform"
     }
    ],
-   "revEstimate": 20909484280,
+   "revEstimate": 20865319360,
    "trend": {
     "analystsEps": 14,
-    "analystsRev": 8,
+    "analystsRev": 9,
     "endDate": "2026-09-30",
     "eps30dAgo": 2.91321,
     "eps60dAgo": 2.89521,
-    "eps7dAgo": 3.10852,
+    "eps7dAgo": 3.12071,
     "eps90dAgo": 2.91568,
-    "epsNow": 3.13648,
-    "growth": 0.102299996,
+    "epsNow": 3.15219,
+    "growth": 0.1084,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 5,
     "revUp7": 3,
-    "revenueAvg": 20909484280
+    "revenueAvg": 20865319360
    }
   },
   "MSCI": {
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 19.65153,
+     "epsHigh": 19.89,
+     "epsLow": 19.3,
+     "growth": 0.1372,
+     "revenue": 3512938020
+    },
+    "fy1": {
+     "analysts": 18,
+     "endDate": "2027-12-31",
+     "eps": 22.46625,
+     "epsHigh": 23.51,
+     "epsLow": 21.65,
+     "growth": 0.1432,
+     "revenue": 3822190340
+    },
+    "lt5y": null
+   },
    "epsEstimate": 5.02283,
    "epsHigh": 5.13,
    "epsLow": 4.92,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.47,
@@ -14128,10 +17089,31 @@
    }
   },
   "MSFT": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-06-30",
+     "eps": 16.7729,
+     "epsHigh": 17.12,
+     "epsLow": 16.69775,
+     "growth": 0.2297,
+     "revenue": 329553405050
+    },
+    "fy1": {
+     "analysts": 36,
+     "endDate": "2027-06-30",
+     "eps": 19.37881,
+     "epsHigh": 20.52,
+     "epsLow": 18.25,
+     "growth": 0.1554,
+     "revenue": 384873665970
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.23972,
    "epsHigh": 4.89,
    "epsLow": 4.07,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.65,
@@ -14266,10 +17248,31 @@
    }
   },
   "MTB": {
+   "annual": {
+    "fy0": {
+     "analysts": 13,
+     "endDate": "2026-12-31",
+     "eps": 19.30344,
+     "epsHigh": 19.86,
+     "epsLow": 19.0,
+     "growth": 0.1355,
+     "revenue": 10031844730
+    },
+    "fy1": {
+     "analysts": 15,
+     "endDate": "2027-12-31",
+     "eps": 21.03996,
+     "epsHigh": 21.4,
+     "epsLow": 20.62892,
+     "growth": 0.09,
+     "revenue": 10383973940
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.90714,
    "epsHigh": 5.16,
    "epsLow": 4.74,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.82,
@@ -14404,10 +17407,31 @@
    }
   },
   "MU": {
+   "annual": {
+    "fy0": {
+     "analysts": 35,
+     "endDate": "2026-08-31",
+     "eps": 73.44403,
+     "epsHigh": 80.16,
+     "epsLow": 67.39,
+     "growth": 7.8594,
+     "revenue": 129779271370
+    },
+    "fy1": {
+     "analysts": 37,
+     "endDate": "2027-08-31",
+     "eps": 153.73953,
+     "epsHigh": 221.27,
+     "epsLow": 89.53,
+     "growth": 1.0933,
+     "revenue": 238816685730
+    },
+    "lt5y": null
+   },
    "epsEstimate": 31.32898,
    "epsHigh": 37.44,
    "epsLow": 28.04,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.03,
@@ -14542,10 +17566,31 @@
    }
   },
   "NBIS": {
+   "annual": {
+    "fy0": {
+     "analysts": 6,
+     "endDate": "2026-12-31",
+     "eps": -2.13667,
+     "epsHigh": 1.18,
+     "epsLow": -4.32,
+     "growth": null,
+     "revenue": 3389135210
+    },
+    "fy1": {
+     "analysts": 7,
+     "endDate": "2027-12-31",
+     "eps": -4.86714,
+     "epsHigh": 1.79,
+     "epsLow": -16.79,
+     "growth": 0.45220003,
+     "revenue": 11451928370
+    },
+    "lt5y": null
+   },
    "epsEstimate": -0.60667,
    "epsHigh": -0.47,
    "epsLow": -0.73,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.4482,
@@ -14617,10 +17662,31 @@
    }
   },
   "NDAQ": {
-   "epsEstimate": 1.02893,
+   "annual": {
+    "fy0": {
+     "analysts": 15,
+     "endDate": "2026-12-31",
+     "eps": 4.13544,
+     "epsHigh": 4.26,
+     "epsLow": 4.08924,
+     "growth": 0.1883,
+     "revenue": 5912053150
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 4.65461,
+     "epsHigh": 5.09,
+     "epsLow": 4.41,
+     "growth": 0.12550001,
+     "revenue": 6394926140
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 1.02829,
    "epsHigh": 1.09,
    "epsLow": 1.0,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.88,
@@ -14708,29 +17774,50 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 1469206210,
+   "revEstimate": 1468283300,
    "trend": {
-    "analystsEps": 13,
-    "analystsRev": 8,
+    "analystsEps": 14,
+    "analystsRev": 9,
     "endDate": "2026-09-30",
     "eps30dAgo": 0.98488,
     "eps60dAgo": 0.98488,
     "eps7dAgo": 1.00494,
     "eps90dAgo": 0.0,
-    "epsNow": 1.02893,
-    "growth": 0.1692,
+    "epsNow": 1.02829,
+    "growth": 0.1685,
     "revDown30": 3,
     "revDown7": null,
     "revUp30": 6,
     "revUp7": 1,
-    "revenueAvg": 1469206210
+    "revenueAvg": 1468283300
    }
   },
   "NEE": {
-   "epsEstimate": 1.22991,
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 4.04,
+     "epsHigh": 4.31,
+     "epsLow": 3.97,
+     "growth": 0.0889,
+     "revenue": 31899379090
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 4.40304,
+     "epsHigh": 4.86,
+     "epsLow": 4.23,
+     "growth": 0.089899994,
+     "revenue": 34552937340
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 1.22329,
    "epsHigh": 1.4,
-   "epsLow": 1.03985,
-   "fetchedAt": "2026-07-25",
+   "epsLow": 1.00046,
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.13,
@@ -14791,29 +17878,50 @@
      "to": "Outperform"
     }
    ],
-   "revEstimate": 9128680590,
+   "revEstimate": 9245742280,
    "trend": {
-    "analystsEps": 13,
-    "analystsRev": 8,
+    "analystsEps": 12,
+    "analystsRev": 6,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.20249,
+    "eps30dAgo": 1.20665,
     "eps60dAgo": 1.23624,
     "eps7dAgo": 1.22991,
-    "eps90dAgo": 1.22025,
-    "epsNow": 1.22991,
-    "growth": 0.0884,
+    "eps90dAgo": 1.22143,
+    "epsNow": 1.22329,
+    "growth": 0.082600005,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 9128680590
+    "revenueAvg": 9245742280
    }
   },
   "NET": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-12-31",
+     "eps": 1.19994,
+     "epsHigh": 1.33,
+     "epsLow": 1.10607,
+     "growth": 0.2903,
+     "revenue": 2812885030
+    },
+    "fy1": {
+     "analysts": 33,
+     "endDate": "2027-12-31",
+     "eps": 1.58196,
+     "epsHigh": 2.02,
+     "epsLow": 1.25168,
+     "growth": 0.3184,
+     "revenue": 3590582110
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.26976,
    "epsHigh": 0.29,
    "epsLow": 0.25473,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.21,
@@ -14948,10 +18056,31 @@
    }
   },
   "NFLX": {
+   "annual": {
+    "fy0": {
+     "analysts": 38,
+     "endDate": "2026-12-31",
+     "eps": 3.58135,
+     "epsHigh": 3.69,
+     "epsLow": 3.51,
+     "growth": 0.4181,
+     "revenue": 51209478960
+    },
+    "fy1": {
+     "analysts": 44,
+     "endDate": "2027-12-31",
+     "eps": 3.81326,
+     "epsHigh": 4.09,
+     "epsLow": 3.48,
+     "growth": 0.064,
+     "revenue": 57005785630
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.8213,
    "epsHigh": 0.87,
    "epsLow": 0.79,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.587,
@@ -15086,10 +18215,31 @@
    }
   },
   "NKE": {
+   "annual": {
+    "fy0": {
+     "analysts": 30,
+     "endDate": "2027-05-31",
+     "eps": 1.73105,
+     "epsHigh": 2.1,
+     "epsLow": 1.51,
+     "growth": 0.0885,
+     "revenue": 45710194440
+    },
+    "fy1": {
+     "analysts": 31,
+     "endDate": "2028-05-31",
+     "eps": 2.24916,
+     "epsHigh": 4.0,
+     "epsLow": 1.5,
+     "growth": 0.3409,
+     "revenue": 47566057530
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.45092,
    "epsHigh": 0.5,
    "epsLow": 0.41,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.49,
@@ -15224,10 +18374,31 @@
    }
   },
   "NOC": {
-   "epsEstimate": 7.13676,
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 28.95749,
+     "epsHigh": 29.63,
+     "epsLow": 28.16,
+     "growth": 0.0994,
+     "revenue": 44031085720
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 30.36224,
+     "epsHigh": 31.84,
+     "epsLow": 29.5,
+     "growth": 0.048499998,
+     "revenue": 46985954470
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 7.13985,
    "epsHigh": 7.35,
    "epsLow": 6.68819,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 7.67,
@@ -15315,29 +18486,50 @@
      "to": "Hold"
     }
    ],
-   "revEstimate": 11092861860,
+   "revEstimate": 11113097740,
    "trend": {
-    "analystsEps": 13,
+    "analystsEps": 14,
     "analystsRev": 17,
     "endDate": "2026-09-30",
     "eps30dAgo": 6.99827,
     "eps60dAgo": 7.00533,
     "eps7dAgo": 6.99852,
     "eps90dAgo": 7.01069,
-    "epsNow": 7.13676,
-    "growth": -0.0695,
+    "epsNow": 7.13985,
+    "growth": -0.0691,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 11092861860
+    "revenueAvg": 11113097740
    }
   },
   "NOW": {
-   "epsEstimate": 1.02552,
+   "annual": {
+    "fy0": {
+     "analysts": 44,
+     "endDate": "2026-12-31",
+     "eps": 4.06912,
+     "epsHigh": 4.36,
+     "epsLow": 3.84,
+     "growth": 0.1593,
+     "revenue": 16218680100
+    },
+    "fy1": {
+     "analysts": 44,
+     "endDate": "2027-12-31",
+     "eps": 5.00679,
+     "epsHigh": 5.57,
+     "epsLow": 4.35,
+     "growth": 0.23040001,
+     "revenue": 19261750660
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 1.02553,
    "epsHigh": 1.17,
    "epsLow": 0.91,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.964,
@@ -15454,7 +18646,7 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 4095767640,
+   "revEstimate": 4095770420,
    "trend": {
     "analystsEps": 39,
     "analystsRev": 36,
@@ -15463,20 +18655,41 @@
     "eps60dAgo": 1.09027,
     "eps7dAgo": 1.0874,
     "eps90dAgo": 1.09156,
-    "epsNow": 1.02552,
+    "epsNow": 1.02553,
     "growth": 0.0638,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 4095767640
+    "revenueAvg": 4095770420
    }
   },
   "NRG": {
+   "annual": {
+    "fy0": {
+     "analysts": 11,
+     "endDate": "2026-12-31",
+     "eps": 9.23499,
+     "epsHigh": 10.14,
+     "epsLow": 8.51,
+     "growth": 0.120799996,
+     "revenue": 35018344100
+    },
+    "fy1": {
+     "analysts": 12,
+     "endDate": "2027-12-31",
+     "eps": 11.49388,
+     "epsHigh": 12.94,
+     "epsLow": 9.86,
+     "growth": 0.2446,
+     "revenue": 36283383650
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.65857,
    "epsHigh": 2.04,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.73,
@@ -15527,10 +18740,10 @@
     "analystsEps": 6,
     "analystsRev": 6,
     "endDate": "2026-06-30",
-    "eps30dAgo": 1.7002,
+    "eps30dAgo": 1.72628,
     "eps60dAgo": 1.6362,
-    "eps7dAgo": 1.65357,
-    "eps90dAgo": 1.67283,
+    "eps7dAgo": 1.65857,
+    "eps90dAgo": 1.608,
     "epsNow": 1.65857,
     "growth": -0.041300002,
     "revDown30": 0,
@@ -15541,10 +18754,31 @@
    }
   },
   "NSC": {
-   "epsEstimate": 3.57417,
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 12.97263,
+     "epsHigh": 13.26,
+     "epsLow": 12.58,
+     "growth": 0.038599998,
+     "revenue": 13187876720
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 14.21797,
+     "epsHigh": 14.65037,
+     "epsLow": 13.27,
+     "growth": 0.096,
+     "revenue": 13704869930
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 3.58368,
    "epsHigh": 3.7,
    "epsLow": 3.39817,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.3,
@@ -15653,29 +18887,50 @@
      "to": "Overweight"
     }
    ],
-   "revEstimate": 3454868500,
+   "revEstimate": 3453801690,
    "trend": {
-    "analystsEps": 15,
-    "analystsRev": 12,
+    "analystsEps": 17,
+    "analystsRev": 13,
     "endDate": "2026-09-30",
     "eps30dAgo": 3.29438,
     "eps60dAgo": 3.2932,
     "eps7dAgo": 3.38466,
     "eps90dAgo": 3.26964,
-    "epsNow": 3.57417,
-    "growth": 0.083100006,
+    "epsNow": 3.58368,
+    "growth": 0.086,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 4,
     "revUp7": 3,
-    "revenueAvg": 3454868500
+    "revenueAvg": 3453801690
    }
   },
   "NUE": {
+   "annual": {
+    "fy0": {
+     "analysts": 11,
+     "endDate": "2026-12-31",
+     "eps": 16.99166,
+     "epsHigh": 19.19,
+     "epsLow": 16.01,
+     "growth": 1.2038,
+     "revenue": 38655846780
+    },
+    "fy1": {
+     "analysts": 13,
+     "endDate": "2027-12-31",
+     "eps": 17.38468,
+     "epsHigh": 20.58,
+     "epsLow": 14.14,
+     "growth": 0.0231,
+     "revenue": 39611430090
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.52584,
    "epsHigh": 4.69,
    "epsLow": 4.23,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.6501,
@@ -15740,13 +18995,6 @@
      "firm": "Wells Fargo",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "JP Morgan",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 10129744030,
@@ -15768,10 +19016,31 @@
    }
   },
   "NVDA": {
+   "annual": {
+    "fy0": {
+     "analysts": 50,
+     "endDate": "2027-01-31",
+     "eps": 8.98854,
+     "epsHigh": 9.85,
+     "epsLow": 8.2,
+     "growth": 0.8844,
+     "revenue": 393599071730
+    },
+    "fy1": {
+     "analysts": 50,
+     "endDate": "2028-01-31",
+     "eps": 12.86903,
+     "epsHigh": 16.0,
+     "epsLow": 9.65,
+     "growth": 0.4317,
+     "revenue": 560745712600
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.08225,
    "epsHigh": 2.2,
    "epsLow": 2.03128,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.05,
@@ -15829,10 +19098,31 @@
    }
   },
   "NXPI": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 14.87094,
+     "epsHigh": 15.91,
+     "epsLow": 13.93,
+     "growth": 0.2592,
+     "revenue": 14126605170
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-12-31",
+     "eps": 17.90022,
+     "epsHigh": 20.25554,
+     "epsLow": 14.64,
+     "growth": 0.2037,
+     "revenue": 15659303440
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.52469,
    "epsHigh": 3.70377,
    "epsLow": 3.49,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.72,
@@ -15925,10 +19215,31 @@
    }
   },
   "ODFL": {
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2026-12-31",
+     "eps": 5.5639,
+     "epsHigh": 5.85,
+     "epsLow": 5.17,
+     "growth": 0.1515,
+     "revenue": 5869161850
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 6.44418,
+     "epsHigh": 7.0,
+     "epsLow": 6.08,
+     "growth": 0.16350001,
+     "revenue": 6336201440
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.53567,
    "epsHigh": 1.61212,
    "epsLow": 1.4,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.27,
@@ -16063,10 +19374,31 @@
    }
   },
   "OKTA": {
+   "annual": {
+    "fy0": {
+     "analysts": 44,
+     "endDate": "2027-01-31",
+     "eps": 3.84298,
+     "epsHigh": 3.93338,
+     "epsLow": 3.76,
+     "growth": 0.098000005,
+     "revenue": 3199556490
+    },
+    "fy1": {
+     "analysts": 44,
+     "endDate": "2028-01-31",
+     "eps": 4.28137,
+     "epsHigh": 4.96,
+     "epsLow": 3.96,
+     "growth": 0.1141,
+     "revenue": 3504497490
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.96492,
    "epsHigh": 0.98319,
    "epsLow": 0.94,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.91,
@@ -16166,10 +19498,31 @@
    }
   },
   "ON": {
+   "annual": {
+    "fy0": {
+     "analysts": 30,
+     "endDate": "2026-12-31",
+     "eps": 3.11865,
+     "epsHigh": 3.46,
+     "epsLow": 2.9,
+     "growth": 0.32709998,
+     "revenue": 6485230640
+    },
+    "fy1": {
+     "analysts": 29,
+     "endDate": "2027-12-31",
+     "eps": 4.34291,
+     "epsHigh": 5.39924,
+     "epsLow": 3.62,
+     "growth": 0.39259997,
+     "revenue": 7222130920
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.71532,
    "epsHigh": 0.76,
    "epsLow": 0.7,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.53,
@@ -16297,10 +19650,31 @@
    }
   },
   "ORCL": {
+   "annual": {
+    "fy0": {
+     "analysts": 42,
+     "endDate": "2027-05-31",
+     "eps": 8.05139,
+     "epsHigh": 8.57,
+     "epsLow": 7.72,
+     "growth": 0.0552,
+     "revenue": 89317889660
+    },
+    "fy1": {
+     "analysts": 40,
+     "endDate": "2028-05-31",
+     "eps": 10.89015,
+     "epsHigh": 13.51,
+     "epsLow": 8.28,
+     "growth": 0.35259998,
+     "revenue": 130470661890
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.73873,
    "epsHigh": 1.8,
    "epsLow": 1.64,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.47,
@@ -16435,10 +19809,31 @@
    }
   },
   "ORLY": {
-   "epsEstimate": 0.86107,
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 3.25365,
+     "epsHigh": 3.3,
+     "epsLow": 3.2,
+     "growth": 0.096499994,
+     "revenue": 19061908590
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-12-31",
+     "eps": 3.61759,
+     "epsHigh": 3.75073,
+     "epsLow": 3.49,
+     "growth": 0.1116,
+     "revenue": 20235140130
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 0.86148,
    "epsHigh": 0.89616,
    "epsLow": 0.83,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.78,
@@ -16484,7 +19879,7 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 4859675750,
+   "revEstimate": 4861242410,
    "trend": {
     "analystsEps": 18,
     "analystsRev": 21,
@@ -16494,19 +19889,40 @@
     "eps7dAgo": 0.8602,
     "eps90dAgo": 0.85516,
     "epsNow": 0.85853,
-    "growth": 0.1039,
+    "growth": 0.104499996,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 7,
     "revUp7": 6,
-    "revenueAvg": 4859675750
+    "revenueAvg": 4861242410
    }
   },
   "OXY": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-12-31",
+     "eps": 5.49485,
+     "epsHigh": 7.18884,
+     "epsLow": 4.32,
+     "growth": 1.4864,
+     "revenue": 24742095970
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 3.95932,
+     "epsHigh": 6.42,
+     "epsLow": 2.15312,
+     "growth": -0.2794,
+     "revenue": 23847463170
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.87567,
    "epsHigh": 2.21,
    "epsLow": 1.34,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.39,
@@ -16585,10 +20001,31 @@
    }
   },
   "PANW": {
+   "annual": {
+    "fy0": {
+     "analysts": 53,
+     "endDate": "2026-07-31",
+     "eps": 3.77344,
+     "epsHigh": 3.81826,
+     "epsLow": 3.63,
+     "growth": 0.12979999,
+     "revenue": 11422923430
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-07-31",
+     "eps": 1.95095,
+     "epsHigh": 2.5,
+     "epsLow": 1.16,
+     "growth": 0.0932,
+     "revenue": 13810227820
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.97763,
    "epsHigh": 1.08,
    "epsLow": 0.96,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.95,
@@ -16676,7 +20113,7 @@
     "endDate": "2026-07-31",
     "eps30dAgo": 0.97736,
     "eps60dAgo": 0.94084,
-    "eps7dAgo": 0.97736,
+    "eps7dAgo": 0.97763,
     "eps90dAgo": 0.94062,
     "epsNow": 0.97763,
     "growth": 0.0291,
@@ -16688,10 +20125,31 @@
    }
   },
   "PEP": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 8.56459,
+     "epsHigh": 8.68,
+     "epsLow": 8.44,
+     "growth": 0.052199997,
+     "revenue": 98954475110
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 8.9867,
+     "epsHigh": 9.25,
+     "epsLow": 8.59,
+     "growth": 0.0493,
+     "revenue": 101885593200
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.29973,
    "epsHigh": 2.33,
    "epsLow": 2.26,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.29,
@@ -16826,10 +20284,31 @@
    }
   },
   "PFE": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 2.94384,
+     "epsHigh": 3.12,
+     "epsLow": 2.8,
+     "growth": -0.0858,
+     "revenue": 61746012640
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 2.8337,
+     "epsHigh": 3.1,
+     "epsLow": 2.43,
+     "growth": -0.0374,
+     "revenue": 59373166570
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.68064,
    "epsHigh": 0.76,
    "epsLow": 0.61,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.78,
@@ -16901,13 +20380,6 @@
      "firm": "HSBC",
      "from": "Buy",
      "to": "Hold"
-    },
-    {
-     "action": "up",
-     "date": "2026-06-10",
-     "firm": "RBC Capital",
-     "from": "Underperform",
-     "to": "Sector Perform"
     }
    ],
    "revEstimate": 14404839210,
@@ -16929,10 +20401,31 @@
    }
   },
   "PG": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-06-30",
+     "eps": 6.88222,
+     "epsHigh": 7.0,
+     "epsLow": 6.82739,
+     "growth": 0.0076,
+     "revenue": 87096606540
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-06-30",
+     "eps": 7.05313,
+     "epsHigh": 7.34,
+     "epsLow": 6.82,
+     "growth": 0.0248,
+     "revenue": 89370311500
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.40695,
    "epsHigh": 1.44,
    "epsLow": 1.36764,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.48,
@@ -17011,10 +20504,31 @@
    }
   },
   "PGR": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 17.59906,
+     "epsHigh": 19.09974,
+     "epsLow": 16.2,
+     "growth": -0.0354,
+     "revenue": 87358075000
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 16.25654,
+     "epsHigh": 18.3,
+     "epsLow": 14.2,
+     "growth": -0.0763,
+     "revenue": 93058866670
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.6503,
    "epsHigh": 4.21,
    "epsLow": 2.91,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.0511,
@@ -17043,7 +20557,7 @@
    ],
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "up",
@@ -17149,10 +20663,31 @@
    }
   },
   "PLTR": {
+   "annual": {
+    "fy0": {
+     "analysts": 28,
+     "endDate": "2026-12-31",
+     "eps": 1.47608,
+     "epsHigh": 1.7,
+     "epsLow": 1.29,
+     "growth": 0.96809995,
+     "revenue": 7722397830
+    },
+    "fy1": {
+     "analysts": 29,
+     "endDate": "2027-12-31",
+     "eps": 2.09448,
+     "epsHigh": 2.72,
+     "epsLow": 1.59,
+     "growth": 0.41889998,
+     "revenue": 11226675600
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.34665,
    "epsHigh": 0.4,
    "epsLow": 0.33,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.16,
@@ -17231,10 +20766,31 @@
    }
   },
   "PNC": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 18.88962,
+     "epsHigh": 19.21,
+     "epsLow": 18.58,
+     "growth": 0.1596,
+     "revenue": 26298149570
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 21.50326,
+     "epsHigh": 22.25,
+     "epsLow": 19.94,
+     "growth": 0.111,
+     "revenue": 27671137100
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.97504,
    "epsHigh": 5.1,
    "epsLow": 4.82,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.35,
@@ -17369,10 +20925,31 @@
    }
   },
   "PRU": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 13.75549,
+     "epsHigh": 14.4,
+     "epsLow": 13.12833,
+     "growth": -0.0467,
+     "revenue": 59248362460
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 14.55647,
+     "epsHigh": 15.45,
+     "epsLow": 13.94315,
+     "growth": 0.0582,
+     "revenue": 59960138560
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.47921,
    "epsHigh": 3.64,
    "epsLow": 3.15437,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.58,
@@ -17486,10 +21063,31 @@
    }
   },
   "PYPL": {
+   "annual": {
+    "fy0": {
+     "analysts": 42,
+     "endDate": "2026-12-31",
+     "eps": 5.31311,
+     "epsHigh": 5.56,
+     "epsLow": 5.18,
+     "growth": 0.00059999997,
+     "revenue": 34325414610
+    },
+    "fy1": {
+     "analysts": 42,
+     "endDate": "2027-12-31",
+     "eps": 5.7483,
+     "epsHigh": 6.07969,
+     "epsLow": 5.27,
+     "growth": 0.08189999,
+     "revenue": 35785285440
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.27761,
    "epsHigh": 1.36,
    "epsLow": 1.25,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.4,
@@ -17570,7 +21168,7 @@
      "to": "Neutral"
     }
    ],
-   "revEstimate": 8474324140,
+   "revEstimate": 8471627179,
    "trend": {
     "analystsEps": 35,
     "analystsRev": 33,
@@ -17585,14 +21183,35 @@
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 8474324140
+    "revenueAvg": 8471627179
    }
   },
   "QCOM": {
+   "annual": {
+    "fy0": {
+     "analysts": 33,
+     "endDate": "2026-09-30",
+     "eps": 10.80958,
+     "epsHigh": 11.79,
+     "epsLow": 10.41,
+     "growth": -0.1014,
+     "revenue": 42571648400
+    },
+    "fy1": {
+     "analysts": 33,
+     "endDate": "2027-09-30",
+     "eps": 10.97243,
+     "epsHigh": 13.03,
+     "epsLow": 9.78,
+     "growth": 0.0150999995,
+     "revenue": 44150258490
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.227,
    "epsHigh": 2.52,
    "epsLow": 2.12823,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.77,
@@ -17727,10 +21346,31 @@
    }
   },
   "RBLX": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": -1.48765,
+     "epsHigh": -1.27,
+     "epsLow": -2.02,
+     "growth": 0.0739,
+     "revenue": 7490743280
+    },
+    "fy1": {
+     "analysts": 25,
+     "endDate": "2027-12-31",
+     "eps": -1.11586,
+     "epsHigh": -0.31,
+     "epsLow": -1.85,
+     "growth": 0.1022,
+     "revenue": 8938817900
+    },
+    "lt5y": null
+   },
    "epsEstimate": -0.375,
    "epsHigh": -0.34,
    "epsLow": -0.45,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": -0.41,
@@ -17795,10 +21435,31 @@
    }
   },
   "REGN": {
+   "annual": {
+    "fy0": {
+     "analysts": 27,
+     "endDate": "2026-12-31",
+     "eps": 45.84894,
+     "epsHigh": 51.65,
+     "epsLow": 37.15,
+     "growth": 0.0347,
+     "revenue": 15872613230
+    },
+    "fy1": {
+     "analysts": 9,
+     "endDate": "2027-12-31",
+     "eps": 47.3967,
+     "epsHigh": 57.07,
+     "epsLow": 40.93,
+     "growth": 0.1909,
+     "revenue": 17607941730
+    },
+    "lt5y": null
+   },
    "epsEstimate": 10.25622,
    "epsHigh": 12.33,
    "epsLow": 7.64,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 12.89,
@@ -17905,10 +21566,31 @@
    }
   },
   "RF": {
+   "annual": {
+    "fy0": {
+     "analysts": 16,
+     "endDate": "2026-12-31",
+     "eps": 2.62454,
+     "epsHigh": 2.69,
+     "epsLow": 2.53,
+     "growth": 0.12640001,
+     "revenue": 7841594480
+    },
+    "fy1": {
+     "analysts": 16,
+     "endDate": "2027-12-31",
+     "eps": 2.84546,
+     "epsHigh": 2.95,
+     "epsLow": 2.75055,
+     "growth": 0.0842,
+     "revenue": 8220339169
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.65719,
    "epsHigh": 0.68,
    "epsLow": 0.63,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.63,
@@ -18043,10 +21725,31 @@
    }
   },
   "ROST": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2027-01-31",
+     "eps": 7.7962,
+     "epsHigh": 8.23669,
+     "epsLow": 7.59,
+     "growth": 0.1765,
+     "revenue": 25140781290
+    },
+    "fy1": {
+     "analysts": 17,
+     "endDate": "2028-01-31",
+     "eps": 8.57529,
+     "epsHigh": 9.38295,
+     "epsLow": 8.19677,
+     "growth": 0.099,
+     "revenue": 26751947990
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.91792,
    "epsHigh": 1.96,
    "epsLow": 1.87,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.56,
@@ -18104,10 +21807,31 @@
    }
   },
   "RTX": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 7.11847,
+     "epsHigh": 7.35,
+     "epsLow": 6.64,
+     "growth": 0.1317,
+     "revenue": 95745567270
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 7.75998,
+     "epsHigh": 8.15,
+     "epsLow": 7.33,
+     "growth": 0.090100005,
+     "revenue": 102499484170
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.75343,
    "epsHigh": 1.81,
    "epsLow": 1.69,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.7,
@@ -18138,6 +21862,13 @@
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-25",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -18179,10 +21910,31 @@
    }
   },
   "SBUX": {
+   "annual": {
+    "fy0": {
+     "analysts": 31,
+     "endDate": "2026-09-30",
+     "eps": 2.38923,
+     "epsHigh": 2.49,
+     "epsLow": 2.26,
+     "growth": 0.121700004,
+     "revenue": 37748203790
+    },
+    "fy1": {
+     "analysts": 32,
+     "endDate": "2027-09-30",
+     "eps": 3.01258,
+     "epsHigh": 3.29,
+     "epsLow": 2.73,
+     "growth": 0.2609,
+     "revenue": 38409485410
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.65027,
    "epsHigh": 0.71571,
    "epsLow": 0.54,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.5,
@@ -18254,10 +22006,31 @@
    }
   },
   "SCCO": {
+   "annual": {
+    "fy0": {
+     "analysts": 13,
+     "endDate": "2026-12-31",
+     "eps": 7.7497,
+     "epsHigh": 8.87,
+     "epsLow": 7.05,
+     "growth": 0.49150002,
+     "revenue": 16888481820
+    },
+    "fy1": {
+     "analysts": 13,
+     "endDate": "2027-12-31",
+     "eps": 7.22801,
+     "epsHigh": 8.35139,
+     "epsLow": 5.5,
+     "growth": -0.0673,
+     "revenue": 16042001780
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.8293,
    "epsHigh": 1.96608,
    "epsLow": 1.62,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.32734,
@@ -18357,10 +22130,31 @@
    }
   },
   "SCHW": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 6.49594,
+     "epsHigh": 6.60578,
+     "epsLow": 6.36,
+     "growth": 0.3339,
+     "revenue": 28259283630
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-12-31",
+     "eps": 7.79767,
+     "epsHigh": 8.47,
+     "epsLow": 7.02,
+     "growth": 0.20040001,
+     "revenue": 31490076740
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.67038,
    "epsHigh": 1.73,
    "epsLow": 1.63,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.31,
@@ -18467,10 +22261,31 @@
    }
   },
   "SHOP": {
+   "annual": {
+    "fy0": {
+     "analysts": 41,
+     "endDate": "2026-12-31",
+     "eps": 1.84531,
+     "epsHigh": 2.23,
+     "epsLow": 1.47,
+     "growth": 0.2904,
+     "revenue": 14802560570
+    },
+    "fy1": {
+     "analysts": 41,
+     "endDate": "2027-12-31",
+     "eps": 2.33167,
+     "epsHigh": 3.31,
+     "epsLow": 1.73,
+     "growth": 0.2636,
+     "revenue": 18336708180
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.3998,
    "epsHigh": 0.47,
    "epsLow": 0.3,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.35,
@@ -18549,10 +22364,31 @@
    }
   },
   "SLB": {
+   "annual": {
+    "fy0": {
+     "analysts": 1,
+     "endDate": "2026-12-31",
+     "eps": 2.45,
+     "epsHigh": 2.45,
+     "epsLow": 2.45,
+     "growth": -0.16379999,
+     "revenue": 36406000000
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2027-12-31",
+     "eps": 3.28989,
+     "epsHigh": 4.13,
+     "epsLow": 2.45,
+     "growth": 0.3428,
+     "revenue": 39381158790
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.62,
    "epsHigh": 0.62,
    "epsLow": 0.62,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.69,
@@ -18580,9 +22416,9 @@
      "surprisePct": 6.11
     }
    ],
-   "nextDate": "2026-07-24",
+   "nextDate": "2026-10-23",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -18639,13 +22475,6 @@
      "firm": "RBC Capital",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Evercore ISI Group",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
    "revEstimate": 9098000000,
@@ -18667,10 +22496,31 @@
    }
   },
   "SMCI": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-06-30",
+     "eps": 2.8369,
+     "epsHigh": 3.57,
+     "epsLow": 2.4519,
+     "growth": 0.3771,
+     "revenue": 39506334870
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-06-30",
+     "eps": 3.31159,
+     "epsHigh": 4.64,
+     "epsLow": 2.25,
+     "growth": 0.1673,
+     "revenue": 53291700140
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.95748,
    "epsHigh": 1.66,
    "epsLow": 0.56755,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.41,
@@ -18720,10 +22570,31 @@
    }
   },
   "SNOW": {
+   "annual": {
+    "fy0": {
+     "analysts": 49,
+     "endDate": "2027-01-31",
+     "eps": 1.93436,
+     "epsHigh": 2.28,
+     "epsLow": 1.81,
+     "growth": 0.5475,
+     "revenue": 6100445520
+    },
+    "fy1": {
+     "analysts": 50,
+     "endDate": "2028-01-31",
+     "eps": 2.69185,
+     "epsHigh": 3.43,
+     "epsLow": 2.09491,
+     "growth": 0.3916,
+     "revenue": 7646843560
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.44658,
    "epsHigh": 0.54,
    "epsLow": 0.41,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.35,
@@ -18795,10 +22666,31 @@
    }
   },
   "SNPS": {
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-10-31",
+     "eps": 14.78942,
+     "epsHigh": 14.94058,
+     "epsLow": 14.75,
+     "growth": 0.1456,
+     "revenue": 9680096260
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-10-31",
+     "eps": 17.28051,
+     "epsHigh": 18.6,
+     "epsLow": 16.25,
+     "growth": 0.1684,
+     "revenue": 10731265170
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.67334,
    "epsHigh": 3.78,
    "epsLow": 3.63,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.39,
@@ -18863,10 +22755,31 @@
    }
   },
   "SO": {
-   "epsEstimate": 1.01115,
+   "annual": {
+    "fy0": {
+     "analysts": 23,
+     "endDate": "2026-12-31",
+     "eps": 4.57533,
+     "epsHigh": 4.62,
+     "epsLow": 4.53,
+     "growth": 0.064,
+     "revenue": 31135277760
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 4.9183,
+     "epsHigh": 4.96,
+     "epsLow": 4.83,
+     "growth": 0.075,
+     "revenue": 32806525810
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 1.01056,
    "epsHigh": 1.05155,
    "epsLow": 0.986,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.92,
@@ -18926,29 +22839,50 @@
      "to": "Equal-Weight"
     }
    ],
-   "revEstimate": 7270218460,
+   "revEstimate": 7272329570,
    "trend": {
-    "analystsEps": 18,
+    "analystsEps": 19,
     "analystsRev": 9,
     "endDate": "2026-06-30",
     "eps30dAgo": 1.00676,
     "eps60dAgo": 1.01258,
-    "eps7dAgo": 1.00729,
+    "eps7dAgo": 1.00974,
     "eps90dAgo": 1.0249,
-    "epsNow": 1.01115,
-    "growth": 0.0991,
+    "epsNow": 1.01056,
+    "growth": 0.098400004,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 7270218460
+    "revenueAvg": 7272329570
    }
   },
   "SPGI": {
+   "annual": {
+    "fy0": {
+     "analysts": 11,
+     "endDate": "2026-12-31",
+     "eps": 18.86702,
+     "epsHigh": 19.33,
+     "epsLow": 18.4,
+     "growth": 0.0582,
+     "revenue": 15560002370
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-12-31",
+     "eps": 20.29993,
+     "epsHigh": 21.65,
+     "epsLow": 19.75,
+     "growth": 0.0759,
+     "revenue": 15744287040
+    },
+    "lt5y": null
+   },
    "epsEstimate": 5.00271,
    "epsHigh": 5.22,
    "epsLow": 4.84,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.43,
@@ -19069,10 +23003,31 @@
    }
   },
   "STZ": {
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2027-02-28",
+     "eps": 11.80013,
+     "epsHigh": 12.05,
+     "epsLow": 11.2,
+     "growth": -0.0017,
+     "revenue": 9100917330
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2028-02-29",
+     "eps": 12.39194,
+     "epsHigh": 13.18858,
+     "epsLow": 10.77,
+     "growth": 0.0502,
+     "revenue": 9271042810
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.60896,
    "epsHigh": 4.065,
    "epsLow": 3.32,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.63,
@@ -19207,10 +23162,31 @@
    }
   },
   "SYF": {
+   "annual": {
+    "fy0": {
+     "analysts": 20,
+     "endDate": "2026-12-31",
+     "eps": 9.36223,
+     "epsHigh": 9.77,
+     "epsLow": 9.17,
+     "growth": -0.0072000003,
+     "revenue": 15200522240
+    },
+    "fy1": {
+     "analysts": 23,
+     "endDate": "2027-12-31",
+     "eps": 10.48223,
+     "epsHigh": 11.98,
+     "epsLow": 9.91,
+     "growth": 0.1216,
+     "revenue": 16003712530
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.39279,
    "epsHigh": 2.67962,
    "epsLow": 2.24,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.86,
@@ -19310,10 +23286,31 @@
    }
   },
   "SYK": {
+   "annual": {
+    "fy0": {
+     "analysts": 26,
+     "endDate": "2026-12-31",
+     "eps": 14.98192,
+     "epsHigh": 15.08,
+     "epsLow": 14.86,
+     "growth": 0.0992,
+     "revenue": 27270573710
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 16.71839,
+     "epsHigh": 16.96,
+     "epsLow": 16.43,
+     "growth": 0.1159,
+     "revenue": 29588887430
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.48707,
    "epsHigh": 3.61,
    "epsLow": 3.36,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.13,
@@ -19378,10 +23375,31 @@
    }
   },
   "TEAM": {
+   "annual": {
+    "fy0": {
+     "analysts": 31,
+     "endDate": "2026-06-30",
+     "eps": 5.50545,
+     "epsHigh": 5.78,
+     "epsLow": 5.31,
+     "growth": 0.496,
+     "revenue": 6483575940
+    },
+    "fy1": {
+     "analysts": 31,
+     "endDate": "2027-06-30",
+     "eps": 6.1224,
+     "epsHigh": 7.16059,
+     "epsLow": 5.1,
+     "growth": 0.1121,
+     "revenue": 7365996090
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.50207,
    "epsHigh": 1.77,
    "epsLow": 1.31,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.98,
@@ -19467,10 +23485,31 @@
    }
   },
   "TER": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 7.30809,
+     "epsHigh": 8.03,
+     "epsLow": 6.5,
+     "growth": 0.84550005,
+     "revenue": 4543141580
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 10.28384,
+     "epsHigh": 16.53,
+     "epsLow": 7.1,
+     "growth": 0.4072,
+     "revenue": 5599948190
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.05394,
    "epsHigh": 2.1351,
    "epsLow": 2.0,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.57,
@@ -19563,10 +23602,31 @@
    }
   },
   "TFC": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 4.6029,
+     "epsHigh": 4.71,
+     "epsLow": 4.39,
+     "growth": 0.1479,
+     "revenue": 21274230940
+    },
+    "fy1": {
+     "analysts": 18,
+     "endDate": "2027-12-31",
+     "eps": 5.00453,
+     "epsHigh": 5.15,
+     "epsLow": 4.78314,
+     "growth": 0.087299995,
+     "revenue": 22012351110
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.11496,
    "epsHigh": 1.16,
    "epsLow": 1.08,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.06,
@@ -19694,10 +23754,31 @@
    }
   },
   "TGT": {
+   "annual": {
+    "fy0": {
+     "analysts": 36,
+     "endDate": "2027-01-31",
+     "eps": 8.35763,
+     "epsHigh": 8.95665,
+     "epsLow": 7.59,
+     "growth": 0.103999995,
+     "revenue": 108897566020
+    },
+    "fy1": {
+     "analysts": 36,
+     "endDate": "2028-01-31",
+     "eps": 8.92789,
+     "epsHigh": 9.85451,
+     "epsLow": 7.09,
+     "growth": 0.0682,
+     "revenue": 112087569150
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.25513,
    "epsHigh": 2.76477,
    "epsLow": 2.05,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.05,
@@ -19783,10 +23864,31 @@
    }
   },
   "TJX": {
+   "annual": {
+    "fy0": {
+     "analysts": 12,
+     "endDate": "2027-01-31",
+     "eps": 5.20553,
+     "epsHigh": 5.36,
+     "epsLow": 5.12,
+     "growth": 0.103999995,
+     "revenue": 64135422630
+    },
+    "fy1": {
+     "analysts": 12,
+     "endDate": "2028-01-31",
+     "eps": 5.71089,
+     "epsHigh": 6.02,
+     "epsLow": 5.51,
+     "growth": 0.1029,
+     "revenue": 67886924750
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.18921,
    "epsHigh": 1.26013,
    "epsLow": 1.16,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.1,
@@ -19836,10 +23938,31 @@
    }
   },
   "TMO": {
-   "epsEstimate": 6.3947,
+   "annual": {
+    "fy0": {
+     "analysts": 24,
+     "endDate": "2026-12-31",
+     "eps": 25.07947,
+     "epsHigh": 25.26,
+     "epsLow": 24.63,
+     "growth": 0.096599996,
+     "revenue": 47817299040
+    },
+    "fy1": {
+     "analysts": 26,
+     "endDate": "2027-12-31",
+     "eps": 27.45447,
+     "epsHigh": 29.07,
+     "epsLow": 26.25,
+     "growth": 0.0947,
+     "revenue": 50275731970
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 6.3962,
    "epsHigh": 6.559,
    "epsLow": 6.32,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 5.79,
@@ -19899,29 +24022,50 @@
      "to": "Neutral"
     }
    ],
-   "revEstimate": 11939022930,
+   "revEstimate": 11947421780,
    "trend": {
     "analystsEps": 20,
-    "analystsRev": 19,
+    "analystsRev": 20,
     "endDate": "2026-09-30",
     "eps30dAgo": 6.36615,
     "eps60dAgo": 6.35441,
     "eps7dAgo": 6.36663,
     "eps90dAgo": 6.37231,
-    "epsNow": 6.3947,
-    "growth": 0.104399994,
+    "epsNow": 6.3962,
+    "growth": 0.1047,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 11939022930
+    "revenueAvg": 11947421780
    }
   },
   "TRV": {
-   "epsEstimate": 6.78749,
+   "annual": {
+    "fy0": {
+     "analysts": 26,
+     "endDate": "2026-12-31",
+     "eps": 34.03932,
+     "epsHigh": 35.74,
+     "epsLow": 31.78,
+     "growth": 0.2338,
+     "revenue": 43444538460
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2027-12-31",
+     "eps": 30.10709,
+     "epsHigh": 33.06,
+     "epsLow": 28.1,
+     "growth": -0.1155,
+     "revenue": 44699000000
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 6.81043,
    "epsHigh": 7.41,
    "epsLow": 6.03,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 8.14,
@@ -20044,10 +24188,10 @@
     "endDate": "2026-09-30",
     "eps30dAgo": 6.36654,
     "eps60dAgo": 6.34588,
-    "eps7dAgo": 6.36216,
+    "eps7dAgo": 6.63088,
     "eps90dAgo": 6.34443,
-    "epsNow": 6.78749,
-    "growth": -0.16620001,
+    "epsNow": 6.81043,
+    "growth": -0.1633,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 2,
@@ -20056,10 +24200,31 @@
    }
   },
   "TSLA": {
+   "annual": {
+    "fy0": {
+     "analysts": 34,
+     "endDate": "2026-12-31",
+     "eps": 1.81748,
+     "epsHigh": 2.32,
+     "epsLow": 1.25,
+     "growth": 0.0949,
+     "revenue": 105601190440
+    },
+    "fy1": {
+     "analysts": 32,
+     "endDate": "2027-12-31",
+     "eps": 2.23215,
+     "epsHigh": 3.65,
+     "epsLow": 0.8,
+     "growth": 0.2282,
+     "revenue": 119840470660
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.45688,
    "epsHigh": 0.6,
    "epsLow": 0.27,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.5,
@@ -20194,10 +24359,31 @@
    }
   },
   "TSM": {
+   "annual": {
+    "fy0": {
+     "analysts": 12,
+     "endDate": "2026-12-31",
+     "eps": 16.70092,
+     "epsHigh": 17.57,
+     "epsLow": 15.23,
+     "growth": 0.5682,
+     "revenue": 5403654376160
+    },
+    "fy1": {
+     "analysts": 12,
+     "endDate": "2027-12-31",
+     "eps": 21.29077,
+     "epsHigh": 23.88,
+     "epsLow": 19.58,
+     "growth": 0.2748,
+     "revenue": 7140297489770
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.49778,
    "epsHigh": 4.65,
    "epsLow": 4.32,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.92,
@@ -20290,10 +24476,31 @@
    }
   },
   "TTD": {
+   "annual": {
+    "fy0": {
+     "analysts": 22,
+     "endDate": "2026-12-31",
+     "eps": 1.85171,
+     "epsHigh": 2.1,
+     "epsLow": 1.56219,
+     "growth": 0.0462,
+     "revenue": 3177130720
+    },
+    "fy1": {
+     "analysts": 22,
+     "endDate": "2027-12-31",
+     "eps": 2.14757,
+     "epsHigh": 2.58,
+     "epsLow": 1.79,
+     "growth": 0.1598,
+     "revenue": 3481548750
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.402,
    "epsHigh": 0.47,
    "epsLow": 0.32997,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.41,
@@ -20358,10 +24565,31 @@
    }
   },
   "TTWO": {
+   "annual": {
+    "fy0": {
+     "analysts": 15,
+     "endDate": "2027-03-31",
+     "eps": 1.97005,
+     "epsHigh": 4.11,
+     "epsLow": 0.57,
+     "growth": 0.6779,
+     "revenue": 8586130429
+    },
+    "fy1": {
+     "analysts": 15,
+     "endDate": "2028-03-31",
+     "eps": 5.45106,
+     "epsHigh": 8.47,
+     "epsLow": 2.2,
+     "growth": 0.45450002,
+     "revenue": 9202812940
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.36003,
    "epsHigh": 1.02,
    "epsLow": 0.25,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": -0.07,
@@ -20475,10 +24703,31 @@
    }
   },
   "TXN": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 8.49941,
+     "epsHigh": 8.71,
+     "epsLow": 8.08,
+     "growth": 0.5337,
+     "revenue": 21897894980
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-12-31",
+     "eps": 10.03249,
+     "epsHigh": 13.5,
+     "epsLow": 8.52,
+     "growth": 0.2216,
+     "revenue": 24739456060
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.41976,
    "epsHigh": 2.54,
    "epsLow": 2.24,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.48,
@@ -20613,10 +24862,31 @@
    }
   },
   "UBER": {
+   "annual": {
+    "fy0": {
+     "analysts": 37,
+     "endDate": "2026-12-31",
+     "eps": 3.03605,
+     "epsHigh": 5.97,
+     "epsLow": 2.45,
+     "growth": 0.36029997,
+     "revenue": 58200615440
+    },
+    "fy1": {
+     "analysts": 38,
+     "endDate": "2027-12-31",
+     "eps": 4.52859,
+     "epsHigh": 5.96,
+     "epsLow": 3.31,
+     "growth": 0.33540002,
+     "revenue": 67082103890
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.80285,
    "epsHigh": 0.84,
    "epsLow": 0.76,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.63,
@@ -20716,10 +24986,31 @@
    }
   },
   "UNH": {
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 19.8121,
+     "epsHigh": 20.11,
+     "epsLow": 18.4,
+     "growth": 0.2117,
+     "revenue": 446533507080
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2027-12-31",
+     "eps": 22.43544,
+     "epsHigh": 24.5,
+     "epsLow": 19.92,
+     "growth": 0.13239999,
+     "revenue": 459373226520
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.08244,
    "epsHigh": 4.56,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.92,
@@ -20854,10 +25145,31 @@
    }
   },
   "UNP": {
-   "epsEstimate": 3.44172,
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-12-31",
+     "eps": 13.05208,
+     "epsHigh": 13.35,
+     "epsLow": 12.73,
+     "growth": 0.119399995,
+     "revenue": 26753656470
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 14.11641,
+     "epsHigh": 14.75128,
+     "epsLow": 13.21,
+     "growth": 0.081499994,
+     "revenue": 27853023060
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 3.44696,
    "epsHigh": 3.57,
    "epsLow": 3.27169,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 3.08,
@@ -20879,15 +25191,22 @@
     },
     {
      "epsActual": 3.41,
-     "epsEstimate": 3.23332,
+     "epsEstimate": 3.24241,
      "quarter": "2026-06-30",
-     "surprisePct": 5.46
+     "surprisePct": 5.17
     }
    ],
    "nextDate": "2026-10-22",
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-25",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -20964,38 +25283,52 @@
      "firm": "Citizens",
      "from": null,
      "to": "Market Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-14",
-     "firm": "Susquehanna",
-     "from": "Positive",
-     "to": "Positive"
     }
    ],
-   "revEstimate": 6944476150,
+   "revEstimate": 6937215510,
    "trend": {
-    "analystsEps": 17,
-    "analystsRev": 17,
+    "analystsEps": 20,
+    "analystsRev": 19,
     "endDate": "2026-09-30",
     "eps30dAgo": 3.3111,
     "eps60dAgo": 3.3061,
     "eps7dAgo": 3.36683,
     "eps90dAgo": 3.30155,
-    "epsNow": 3.44172,
-    "growth": 0.1174,
+    "epsNow": 3.44696,
+    "growth": 0.1191,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 4,
     "revUp7": 3,
-    "revenueAvg": 6944476150
+    "revenueAvg": 6937215510
    }
   },
   "UPS": {
+   "annual": {
+    "fy0": {
+     "analysts": 28,
+     "endDate": "2026-12-31",
+     "eps": 7.13012,
+     "epsHigh": 7.39,
+     "epsLow": 6.82,
+     "growth": -0.0042,
+     "revenue": 90383550740
+    },
+    "fy1": {
+     "analysts": 28,
+     "endDate": "2027-12-31",
+     "eps": 8.02407,
+     "epsHigh": 8.79,
+     "epsLow": 7.1,
+     "growth": 0.1254,
+     "revenue": 94227528800
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.66427,
    "epsHigh": 1.74,
    "epsLow": 1.56,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.55,
@@ -21081,10 +25414,31 @@
    }
   },
   "USB": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 5.23721,
+     "epsHigh": 5.35,
+     "epsLow": 5.13,
+     "growth": 0.1336,
+     "revenue": 31083536670
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 5.78312,
+     "epsHigh": 6.1,
+     "epsLow": 5.36,
+     "growth": 0.1042,
+     "revenue": 33210397859
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.31733,
    "epsHigh": 1.4,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.22,
@@ -21219,10 +25573,31 @@
    }
   },
   "V": {
+   "annual": {
+    "fy0": {
+     "analysts": 39,
+     "endDate": "2026-09-30",
+     "eps": 13.14769,
+     "epsHigh": 13.36,
+     "epsLow": 12.98,
+     "growth": 0.1463,
+     "revenue": 45576969730
+    },
+    "fy1": {
+     "analysts": 41,
+     "endDate": "2027-09-30",
+     "eps": 14.87099,
+     "epsHigh": 15.32255,
+     "epsLow": 14.36,
+     "growth": 0.1311,
+     "revenue": 50340089670
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.23073,
    "epsHigh": 3.32,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.98,
@@ -21308,10 +25683,31 @@
    }
   },
   "VEEV": {
+   "annual": {
+    "fy0": {
+     "analysts": 26,
+     "endDate": "2027-01-31",
+     "eps": 9.06203,
+     "epsHigh": 9.21268,
+     "epsLow": 9.0,
+     "growth": 0.1188,
+     "revenue": 3641302610
+    },
+    "fy1": {
+     "analysts": 27,
+     "endDate": "2028-01-31",
+     "eps": 10.03382,
+     "epsHigh": 10.59563,
+     "epsLow": 9.25,
+     "growth": 0.107200004,
+     "revenue": 4081167490
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.22219,
    "epsHigh": 2.27,
    "epsLow": 2.2,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.99,
@@ -21369,10 +25765,31 @@
    }
   },
   "VLO": {
+   "annual": {
+    "fy0": {
+     "analysts": 18,
+     "endDate": "2026-12-31",
+     "eps": 35.23644,
+     "epsHigh": 45.9,
+     "epsLow": 24.29078,
+     "growth": 2.3211,
+     "revenue": 139647869930
+    },
+    "fy1": {
+     "analysts": 18,
+     "endDate": "2027-12-31",
+     "eps": 24.88459,
+     "epsHigh": 38.89,
+     "epsLow": 11.42,
+     "growth": -0.2938,
+     "revenue": 124467178730
+    },
+    "lt5y": null
+   },
    "epsEstimate": 10.12557,
    "epsHigh": 11.51,
    "epsLow": 9.3966,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.28,
@@ -21479,10 +25896,31 @@
    }
   },
   "VRTX": {
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2026-12-31",
+     "eps": 18.96336,
+     "epsHigh": 19.85137,
+     "epsLow": 17.61,
+     "growth": 0.0306,
+     "revenue": 13046091890
+    },
+    "fy1": {
+     "analysts": 18,
+     "endDate": "2027-12-31",
+     "eps": 21.31469,
+     "epsHigh": 24.11023,
+     "epsLow": 18.22,
+     "growth": 0.124,
+     "revenue": 14347460320
+    },
+    "lt5y": null
+   },
    "epsEstimate": 4.74764,
    "epsHigh": 5.17,
    "epsLow": 4.26,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 4.52,
@@ -21561,10 +25999,31 @@
    }
   },
   "VST": {
+   "annual": {
+    "fy0": {
+     "analysts": 12,
+     "endDate": "2026-12-31",
+     "eps": 9.93542,
+     "epsHigh": 11.31888,
+     "epsLow": 8.3312,
+     "growth": 0.8093,
+     "revenue": 23278410670
+    },
+    "fy1": {
+     "analysts": 12,
+     "endDate": "2027-12-31",
+     "eps": 11.26493,
+     "epsHigh": 13.00111,
+     "epsLow": 9.59,
+     "growth": 0.2536,
+     "revenue": 25275236500
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.92,
    "epsHigh": 2.51,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.81,
@@ -21608,11 +26067,11 @@
     "analystsEps": 8,
     "analystsRev": 6,
     "endDate": "2026-06-30",
-    "eps30dAgo": 2.02012,
+    "eps30dAgo": 2.15137,
     "eps60dAgo": 1.97585,
     "eps7dAgo": 2.15145,
     "eps90dAgo": 2.07905,
-    "epsNow": 2.14145,
+    "epsNow": 2.16895,
     "growth": 1.6974001,
     "revDown30": 1,
     "revDown7": null,
@@ -21622,10 +26081,31 @@
    }
   },
   "WDAY": {
+   "annual": {
+    "fy0": {
+     "analysts": 42,
+     "endDate": "2027-01-31",
+     "eps": 10.75717,
+     "epsHigh": 11.81,
+     "epsLow": 10.02,
+     "growth": 0.16549999,
+     "revenue": 10668874100
+    },
+    "fy1": {
+     "analysts": 42,
+     "endDate": "2028-01-31",
+     "eps": 12.64663,
+     "epsHigh": 14.02,
+     "epsLow": 11.42,
+     "growth": 0.17559999,
+     "revenue": 11840132440
+    },
+    "lt5y": null
+   },
    "epsEstimate": 2.61139,
    "epsHigh": 2.85,
    "epsLow": 2.41,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 2.21,
@@ -21690,10 +26170,31 @@
    }
   },
   "WDC": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-06-30",
+     "eps": 9.95709,
+     "epsHigh": 10.67,
+     "epsLow": 9.5,
+     "growth": 1.0197,
+     "revenue": 12873620110
+    },
+    "fy1": {
+     "analysts": 20,
+     "endDate": "2027-06-30",
+     "eps": 18.54707,
+     "epsHigh": 22.4,
+     "epsLow": 14.98,
+     "growth": 0.8627,
+     "revenue": 18159472570
+    },
+    "lt5y": null
+   },
    "epsEstimate": 3.29968,
    "epsHigh": 3.59572,
    "epsLow": 3.2,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.66,
@@ -21793,10 +26294,31 @@
    }
   },
   "WFC": {
+   "annual": {
+    "fy0": {
+     "analysts": 19,
+     "endDate": "2026-12-31",
+     "eps": 7.27437,
+     "epsHigh": 7.47,
+     "epsLow": 6.93,
+     "growth": 0.1371,
+     "revenue": 88901867720
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 7.94588,
+     "epsHigh": 8.35,
+     "epsLow": 7.31,
+     "growth": 0.0979,
+     "revenue": 92925534990
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.80586,
    "epsHigh": 1.88,
    "epsLow": 1.71,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.66,
@@ -21896,10 +26418,31 @@
    }
   },
   "WMT": {
+   "annual": {
+    "fy0": {
+     "analysts": 38,
+     "endDate": "2027-01-31",
+     "eps": 2.90302,
+     "epsHigh": 3.09,
+     "epsLow": 2.81,
+     "growth": 0.0996,
+     "revenue": 752171601910
+    },
+    "fy1": {
+     "analysts": 39,
+     "endDate": "2028-01-31",
+     "eps": 3.28526,
+     "epsHigh": 3.62,
+     "epsLow": 3.1,
+     "growth": 0.1317,
+     "revenue": 786932679370
+    },
+    "lt5y": null
+   },
    "epsEstimate": 0.7428,
    "epsHigh": 0.78,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.68,
@@ -21957,10 +26500,31 @@
    }
   },
   "XOM": {
-   "epsEstimate": 3.69181,
+   "annual": {
+    "fy0": {
+     "analysts": 25,
+     "endDate": "2026-12-31",
+     "eps": 11.22087,
+     "epsHigh": 16.37,
+     "epsLow": 7.91,
+     "growth": 0.6053,
+     "revenue": 393522079570
+    },
+    "fy1": {
+     "analysts": 24,
+     "endDate": "2027-12-31",
+     "eps": 10.73677,
+     "epsHigh": 14.49,
+     "epsLow": 7.46192,
+     "growth": -0.0431,
+     "revenue": 393043883670
+    },
+    "lt5y": null
+   },
+   "epsEstimate": 3.6797,
    "epsHigh": 4.46,
    "epsLow": 3.14345,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.64,
@@ -22020,29 +26584,50 @@
      "to": "Buy"
     }
    ],
-   "revEstimate": 97782459200,
+   "revEstimate": 98353418940,
    "trend": {
     "analystsEps": 19,
     "analystsRev": 8,
     "endDate": "2026-06-30",
     "eps30dAgo": 3.73464,
     "eps60dAgo": 3.56427,
-    "eps7dAgo": 3.68852,
+    "eps7dAgo": 3.65961,
     "eps90dAgo": 3.37492,
-    "epsNow": 3.69181,
-    "growth": 1.2511001,
+    "epsNow": 3.6797,
+    "growth": 1.2437,
     "revDown30": 4,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 97782459200
+    "revenueAvg": 98353418940
    }
   },
   "YUM": {
+   "annual": {
+    "fy0": {
+     "analysts": 21,
+     "endDate": "2026-12-31",
+     "eps": 6.75847,
+     "epsHigh": 7.0,
+     "epsLow": 6.5,
+     "growth": 0.1171,
+     "revenue": 9200796680
+    },
+    "fy1": {
+     "analysts": 21,
+     "endDate": "2027-12-31",
+     "eps": 7.46343,
+     "epsHigh": 7.8,
+     "epsLow": 6.89665,
+     "growth": 0.1043,
+     "revenue": 9664433100
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.56293,
    "epsHigh": 1.63,
    "epsLow": 1.39145,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.44,
@@ -22107,10 +26692,31 @@
    }
   },
   "ZM": {
+   "annual": {
+    "fy0": {
+     "analysts": 30,
+     "endDate": "2027-01-31",
+     "eps": 6.07716,
+     "epsHigh": 6.96,
+     "epsLow": 5.97,
+     "growth": 0.026500002,
+     "revenue": 5090769610
+    },
+    "fy1": {
+     "analysts": 30,
+     "endDate": "2028-01-31",
+     "eps": 6.29862,
+     "epsHigh": 6.86,
+     "epsLow": 5.73,
+     "growth": 0.0364,
+     "revenue": 5293121970
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.4752,
    "epsHigh": 1.6,
    "epsLow": 1.45,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.53,
@@ -22182,10 +26788,31 @@
    }
   },
   "ZS": {
+   "annual": {
+    "fy0": {
+     "analysts": 44,
+     "endDate": "2026-07-31",
+     "eps": 4.12789,
+     "epsHigh": 4.33,
+     "epsLow": 4.1,
+     "growth": 0.2585,
+     "revenue": 3331819150
+    },
+    "fy1": {
+     "analysts": 45,
+     "endDate": "2027-07-31",
+     "eps": 4.59716,
+     "epsHigh": 5.42,
+     "epsLow": 3.96,
+     "growth": 0.1137,
+     "revenue": 3898748380
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.09001,
    "epsHigh": 1.16,
    "epsLow": 1.076,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 0.89,
@@ -22243,55 +26870,6 @@
      "firm": "Canaccord Genuity",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Macquarie",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-10",
-     "firm": "RBC Capital",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-10",
-     "firm": "Wedbush",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-10",
-     "firm": "Guggenheim",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-10",
-     "firm": "Cantor Fitzgerald",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-10",
-     "firm": "Rosenblatt",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-10",
-     "firm": "Needham",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 877605040,
@@ -22313,10 +26891,31 @@
    }
   },
   "ZTS": {
+   "annual": {
+    "fy0": {
+     "analysts": 17,
+     "endDate": "2026-12-31",
+     "eps": 6.8625,
+     "epsHigh": 6.95221,
+     "epsLow": 6.757,
+     "growth": 0.0706,
+     "revenue": 9753116710
+    },
+    "fy1": {
+     "analysts": 19,
+     "endDate": "2027-12-31",
+     "eps": 7.38995,
+     "epsHigh": 8.03,
+     "epsLow": 7.06,
+     "growth": 0.0769,
+     "revenue": 10149485380
+    },
+    "lt5y": null
+   },
    "epsEstimate": 1.85209,
    "epsHigh": 1.9,
    "epsLow": 1.77,
-   "fetchedAt": "2026-07-25",
+   "fetchedAt": "2026-07-26",
    "history": [
     {
      "epsActual": 1.76,
