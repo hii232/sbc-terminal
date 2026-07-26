@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "77"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "78"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -5913,6 +5913,8 @@
           <div class="note" style="margin:-4px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
             <button id="homeRefreshPrices" type="button" style="cursor:pointer;background:none;border:1px solid var(--line);border-radius:6px;padding:3px 10px;color:var(--cyan)">↻ Refresh prices</button>
             <span id="homeLiveStatus" class="sub">${state.liveStatus.lastFullRefresh ? `${liveCoverage} live · updated ${Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000)}s ago` : "fetching live prices…"}${state.liveStatus.lastError ? ` · last error: ${escapeHtml(state.liveStatus.lastError)}` : ""}</span>
+            ${state.liveStatus.lastFullRefresh && liveCoverage === 0 ? `<span class="sub" style="color:var(--orange)">No live quotes reached this device — the free Yahoo feed is being blocked (CORS relay or network). <b>Prices below are the last pipeline close, not intraday.</b> A free Finnhub key in ⚙️ bypasses the relays entirely.</span>`
+              : liveCoverage && liveCoverage < DATA.length * 0.5 ? `<span class="sub">Partial live coverage — the rest show the last pipeline close.</span>` : ""}
             ${liveCoverage < 40 && !state.keys.finnhub ? `<span class="sub">For instant live quotes (no proxy): add a free <b>Finnhub</b> key in ⚙️.</span>` : ""}
           </div>
           <div class="bz-mover-cols">
@@ -6383,14 +6385,55 @@
     return applyLiveQuote(tk, price, changePct, "Yahoo");
   }
 
-  async function fetchYahooQuoteBatch(tickers) {
+  /* Yahoo's spark endpoint takes MANY symbols in one request, which is the
+     difference between 224 fragile calls and ~6. Every extra request is
+     another chance for a public CORS relay to rate-limit us, so batching is
+     not just faster — it is the main reason quotes arrive at all. Per-ticker
+     chart calls remain as the fallback for whatever a batch misses. */
+  function applySparkResult(r) {
+    const tk = r && r.symbol;
+    const resp = r && r.response && r.response[0];
+    if (!tk || !resp) return false;
+    const meta = resp.meta || {};
+    const closes = ((resp.indicators && resp.indicators.quote && resp.indicators.quote[0] || {}).close || [])
+      .filter(v => v != null && Number.isFinite(+v));
+    const price = +(meta.regularMarketPrice ?? closes[closes.length - 1]);
+    const prev = +(meta.previousClose ?? meta.chartPreviousClose);
+    const changePct = Number.isFinite(price) && Number.isFinite(prev) && prev > 0 ? ((price - prev) / prev) * 100 : 0;
+    return applyLiveQuote(tk, price, changePct, "Yahoo");
+  }
+  async function fetchYahooSparkBatch(tickers) {
     let ok = 0;
-    const batch = 2;
-    for (let i = 0; i < tickers.length; i += batch) {
-      const chunk = tickers.slice(i, i + batch);
+    const CHUNK = 40;
+    for (let i = 0; i < tickers.length; i += CHUNK) {
+      const chunk = tickers.slice(i, i + CHUNK);
+      const path = `query1.finance.yahoo.com/v7/finance/spark?symbols=${chunk.map(encodeURIComponent).join(",")}&range=1d&interval=5m`;
+      const direct = `https://${path}`;
+      let j = null;
+      for (const url of [direct,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(direct)}`,
+        `https://corsproxy.io/?url=${encodeURIComponent(direct)}`]) {
+        try {
+          j = await fetchJsonWithRetry(url, { provider: "Yahoo spark", ticker: `${chunk.length} symbols`, cacheMs: 10 * 1000, retries: 0, timeoutMs: 9000 });
+          if (j) break;
+        } catch { /* escalate to the next relay */ }
+      }
+      const results = j && (j.spark && j.spark.result) ? j.spark.result : Array.isArray(j) ? j : null;
+      if (results) for (const r of results) { if (applySparkResult(r)) ok++; }
+      if (i + CHUNK < tickers.length) await sleep(350);
+    }
+    return ok;
+  }
+  async function fetchYahooQuoteBatch(tickers) {
+    // one batched pass first, then per-ticker only for what is still missing
+    let ok = await fetchYahooSparkBatch(tickers);
+    const missing = tickers.filter(tk => !(state.live[tk] && state.live[tk].quote));
+    const batch = 4;
+    for (let i = 0; i < missing.length && i < 60; i += batch) {
+      const chunk = missing.slice(i, i + batch);
       const results = await Promise.all(chunk.map(tk => fetchYahooQuote(tk).catch(() => false)));
       ok += results.filter(Boolean).length;
-      if (i + batch < tickers.length) await sleep(900);
+      if (i + batch < missing.length) await sleep(700);
     }
     return ok;
   }
@@ -6504,8 +6547,9 @@
     allCompanies()
       .filter(d => state.bucket === "all" ? true : state.bucket === "fav" ? state.favs.has(d.ticker) : d.bucket === state.bucket)
       .sort((a, b) => watchMetric(b, state.watchSort) - watchMetric(a, state.watchSort) || b.mktCap - a.mktCap)
-      .slice(0, 48)
       .forEach(d => add(d.ticker));
+    // the spark endpoint takes 40 symbols per request, so the whole board costs
+    // ~6 calls — no reason to quietly sample a fraction of it any more
     return out;
   }
   async function refreshAllLive(opts = {}) {
@@ -6744,6 +6788,7 @@
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
+    fetchYahooSparkBatch, applySparkResult,
     forwardPeCurveOf, forwardPeUniverse, annualEstOf,
     TRACKED_SIGNALS, proofStatusOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
