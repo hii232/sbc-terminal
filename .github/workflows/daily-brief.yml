@@ -3,8 +3,11 @@ name: daily-brief
 # owner's phone (GitHub mobile) and inbox — no API keys, no mail server and
 # no third-party service to keep alive.
 on:
-  schedule:
-    - cron: "30 11 * * 1-5"   # weekdays, 30 min after the data refresh
+  # Scheduled posting is OFF at the owner's request. The brief still composes
+  # and can be run on demand from the Actions tab; re-enable by restoring the
+  # schedule block below.
+  #   schedule:
+  #     - cron: "30 11 * * 1-5"
   workflow_dispatch: {}
 permissions:
   contents: write
