@@ -181,7 +181,18 @@ const ok = (cond, name, detail = "") => {
   const forwardRows = DATA.map(d => ({ d, f: E.forwardPEOf(d) })).filter(x => E.dataConfidenceOf(x.d).rankable && x.f.pe != null);
   ok(forwardRows.length >= atLeast(0.30), "forward P/E available for most rankable names", `${forwardRows.length}/${UNIVERSE_COUNT}`);
   const muFwd = E.forwardPEOf(mu);
-  ok(muFwd.pe > 0 && muFwd.pe < mu.truePE, "MU forward P/E appears beside owner P/E and is finite", `${muFwd.pe}x`);
+  // Forward P/E must be positive, finite and reconcile to price / forward EPS.
+  // It must NOT be asserted to sit below the owner-earnings P/E: the two use
+  // different EPS bases (owner earnings is SBC-adjusted, Street EPS is not),
+  // and for a cyclical at peak earnings analysts legitimately expect LOWER
+  // profits next year, which puts forward above trailing. That inversion is
+  // real information, not a defect — it holds for ~a quarter of the universe.
+  ok(muFwd.pe > 0 && Number.isFinite(muFwd.pe), "MU forward P/E is present, positive and finite", `${muFwd.pe}x`);
+  ok(muFwd.eps == null || !(muFwd.eps > 0) || Math.abs(muFwd.pe - mu.price / muFwd.eps) < 0.6,
+    "MU forward P/E reconciles to price / forward EPS", `${muFwd.pe} vs ${(mu.price / muFwd.eps).toFixed(1)}`);
+  const fwdBroken = forwardRows.filter(x => !(x.f.pe > 0) || !Number.isFinite(x.f.pe));
+  ok(fwdBroken.length === 0, "no rankable name carries a non-positive or infinite forward P/E",
+    fwdBroken.map(x => x.d.ticker).join(","));
 }
 
 // =============== 9. Universe + SEC filing layer ===============
