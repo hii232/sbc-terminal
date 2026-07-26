@@ -1,0 +1,66 @@
+name: daily-brief
+# Posts the morning brief as a GitHub issue. GitHub then pushes it to the
+# owner's phone (GitHub mobile) and inbox — no API keys, no mail server and
+# no third-party service to keep alive.
+on:
+  schedule:
+    - cron: "30 11 * * 1-5"   # weekdays, 30 min after the data refresh
+  workflow_dispatch: {}
+permissions:
+  contents: write
+  issues: write
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Compose the brief
+        id: brief
+        run: node scripts/daily_brief.js > /dev/null
+      - name: Post it as an issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const body = fs.readFileSync("data/brief.md", "utf8");
+            const today = new Date().toISOString().slice(0, 10);
+            const title = `Morning Brief — ${today}`;
+            // One issue per day. Re-running the workflow updates that day's
+            // issue instead of spamming a second one.
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: "open", labels: "morning-brief", per_page: 20,
+            });
+            const match = existing.data.find(i => i.title === title);
+            if (match) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: match.number, body,
+              });
+              core.info(`updated issue #${match.number}`);
+            } else {
+              const made = await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title, body, labels: ["morning-brief"],
+              });
+              core.info(`created issue #${made.data.number}`);
+              // keep the list tidy: close briefs older than a week
+              for (const i of existing.data) {
+                const age = (Date.now() - Date.parse(i.created_at)) / 864e5;
+                if (age > 7) {
+                  await github.rest.issues.update({
+                    owner: context.repo.owner, repo: context.repo.repo,
+                    issue_number: i.number, state: "closed",
+                  });
+                }
+              }
+            }
+      - name: Commit the brief alongside the data
+        run: |
+          git config user.name "sbc-terminal-bot"
+          git config user.email "actions@github.com"
+          git add data/brief.md || true
+          git diff --cached --quiet || git commit -m "brief: $(date -u +%F)"
+          git push || true

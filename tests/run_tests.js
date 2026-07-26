@@ -814,5 +814,29 @@ const ok = (cond, name, detail = "") => {
   }
 }
 
+// =============== 22. Batched live quotes (spark) ===============
+{
+  ok(typeof E.fetchYahooSparkBatch === "function", "batched spark fetcher is exported");
+  // a spark row must produce a real quote or be rejected — never a fake price
+  ok(E.applySparkResult(null) === false, "null spark row applies nothing");
+  ok(E.applySparkResult({ symbol: "AAPL" }) === false, "spark row without a response applies nothing");
+  ok(E.applySparkResult({ symbol: "AAPL", response: [{ meta: {} }] }) === false,
+    "spark row with no price applies nothing rather than a zero");
+  // applyLiveQuote deliberately leaves d.price (the bundled close) alone and
+  // records the quote separately, so the observable effect is the recomputed
+  // price-derived multiple
+  const cost = E.companyOf("COST");
+  const beforePE = cost.headlinePE;
+  ok(E.applySparkResult({ symbol: "COST", response: [{ meta: { regularMarketPrice: cost.price * 1.2, previousClose: cost.price } }] }) === true,
+    "a well-formed spark row applies its quote");
+  ok(cost.gaapEPS <= 0 || cost.headlinePE !== beforePE, "spark quote recomputes price-derived multiples", `${beforePE} -> ${cost.headlinePE}`);
+  // falls back to the last close in the series when meta omits the price
+  const cl = E.companyOf("TJX").price;
+  ok(E.applySparkResult({ symbol: "TJX", response: [{ meta: { previousClose: cl }, indicators: { quote: [{ close: [cl, null, cl + 3] }] } }] }) === true,
+    "spark falls back to the last valid close when meta has no price");
+  ok(E.applySparkResult({ symbol: "NOTREAL", response: [{ meta: { regularMarketPrice: 10, previousClose: 9 } }] }) === false,
+    "a symbol outside the universe is ignored");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
