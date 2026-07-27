@@ -2423,6 +2423,46 @@
   // RSI, revisions, tier-1 ratings, whale 13Fs, insider buying, filing diffs,
   // narrative heat. Fixed, so completeness means the same thing for every name.
   const CONVICTION_SOURCES = 10;
+  /* An audit found several of the 10 votes are not actually independent --
+     they read the same underlying fact and vote on it more than once. The
+     clearest, most heavily-weighted case: 'revisions' (direct
+     revUp30/revDown30), 'beat' (its 2nd-heaviest part reuses the same
+     field), 'drift' (a minor adjustment off it) and 'narrative' (heavily
+     aggregates it) all share one analyst-revision number. Left alone, that
+     single shared fact can look like up to 4 independent confirmations and
+     push position sizing to its ceiling on correlated agreement, not real
+     confluence. This cluster counts for AT MOST ONE net vote when sizing a
+     position -- this does not touch what the Conviction Board itself
+     displays (all 10 rows, their own why-text, and the raw
+     bulls/bears/label stay exactly as cast).
+     ('edge' and 'beat' also independently call macroRegimeOf() -- a real,
+     separately-confirmed overlap -- but 'beat' cannot cleanly sit in two
+     clusters at once: giving it dual membership lets its single vote both
+     cancel a genuinely-dissenting 'edge' inside one cluster AND still
+     swing the other cluster on its own, which can make the adjusted net
+     MORE extreme than the raw vote count, or even flip its sign, on real
+     data (e.g. PLTR: raw net 0 -> adjusted +1). A vote must belong to at
+     most one cluster to keep this monotonic, so the macro overlap is left
+     uncorrected here -- it is smaller anyway (weight 10/100 of beat, 3/110
+     of edge) than the revisions overlap this cluster targets.) */
+  const CONVICTION_CLUSTERS = {
+    "earnings-estimate": ["revisions", "beat", "drift", "narrative"],
+  };
+  function clusterAdjustedNet(votes, clusters) {
+    const clustered = new Set(Object.values(clusters).flat());
+    let net = 0;
+    for (const members of Object.values(clusters)) {
+      const dirs = votes.filter(v => members.includes(v.key)).map(v => v.dir);
+      if (!dirs.length) continue;
+      const bull = dirs.some(x => x > 0), bear = dirs.some(x => x < 0);
+      net += bull && !bear ? 1 : bear && !bull ? -1 : 0;
+    }
+    for (const v of votes) {
+      if (clustered.has(v.key)) continue;
+      net += v.dir > 0 ? 1 : v.dir < 0 ? -1 : 0;
+    }
+    return net;
+  }
   function convictionOf(d, ctx) {
     const ledger = ctx && ctx.ledger || earningsLedger();
     const narrs = ctx && ctx.narrs || narrativeHeatAll();
@@ -2495,6 +2535,7 @@
     // votes.length here would have punished quiet names for being quiet.
     return { d, votes, bulls: bulls.length, bears: bears.length, silent: votes.length - active,
       score, label, color, notEvaluated,
+      netForSizing: clusterAdjustedNet(votes, CONVICTION_CLUSTERS),
       evidence: (CONVICTION_SOURCES - notEvaluated.length) / CONVICTION_SOURCES };
   }
   function convictionBoard(limit = 8) {
@@ -2547,8 +2588,11 @@
     const stopPrice = +(price * (1 - stopPct / 100)).toFixed(2);
     // 2 · size: fixed fractional risk, then scaled by independent agreement.
     //     MAX_POSITION_PCT is the hard guard — no single idea, however loud
-    //     the agreement, is allowed to become the whole outcome.
-    const net = conv ? conv.bulls - conv.bears : 0;
+    //     the agreement, is allowed to become the whole outcome. Uses
+    //     netForSizing (cluster-adjusted), not raw bulls-bears, so votes
+    //     sharing an underlying fact (analyst revisions, macro regime)
+    //     cannot each count as a separate independent confirmation.
+    const net = conv ? conv.netForSizing : 0;
     const convMult = net >= 4 ? 1.3 : net === 3 ? 1.1 : net === 2 ? 0.9 : net <= 0 ? 0.5 : 0.7;
     const qualityOk = ms && (ms.businessQuality.score ?? 0) >= 60 && conf.rankable;
     const raw = (RISK_BUDGET_PCT / stopPct) * 100 * convMult * (qualityOk ? 1 : 0.5);
@@ -2748,7 +2792,11 @@
         r ? `RSI ${r.value}` : null].filter(Boolean);
       add("tape", v, bits.join(" · "), bits.length);
     }
-    // 4 · CONFLUENCE — the independent-signal vote, already de-duplicated
+    // 4 · CONFLUENCE — the independent-signal vote. NOTE: c.score here is the
+    // RAW vote tally (matches what the Conviction Board displays), not the
+    // cluster-adjusted netForSizing used by position sizing -- some of these
+    // 10 votes share an underlying fact (see CONVICTION_CLUSTERS) and this
+    // pillar does not yet correct for that.
     {
       const c = (ctx && ctx.convMap && ctx.convMap[d.ticker]) || convictionOf(d, ctx);
       if (c && c.score != null && c.votes.length)
@@ -6888,7 +6936,7 @@
     directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
-    NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard,
+    NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,

@@ -1092,5 +1092,51 @@ const ok = (cond, name, detail = "") => {
     `n=${tiedGroupScores.length} distinct=${new Set(tiedGroupScores.map(s => Math.round(s))).size}`);
 }
 
+// =============== 28. Conviction votes: cluster correlated sources for sizing only ===============
+{
+  ok(typeof E.clusterAdjustedNet === "function", "clusterAdjustedNet is exported for direct testing");
+  ok(typeof E.CONVICTION_CLUSTERS === "object" && E.CONVICTION_CLUSTERS["earnings-estimate"],
+    "the earnings-estimate cluster (revisions/beat/drift/narrative) is exported for inspection");
+
+  const mkVotes = (obj) => Object.entries(obj).map(([key, dir]) => ({ key, dir }));
+  // 4 cluster members all bullish must count as ONE net vote, not four
+  ok(E.clusterAdjustedNet(mkVotes({ revisions: 1, beat: 1, drift: 1, narrative: 1 }), E.CONVICTION_CLUSTERS) === 1,
+    "four correlated bullish votes net to +1, not +4");
+  // mixed signal within the cluster nets to 0 (no confident net direction),
+  // not a wash that still lets one side "win" arbitrarily
+  ok(E.clusterAdjustedNet(mkVotes({ revisions: 1, beat: -1 }), E.CONVICTION_CLUSTERS) === 0,
+    "disagreement within the correlated cluster nets to 0");
+  // votes outside the cluster are untouched
+  ok(E.clusterAdjustedNet(mkVotes({ insider: 1, whale: 1, tier1: -1 }), E.CONVICTION_CLUSTERS) === 1,
+    "uncorrelated votes (insider/whale/tier1) still count individually");
+  // a mix of clustered + solo votes combines correctly
+  ok(E.clusterAdjustedNet(mkVotes({ revisions: 1, beat: 1, narrative: 1, insider: 1, whale: -1 }), E.CONVICTION_CLUSTERS) === 1,
+    "one clustered net vote (+1) plus solo votes (+1, -1) combine to +1");
+
+  // The defect this replaces: playbookOf's convMult used raw bulls-bears,
+  // so 3-4 votes sharing one analyst-revision figure could each count as a
+  // separate independent confirmation and push sizing to its 1.3x ceiling
+  // on correlated agreement alone.
+  const AAPL = E.companyOf("AAPL");
+  const conv = E.convictionOf(AAPL);
+  ok(Number.isInteger(conv.netForSizing), "convictionOf exposes a cluster-adjusted netForSizing field");
+  ok(conv.bulls >= 0 && conv.bears >= 0, "raw bulls/bears counts are untouched (still what the Conviction Board displays)");
+
+  // Across the real universe: the adjustment must never make the net MORE
+  // extreme than the raw vote count in magnitude, and must never flip its
+  // sign -- a de-duplication fix must only ever remove inflated agreement,
+  // never manufacture new agreement or erase genuine dissent into a false
+  // opposite reading.
+  let magnitudeViolations = 0, signFlips = 0;
+  for (const d of DATA) {
+    const c = E.convictionOf(d);
+    const rawNet = c.bulls - c.bears;
+    if (Math.abs(c.netForSizing) > Math.abs(rawNet)) magnitudeViolations++;
+    if (Math.sign(rawNet) !== 0 && Math.sign(c.netForSizing) !== 0 && Math.sign(rawNet) !== Math.sign(c.netForSizing)) signFlips++;
+  }
+  ok(magnitudeViolations === 0, "cluster-adjusted net never exceeds the raw net's magnitude for any real name", String(magnitudeViolations));
+  ok(signFlips === 0, "cluster-adjusted net never flips the sign of a real name's raw net", String(signFlips));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
