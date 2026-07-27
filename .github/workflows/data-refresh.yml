@@ -38,9 +38,13 @@ jobs:
       - name: Golden audit must pass before commit
         run: python scripts/golden_audit.py
       - name: Commit refreshed data
+        # This list must include every file any step above writes — sectors.js
+        # was regenerated fresh every run for 19 days and never committed here,
+        # so Direction Edge/Beat Odds ran on a 19-day-stale sector tape with no
+        # error or warning anywhere. If you add a new generated file, add it here.
         run: |
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
-          git add data.js sec.js track.js earnings.js signals.js whales.js insiders.js data/ || true
+          git add data.js sec.js sectors.js track.js earnings.js signals.js whales.js insiders.js data/ || true
           git diff --cached --quiet || git commit -m "data: automated refresh $(date -u +%F)"
           git push
