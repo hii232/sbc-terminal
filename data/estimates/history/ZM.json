@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "ZM"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 4.85034,
+      "currentYearRevenue": 4081094088.0,
+      "date": "2026-07-27",
+      "nextYearEps": 3.97673,
+      "nextYearRevenue": 4375179717.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "ZM"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",
