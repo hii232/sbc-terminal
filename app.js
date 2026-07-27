@@ -549,40 +549,66 @@
     score: score == null || !Number.isFinite(+score) ? null : Math.round(clamp(+score, 0, 100)),
     weight, why: why || "", source: source || "terminal", raw: raw || {},
   });
+  /* An independent audit found this function diffed the latest snapshot
+     against hist[0] — the OLDEST snapshot EVER recorded for the ticker —
+     rather than a fixed lookback window, so the effective measurement
+     window silently widened every day since collection began instead of
+     staying comparable day to day. scores.js already implements this
+     correctly (estimateRevision/revisionScore, real fixed 7/30/90-day
+     windows, "no snapshot old enough" -> null rather than a rescaled
+     copy of a shorter window) and uses it at real weight inside
+     marketReward() — reuse it here instead of re-deriving broken math. */
   function estimateSetupPart(d) {
-    const hist = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY[d.ticker] && ESTIMATE_HISTORY[d.ticker].snapshots) || [];
-    const snapVal = (s, keys) => {
-      for (const k of keys) if (hasNum(s && s[k])) return +s[k];
-      return null;
-    };
-    if (hist.length >= 2) {
-      const latest = hist[hist.length - 1], prev = hist[0];
-      const epsNow = snapVal(latest, ["nextYearEps", "currentYearEps", "epsAvg", "estimatedEpsAvg", "epsEstimate"]);
-      const epsPrev = snapVal(prev, ["nextYearEps", "currentYearEps", "epsAvg", "estimatedEpsAvg", "epsEstimate"]);
-      const revNow = snapVal(latest, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
-      const revPrev = snapVal(prev, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
-      const epsRev = epsNow != null && epsPrev ? ((epsNow - epsPrev) / Math.abs(epsPrev)) * 100 : null;
-      const revRev = revNow != null && revPrev ? ((revNow - revPrev) / Math.abs(revPrev)) * 100 : null;
-      const used = [epsRev, revRev].filter(hasNum);
-      if (used.length) {
-        const s = 50 + (epsRev || 0) * 2.1 + (revRev || 0) * 1.2;
-        const txt = `estimate revisions: EPS ${epsRev == null ? "n/a" : epsRev.toFixed(1) + "%"}, revenue ${revRev == null ? "n/a" : revRev.toFixed(1) + "%"}`;
-        return scorePart("estimates", "Estimate revisions", s, 22, txt, `${hist.length} stored snapshots`, { epsRev, revRev });
+    const histObj = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY[d.ticker]) || null;
+    if (histObj && window.ScoreEngine) {
+      const epsRev = window.ScoreEngine.revisionScore(histObj, "nextYearEps");
+      const revRev = window.ScoreEngine.revisionScore(histObj, "nextYearRevenue");
+      const parts = [];
+      if (epsRev.score != null) parts.push({ score: epsRev.score, w: 0.6 });   // same ~63/37 EPS-over-revenue
+      if (revRev.score != null) parts.push({ score: revRev.score, w: 0.4 });   // emphasis the old 2.1/1.2 coefficients implied
+      if (parts.length) {
+        const wsum = parts.reduce((a, p) => a + p.w, 0);
+        const s = parts.reduce((a, p) => a + p.score * p.w, 0) / wsum;
+        const bits = [epsRev.score != null ? `EPS: ${epsRev.note}` : null, revRev.score != null ? `revenue: ${revRev.note}` : null].filter(Boolean);
+        return scorePart("estimates", "Estimate revisions", s, 22, bits.join(", "), "windowed 7/30/90-day revision (scores.js)", { epsRev, revRev });
       }
     }
+    // No revision HISTORY exists yet (collection too new, or this ticker isn't
+    // tracked). Fall back to a SETUP read — but only when it can be compared
+    // against the company's own trailing organic trend. An audit found the
+    // previous version of this fallback scored a bigger Street growth ASK as
+    // more bullish outright (higher ask -> higher score, unconditionally) —
+    // backwards, and self-contradicted by this exact file's OWN separate risk
+    // flag elsewhere ("Street revenue asks for acceleration", ~line 2943),
+    // which correctly treats an ask well above trend as a caution sign, not a
+    // credit. This mirrors that same trend-relative comparison instead of
+    // scoring the raw ask level in isolation.
     const live = state.live[d.ticker] || {};
     const annual = cleanEstRows(live.streetEstimates?.annual || []);
     const nextFY = annual[0] || null;
     const ttmRev = d.qd ? ttm(d.qd.revenue) : null;
     const fyRevGrowthNeed = nextFY?.revAvg != null && ttmRev ? (nextFY.revAvg / ttmRev - 1) * 100 : null;
-    const fyEps = nextFY?.epsAvg;
-    if (fyRevGrowthNeed != null || fyEps != null) {
-      const valPenalty = d.truePE && d.truePE > 45 ? -8 : d.truePE && d.truePE < 25 ? 5 : 0;
-      const s = 50 + (fyRevGrowthNeed || 0) * 1.1 + valPenalty;
-      const txt = `live Street setup: FY revenue asks for ${fyRevGrowthNeed == null ? "n/a" : fyRevGrowthNeed.toFixed(1) + "%"} growth; no revision history yet`;
-      return scorePart("estimates", "Estimate setup", s, 22, txt, "FMP live estimate table", { fyRevGrowthNeed, fyEps });
-    }
+    const trend = yoyPct(d.qd && d.qd.revenue);
+    const fb = estimateSetupFallbackScore(fyRevGrowthNeed, trend, d.truePE);
+    if (fb) return scorePart("estimates", "Estimate setup", fb.score, 22, fb.txt, "FMP live estimate table vs trailing trend", { fyRevGrowthNeed, trend, accel: fb.accel });
     return scorePart("estimates", "Estimate revisions", null, 22, "missing estimate-revision history; connect/collect snapshots before trusting this layer", "missing");
+  }
+  /* Pure core of the fallback above, factored out so the sign convention is
+     directly unit-testable without a live browser session — this exact
+     function used to score a BIGGER Street growth ask as MORE bullish
+     unconditionally (the inverted-sign bug an audit found), which a plain
+     input/output test would have caught immediately. A growth ask well
+     ABOVE the company's own trailing trend is a harder bar to clear, not a
+     better setup — consistent with this file's own separate "Street revenue
+     asks for acceleration" risk flag elsewhere. Returns null (not a fake
+     neutral 50) when there is nothing real to compare the ask against. */
+  function estimateSetupFallbackScore(fyRevGrowthNeed, trend, truePE) {
+    if (fyRevGrowthNeed == null || trend == null) return null;
+    const accel = fyRevGrowthNeed - trend;
+    const valPenalty = truePE && truePE > 45 ? -8 : truePE && truePE < 25 ? 5 : 0;
+    const score = clamp(50 - clamp(accel, -20, 20) * 1.1 + valPenalty, 0, 100);
+    const txt = `Street asks for ${fyRevGrowthNeed.toFixed(1)}% FY revenue growth vs ${trend.toFixed(1)}% trailing YoY trend (${accel >= 0 ? "ask exceeds trend by " : "ask is below trend by "}${Math.abs(accel).toFixed(1)}pp)`;
+    return { score, txt, accel };
   }
   function momentumPart(d) {
     const vals = d.px && d.px.v ? d.px.v : [];
@@ -6838,7 +6864,7 @@
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
-    directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
     NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard,

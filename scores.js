@@ -534,5 +534,7 @@
     whatChanged,
     thesisAlerts,
     relativeStrength,
+    estimateRevision,
+    revisionScore,
   };
 })();

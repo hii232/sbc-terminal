@@ -926,5 +926,61 @@ const ok = (cond, name, detail = "") => {
   ok(Math.abs(st.withholding - aapl.value) < 1e-9, "annual path's withholding value is unchanged by the refactor");
 }
 
+// =============== 25. Estimate-setup engine: fixed windows + sign fix (audit) ===============
+{
+  // An independent audit found estimateSetupPart diffed the latest snapshot
+  // against hist[0] (the OLDEST snapshot ever recorded) rather than a fixed
+  // lookback window, so the effective window silently widened every day
+  // since collection began. It now reuses scores.js's already-correct
+  // fixed-window revisionScore(). These assertions restore ESTIMATE_HISTORY
+  // to its real bundled state afterward so no other test observes the mutation.
+  const AAPL = E.companyOf("AAPL");
+  const savedHist = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY["AAPL"]) || undefined;
+  try {
+    // a real revision spanning >=30 days must be picked up and must NOT keep
+    // growing its effective window as more days pass (the hist[0] bug's signature)
+    ESTIMATE_HISTORY["AAPL"] = { snapshots: [
+      { date: "2026-05-01", nextYearEps: 8.00, nextYearRevenue: 400 },
+      { date: "2026-06-25", nextYearEps: 8.05, nextYearRevenue: 402 },
+      { date: "2026-07-27", nextYearEps: 8.80, nextYearRevenue: 420 },
+    ] };
+    const r = E.estimateSetupPart(AAPL);
+    ok(r.score != null, "a real 30d+ revision produces a score");
+    ok(r.source === "windowed 7/30/90-day revision (scores.js)", "estimate revisions reuse the shared fixed-window engine, not hist[0]");
+    ok(Math.abs(r.raw.epsRev.revisions.r30.days - 32) <= 2, "the window used is a real ~30-day span, not the full collection history", String(r.raw.epsRev.revisions.r30.days));
+
+    // only very-recent snapshots (collection too young for any fixed window)
+    // must NOT produce a confident-looking score off a same-week comparison
+    ESTIMATE_HISTORY["AAPL"] = { snapshots: [
+      { date: "2026-07-24", nextYearEps: 8.7, nextYearRevenue: 418 },
+      { date: "2026-07-27", nextYearEps: 8.8, nextYearRevenue: 420 },
+    ] };
+    const r2 = E.estimateSetupPart(AAPL);
+    ok(r2.source !== "windowed 7/30/90-day revision (scores.js)" || r2.score == null,
+      "snapshots too young for any real window do not produce a hist[0]-style score");
+  } finally {
+    if (savedHist === undefined) delete ESTIMATE_HISTORY["AAPL"]; else ESTIMATE_HISTORY["AAPL"] = savedHist;
+  }
+
+  // THE SIGN FIX: estimateSetupFallbackScore used to score a BIGGER Street
+  // growth ask as MORE bullish unconditionally -- backwards, and
+  // self-contradicted by this file's own separate "Street revenue asks for
+  // acceleration" risk flag elsewhere. It must now score relative to the
+  // company's own trailing trend, penalizing an ask that exceeds it.
+  ok(typeof E.estimateSetupFallbackScore === "function", "estimateSetupFallbackScore is exported and independently testable");
+  const aggressive = E.estimateSetupFallbackScore(25, 3, 30);   // asks for 25% vs a 3% trend
+  const inLine = E.estimateSetupFallbackScore(3, 3, 30);        // asks for exactly trend
+  const conservative = E.estimateSetupFallbackScore(1, 10, 30); // asks for less than trend
+  ok(aggressive.score < 50, "an ask well ABOVE trailing trend scores BELOW neutral (was: unconditionally bullish)", String(aggressive.score));
+  ok(Math.abs(inLine.score - 50) < 1, "an ask exactly in line with trend scores neutral", String(inLine.score));
+  ok(conservative.score > 50, "an ask BELOW trailing trend scores above neutral", String(conservative.score));
+  ok(aggressive.score < inLine.score && inLine.score < conservative.score,
+    "score strictly decreases as the ask-vs-trend gap increases (monotonic, correct direction)");
+  ok(E.estimateSetupFallbackScore(25, null, 30) === null, "no trend to compare against -> null, never a fabricated neutral");
+  ok(E.estimateSetupFallbackScore(null, 5, 30) === null, "no ask to evaluate -> null");
+  ok(aggressive.score >= 0 && aggressive.score <= 100 && conservative.score >= 0 && conservative.score <= 100,
+    "fallback score always stays within 0..100");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
