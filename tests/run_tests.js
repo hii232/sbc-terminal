@@ -982,5 +982,69 @@ const ok = (cond, name, detail = "") => {
     "fallback score always stays within 0..100");
 }
 
+// =============== 26. Peer median, growth-adjusted valuation direction, Expectations Gap basis (audit fixes) ===============
+{
+  const SE = E.ScoreEngine;
+  ok(typeof SE.trueMedian === "function", "trueMedian is exported for direct testing");
+  // the exact bug: sorted[floor(n/2)] is the upper-middle element on an even
+  // array, not a true median, and has no minimum-sample floor at all
+  ok(SE.trueMedian([10, 20, 30, 40], 4) === 25, "true median averages the two middle values on an even array", String(SE.trueMedian([10, 20, 30, 40], 4)));
+  ok(SE.trueMedian([1, 2, 3, 4, 5, 6]) === 3.5, "true median on a 6-element array", String(SE.trueMedian([1, 2, 3, 4, 5, 6])));
+  ok(SE.trueMedian([5, 15], 2) === 10, "true median on a 2-element array is the average, not the upper element", String(SE.trueMedian([5, 15], 2)));
+  ok(SE.trueMedian([1, 2, 3, 4, 5]) === 3, "true median on an odd array is still the single middle element");
+  ok(SE.trueMedian([1, 2, 3, 4]) === null, "fewer than 5 samples -> null, never a 'median' of a thin group (default floor)");
+  ok(SE.trueMedian([1, 2, 3, 4, 5, 6, 7], 3) === 4, "custom minimum-sample floor is honored");
+
+  // Growth-adjusted valuation: MIN, not MAX, of revenue-CAGR vs owner-EPS-CAGR.
+  // Using max systematically flatters names whose revenue outgrows their owner
+  // earnings -- the exact SBC/margin-leakage signature owner-earnings exists
+  // to catch. Deterministic synthetic case: revenue nearly doubles (~19%
+  // CAGR) while the owner-EPS-implied series stays close to flat (~1.3%
+  // CAGR) -- if MAX were still used the ratio would be truePE/19 ~= 1.05x;
+  // MIN correctly produces truePE/1.3 ~= 15-16x.
+  ok(typeof E.ScoreEngine.valuation === "function", "valuation() is exported for direct testing");
+  const synthFastRevSlowOwner = {
+    ticker: "SYNTH_TEST", sector: "TestSector__no_real_peers", truePE: 20,
+    revenue: [100, 110, 120, 140, 200],   // ~19% CAGR
+    ni: [10, 10, 10, 10, 10.5], sbc: [1, 1, 1, 1, 1], shares: [10, 10, 10, 10, 10],
+  };
+  const gv = E.ScoreEngine.valuation(synthFastRevSlowOwner, { data: [synthFastRevSlowOwner] })
+    .details.find(x => x.k === "Growth-adjusted valuation");
+  ok(gv.score != null, "growth-adjusted valuation scores the synthetic case");
+  ok(gv.score < 15, "using the SLOWER (owner-EPS) growth rate produces a low score for an aggressively priced ratio",
+    `score=${gv.score} why=${gv.why}`);
+  ok(/1[3-8]\.\d+x|1[3-8]x/.test(gv.why), "the ratio in the why-text reflects the ~1.3% owner-EPS rate, not the ~19% revenue rate", gv.why);
+
+  // Expectations Gap: requiredOwnerGrowth (5yr owner-EPS CAGR) must be compared
+  // against a SAME-BASIS reference when one is available, not silently
+  // differenced against a revenue-basis number under the same label.
+  const AAPL = E.companyOf("AAPL");
+  const eg = E.marketScoreOf(AAPL).expectationsGap;
+  ok(eg.compareBasis == null || eg.compareBasis.includes("owner-EPS") || eg.compareBasis.includes("proxy"),
+    "expectationsGap states which basis produced its comparison");
+  ok(eg.assumptions.some(a => /compared against/.test(a)), "the comparison basis is disclosed in the assumptions list");
+  ok(eg.marketImplied.futureFcfMargin === null,
+    "marketImplied.futureFcfMargin is honestly null, not the trailing margin relabeled as a projection");
+  ok(eg.terminalBase.futureFcfMargin != null || last(AAPL.qm && AAPL.qm.fcf) == null,
+    "terminalBase (explicitly the trailing/terminal figure) still reports the real trailing margin where it exists");
+  function last(arr) { return Array.isArray(arr) && arr.length ? arr[arr.length - 1] : null; }
+  // across the universe, no company's marketImplied.futureFcfMargin is ever
+  // non-null (the specific defect: it used to be bit-identical to trailing
+  // margin for 224/224 names)
+  const fakeForward = DATA.map(d => E.marketScoreOf(d).expectationsGap).filter(g => g && g.marketImplied.futureFcfMargin != null);
+  ok(fakeForward.length === 0, "no company reports a fabricated forward FCF margin", String(fakeForward.length));
+
+  // peer-based sub-scores across the universe must never fire below the
+  // minimum sample floor
+  let peerViolations = 0;
+  for (const d of DATA) {
+    const peers = DATA.filter(x => x !== d && x.sector === d.sector && x.truePE).length;
+    const ms = E.marketScoreOf(d);
+    const v = ms && ms.valuation && ms.valuation.details && ms.valuation.details.find(x => x.k === "Peer comparison");
+    if (v && v.score != null && peers < 5) peerViolations++;
+  }
+  ok(peerViolations === 0, "no peer-comparison sub-score fires with fewer than 5 sector peers", String(peerViolations));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

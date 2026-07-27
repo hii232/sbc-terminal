@@ -85,6 +85,16 @@
   // (e.g. EPS revised -1.00 -> -0.50 is +50%, not -50%).
   const pct = (a, b) => a != null && b != null && b !== 0 ? ((a - b) / Math.abs(b)) * 100 : null;
   const div = (a, b) => a != null && b != null && b !== 0 ? a / b : null;
+  /* Correct median of an ALREADY-SORTED-ASCENDING array, with a minimum
+     sample-size floor. An audit found peer-comparison code picking
+     sorted[floor(n/2)] directly -- the upper-middle element, not a true
+     median, on every even-length array -- with no floor at all, so sector
+     groups of 1-3 peers were being treated as a meaningful "median". */
+  const trueMedian = (sortedAsc, minSample = 5) => {
+    const n = sortedAsc.length;
+    if (n < minSample) return null;
+    return n % 2 === 1 ? sortedAsc[(n - 1) / 2] : (sortedAsc[n / 2 - 1] + sortedAsc[n / 2]) / 2;
+  };
   const cagr = (arr) => {
     const a = clean(arr);
     if (a.length < 2 || a[0] <= 0 || a[a.length - 1] <= 0) return null;
@@ -342,9 +352,14 @@
     const evFcf = ev != null && fcf > 0 ? ev / fcf : null;
     const evAdjFcf = ev != null && adjFcf > 0 ? ev / adjFcf : null;
     const peers = (ctx.data || []).filter(x => x !== d && x.sector === d.sector && x.truePE).map(x => x.truePE).sort((a, b) => a - b);
-    const peerMedian = peers.length ? peers[Math.floor(peers.length / 2)] : null;
+    const peerMedian = trueMedian(peers);
+    // MIN, not max: an audit found this picking whichever of revenue-CAGR or
+    // owner-EPS-CAGR is HIGHER, which systematically flatters names whose
+    // revenue outgrows their owner earnings -- the exact SBC/margin-leakage
+    // signature this app's owner-earnings framework exists to catch, not
+    // reward. The slower of the two is the conservative, honest read.
     const growthCandidates = [cagr(d.revenue), cagr(ownerEpsSeries(d))].filter(v => v != null);
-    const growth = growthCandidates.length ? Math.max(...growthCandidates) : null;
+    const growth = growthCandidates.length ? Math.min(...growthCandidates) : null;
     return weighted([
       { k: "GAAP earnings yield", weight: 10, score: scoreRange(gaapYield, 0, 7), why: `GAAP yield ${round(gaapYield, 1)}%` },
       { k: "FCF yield", weight: 14, score: scoreRange(fcfYield, -2, 8), why: `FCF yield ${round(fcfYield, 1)}%` },
@@ -352,7 +367,8 @@
       { k: "Owner earnings yield", weight: 18, score: scoreRange(ownerYield, 0, 7), why: `owner earnings yield ${round(ownerYield, 1)}%` },
       { k: "EV/FCF", weight: 12, score: scoreLower(evFcf, 12, 60), why: `EV/FCF ${round(evFcf, 1)}x` },
       { k: "EV/adjusted FCF", weight: 12, score: scoreLower(evAdjFcf, 12, 70), why: `EV/adj FCF ${round(evAdjFcf, 1)}x` },
-      { k: "Peer comparison", weight: 10, score: d.truePE && peerMedian ? scoreLower(d.truePE / peerMedian, 0.7, 1.8) : null, why: `owner P/E ${round(d.truePE, 1)}x vs peer median ${round(peerMedian, 1)}x` },
+      { k: "Peer comparison", weight: 10, score: d.truePE && peerMedian ? scoreLower(d.truePE / peerMedian, 0.7, 1.8) : null,
+        why: peerMedian ? `owner P/E ${round(d.truePE, 1)}x vs peer median ${round(peerMedian, 1)}x (${peers.length} peers)` : `too few sector peers with an owner P/E (${peers.length}, need 5+) for a meaningful median` },
       { k: "Growth-adjusted valuation", weight: 10, score: d.truePE && growth != null ? scoreLower(d.truePE / Math.max(growth, 1), 1.2, 5.0) : null, why: growth == null ? "growth history unavailable" : `owner P/E / growth ${round(d.truePE / Math.max(growth, 1), 2)}x` },
     ]);
   }
@@ -394,7 +410,8 @@
   function expectationsGap(d, ctx) {
     const ownerEps = d.ownerEps || null;
     const sectorPeers = (ctx.data || []).filter(x => x !== d && x.sector === d.sector && x.truePE).map(x => x.truePE).sort((a, b) => a - b);
-    const exitMultiple = sectorPeers.length ? clamp(sectorPeers[Math.floor(sectorPeers.length / 2)], 12, 38) : 22;
+    const peerMedian = trueMedian(sectorPeers);
+    const exitMultiple = peerMedian != null ? clamp(peerMedian, 12, 38) : 22;
     const requiredOwnerGrowth = ownerEps && ownerEps > 0 && d.price ? (Math.pow(d.price / (ownerEps * exitMultiple), 1 / 5) - 1) * 100 : null;
     const fcfMargin = last(margins(d).fcf);
     const revBase = cagr(d.revenue);
@@ -405,9 +422,23 @@
     const consensusFcfMargin = null;
     const terminalRev = revBase;
     const terminalFcf = fcfMargin;
-    const compare = requiredOwnerGrowth == null ? null
-      : consensusRevGrowth != null ? consensusRevGrowth - requiredOwnerGrowth
-      : terminalRev != null ? terminalRev - requiredOwnerGrowth : null;
+    // requiredOwnerGrowth is a 5-year ANNUALIZED OWNER-EPS CAGR. An audit found
+    // this compared directly against consensusRevGrowth (a 1-year, REVENUE-basis
+    // rate) or terminalRev (a REVENUE CAGR) -- different basis AND, for the
+    // consensus case, a different horizon, driving a "Fairly priced" vs
+    // "Extreme expectations risk" label off two numbers that do not measure the
+    // same thing. The basis-consistent reference this function ALREADY computes
+    // (ownerEpsGrowth, a trailing OWNER-EPS CAGR -- same basis, same annualized
+    // horizon convention as requiredOwnerGrowth) is used FIRST now. The revenue
+    // references remain as an explicitly labeled cross-basis fallback rather
+    // than being silently presented as equivalent.
+    const ownerGrowthTrend = cagr(ownerEpsSeries(d));
+    let compare = null, compareBasis = null;
+    if (requiredOwnerGrowth != null) {
+      if (ownerGrowthTrend != null) { compare = ownerGrowthTrend - requiredOwnerGrowth; compareBasis = "trailing owner-EPS CAGR (same basis)"; }
+      else if (consensusRevGrowth != null) { compare = consensusRevGrowth - requiredOwnerGrowth; compareBasis = "1yr consensus revenue growth (cross-basis proxy — revenue, not owner EPS)"; }
+      else if (terminalRev != null) { compare = terminalRev - requiredOwnerGrowth; compareBasis = "trailing revenue CAGR (cross-basis proxy — revenue, not owner EPS)"; }
+    }
     let label = "Insufficient data";
     if (compare != null) {
       if (compare >= 8) label = "Large positive gap";
@@ -418,11 +449,19 @@
     }
     return {
       label,
-      marketImplied: { revenueGrowth: round(requiredOwnerGrowth, 1), futureFcfMargin: round(fcfMargin, 1), ownerEpsGrowth: round(requiredOwnerGrowth, 1), exitMultiple: round(exitMultiple, 1) },
+      // futureFcfMargin here is NOT a projection -- this model has no forward
+      // margin derivation, so presenting the trailing figure under a "future"/
+      // "market-implied" label would misrepresent it as one. Left null (an
+      // audit found it was previously the trailing margin copy-pasted under
+      // this label, bit-identical for 224/224 companies).
+      marketImplied: { revenueGrowth: round(requiredOwnerGrowth, 1), futureFcfMargin: null, ownerEpsGrowth: round(requiredOwnerGrowth, 1), exitMultiple: round(exitMultiple, 1) },
       consensus: { revenueGrowth: round(consensusRevGrowth, 1), futureFcfMargin: consensusFcfMargin, source: snaps.length ? "estimate history snapshot" : "unavailable" },
-      terminalBase: { revenueGrowth: round(terminalRev, 1), futureFcfMargin: round(terminalFcf, 1), ownerEpsGrowth: round(cagr(ownerEpsSeries(d)), 1) },
+      terminalBase: { revenueGrowth: round(terminalRev, 1), futureFcfMargin: round(terminalFcf, 1), ownerEpsGrowth: round(ownerGrowthTrend, 1) },
       gapPct: round(compare, 1),
-      assumptions: [`5-year horizon`, `exit owner P/E ${round(exitMultiple, 1)}x`, `owner EPS ${round(ownerEps, 2)}`, `FCF margin from latest annual data`],
+      compareBasis,
+      assumptions: [`5-year horizon`, `exit owner P/E ${round(exitMultiple, 1)}x${peerMedian != null ? ` (sector peer median, ${sectorPeers.length} peers)` : " (no peer median available — default)"}`,
+        `owner EPS ${round(ownerEps, 2)}`, compareBasis ? `compared against ${compareBasis}` : "no comparison basis available",
+        "no forward FCF-margin projection is modeled — only trailing margin is shown, and only where labeled trailing"],
     };
   }
 
@@ -536,5 +575,7 @@
     relativeStrength,
     estimateRevision,
     revisionScore,
+    trueMedian,
+    valuation,
   };
 })();
