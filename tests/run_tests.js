@@ -879,5 +879,52 @@ const ok = (cond, name, detail = "") => {
   ok(board.every(r => Array.isArray(r.evidenceGap)), "every ranked row reports its evidence gap");
 }
 
+// =============== 24. Owner-earnings withholding uses real SEC data (audit fix) ===============
+{
+  // An independent audit found the PRIMARY owner-earnings path (ttmOwnerEarnings,
+  // used for the large majority of rankable names) never attempted a real
+  // SEC-sourced withholding lookup at all, unlike the annual fallback path —
+  // every TTM-path name used a flat 25%-of-SBC proxy regardless of what the
+  // company actually reported. Measured real-data coverage before this fix:
+  // 6 of 217 computable rows (2.8%). These assertions guard the fix.
+  ok(typeof E.secWithholdingOf === "function", "secWithholdingOf is exported");
+  ok(E.secWithholdingOf("ZZZZNOTATICKER") === null, "no SEC fact -> null, never a fabricated withholding value");
+  const aapl = E.secWithholdingOf("AAPL");
+  ok(aapl && hasOwnProp(aapl, "value") && aapl.value > 0, "AAPL has a real, positive SEC-reported withholding value", JSON.stringify(aapl));
+  function hasOwnProp(o, k) { return o != null && Object.prototype.hasOwnProperty.call(o, k); }
+
+  const withData = DATA.filter(d => E.secWithholdingOf(d.ticker) != null);
+  ok(withData.length > 50, "a meaningful share of the universe has the SEC withholding tag filed", String(withData.length));
+
+  // ttmOwnerEarnings must now PREFER the real value and say so
+  const ttmRows = DATA.map(d => ({ d, ttm: E.ttmOwnerEarnings(d) })).filter(x => x.ttm && x.ttm.ownerEps != null);
+  ok(ttmRows.length > 100, "TTM path (the primary path) still computes for most of the universe", String(ttmRows.length));
+  ok(ttmRows.every(x => x.ttm.withholdingSource === "SEC-reported employee tax withholding" || x.ttm.withholdingSource === "low-confidence estimate (25% of SBC proxy)"),
+    "every TTM row states which withholding basis produced its number");
+  const realCoverage = ttmRows.filter(x => x.ttm.withholdingSource.includes("SEC-reported")).length / ttmRows.length;
+  ok(realCoverage > 0.30, "real SEC-sourced withholding coverage clears 30% on the primary path (was 0% before this fix)", (realCoverage * 100).toFixed(1) + "%");
+  // and it must be CONSISTENT: whenever a real SEC fact exists for a ticker, the
+  // TTM path must use it, never silently fall back to the proxy while a real
+  // value was available
+  const inconsistent = ttmRows.filter(x => E.secWithholdingOf(x.d.ticker) != null && !x.ttm.withholdingSource.includes("SEC-reported"));
+  ok(inconsistent.length === 0, "no row ignores an available real SEC withholding fact in favor of the proxy",
+    inconsistent.map(x => x.d.ticker).join(","));
+  // and the reverse: no row claims a SEC source when none exists
+  const fabricated = ttmRows.filter(x => E.secWithholdingOf(x.d.ticker) == null && x.ttm.withholdingSource.includes("SEC-reported"));
+  ok(fabricated.length === 0, "no row claims a SEC source without a real underlying fact", fabricated.map(x => x.d.ticker).join(","));
+  // the withholding dollar figure itself must equal the real fact's value, not
+  // a rescaled or reinterpreted number
+  const aaplTtm = ttmRows.find(x => x.d.ticker === "AAPL");
+  if (aaplTtm && aapl) ok(Math.abs(aaplTtm.ttm.withholding - aapl.value) < 1e-9, "AAPL's TTM withholding equals the raw SEC fact value exactly");
+
+  // trueOwnerEarnings (the annual path) must keep behaving exactly as before —
+  // this fix only factored its lookup into a shared helper, changed nothing else
+  const AAPL = E.companyOf("AAPL");
+  const st = E.trueOwnerEarnings(AAPL);
+  ok(!st.insufficientData && st.withholdingSource === "SEC-reported employee tax withholding",
+    "annual path (trueOwnerEarnings) still resolves AAPL's real withholding after the refactor");
+  ok(Math.abs(st.withholding - aapl.value) < 1e-9, "annual path's withholding value is unchanged by the refactor");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

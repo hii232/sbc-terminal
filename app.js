@@ -132,6 +132,20 @@
     }
     return { anti, real, t, c, uncertain };
   }
+  /* Real, company-reported vest-date tax withholding (SEC XBRL tag
+     PaymentsRelatedToTaxWithholdingForShareBasedCompensation), when filed.
+     Shared by both owner-earnings paths below — an independent audit found
+     the TTM path (the PRIMARY path, used for ~80% of rankable names) never
+     even attempted this lookup and fell back to a flat 25%-of-SBC proxy for
+     100% of its rows, while the annual path already did this correctly.
+     Returns null when the ticker has never reported the tag (114 of 224
+     tickers do) — missing stays missing, never coerced into the proxy here;
+     callers decide their own fallback. */
+  function secWithholdingOf(ticker) {
+    const tw = typeof SEC !== "undefined" && SEC[ticker] && SEC[ticker].f && SEC[ticker].f.taxWithholding;
+    if (!tw || !hasNum(tw.v)) return null;
+    return { value: tw.v / 1e9, periodEnd: tw.periodEnd || null };
+  }
   function trueOwnerEarnings(d) {
     // v3 economics. GAAP expenses SBC at grant-date fair value; we REPLACE that
     // with an estimate of the CURRENT economic cost of equity comp:
@@ -171,9 +185,8 @@
     }
     // Withholding: use the company's SEC-REPORTED vest-date tax withholding
     // when filed; only fall back to the 25%-of-SBC proxy when it is not.
-    const secW = (typeof SEC !== "undefined" && SEC[d.ticker] && SEC[d.ticker].f && SEC[d.ticker].f.taxWithholding)
-      ? SEC[d.ticker].f.taxWithholding.v / 1e9 : null;
-    const withholding = secW != null ? secW : sbc * 0.25;
+    const secW = secWithholdingOf(d.ticker);
+    const withholding = secW != null ? secW.value : sbc * 0.25;
     const withholdingSource = secW != null ? "SEC-reported employee tax withholding" : "low-confidence estimate (25% of SBC proxy)";
     const sbcMissing = !(d.sbc || []).some(v => v != null);
     const trueCost = shareCost + withholding;
@@ -225,10 +238,16 @@
       mnaShares = Math.max(0, grossIssued - cap);
       shareCost = Math.max(ttmSbc, empShares * avgP);
     }
-    const withholding = ttmSbc * 0.25;
+    // Same SEC-reported-vs-proxy choice as trueOwnerEarnings, below — this TTM
+    // path is the PRIMARY one (used whenever 4+ recent quarters exist, ahead of
+    // the annual path), so leaving it proxy-only left real filed data unused
+    // for the large majority of the universe.
+    const secW = secWithholdingOf(d.ticker);
+    const withholding = secW != null ? secW.value : ttmSbc * 0.25;
+    const withholdingSource = secW != null ? "SEC-reported employee tax withholding" : "low-confidence estimate (25% of SBC proxy)";
     const owner = ttmNI + ttmSbc - shareCost - withholding;
     return { owner, ownerEps: latestShares > 0 ? +(owner / latestShares).toFixed(2) : null,
-      ni: ttmNI, sbc: ttmSbc, shareCost, withholding, mnaShares, source: "TTM quarterly owner EPS" };
+      ni: ttmNI, sbc: ttmSbc, shareCost, withholding, withholdingSource, mnaShares, source: "TTM quarterly owner EPS" };
   }
   function recomputeOwnerEconomics(d) {
     const yrs = (d.ni || []).length;
@@ -1497,6 +1516,7 @@
         <div class="note ${d.truePE > (d.headlinePE || 0) * 1.25 ? "callout" : ""}" style="margin-top:10px">
           Owner EPS ${d.ownerEps != null ? "$" + d.ownerEps.toFixed(2) : "n/a"} (${d.ownerEpsSource || "owner EPS estimate"}) = adjusted owner earnings divided by diluted weighted-average shares; owner P/E = current price divided by owner EPS. Retention (${d.ownersKeep == null ? "n/a" : (d.ownersKeep * 100).toFixed(0) + "¢/$"}) is explanation only.
           ${d.truePE > (d.headlinePE || 0) * 1.25 ? "The stock is materially more expensive than it screens." : "Reasonably close — earnings quality holds up."}
+          ${d.ownerTtm && d.ownerTtm.withholdingSource ? ` Tax-withholding basis for this figure: <b>${d.ownerTtm.withholdingSource}</b>.` : ""}
         </div>
       </div>
     </div>
@@ -6814,7 +6834,7 @@
   }
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
-    buybackQuality, shareTrend, medianOf, trueOwnerEarnings,
+    buybackQuality, shareTrend, medianOf, trueOwnerEarnings, ttmOwnerEarnings, secWithholdingOf,
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
