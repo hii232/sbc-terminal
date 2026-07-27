@@ -1768,6 +1768,24 @@
     return { n: rows.length, beats, beatRate: beats / rows.length, avgSurprise, rows };
   }
 
+  /* Raw (unbounded, not-yet-scored) beat-track quality: same relative
+     weighting between beat rate and average surprise the old absolute
+     formula used (beatRate dominant, surprise a secondary tilt) -- kept
+     unchanged. What changes is what this number is measured AGAINST: the
+     bundled earnings history only ever ships 4 quarters per company, which
+     quantizes beatRate into {0, .25, .5, .75, 1.0}, and the real universe's
+     beat rate runs ~87% -- so scoring it as distance from a flat 50%
+     midpoint pins 61% of names at the 98-100 ceiling with no room left to
+     discriminate among them. Ranking this raw figure as a PERCENTILE of the
+     actual universe (beatTrackPopulation) spreads that same ceiling group
+     back out across the full 0-100 range based on real relative standing. */
+  function beatTrackRaw(bs) {
+    return (bs.beatRate - 0.5) * 85 + clamp(bs.avgSurprise ?? 0, -12, 12) * 1.6;
+  }
+  function beatTrackPopulation() {
+    return DATA.map(d => { const bs = earnBeatStats(d.ticker); return bs ? beatTrackRaw(bs) : null; }).filter(hasNum);
+  }
+
   /* live Finnhub layer: symbol -> latest calendar row (with actuals once reported) */
   state.earnLive = { rows: {}, fetchedAt: null, error: "", loading: false, timer: null };
   async function refreshEarningsLive(force = false) {
@@ -1900,12 +1918,15 @@
   function beatOddsOf(d, ledger) {
     const it = earnIntelOf(d.ticker);
     const parts = [];
-    // 1 · beat track record (companies that habitually guide-to-beat keep doing it)
+    // 1 · beat track record, ranked as a PERCENTILE of the universe (not
+    // distance from a flat 50% midpoint -- the real universe beats ~87% of
+    // the time, so an absolute-bar scoring pins most names at the ceiling)
     const bs = earnBeatStats(d.ticker);
+    const trackPr = bs && window.ScoreEngine ? window.ScoreEngine.percentileRank(beatTrackRaw(bs), beatTrackPopulation()) : null;
     parts.push(scorePart("track", "Beat track record",
-      bs ? 50 + (bs.beatRate - 0.5) * 85 + clamp(bs.avgSurprise ?? 0, -12, 12) * 1.6 : null, 28,
-      bs ? `beat ${bs.beats}/${bs.n} recent quarters, avg surprise ${bs.avgSurprise == null ? "n/a" : (bs.avgSurprise >= 0 ? "+" : "") + bs.avgSurprise.toFixed(1) + "%"}` : "no bundled beat history yet — runs after first data refresh",
-      bs ? "bundled earnings history" : "missing"));
+      trackPr, 28,
+      bs ? `beat ${bs.beats}/${bs.n} recent quarters, avg surprise ${bs.avgSurprise == null ? "n/a" : (bs.avgSurprise >= 0 ? "+" : "") + bs.avgSurprise.toFixed(1) + "%"}${trackPr != null ? ` — ${Math.round(trackPr)}th percentile of the universe's beat-track records` : ""}` : "no bundled beat history yet — runs after first data refresh",
+      bs ? "bundled earnings history, ranked vs universe" : "missing"));
     // 2 · estimate revision momentum (analysts walking numbers up = de-risked bar)
     const t = it && it.trend;
     let revScore = null, revWhy = "no revision tape for the current quarter";
@@ -6865,7 +6886,7 @@
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
-    beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
+    beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
     NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,

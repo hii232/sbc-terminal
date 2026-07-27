@@ -95,6 +95,17 @@
     if (n < minSample) return null;
     return n % 2 === 1 ? sortedAsc[(n - 1) / 2] : (sortedAsc[n / 2 - 1] + sortedAsc[n / 2]) / 2;
   };
+  /* Percentile rank of `value` within `population` (order doesn't matter,
+     `value` need not already be a member), midpoint-of-ties method so
+     exact ties share a percentile instead of one arbitrarily outranking
+     the other. Needs at least 2 population members to mean anything. */
+  const percentileRank = (value, population) => {
+    const pop = (population || []).filter((v) => typeof v === "number" && Number.isFinite(v));
+    if (typeof value !== "number" || !Number.isFinite(value) || pop.length < 2) return null;
+    let below = 0, equal = 0;
+    for (const v of pop) { if (v < value) below++; else if (v === value) equal++; }
+    return Math.max(0, Math.min(100, ((below + equal / 2) / pop.length) * 100));
+  };
   const cagr = (arr) => {
     const a = clean(arr);
     if (a.length < 2 || a[0] <= 0 || a[a.length - 1] <= 0) return null;
@@ -576,6 +587,7 @@
     estimateRevision,
     revisionScore,
     trueMedian,
+    percentileRank,
     valuation,
   };
 })();

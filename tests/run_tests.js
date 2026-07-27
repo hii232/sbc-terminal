@@ -1046,5 +1046,51 @@ const ok = (cond, name, detail = "") => {
   ok(peerViolations === 0, "no peer-comparison sub-score fires with fewer than 5 sector peers", String(peerViolations));
 }
 
+// =============== 27. Beat Odds track record: percentile vs universe, not a flat 50% bar ===============
+{
+  const SE = E.ScoreEngine;
+  ok(typeof SE.percentileRank === "function", "percentileRank is exported for direct testing");
+  ok(SE.percentileRank(50, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]) === 45,
+    "percentile rank: 4 strictly below + this one itself (midpoint of the tied group)");
+  ok(SE.percentileRank(50, [50, 50, 50]) === 50, "an exact 3-way tie all share the midpoint percentile (50)");
+  ok(SE.percentileRank(50, [50]) === null, "fewer than 2 population members -> null, nothing to rank against");
+  ok(SE.percentileRank(50, []) === null, "empty population -> null");
+  ok(SE.percentileRank(null, [1, 2, 3]) === null, "non-numeric value -> null");
+
+  ok(typeof E.beatTrackRaw === "function", "beatTrackRaw is exported for direct testing");
+  const hot = E.beatTrackRaw({ beatRate: 1, avgSurprise: 20 });
+  const cold = E.beatTrackRaw({ beatRate: 0.25, avgSurprise: -20 });
+  ok(hot > cold, "a company with a perfect beat rate and strong surprises ranks raw-higher than a poor one");
+
+  const pop = E.beatTrackPopulation();
+  ok(Array.isArray(pop) && pop.length > 0 && pop.every(Number.isFinite),
+    "beatTrackPopulation returns a non-empty array of finite raw scores");
+
+  // The defect this replaces: scoring beat rate as distance from a flat 50%
+  // midpoint pins the ceiling group (beatRate === 1.0, 137/224 real names)
+  // at 98-100/100 with zero ability to tell them apart. After ranking as a
+  // real percentile of the universe, that same group must actually spread
+  // out, and the ceiling-jam (score >= 95) must no longer describe most of
+  // the universe.
+  let ceilCount = 0, scored = 0;
+  const tiedGroupScores = [];
+  for (const d of DATA) {
+    const o = E.beatOddsOf(d);
+    const track = o.parts.find(p => p.key === "track");
+    if (!track || track.score == null) continue;
+    scored++;
+    if (track.score >= 95) ceilCount++;
+    const bs = E.earnBeatStats(d.ticker);
+    if (bs && bs.beatRate === 1) tiedGroupScores.push(track.score);
+  }
+  ok(scored > 0, "at least some names have a scored beat-track component");
+  ok(ceilCount / scored < 0.15,
+    `fewer than 15% of the universe sits at the 95+ ceiling (was ~60% under the flat-50%-midpoint formula)`,
+    `${ceilCount}/${scored}`);
+  ok(tiedGroupScores.length < 5 || new Set(tiedGroupScores.map(s => Math.round(s))).size > 10,
+    "the perfect-beat-rate cohort (previously all bit-identical) now spreads across many distinct scores",
+    `n=${tiedGroupScores.length} distinct=${new Set(tiedGroupScores.map(s => Math.round(s))).size}`);
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
