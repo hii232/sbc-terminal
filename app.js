@@ -100,7 +100,7 @@
   }
   function shareTrend(shares) {
     const s = (shares || []).filter(hasNum);
-    if (s.length < 2 || !s[0]) return { chg: null, t: "Insufficient data", c: "var(--dim)" };
+    if (s.length < 2 || !s[0]) return { chg: null, t: "Insufficient data", c: "var(--dim)", years: null };
     const a = s[0], b = s[s.length - 1];
     const chg = ((b - a) / a) * 100;
     let t, c;
@@ -108,7 +108,11 @@
     else if (chg <= 3) { t = "FLAT — treadmill risk"; c = "var(--amber)"; }
     else if (chg <= 12) { t = "RISING — dilution"; c = "var(--orange)"; }
     else { t = "EXPLODING — value transfer"; c = "var(--red)"; }
-    return { chg, t, c };
+    // years spanned = intervals between data points, not the point count --
+    // the bundled fiscal-year history can run to ~10 years post SEC
+    // augmentation, not a fixed 5, so the caption must say what it's really
+    // measuring instead of a hardcoded "5Y".
+    return { chg, t, c, years: s.length - 1 };
   }
   function buybackQuality(d) {
     // classify last-year buyback vs sbc
@@ -645,6 +649,19 @@
   function optionsPositioningPart(d) {
     const o = d.opt;
     if (!o || !o.iv) return scorePart("options", "Options/positioning", null, 8, "options, skew and short-interest data not bundled for this name", "missing");
+    // This bundled options snapshot is NOT part of the automated daily
+    // refresh (scripts/gen_options.py runs only via a manual --options
+    // flag, deliberately excluded from data-refresh.yml since a full-
+    // universe options pull is slow) -- so a chain that has expired or is
+    // about to is a DATA-QUALITY problem, not a fresh bearish read. It used
+    // to be scored as -6 points of directional bearishness, which fabricates
+    // a signal out of staleness. Stays missing instead.
+    const dte = optDteNow(o);
+    if (dte != null && dte < 7) {
+      return scorePart("options", "Options/positioning", null, 8,
+        `bundled options chain is stale (${dte < 0 ? "expired" : dte + "d to expiry"}) -- a stale chain is a data-quality gap, not a bearish signal`,
+        "stale bundled snapshot", { dte });
+    }
     const rich = o.rv ? o.iv / o.rv : null;
     let score = 50;
     const bits = [];
@@ -652,12 +669,17 @@
       score += rich <= 0.9 ? 7 : rich >= 1.25 ? -5 : 0;
       bits.push(`IV/RV ${rich.toFixed(2)}x`);
     }
+    // Sign convention (flow-following, not contrarian): a LOW put/call
+    // ratio scores bullish here, on the theory that light put buying
+    // relative to calls reflects positioned/informed flow. This is a
+    // genuinely contested convention -- CBOE-style retail sentiment
+    // commentary often reads a low P/C as crowded/complacent bullish
+    // positioning and therefore a CAUTION tell, the opposite sign. Stated
+    // explicitly so the choice reads as a decision, not an oversight.
     if (o.pcr != null) {
       score += o.pcr <= 0.65 ? 8 : o.pcr >= 1.35 ? -9 : 0;
       bits.push(`put/call OI ${o.pcr}`);
     }
-    const dte = optDteNow(o);
-    if (dte != null && dte < 7) { score -= 6; bits.push("chain stale/near expiry"); }
     return scorePart("options", "Options/positioning", score, 8, bits.join(" - ") || "options tape neutral", "bundled options snapshot", { rich, pcr: o.pcr, dte });
   }
   function valuationSetupPart(d) {
@@ -1222,6 +1244,7 @@
       <div class="kv"><span class="k">HOW THE SIZE WAS SET</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.6">Risk ${pb.riskBudget}% of the book if the invalidation level is hit. A ${pb.stopPct.toFixed(0)}% stop means a ${(pb.riskBudget / pb.stopPct * 100).toFixed(1)}% position risks exactly that, then scaled ${pb.convNet >= 3 ? "UP" : pb.convNet <= 0 ? "DOWN" : "modestly"} for ${c ? c.bulls : 0} agreeing vs ${c ? c.bears : 0} objecting signals. Volatile names get smaller positions at equal conviction — that is the point.</span></span></div>
       <div style="margin-top:8px"><b style="font-size:11px;color:var(--red)">WHAT WOULD PROVE THIS WRONG — decide now, not later</b>
         <div class="sub" style="line-height:1.75;margin-top:4px">${pb.breaks.map((b, i) => `${i + 1}. ${escapeHtml(b)}`).join("<br>")}</div></div>
+      ${pb.narrativeClusters && pb.narrativeClusters.length ? `<div class="note" style="margin-top:8px;border-left-color:var(--orange)"><b>Not an independent bet:</b> this name sits inside ${pb.narrativeClusters.map(nc => `<b>${escapeHtml(nc.name)}</b> (${nc.label.toLowerCase()}, also ${escapeHtml(nc.otherMembers.join(", "))})`).join(" and ")}. Sizing each of those names as if they were separate ideas overstates real diversification — the same theme breaking would hit all of them together.</div>` : ""}
       <div class="sub" style="margin-top:8px;opacity:.8"><b>This is a per-idea template, not a shopping list.</b> Each name is sized as if it were one position in a diversified book — open ten playbooks and the percentages will sum past 100%, which is your signal to choose, not to buy all ten. No single idea is ever allowed past ${pb.maxPosition}%. Sizing is expressed in percent of your own book because the terminal does not know your account and never gives dollar amounts. Research discipline, not investment advice.</div>
     </div>`;
   }
@@ -1503,7 +1526,7 @@
       <div class="card">
         <h3>② SHARE-COUNT TRUTH <span class="unit">diluted, B</span></h3>
         ${Chart.line([{ points: d.shares, color: trend.c.includes("green") ? "var(--green)" : trend.c.includes("red") ? "var(--red)" : "var(--amber)" }], yrs, { h: 130 })}
-        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg == null ? "n/a" : (trend.chg >= 0 ? "+" : "") + trend.chg.toFixed(1) + "%"}</b> over 5Y — ${trend.t}${d.mnaFlag ? " · includes issuance beyond SBC (M&A/raise) — not all employee dilution" : ""}</div>
+        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg == null ? "n/a" : (trend.chg >= 0 ? "+" : "") + trend.chg.toFixed(1) + "%"}</b> over ${trend.years != null ? trend.years + "Y" : "n/a"} — ${trend.t}${d.mnaFlag ? " · includes issuance beyond SBC (M&A/raise) — not all employee dilution" : ""}</div>
       </div>
 
       <!-- STEP 4: buyback quality -->
@@ -2625,9 +2648,19 @@
     const it = earnIntelOf(d.ticker);
     const nextEarn = it && it.nextDate && it.nextDate >= todayISO() ? it.nextDate : null;
     const review = nextEarn || new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10);
+    // 6 · narrative-cluster awareness: sizing itself is risk-based and
+    // correct in isolation, but it has no way to see that two or three
+    // concurrently-suggested "best ideas" might be the same correlated bet
+    // wearing different tickers. Annotating which cluster(s) this name
+    // belongs to (and who else is in them) at least makes that visible
+    // here, even though this function only ever prices one idea at a time.
+    const narrs = (ctx && ctx.narrs) || narrativeHeatAll();
+    const narrativeClusters = narrs.filter(n => n.members.some(m => m.ticker === d.ticker))
+      .map(n => ({ key: n.key, name: n.name, heat: n.heat, label: n.label,
+        otherMembers: n.members.filter(m => m.ticker !== d.ticker).map(m => m.ticker) }));
     return { d, price, conv, sizePct, stopPct, stopPrice, vol, entry, disc, entryNote, entryColor,
       breaks, review, reviewIsEarnings: !!nextEarn, rsi, qualityOk, capped,
-      riskBudget: RISK_BUDGET_PCT, maxPosition: MAX_POSITION_PCT, convNet: net };
+      riskBudget: RISK_BUDGET_PCT, maxPosition: MAX_POSITION_PCT, convNet: net, narrativeClusters };
   }
 
   /* ------------------- SELL DISCIPLINE (THESIS BREAKS) -------------------
@@ -6966,7 +6999,7 @@
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
-    directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
     NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,

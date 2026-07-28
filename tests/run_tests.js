@@ -1280,5 +1280,66 @@ const ok = (cond, name, detail = "") => {
     "a stable-universe window is not falsely flagged");
 }
 
+// =============== 31. Minor cleanups: dilution caption + playbook narrative-cluster awareness ===============
+{
+  // shareTrend's "over 5Y" caption was hardcoded regardless of how many
+  // years d.shares actually spans (the bundle can carry up to ~10 years of
+  // SEC-augmented history) -- it must now report the real span.
+  ok(E.shareTrend([100, 100]).years === 1, "two data points span exactly 1 interval, not a hardcoded 5");
+  ok(E.shareTrend([100, 101, 102, 103, 104, 105, 106, 107, 108, 109]).years === 9,
+    "a 10-point series spans 9 real intervals");
+  ok(E.shareTrend([]).years === null, "insufficient data -> years is null, never a fabricated span");
+  const AAPL = E.companyOf("AAPL");
+  ok(AAPL.shares.length > 6, "sanity: AAPL's bundled share history really does exceed 5 points", String(AAPL.shares.length));
+  const aaplTrend = E.shareTrend(AAPL.shares);
+  ok(aaplTrend.years === AAPL.shares.length - 1, "AAPL's real caption span matches its real history length, not a hardcoded 5Y", JSON.stringify(aaplTrend));
+
+  // playbookOf: a suggested position has no way to see that another
+  // concurrently-suggested "best idea" might be the same correlated bet.
+  // Annotate which NARRATIVES cluster(s) (if any) this ticker belongs to.
+  const MU = DATA.find(d => d.ticker === "MU");
+  const pb = E.playbookOf(MU);
+  ok(pb && Array.isArray(pb.narrativeClusters), "playbookOf always returns a narrativeClusters array (possibly empty)");
+  const aiCluster = pb.narrativeClusters.find(nc => nc.key === "ai-compute");
+  ok(aiCluster && aiCluster.otherMembers.includes("NVDA"), "MU's playbook correctly flags it shares the AI Compute Supercycle cluster with NVDA and others", JSON.stringify(pb.narrativeClusters));
+  ok(!aiCluster.otherMembers.includes("MU"), "the ticker itself is excluded from its own otherMembers list");
+
+  // A name in no narrative cluster must not fabricate one.
+  const noClusterTicker = DATA.find(d => {
+    const p = E.playbookOf(d);
+    return p && Array.isArray(p.narrativeClusters) && p.narrativeClusters.length === 0;
+  });
+  ok(noClusterTicker !== undefined, "at least one real name has zero narrative clusters, proving the field isn't always non-empty by construction");
+
+  // options block: a stale/expired bundled chain must stay MISSING, not
+  // score a fabricated -6 bearish adjustment. This data is not part of the
+  // automated daily refresh, so it goes stale on a ticking clock even
+  // though nothing was re-observed.
+  ok(typeof E.optionsPositioningPart === "function" && typeof E.optDteNow === "function",
+    "optionsPositioningPart and optDteNow are exported for direct testing");
+  const iso = (daysFromNow) => new Date(Date.now() + daysFromNow * 864e5).toISOString().slice(0, 10);
+  const freshOpt = { iv: 0.3, rv: 0.27, pcr: 0.5, exp: iso(20) };
+  const nearExpiryOpt = { iv: 0.3, rv: 0.27, pcr: 0.5, exp: iso(3) };
+  const expiredOpt = { iv: 0.3, rv: 0.27, pcr: 0.5, exp: iso(-10) };
+  const freshPart = E.optionsPositioningPart({ opt: freshOpt });
+  ok(freshPart.score != null, "a fresh (20d out) chain scores normally", JSON.stringify(freshPart));
+  const nearPart = E.optionsPositioningPart({ opt: nearExpiryOpt });
+  ok(nearPart.score === null, "a chain inside the 7-day staleness window stays null, never a fabricated bearish -6", JSON.stringify(nearPart));
+  ok(/stale/i.test(nearPart.why) && !/chain stale\/near expiry/.test(nearPart.why), "the why-text names it as a data-quality issue, not the old bearish-adjustment label");
+  const expiredPart = E.optionsPositioningPart({ opt: expiredOpt });
+  ok(expiredPart.score === null, "an already-expired chain also stays null", JSON.stringify(expiredPart));
+
+  // real universe: none of the 60 bundled-options tickers currently produce
+  // the old -6 "chain stale/near expiry" bearish artifact (they're all
+  // still comfortably outside the 7-day window as of this run, and the
+  // fix removes the mechanism regardless of when that stops being true)
+  let staleArtifact = 0;
+  for (const d of DATA) {
+    const p = E.optionsPositioningPart(d);
+    if (p.why && /chain stale\/near expiry/.test(p.why)) staleArtifact++;
+  }
+  ok(staleArtifact === 0, "no real name's options why-text still contains the old fabricated staleness-as-bearish label");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
