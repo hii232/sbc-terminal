@@ -1234,5 +1234,51 @@ const ok = (cond, name, detail = "") => {
   }
 }
 
+// =============== 30. Universe-size disclosure in proofStatusOf/calibrationOf ===============
+{
+  ok(typeof E.universeSpanOf === "function", "universeSpanOf is exported for direct testing");
+  const mk = (date, universe) => ({ date, universe, entries: [] });
+  ok(E.universeSpanOf([mk("2026-01-01", 100), mk("2026-01-02", 100)]).changed === false,
+    "a constant universe size across snapshots -> changed:false");
+  const resized = E.universeSpanOf([mk("2026-01-01", 100), mk("2026-01-02", 100), mk("2026-01-03", 150)]);
+  ok(resized.changed === true && resized.sizes.join(",") === "100,150" && resized.changedOn === "2026-01-03",
+    "a real resize is detected, with both sizes and the exact date it changed", JSON.stringify(resized));
+  ok(E.universeSpanOf([]).changed === false, "empty history -> changed:false, never a crash");
+  ok(E.universeSpanOf([mk("2026-01-01", null)]).changed === false, "snapshots missing a universe field are ignored, not treated as a resize");
+
+  // The real bundled TRACK_HISTORY is known (from the forensic audit that
+  // found this gap) to span exactly one resize, 126 -> 224 names, on its
+  // 6th recorded day -- prove proofStatusOf surfaces this on the real data,
+  // not just in a synthetic case.
+  const ps = E.proofStatusOf(TRACK_HISTORY);
+  ok(ps.universeSpan && typeof ps.universeSpan.changed === "boolean", "proofStatusOf always returns a universeSpan field");
+  if (TRACK_HISTORY.length && new Set(TRACK_HISTORY.map(s => s.universe)).size > 1) {
+    ok(ps.universeSpan.changed === true, "proofStatusOf detects the real universe resize in the bundled track history", JSON.stringify(ps.universeSpan));
+  }
+
+  // calibrationOf must report the span of only the snapshots THAT ACTUALLY
+  // CONTRIBUTED a window (base+target), not the whole history passed in --
+  // a horizon with zero windows has nothing to disclose.
+  ok(E.calibrationOf(TRACK_HISTORY, 28).universeSpan.changed === false,
+    "no 28-day window exists yet in the real (8-day-old) history, so nothing is falsely flagged as spanning a resize");
+
+  // Synthetic case with enough day-span for a real window: a calibration
+  // window whose base+target snapshots straddle a resize must be flagged.
+  const synthEntries = [{ t: "X", p: 100, dl: "LIKELY UP" }];
+  const synthHistory = [
+    { date: "2026-01-01", universe: 100, entries: synthEntries },
+    { date: "2026-01-29", universe: 150, entries: [{ t: "X", p: 110, dl: "LIKELY UP" }] },
+  ];
+  const calSynth = E.calibrationOf(synthHistory, 28);
+  ok(calSynth.windows === 1 && calSynth.universeSpan.changed === true,
+    "a calibration window whose base and target snapshots straddle a real resize is flagged", JSON.stringify(calSynth.universeSpan));
+  const synthStable = [
+    { date: "2026-01-01", universe: 100, entries: synthEntries },
+    { date: "2026-01-29", universe: 100, entries: [{ t: "X", p: 110, dl: "LIKELY UP" }] },
+  ];
+  ok(E.calibrationOf(synthStable, 28).universeSpan.changed === false,
+    "a stable-universe window is not falsely flagged");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

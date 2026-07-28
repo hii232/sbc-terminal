@@ -2885,6 +2885,27 @@
      The binding constraint is calendar time, not sample size — a 4-week
      horizon needs 4 weeks of history no matter how many names there are.
      Pure over the snapshot history so it is unit-testable. */
+  /* snapshot_scores.js stamps snap.universe = DATA.length on every daily
+     snapshot (real, accurate, confirmed exact match to entries.length) --
+     but nothing downstream reads it. A universe resize (126 -> 224 names
+     happened once already, on the 6th recorded day) means a pooled window
+     could in principle mix snapshots taken at different universe sizes.
+     None of calibrationOf's bucket schemes actually break from that today
+     (they are either self-normalized per-row, like Master Signal's
+     e.mk/e.mo rank tier, or absolute-threshold categories that mean the
+     same thing at any universe size) -- but a reviewer should still be
+     able to SEE whether a given set of snapshots spans a resize, rather
+     than that being silently invisible. Disclosure, not a math change. */
+  function universeSpanOf(snapshots) {
+    const withSize = (snapshots || []).filter(s => hasNum(s.universe));
+    const sizes = [...new Set(withSize.map(s => s.universe))].sort((a, b) => a - b);
+    if (sizes.length <= 1) return { changed: false, sizes };
+    let changedOn = null;
+    for (let i = 1; i < withSize.length; i++) {
+      if (withSize[i].universe !== withSize[i - 1].universe) { changedOn = withSize[i].date; break; }
+    }
+    return { changed: true, sizes, changedOn };
+  }
   const TRACKED_SIGNALS = [
     { key: "mk", label: "Master Signal (rank)", note: "does the top of the board actually beat the bottom" },
     { key: "cb", label: "Signal Confluence", note: "do names with several agreeing signals outperform" },
@@ -2898,7 +2919,7 @@
   ];
   function proofStatusOf(history, horizons = [[28, "4 weeks"], [84, "12 weeks"]], minObs = 20) {
     const H = Array.isArray(history) ? history : [];
-    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [] };
+    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [], universeSpan: { changed: false, sizes: [] } };
     const since = H[0].date, latest = H[H.length - 1].date;
     const spanDays = Math.round((Date.parse(latest) - Date.parse(since)) / 864e5);
     const dayAfter = (iso, n) => new Date(Date.parse(iso) + n * 864e5).toISOString().slice(0, 10);
@@ -2925,7 +2946,7 @@
       const daysLeft = Math.max(0, Math.ceil((Date.parse(unlockDate) - Date.parse(latest)) / 864e5));
       return { days, label, unlockDate, daysLeft, ready: daysLeft === 0 };
     });
-    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs };
+    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs, universeSpan: universeSpanOf(H) };
   }
 
   function calibrationOf(history, horizonDays) {
@@ -2938,11 +2959,13 @@
       b.n++; if (ret > 0) b.hits++; b.sum += ret;
     };
     let windows = 0;
+    const usedSnapshots = new Map(); // date -> snapshot, for the universe-span disclosure below
     for (let i = 0; i < H.length; i++) {
       const base = H[i];
       const target = H.find(sn => (Date.parse(sn.date) - Date.parse(base.date)) / 864e5 >= horizonDays);
       if (!target) continue;
       windows++;
+      usedSnapshots.set(base.date, base); usedSnapshots.set(target.date, target);
       const nowP = {};
       target.entries.forEach(e => { if (e.p > 0) nowP[e.t] = e.p; });
       for (const e of base.entries) {
@@ -2967,7 +2990,7 @@
         if (e.ib != null && e.ib > 0) rec("Insider buying", e.ib >= 2 ? "2+ buyers (cluster)" : "1 buyer", ret);
       }
     }
-    const out = { horizonDays, windows, groups: {} };
+    const out = { horizonDays, windows, groups: {}, universeSpan: universeSpanOf([...usedSnapshots.values()]) };
     for (const [g, buckets] of Object.entries(groups)) {
       out.groups[g] = Object.entries(buckets).map(([bucket, b]) => ({
         bucket, n: b.n, hitRate: b.hits / b.n, avg: b.sum / b.n, judged: b.n >= 20,
@@ -4535,7 +4558,8 @@
       </tr>`;
       proofHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid ${anyReady ? "var(--green)" : "var(--amber)"}">
         <h3>🔬 PROOF SCOREBOARD <span class="unit">what this terminal has actually proven — and exactly when each answer arrives</span></h3>
-        <div class="note" style="margin:6px 0 10px"><b>Read this before trusting any score on any page.</b> Every signal here is an <b>untested hypothesis</b> until forward returns judge it. The blocker is calendar time, not sample size: a 4-week verdict needs 4 weeks of history no matter how many names are tracked. Recording began <b>${ps.since || "—"}</b> — ${ps.snapshots} snapshot${ps.snapshots === 1 ? "" : "s"} over ${ps.spanDays} day${ps.spanDays === 1 ? "" : "s"}. Signals added later start their own clock, shown per row. Nothing is backfilled, because backfilling a signal against prices it never saw is how backtests lie.</div>
+        <div class="note" style="margin:6px 0 10px"><b>Read this before trusting any score on any page.</b> Every signal here is an <b>untested hypothesis</b> until forward returns judge it. The blocker is calendar time, not sample size: a 4-week verdict needs 4 weeks of history no matter how many names are tracked. Recording began <b>${ps.since || "—"}</b> — ${ps.snapshots} snapshot${ps.snapshots === 1 ? "" : "s"} over ${ps.spanDays} day${ps.spanDays === 1 ? "" : "s"}. Signals added later start their own clock, shown per row. Nothing is backfilled, because backfilling a signal against prices it never saw is how backtests lie.
+          ${ps.universeSpan && ps.universeSpan.changed ? `<br><b style="color:var(--amber)">Universe size changed during this history</b> (${ps.universeSpan.sizes.join(" → ")} names, on ${ps.universeSpan.changedOn}). Bucket stats below can span both sizes — the Master Signal rank-tier row is self-normalized per day and unaffected, but every other row pools observations from whichever universe size was in effect that day.` : ""}</div>
         <div class="grid g2" style="margin-bottom:10px">
           ${ps.horizons.map(h => `<div class="card" style="border-left:3px solid ${h.ready ? "var(--green)" : "var(--amber)"};margin:0">
             <h3>${h.label.toUpperCase()} HORIZON</h3>
@@ -6951,7 +6975,7 @@
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     fetchYahooSparkBatch, applySparkResult,
     forwardPeCurveOf, forwardPeUniverse, annualEstOf,
-    TRACKED_SIGNALS, proofStatusOf,
+    TRACKED_SIGNALS, proofStatusOf, universeSpanOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
