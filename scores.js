@@ -181,6 +181,50 @@
   });
   const recurringProxy = (d) => /Software|Cloud|Cyber|Payments|Data|Subscription|Streaming|ServiceNow|Adobe|Intuit|Workday|Mongo|Datadog|Cloudflare/i.test(`${d.sector} ${d.name}`);
 
+  /* Approximate TRADING days between two calendar dates (no holiday
+     calendar available), via the standard 5-trading-days-per-7-calendar-
+     days ratio. Used to align a report's calendar date to an index inside
+     a daily-close array (d.pd.v) that carries no per-point dates of its
+     own, only an ending date (d.pd.to). */
+  const tradingDaysBetween = (fromISO, toISO) => {
+    if (!fromISO || !toISO) return null;
+    const ms = Date.parse(toISO) - Date.parse(fromISO);
+    if (!Number.isFinite(ms) || ms < 0) return null;
+    return Math.round((ms / 864e5) * (5 / 7));
+  };
+  /* Average EPS surprise across the bundled last-4-quarter history.
+     surprisePct can spike to absurd magnitudes when an estimate is near
+     zero (a known quirk of this dataset), so it is clamped the same way
+     driftScoreOf already does elsewhere before it drives any score. */
+  function earningsSurpriseOf(tk) {
+    const it = typeof EARNINGS_INTEL !== "undefined" && EARNINGS_INTEL.tickers && EARNINGS_INTEL.tickers[tk];
+    const rows = (it && it.history || []).filter(h => n(h.surprisePct) != null);
+    if (!rows.length) return null;
+    const clamped = rows.map(h => clamp(h.surprisePct, -15, 15));
+    return { avg: clamped.reduce((a, v) => a + v, 0) / clamped.length, n: rows.length };
+  }
+  /* Short-window price reaction to the most recently REPORTED quarter (not
+     ongoing drift -- that is PEAD's job). Only the quarters whose actual
+     report date (reportedOn) is known can be aligned to d.pd at all; older
+     history rows only carry a fiscal quarter-end, which is not the report
+     date and would misalign the reaction window by weeks if used directly.
+     So this stays null until reportedOn accumulates -- honest, not fake. */
+  function postEarningsReactionOf(d, windowDays = 3) {
+    const it = typeof EARNINGS_INTEL !== "undefined" && EARNINGS_INTEL.tickers && EARNINGS_INTEL.tickers[d.ticker];
+    const rows = (it && it.history || []).filter(h => h.reportedOn);
+    if (!rows.length) return null;
+    const latest = rows.slice().sort((a, b) => b.reportedOn.localeCompare(a.reportedOn))[0];
+    const pd = d.pd && Array.isArray(d.pd.v) ? d.pd.v : null;
+    if (!pd || !pd.length || !d.pd.to) return null;
+    const daysBack = tradingDaysBetween(latest.reportedOn, d.pd.to);
+    if (daysBack == null) return null;
+    const idxReport = pd.length - 1 - daysBack;
+    if (idxReport < 0 || idxReport >= pd.length || n(pd[idxReport]) == null || pd[idxReport] <= 0) return null;
+    const idxReaction = Math.min(pd.length - 1, idxReport + windowDays);
+    if (idxReaction <= idxReport || n(pd[idxReaction]) == null) return null;
+    return { pct: ((pd[idxReaction] / pd[idxReport]) - 1) * 100, daysElapsed: idxReaction - idxReport, reportedOn: latest.reportedOn };
+  }
+
   function estimateRevision(history, field, days) {
     const snaps = history && Array.isArray(history.snapshots)
       ? history.snapshots.filter(s => s && s.date && n(s[field]) != null).sort((a, b) => a.date.localeCompare(b.date))
@@ -310,6 +354,8 @@
     const hist = ctx.estimates && ctx.estimates[d.ticker];
     const epsRev = revisionScore(hist, "nextYearEps");
     const revRev = revisionScore(hist, "nextYearRevenue");
+    const surprise = earningsSurpriseOf(d.ticker);
+    const reaction = postEarningsReactionOf(d);
     const ge = growthExecution(d);
     const rs = relativeStrength(d, ctx);
     const sector = secByT(ctx, sectorETF(d)), spy = secByT(ctx, "SPY");
@@ -326,10 +372,12 @@
       { k: "EPS estimate revisions", weight: 20, score: epsRev.score, why: epsRev.note },
       { k: "Revenue estimate revisions", weight: 15, score: revRev.score, why: revRev.note },
       { k: "Growth acceleration", weight: 15, score: ge.details.find(x => x.k === "Revenue acceleration")?.score, why: "fundamental acceleration proxy" },
-      { k: "Earnings surprise history", weight: 10, score: null, why: "last-four-quarter surprise history unavailable in bundled data" },
+      { k: "Earnings surprise history", weight: 10, score: surprise ? clamp(50 + surprise.avg * 2.6, 0, 100) : null,
+        why: surprise ? `avg EPS surprise last ${surprise.n} quarter${surprise.n === 1 ? "" : "s"} ${surprise.avg >= 0 ? "+" : ""}${round(surprise.avg, 1)}%` : "no bundled earnings-surprise history for this ticker" },
       { k: "Guidance direction", weight: 10, score: null, why: "guidance history unavailable until snapshots/news parser accumulate" },
       { k: "Relative strength", weight: 15, score: rsScore, why: `3M vs sector ${round(rs.vsSector3, 1)}pp, vs SPY ${round(rs.vsSpy3, 1)}pp` },
-      { k: "Post-earnings reaction", weight: 10, score: null, why: "earnings-day/five-day reaction history not bundled yet" },
+      { k: "Post-earnings reaction", weight: 10, score: reaction ? scoreRange(reaction.pct, -8, 8) : null,
+        why: reaction ? `${reaction.daysElapsed}-trading-day reaction after ${reaction.reportedOn}: ${reaction.pct >= 0 ? "+" : ""}${round(reaction.pct, 1)}%` : "no reported earnings date with bundled daily-close alignment yet (needs a real reportedOn stamp, not just a quarter-end)" },
       { k: "Sector strength", weight: 5, score: sectorStrength, why: sectorVsSpy3 != null ? `sector 3M vs SPY ${round(sectorVsSpy3, 1)}pp` : "sector series unavailable" },
     ]);
   }
@@ -589,5 +637,9 @@
     trueMedian,
     percentileRank,
     valuation,
+    marketReward,
+    tradingDaysBetween,
+    earningsSurpriseOf,
+    postEarningsReactionOf,
   };
 })();

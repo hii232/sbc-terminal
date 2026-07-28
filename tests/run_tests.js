@@ -1138,5 +1138,64 @@ const ok = (cond, name, detail = "") => {
   ok(signFlips === 0, "cluster-adjusted net never flips the sign of a real name's raw net", String(signFlips));
 }
 
+// =============== 29. Market Reward: wire real data into the two permanently-null sub-parts ===============
+{
+  const SE = E.ScoreEngine;
+  ok(typeof SE.tradingDaysBetween === "function", "tradingDaysBetween is exported for direct testing");
+  ok(SE.tradingDaysBetween("2026-01-01", "2026-01-08") === 5, "7 calendar days -> ~5 trading days", String(SE.tradingDaysBetween("2026-01-01", "2026-01-08")));
+  ok(SE.tradingDaysBetween("2026-01-01", "2026-01-01") === 0, "same day -> 0 trading days");
+  ok(SE.tradingDaysBetween("2026-01-08", "2026-01-01") === null, "a 'from' date after 'to' -> null, never a negative count");
+  ok(SE.tradingDaysBetween(null, "2026-01-01") === null, "missing input -> null");
+
+  ok(typeof SE.earningsSurpriseOf === "function", "earningsSurpriseOf is exported for direct testing");
+  ok(SE.earningsSurpriseOf("__NOPE__") === null, "unknown ticker -> null, never a fabricated average");
+  const aaplSurprise = SE.earningsSurpriseOf("AAPL");
+  ok(aaplSurprise && aaplSurprise.n > 0 && aaplSurprise.n <= 4 && Math.abs(aaplSurprise.avg) <= 15,
+    "AAPL's surprise average is built from real bundled history and clamped like driftScoreOf's own convention",
+    JSON.stringify(aaplSurprise));
+
+  ok(typeof SE.postEarningsReactionOf === "function", "postEarningsReactionOf is exported for direct testing");
+  const AAPL = E.companyOf("AAPL");
+  // AAPL's bundled history has no reportedOn stamp yet (only a fiscal
+  // quarter-end, which is not a real report date) -- must stay null, never
+  // misaligned against a wrong day.
+  ok(SE.postEarningsReactionOf(AAPL) === null, "no reportedOn stamp -> null, never a reaction measured off the wrong date");
+  // At least one real ticker in the universe DOES have a reportedOn stamp
+  // (the daily refresh stamps it the first time a new quarter appears) --
+  // prove the plumbing produces a real, sane reaction for it end to end.
+  let reactionHit = null;
+  for (const d of DATA) {
+    const r = SE.postEarningsReactionOf(d);
+    if (r) { reactionHit = { ticker: d.ticker, r }; break; }
+  }
+  ok(reactionHit != null, "at least one real name resolves a post-earnings reaction from bundled reportedOn + daily closes",
+    reactionHit ? JSON.stringify(reactionHit) : "none found");
+  if (reactionHit) {
+    ok(Number.isFinite(reactionHit.r.pct) && reactionHit.r.daysElapsed > 0 && /^\d{4}-\d{2}-\d{2}$/.test(reactionHit.r.reportedOn),
+      "the resolved reaction has a real percentage, a positive elapsed trading-day count, and an ISO report date", JSON.stringify(reactionHit));
+  }
+
+  // End to end through marketReward(): the two sub-parts must no longer be
+  // permanently null for names with real data, and the previous hardcoded
+  // "unavailable"/"not bundled yet" why-text must be gone for them.
+  const mr = E.marketScoreOf(AAPL).marketReward;
+  const surprisePart = mr.details.find(x => x.k === "Earnings surprise history");
+  ok(surprisePart.score != null, "AAPL's Earnings surprise history sub-part is no longer hardcoded null", JSON.stringify(surprisePart));
+  ok(!/unavailable in bundled data/.test(surprisePart.why), "the stale 'unavailable in bundled data' why-text is gone once real data exists");
+
+  let surpriseCoverage = 0;
+  for (const d of DATA) {
+    const part = E.marketScoreOf(d).marketReward.details.find(x => x.k === "Earnings surprise history");
+    if (part && part.score != null) surpriseCoverage++;
+  }
+  ok(surpriseCoverage / DATA.length > 0.9, "the vast majority of the universe now has a real (non-null) earnings-surprise sub-score", `${surpriseCoverage}/${DATA.length}`);
+
+  if (reactionHit) {
+    const dCov = DATA.find(x => x.ticker === reactionHit.ticker);
+    const reactionPart = E.marketScoreOf(dCov).marketReward.details.find(x => x.k === "Post-earnings reaction");
+    ok(reactionPart.score != null, `${reactionHit.ticker}'s Post-earnings reaction sub-part is wired end to end through marketReward()`, JSON.stringify(reactionPart));
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
