@@ -425,6 +425,43 @@ const ok = (cond, name, detail = "") => {
   ok(E.driftScoreOf({ ...beat, date: daysAgo(90) }, nvda) === null, "stale reports (>60d) leave the drift board, not linger");
   ok(E.driftScoreOf({ symbol: "NVDA", date: daysAgo(5) }, nvda) === null, "no actual/estimate -> no drift score, never fabricated");
 
+  // PEAD's post-report "tape since report" reaction: must read DAILY closes
+  // (d.pd) at day-resolution, not WEEKLY bars (d.px) bucketed in whole
+  // 7-trading-day jumps -- the audit measured up to ~1 week of real
+  // slippage from the old bucketing. Verify against the actual bundled
+  // earnings ledger (not a synthetic daysAgo(), which would drift against
+  // d.pd's own fixed "as of" date).
+  const pctMoveFromLocal = (vals, lookback) => {
+    const a = (vals || []).filter(v => typeof v === "number" && Number.isFinite(v));
+    if (a.length < 2 || lookback == null) return null;
+    const end = a[a.length - 1], start = a[Math.max(0, a.length - 1 - lookback)];
+    return start > 0 ? ((end / start) - 1) * 100 : null;
+  };
+  const realLedger = E.earningsLedger();
+  let checkedReal = 0, matchedDaily = 0, divergedFromWeekly = 0;
+  for (const r of realLedger) {
+    const dR = DATA.find(x => x.ticker === r.symbol);
+    if (!dR || !dR.pd || !dR.pd.to) continue;
+    const dsReal = E.driftScoreOf(r, dR);
+    if (!dsReal) continue;
+    const tapeBit = dsReal.bits.find(b => /^tape since report/.test(b));
+    if (!tapeBit) continue;
+    checkedReal++;
+    const tds = E.ScoreEngine.tradingDaysBetween(r.date, dR.pd.to);
+    const expectedDaily = pctMoveFromLocal(dR.pd.v, tds);
+    const daysSinceReal = Math.round((Date.now() - Date.parse(r.date + "T16:00:00Z")) / 864e5);
+    const weeksBackOld = Math.max(1, Math.round(daysSinceReal / 7));
+    const expectedWeekly = pctMoveFromLocal(dR.px && dR.px.v, weeksBackOld);
+    if (expectedDaily != null) {
+      const shown = parseFloat(tapeBit.match(/(-?\d+\.\d+)%/)[1]);
+      if (Math.abs(shown - expectedDaily) < 0.15) matchedDaily++;
+      if (expectedWeekly != null && Math.abs(expectedDaily - expectedWeekly) > 1) divergedFromWeekly++;
+    }
+  }
+  ok(checkedReal > 0, "at least one real bundled report has a driftScoreOf reaction to check", String(checkedReal));
+  ok(matchedDaily === checkedReal, "every real report's shown reaction matches a daily-close (d.pd) computation, not a weekly one", `${matchedDaily}/${checkedReal}`);
+  ok(divergedFromWeekly > 0, "the daily-resolution reaction differs meaningfully from the old weekly-bucketed value for real reports (proving the fix changed real output, not just refactored)", String(divergedFromWeekly));
+
   // calibration: pure math over synthetic snapshots
   const mk = (date, px) => ({ date, universe: 2, entries: [
     { t: "AAA", s: 80, c: "ACC", p: px, dl: "LIKELY UP", bo: 75, mr: 80 },

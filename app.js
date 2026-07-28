@@ -2017,8 +2017,17 @@
       score += clamp(net, -10, 10) * 0.9;
       bits.push(`revisions since: ${net >= 0 ? "+" : ""}${net} net`);
     }
-    const weeksBack = Math.max(1, Math.round(daysSince / 7));
-    const reaction = pctMoveFrom(d.px && d.px.v || [], weeksBack);
+    // Daily closes (d.pd), not weekly bars (d.px): a WEEKLY lookback can
+    // only move in whole 7-trading-day jumps, so "3 days since report"
+    // and "9 days since report" could resolve to the exact same bar --
+    // real, measured slippage of up to ~5 trading days on this bundle.
+    // tradingDaysBetween(report date, d.pd's end date) gives a real,
+    // day-resolution lookback into the SAME array pctMoveFrom already uses.
+    const tradingDaysSince = window.ScoreEngine && d.pd && d.pd.to
+      ? window.ScoreEngine.tradingDaysBetween(r.date, d.pd.to) : null;
+    const reaction = tradingDaysSince != null
+      ? pctMoveFrom(d.pd && d.pd.v || [], tradingDaysSince)
+      : pctMoveFrom(d.px && d.px.v || [], Math.max(1, Math.round(daysSince / 7)));
     if (reaction != null) {
       // PEAD needs the initial reaction to CONFIRM the surprise's direction
       score += clamp(reaction * Math.sign(surprise || 1), -8, 8);
