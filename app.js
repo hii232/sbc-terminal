@@ -144,10 +144,44 @@
      100% of its rows, while the annual path already did this correctly.
      Returns null when the ticker has never reported the tag (114 of 224
      tickers do) — missing stays missing, never coerced into the proxy here;
-     callers decide their own fallback. */
+     callers decide their own fallback.
+
+     A second, follow-up audit found this lookup had no recency or sanity
+     guard: some companies stop separately disclosing the tag and the top-
+     level fact silently ages for years (LOW's is a 2013 fact, still ~13
+     years stale in 2026; NKE's is 2019) while being reused every day
+     against a present-day, much larger SBC base. Worse, DDOG/DASH/RBLX's
+     only filed instance of the tag is a stale, literal $0 (their most
+     recent separate disclosure, years old) — trusting that at face value
+     flips DDOG specifically from a correctly negative/unrankable owner EPS
+     to a false positive one, undoing exactly the kind of Tragic-Tier flag
+     this app exists to catch. Two guards, both erring toward the 25%-of-
+     SBC fallback rather than trusting a stale or degenerate fact:
+       (1) RECENCY — compare the tag's periodEnd against the company's own
+           latest known SEC period-end across every core reconciled field
+           (SEC_CORE_FIELDS below already treats these as "the most recent
+           report on file"); reject if the tag trails by more than ~15
+           months. This alone resolves all 14 stale cases found by audit.
+       (2) MAGNITUDE (zero only) — a real, ongoing SBC program reporting
+           literally $0 cash tax withholding is implausible under normal
+           tax law and, in every observed case, is also a stale fact
+           already caught by (1); this is a second, independent guard
+           against the specific zero-value failure mode. Values ABOVE the
+           SBC base (seen for NBIS/HOOD/FICO/NVDA, 116-180%) are NOT
+           rejected here: vest-date fair value (what cash withholding is
+           based on) can legitimately exceed the grant-date fair value
+           GAAP expenses as SBC for a stock that has appreciated a lot
+           between grant and vest, so a high ratio is not on its own proof
+           of a bad fact the way a real company's $0 is. */
   function secWithholdingOf(ticker) {
     const tw = typeof SEC !== "undefined" && SEC[ticker] && SEC[ticker].f && SEC[ticker].f.taxWithholding;
     if (!tw || !hasNum(tw.v)) return null;
+    if (tw.v === 0) return null;
+    const latest = latestKnownSecPeriodEnd(ticker);
+    if (latest && tw.periodEnd) {
+      const gapDays = (Date.parse(latest) - Date.parse(tw.periodEnd)) / 864e5;
+      if (!(gapDays <= 455)) return null; // ~15 months; NaN (bad date) also rejects
+    }
     return { value: tw.v / 1e9, periodEnd: tw.periodEnd || null };
   }
   function trueOwnerEarnings(d) {
@@ -375,6 +409,22 @@
       String(a.filed || "").localeCompare(String(b.filed || "")) ||
       String(a.accn || "").localeCompare(String(b.accn || ""))
     ).at(-1) || null;
+  }
+  /* The most recent annual period-end this company has reported ANYWHERE
+     across the core reconciled fields -- used by secWithholdingOf's
+     recency guard above. Checks every core+cash field rather than just
+     one (e.g. "revenue" alone) because a single field can be thin or
+     defined differently for some sectors (banks/insurers often lag or
+     omit the standard revenue tag), which would otherwise make the
+     reference date itself unreliable for exactly the companies most
+     likely to need the guard. */
+  function latestKnownSecPeriodEnd(ticker) {
+    let latest = null;
+    for (const field of [...SEC_CORE_FIELDS, ...SEC_CASH_FIELDS]) {
+      const fact = latestSecFact(ticker, field);
+      if (fact && fact.periodEnd && (!latest || fact.periodEnd > latest)) latest = fact.periodEnd;
+    }
+    return latest;
   }
   function secFactForPeriod(ticker, field, targetPeriodEnd) {
     if (!targetPeriodEnd) return null;
@@ -620,7 +670,14 @@
     const m3 = pctMoveFrom(vals, 13);
     const day = quoteChangeOf(d);
     if (m1 == null && m3 == null && day == null) return scorePart("momentum", "Price momentum", null, 18, "no price tape", "missing");
-    const s = 50 + (m1 || 0) * 1.25 + (m3 || 0) * 0.55 + (day || 0) * 1.7;
+    // An audit found today's single-day change carried the LARGEST
+    // coefficient of the three (1.7, above even the 1-month term's 1.25) in
+    // a part meant to read SUSTAINED trend -- one noisy/news-driven day
+    // could dominate the whole momentum score. Today's move is the least
+    // reliable of the three (mostly noise/one-off news, not trend), so its
+    // coefficient must sit BELOW both the 1-month and 3-month terms, not
+    // above them.
+    const s = 50 + (m1 || 0) * 1.25 + (m3 || 0) * 0.55 + (day || 0) * 0.4;
     const txt = `price tape: 1M ${m1 == null ? "n/a" : m1.toFixed(1) + "%"}, 3M ${m3 == null ? "n/a" : m3.toFixed(1) + "%"}, today ${day >= 0 ? "+" : ""}${(day || 0).toFixed(1)}%`;
     return scorePart("momentum", "Price momentum", s, 18, txt, vals.length >= 14 ? "weekly price history + live quote" : "limited price history", { m1, m3, day });
   }
@@ -6990,16 +7047,16 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=72").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register(`sw.js?v=${SHELL_BUILD}`).then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
-    buybackQuality, shareTrend, medianOf, trueOwnerEarnings, ttmOwnerEarnings, secWithholdingOf,
+    buybackQuality, shareTrend, medianOf, trueOwnerEarnings, ttmOwnerEarnings, secWithholdingOf, latestKnownSecPeriodEnd, latestSecFact,
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
-    directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, momentumPart, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
     NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,

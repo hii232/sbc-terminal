@@ -1341,5 +1341,71 @@ const ok = (cond, name, detail = "") => {
   ok(staleArtifact === 0, "no real name's options why-text still contains the old fabricated staleness-as-bearish label");
 }
 
+// =============== 32. Second-pass audit: withholding recency/magnitude, momentum, sw version ===============
+{
+  // A follow-up audit found secWithholdingOf had no recency guard: some
+  // companies stop separately disclosing the SEC tax-withholding tag, so
+  // the top-level fact silently ages for years while being reused every
+  // day against a present-day, much larger SBC base. Worst case: DDOG's
+  // only filed instance is a stale, literal $0 (FY2023), which flipped its
+  // TTM owner EPS from correctly negative/unrankable to a false positive.
+  ok(typeof E.latestKnownSecPeriodEnd === "function", "latestKnownSecPeriodEnd is exported for direct testing");
+  ok(E.secWithholdingOf("DDOG") === null, "DDOG's stale, zero-valued withholding tag is rejected, not trusted");
+  ok(E.secWithholdingOf("DASH") === null, "DASH's stale, zero-valued withholding tag is rejected");
+  ok(E.secWithholdingOf("RBLX") === null, "RBLX's stale, zero-valued withholding tag is rejected");
+  ok(E.secWithholdingOf("LOW") === null, "LOW's ~13-year-stale withholding tag (FY2012) is rejected");
+  ok(E.secWithholdingOf("NKE") === null, "NKE's ~7-year-stale withholding tag (FY2019) is rejected");
+  // Fresh, real tags must still be used, including ones with an unusually
+  // HIGH ratio to SBC -- vest-date fair value legitimately can exceed the
+  // grant-date fair value GAAP expenses as SBC for an appreciating stock,
+  // so a high ratio alone is not proof of a bad fact the way a stale or
+  // zero one is.
+  const nvda = E.secWithholdingOf("NVDA");
+  ok(nvda != null && nvda.value > 0, "NVDA's fresh, high-ratio withholding tag is kept, not rejected on magnitude alone", JSON.stringify(nvda));
+
+  // End to end: DDOG's owner economics must return to the pre-regression
+  // reading -- negative owner EPS, unrankable (null truePE) -- exactly as
+  // they were before the original SEC-withholding fix was ever applied.
+  const DDOG = DATA.find(d => d.ticker === "DDOG");
+  ok(DDOG.ownerEps < 0, "DDOG's owner EPS is negative again (was falsely flipped positive by a stale $0 SEC fact)", String(DDOG.ownerEps));
+  ok(DDOG.truePE === null, "DDOG is unrankable again on owner P/E, not showing a fabricated ~700x reading", String(DDOG.truePE));
+  ok(DDOG.ownerTtm.withholdingSource === "low-confidence estimate (25% of SBC proxy)",
+    "DDOG's withholding source correctly discloses the proxy fallback, not a stale SEC-reported label");
+
+  // universe-wide sanity: the guard should reject exactly the stale/zero
+  // cohort, not silently gut coverage of the fresh majority
+  let nonNull = 0;
+  for (const d of DATA) if (E.secWithholdingOf(d.ticker)) nonNull++;
+  ok(nonNull > 80 && nonNull < 114, "the guard meaningfully narrows coverage (rejecting stale/zero facts) without gutting it entirely", String(nonNull));
+
+  // momentum: today's single-day change must not out-weigh the sustained
+  // multi-week/month terms it's supposed to be secondary to
+  const src2 = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
+  const momEng = src2.slice(src2.indexOf("function momentumPart"), src2.indexOf("function sectorConfirmationPart"));
+  const coefs = [...momEng.matchAll(/\)\s*\*\s*(-?\d+\.?\d*)/g)].map(m => parseFloat(m[1]));
+  ok(coefs.length === 3, "momentumPart has exactly 3 weighted terms (1M, 3M, today)", JSON.stringify(coefs));
+  const [m1Coef, m3Coef, dayCoef] = coefs;
+  ok(dayCoef < m1Coef && dayCoef < m3Coef,
+    "today's single-day coefficient is now smaller than BOTH the 1-month and 3-month coefficients, not larger than either",
+    `m1=${m1Coef} m3=${m3Coef} day=${dayCoef}`);
+  // behavioral check, not just a coefficient-order check: an equal-sized
+  // move must swing the score LESS when it comes from today alone than
+  // when it comes from the sustained 1M+3M tape.
+  const flatSeries = Array(20).fill(100);
+  const neutral = E.momentumPart({ ticker: "FAKE_FLAT", change: 0, px: { v: flatSeries } });
+  const dayMoveOnly = E.momentumPart({ ticker: "FAKE_DAY", change: 5, px: { v: flatSeries } });
+  const sustainedSeries = flatSeries.slice(); sustainedSeries[sustainedSeries.length - 1] = 105; // moves both m1 and m3 by +5%
+  const sustainedMove = E.momentumPart({ ticker: "FAKE_SUSTAINED", change: 0, px: { v: sustainedSeries } });
+  ok(neutral.score != null && dayMoveOnly.score != null && sustainedMove.score != null, "momentumPart scores all three synthetic tapes");
+  ok((dayMoveOnly.score - neutral.score) < (sustainedMove.score - neutral.score),
+    "a +5% single-day move swings the score less than the same +5% sustained over 1M and 3M",
+    `dayDelta=${dayMoveOnly.score - neutral.score} sustainedDelta=${sustainedMove.score - neutral.score}`);
+
+  // sw.js version registration must not hardcode a stale literal that can
+  // drift from the shared SHELL_BUILD constant
+  ok(!/register\("sw\.js\?v=72"\)/.test(src2), "the old hardcoded sw.js?v=72 registration literal is gone");
+  ok(/register\(`sw\.js\?v=\$\{SHELL_BUILD\}`\)/.test(src2), "sw.js registration now derives its version from SHELL_BUILD, so it can't drift again");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
