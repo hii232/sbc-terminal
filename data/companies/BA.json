@@ -2,7 +2,7 @@
  "ticker": "BA",
  "cik": "0000012927",
  "entityName": "THE BOEING COMPANY",
- "retrievedAt": "2026-07-28T12:55:10.545686Z",
+ "retrievedAt": "2026-07-29T13:01:01.802697Z",
  "fields": {
   "buyback": [
    {
@@ -1789,12 +1789,12 @@
     "confidence": 100
    },
    {
-    "value": 788302331,
+    "value": 790370020,
     "unit": "shares",
-    "periodEnd": "2026-04-15",
+    "periodEnd": "2026-07-21",
     "form": "10-Q",
-    "filedDate": "2026-04-22",
-    "accessionNumber": "0001628280-26-026458",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0001628280-26-050038",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

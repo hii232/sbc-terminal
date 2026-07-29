@@ -2,7 +2,7 @@
  "ticker": "HLT",
  "cik": "0001585689",
  "entityName": "Hilton Worldwide Holdings Inc.",
- "retrievedAt": "2026-07-28T12:56:43.240939Z",
+ "retrievedAt": "2026-07-29T13:01:55.558270Z",
  "fields": {
   "buyback": [
    {
@@ -1966,12 +1966,12 @@
     "confidence": 100
    },
    {
-    "value": 227648372,
+    "value": 225064910,
     "unit": "shares",
-    "periodEnd": "2026-04-23",
+    "periodEnd": "2026-07-23",
     "form": "10-Q",
-    "filedDate": "2026-04-28",
-    "accessionNumber": "0001585689-26-000032",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0001585689-26-000043",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
