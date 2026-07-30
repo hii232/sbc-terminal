@@ -59,7 +59,7 @@ async function main() {
   try {
     await page.goto(`${base}/index.html?ci=${Date.now()}`, { waitUntil: "domcontentloaded" });
     await page.waitForSelector("#main", { timeout: 10000 });
-    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("HOME DASHBOARD"), { timeout: 10000 });
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Owner-Earnings Dashboard"), { timeout: 10000 });
     ok(!(await page.textContent("#main")).includes("source priority: SEC filing facts"), "app should boot to Home, not a single-stock page");
     ok((await page.textContent("#main")).includes("GREAT BUSINESSES"), "Home buy-price card missing");
     ok((await page.textContent("#main")).includes("great buy = IV15"), "Home buy-price methodology missing");

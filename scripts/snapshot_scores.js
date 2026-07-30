@@ -36,6 +36,17 @@ try {
   }
 } catch (err) { console.error("master board unavailable for snapshot:", err.message); }
 
+// Narrative heat, per cluster, so the terminal can measure ACCELERATION
+// (heat rising fast while still below HOT/WARMING) instead of only ever
+// reading the current level -- the FORMING tier needs a real recorded
+// history to compare against, same as every other calibration input here.
+let narrs = {};
+try {
+  if (E.narrativeHeatAll) {
+    for (const h of E.narrativeHeatAll()) narrs[h.key] = h.heat;
+  }
+} catch (err) { console.error("narrative heat unavailable for snapshot:", err.message); }
+
 const entries = DATA.map(d => {
   const V = E.verdictOf(d);
   // names the engine refuses to score (insufficient data) are recorded as
@@ -80,7 +91,7 @@ const histFile = path.join(trackDir, "history.json");
 let hist = [];
 if (fs.existsSync(histFile)) hist = JSON.parse(fs.readFileSync(histFile, "utf8"));
 hist = hist.filter(s => s.date !== today);           // one per day
-hist.push({ date: today, universe: DATA.length, entries });
+hist.push({ date: today, universe: DATA.length, entries, narrs });
 hist.sort((a, b) => a.date.localeCompare(b.date));
 fs.writeFileSync(histFile, JSON.stringify(hist), "utf8");
 

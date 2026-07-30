@@ -1749,7 +1749,7 @@
         <td class="sub">${c.accn || c.secFact?.accn || "—"}</td><td class="sub">${c.tag || c.secFact?.tag || "—"}</td><td class="sub">${c.valueUsed || "SEC primary"}</td>
       </tr>`).join("");
       return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : sv.periodMismatch.length ? "var(--orange)" : "var(--green)"}">
-        <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten${(() => { const u = (typeof UNIVERSE_LIST !== "undefined") && UNIVERSE_LIST.find(x => x.ticker === d.ticker); return u && sv.latest && sv.latest.accn ? ` · <a href="https://www.sec.gov/Archives/edgar/data/${u.cik}/${sv.latest.accn.replace(/-/g, "")}/" target="_blank" rel="noopener" style="color:var(--cyan)">READ THE ACTUAL FILING →</a>` : ""; })()}</span></h3>
+        <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten${(() => { const u = (typeof UNIVERSE_LIST !== "undefined") && UNIVERSE_LIST.find(x => x.ticker === d.ticker); return u && sv.latest && sv.latest.accn ? ` · <a href="https://www.sec.gov/Archives/edgar/data/${u.cik}/${sv.latest.accn.replace(/-/g, "")}/" target="_blank" rel="noopener" style="color:var(--cyan)">Read ${d.ticker}'s ${sv.latest.form || "SEC"} filing →</a>` : ""; })()}</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th style="text-align:left">FIELD</th><th style="text-align:left">STATUS</th><th>SEC FILING</th><th>TERMINAL</th><th>NOTE</th></tr>${rows}</table></div>
         <h3 style="margin-top:12px">CONFLICT / PERIOD DETAILS <span class="unit">same-period facts only become true conflicts</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th>FIELD</th><th>REASON</th><th>SEC VALUE</th><th>OTHER VALUE</th><th>SEC PERIOD</th><th>OTHER PERIOD</th><th>FILING</th><th>ACCESSION</th><th>TAG</th><th>MODEL USES</th></tr>${detailRows}</table></div>
@@ -2371,6 +2371,33 @@
     }
     return out;
   }
+  /* ------------------- NARRATIVE FORMATION (heat acceleration) -------------------
+     Heat is a LEVEL: how hot a story runs right now. By the time a cluster
+     crosses HOT (>=68), it is visible to everyone -- the level says nothing
+     about whether it is still building. This tracks the DELTA: a story
+     quietly gaining heat fast while still below that threshold is exactly
+     the "forming, not yet obvious" case worth flagging earlier. Needs a
+     real recorded heat from >= daysBack days ago in the daily snapshot
+     history; returns null (never a guessed acceleration) until enough
+     snapshots exist -- same fixed-window discipline as scores.js's
+     estimateRevision (walk back to the first snapshot old enough; never
+     rescale a shorter window into a longer one). */
+  const NARRATIVE_FORMING_WINDOW_DAYS = 10;
+  const NARRATIVE_FORMING_THRESHOLD = 12;
+  function narrativeHeatDelta(history, key, daysBack = NARRATIVE_FORMING_WINDOW_DAYS) {
+    const H = Array.isArray(history) ? history : [];
+    if (!H.length) return null;
+    const latest = H[H.length - 1];
+    if (!latest.narrs || !hasNum(latest.narrs[key])) return null;
+    const cutoff = new Date(Date.parse(latest.date) - daysBack * 864e5).toISOString().slice(0, 10);
+    let base = null;
+    for (let i = H.length - 1; i >= 0; i--) {
+      if (H[i].date <= cutoff && H[i].narrs && hasNum(H[i].narrs[key])) { base = H[i]; break; }
+    }
+    if (!base) return null;
+    return { delta: latest.narrs[key] - base.narrs[key], fromDate: base.date, toDate: latest.date,
+      fromHeat: base.narrs[key], toHeat: latest.narrs[key] };
+  }
   function narrativeStats(n, ctx) {
     const members = n.members.map(companyOf).filter(Boolean);
     if (members.length < 2) return null;
@@ -2420,8 +2447,22 @@
     heat = Math.round(clamp(heat, 0, 100));
     const label = heat >= 68 ? "HOT" : heat >= 56 ? "WARMING" : heat >= 44 ? "MIXED" : heat >= 32 ? "COOLING" : "COLD";
     const color = heat >= 68 ? "var(--green)" : heat >= 56 ? "var(--cyan)" : heat >= 44 ? "var(--amber)" : heat >= 32 ? "var(--orange)" : "var(--red)";
+    // FORMING: still below HOT, but accelerating fast. Speculative by
+    // design -- an early read trades false positives for lead time, so it
+    // is always disclosed as a delta over a stated window, never presented
+    // as confirmed heat.
+    let forming = null;
+    if (heat < 68) {
+      const hist = (ctx && ctx.narrHistory) || (typeof TRACK_HISTORY !== "undefined" ? TRACK_HISTORY : null);
+      const d = narrativeHeatDelta(hist, n.key);
+      if (d && d.delta >= NARRATIVE_FORMING_THRESHOLD) forming = d;
+    }
+    const finalLabel = forming ? "FORMING" : label;
+    const finalColor = forming ? "var(--purple)" : color;
+    if (forming) bits.push(`heat up ${forming.delta >= 0 ? "+" : ""}${forming.delta} over ${forming.fromDate} → ${forming.toDate} — forming, not yet confirmed`);
     return { key: n.key, name: n.name, icon: n.icon, story: n.story, members, present: members.length,
-      heat, label, color, ret1m, breadth, revNet, beatShare, t1up, t1down, whaleBull, whaleBear, bits, inputs: used };
+      heat, label: finalLabel, color: finalColor, rawLabel: label, rawColor: color, forming,
+      ret1m, breadth, revNet, beatShare, t1up, t1down, whaleBull, whaleBear, bits, inputs: used };
   }
   function narrativeHeatAll() {
     const ctx = { ledger: earningsLedger(), whales: whaleActionMap() };
@@ -4910,7 +4951,7 @@
       const movers = [...h.members].map(d => ({ d, mv: pctMoveFrom(d.px && d.px.v || [], 4) }))
         .filter(x => hasNum(x.mv)).sort((a, b) => b.mv - a.mv);
       return `<div class="card" id="narr-${h.key}" style="border-left:3px solid ${h.color}">
-        <h3>${h.icon} ${h.name} ${heatPill(h)} <b style="color:${h.color};font-size:11px">${h.label}</b>
+        <h3>${h.icon} ${h.name} ${heatPill(h)} <b style="color:${h.color};font-size:11px">${h.forming ? "🌱 " : ""}${h.label}</b>
           <span class="unit">${h.present} names tracked</span></h3>
         <div class="sub" style="line-height:1.55;margin:4px 0 8px">${escapeHtml(h.story)}</div>
         <div class="kv"><span class="k">WHAT THE DATA SAYS</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.7">${h.bits.map(escapeHtml).join(" · ")}</span></span></div>
@@ -4926,11 +4967,11 @@
         <div style="text-align:right"><div class="sub">HOTTEST STORY</div><div class="stat sm" style="color:${heats[0] ? heats[0].color : "var(--dim)"}">${heats[0] ? heats[0].name.toUpperCase() : "—"}</div></div>
       </div>
       ${heats.length ? `<div class="sec-chips" style="margin-bottom:12px">${heats.map(h => `<button type="button" class="sec-chip" data-nk="${h.key}" style="border-color:${h.color}">${h.icon} ${h.name} <b style="color:${h.color}">${h.heat}</b></button>`).join("")}</div>` : ""}
-      <div class="note" style="margin-bottom:12px"><b>Why this matters:</b> most days, a stock moves because of the story it lives in, not its own news. Elite investors know the story FIRST — a great company inside a story the market hates stays cheap longer; an average one inside a hot story gets rewarded anyway. <b style="color:var(--green)">HOT</b> stories reward momentum but punish late buyers. <b style="color:var(--red)">COLD</b> stories are where the Best Setups quality gate finds real bargains. Shifts land in the What Changed feed the day they happen.</div>
+      <div class="note" style="margin-bottom:12px"><b>Why this matters:</b> most days, a stock moves because of the story it lives in, not its own news. Elite investors know the story FIRST — a great company inside a story the market hates stays cheap longer; an average one inside a hot story gets rewarded anyway. <b style="color:var(--green)">HOT</b> stories reward momentum but punish late buyers. <b style="color:var(--red)">COLD</b> stories are where the Best Setups quality gate finds real bargains. <b style="color:var(--purple)">🌱 FORMING</b> is the earliest read this terminal can offer: a story still below HOT/WARMING whose heat is rising fast day over day — flagged from the RATE OF CHANGE, not the level, so it's the most speculative tier here and will produce more false starts than a confirmed HOT read. Needs enough recorded daily history to measure; arms in as snapshots accumulate. Shifts land in the What Changed feed the day they happen.</div>
       ${heats.length ? heats.map(card).join("") : `<div class="card"><h3>NARRATIVE HEAT IS ARMING</h3><div class="sub" style="padding:8px 0;line-height:1.6">Heat needs at least two live inputs per story (tape, breadth, revisions, season beats, tier-1 actions, whale flows). Those arrive with the daily data refresh — nothing is shown until it can be measured.</div></div>`}
       ${silent.length ? `<div class="note" style="margin-top:4px"><b>Not enough data today:</b> ${silent.map(n => `${n.icon} ${n.name}`).join(" · ")} — fewer than 2 tracked members or fewer than 2 live inputs. Silence beats a made-up number.</div>` : ""}
       <div class="card" style="margin-top:12px"><h3>HOW TO USE THIS PAGE</h3>
-        <div class="sub" style="line-height:1.7">1 · Before buying anything, find its story here — you're not just buying a company, you're buying its narrative's flow. 2 · A <b>WARMING</b> story with improving revisions is the classic early entry; <b>HOT</b> means you're no longer early. 3 · <b>COOLING</b> on a name you own is a signal to re-check the thesis, not an order to sell. 4 · The strongest single pattern this terminal can show you: a quality name (Best Setups gate) at a washed-out RSI inside a story that is turning back up.</div></div>`;
+        <div class="sub" style="line-height:1.7">1 · Before buying anything, find its story here — you're not just buying a company, you're buying its narrative's flow. 2 · A <b>WARMING</b> story with improving revisions is the classic early entry; <b>HOT</b> means you're no longer early. 3 · <b>COOLING</b> on a name you own is a signal to re-check the thesis, not an order to sell. 4 · The strongest single pattern this terminal can show you: a quality name (Best Setups gate) at a washed-out RSI inside a story that is turning back up. 5 · <b style="color:var(--purple)">🌱 FORMING</b> is earlier than WARMING and less certain — treat it as "watch this," not "act on this," until it either confirms into WARMING/HOT or fades back down.</div></div>`;
     el("main").querySelectorAll("[data-tk]").forEach(b => b.onclick = () => selectTicker(b.dataset.tk));
     el("main").querySelectorAll("[data-nk]").forEach(b => b.onclick = () => { const c = el("narr-" + b.dataset.nk); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); });
   }
@@ -5016,7 +5057,7 @@
         ${(B && B.filings || []).length ? (B.filings || []).slice(0, 20).map(f => {
           const u = edgarDoc(f);
           return `<div class="kv"><span class="k">${f.filed} · <b style="color:var(--text)">${escapeHtml(f.form)}</b></span>
-            <span class="v">${u ? `<a href="${u}" target="_blank" rel="noopener" style="color:var(--cyan)">open on EDGAR →</a>` : `<span class="sub">${f.accn}</span>`}</span></div>`;
+            <span class="v">${u ? `<a href="${u}" target="_blank" rel="noopener" style="color:var(--cyan)">open ${escapeHtml(f.form)} filed ${f.filed} on EDGAR →</a>` : `<span class="sub">${f.accn}</span>`}</span></div>`;
         }).join("") : `<div class="sub" style="padding:12px">Filing feed fills on the next data refresh.</div>`}
       </div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
@@ -6157,7 +6198,7 @@
         <section class="bz-hero">
           <div>
             <div class="bz-kicker">SBC TERMINAL</div>
-            <h1>HOME DASHBOARD</h1>
+            <h1>Owner-Earnings Dashboard</h1>
             <p>Daily tape, movers, earnings, buy prices, and owner-economics edge. ${DATA.length} official names, ${ranked.length} ranked. <span class="sub">build v${SHELL_BUILD}</span></p>
           </div>
           <button class="bz-best" type="button" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
@@ -7059,7 +7100,7 @@
     directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, momentumPart, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
-    NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,
+    NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,

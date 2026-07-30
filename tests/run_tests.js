@@ -1407,5 +1407,63 @@ const ok = (cond, name, detail = "") => {
   ok(/register\(`sw\.js\?v=\$\{SHELL_BUILD\}`\)/.test(src2), "sw.js registration now derives its version from SHELL_BUILD, so it can't drift again");
 }
 
+// =============== 33. Narrative FORMING tier (heat acceleration) ===============
+{
+  ok(typeof E.narrativeHeatDelta === "function", "narrativeHeatDelta is exported for direct testing");
+  const mk = (date, heat) => ({ date, narrs: { "test-key": heat } });
+
+  // pure delta math, fully synthetic -- no dependence on live market data
+  ok(E.narrativeHeatDelta([], "test-key") === null, "empty history -> null, never a guessed delta");
+  ok(E.narrativeHeatDelta([mk("2026-01-01", 40)], "test-key") === null, "a single snapshot has no earlier base to compare against -> null");
+  const twoClose = [mk("2026-01-01", 40), mk("2026-01-05", 55)]; // only 4 days apart, window is 10
+  ok(E.narrativeHeatDelta(twoClose, "test-key") === null, "snapshots closer together than the window -> null, never a rescaled shorter window");
+  const twoFar = [mk("2026-01-01", 40), mk("2026-01-15", 55)]; // 14 days apart, clears the 10-day window
+  const delta = E.narrativeHeatDelta(twoFar, "test-key");
+  ok(delta && delta.delta === 15 && delta.fromDate === "2026-01-01" && delta.toDate === "2026-01-15",
+    "a real gap >= the window computes the correct delta and dates", JSON.stringify(delta));
+  // walks BACK to the first snapshot old enough, not just the immediate predecessor
+  const threeSnaps = [mk("2026-01-01", 30), mk("2026-01-10", 45), mk("2026-01-16", 60)];
+  const delta3 = E.narrativeHeatDelta(threeSnaps, "test-key", 10);
+  ok(delta3 && delta3.fromDate === "2026-01-01" && delta3.delta === 30,
+    "walks back to the first snapshot at/before the cutoff, not the nearest one", JSON.stringify(delta3));
+  // a snapshot missing narrs entirely (recorded before this feature existed,
+  // like this repo's own first 9 real snapshots) is skipped, not treated as 0
+  const withGap = [{ date: "2026-01-01", entries: [] }, mk("2026-01-15", 55)];
+  ok(E.narrativeHeatDelta(withGap, "test-key") === null, "a pre-feature snapshot with no narrs field is skipped, not read as heat=0");
+
+  // integration: narrativeStats' FORMING override, self-checking against
+  // whatever the real live heat happens to be today (never a hardcoded
+  // assumption about current market data)
+  const target = E.NARRATIVES.find(n => n.members.length >= 2);
+  const ctxNoHistory = { narrHistory: [] };
+  const baseline = E.narrativeStats(target, ctxNoHistory);
+  if (baseline) {
+    ok(baseline.forming === null, "with no history at all, forming is always null -- never fabricated");
+    ok(baseline.label === baseline.rawLabel && baseline.color === baseline.rawColor,
+      "with no acceleration data, the displayed label/color match the raw level-only reading");
+
+    const accelHistory = [
+      { date: "2026-01-01", narrs: { [target.key]: 5 } },
+      { date: "2026-01-20", narrs: { [target.key]: 90 } }, // a huge, clearly-over-threshold delta
+    ];
+    const accel = E.narrativeStats(target, { ...ctxNoHistory, narrHistory: accelHistory });
+    if (baseline.heat < 68) {
+      ok(accel.forming != null && accel.label === "FORMING" && accel.color === "var(--purple)",
+        "a real narrative with heat below HOT and a huge recorded acceleration is flagged FORMING", JSON.stringify({ heat: baseline.heat, forming: accel.forming }));
+      ok(accel.rawLabel === baseline.rawLabel, "the underlying raw level-based label is preserved even while FORMING is displayed");
+    } else {
+      ok(accel.forming === null, "a narrative already at/above HOT is never re-labeled FORMING even with a huge recorded delta", String(baseline.heat));
+    }
+
+    // a small delta under the threshold must not trigger FORMING
+    const smallAccelHistory = [
+      { date: "2026-01-01", narrs: { [target.key]: 50 } },
+      { date: "2026-01-20", narrs: { [target.key]: 52 } }, // +2, well under the 12-point threshold
+    ];
+    const smallAccel = E.narrativeStats(target, { ...ctxNoHistory, narrHistory: smallAccelHistory });
+    ok(smallAccel.forming === null, "a small delta under the FORMING threshold does not trigger it");
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
