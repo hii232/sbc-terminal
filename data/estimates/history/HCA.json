@@ -68,6 +68,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "HCA"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 17.84606,
+      "currentYearRevenue": 59022544284.0,
+      "date": "2026-07-31",
+      "nextYearEps": 17.01464,
+      "nextYearRevenue": 60350575502.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "HCA"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",
