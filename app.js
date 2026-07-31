@@ -100,7 +100,7 @@
   }
   function shareTrend(shares) {
     const s = (shares || []).filter(hasNum);
-    if (s.length < 2 || !s[0]) return { chg: null, t: "Insufficient data", c: "var(--dim)" };
+    if (s.length < 2 || !s[0]) return { chg: null, t: "Insufficient data", c: "var(--dim)", years: null };
     const a = s[0], b = s[s.length - 1];
     const chg = ((b - a) / a) * 100;
     let t, c;
@@ -108,7 +108,11 @@
     else if (chg <= 3) { t = "FLAT — treadmill risk"; c = "var(--amber)"; }
     else if (chg <= 12) { t = "RISING — dilution"; c = "var(--orange)"; }
     else { t = "EXPLODING — value transfer"; c = "var(--red)"; }
-    return { chg, t, c };
+    // years spanned = intervals between data points, not the point count --
+    // the bundled fiscal-year history can run to ~10 years post SEC
+    // augmentation, not a fixed 5, so the caption must say what it's really
+    // measuring instead of a hardcoded "5Y".
+    return { chg, t, c, years: s.length - 1 };
   }
   function buybackQuality(d) {
     // classify last-year buyback vs sbc
@@ -140,10 +144,44 @@
      100% of its rows, while the annual path already did this correctly.
      Returns null when the ticker has never reported the tag (114 of 224
      tickers do) — missing stays missing, never coerced into the proxy here;
-     callers decide their own fallback. */
+     callers decide their own fallback.
+
+     A second, follow-up audit found this lookup had no recency or sanity
+     guard: some companies stop separately disclosing the tag and the top-
+     level fact silently ages for years (LOW's is a 2013 fact, still ~13
+     years stale in 2026; NKE's is 2019) while being reused every day
+     against a present-day, much larger SBC base. Worse, DDOG/DASH/RBLX's
+     only filed instance of the tag is a stale, literal $0 (their most
+     recent separate disclosure, years old) — trusting that at face value
+     flips DDOG specifically from a correctly negative/unrankable owner EPS
+     to a false positive one, undoing exactly the kind of Tragic-Tier flag
+     this app exists to catch. Two guards, both erring toward the 25%-of-
+     SBC fallback rather than trusting a stale or degenerate fact:
+       (1) RECENCY — compare the tag's periodEnd against the company's own
+           latest known SEC period-end across every core reconciled field
+           (SEC_CORE_FIELDS below already treats these as "the most recent
+           report on file"); reject if the tag trails by more than ~15
+           months. This alone resolves all 14 stale cases found by audit.
+       (2) MAGNITUDE (zero only) — a real, ongoing SBC program reporting
+           literally $0 cash tax withholding is implausible under normal
+           tax law and, in every observed case, is also a stale fact
+           already caught by (1); this is a second, independent guard
+           against the specific zero-value failure mode. Values ABOVE the
+           SBC base (seen for NBIS/HOOD/FICO/NVDA, 116-180%) are NOT
+           rejected here: vest-date fair value (what cash withholding is
+           based on) can legitimately exceed the grant-date fair value
+           GAAP expenses as SBC for a stock that has appreciated a lot
+           between grant and vest, so a high ratio is not on its own proof
+           of a bad fact the way a real company's $0 is. */
   function secWithholdingOf(ticker) {
     const tw = typeof SEC !== "undefined" && SEC[ticker] && SEC[ticker].f && SEC[ticker].f.taxWithholding;
     if (!tw || !hasNum(tw.v)) return null;
+    if (tw.v === 0) return null;
+    const latest = latestKnownSecPeriodEnd(ticker);
+    if (latest && tw.periodEnd) {
+      const gapDays = (Date.parse(latest) - Date.parse(tw.periodEnd)) / 864e5;
+      if (!(gapDays <= 455)) return null; // ~15 months; NaN (bad date) also rejects
+    }
     return { value: tw.v / 1e9, periodEnd: tw.periodEnd || null };
   }
   function trueOwnerEarnings(d) {
@@ -372,6 +410,22 @@
       String(a.accn || "").localeCompare(String(b.accn || ""))
     ).at(-1) || null;
   }
+  /* The most recent annual period-end this company has reported ANYWHERE
+     across the core reconciled fields -- used by secWithholdingOf's
+     recency guard above. Checks every core+cash field rather than just
+     one (e.g. "revenue" alone) because a single field can be thin or
+     defined differently for some sectors (banks/insurers often lag or
+     omit the standard revenue tag), which would otherwise make the
+     reference date itself unreliable for exactly the companies most
+     likely to need the guard. */
+  function latestKnownSecPeriodEnd(ticker) {
+    let latest = null;
+    for (const field of [...SEC_CORE_FIELDS, ...SEC_CASH_FIELDS]) {
+      const fact = latestSecFact(ticker, field);
+      if (fact && fact.periodEnd && (!latest || fact.periodEnd > latest)) latest = fact.periodEnd;
+    }
+    return latest;
+  }
   function secFactForPeriod(ticker, field, targetPeriodEnd) {
     if (!targetPeriodEnd) return null;
     const hist = annualSecHist(ticker, field).filter(x => x.periodEnd === targetPeriodEnd);
@@ -549,40 +603,66 @@
     score: score == null || !Number.isFinite(+score) ? null : Math.round(clamp(+score, 0, 100)),
     weight, why: why || "", source: source || "terminal", raw: raw || {},
   });
+  /* An independent audit found this function diffed the latest snapshot
+     against hist[0] — the OLDEST snapshot EVER recorded for the ticker —
+     rather than a fixed lookback window, so the effective measurement
+     window silently widened every day since collection began instead of
+     staying comparable day to day. scores.js already implements this
+     correctly (estimateRevision/revisionScore, real fixed 7/30/90-day
+     windows, "no snapshot old enough" -> null rather than a rescaled
+     copy of a shorter window) and uses it at real weight inside
+     marketReward() — reuse it here instead of re-deriving broken math. */
   function estimateSetupPart(d) {
-    const hist = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY[d.ticker] && ESTIMATE_HISTORY[d.ticker].snapshots) || [];
-    const snapVal = (s, keys) => {
-      for (const k of keys) if (hasNum(s && s[k])) return +s[k];
-      return null;
-    };
-    if (hist.length >= 2) {
-      const latest = hist[hist.length - 1], prev = hist[0];
-      const epsNow = snapVal(latest, ["nextYearEps", "currentYearEps", "epsAvg", "estimatedEpsAvg", "epsEstimate"]);
-      const epsPrev = snapVal(prev, ["nextYearEps", "currentYearEps", "epsAvg", "estimatedEpsAvg", "epsEstimate"]);
-      const revNow = snapVal(latest, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
-      const revPrev = snapVal(prev, ["nextYearRevenue", "currentYearRevenue", "revenueAvg", "estimatedRevenueAvg", "revenueEstimate"]);
-      const epsRev = epsNow != null && epsPrev ? ((epsNow - epsPrev) / Math.abs(epsPrev)) * 100 : null;
-      const revRev = revNow != null && revPrev ? ((revNow - revPrev) / Math.abs(revPrev)) * 100 : null;
-      const used = [epsRev, revRev].filter(hasNum);
-      if (used.length) {
-        const s = 50 + (epsRev || 0) * 2.1 + (revRev || 0) * 1.2;
-        const txt = `estimate revisions: EPS ${epsRev == null ? "n/a" : epsRev.toFixed(1) + "%"}, revenue ${revRev == null ? "n/a" : revRev.toFixed(1) + "%"}`;
-        return scorePart("estimates", "Estimate revisions", s, 22, txt, `${hist.length} stored snapshots`, { epsRev, revRev });
+    const histObj = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY[d.ticker]) || null;
+    if (histObj && window.ScoreEngine) {
+      const epsRev = window.ScoreEngine.revisionScore(histObj, "nextYearEps");
+      const revRev = window.ScoreEngine.revisionScore(histObj, "nextYearRevenue");
+      const parts = [];
+      if (epsRev.score != null) parts.push({ score: epsRev.score, w: 0.6 });   // same ~63/37 EPS-over-revenue
+      if (revRev.score != null) parts.push({ score: revRev.score, w: 0.4 });   // emphasis the old 2.1/1.2 coefficients implied
+      if (parts.length) {
+        const wsum = parts.reduce((a, p) => a + p.w, 0);
+        const s = parts.reduce((a, p) => a + p.score * p.w, 0) / wsum;
+        const bits = [epsRev.score != null ? `EPS: ${epsRev.note}` : null, revRev.score != null ? `revenue: ${revRev.note}` : null].filter(Boolean);
+        return scorePart("estimates", "Estimate revisions", s, 22, bits.join(", "), "windowed 7/30/90-day revision (scores.js)", { epsRev, revRev });
       }
     }
+    // No revision HISTORY exists yet (collection too new, or this ticker isn't
+    // tracked). Fall back to a SETUP read — but only when it can be compared
+    // against the company's own trailing organic trend. An audit found the
+    // previous version of this fallback scored a bigger Street growth ASK as
+    // more bullish outright (higher ask -> higher score, unconditionally) —
+    // backwards, and self-contradicted by this exact file's OWN separate risk
+    // flag elsewhere ("Street revenue asks for acceleration", ~line 2943),
+    // which correctly treats an ask well above trend as a caution sign, not a
+    // credit. This mirrors that same trend-relative comparison instead of
+    // scoring the raw ask level in isolation.
     const live = state.live[d.ticker] || {};
     const annual = cleanEstRows(live.streetEstimates?.annual || []);
     const nextFY = annual[0] || null;
     const ttmRev = d.qd ? ttm(d.qd.revenue) : null;
     const fyRevGrowthNeed = nextFY?.revAvg != null && ttmRev ? (nextFY.revAvg / ttmRev - 1) * 100 : null;
-    const fyEps = nextFY?.epsAvg;
-    if (fyRevGrowthNeed != null || fyEps != null) {
-      const valPenalty = d.truePE && d.truePE > 45 ? -8 : d.truePE && d.truePE < 25 ? 5 : 0;
-      const s = 50 + (fyRevGrowthNeed || 0) * 1.1 + valPenalty;
-      const txt = `live Street setup: FY revenue asks for ${fyRevGrowthNeed == null ? "n/a" : fyRevGrowthNeed.toFixed(1) + "%"} growth; no revision history yet`;
-      return scorePart("estimates", "Estimate setup", s, 22, txt, "FMP live estimate table", { fyRevGrowthNeed, fyEps });
-    }
+    const trend = yoyPct(d.qd && d.qd.revenue);
+    const fb = estimateSetupFallbackScore(fyRevGrowthNeed, trend, d.truePE);
+    if (fb) return scorePart("estimates", "Estimate setup", fb.score, 22, fb.txt, "FMP live estimate table vs trailing trend", { fyRevGrowthNeed, trend, accel: fb.accel });
     return scorePart("estimates", "Estimate revisions", null, 22, "missing estimate-revision history; connect/collect snapshots before trusting this layer", "missing");
+  }
+  /* Pure core of the fallback above, factored out so the sign convention is
+     directly unit-testable without a live browser session — this exact
+     function used to score a BIGGER Street growth ask as MORE bullish
+     unconditionally (the inverted-sign bug an audit found), which a plain
+     input/output test would have caught immediately. A growth ask well
+     ABOVE the company's own trailing trend is a harder bar to clear, not a
+     better setup — consistent with this file's own separate "Street revenue
+     asks for acceleration" risk flag elsewhere. Returns null (not a fake
+     neutral 50) when there is nothing real to compare the ask against. */
+  function estimateSetupFallbackScore(fyRevGrowthNeed, trend, truePE) {
+    if (fyRevGrowthNeed == null || trend == null) return null;
+    const accel = fyRevGrowthNeed - trend;
+    const valPenalty = truePE && truePE > 45 ? -8 : truePE && truePE < 25 ? 5 : 0;
+    const score = clamp(50 - clamp(accel, -20, 20) * 1.1 + valPenalty, 0, 100);
+    const txt = `Street asks for ${fyRevGrowthNeed.toFixed(1)}% FY revenue growth vs ${trend.toFixed(1)}% trailing YoY trend (${accel >= 0 ? "ask exceeds trend by " : "ask is below trend by "}${Math.abs(accel).toFixed(1)}pp)`;
+    return { score, txt, accel };
   }
   function momentumPart(d) {
     const vals = d.px && d.px.v ? d.px.v : [];
@@ -590,7 +670,14 @@
     const m3 = pctMoveFrom(vals, 13);
     const day = quoteChangeOf(d);
     if (m1 == null && m3 == null && day == null) return scorePart("momentum", "Price momentum", null, 18, "no price tape", "missing");
-    const s = 50 + (m1 || 0) * 1.25 + (m3 || 0) * 0.55 + (day || 0) * 1.7;
+    // An audit found today's single-day change carried the LARGEST
+    // coefficient of the three (1.7, above even the 1-month term's 1.25) in
+    // a part meant to read SUSTAINED trend -- one noisy/news-driven day
+    // could dominate the whole momentum score. Today's move is the least
+    // reliable of the three (mostly noise/one-off news, not trend), so its
+    // coefficient must sit BELOW both the 1-month and 3-month terms, not
+    // above them.
+    const s = 50 + (m1 || 0) * 1.25 + (m3 || 0) * 0.55 + (day || 0) * 0.4;
     const txt = `price tape: 1M ${m1 == null ? "n/a" : m1.toFixed(1) + "%"}, 3M ${m3 == null ? "n/a" : m3.toFixed(1) + "%"}, today ${day >= 0 ? "+" : ""}${(day || 0).toFixed(1)}%`;
     return scorePart("momentum", "Price momentum", s, 18, txt, vals.length >= 14 ? "weekly price history + live quote" : "limited price history", { m1, m3, day });
   }
@@ -619,6 +706,19 @@
   function optionsPositioningPart(d) {
     const o = d.opt;
     if (!o || !o.iv) return scorePart("options", "Options/positioning", null, 8, "options, skew and short-interest data not bundled for this name", "missing");
+    // This bundled options snapshot is NOT part of the automated daily
+    // refresh (scripts/gen_options.py runs only via a manual --options
+    // flag, deliberately excluded from data-refresh.yml since a full-
+    // universe options pull is slow) -- so a chain that has expired or is
+    // about to is a DATA-QUALITY problem, not a fresh bearish read. It used
+    // to be scored as -6 points of directional bearishness, which fabricates
+    // a signal out of staleness. Stays missing instead.
+    const dte = optDteNow(o);
+    if (dte != null && dte < 7) {
+      return scorePart("options", "Options/positioning", null, 8,
+        `bundled options chain is stale (${dte < 0 ? "expired" : dte + "d to expiry"}) -- a stale chain is a data-quality gap, not a bearish signal`,
+        "stale bundled snapshot", { dte });
+    }
     const rich = o.rv ? o.iv / o.rv : null;
     let score = 50;
     const bits = [];
@@ -626,12 +726,17 @@
       score += rich <= 0.9 ? 7 : rich >= 1.25 ? -5 : 0;
       bits.push(`IV/RV ${rich.toFixed(2)}x`);
     }
+    // Sign convention (flow-following, not contrarian): a LOW put/call
+    // ratio scores bullish here, on the theory that light put buying
+    // relative to calls reflects positioned/informed flow. This is a
+    // genuinely contested convention -- CBOE-style retail sentiment
+    // commentary often reads a low P/C as crowded/complacent bullish
+    // positioning and therefore a CAUTION tell, the opposite sign. Stated
+    // explicitly so the choice reads as a decision, not an oversight.
     if (o.pcr != null) {
       score += o.pcr <= 0.65 ? 8 : o.pcr >= 1.35 ? -9 : 0;
       bits.push(`put/call OI ${o.pcr}`);
     }
-    const dte = optDteNow(o);
-    if (dte != null && dte < 7) { score -= 6; bits.push("chain stale/near expiry"); }
     return scorePart("options", "Options/positioning", score, 8, bits.join(" - ") || "options tape neutral", "bundled options snapshot", { rich, pcr: o.pcr, dte });
   }
   function valuationSetupPart(d) {
@@ -1196,6 +1301,7 @@
       <div class="kv"><span class="k">HOW THE SIZE WAS SET</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.6">Risk ${pb.riskBudget}% of the book if the invalidation level is hit. A ${pb.stopPct.toFixed(0)}% stop means a ${(pb.riskBudget / pb.stopPct * 100).toFixed(1)}% position risks exactly that, then scaled ${pb.convNet >= 3 ? "UP" : pb.convNet <= 0 ? "DOWN" : "modestly"} for ${c ? c.bulls : 0} agreeing vs ${c ? c.bears : 0} objecting signals. Volatile names get smaller positions at equal conviction — that is the point.</span></span></div>
       <div style="margin-top:8px"><b style="font-size:11px;color:var(--red)">WHAT WOULD PROVE THIS WRONG — decide now, not later</b>
         <div class="sub" style="line-height:1.75;margin-top:4px">${pb.breaks.map((b, i) => `${i + 1}. ${escapeHtml(b)}`).join("<br>")}</div></div>
+      ${pb.narrativeClusters && pb.narrativeClusters.length ? `<div class="note" style="margin-top:8px;border-left-color:var(--orange)"><b>Not an independent bet:</b> this name sits inside ${pb.narrativeClusters.map(nc => `<b>${escapeHtml(nc.name)}</b> (${nc.label.toLowerCase()}, also ${escapeHtml(nc.otherMembers.join(", "))})`).join(" and ")}. Sizing each of those names as if they were separate ideas overstates real diversification — the same theme breaking would hit all of them together.</div>` : ""}
       <div class="sub" style="margin-top:8px;opacity:.8"><b>This is a per-idea template, not a shopping list.</b> Each name is sized as if it were one position in a diversified book — open ten playbooks and the percentages will sum past 100%, which is your signal to choose, not to buy all ten. No single idea is ever allowed past ${pb.maxPosition}%. Sizing is expressed in percent of your own book because the terminal does not know your account and never gives dollar amounts. Research discipline, not investment advice.</div>
     </div>`;
   }
@@ -1477,7 +1583,7 @@
       <div class="card">
         <h3>② SHARE-COUNT TRUTH <span class="unit">diluted, B</span></h3>
         ${Chart.line([{ points: d.shares, color: trend.c.includes("green") ? "var(--green)" : trend.c.includes("red") ? "var(--red)" : "var(--amber)" }], yrs, { h: 130 })}
-        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg == null ? "n/a" : (trend.chg >= 0 ? "+" : "") + trend.chg.toFixed(1) + "%"}</b> over 5Y — ${trend.t}${d.mnaFlag ? " · includes issuance beyond SBC (M&A/raise) — not all employee dilution" : ""}</div>
+        <div class="sub" style="margin-top:4px;color:${trend.c}"><b>${trend.chg == null ? "n/a" : (trend.chg >= 0 ? "+" : "") + trend.chg.toFixed(1) + "%"}</b> over ${trend.years != null ? trend.years + "Y" : "n/a"} — ${trend.t}${d.mnaFlag ? " · includes issuance beyond SBC (M&A/raise) — not all employee dilution" : ""}</div>
       </div>
 
       <!-- STEP 4: buyback quality -->
@@ -1643,7 +1749,7 @@
         <td class="sub">${c.accn || c.secFact?.accn || "—"}</td><td class="sub">${c.tag || c.secFact?.tag || "—"}</td><td class="sub">${c.valueUsed || "SEC primary"}</td>
       </tr>`).join("");
       return `<div class="card" style="margin-bottom:12px;border-left:3px solid ${sv.conflict.length ? "var(--red)" : sv.periodMismatch.length ? "var(--orange)" : "var(--green)"}">
-        <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten${(() => { const u = (typeof UNIVERSE_LIST !== "undefined") && UNIVERSE_LIST.find(x => x.ticker === d.ticker); return u && sv.latest && sv.latest.accn ? ` · <a href="https://www.sec.gov/Archives/edgar/data/${u.cik}/${sv.latest.accn.replace(/-/g, "")}/" target="_blank" rel="noopener" style="color:var(--cyan)">READ THE ACTUAL FILING →</a>` : ""; })()}</span></h3>
+        <h3>SEC FILING CHECK <span class="unit">${sv.latest && sv.latest.form ? sv.latest.form + " filed " + sv.latest.filed + " · accn " + sv.latest.accn : ""} · SEC facts never silently overwritten${(() => { const u = (typeof UNIVERSE_LIST !== "undefined") && UNIVERSE_LIST.find(x => x.ticker === d.ticker); return u && sv.latest && sv.latest.accn ? ` · <a href="https://www.sec.gov/Archives/edgar/data/${u.cik}/${sv.latest.accn.replace(/-/g, "")}/" target="_blank" rel="noopener" style="color:var(--cyan)">Read ${d.ticker}'s ${sv.latest.form || "SEC"} filing →</a>` : ""; })()}</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th style="text-align:left">FIELD</th><th style="text-align:left">STATUS</th><th>SEC FILING</th><th>TERMINAL</th><th>NOTE</th></tr>${rows}</table></div>
         <h3 style="margin-top:12px">CONFLICT / PERIOD DETAILS <span class="unit">same-period facts only become true conflicts</span></h3>
         <div style="overflow-x:auto"><table class="fin"><tr><th>FIELD</th><th>REASON</th><th>SEC VALUE</th><th>OTHER VALUE</th><th>SEC PERIOD</th><th>OTHER PERIOD</th><th>FILING</th><th>ACCESSION</th><th>TAG</th><th>MODEL USES</th></tr>${detailRows}</table></div>
@@ -1740,6 +1846,24 @@
     const surprises = rows.map(h => h.surprisePct).filter(hasNum);
     const avgSurprise = surprises.length ? surprises.reduce((a, v) => a + v, 0) / surprises.length : null;
     return { n: rows.length, beats, beatRate: beats / rows.length, avgSurprise, rows };
+  }
+
+  /* Raw (unbounded, not-yet-scored) beat-track quality: same relative
+     weighting between beat rate and average surprise the old absolute
+     formula used (beatRate dominant, surprise a secondary tilt) -- kept
+     unchanged. What changes is what this number is measured AGAINST: the
+     bundled earnings history only ever ships 4 quarters per company, which
+     quantizes beatRate into {0, .25, .5, .75, 1.0}, and the real universe's
+     beat rate runs ~87% -- so scoring it as distance from a flat 50%
+     midpoint pins 61% of names at the 98-100 ceiling with no room left to
+     discriminate among them. Ranking this raw figure as a PERCENTILE of the
+     actual universe (beatTrackPopulation) spreads that same ceiling group
+     back out across the full 0-100 range based on real relative standing. */
+  function beatTrackRaw(bs) {
+    return (bs.beatRate - 0.5) * 85 + clamp(bs.avgSurprise ?? 0, -12, 12) * 1.6;
+  }
+  function beatTrackPopulation() {
+    return DATA.map(d => { const bs = earnBeatStats(d.ticker); return bs ? beatTrackRaw(bs) : null; }).filter(hasNum);
   }
 
   /* live Finnhub layer: symbol -> latest calendar row (with actuals once reported) */
@@ -1874,12 +1998,15 @@
   function beatOddsOf(d, ledger) {
     const it = earnIntelOf(d.ticker);
     const parts = [];
-    // 1 · beat track record (companies that habitually guide-to-beat keep doing it)
+    // 1 · beat track record, ranked as a PERCENTILE of the universe (not
+    // distance from a flat 50% midpoint -- the real universe beats ~87% of
+    // the time, so an absolute-bar scoring pins most names at the ceiling)
     const bs = earnBeatStats(d.ticker);
+    const trackPr = bs && window.ScoreEngine ? window.ScoreEngine.percentileRank(beatTrackRaw(bs), beatTrackPopulation()) : null;
     parts.push(scorePart("track", "Beat track record",
-      bs ? 50 + (bs.beatRate - 0.5) * 85 + clamp(bs.avgSurprise ?? 0, -12, 12) * 1.6 : null, 28,
-      bs ? `beat ${bs.beats}/${bs.n} recent quarters, avg surprise ${bs.avgSurprise == null ? "n/a" : (bs.avgSurprise >= 0 ? "+" : "") + bs.avgSurprise.toFixed(1) + "%"}` : "no bundled beat history yet — runs after first data refresh",
-      bs ? "bundled earnings history" : "missing"));
+      trackPr, 28,
+      bs ? `beat ${bs.beats}/${bs.n} recent quarters, avg surprise ${bs.avgSurprise == null ? "n/a" : (bs.avgSurprise >= 0 ? "+" : "") + bs.avgSurprise.toFixed(1) + "%"}${trackPr != null ? ` — ${Math.round(trackPr)}th percentile of the universe's beat-track records` : ""}` : "no bundled beat history yet — runs after first data refresh",
+      bs ? "bundled earnings history, ranked vs universe" : "missing"));
     // 2 · estimate revision momentum (analysts walking numbers up = de-risked bar)
     const t = it && it.trend;
     let revScore = null, revWhy = "no revision tape for the current quarter";
@@ -1970,8 +2097,17 @@
       score += clamp(net, -10, 10) * 0.9;
       bits.push(`revisions since: ${net >= 0 ? "+" : ""}${net} net`);
     }
-    const weeksBack = Math.max(1, Math.round(daysSince / 7));
-    const reaction = pctMoveFrom(d.px && d.px.v || [], weeksBack);
+    // Daily closes (d.pd), not weekly bars (d.px): a WEEKLY lookback can
+    // only move in whole 7-trading-day jumps, so "3 days since report"
+    // and "9 days since report" could resolve to the exact same bar --
+    // real, measured slippage of up to ~5 trading days on this bundle.
+    // tradingDaysBetween(report date, d.pd's end date) gives a real,
+    // day-resolution lookback into the SAME array pctMoveFrom already uses.
+    const tradingDaysSince = window.ScoreEngine && d.pd && d.pd.to
+      ? window.ScoreEngine.tradingDaysBetween(r.date, d.pd.to) : null;
+    const reaction = tradingDaysSince != null
+      ? pctMoveFrom(d.pd && d.pd.v || [], tradingDaysSince)
+      : pctMoveFrom(d.px && d.px.v || [], Math.max(1, Math.round(daysSince / 7)));
     if (reaction != null) {
       // PEAD needs the initial reaction to CONFIRM the surprise's direction
       score += clamp(reaction * Math.sign(surprise || 1), -8, 8);
@@ -2235,6 +2371,33 @@
     }
     return out;
   }
+  /* ------------------- NARRATIVE FORMATION (heat acceleration) -------------------
+     Heat is a LEVEL: how hot a story runs right now. By the time a cluster
+     crosses HOT (>=68), it is visible to everyone -- the level says nothing
+     about whether it is still building. This tracks the DELTA: a story
+     quietly gaining heat fast while still below that threshold is exactly
+     the "forming, not yet obvious" case worth flagging earlier. Needs a
+     real recorded heat from >= daysBack days ago in the daily snapshot
+     history; returns null (never a guessed acceleration) until enough
+     snapshots exist -- same fixed-window discipline as scores.js's
+     estimateRevision (walk back to the first snapshot old enough; never
+     rescale a shorter window into a longer one). */
+  const NARRATIVE_FORMING_WINDOW_DAYS = 10;
+  const NARRATIVE_FORMING_THRESHOLD = 12;
+  function narrativeHeatDelta(history, key, daysBack = NARRATIVE_FORMING_WINDOW_DAYS) {
+    const H = Array.isArray(history) ? history : [];
+    if (!H.length) return null;
+    const latest = H[H.length - 1];
+    if (!latest.narrs || !hasNum(latest.narrs[key])) return null;
+    const cutoff = new Date(Date.parse(latest.date) - daysBack * 864e5).toISOString().slice(0, 10);
+    let base = null;
+    for (let i = H.length - 1; i >= 0; i--) {
+      if (H[i].date <= cutoff && H[i].narrs && hasNum(H[i].narrs[key])) { base = H[i]; break; }
+    }
+    if (!base) return null;
+    return { delta: latest.narrs[key] - base.narrs[key], fromDate: base.date, toDate: latest.date,
+      fromHeat: base.narrs[key], toHeat: latest.narrs[key] };
+  }
   function narrativeStats(n, ctx) {
     const members = n.members.map(companyOf).filter(Boolean);
     if (members.length < 2) return null;
@@ -2284,8 +2447,22 @@
     heat = Math.round(clamp(heat, 0, 100));
     const label = heat >= 68 ? "HOT" : heat >= 56 ? "WARMING" : heat >= 44 ? "MIXED" : heat >= 32 ? "COOLING" : "COLD";
     const color = heat >= 68 ? "var(--green)" : heat >= 56 ? "var(--cyan)" : heat >= 44 ? "var(--amber)" : heat >= 32 ? "var(--orange)" : "var(--red)";
+    // FORMING: still below HOT, but accelerating fast. Speculative by
+    // design -- an early read trades false positives for lead time, so it
+    // is always disclosed as a delta over a stated window, never presented
+    // as confirmed heat.
+    let forming = null;
+    if (heat < 68) {
+      const hist = (ctx && ctx.narrHistory) || (typeof TRACK_HISTORY !== "undefined" ? TRACK_HISTORY : null);
+      const d = narrativeHeatDelta(hist, n.key);
+      if (d && d.delta >= NARRATIVE_FORMING_THRESHOLD) forming = d;
+    }
+    const finalLabel = forming ? "FORMING" : label;
+    const finalColor = forming ? "var(--purple)" : color;
+    if (forming) bits.push(`heat up ${forming.delta >= 0 ? "+" : ""}${forming.delta} over ${forming.fromDate} → ${forming.toDate} — forming, not yet confirmed`);
     return { key: n.key, name: n.name, icon: n.icon, story: n.story, members, present: members.length,
-      heat, label, color, ret1m, breadth, revNet, beatShare, t1up, t1down, whaleBull, whaleBear, bits, inputs: used };
+      heat, label: finalLabel, color: finalColor, rawLabel: label, rawColor: color, forming,
+      ret1m, breadth, revNet, beatShare, t1up, t1down, whaleBull, whaleBear, bits, inputs: used };
   }
   function narrativeHeatAll() {
     const ctx = { ledger: earningsLedger(), whales: whaleActionMap() };
@@ -2376,6 +2553,46 @@
   // RSI, revisions, tier-1 ratings, whale 13Fs, insider buying, filing diffs,
   // narrative heat. Fixed, so completeness means the same thing for every name.
   const CONVICTION_SOURCES = 10;
+  /* An audit found several of the 10 votes are not actually independent --
+     they read the same underlying fact and vote on it more than once. The
+     clearest, most heavily-weighted case: 'revisions' (direct
+     revUp30/revDown30), 'beat' (its 2nd-heaviest part reuses the same
+     field), 'drift' (a minor adjustment off it) and 'narrative' (heavily
+     aggregates it) all share one analyst-revision number. Left alone, that
+     single shared fact can look like up to 4 independent confirmations and
+     push position sizing to its ceiling on correlated agreement, not real
+     confluence. This cluster counts for AT MOST ONE net vote when sizing a
+     position -- this does not touch what the Conviction Board itself
+     displays (all 10 rows, their own why-text, and the raw
+     bulls/bears/label stay exactly as cast).
+     ('edge' and 'beat' also independently call macroRegimeOf() -- a real,
+     separately-confirmed overlap -- but 'beat' cannot cleanly sit in two
+     clusters at once: giving it dual membership lets its single vote both
+     cancel a genuinely-dissenting 'edge' inside one cluster AND still
+     swing the other cluster on its own, which can make the adjusted net
+     MORE extreme than the raw vote count, or even flip its sign, on real
+     data (e.g. PLTR: raw net 0 -> adjusted +1). A vote must belong to at
+     most one cluster to keep this monotonic, so the macro overlap is left
+     uncorrected here -- it is smaller anyway (weight 10/100 of beat, 3/110
+     of edge) than the revisions overlap this cluster targets.) */
+  const CONVICTION_CLUSTERS = {
+    "earnings-estimate": ["revisions", "beat", "drift", "narrative"],
+  };
+  function clusterAdjustedNet(votes, clusters) {
+    const clustered = new Set(Object.values(clusters).flat());
+    let net = 0;
+    for (const members of Object.values(clusters)) {
+      const dirs = votes.filter(v => members.includes(v.key)).map(v => v.dir);
+      if (!dirs.length) continue;
+      const bull = dirs.some(x => x > 0), bear = dirs.some(x => x < 0);
+      net += bull && !bear ? 1 : bear && !bull ? -1 : 0;
+    }
+    for (const v of votes) {
+      if (clustered.has(v.key)) continue;
+      net += v.dir > 0 ? 1 : v.dir < 0 ? -1 : 0;
+    }
+    return net;
+  }
   function convictionOf(d, ctx) {
     const ledger = ctx && ctx.ledger || earningsLedger();
     const narrs = ctx && ctx.narrs || narrativeHeatAll();
@@ -2448,6 +2665,7 @@
     // votes.length here would have punished quiet names for being quiet.
     return { d, votes, bulls: bulls.length, bears: bears.length, silent: votes.length - active,
       score, label, color, notEvaluated,
+      netForSizing: clusterAdjustedNet(votes, CONVICTION_CLUSTERS),
       evidence: (CONVICTION_SOURCES - notEvaluated.length) / CONVICTION_SOURCES };
   }
   function convictionBoard(limit = 8) {
@@ -2500,8 +2718,11 @@
     const stopPrice = +(price * (1 - stopPct / 100)).toFixed(2);
     // 2 · size: fixed fractional risk, then scaled by independent agreement.
     //     MAX_POSITION_PCT is the hard guard — no single idea, however loud
-    //     the agreement, is allowed to become the whole outcome.
-    const net = conv ? conv.bulls - conv.bears : 0;
+    //     the agreement, is allowed to become the whole outcome. Uses
+    //     netForSizing (cluster-adjusted), not raw bulls-bears, so votes
+    //     sharing an underlying fact (analyst revisions, macro regime)
+    //     cannot each count as a separate independent confirmation.
+    const net = conv ? conv.netForSizing : 0;
     const convMult = net >= 4 ? 1.3 : net === 3 ? 1.1 : net === 2 ? 0.9 : net <= 0 ? 0.5 : 0.7;
     const qualityOk = ms && (ms.businessQuality.score ?? 0) >= 60 && conf.rankable;
     const raw = (RISK_BUDGET_PCT / stopPct) * 100 * convMult * (qualityOk ? 1 : 0.5);
@@ -2525,9 +2746,19 @@
     const it = earnIntelOf(d.ticker);
     const nextEarn = it && it.nextDate && it.nextDate >= todayISO() ? it.nextDate : null;
     const review = nextEarn || new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10);
+    // 6 · narrative-cluster awareness: sizing itself is risk-based and
+    // correct in isolation, but it has no way to see that two or three
+    // concurrently-suggested "best ideas" might be the same correlated bet
+    // wearing different tickers. Annotating which cluster(s) this name
+    // belongs to (and who else is in them) at least makes that visible
+    // here, even though this function only ever prices one idea at a time.
+    const narrs = (ctx && ctx.narrs) || narrativeHeatAll();
+    const narrativeClusters = narrs.filter(n => n.members.some(m => m.ticker === d.ticker))
+      .map(n => ({ key: n.key, name: n.name, heat: n.heat, label: n.label,
+        otherMembers: n.members.filter(m => m.ticker !== d.ticker).map(m => m.ticker) }));
     return { d, price, conv, sizePct, stopPct, stopPrice, vol, entry, disc, entryNote, entryColor,
       breaks, review, reviewIsEarnings: !!nextEarn, rsi, qualityOk, capped,
-      riskBudget: RISK_BUDGET_PCT, maxPosition: MAX_POSITION_PCT, convNet: net };
+      riskBudget: RISK_BUDGET_PCT, maxPosition: MAX_POSITION_PCT, convNet: net, narrativeClusters };
   }
 
   /* ------------------- SELL DISCIPLINE (THESIS BREAKS) -------------------
@@ -2701,7 +2932,11 @@
         r ? `RSI ${r.value}` : null].filter(Boolean);
       add("tape", v, bits.join(" · "), bits.length);
     }
-    // 4 · CONFLUENCE — the independent-signal vote, already de-duplicated
+    // 4 · CONFLUENCE — the independent-signal vote. NOTE: c.score here is the
+    // RAW vote tally (matches what the Conviction Board displays), not the
+    // cluster-adjusted netForSizing used by position sizing -- some of these
+    // 10 votes share an underlying fact (see CONVICTION_CLUSTERS) and this
+    // pillar does not yet correct for that.
     {
       const c = (ctx && ctx.convMap && ctx.convMap[d.ticker]) || convictionOf(d, ctx);
       if (c && c.score != null && c.votes.length)
@@ -2781,6 +3016,27 @@
      The binding constraint is calendar time, not sample size — a 4-week
      horizon needs 4 weeks of history no matter how many names there are.
      Pure over the snapshot history so it is unit-testable. */
+  /* snapshot_scores.js stamps snap.universe = DATA.length on every daily
+     snapshot (real, accurate, confirmed exact match to entries.length) --
+     but nothing downstream reads it. A universe resize (126 -> 224 names
+     happened once already, on the 6th recorded day) means a pooled window
+     could in principle mix snapshots taken at different universe sizes.
+     None of calibrationOf's bucket schemes actually break from that today
+     (they are either self-normalized per-row, like Master Signal's
+     e.mk/e.mo rank tier, or absolute-threshold categories that mean the
+     same thing at any universe size) -- but a reviewer should still be
+     able to SEE whether a given set of snapshots spans a resize, rather
+     than that being silently invisible. Disclosure, not a math change. */
+  function universeSpanOf(snapshots) {
+    const withSize = (snapshots || []).filter(s => hasNum(s.universe));
+    const sizes = [...new Set(withSize.map(s => s.universe))].sort((a, b) => a - b);
+    if (sizes.length <= 1) return { changed: false, sizes };
+    let changedOn = null;
+    for (let i = 1; i < withSize.length; i++) {
+      if (withSize[i].universe !== withSize[i - 1].universe) { changedOn = withSize[i].date; break; }
+    }
+    return { changed: true, sizes, changedOn };
+  }
   const TRACKED_SIGNALS = [
     { key: "mk", label: "Master Signal (rank)", note: "does the top of the board actually beat the bottom" },
     { key: "cb", label: "Signal Confluence", note: "do names with several agreeing signals outperform" },
@@ -2794,7 +3050,7 @@
   ];
   function proofStatusOf(history, horizons = [[28, "4 weeks"], [84, "12 weeks"]], minObs = 20) {
     const H = Array.isArray(history) ? history : [];
-    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [] };
+    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [], universeSpan: { changed: false, sizes: [] } };
     const since = H[0].date, latest = H[H.length - 1].date;
     const spanDays = Math.round((Date.parse(latest) - Date.parse(since)) / 864e5);
     const dayAfter = (iso, n) => new Date(Date.parse(iso) + n * 864e5).toISOString().slice(0, 10);
@@ -2821,7 +3077,7 @@
       const daysLeft = Math.max(0, Math.ceil((Date.parse(unlockDate) - Date.parse(latest)) / 864e5));
       return { days, label, unlockDate, daysLeft, ready: daysLeft === 0 };
     });
-    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs };
+    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs, universeSpan: universeSpanOf(H) };
   }
 
   function calibrationOf(history, horizonDays) {
@@ -2834,11 +3090,13 @@
       b.n++; if (ret > 0) b.hits++; b.sum += ret;
     };
     let windows = 0;
+    const usedSnapshots = new Map(); // date -> snapshot, for the universe-span disclosure below
     for (let i = 0; i < H.length; i++) {
       const base = H[i];
       const target = H.find(sn => (Date.parse(sn.date) - Date.parse(base.date)) / 864e5 >= horizonDays);
       if (!target) continue;
       windows++;
+      usedSnapshots.set(base.date, base); usedSnapshots.set(target.date, target);
       const nowP = {};
       target.entries.forEach(e => { if (e.p > 0) nowP[e.t] = e.p; });
       for (const e of base.entries) {
@@ -2863,7 +3121,7 @@
         if (e.ib != null && e.ib > 0) rec("Insider buying", e.ib >= 2 ? "2+ buyers (cluster)" : "1 buyer", ret);
       }
     }
-    const out = { horizonDays, windows, groups: {} };
+    const out = { horizonDays, windows, groups: {}, universeSpan: universeSpanOf([...usedSnapshots.values()]) };
     for (const [g, buckets] of Object.entries(groups)) {
       out.groups[g] = Object.entries(buckets).map(([bucket, b]) => ({
         bucket, n: b.n, hitRate: b.hits / b.n, avg: b.sum / b.n, judged: b.n >= 20,
@@ -4431,7 +4689,8 @@
       </tr>`;
       proofHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid ${anyReady ? "var(--green)" : "var(--amber)"}">
         <h3>🔬 PROOF SCOREBOARD <span class="unit">what this terminal has actually proven — and exactly when each answer arrives</span></h3>
-        <div class="note" style="margin:6px 0 10px"><b>Read this before trusting any score on any page.</b> Every signal here is an <b>untested hypothesis</b> until forward returns judge it. The blocker is calendar time, not sample size: a 4-week verdict needs 4 weeks of history no matter how many names are tracked. Recording began <b>${ps.since || "—"}</b> — ${ps.snapshots} snapshot${ps.snapshots === 1 ? "" : "s"} over ${ps.spanDays} day${ps.spanDays === 1 ? "" : "s"}. Signals added later start their own clock, shown per row. Nothing is backfilled, because backfilling a signal against prices it never saw is how backtests lie.</div>
+        <div class="note" style="margin:6px 0 10px"><b>Read this before trusting any score on any page.</b> Every signal here is an <b>untested hypothesis</b> until forward returns judge it. The blocker is calendar time, not sample size: a 4-week verdict needs 4 weeks of history no matter how many names are tracked. Recording began <b>${ps.since || "—"}</b> — ${ps.snapshots} snapshot${ps.snapshots === 1 ? "" : "s"} over ${ps.spanDays} day${ps.spanDays === 1 ? "" : "s"}. Signals added later start their own clock, shown per row. Nothing is backfilled, because backfilling a signal against prices it never saw is how backtests lie.
+          ${ps.universeSpan && ps.universeSpan.changed ? `<br><b style="color:var(--amber)">Universe size changed during this history</b> (${ps.universeSpan.sizes.join(" → ")} names, on ${ps.universeSpan.changedOn}). Bucket stats below can span both sizes — the Master Signal rank-tier row is self-normalized per day and unaffected, but every other row pools observations from whichever universe size was in effect that day.` : ""}</div>
         <div class="grid g2" style="margin-bottom:10px">
           ${ps.horizons.map(h => `<div class="card" style="border-left:3px solid ${h.ready ? "var(--green)" : "var(--amber)"};margin:0">
             <h3>${h.label.toUpperCase()} HORIZON</h3>
@@ -4692,7 +4951,7 @@
       const movers = [...h.members].map(d => ({ d, mv: pctMoveFrom(d.px && d.px.v || [], 4) }))
         .filter(x => hasNum(x.mv)).sort((a, b) => b.mv - a.mv);
       return `<div class="card" id="narr-${h.key}" style="border-left:3px solid ${h.color}">
-        <h3>${h.icon} ${h.name} ${heatPill(h)} <b style="color:${h.color};font-size:11px">${h.label}</b>
+        <h3>${h.icon} ${h.name} ${heatPill(h)} <b style="color:${h.color};font-size:11px">${h.forming ? "🌱 " : ""}${h.label}</b>
           <span class="unit">${h.present} names tracked</span></h3>
         <div class="sub" style="line-height:1.55;margin:4px 0 8px">${escapeHtml(h.story)}</div>
         <div class="kv"><span class="k">WHAT THE DATA SAYS</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.7">${h.bits.map(escapeHtml).join(" · ")}</span></span></div>
@@ -4708,11 +4967,11 @@
         <div style="text-align:right"><div class="sub">HOTTEST STORY</div><div class="stat sm" style="color:${heats[0] ? heats[0].color : "var(--dim)"}">${heats[0] ? heats[0].name.toUpperCase() : "—"}</div></div>
       </div>
       ${heats.length ? `<div class="sec-chips" style="margin-bottom:12px">${heats.map(h => `<button type="button" class="sec-chip" data-nk="${h.key}" style="border-color:${h.color}">${h.icon} ${h.name} <b style="color:${h.color}">${h.heat}</b></button>`).join("")}</div>` : ""}
-      <div class="note" style="margin-bottom:12px"><b>Why this matters:</b> most days, a stock moves because of the story it lives in, not its own news. Elite investors know the story FIRST — a great company inside a story the market hates stays cheap longer; an average one inside a hot story gets rewarded anyway. <b style="color:var(--green)">HOT</b> stories reward momentum but punish late buyers. <b style="color:var(--red)">COLD</b> stories are where the Best Setups quality gate finds real bargains. Shifts land in the What Changed feed the day they happen.</div>
+      <div class="note" style="margin-bottom:12px"><b>Why this matters:</b> most days, a stock moves because of the story it lives in, not its own news. Elite investors know the story FIRST — a great company inside a story the market hates stays cheap longer; an average one inside a hot story gets rewarded anyway. <b style="color:var(--green)">HOT</b> stories reward momentum but punish late buyers. <b style="color:var(--red)">COLD</b> stories are where the Best Setups quality gate finds real bargains. <b style="color:var(--purple)">🌱 FORMING</b> is the earliest read this terminal can offer: a story still below HOT/WARMING whose heat is rising fast day over day — flagged from the RATE OF CHANGE, not the level, so it's the most speculative tier here and will produce more false starts than a confirmed HOT read. Needs enough recorded daily history to measure; arms in as snapshots accumulate. Shifts land in the What Changed feed the day they happen.</div>
       ${heats.length ? heats.map(card).join("") : `<div class="card"><h3>NARRATIVE HEAT IS ARMING</h3><div class="sub" style="padding:8px 0;line-height:1.6">Heat needs at least two live inputs per story (tape, breadth, revisions, season beats, tier-1 actions, whale flows). Those arrive with the daily data refresh — nothing is shown until it can be measured.</div></div>`}
       ${silent.length ? `<div class="note" style="margin-top:4px"><b>Not enough data today:</b> ${silent.map(n => `${n.icon} ${n.name}`).join(" · ")} — fewer than 2 tracked members or fewer than 2 live inputs. Silence beats a made-up number.</div>` : ""}
       <div class="card" style="margin-top:12px"><h3>HOW TO USE THIS PAGE</h3>
-        <div class="sub" style="line-height:1.7">1 · Before buying anything, find its story here — you're not just buying a company, you're buying its narrative's flow. 2 · A <b>WARMING</b> story with improving revisions is the classic early entry; <b>HOT</b> means you're no longer early. 3 · <b>COOLING</b> on a name you own is a signal to re-check the thesis, not an order to sell. 4 · The strongest single pattern this terminal can show you: a quality name (Best Setups gate) at a washed-out RSI inside a story that is turning back up.</div></div>`;
+        <div class="sub" style="line-height:1.7">1 · Before buying anything, find its story here — you're not just buying a company, you're buying its narrative's flow. 2 · A <b>WARMING</b> story with improving revisions is the classic early entry; <b>HOT</b> means you're no longer early. 3 · <b>COOLING</b> on a name you own is a signal to re-check the thesis, not an order to sell. 4 · The strongest single pattern this terminal can show you: a quality name (Best Setups gate) at a washed-out RSI inside a story that is turning back up. 5 · <b style="color:var(--purple)">🌱 FORMING</b> is earlier than WARMING and less certain — treat it as "watch this," not "act on this," until it either confirms into WARMING/HOT or fades back down.</div></div>`;
     el("main").querySelectorAll("[data-tk]").forEach(b => b.onclick = () => selectTicker(b.dataset.tk));
     el("main").querySelectorAll("[data-nk]").forEach(b => b.onclick = () => { const c = el("narr-" + b.dataset.nk); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); });
   }
@@ -4798,7 +5057,7 @@
         ${(B && B.filings || []).length ? (B.filings || []).slice(0, 20).map(f => {
           const u = edgarDoc(f);
           return `<div class="kv"><span class="k">${f.filed} · <b style="color:var(--text)">${escapeHtml(f.form)}</b></span>
-            <span class="v">${u ? `<a href="${u}" target="_blank" rel="noopener" style="color:var(--cyan)">open on EDGAR →</a>` : `<span class="sub">${f.accn}</span>`}</span></div>`;
+            <span class="v">${u ? `<a href="${u}" target="_blank" rel="noopener" style="color:var(--cyan)">open ${escapeHtml(f.form)} filed ${f.filed} on EDGAR →</a>` : `<span class="sub">${f.accn}</span>`}</span></div>`;
         }).join("") : `<div class="sub" style="padding:12px">Filing feed fills on the next data refresh.</div>`}
       </div>`;
     el("main").querySelectorAll("[data-tk]").forEach(r => r.onclick = () => selectTicker(r.dataset.tk));
@@ -5939,7 +6198,7 @@
         <section class="bz-hero">
           <div>
             <div class="bz-kicker">SBC TERMINAL</div>
-            <h1>HOME DASHBOARD</h1>
+            <h1>Owner-Earnings Dashboard</h1>
             <p>Daily tape, movers, earnings, buy prices, and owner-economics edge. ${DATA.length} official names, ${ranked.length} ranked. <span class="sub">build v${SHELL_BUILD}</span></p>
           </div>
           <button class="bz-best" type="button" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
@@ -6829,25 +7088,25 @@
         refreshing = true;
         location.reload();
       });
-      navigator.serviceWorker.register("sw.js?v=72").then((reg) => reg.update()).catch(() => {});
+      navigator.serviceWorker.register(`sw.js?v=${SHELL_BUILD}`).then((reg) => reg.update()).catch(() => {});
     }
   }
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
-    buybackQuality, shareTrend, medianOf, trueOwnerEarnings, ttmOwnerEarnings, secWithholdingOf,
+    buybackQuality, shareTrend, medianOf, trueOwnerEarnings, ttmOwnerEarnings, secWithholdingOf, latestKnownSecPeriodEnd, latestSecFact,
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
-    directionEdgeOf, macroRegimeOf, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
-    beatOddsOf, earnBeatStats, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
+    directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, momentumPart, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
+    beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
-    NARRATIVES, narrativeStats, narrativeHeatAll, whaleActionMap, convictionOf, convictionBoard,
+    NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     fetchYahooSparkBatch, applySparkResult,
     forwardPeCurveOf, forwardPeUniverse, annualEstOf,
-    TRACKED_SIGNALS, proofStatusOf,
+    TRACKED_SIGNALS, proofStatusOf, universeSpanOf,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

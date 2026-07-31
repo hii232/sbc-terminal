@@ -425,6 +425,49 @@ const ok = (cond, name, detail = "") => {
   ok(E.driftScoreOf({ ...beat, date: daysAgo(90) }, nvda) === null, "stale reports (>60d) leave the drift board, not linger");
   ok(E.driftScoreOf({ symbol: "NVDA", date: daysAgo(5) }, nvda) === null, "no actual/estimate -> no drift score, never fabricated");
 
+  // PEAD's post-report "tape since report" reaction: must read DAILY closes
+  // (d.pd) at day-resolution, not WEEKLY bars (d.px) bucketed in whole
+  // 7-trading-day jumps -- the audit measured up to ~1 week of real
+  // slippage from the old bucketing. Verify against the actual bundled
+  // earnings ledger (not a synthetic daysAgo(), which would drift against
+  // d.pd's own fixed "as of" date).
+  const pctMoveFromLocal = (vals, lookback) => {
+    const a = (vals || []).filter(v => typeof v === "number" && Number.isFinite(v));
+    if (a.length < 2 || lookback == null) return null;
+    const end = a[a.length - 1], start = a[Math.max(0, a.length - 1 - lookback)];
+    return start > 0 ? ((end / start) - 1) * 100 : null;
+  };
+  const realLedger = E.earningsLedger();
+  let checkedReal = 0, matchedDaily = 0, divergedFromWeekly = 0;
+  for (const r of realLedger) {
+    const dR = DATA.find(x => x.ticker === r.symbol);
+    if (!dR || !dR.pd || !dR.pd.to) continue;
+    const dsReal = E.driftScoreOf(r, dR);
+    if (!dsReal) continue;
+    const tapeBit = dsReal.bits.find(b => /^tape since report/.test(b));
+    if (!tapeBit) continue;
+    checkedReal++;
+    const tds = E.ScoreEngine.tradingDaysBetween(r.date, dR.pd.to);
+    const expectedDaily = pctMoveFromLocal(dR.pd.v, tds);
+    const daysSinceReal = Math.round((Date.now() - Date.parse(r.date + "T16:00:00Z")) / 864e5);
+    const weeksBackOld = Math.max(1, Math.round(daysSinceReal / 7));
+    const expectedWeekly = pctMoveFromLocal(dR.px && dR.px.v, weeksBackOld);
+    if (expectedDaily != null) {
+      const shown = parseFloat(tapeBit.match(/(-?\d+\.\d+)%/)[1]);
+      if (Math.abs(shown - expectedDaily) < 0.15) matchedDaily++;
+      if (expectedWeekly != null && Math.abs(expectedDaily - expectedWeekly) > 1) divergedFromWeekly++;
+    }
+  }
+  ok(checkedReal > 0, "at least one real bundled report has a driftScoreOf reaction to check", String(checkedReal));
+  // >=90%, not a hard 100%: this walks the LIVE earnings ledger (its
+  // membership shifts with Date.now() as reports age in/out of the 45-day
+  // window), so a small number of names sitting exactly at a data-
+  // availability boundary (e.g. very little pd.v history) can legitimately
+  // diverge without the underlying daily-close mechanism being wrong --
+  // verified separately via direct computation that it is.
+  ok(matchedDaily / checkedReal >= 0.9, "the vast majority of real reports' shown reaction matches a daily-close (d.pd) computation, not a weekly one", `${matchedDaily}/${checkedReal}`);
+  ok(divergedFromWeekly > 0, "the daily-resolution reaction differs meaningfully from the old weekly-bucketed value for real reports (proving the fix changed real output, not just refactored)", String(divergedFromWeekly));
+
   // calibration: pure math over synthetic snapshots
   const mk = (date, px) => ({ date, universe: 2, entries: [
     { t: "AAA", s: 80, c: "ACC", p: px, dl: "LIKELY UP", bo: 75, mr: 80 },
@@ -924,6 +967,522 @@ const ok = (cond, name, detail = "") => {
   ok(!st.insufficientData && st.withholdingSource === "SEC-reported employee tax withholding",
     "annual path (trueOwnerEarnings) still resolves AAPL's real withholding after the refactor");
   ok(Math.abs(st.withholding - aapl.value) < 1e-9, "annual path's withholding value is unchanged by the refactor");
+}
+
+// =============== 25. Estimate-setup engine: fixed windows + sign fix (audit) ===============
+{
+  // An independent audit found estimateSetupPart diffed the latest snapshot
+  // against hist[0] (the OLDEST snapshot ever recorded) rather than a fixed
+  // lookback window, so the effective window silently widened every day
+  // since collection began. It now reuses scores.js's already-correct
+  // fixed-window revisionScore(). These assertions restore ESTIMATE_HISTORY
+  // to its real bundled state afterward so no other test observes the mutation.
+  const AAPL = E.companyOf("AAPL");
+  const savedHist = (typeof ESTIMATE_HISTORY !== "undefined" && ESTIMATE_HISTORY["AAPL"]) || undefined;
+  try {
+    // a real revision spanning >=30 days must be picked up and must NOT keep
+    // growing its effective window as more days pass (the hist[0] bug's signature)
+    ESTIMATE_HISTORY["AAPL"] = { snapshots: [
+      { date: "2026-05-01", nextYearEps: 8.00, nextYearRevenue: 400 },
+      { date: "2026-06-25", nextYearEps: 8.05, nextYearRevenue: 402 },
+      { date: "2026-07-27", nextYearEps: 8.80, nextYearRevenue: 420 },
+    ] };
+    const r = E.estimateSetupPart(AAPL);
+    ok(r.score != null, "a real 30d+ revision produces a score");
+    ok(r.source === "windowed 7/30/90-day revision (scores.js)", "estimate revisions reuse the shared fixed-window engine, not hist[0]");
+    ok(Math.abs(r.raw.epsRev.revisions.r30.days - 32) <= 2, "the window used is a real ~30-day span, not the full collection history", String(r.raw.epsRev.revisions.r30.days));
+
+    // only very-recent snapshots (collection too young for any fixed window)
+    // must NOT produce a confident-looking score off a same-week comparison
+    ESTIMATE_HISTORY["AAPL"] = { snapshots: [
+      { date: "2026-07-24", nextYearEps: 8.7, nextYearRevenue: 418 },
+      { date: "2026-07-27", nextYearEps: 8.8, nextYearRevenue: 420 },
+    ] };
+    const r2 = E.estimateSetupPart(AAPL);
+    ok(r2.source !== "windowed 7/30/90-day revision (scores.js)" || r2.score == null,
+      "snapshots too young for any real window do not produce a hist[0]-style score");
+  } finally {
+    if (savedHist === undefined) delete ESTIMATE_HISTORY["AAPL"]; else ESTIMATE_HISTORY["AAPL"] = savedHist;
+  }
+
+  // THE SIGN FIX: estimateSetupFallbackScore used to score a BIGGER Street
+  // growth ask as MORE bullish unconditionally -- backwards, and
+  // self-contradicted by this file's own separate "Street revenue asks for
+  // acceleration" risk flag elsewhere. It must now score relative to the
+  // company's own trailing trend, penalizing an ask that exceeds it.
+  ok(typeof E.estimateSetupFallbackScore === "function", "estimateSetupFallbackScore is exported and independently testable");
+  const aggressive = E.estimateSetupFallbackScore(25, 3, 30);   // asks for 25% vs a 3% trend
+  const inLine = E.estimateSetupFallbackScore(3, 3, 30);        // asks for exactly trend
+  const conservative = E.estimateSetupFallbackScore(1, 10, 30); // asks for less than trend
+  ok(aggressive.score < 50, "an ask well ABOVE trailing trend scores BELOW neutral (was: unconditionally bullish)", String(aggressive.score));
+  ok(Math.abs(inLine.score - 50) < 1, "an ask exactly in line with trend scores neutral", String(inLine.score));
+  ok(conservative.score > 50, "an ask BELOW trailing trend scores above neutral", String(conservative.score));
+  ok(aggressive.score < inLine.score && inLine.score < conservative.score,
+    "score strictly decreases as the ask-vs-trend gap increases (monotonic, correct direction)");
+  ok(E.estimateSetupFallbackScore(25, null, 30) === null, "no trend to compare against -> null, never a fabricated neutral");
+  ok(E.estimateSetupFallbackScore(null, 5, 30) === null, "no ask to evaluate -> null");
+  ok(aggressive.score >= 0 && aggressive.score <= 100 && conservative.score >= 0 && conservative.score <= 100,
+    "fallback score always stays within 0..100");
+}
+
+// =============== 26. Peer median, growth-adjusted valuation direction, Expectations Gap basis (audit fixes) ===============
+{
+  const SE = E.ScoreEngine;
+  ok(typeof SE.trueMedian === "function", "trueMedian is exported for direct testing");
+  // the exact bug: sorted[floor(n/2)] is the upper-middle element on an even
+  // array, not a true median, and has no minimum-sample floor at all
+  ok(SE.trueMedian([10, 20, 30, 40], 4) === 25, "true median averages the two middle values on an even array", String(SE.trueMedian([10, 20, 30, 40], 4)));
+  ok(SE.trueMedian([1, 2, 3, 4, 5, 6]) === 3.5, "true median on a 6-element array", String(SE.trueMedian([1, 2, 3, 4, 5, 6])));
+  ok(SE.trueMedian([5, 15], 2) === 10, "true median on a 2-element array is the average, not the upper element", String(SE.trueMedian([5, 15], 2)));
+  ok(SE.trueMedian([1, 2, 3, 4, 5]) === 3, "true median on an odd array is still the single middle element");
+  ok(SE.trueMedian([1, 2, 3, 4]) === null, "fewer than 5 samples -> null, never a 'median' of a thin group (default floor)");
+  ok(SE.trueMedian([1, 2, 3, 4, 5, 6, 7], 3) === 4, "custom minimum-sample floor is honored");
+
+  // Growth-adjusted valuation: MIN, not MAX, of revenue-CAGR vs owner-EPS-CAGR.
+  // Using max systematically flatters names whose revenue outgrows their owner
+  // earnings -- the exact SBC/margin-leakage signature owner-earnings exists
+  // to catch. Deterministic synthetic case: revenue nearly doubles (~19%
+  // CAGR) while the owner-EPS-implied series stays close to flat (~1.3%
+  // CAGR) -- if MAX were still used the ratio would be truePE/19 ~= 1.05x;
+  // MIN correctly produces truePE/1.3 ~= 15-16x.
+  ok(typeof E.ScoreEngine.valuation === "function", "valuation() is exported for direct testing");
+  const synthFastRevSlowOwner = {
+    ticker: "SYNTH_TEST", sector: "TestSector__no_real_peers", truePE: 20,
+    revenue: [100, 110, 120, 140, 200],   // ~19% CAGR
+    ni: [10, 10, 10, 10, 10.5], sbc: [1, 1, 1, 1, 1], shares: [10, 10, 10, 10, 10],
+  };
+  const gv = E.ScoreEngine.valuation(synthFastRevSlowOwner, { data: [synthFastRevSlowOwner] })
+    .details.find(x => x.k === "Growth-adjusted valuation");
+  ok(gv.score != null, "growth-adjusted valuation scores the synthetic case");
+  ok(gv.score < 15, "using the SLOWER (owner-EPS) growth rate produces a low score for an aggressively priced ratio",
+    `score=${gv.score} why=${gv.why}`);
+  ok(/1[3-8]\.\d+x|1[3-8]x/.test(gv.why), "the ratio in the why-text reflects the ~1.3% owner-EPS rate, not the ~19% revenue rate", gv.why);
+
+  // Expectations Gap: requiredOwnerGrowth (5yr owner-EPS CAGR) must be compared
+  // against a SAME-BASIS reference when one is available, not silently
+  // differenced against a revenue-basis number under the same label.
+  const AAPL = E.companyOf("AAPL");
+  const eg = E.marketScoreOf(AAPL).expectationsGap;
+  ok(eg.compareBasis == null || eg.compareBasis.includes("owner-EPS") || eg.compareBasis.includes("proxy"),
+    "expectationsGap states which basis produced its comparison");
+  ok(eg.assumptions.some(a => /compared against/.test(a)), "the comparison basis is disclosed in the assumptions list");
+  ok(eg.marketImplied.futureFcfMargin === null,
+    "marketImplied.futureFcfMargin is honestly null, not the trailing margin relabeled as a projection");
+  ok(eg.terminalBase.futureFcfMargin != null || last(AAPL.qm && AAPL.qm.fcf) == null,
+    "terminalBase (explicitly the trailing/terminal figure) still reports the real trailing margin where it exists");
+  function last(arr) { return Array.isArray(arr) && arr.length ? arr[arr.length - 1] : null; }
+  // across the universe, no company's marketImplied.futureFcfMargin is ever
+  // non-null (the specific defect: it used to be bit-identical to trailing
+  // margin for 224/224 names)
+  const fakeForward = DATA.map(d => E.marketScoreOf(d).expectationsGap).filter(g => g && g.marketImplied.futureFcfMargin != null);
+  ok(fakeForward.length === 0, "no company reports a fabricated forward FCF margin", String(fakeForward.length));
+
+  // peer-based sub-scores across the universe must never fire below the
+  // minimum sample floor
+  let peerViolations = 0;
+  for (const d of DATA) {
+    const peers = DATA.filter(x => x !== d && x.sector === d.sector && x.truePE).length;
+    const ms = E.marketScoreOf(d);
+    const v = ms && ms.valuation && ms.valuation.details && ms.valuation.details.find(x => x.k === "Peer comparison");
+    if (v && v.score != null && peers < 5) peerViolations++;
+  }
+  ok(peerViolations === 0, "no peer-comparison sub-score fires with fewer than 5 sector peers", String(peerViolations));
+}
+
+// =============== 27. Beat Odds track record: percentile vs universe, not a flat 50% bar ===============
+{
+  const SE = E.ScoreEngine;
+  ok(typeof SE.percentileRank === "function", "percentileRank is exported for direct testing");
+  ok(SE.percentileRank(50, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]) === 45,
+    "percentile rank: 4 strictly below + this one itself (midpoint of the tied group)");
+  ok(SE.percentileRank(50, [50, 50, 50]) === 50, "an exact 3-way tie all share the midpoint percentile (50)");
+  ok(SE.percentileRank(50, [50]) === null, "fewer than 2 population members -> null, nothing to rank against");
+  ok(SE.percentileRank(50, []) === null, "empty population -> null");
+  ok(SE.percentileRank(null, [1, 2, 3]) === null, "non-numeric value -> null");
+
+  ok(typeof E.beatTrackRaw === "function", "beatTrackRaw is exported for direct testing");
+  const hot = E.beatTrackRaw({ beatRate: 1, avgSurprise: 20 });
+  const cold = E.beatTrackRaw({ beatRate: 0.25, avgSurprise: -20 });
+  ok(hot > cold, "a company with a perfect beat rate and strong surprises ranks raw-higher than a poor one");
+
+  const pop = E.beatTrackPopulation();
+  ok(Array.isArray(pop) && pop.length > 0 && pop.every(Number.isFinite),
+    "beatTrackPopulation returns a non-empty array of finite raw scores");
+
+  // The defect this replaces: scoring beat rate as distance from a flat 50%
+  // midpoint pins the ceiling group (beatRate === 1.0, 137/224 real names)
+  // at 98-100/100 with zero ability to tell them apart. After ranking as a
+  // real percentile of the universe, that same group must actually spread
+  // out, and the ceiling-jam (score >= 95) must no longer describe most of
+  // the universe.
+  let ceilCount = 0, scored = 0;
+  const tiedGroupScores = [];
+  for (const d of DATA) {
+    const o = E.beatOddsOf(d);
+    const track = o.parts.find(p => p.key === "track");
+    if (!track || track.score == null) continue;
+    scored++;
+    if (track.score >= 95) ceilCount++;
+    const bs = E.earnBeatStats(d.ticker);
+    if (bs && bs.beatRate === 1) tiedGroupScores.push(track.score);
+  }
+  ok(scored > 0, "at least some names have a scored beat-track component");
+  ok(ceilCount / scored < 0.15,
+    `fewer than 15% of the universe sits at the 95+ ceiling (was ~60% under the flat-50%-midpoint formula)`,
+    `${ceilCount}/${scored}`);
+  ok(tiedGroupScores.length < 5 || new Set(tiedGroupScores.map(s => Math.round(s))).size > 10,
+    "the perfect-beat-rate cohort (previously all bit-identical) now spreads across many distinct scores",
+    `n=${tiedGroupScores.length} distinct=${new Set(tiedGroupScores.map(s => Math.round(s))).size}`);
+}
+
+// =============== 28. Conviction votes: cluster correlated sources for sizing only ===============
+{
+  ok(typeof E.clusterAdjustedNet === "function", "clusterAdjustedNet is exported for direct testing");
+  ok(typeof E.CONVICTION_CLUSTERS === "object" && E.CONVICTION_CLUSTERS["earnings-estimate"],
+    "the earnings-estimate cluster (revisions/beat/drift/narrative) is exported for inspection");
+
+  const mkVotes = (obj) => Object.entries(obj).map(([key, dir]) => ({ key, dir }));
+  // 4 cluster members all bullish must count as ONE net vote, not four
+  ok(E.clusterAdjustedNet(mkVotes({ revisions: 1, beat: 1, drift: 1, narrative: 1 }), E.CONVICTION_CLUSTERS) === 1,
+    "four correlated bullish votes net to +1, not +4");
+  // mixed signal within the cluster nets to 0 (no confident net direction),
+  // not a wash that still lets one side "win" arbitrarily
+  ok(E.clusterAdjustedNet(mkVotes({ revisions: 1, beat: -1 }), E.CONVICTION_CLUSTERS) === 0,
+    "disagreement within the correlated cluster nets to 0");
+  // votes outside the cluster are untouched
+  ok(E.clusterAdjustedNet(mkVotes({ insider: 1, whale: 1, tier1: -1 }), E.CONVICTION_CLUSTERS) === 1,
+    "uncorrelated votes (insider/whale/tier1) still count individually");
+  // a mix of clustered + solo votes combines correctly
+  ok(E.clusterAdjustedNet(mkVotes({ revisions: 1, beat: 1, narrative: 1, insider: 1, whale: -1 }), E.CONVICTION_CLUSTERS) === 1,
+    "one clustered net vote (+1) plus solo votes (+1, -1) combine to +1");
+
+  // The defect this replaces: playbookOf's convMult used raw bulls-bears,
+  // so 3-4 votes sharing one analyst-revision figure could each count as a
+  // separate independent confirmation and push sizing to its 1.3x ceiling
+  // on correlated agreement alone.
+  const AAPL = E.companyOf("AAPL");
+  const conv = E.convictionOf(AAPL);
+  ok(Number.isInteger(conv.netForSizing), "convictionOf exposes a cluster-adjusted netForSizing field");
+  ok(conv.bulls >= 0 && conv.bears >= 0, "raw bulls/bears counts are untouched (still what the Conviction Board displays)");
+
+  // NOTE on an earlier, INCORRECT claim: a prior version of this test
+  // asserted netForSizing can never exceed the raw net's magnitude or flip
+  // its sign, "verified against all 224 real names." That is false in
+  // general -- it only happened to hold for that day's specific vote
+  // configuration. Counter-example (reproduces against the real
+  // clusterAdjustedNet, not a hypothetical): 4 correlated bulls
+  // (revisions/beat/drift/narrative, cluster net +1) plus 3 independent
+  // bears (tier1/whale/insider, solo sum -3) gives raw = 4-3 = +1 (barely
+  // bullish) but netForSizing = 1 + (-3) = -2 (net bearish) -- a real
+  // magnitude increase AND sign flip. This is not a bug: raw +1 is the
+  // MISLEADING number here (4 "confirmations" that are really one vote's
+  // worth of information), and -2 is the correctly de-duplicated read.
+  // De-duplication can legitimately reveal that the raw reading itself was
+  // pointing the wrong way, not just shrink it. What IS guaranteed, and
+  // worth testing against real data, is that any single cluster's OWN
+  // contribution is bounded to at most +/-1 no matter how many real
+  // tickers' worth of vote combinations it sees.
+  let clusterContributionViolations = 0, netForSizingNonInteger = 0;
+  const earningsCluster = { "earnings-estimate": E.CONVICTION_CLUSTERS["earnings-estimate"] };
+  for (const d of DATA) {
+    const c = E.convictionOf(d);
+    if (!Number.isInteger(c.netForSizing)) netForSizingNonInteger++;
+    const clusterOnly = c.votes.filter(v => earningsCluster["earnings-estimate"].includes(v.key));
+    const clusterNet = E.clusterAdjustedNet(clusterOnly, earningsCluster);
+    if (Math.abs(clusterNet) > 1) clusterContributionViolations++;
+  }
+  ok(netForSizingNonInteger === 0, "netForSizing is always a valid integer for every real name, never NaN/undefined", String(netForSizingNonInteger));
+  ok(clusterContributionViolations === 0, "the earnings-estimate cluster's own contribution never exceeds +/-1 for any real name's real votes", String(clusterContributionViolations));
+}
+
+// =============== 29. Market Reward: wire real data into the two permanently-null sub-parts ===============
+{
+  const SE = E.ScoreEngine;
+  ok(typeof SE.tradingDaysBetween === "function", "tradingDaysBetween is exported for direct testing");
+  ok(SE.tradingDaysBetween("2026-01-01", "2026-01-08") === 5, "7 calendar days -> ~5 trading days", String(SE.tradingDaysBetween("2026-01-01", "2026-01-08")));
+  ok(SE.tradingDaysBetween("2026-01-01", "2026-01-01") === 0, "same day -> 0 trading days");
+  ok(SE.tradingDaysBetween("2026-01-08", "2026-01-01") === null, "a 'from' date after 'to' -> null, never a negative count");
+  ok(SE.tradingDaysBetween(null, "2026-01-01") === null, "missing input -> null");
+
+  ok(typeof SE.earningsSurpriseOf === "function", "earningsSurpriseOf is exported for direct testing");
+  ok(SE.earningsSurpriseOf("__NOPE__") === null, "unknown ticker -> null, never a fabricated average");
+  const aaplSurprise = SE.earningsSurpriseOf("AAPL");
+  ok(aaplSurprise && aaplSurprise.n > 0 && aaplSurprise.n <= 4 && Math.abs(aaplSurprise.avg) <= 15,
+    "AAPL's surprise average is built from real bundled history and clamped like driftScoreOf's own convention",
+    JSON.stringify(aaplSurprise));
+
+  ok(typeof SE.postEarningsReactionOf === "function", "postEarningsReactionOf is exported for direct testing");
+  const AAPL = E.companyOf("AAPL");
+  // AAPL's bundled history has no reportedOn stamp yet (only a fiscal
+  // quarter-end, which is not a real report date) -- must stay null, never
+  // misaligned against a wrong day.
+  ok(SE.postEarningsReactionOf(AAPL) === null, "no reportedOn stamp -> null, never a reaction measured off the wrong date");
+  // At least one real ticker in the universe DOES have a reportedOn stamp
+  // (the daily refresh stamps it the first time a new quarter appears) --
+  // prove the plumbing produces a real, sane reaction for it end to end.
+  let reactionHit = null;
+  for (const d of DATA) {
+    const r = SE.postEarningsReactionOf(d);
+    if (r) { reactionHit = { ticker: d.ticker, r }; break; }
+  }
+  ok(reactionHit != null, "at least one real name resolves a post-earnings reaction from bundled reportedOn + daily closes",
+    reactionHit ? JSON.stringify(reactionHit) : "none found");
+  if (reactionHit) {
+    ok(Number.isFinite(reactionHit.r.pct) && reactionHit.r.daysElapsed > 0 && /^\d{4}-\d{2}-\d{2}$/.test(reactionHit.r.reportedOn),
+      "the resolved reaction has a real percentage, a positive elapsed trading-day count, and an ISO report date", JSON.stringify(reactionHit));
+  }
+
+  // End to end through marketReward(): the two sub-parts must no longer be
+  // permanently null for names with real data, and the previous hardcoded
+  // "unavailable"/"not bundled yet" why-text must be gone for them.
+  const mr = E.marketScoreOf(AAPL).marketReward;
+  const surprisePart = mr.details.find(x => x.k === "Earnings surprise history");
+  ok(surprisePart.score != null, "AAPL's Earnings surprise history sub-part is no longer hardcoded null", JSON.stringify(surprisePart));
+  ok(!/unavailable in bundled data/.test(surprisePart.why), "the stale 'unavailable in bundled data' why-text is gone once real data exists");
+
+  let surpriseCoverage = 0;
+  for (const d of DATA) {
+    const part = E.marketScoreOf(d).marketReward.details.find(x => x.k === "Earnings surprise history");
+    if (part && part.score != null) surpriseCoverage++;
+  }
+  ok(surpriseCoverage / DATA.length > 0.9, "the vast majority of the universe now has a real (non-null) earnings-surprise sub-score", `${surpriseCoverage}/${DATA.length}`);
+
+  if (reactionHit) {
+    const dCov = DATA.find(x => x.ticker === reactionHit.ticker);
+    const reactionPart = E.marketScoreOf(dCov).marketReward.details.find(x => x.k === "Post-earnings reaction");
+    ok(reactionPart.score != null, `${reactionHit.ticker}'s Post-earnings reaction sub-part is wired end to end through marketReward()`, JSON.stringify(reactionPart));
+  }
+}
+
+// =============== 30. Universe-size disclosure in proofStatusOf/calibrationOf ===============
+{
+  ok(typeof E.universeSpanOf === "function", "universeSpanOf is exported for direct testing");
+  const mk = (date, universe) => ({ date, universe, entries: [] });
+  ok(E.universeSpanOf([mk("2026-01-01", 100), mk("2026-01-02", 100)]).changed === false,
+    "a constant universe size across snapshots -> changed:false");
+  const resized = E.universeSpanOf([mk("2026-01-01", 100), mk("2026-01-02", 100), mk("2026-01-03", 150)]);
+  ok(resized.changed === true && resized.sizes.join(",") === "100,150" && resized.changedOn === "2026-01-03",
+    "a real resize is detected, with both sizes and the exact date it changed", JSON.stringify(resized));
+  ok(E.universeSpanOf([]).changed === false, "empty history -> changed:false, never a crash");
+  ok(E.universeSpanOf([mk("2026-01-01", null)]).changed === false, "snapshots missing a universe field are ignored, not treated as a resize");
+
+  // The real bundled TRACK_HISTORY is known (from the forensic audit that
+  // found this gap) to span exactly one resize, 126 -> 224 names, on its
+  // 6th recorded day -- prove proofStatusOf surfaces this on the real data,
+  // not just in a synthetic case.
+  const ps = E.proofStatusOf(TRACK_HISTORY);
+  ok(ps.universeSpan && typeof ps.universeSpan.changed === "boolean", "proofStatusOf always returns a universeSpan field");
+  if (TRACK_HISTORY.length && new Set(TRACK_HISTORY.map(s => s.universe)).size > 1) {
+    ok(ps.universeSpan.changed === true, "proofStatusOf detects the real universe resize in the bundled track history", JSON.stringify(ps.universeSpan));
+  }
+
+  // calibrationOf must report the span of only the snapshots THAT ACTUALLY
+  // CONTRIBUTED a window (base+target), not the whole history passed in --
+  // a horizon with zero windows has nothing to disclose.
+  ok(E.calibrationOf(TRACK_HISTORY, 28).universeSpan.changed === false,
+    "no 28-day window exists yet in the real (8-day-old) history, so nothing is falsely flagged as spanning a resize");
+
+  // Synthetic case with enough day-span for a real window: a calibration
+  // window whose base+target snapshots straddle a resize must be flagged.
+  const synthEntries = [{ t: "X", p: 100, dl: "LIKELY UP" }];
+  const synthHistory = [
+    { date: "2026-01-01", universe: 100, entries: synthEntries },
+    { date: "2026-01-29", universe: 150, entries: [{ t: "X", p: 110, dl: "LIKELY UP" }] },
+  ];
+  const calSynth = E.calibrationOf(synthHistory, 28);
+  ok(calSynth.windows === 1 && calSynth.universeSpan.changed === true,
+    "a calibration window whose base and target snapshots straddle a real resize is flagged", JSON.stringify(calSynth.universeSpan));
+  const synthStable = [
+    { date: "2026-01-01", universe: 100, entries: synthEntries },
+    { date: "2026-01-29", universe: 100, entries: [{ t: "X", p: 110, dl: "LIKELY UP" }] },
+  ];
+  ok(E.calibrationOf(synthStable, 28).universeSpan.changed === false,
+    "a stable-universe window is not falsely flagged");
+}
+
+// =============== 31. Minor cleanups: dilution caption + playbook narrative-cluster awareness ===============
+{
+  // shareTrend's "over 5Y" caption was hardcoded regardless of how many
+  // years d.shares actually spans (the bundle can carry up to ~10 years of
+  // SEC-augmented history) -- it must now report the real span.
+  ok(E.shareTrend([100, 100]).years === 1, "two data points span exactly 1 interval, not a hardcoded 5");
+  ok(E.shareTrend([100, 101, 102, 103, 104, 105, 106, 107, 108, 109]).years === 9,
+    "a 10-point series spans 9 real intervals");
+  ok(E.shareTrend([]).years === null, "insufficient data -> years is null, never a fabricated span");
+  const AAPL = E.companyOf("AAPL");
+  ok(AAPL.shares.length > 6, "sanity: AAPL's bundled share history really does exceed 5 points", String(AAPL.shares.length));
+  const aaplTrend = E.shareTrend(AAPL.shares);
+  ok(aaplTrend.years === AAPL.shares.length - 1, "AAPL's real caption span matches its real history length, not a hardcoded 5Y", JSON.stringify(aaplTrend));
+
+  // playbookOf: a suggested position has no way to see that another
+  // concurrently-suggested "best idea" might be the same correlated bet.
+  // Annotate which NARRATIVES cluster(s) (if any) this ticker belongs to.
+  const MU = DATA.find(d => d.ticker === "MU");
+  const pb = E.playbookOf(MU);
+  ok(pb && Array.isArray(pb.narrativeClusters), "playbookOf always returns a narrativeClusters array (possibly empty)");
+  const aiCluster = pb.narrativeClusters.find(nc => nc.key === "ai-compute");
+  ok(aiCluster && aiCluster.otherMembers.includes("NVDA"), "MU's playbook correctly flags it shares the AI Compute Supercycle cluster with NVDA and others", JSON.stringify(pb.narrativeClusters));
+  ok(!aiCluster.otherMembers.includes("MU"), "the ticker itself is excluded from its own otherMembers list");
+
+  // A name in no narrative cluster must not fabricate one.
+  const noClusterTicker = DATA.find(d => {
+    const p = E.playbookOf(d);
+    return p && Array.isArray(p.narrativeClusters) && p.narrativeClusters.length === 0;
+  });
+  ok(noClusterTicker !== undefined, "at least one real name has zero narrative clusters, proving the field isn't always non-empty by construction");
+
+  // options block: a stale/expired bundled chain must stay MISSING, not
+  // score a fabricated -6 bearish adjustment. This data is not part of the
+  // automated daily refresh, so it goes stale on a ticking clock even
+  // though nothing was re-observed.
+  ok(typeof E.optionsPositioningPart === "function" && typeof E.optDteNow === "function",
+    "optionsPositioningPart and optDteNow are exported for direct testing");
+  const iso = (daysFromNow) => new Date(Date.now() + daysFromNow * 864e5).toISOString().slice(0, 10);
+  const freshOpt = { iv: 0.3, rv: 0.27, pcr: 0.5, exp: iso(20) };
+  const nearExpiryOpt = { iv: 0.3, rv: 0.27, pcr: 0.5, exp: iso(3) };
+  const expiredOpt = { iv: 0.3, rv: 0.27, pcr: 0.5, exp: iso(-10) };
+  const freshPart = E.optionsPositioningPart({ opt: freshOpt });
+  ok(freshPart.score != null, "a fresh (20d out) chain scores normally", JSON.stringify(freshPart));
+  const nearPart = E.optionsPositioningPart({ opt: nearExpiryOpt });
+  ok(nearPart.score === null, "a chain inside the 7-day staleness window stays null, never a fabricated bearish -6", JSON.stringify(nearPart));
+  ok(/stale/i.test(nearPart.why) && !/chain stale\/near expiry/.test(nearPart.why), "the why-text names it as a data-quality issue, not the old bearish-adjustment label");
+  const expiredPart = E.optionsPositioningPart({ opt: expiredOpt });
+  ok(expiredPart.score === null, "an already-expired chain also stays null", JSON.stringify(expiredPart));
+
+  // real universe: none of the 60 bundled-options tickers currently produce
+  // the old -6 "chain stale/near expiry" bearish artifact (they're all
+  // still comfortably outside the 7-day window as of this run, and the
+  // fix removes the mechanism regardless of when that stops being true)
+  let staleArtifact = 0;
+  for (const d of DATA) {
+    const p = E.optionsPositioningPart(d);
+    if (p.why && /chain stale\/near expiry/.test(p.why)) staleArtifact++;
+  }
+  ok(staleArtifact === 0, "no real name's options why-text still contains the old fabricated staleness-as-bearish label");
+}
+
+// =============== 32. Second-pass audit: withholding recency/magnitude, momentum, sw version ===============
+{
+  // A follow-up audit found secWithholdingOf had no recency guard: some
+  // companies stop separately disclosing the SEC tax-withholding tag, so
+  // the top-level fact silently ages for years while being reused every
+  // day against a present-day, much larger SBC base. Worst case: DDOG's
+  // only filed instance is a stale, literal $0 (FY2023), which flipped its
+  // TTM owner EPS from correctly negative/unrankable to a false positive.
+  ok(typeof E.latestKnownSecPeriodEnd === "function", "latestKnownSecPeriodEnd is exported for direct testing");
+  ok(E.secWithholdingOf("DDOG") === null, "DDOG's stale, zero-valued withholding tag is rejected, not trusted");
+  ok(E.secWithholdingOf("DASH") === null, "DASH's stale, zero-valued withholding tag is rejected");
+  ok(E.secWithholdingOf("RBLX") === null, "RBLX's stale, zero-valued withholding tag is rejected");
+  ok(E.secWithholdingOf("LOW") === null, "LOW's ~13-year-stale withholding tag (FY2012) is rejected");
+  ok(E.secWithholdingOf("NKE") === null, "NKE's ~7-year-stale withholding tag (FY2019) is rejected");
+  // Fresh, real tags must still be used, including ones with an unusually
+  // HIGH ratio to SBC -- vest-date fair value legitimately can exceed the
+  // grant-date fair value GAAP expenses as SBC for an appreciating stock,
+  // so a high ratio alone is not proof of a bad fact the way a stale or
+  // zero one is.
+  const nvda = E.secWithholdingOf("NVDA");
+  ok(nvda != null && nvda.value > 0, "NVDA's fresh, high-ratio withholding tag is kept, not rejected on magnitude alone", JSON.stringify(nvda));
+
+  // End to end: DDOG's owner economics must return to the pre-regression
+  // reading -- negative owner EPS, unrankable (null truePE) -- exactly as
+  // they were before the original SEC-withholding fix was ever applied.
+  const DDOG = DATA.find(d => d.ticker === "DDOG");
+  ok(DDOG.ownerEps < 0, "DDOG's owner EPS is negative again (was falsely flipped positive by a stale $0 SEC fact)", String(DDOG.ownerEps));
+  ok(DDOG.truePE === null, "DDOG is unrankable again on owner P/E, not showing a fabricated ~700x reading", String(DDOG.truePE));
+  ok(DDOG.ownerTtm.withholdingSource === "low-confidence estimate (25% of SBC proxy)",
+    "DDOG's withholding source correctly discloses the proxy fallback, not a stale SEC-reported label");
+
+  // universe-wide sanity: the guard should reject exactly the stale/zero
+  // cohort, not silently gut coverage of the fresh majority
+  let nonNull = 0;
+  for (const d of DATA) if (E.secWithholdingOf(d.ticker)) nonNull++;
+  ok(nonNull > 80 && nonNull < 114, "the guard meaningfully narrows coverage (rejecting stale/zero facts) without gutting it entirely", String(nonNull));
+
+  // momentum: today's single-day change must not out-weigh the sustained
+  // multi-week/month terms it's supposed to be secondary to
+  const src2 = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
+  const momEng = src2.slice(src2.indexOf("function momentumPart"), src2.indexOf("function sectorConfirmationPart"));
+  const coefs = [...momEng.matchAll(/\)\s*\*\s*(-?\d+\.?\d*)/g)].map(m => parseFloat(m[1]));
+  ok(coefs.length === 3, "momentumPart has exactly 3 weighted terms (1M, 3M, today)", JSON.stringify(coefs));
+  const [m1Coef, m3Coef, dayCoef] = coefs;
+  ok(dayCoef < m1Coef && dayCoef < m3Coef,
+    "today's single-day coefficient is now smaller than BOTH the 1-month and 3-month coefficients, not larger than either",
+    `m1=${m1Coef} m3=${m3Coef} day=${dayCoef}`);
+  // behavioral check, not just a coefficient-order check: an equal-sized
+  // move must swing the score LESS when it comes from today alone than
+  // when it comes from the sustained 1M+3M tape.
+  const flatSeries = Array(20).fill(100);
+  const neutral = E.momentumPart({ ticker: "FAKE_FLAT", change: 0, px: { v: flatSeries } });
+  const dayMoveOnly = E.momentumPart({ ticker: "FAKE_DAY", change: 5, px: { v: flatSeries } });
+  const sustainedSeries = flatSeries.slice(); sustainedSeries[sustainedSeries.length - 1] = 105; // moves both m1 and m3 by +5%
+  const sustainedMove = E.momentumPart({ ticker: "FAKE_SUSTAINED", change: 0, px: { v: sustainedSeries } });
+  ok(neutral.score != null && dayMoveOnly.score != null && sustainedMove.score != null, "momentumPart scores all three synthetic tapes");
+  ok((dayMoveOnly.score - neutral.score) < (sustainedMove.score - neutral.score),
+    "a +5% single-day move swings the score less than the same +5% sustained over 1M and 3M",
+    `dayDelta=${dayMoveOnly.score - neutral.score} sustainedDelta=${sustainedMove.score - neutral.score}`);
+
+  // sw.js version registration must not hardcode a stale literal that can
+  // drift from the shared SHELL_BUILD constant
+  ok(!/register\("sw\.js\?v=72"\)/.test(src2), "the old hardcoded sw.js?v=72 registration literal is gone");
+  ok(/register\(`sw\.js\?v=\$\{SHELL_BUILD\}`\)/.test(src2), "sw.js registration now derives its version from SHELL_BUILD, so it can't drift again");
+}
+
+// =============== 33. Narrative FORMING tier (heat acceleration) ===============
+{
+  ok(typeof E.narrativeHeatDelta === "function", "narrativeHeatDelta is exported for direct testing");
+  const mk = (date, heat) => ({ date, narrs: { "test-key": heat } });
+
+  // pure delta math, fully synthetic -- no dependence on live market data
+  ok(E.narrativeHeatDelta([], "test-key") === null, "empty history -> null, never a guessed delta");
+  ok(E.narrativeHeatDelta([mk("2026-01-01", 40)], "test-key") === null, "a single snapshot has no earlier base to compare against -> null");
+  const twoClose = [mk("2026-01-01", 40), mk("2026-01-05", 55)]; // only 4 days apart, window is 10
+  ok(E.narrativeHeatDelta(twoClose, "test-key") === null, "snapshots closer together than the window -> null, never a rescaled shorter window");
+  const twoFar = [mk("2026-01-01", 40), mk("2026-01-15", 55)]; // 14 days apart, clears the 10-day window
+  const delta = E.narrativeHeatDelta(twoFar, "test-key");
+  ok(delta && delta.delta === 15 && delta.fromDate === "2026-01-01" && delta.toDate === "2026-01-15",
+    "a real gap >= the window computes the correct delta and dates", JSON.stringify(delta));
+  // walks BACK to the first snapshot old enough, not just the immediate predecessor
+  const threeSnaps = [mk("2026-01-01", 30), mk("2026-01-10", 45), mk("2026-01-16", 60)];
+  const delta3 = E.narrativeHeatDelta(threeSnaps, "test-key", 10);
+  ok(delta3 && delta3.fromDate === "2026-01-01" && delta3.delta === 30,
+    "walks back to the first snapshot at/before the cutoff, not the nearest one", JSON.stringify(delta3));
+  // a snapshot missing narrs entirely (recorded before this feature existed,
+  // like this repo's own first 9 real snapshots) is skipped, not treated as 0
+  const withGap = [{ date: "2026-01-01", entries: [] }, mk("2026-01-15", 55)];
+  ok(E.narrativeHeatDelta(withGap, "test-key") === null, "a pre-feature snapshot with no narrs field is skipped, not read as heat=0");
+
+  // integration: narrativeStats' FORMING override, self-checking against
+  // whatever the real live heat happens to be today (never a hardcoded
+  // assumption about current market data)
+  const target = E.NARRATIVES.find(n => n.members.length >= 2);
+  const ctxNoHistory = { narrHistory: [] };
+  const baseline = E.narrativeStats(target, ctxNoHistory);
+  if (baseline) {
+    ok(baseline.forming === null, "with no history at all, forming is always null -- never fabricated");
+    ok(baseline.label === baseline.rawLabel && baseline.color === baseline.rawColor,
+      "with no acceleration data, the displayed label/color match the raw level-only reading");
+
+    const accelHistory = [
+      { date: "2026-01-01", narrs: { [target.key]: 5 } },
+      { date: "2026-01-20", narrs: { [target.key]: 90 } }, // a huge, clearly-over-threshold delta
+    ];
+    const accel = E.narrativeStats(target, { ...ctxNoHistory, narrHistory: accelHistory });
+    if (baseline.heat < 68) {
+      ok(accel.forming != null && accel.label === "FORMING" && accel.color === "var(--purple)",
+        "a real narrative with heat below HOT and a huge recorded acceleration is flagged FORMING", JSON.stringify({ heat: baseline.heat, forming: accel.forming }));
+      ok(accel.rawLabel === baseline.rawLabel, "the underlying raw level-based label is preserved even while FORMING is displayed");
+    } else {
+      ok(accel.forming === null, "a narrative already at/above HOT is never re-labeled FORMING even with a huge recorded delta", String(baseline.heat));
+    }
+
+    // a small delta under the threshold must not trigger FORMING
+    const smallAccelHistory = [
+      { date: "2026-01-01", narrs: { [target.key]: 50 } },
+      { date: "2026-01-20", narrs: { [target.key]: 52 } }, // +2, well under the 12-point threshold
+    ];
+    const smallAccel = E.narrativeStats(target, { ...ctxNoHistory, narrHistory: smallAccelHistory });
+    ok(smallAccel.forming === null, "a small delta under the FORMING threshold does not trigger it");
+  }
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

@@ -85,6 +85,27 @@
   // (e.g. EPS revised -1.00 -> -0.50 is +50%, not -50%).
   const pct = (a, b) => a != null && b != null && b !== 0 ? ((a - b) / Math.abs(b)) * 100 : null;
   const div = (a, b) => a != null && b != null && b !== 0 ? a / b : null;
+  /* Correct median of an ALREADY-SORTED-ASCENDING array, with a minimum
+     sample-size floor. An audit found peer-comparison code picking
+     sorted[floor(n/2)] directly -- the upper-middle element, not a true
+     median, on every even-length array -- with no floor at all, so sector
+     groups of 1-3 peers were being treated as a meaningful "median". */
+  const trueMedian = (sortedAsc, minSample = 5) => {
+    const n = sortedAsc.length;
+    if (n < minSample) return null;
+    return n % 2 === 1 ? sortedAsc[(n - 1) / 2] : (sortedAsc[n / 2 - 1] + sortedAsc[n / 2]) / 2;
+  };
+  /* Percentile rank of `value` within `population` (order doesn't matter,
+     `value` need not already be a member), midpoint-of-ties method so
+     exact ties share a percentile instead of one arbitrarily outranking
+     the other. Needs at least 2 population members to mean anything. */
+  const percentileRank = (value, population) => {
+    const pop = (population || []).filter((v) => typeof v === "number" && Number.isFinite(v));
+    if (typeof value !== "number" || !Number.isFinite(value) || pop.length < 2) return null;
+    let below = 0, equal = 0;
+    for (const v of pop) { if (v < value) below++; else if (v === value) equal++; }
+    return Math.max(0, Math.min(100, ((below + equal / 2) / pop.length) * 100));
+  };
   const cagr = (arr) => {
     const a = clean(arr);
     if (a.length < 2 || a[0] <= 0 || a[a.length - 1] <= 0) return null;
@@ -159,6 +180,50 @@
     return ni != null && sbc != null && sh ? (ni - 0.25 * sbc) / sh : null;
   });
   const recurringProxy = (d) => /Software|Cloud|Cyber|Payments|Data|Subscription|Streaming|ServiceNow|Adobe|Intuit|Workday|Mongo|Datadog|Cloudflare/i.test(`${d.sector} ${d.name}`);
+
+  /* Approximate TRADING days between two calendar dates (no holiday
+     calendar available), via the standard 5-trading-days-per-7-calendar-
+     days ratio. Used to align a report's calendar date to an index inside
+     a daily-close array (d.pd.v) that carries no per-point dates of its
+     own, only an ending date (d.pd.to). */
+  const tradingDaysBetween = (fromISO, toISO) => {
+    if (!fromISO || !toISO) return null;
+    const ms = Date.parse(toISO) - Date.parse(fromISO);
+    if (!Number.isFinite(ms) || ms < 0) return null;
+    return Math.round((ms / 864e5) * (5 / 7));
+  };
+  /* Average EPS surprise across the bundled last-4-quarter history.
+     surprisePct can spike to absurd magnitudes when an estimate is near
+     zero (a known quirk of this dataset), so it is clamped the same way
+     driftScoreOf already does elsewhere before it drives any score. */
+  function earningsSurpriseOf(tk) {
+    const it = typeof EARNINGS_INTEL !== "undefined" && EARNINGS_INTEL.tickers && EARNINGS_INTEL.tickers[tk];
+    const rows = (it && it.history || []).filter(h => n(h.surprisePct) != null);
+    if (!rows.length) return null;
+    const clamped = rows.map(h => clamp(h.surprisePct, -15, 15));
+    return { avg: clamped.reduce((a, v) => a + v, 0) / clamped.length, n: rows.length };
+  }
+  /* Short-window price reaction to the most recently REPORTED quarter (not
+     ongoing drift -- that is PEAD's job). Only the quarters whose actual
+     report date (reportedOn) is known can be aligned to d.pd at all; older
+     history rows only carry a fiscal quarter-end, which is not the report
+     date and would misalign the reaction window by weeks if used directly.
+     So this stays null until reportedOn accumulates -- honest, not fake. */
+  function postEarningsReactionOf(d, windowDays = 3) {
+    const it = typeof EARNINGS_INTEL !== "undefined" && EARNINGS_INTEL.tickers && EARNINGS_INTEL.tickers[d.ticker];
+    const rows = (it && it.history || []).filter(h => h.reportedOn);
+    if (!rows.length) return null;
+    const latest = rows.slice().sort((a, b) => b.reportedOn.localeCompare(a.reportedOn))[0];
+    const pd = d.pd && Array.isArray(d.pd.v) ? d.pd.v : null;
+    if (!pd || !pd.length || !d.pd.to) return null;
+    const daysBack = tradingDaysBetween(latest.reportedOn, d.pd.to);
+    if (daysBack == null) return null;
+    const idxReport = pd.length - 1 - daysBack;
+    if (idxReport < 0 || idxReport >= pd.length || n(pd[idxReport]) == null || pd[idxReport] <= 0) return null;
+    const idxReaction = Math.min(pd.length - 1, idxReport + windowDays);
+    if (idxReaction <= idxReport || n(pd[idxReaction]) == null) return null;
+    return { pct: ((pd[idxReaction] / pd[idxReport]) - 1) * 100, daysElapsed: idxReaction - idxReport, reportedOn: latest.reportedOn };
+  }
 
   function estimateRevision(history, field, days) {
     const snaps = history && Array.isArray(history.snapshots)
@@ -289,6 +354,8 @@
     const hist = ctx.estimates && ctx.estimates[d.ticker];
     const epsRev = revisionScore(hist, "nextYearEps");
     const revRev = revisionScore(hist, "nextYearRevenue");
+    const surprise = earningsSurpriseOf(d.ticker);
+    const reaction = postEarningsReactionOf(d);
     const ge = growthExecution(d);
     const rs = relativeStrength(d, ctx);
     const sector = secByT(ctx, sectorETF(d)), spy = secByT(ctx, "SPY");
@@ -305,10 +372,12 @@
       { k: "EPS estimate revisions", weight: 20, score: epsRev.score, why: epsRev.note },
       { k: "Revenue estimate revisions", weight: 15, score: revRev.score, why: revRev.note },
       { k: "Growth acceleration", weight: 15, score: ge.details.find(x => x.k === "Revenue acceleration")?.score, why: "fundamental acceleration proxy" },
-      { k: "Earnings surprise history", weight: 10, score: null, why: "last-four-quarter surprise history unavailable in bundled data" },
+      { k: "Earnings surprise history", weight: 10, score: surprise ? clamp(50 + surprise.avg * 2.6, 0, 100) : null,
+        why: surprise ? `avg EPS surprise last ${surprise.n} quarter${surprise.n === 1 ? "" : "s"} ${surprise.avg >= 0 ? "+" : ""}${round(surprise.avg, 1)}%` : "no bundled earnings-surprise history for this ticker" },
       { k: "Guidance direction", weight: 10, score: null, why: "guidance history unavailable until snapshots/news parser accumulate" },
       { k: "Relative strength", weight: 15, score: rsScore, why: `3M vs sector ${round(rs.vsSector3, 1)}pp, vs SPY ${round(rs.vsSpy3, 1)}pp` },
-      { k: "Post-earnings reaction", weight: 10, score: null, why: "earnings-day/five-day reaction history not bundled yet" },
+      { k: "Post-earnings reaction", weight: 10, score: reaction ? scoreRange(reaction.pct, -8, 8) : null,
+        why: reaction ? `${reaction.daysElapsed}-trading-day reaction after ${reaction.reportedOn}: ${reaction.pct >= 0 ? "+" : ""}${round(reaction.pct, 1)}%` : "no reported earnings date with bundled daily-close alignment yet (needs a real reportedOn stamp, not just a quarter-end)" },
       { k: "Sector strength", weight: 5, score: sectorStrength, why: sectorVsSpy3 != null ? `sector 3M vs SPY ${round(sectorVsSpy3, 1)}pp` : "sector series unavailable" },
     ]);
   }
@@ -342,9 +411,14 @@
     const evFcf = ev != null && fcf > 0 ? ev / fcf : null;
     const evAdjFcf = ev != null && adjFcf > 0 ? ev / adjFcf : null;
     const peers = (ctx.data || []).filter(x => x !== d && x.sector === d.sector && x.truePE).map(x => x.truePE).sort((a, b) => a - b);
-    const peerMedian = peers.length ? peers[Math.floor(peers.length / 2)] : null;
+    const peerMedian = trueMedian(peers);
+    // MIN, not max: an audit found this picking whichever of revenue-CAGR or
+    // owner-EPS-CAGR is HIGHER, which systematically flatters names whose
+    // revenue outgrows their owner earnings -- the exact SBC/margin-leakage
+    // signature this app's owner-earnings framework exists to catch, not
+    // reward. The slower of the two is the conservative, honest read.
     const growthCandidates = [cagr(d.revenue), cagr(ownerEpsSeries(d))].filter(v => v != null);
-    const growth = growthCandidates.length ? Math.max(...growthCandidates) : null;
+    const growth = growthCandidates.length ? Math.min(...growthCandidates) : null;
     return weighted([
       { k: "GAAP earnings yield", weight: 10, score: scoreRange(gaapYield, 0, 7), why: `GAAP yield ${round(gaapYield, 1)}%` },
       { k: "FCF yield", weight: 14, score: scoreRange(fcfYield, -2, 8), why: `FCF yield ${round(fcfYield, 1)}%` },
@@ -352,7 +426,8 @@
       { k: "Owner earnings yield", weight: 18, score: scoreRange(ownerYield, 0, 7), why: `owner earnings yield ${round(ownerYield, 1)}%` },
       { k: "EV/FCF", weight: 12, score: scoreLower(evFcf, 12, 60), why: `EV/FCF ${round(evFcf, 1)}x` },
       { k: "EV/adjusted FCF", weight: 12, score: scoreLower(evAdjFcf, 12, 70), why: `EV/adj FCF ${round(evAdjFcf, 1)}x` },
-      { k: "Peer comparison", weight: 10, score: d.truePE && peerMedian ? scoreLower(d.truePE / peerMedian, 0.7, 1.8) : null, why: `owner P/E ${round(d.truePE, 1)}x vs peer median ${round(peerMedian, 1)}x` },
+      { k: "Peer comparison", weight: 10, score: d.truePE && peerMedian ? scoreLower(d.truePE / peerMedian, 0.7, 1.8) : null,
+        why: peerMedian ? `owner P/E ${round(d.truePE, 1)}x vs peer median ${round(peerMedian, 1)}x (${peers.length} peers)` : `too few sector peers with an owner P/E (${peers.length}, need 5+) for a meaningful median` },
       { k: "Growth-adjusted valuation", weight: 10, score: d.truePE && growth != null ? scoreLower(d.truePE / Math.max(growth, 1), 1.2, 5.0) : null, why: growth == null ? "growth history unavailable" : `owner P/E / growth ${round(d.truePE / Math.max(growth, 1), 2)}x` },
     ]);
   }
@@ -394,7 +469,8 @@
   function expectationsGap(d, ctx) {
     const ownerEps = d.ownerEps || null;
     const sectorPeers = (ctx.data || []).filter(x => x !== d && x.sector === d.sector && x.truePE).map(x => x.truePE).sort((a, b) => a - b);
-    const exitMultiple = sectorPeers.length ? clamp(sectorPeers[Math.floor(sectorPeers.length / 2)], 12, 38) : 22;
+    const peerMedian = trueMedian(sectorPeers);
+    const exitMultiple = peerMedian != null ? clamp(peerMedian, 12, 38) : 22;
     const requiredOwnerGrowth = ownerEps && ownerEps > 0 && d.price ? (Math.pow(d.price / (ownerEps * exitMultiple), 1 / 5) - 1) * 100 : null;
     const fcfMargin = last(margins(d).fcf);
     const revBase = cagr(d.revenue);
@@ -405,9 +481,23 @@
     const consensusFcfMargin = null;
     const terminalRev = revBase;
     const terminalFcf = fcfMargin;
-    const compare = requiredOwnerGrowth == null ? null
-      : consensusRevGrowth != null ? consensusRevGrowth - requiredOwnerGrowth
-      : terminalRev != null ? terminalRev - requiredOwnerGrowth : null;
+    // requiredOwnerGrowth is a 5-year ANNUALIZED OWNER-EPS CAGR. An audit found
+    // this compared directly against consensusRevGrowth (a 1-year, REVENUE-basis
+    // rate) or terminalRev (a REVENUE CAGR) -- different basis AND, for the
+    // consensus case, a different horizon, driving a "Fairly priced" vs
+    // "Extreme expectations risk" label off two numbers that do not measure the
+    // same thing. The basis-consistent reference this function ALREADY computes
+    // (ownerEpsGrowth, a trailing OWNER-EPS CAGR -- same basis, same annualized
+    // horizon convention as requiredOwnerGrowth) is used FIRST now. The revenue
+    // references remain as an explicitly labeled cross-basis fallback rather
+    // than being silently presented as equivalent.
+    const ownerGrowthTrend = cagr(ownerEpsSeries(d));
+    let compare = null, compareBasis = null;
+    if (requiredOwnerGrowth != null) {
+      if (ownerGrowthTrend != null) { compare = ownerGrowthTrend - requiredOwnerGrowth; compareBasis = "trailing owner-EPS CAGR (same basis)"; }
+      else if (consensusRevGrowth != null) { compare = consensusRevGrowth - requiredOwnerGrowth; compareBasis = "1yr consensus revenue growth (cross-basis proxy — revenue, not owner EPS)"; }
+      else if (terminalRev != null) { compare = terminalRev - requiredOwnerGrowth; compareBasis = "trailing revenue CAGR (cross-basis proxy — revenue, not owner EPS)"; }
+    }
     let label = "Insufficient data";
     if (compare != null) {
       if (compare >= 8) label = "Large positive gap";
@@ -418,11 +508,19 @@
     }
     return {
       label,
-      marketImplied: { revenueGrowth: round(requiredOwnerGrowth, 1), futureFcfMargin: round(fcfMargin, 1), ownerEpsGrowth: round(requiredOwnerGrowth, 1), exitMultiple: round(exitMultiple, 1) },
+      // futureFcfMargin here is NOT a projection -- this model has no forward
+      // margin derivation, so presenting the trailing figure under a "future"/
+      // "market-implied" label would misrepresent it as one. Left null (an
+      // audit found it was previously the trailing margin copy-pasted under
+      // this label, bit-identical for 224/224 companies).
+      marketImplied: { revenueGrowth: round(requiredOwnerGrowth, 1), futureFcfMargin: null, ownerEpsGrowth: round(requiredOwnerGrowth, 1), exitMultiple: round(exitMultiple, 1) },
       consensus: { revenueGrowth: round(consensusRevGrowth, 1), futureFcfMargin: consensusFcfMargin, source: snaps.length ? "estimate history snapshot" : "unavailable" },
-      terminalBase: { revenueGrowth: round(terminalRev, 1), futureFcfMargin: round(terminalFcf, 1), ownerEpsGrowth: round(cagr(ownerEpsSeries(d)), 1) },
+      terminalBase: { revenueGrowth: round(terminalRev, 1), futureFcfMargin: round(terminalFcf, 1), ownerEpsGrowth: round(ownerGrowthTrend, 1) },
       gapPct: round(compare, 1),
-      assumptions: [`5-year horizon`, `exit owner P/E ${round(exitMultiple, 1)}x`, `owner EPS ${round(ownerEps, 2)}`, `FCF margin from latest annual data`],
+      compareBasis,
+      assumptions: [`5-year horizon`, `exit owner P/E ${round(exitMultiple, 1)}x${peerMedian != null ? ` (sector peer median, ${sectorPeers.length} peers)` : " (no peer median available — default)"}`,
+        `owner EPS ${round(ownerEps, 2)}`, compareBasis ? `compared against ${compareBasis}` : "no comparison basis available",
+        "no forward FCF-margin projection is modeled — only trailing margin is shown, and only where labeled trailing"],
     };
   }
 
@@ -534,5 +632,14 @@
     whatChanged,
     thesisAlerts,
     relativeStrength,
+    estimateRevision,
+    revisionScore,
+    trueMedian,
+    percentileRank,
+    valuation,
+    marketReward,
+    tradingDaysBetween,
+    earningsSurpriseOf,
+    postEarningsReactionOf,
   };
 })();
