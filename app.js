@@ -2578,20 +2578,31 @@
   const CONVICTION_CLUSTERS = {
     "earnings-estimate": ["revisions", "beat", "drift", "narrative"],
   };
-  function clusterAdjustedNet(votes, clusters) {
+  /* De-duplicated BULL and BEAR counts (not just their net): each cluster
+     resolves to at most one bull OR one bear OR neither (when its members
+     disagree, which is genuine ambiguity, not agreement); uncorrelated
+     votes count individually. Counts rather than a bare net because the
+     confluence score is deliberately ASYMMETRIC -- an objection outweighs
+     an agreement (-12 vs +9) -- so collapsing to a net first would lose
+     the information that asymmetry needs. */
+  function clusterAdjustedVoteCounts(votes, clusters) {
     const clustered = new Set(Object.values(clusters).flat());
-    let net = 0;
+    let bulls = 0, bears = 0;
     for (const members of Object.values(clusters)) {
       const dirs = votes.filter(v => members.includes(v.key)).map(v => v.dir);
       if (!dirs.length) continue;
       const bull = dirs.some(x => x > 0), bear = dirs.some(x => x < 0);
-      net += bull && !bear ? 1 : bear && !bull ? -1 : 0;
+      if (bull && !bear) bulls++; else if (bear && !bull) bears++;
     }
     for (const v of votes) {
       if (clustered.has(v.key)) continue;
-      net += v.dir > 0 ? 1 : v.dir < 0 ? -1 : 0;
+      if (v.dir > 0) bulls++; else if (v.dir < 0) bears++;
     }
-    return net;
+    return { bulls, bears };
+  }
+  function clusterAdjustedNet(votes, clusters) {
+    const c = clusterAdjustedVoteCounts(votes, clusters);
+    return c.bulls - c.bears;
   }
   function convictionOf(d, ctx) {
     const ledger = ctx && ctx.ledger || earningsLedger();
@@ -2663,9 +2674,17 @@
     // that was consulted and had nothing to say is fully evaluated; only a
     // source whose data was never collected counts against completeness. Using
     // votes.length here would have punished quiet names for being quiet.
+    // Two scores, deliberately: `score` is the RAW tally the Conviction
+    // Board displays (every vote as cast, matching its visible rows), while
+    // `dedupScore` collapses correlated votes first (see CONVICTION_CLUSTERS)
+    // and is what the Master Signal RANKS on -- a ranking must not reward a
+    // name for confirming the same fact four times.
+    const adj = clusterAdjustedVoteCounts(votes, CONVICTION_CLUSTERS);
+    const dedupScore = votes.length ? Math.round(clamp(50 + adj.bulls * 9 - adj.bears * 12, 0, 100)) : null;
     return { d, votes, bulls: bulls.length, bears: bears.length, silent: votes.length - active,
-      score, label, color, notEvaluated,
-      netForSizing: clusterAdjustedNet(votes, CONVICTION_CLUSTERS),
+      score, dedupScore, label, color, notEvaluated,
+      dedupBulls: adj.bulls, dedupBears: adj.bears,
+      netForSizing: adj.bulls - adj.bears,
       evidence: (CONVICTION_SOURCES - notEvaluated.length) / CONVICTION_SOURCES };
   }
   function convictionBoard(limit = 8) {
@@ -2885,6 +2904,18 @@
     { key: "confluence", label: "Confluence", weight: 24 },
     { key: "trust", label: "Data trust", weight: 10 },
   ];
+  /* BUMP THIS whenever a change alters what the Master Signal SCORE or RANK
+     means -- pillar weights, a pillar's scoring basis, or the ranking math.
+     Every daily snapshot records it (scripts/snapshot_scores.js), so the
+     Proof Scoreboard can tell whether a set of forward-return observations
+     was produced by ONE model or silently pooled across two. Grading a
+     changed model against returns recorded under the old one is precisely
+     the way a track record lies, and this app's whole premise is that it
+     will not do that.
+     v1 -> v2: the confluence pillar (weight 24) moved from the raw vote
+     tally to the de-duplicated one, which changed 28.6% of names'
+     confluence scores (up to 18 points) and therefore reshuffled ranks. */
+  const MASTER_MODEL_VERSION = 2;
   function masterSignalOf(d, ctx) {
     if (!d) return null;
     const ms = marketScoreOf(d);
@@ -2932,16 +2963,22 @@
         r ? `RSI ${r.value}` : null].filter(Boolean);
       add("tape", v, bits.join(" · "), bits.length);
     }
-    // 4 · CONFLUENCE — the independent-signal vote. NOTE: c.score here is the
-    // RAW vote tally (matches what the Conviction Board displays), not the
-    // cluster-adjusted netForSizing used by position sizing -- some of these
-    // 10 votes share an underlying fact (see CONVICTION_CLUSTERS) and this
-    // pillar does not yet correct for that.
+    // 4 · CONFLUENCE — the independent-signal vote, scored on the
+    // DE-DUPLICATED tally. Several of the 10 votes read the same underlying
+    // fact (see CONVICTION_CLUSTERS), so the raw tally can present one
+    // analyst-revision figure as up to four separate confirmations. Position
+    // sizing was corrected for this first; this pillar carries weight 24 of
+    // the whole-universe ranking, so leaving it on the raw tally meant every
+    // name's RANK still rewarded confirming the same fact repeatedly. The
+    // why-text shows both counts so the difference is visible, and the
+    // Conviction Board itself still displays the raw votes exactly as cast.
     {
       const c = (ctx && ctx.convMap && ctx.convMap[d.ticker]) || convictionOf(d, ctx);
-      if (c && c.score != null && c.votes.length)
-        add("confluence", c.score,
-          `${c.bulls} agree · ${c.bears} object · ${c.silent} silent`
+      if (c && c.dedupScore != null && c.votes.length)
+        add("confluence", c.dedupScore,
+          `${c.dedupBulls} agree · ${c.dedupBears} object · ${c.silent} silent`
+          + (c.dedupBulls !== c.bulls || c.dedupBears !== c.bears
+            ? ` (de-duplicated from ${c.bulls}▲/${c.bears}▼ — correlated votes collapsed)` : "")
           + (c.notEvaluated && c.notEvaluated.length ? ` · ${c.notEvaluated.join(", ")}` : ""),
           c.votes.length);
       parts.__conv = c;
@@ -3037,6 +3074,27 @@
     }
     return { changed: true, sizes, changedOn };
   }
+  /* Same disclosure shape as universeSpanOf, for a strictly more serious
+     case: a MODEL change. A universe resize leaves each score meaning what
+     it always meant; a scoring-formula change does not. Snapshots recorded
+     before MASTER_MODEL_VERSION was bumped were produced by a different
+     model, so pooling their forward returns with newer ones grades two
+     models as one. Snapshots predating the stamp entirely (recorded before
+     this field existed) are treated as version 1 -- that is what they are,
+     not "unknown", since v1 is by definition the model that ran before the
+     first bump. */
+  function modelSpanOf(snapshots) {
+    const snaps = (snapshots || []).filter(s => s && s.date);
+    if (!snaps.length) return { changed: false, versions: [] };
+    const verOf = (s) => hasNum(s.model) ? s.model : 1;
+    const versions = [...new Set(snaps.map(verOf))].sort((a, b) => a - b);
+    if (versions.length <= 1) return { changed: false, versions };
+    let changedOn = null;
+    for (let i = 1; i < snaps.length; i++) {
+      if (verOf(snaps[i]) !== verOf(snaps[i - 1])) { changedOn = snaps[i].date; break; }
+    }
+    return { changed: true, versions, changedOn };
+  }
   const TRACKED_SIGNALS = [
     { key: "mk", label: "Master Signal (rank)", note: "does the top of the board actually beat the bottom" },
     { key: "cb", label: "Signal Confluence", note: "do names with several agreeing signals outperform" },
@@ -3050,7 +3108,7 @@
   ];
   function proofStatusOf(history, horizons = [[28, "4 weeks"], [84, "12 weeks"]], minObs = 20) {
     const H = Array.isArray(history) ? history : [];
-    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [], universeSpan: { changed: false, sizes: [] } };
+    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [], universeSpan: { changed: false, sizes: [] }, modelSpan: { changed: false, versions: [] } };
     const since = H[0].date, latest = H[H.length - 1].date;
     const spanDays = Math.round((Date.parse(latest) - Date.parse(since)) / 864e5);
     const dayAfter = (iso, n) => new Date(Date.parse(iso) + n * 864e5).toISOString().slice(0, 10);
@@ -3077,7 +3135,7 @@
       const daysLeft = Math.max(0, Math.ceil((Date.parse(unlockDate) - Date.parse(latest)) / 864e5));
       return { days, label, unlockDate, daysLeft, ready: daysLeft === 0 };
     });
-    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs, universeSpan: universeSpanOf(H) };
+    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs, universeSpan: universeSpanOf(H), modelSpan: modelSpanOf(H) };
   }
 
   function calibrationOf(history, horizonDays) {
@@ -3121,7 +3179,7 @@
         if (e.ib != null && e.ib > 0) rec("Insider buying", e.ib >= 2 ? "2+ buyers (cluster)" : "1 buyer", ret);
       }
     }
-    const out = { horizonDays, windows, groups: {}, universeSpan: universeSpanOf([...usedSnapshots.values()]) };
+    const out = { horizonDays, windows, groups: {}, universeSpan: universeSpanOf([...usedSnapshots.values()]), modelSpan: modelSpanOf([...usedSnapshots.values()]) };
     for (const [g, buckets] of Object.entries(groups)) {
       out.groups[g] = Object.entries(buckets).map(([bucket, b]) => ({
         bucket, n: b.n, hitRate: b.hits / b.n, avg: b.sum / b.n, judged: b.n >= 20,
@@ -4690,7 +4748,8 @@
       proofHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid ${anyReady ? "var(--green)" : "var(--amber)"}">
         <h3>🔬 PROOF SCOREBOARD <span class="unit">what this terminal has actually proven — and exactly when each answer arrives</span></h3>
         <div class="note" style="margin:6px 0 10px"><b>Read this before trusting any score on any page.</b> Every signal here is an <b>untested hypothesis</b> until forward returns judge it. The blocker is calendar time, not sample size: a 4-week verdict needs 4 weeks of history no matter how many names are tracked. Recording began <b>${ps.since || "—"}</b> — ${ps.snapshots} snapshot${ps.snapshots === 1 ? "" : "s"} over ${ps.spanDays} day${ps.spanDays === 1 ? "" : "s"}. Signals added later start their own clock, shown per row. Nothing is backfilled, because backfilling a signal against prices it never saw is how backtests lie.
-          ${ps.universeSpan && ps.universeSpan.changed ? `<br><b style="color:var(--amber)">Universe size changed during this history</b> (${ps.universeSpan.sizes.join(" → ")} names, on ${ps.universeSpan.changedOn}). Bucket stats below can span both sizes — the Master Signal rank-tier row is self-normalized per day and unaffected, but every other row pools observations from whichever universe size was in effect that day.` : ""}</div>
+          ${ps.universeSpan && ps.universeSpan.changed ? `<br><b style="color:var(--amber)">Universe size changed during this history</b> (${ps.universeSpan.sizes.join(" → ")} names, on ${ps.universeSpan.changedOn}). Bucket stats below can span both sizes — the Master Signal rank-tier row is self-normalized per day and unaffected, but every other row pools observations from whichever universe size was in effect that day.` : ""}
+          ${ps.modelSpan && ps.modelSpan.changed ? `<br><b style="color:var(--red)">The scoring model itself changed during this history</b> (v${ps.modelSpan.versions.join(" → v")}, on ${ps.modelSpan.changedOn}). This is more serious than a universe resize: a resize leaves every score meaning what it always meant, but a model change does not. Master Signal observations recorded before ${ps.modelSpan.changedOn} were produced by a <b>different model</b> than the one running now, so any Master Signal / confluence verdict pooled across that date is grading two models as one. Treat the pre-change portion of that record as belonging to the old model — the current model's clock effectively restarts at ${ps.modelSpan.changedOn}.` : ""}</div>
         <div class="grid g2" style="margin-bottom:10px">
           ${ps.horizons.map(h => `<div class="card" style="border-left:3px solid ${h.ready ? "var(--green)" : "var(--amber)"};margin:0">
             <h3>${h.label.toUpperCase()} HORIZON</h3>
@@ -7100,13 +7159,13 @@
     directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, momentumPart, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
-    NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,
+    NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, clusterAdjustedVoteCounts, CONVICTION_CLUSTERS,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     fetchYahooSparkBatch, applySparkResult,
     forwardPeCurveOf, forwardPeUniverse, annualEstOf,
-    TRACKED_SIGNALS, proofStatusOf, universeSpanOf,
+    TRACKED_SIGNALS, proofStatusOf, universeSpanOf, modelSpanOf, MASTER_MODEL_VERSION,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,
