@@ -872,6 +872,25 @@
       <path d="${line}" fill="none" stroke="${col}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`;
   }
+  /* miniSpark() takes a company row; this takes a bare number series, so the
+     index tiles can draw the same shape from a sector's close history. Colour
+     follows first-to-last, matching the sparkline convention used elsewhere. */
+  function seriesSpark(vals, cls, dir) {
+    const a = (vals || []).filter(hasNum);
+    if (a.length < 2) return "";
+    const W = 88, H = 26, P = 2;
+    const lo = Math.min(...a), hi = Math.max(...a), rng = hi - lo || 1;
+    const x = i => P + (i / (a.length - 1)) * (W - P * 2);
+    const y = v => P + (H - P * 2) - ((v - lo) / rng) * (H - P * 2);
+    const line = a.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    // Colour follows `dir` when the caller supplies one, so the line agrees
+    // with the number printed beside it. The index tiles draw a full 13-month
+    // shape but label a 1-MONTH move: colouring by the series' own first-to-last
+    // showed a green line above a red -19.3%, which reads as a contradiction.
+    const basis = hasNum(dir) ? dir : a.at(-1) - a[0];
+    const col = basis >= 0 ? "var(--green)" : "var(--red)";
+    return `<svg class="spark ${cls || ""}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><path d="${line}" fill="none" stroke="${col}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
   const watchScoreText = (s) => s == null ? "--" : String(Math.round(s));
   function liveHeaderStatus() {
     if (!state.liveStatus.lastFullRefresh) return state.keys.finnhub || state.keys.fmp ? "live pending" : "yahoo pending";
@@ -959,6 +978,82 @@
       { id: "auditBtn", label: "Data Audit — sources & trust", ic: "🧾" },
     ] },
   ];
+  /* ---- MOBILE TAB BAR ----
+     The five tabs are the DAILY PATH, not a menu of everything: open the app,
+     see the tape (Home), find an idea (Setups), check what reports next
+     (Earnings), manage what you own (Portfolio). Everything else is a tool you
+     reach for occasionally, so it lives one tap deeper under More rather than
+     competing for the same attention. Each tab delegates to the existing
+     drawer button, so all the show*() wiring stays untouched. */
+  const TAB_BAR = [
+    { id: "homeBtn", label: "Home", ic: "🏠" },
+    { id: "setupsBtn", label: "Setups", ic: "⭐" },
+    { id: "calBtn", label: "Earnings", ic: "🎯" },
+    { id: "portBtn", label: "Portfolio", ic: "💼" },
+    { id: "__more", label: "More", ic: "☰" },
+  ];
+  const TAB_IDS = TAB_BAR.filter(t => t.id !== "__more").map(t => t.id);
+  // Everything not on the bar, grouped as it is in the desktop nav so the
+  // sheet reads as an index of the terminal rather than a flat dump.
+  const moreSections = () => NAV_GROUPS
+    .map(g => ({ name: g.name, tools: (g.tools || []).filter(t => !TAB_IDS.includes(t.id)) }))
+    .filter(g => g.tools.length);
+  function closeMoreSheet() {
+    const s = el("moreSheet"); if (s) s.classList.remove("open");
+    const b = el("backdrop"); if (b && !$("aside").classList.contains("open")) b.classList.remove("show");
+  }
+  function renderTabBar() {
+    const bar = el("tabbar");
+    if (!bar) return;
+    bar.innerHTML = TAB_BAR.map(t =>
+      `<button type="button" data-tab="${t.id}"><span class="tb-ic">${t.ic}</span>${t.label}</button>`).join("");
+    bar.querySelectorAll("[data-tab]").forEach(b => b.onclick = (e) => {
+      e.stopPropagation();
+      const id = b.dataset.tab;
+      if (id === "__more") {
+        const sheet = el("moreSheet");
+        const opening = !sheet.classList.contains("open");
+        closeDrawer();
+        sheet.classList.toggle("open", opening);
+        const bd = el("backdrop"); if (bd) bd.classList.toggle("show", opening);
+        syncTabBar();
+        return;
+      }
+      closeMoreSheet();
+      const real = el(id);
+      if (real) real.click();
+    });
+    const sheet = el("moreSheet");
+    if (sheet) {
+      sheet.innerHTML = `<div class="sheet-grip"></div>`
+        + moreSections().map(g => `<h4>${escapeHtml(g.name)}</h4>
+          <div class="sheet-grid">${g.tools.map(t =>
+            `<button type="button" data-tool="${t.id}"><span class="tn-ic">${t.ic}</span>${escapeHtml(t.label)}</button>`).join("")}</div>`).join("");
+      sheet.querySelectorAll("[data-tool]").forEach(item => item.onclick = (e) => {
+        e.stopPropagation();
+        closeMoreSheet();
+        const real = el(item.dataset.tool);
+        if (real) real.click();
+      });
+      sheet.addEventListener("click", (e) => e.stopPropagation());
+    }
+    document.addEventListener("click", closeMoreSheet);
+    syncTabBar();
+  }
+  function syncTabBar() {
+    const bar = el("tabbar");
+    if (!bar) return;
+    const activeId = VIEW_BTNS.find(id => { const e = el(id); return e && e.classList.contains("active"); });
+    const sheetOpen = el("moreSheet") && el("moreSheet").classList.contains("open");
+    bar.querySelectorAll("[data-tab]").forEach(b => {
+      const id = b.dataset.tab;
+      b.classList.toggle("active", id === "__more"
+        ? !!sheetOpen || (!sheetOpen && !!activeId && !TAB_IDS.includes(activeId))
+        : !sheetOpen && id === activeId);
+    });
+    const sheet = el("moreSheet");
+    if (sheet) sheet.querySelectorAll("[data-tool]").forEach(i => i.classList.toggle("active", i.dataset.tool === activeId));
+  }
   function closeTopnavDD() {
     el("topnav").querySelectorAll(".topnav-group.open").forEach(g => g.classList.remove("open"));
   }
@@ -1062,6 +1157,7 @@
     el("navPE").classList.toggle("active", !drawerOpen && state.view === "screener");
     el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
     syncTopNav();
+    syncTabBar();
   }
   function syncMobileChrome() {
     el("cmdInput").placeholder = window.matchMedia("(max-width:720px)").matches
@@ -2103,15 +2199,26 @@
     // real, measured slippage of up to ~5 trading days on this bundle.
     // tradingDaysBetween(report date, d.pd's end date) gives a real,
     // day-resolution lookback into the SAME array pctMoveFrom already uses.
+    // The reaction is only real if there is price data AFTER the report. A
+    // company that reported on the 29th when the bundle's closes end on the
+    // 28th has no post-report tape at all -- the previous weekly-bar fallback
+    // silently measured the days BEFORE the report and labelled the result
+    // "tape since report", i.e. it reported pre-earnings drift as the
+    // post-earnings reaction (real case: 8 names on this bundle, BA showing
+    // "+4.8% since report" with zero post-report closes). Missing stays
+    // missing: no covering data -> no reaction term, and the drift score is
+    // simply built from the components that DO exist.
     const tradingDaysSince = window.ScoreEngine && d.pd && d.pd.to
       ? window.ScoreEngine.tradingDaysBetween(r.date, d.pd.to) : null;
-    const reaction = tradingDaysSince != null
+    const reaction = tradingDaysSince != null && tradingDaysSince >= 1
       ? pctMoveFrom(d.pd && d.pd.v || [], tradingDaysSince)
-      : pctMoveFrom(d.px && d.px.v || [], Math.max(1, Math.round(daysSince / 7)));
+      : null;
     if (reaction != null) {
       // PEAD needs the initial reaction to CONFIRM the surprise's direction
       score += clamp(reaction * Math.sign(surprise || 1), -8, 8);
       bits.push(`tape since report ${reaction >= 0 ? "+" : ""}${reaction.toFixed(1)}%`);
+    } else {
+      bits.push("no post-report price data yet — reaction not scored");
     }
     score = Math.round(clamp(score, 3, 97));
     const up = surprise >= 0;
@@ -2578,20 +2685,31 @@
   const CONVICTION_CLUSTERS = {
     "earnings-estimate": ["revisions", "beat", "drift", "narrative"],
   };
-  function clusterAdjustedNet(votes, clusters) {
+  /* De-duplicated BULL and BEAR counts (not just their net): each cluster
+     resolves to at most one bull OR one bear OR neither (when its members
+     disagree, which is genuine ambiguity, not agreement); uncorrelated
+     votes count individually. Counts rather than a bare net because the
+     confluence score is deliberately ASYMMETRIC -- an objection outweighs
+     an agreement (-12 vs +9) -- so collapsing to a net first would lose
+     the information that asymmetry needs. */
+  function clusterAdjustedVoteCounts(votes, clusters) {
     const clustered = new Set(Object.values(clusters).flat());
-    let net = 0;
+    let bulls = 0, bears = 0;
     for (const members of Object.values(clusters)) {
       const dirs = votes.filter(v => members.includes(v.key)).map(v => v.dir);
       if (!dirs.length) continue;
       const bull = dirs.some(x => x > 0), bear = dirs.some(x => x < 0);
-      net += bull && !bear ? 1 : bear && !bull ? -1 : 0;
+      if (bull && !bear) bulls++; else if (bear && !bull) bears++;
     }
     for (const v of votes) {
       if (clustered.has(v.key)) continue;
-      net += v.dir > 0 ? 1 : v.dir < 0 ? -1 : 0;
+      if (v.dir > 0) bulls++; else if (v.dir < 0) bears++;
     }
-    return net;
+    return { bulls, bears };
+  }
+  function clusterAdjustedNet(votes, clusters) {
+    const c = clusterAdjustedVoteCounts(votes, clusters);
+    return c.bulls - c.bears;
   }
   function convictionOf(d, ctx) {
     const ledger = ctx && ctx.ledger || earningsLedger();
@@ -2663,9 +2781,17 @@
     // that was consulted and had nothing to say is fully evaluated; only a
     // source whose data was never collected counts against completeness. Using
     // votes.length here would have punished quiet names for being quiet.
+    // Two scores, deliberately: `score` is the RAW tally the Conviction
+    // Board displays (every vote as cast, matching its visible rows), while
+    // `dedupScore` collapses correlated votes first (see CONVICTION_CLUSTERS)
+    // and is what the Master Signal RANKS on -- a ranking must not reward a
+    // name for confirming the same fact four times.
+    const adj = clusterAdjustedVoteCounts(votes, CONVICTION_CLUSTERS);
+    const dedupScore = votes.length ? Math.round(clamp(50 + adj.bulls * 9 - adj.bears * 12, 0, 100)) : null;
     return { d, votes, bulls: bulls.length, bears: bears.length, silent: votes.length - active,
-      score, label, color, notEvaluated,
-      netForSizing: clusterAdjustedNet(votes, CONVICTION_CLUSTERS),
+      score, dedupScore, label, color, notEvaluated,
+      dedupBulls: adj.bulls, dedupBears: adj.bears,
+      netForSizing: adj.bulls - adj.bears,
       evidence: (CONVICTION_SOURCES - notEvaluated.length) / CONVICTION_SOURCES };
   }
   function convictionBoard(limit = 8) {
@@ -2885,6 +3011,18 @@
     { key: "confluence", label: "Confluence", weight: 24 },
     { key: "trust", label: "Data trust", weight: 10 },
   ];
+  /* BUMP THIS whenever a change alters what the Master Signal SCORE or RANK
+     means -- pillar weights, a pillar's scoring basis, or the ranking math.
+     Every daily snapshot records it (scripts/snapshot_scores.js), so the
+     Proof Scoreboard can tell whether a set of forward-return observations
+     was produced by ONE model or silently pooled across two. Grading a
+     changed model against returns recorded under the old one is precisely
+     the way a track record lies, and this app's whole premise is that it
+     will not do that.
+     v1 -> v2: the confluence pillar (weight 24) moved from the raw vote
+     tally to the de-duplicated one, which changed 28.6% of names'
+     confluence scores (up to 18 points) and therefore reshuffled ranks. */
+  const MASTER_MODEL_VERSION = 2;
   function masterSignalOf(d, ctx) {
     if (!d) return null;
     const ms = marketScoreOf(d);
@@ -2932,16 +3070,22 @@
         r ? `RSI ${r.value}` : null].filter(Boolean);
       add("tape", v, bits.join(" · "), bits.length);
     }
-    // 4 · CONFLUENCE — the independent-signal vote. NOTE: c.score here is the
-    // RAW vote tally (matches what the Conviction Board displays), not the
-    // cluster-adjusted netForSizing used by position sizing -- some of these
-    // 10 votes share an underlying fact (see CONVICTION_CLUSTERS) and this
-    // pillar does not yet correct for that.
+    // 4 · CONFLUENCE — the independent-signal vote, scored on the
+    // DE-DUPLICATED tally. Several of the 10 votes read the same underlying
+    // fact (see CONVICTION_CLUSTERS), so the raw tally can present one
+    // analyst-revision figure as up to four separate confirmations. Position
+    // sizing was corrected for this first; this pillar carries weight 24 of
+    // the whole-universe ranking, so leaving it on the raw tally meant every
+    // name's RANK still rewarded confirming the same fact repeatedly. The
+    // why-text shows both counts so the difference is visible, and the
+    // Conviction Board itself still displays the raw votes exactly as cast.
     {
       const c = (ctx && ctx.convMap && ctx.convMap[d.ticker]) || convictionOf(d, ctx);
-      if (c && c.score != null && c.votes.length)
-        add("confluence", c.score,
-          `${c.bulls} agree · ${c.bears} object · ${c.silent} silent`
+      if (c && c.dedupScore != null && c.votes.length)
+        add("confluence", c.dedupScore,
+          `${c.dedupBulls} agree · ${c.dedupBears} object · ${c.silent} silent`
+          + (c.dedupBulls !== c.bulls || c.dedupBears !== c.bears
+            ? ` (de-duplicated from ${c.bulls}▲/${c.bears}▼ — correlated votes collapsed)` : "")
           + (c.notEvaluated && c.notEvaluated.length ? ` · ${c.notEvaluated.join(", ")}` : ""),
           c.votes.length);
       parts.__conv = c;
@@ -3037,6 +3181,27 @@
     }
     return { changed: true, sizes, changedOn };
   }
+  /* Same disclosure shape as universeSpanOf, for a strictly more serious
+     case: a MODEL change. A universe resize leaves each score meaning what
+     it always meant; a scoring-formula change does not. Snapshots recorded
+     before MASTER_MODEL_VERSION was bumped were produced by a different
+     model, so pooling their forward returns with newer ones grades two
+     models as one. Snapshots predating the stamp entirely (recorded before
+     this field existed) are treated as version 1 -- that is what they are,
+     not "unknown", since v1 is by definition the model that ran before the
+     first bump. */
+  function modelSpanOf(snapshots) {
+    const snaps = (snapshots || []).filter(s => s && s.date);
+    if (!snaps.length) return { changed: false, versions: [] };
+    const verOf = (s) => hasNum(s.model) ? s.model : 1;
+    const versions = [...new Set(snaps.map(verOf))].sort((a, b) => a - b);
+    if (versions.length <= 1) return { changed: false, versions };
+    let changedOn = null;
+    for (let i = 1; i < snaps.length; i++) {
+      if (verOf(snaps[i]) !== verOf(snaps[i - 1])) { changedOn = snaps[i].date; break; }
+    }
+    return { changed: true, versions, changedOn };
+  }
   const TRACKED_SIGNALS = [
     { key: "mk", label: "Master Signal (rank)", note: "does the top of the board actually beat the bottom" },
     { key: "cb", label: "Signal Confluence", note: "do names with several agreeing signals outperform" },
@@ -3050,7 +3215,7 @@
   ];
   function proofStatusOf(history, horizons = [[28, "4 weeks"], [84, "12 weeks"]], minObs = 20) {
     const H = Array.isArray(history) ? history : [];
-    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [], universeSpan: { changed: false, sizes: [] } };
+    if (!H.length) return { snapshots: 0, since: null, spanDays: 0, signals: [], horizons: [], universeSpan: { changed: false, sizes: [] }, modelSpan: { changed: false, versions: [] } };
     const since = H[0].date, latest = H[H.length - 1].date;
     const spanDays = Math.round((Date.parse(latest) - Date.parse(since)) / 864e5);
     const dayAfter = (iso, n) => new Date(Date.parse(iso) + n * 864e5).toISOString().slice(0, 10);
@@ -3077,7 +3242,7 @@
       const daysLeft = Math.max(0, Math.ceil((Date.parse(unlockDate) - Date.parse(latest)) / 864e5));
       return { days, label, unlockDate, daysLeft, ready: daysLeft === 0 };
     });
-    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs, universeSpan: universeSpanOf(H) };
+    return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs, universeSpan: universeSpanOf(H), modelSpan: modelSpanOf(H) };
   }
 
   function calibrationOf(history, horizonDays) {
@@ -3121,7 +3286,7 @@
         if (e.ib != null && e.ib > 0) rec("Insider buying", e.ib >= 2 ? "2+ buyers (cluster)" : "1 buyer", ret);
       }
     }
-    const out = { horizonDays, windows, groups: {}, universeSpan: universeSpanOf([...usedSnapshots.values()]) };
+    const out = { horizonDays, windows, groups: {}, universeSpan: universeSpanOf([...usedSnapshots.values()]), modelSpan: modelSpanOf([...usedSnapshots.values()]) };
     for (const [g, buckets] of Object.entries(groups)) {
       out.groups[g] = Object.entries(buckets).map(([bucket, b]) => ({
         bucket, n: b.n, hitRate: b.hits / b.n, avg: b.sum / b.n, judged: b.n >= 20,
@@ -4690,7 +4855,8 @@
       proofHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid ${anyReady ? "var(--green)" : "var(--amber)"}">
         <h3>🔬 PROOF SCOREBOARD <span class="unit">what this terminal has actually proven — and exactly when each answer arrives</span></h3>
         <div class="note" style="margin:6px 0 10px"><b>Read this before trusting any score on any page.</b> Every signal here is an <b>untested hypothesis</b> until forward returns judge it. The blocker is calendar time, not sample size: a 4-week verdict needs 4 weeks of history no matter how many names are tracked. Recording began <b>${ps.since || "—"}</b> — ${ps.snapshots} snapshot${ps.snapshots === 1 ? "" : "s"} over ${ps.spanDays} day${ps.spanDays === 1 ? "" : "s"}. Signals added later start their own clock, shown per row. Nothing is backfilled, because backfilling a signal against prices it never saw is how backtests lie.
-          ${ps.universeSpan && ps.universeSpan.changed ? `<br><b style="color:var(--amber)">Universe size changed during this history</b> (${ps.universeSpan.sizes.join(" → ")} names, on ${ps.universeSpan.changedOn}). Bucket stats below can span both sizes — the Master Signal rank-tier row is self-normalized per day and unaffected, but every other row pools observations from whichever universe size was in effect that day.` : ""}</div>
+          ${ps.universeSpan && ps.universeSpan.changed ? `<br><b style="color:var(--amber)">Universe size changed during this history</b> (${ps.universeSpan.sizes.join(" → ")} names, on ${ps.universeSpan.changedOn}). Bucket stats below can span both sizes — the Master Signal rank-tier row is self-normalized per day and unaffected, but every other row pools observations from whichever universe size was in effect that day.` : ""}
+          ${ps.modelSpan && ps.modelSpan.changed ? `<br><b style="color:var(--red)">The scoring model itself changed during this history</b> (v${ps.modelSpan.versions.join(" → v")}, on ${ps.modelSpan.changedOn}). This is more serious than a universe resize: a resize leaves every score meaning what it always meant, but a model change does not. Master Signal observations recorded before ${ps.modelSpan.changedOn} were produced by a <b>different model</b> than the one running now, so any Master Signal / confluence verdict pooled across that date is grading two models as one. Treat the pre-change portion of that record as belonging to the old model — the current model's clock effectively restarts at ${ps.modelSpan.changedOn}.` : ""}</div>
         <div class="grid g2" style="margin-bottom:10px">
           ${ps.horizons.map(h => `<div class="card" style="border-left:3px solid ${h.ready ? "var(--green)" : "var(--amber)"};margin:0">
             <h3>${h.label.toUpperCase()} HORIZON</h3>
@@ -6098,6 +6264,7 @@
       px: s.closes[s.closes.length - 1],
       move: retOver(s, 1),
       color: s.color || "var(--cyan)",
+      closes: s.closes,   // real monthly closes -> tile sparkline
     }));
     const gainers = [...DATA].filter(d => moverChange(d) > 0).sort((a, b) => moverChange(b) - moverChange(a)).slice(0, 3);
     const losers = [...DATA].filter(d => moverChange(d) < 0).sort((a, b) => moverChange(a) - moverChange(b)).slice(0, 3);
@@ -6139,7 +6306,7 @@
       </div>`;
     };
     const marketTile = (x) => `<button class="bz-index-tile" data-sector="${x.t}" type="button" style="--tile:${x.color}">
-      <b>${x.t}</b><span>${fmtPx(x.px)}</span><em class="${signCls(x.move)}">${pct(x.move, 1)} 1M</em>
+      <b>${x.t}</b>${seriesSpark(x.closes, "tile-spark", x.move)}<span>${fmtPx(x.px)}</span><em class="${signCls(x.move)}">${pct(x.move, 1)} 1M</em>
     </button>`;
     const storyAge = (a) => {
       if (!a.datetime) return "latest";
@@ -6231,7 +6398,7 @@
             <span id="homeLiveStatus" class="sub">${state.liveStatus.lastFullRefresh ? `${liveCoverage} live · updated ${Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000)}s ago` : "fetching live prices…"}${state.liveStatus.lastError ? ` · last error: ${escapeHtml(state.liveStatus.lastError)}` : ""}</span>
             ${state.liveStatus.lastFullRefresh && liveCoverage === 0 ? `<span class="sub" style="color:var(--orange)">No live quotes reached this device — the free Yahoo feed is being blocked (CORS relay or network). <b>Prices below are the last pipeline close, not intraday.</b> A free Finnhub key in ⚙️ bypasses the relays entirely.</span>`
               : liveCoverage && liveCoverage < DATA.length * 0.5 ? `<span class="sub">Partial live coverage — the rest show the last pipeline close.</span>` : ""}
-            ${liveCoverage < 40 && !state.keys.finnhub ? `<span class="sub">For instant live quotes (no proxy): add a free <b>Finnhub</b> key in ⚙️.</span>` : ""}
+            ${liveCoverage < 40 && !state.keys.finnhub ? `<button id="homeConnectLive" type="button" style="cursor:pointer;background:rgba(38,208,124,.12);border:1px solid rgba(38,208,124,.45);border-radius:6px;padding:4px 11px;color:var(--green);font-weight:700">⚡ Connect live prices — free, 30s</button><span class="sub">Until then every price on this page is the last pipeline close, not intraday.</span>` : ""}
           </div>
           <div class="bz-mover-cols">
             <div><h3>GAINERS</h3>${gainers.length ? gainers.map(moverCompact).join("") : `<div class="note">No positive movers loaded yet.</div>`}</div>
@@ -6344,6 +6511,17 @@
     const openConvBtn = el("openConv");
     if (openConvBtn) openConvBtn.onclick = showSetups;
     el("main").querySelectorAll("[data-narr]").forEach(r => r.onclick = (e) => { e.stopPropagation(); showNarratives(); });
+    // "0/224 live" was previously stated as a sentence the user had to act on
+    // by hunting for a gear icon. It is the app's biggest functional gap --
+    // without a key every price shown is a stale pipeline close -- so it now
+    // routes straight into the settings modal with the Finnhub field focused.
+    // Delegates to gearBtn so the key-prefill logic stays in one place.
+    const connectLive = el("homeConnectLive");
+    if (connectLive) connectLive.onclick = () => {
+      el("gearBtn").click();
+      const f = el("finnhubKey");
+      if (f) { try { f.focus(); } catch (err) { /* focus is best-effort */ } }
+    };
     const refreshBtn = el("homeRefreshPrices");
     if (refreshBtn) refreshBtn.onclick = async () => {
       refreshBtn.textContent = "↻ refreshing…"; refreshBtn.disabled = true;
@@ -7068,10 +7246,11 @@
       el("cmdInput").focus();
       flash("Ticker search ready", "ok");
     };
-    el("backdrop").onclick = closeDrawer;
+    el("backdrop").onclick = () => { closeMoreSheet(); closeDrawer(); };
     window.addEventListener("resize", syncMobileChrome);
 
     renderTopNav();
+    renderTabBar();
     showHome();
     syncMobileChrome();
     updateLiveDot();
@@ -7100,13 +7279,13 @@
     directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, momentumPart, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
-    NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, CONVICTION_CLUSTERS,
+    NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, clusterAdjustedVoteCounts, CONVICTION_CLUSTERS,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     fetchYahooSparkBatch, applySparkResult,
     forwardPeCurveOf, forwardPeUniverse, annualEstOf,
-    TRACKED_SIGNALS, proofStatusOf, universeSpanOf,
+    TRACKED_SIGNALS, proofStatusOf, universeSpanOf, modelSpanOf, MASTER_MODEL_VERSION,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown,

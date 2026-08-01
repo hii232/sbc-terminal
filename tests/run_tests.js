@@ -459,13 +459,27 @@ const ok = (cond, name, detail = "") => {
     }
   }
   ok(checkedReal > 0, "at least one real bundled report has a driftScoreOf reaction to check", String(checkedReal));
-  // >=90%, not a hard 100%: this walks the LIVE earnings ledger (its
-  // membership shifts with Date.now() as reports age in/out of the 45-day
-  // window), so a small number of names sitting exactly at a data-
-  // availability boundary (e.g. very little pd.v history) can legitimately
-  // diverge without the underlying daily-close mechanism being wrong --
-  // verified separately via direct computation that it is.
-  ok(matchedDaily / checkedReal >= 0.9, "the vast majority of real reports' shown reaction matches a daily-close (d.pd) computation, not a weekly one", `${matchedDaily}/${checkedReal}`);
+  // Back to a hard 100%. An earlier version of this test was loosened to 90%
+  // after CI drift, on the assumption the stragglers were a benign
+  // data-availability boundary. They were not: they were companies that
+  // reported AFTER the bundle's last daily close, where driftScoreOf fell
+  // back to weekly bars and reported pre-earnings drift as the post-earnings
+  // reaction. That is now fixed at the source (no covering data -> no
+  // reaction term), so an exact match is once again the correct assertion.
+  ok(matchedDaily === checkedReal, "every real report's shown reaction matches a daily-close (d.pd) computation, not a weekly one", `${matchedDaily}/${checkedReal}`);
+  // and the names with no post-report tape must say so rather than showing a number
+  let noTape = 0, noTapeWithNumber = 0;
+  for (const r of realLedger) {
+    const dR = DATA.find(x => x.ticker === r.symbol);
+    if (!dR || !dR.pd || !dR.pd.to) continue;
+    const dsReal = E.driftScoreOf(r, dR);
+    if (!dsReal) continue;
+    if (dsReal.bits.some(b => /no post-report price data yet/.test(b))) {
+      noTape++;
+      if (dsReal.bits.some(b => /^tape since report/.test(b))) noTapeWithNumber++;
+    }
+  }
+  ok(noTapeWithNumber === 0, "a report with no post-report price data never also shows a 'tape since report' number", String(noTapeWithNumber));
   ok(divergedFromWeekly > 0, "the daily-resolution reaction differs meaningfully from the old weekly-bucketed value for real reports (proving the fix changed real output, not just refactored)", String(divergedFromWeekly));
 
   // calibration: pure math over synthetic snapshots
@@ -1484,6 +1498,90 @@ const ok = (cond, name, detail = "") => {
     ok(smallAccel.forming === null, "a small delta under the FORMING threshold does not trigger it");
   }
 }
+
+// =============== 34. Master Signal confluence pillar: de-duplicated tally + model versioning ===============
+{
+  ok(typeof E.clusterAdjustedVoteCounts === "function", "clusterAdjustedVoteCounts is exported for direct testing");
+  const mkVotes = (obj) => Object.entries(obj).map(([key, dir]) => ({ key, dir }));
+
+  // counts, not just a net: 4 correlated bulls collapse to ONE bull
+  const four = E.clusterAdjustedVoteCounts(mkVotes({ revisions: 1, beat: 1, drift: 1, narrative: 1 }), E.CONVICTION_CLUSTERS);
+  ok(four.bulls === 1 && four.bears === 0, "four correlated bullish votes collapse to 1 bull / 0 bears", JSON.stringify(four));
+  // a cluster whose members disagree is ambiguity -- neither a bull nor a bear
+  const mixed = E.clusterAdjustedVoteCounts(mkVotes({ revisions: 1, beat: -1 }), E.CONVICTION_CLUSTERS);
+  ok(mixed.bulls === 0 && mixed.bears === 0, "a cluster whose members disagree contributes neither a bull nor a bear", JSON.stringify(mixed));
+  // uncorrelated votes still count individually
+  const solo = E.clusterAdjustedVoteCounts(mkVotes({ insider: 1, whale: 1, tier1: -1 }), E.CONVICTION_CLUSTERS);
+  ok(solo.bulls === 2 && solo.bears === 1, "uncorrelated votes each count on their own", JSON.stringify(solo));
+
+  // the refactor must not have changed netForSizing's meaning: net is still
+  // exactly bulls-minus-bears from the same counts, for every real name
+  let netMismatch = 0;
+  for (const d of DATA) {
+    const c = E.convictionOf(d);
+    const counts = E.clusterAdjustedVoteCounts(c.votes, E.CONVICTION_CLUSTERS);
+    if (c.netForSizing !== counts.bulls - counts.bears) netMismatch++;
+    if (E.clusterAdjustedNet(c.votes, E.CONVICTION_CLUSTERS) !== counts.bulls - counts.bears) netMismatch++;
+  }
+  ok(netMismatch === 0, "netForSizing and clusterAdjustedNet both still equal (dedup bulls - dedup bears) for every real name", String(netMismatch));
+
+  // The defect: the confluence pillar (weight 24 of the whole-universe
+  // ranking) scored the RAW tally, so a name confirming one analyst-revision
+  // figure four times outranked a name with genuinely independent agreement.
+  let scoredNames = 0, differs = 0, dedupNeverHigherWhenCollapsed = 0;
+  for (const d of DATA) {
+    const c = E.convictionOf(d);
+    if (c.score == null) continue;
+    scoredNames++;
+    ok_silent(Number.isFinite(c.dedupScore), d.ticker);
+    if (c.dedupScore !== c.score) differs++;
+    // when correlated bulls actually collapsed, the de-duplicated score must
+    // not come out HIGHER than the raw one -- removing double-counted
+    // agreement can only lower (or hold) a bullish reading
+    if (c.dedupBulls < c.bulls && c.dedupBears === c.bears && c.dedupScore > c.score) dedupNeverHigherWhenCollapsed++;
+  }
+  ok(scoredNames > 0, "at least some real names have a scored conviction", String(scoredNames));
+  ok(differs > 0, "the de-duplicated confluence score genuinely differs from the raw one for real names (proving the pillar changed, not just got renamed)", String(differs));
+  ok(dedupNeverHigherWhenCollapsed === 0, "collapsing correlated BULLS never raises the confluence score", String(dedupNeverHigherWhenCollapsed));
+
+  // the Master Signal must now consume the de-duplicated score, and the
+  // Conviction Board's own raw display must be untouched
+  const target = DATA.find(d => { const c = E.convictionOf(d); return c.score != null && c.dedupScore !== c.score; });
+  ok(target !== undefined, "found a real name whose raw and de-duplicated confluence scores differ, to test the pillar wiring");
+  if (target) {
+    const c = E.convictionOf(target);
+    const ms = E.masterSignalOf(target, {});
+    const pillar = ms && ms.parts && ms.parts.confluence;
+    ok(pillar && pillar.score === c.dedupScore,
+      "the Master Signal's confluence pillar scores the DE-DUPLICATED tally, not the raw one",
+      `pillar=${pillar && pillar.score} dedup=${c.dedupScore} raw=${c.score}`);
+    ok(/de-duplicated from/.test(pillar.why), "the pillar's why-text discloses that correlated votes were collapsed", pillar.why);
+    ok(c.bulls >= c.dedupBulls && c.bears >= c.dedupBears,
+      "raw bulls/bears (what the Conviction Board displays) are never below the de-duplicated counts — the raw tally is left as cast");
+  }
+
+  // MODEL VERSIONING: a scoring-formula change must be detectable in the
+  // recorded history, or the Proof Scoreboard silently grades two different
+  // models as one.
+  ok(typeof E.modelSpanOf === "function", "modelSpanOf is exported for direct testing");
+  ok(Number.isInteger(E.MASTER_MODEL_VERSION) && E.MASTER_MODEL_VERSION >= 2,
+    "MASTER_MODEL_VERSION is stamped and was bumped for this ranking change", String(E.MASTER_MODEL_VERSION));
+  const snap = (date, model) => model == null ? { date, entries: [] } : { date, model, entries: [] };
+  ok(E.modelSpanOf([]).changed === false, "empty history -> no model change, never a crash");
+  ok(E.modelSpanOf([snap("2026-01-01", 2), snap("2026-01-02", 2)]).changed === false, "a constant model version reports no change");
+  const spanned = E.modelSpanOf([snap("2026-01-01", 1), snap("2026-01-02", 1), snap("2026-01-03", 2)]);
+  ok(spanned.changed === true && spanned.versions.join(",") === "1,2" && spanned.changedOn === "2026-01-03",
+    "a real model change is detected with both versions and the exact date it changed", JSON.stringify(spanned));
+  // snapshots predating the stamp are v1 by definition, not "unknown"
+  const legacy = E.modelSpanOf([snap("2026-01-01", null), snap("2026-01-02", 2)]);
+  ok(legacy.changed === true && legacy.versions.join(",") === "1,2" && legacy.changedOn === "2026-01-02",
+    "unstamped legacy snapshots are treated as v1, so the first bump is still detected", JSON.stringify(legacy));
+  // wired through both consumers
+  const psReal = E.proofStatusOf(TRACK_HISTORY);
+  ok(psReal.modelSpan && typeof psReal.modelSpan.changed === "boolean", "proofStatusOf always returns a modelSpan field");
+  ok(E.calibrationOf(TRACK_HISTORY, 28).modelSpan !== undefined, "calibrationOf always returns a modelSpan field");
+}
+function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for ${label}`); }
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

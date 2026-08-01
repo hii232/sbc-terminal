@@ -91,7 +91,10 @@ const histFile = path.join(trackDir, "history.json");
 let hist = [];
 if (fs.existsSync(histFile)) hist = JSON.parse(fs.readFileSync(histFile, "utf8"));
 hist = hist.filter(s => s.date !== today);           // one per day
-hist.push({ date: today, universe: DATA.length, entries, narrs });
+// `model` stamps which version of the scoring model produced these numbers.
+// Without it, a formula change silently pools two different models' forward
+// returns into one "track record" -- the exact way a track record lies.
+hist.push({ date: today, universe: DATA.length, model: E.MASTER_MODEL_VERSION ?? 1, entries, narrs });
 hist.sort((a, b) => a.date.localeCompare(b.date));
 fs.writeFileSync(histFile, JSON.stringify(hist), "utf8");
 

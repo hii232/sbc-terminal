@@ -187,15 +187,70 @@ async function main() {
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "domcontentloaded" });
-    await page.waitForSelector("#topnav .topnav-group", { timeout: 10000 });
-    const mobile = await page.evaluate(() => ({
-      groups: document.querySelectorAll("#topnav .topnav-group").length,
-      topOffset: Math.round(document.querySelector("#topnav")?.getBoundingClientRect().top ?? -1),
-      overflow: document.documentElement.scrollWidth > window.innerWidth + 2,
-    }));
-    ok(mobile.groups >= 4, "mobile top-nav groups present");
-    ok(mobile.topOffset >= 0 && mobile.topOffset < 200, "top nav sits at the top of the screen");
+    // On mobile the scrolling top nav is replaced by a fixed 5-tab bottom bar
+    // (Home/Setups/Earnings/Portfolio/More); everything not on the bar lives
+    // in the More sheet, so all 18 tools stay reachable in at most two taps.
+    await page.waitForSelector("#tabbar button", { timeout: 10000 });
+    const mobile = await page.evaluate(() => {
+      const bar = document.querySelector("#tabbar");
+      const r = bar.getBoundingClientRect();
+      return {
+        tabs: bar.querySelectorAll("button").length,
+        topnavHidden: getComputedStyle(document.querySelector("#topnav")).display === "none",
+        pinnedToBottom: Math.abs(r.bottom - window.innerHeight) < 2,
+        sheetTools: document.querySelectorAll("#moreSheet [data-tool]").length,
+        overflow: document.documentElement.scrollWidth > window.innerWidth + 2,
+      };
+    });
+    ok(mobile.tabs === 5, "mobile shows exactly 5 bottom tabs", String(mobile.tabs));
+    ok(mobile.topnavHidden, "the scrolling top nav is hidden on mobile in favour of the tab bar");
+    ok(mobile.pinnedToBottom, "the tab bar is pinned to the bottom of the viewport");
     ok(!mobile.overflow, "mobile viewport has horizontal overflow");
+    // every one of the 18 tools is still reachable: 4 on the bar + the rest in More
+    ok(mobile.sheetTools + 4 === 18, "all 18 tools reachable (4 tabs + More sheet)", `${mobile.sheetTools}+4`);
+    // the More sheet actually opens and routes
+    await page.evaluate(() => document.querySelector('#tabbar [data-tab="__more"]').click());
+    await page.waitForFunction(() => document.querySelector("#moreSheet")?.classList.contains("open"), { timeout: 3000 });
+    await page.evaluate(() => document.querySelector('#moreSheet [data-tool="screenBtn"]').click());
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("CUSTOM SCREENER"), { timeout: 5000 });
+    ok(await page.evaluate(() => !document.querySelector("#moreSheet").classList.contains("open")),
+      "picking a tool from the More sheet closes it");
+    await page.evaluate(() => document.querySelector('#tabbar [data-tab="homeBtn"]').click());
+    await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Owner-Earnings Dashboard"), { timeout: 5000 });
+
+    // Sparklines are the element that makes a finance row scannable; they were
+    // previously display:none on mobile. A tile's line must also agree with the
+    // number printed under it -- colouring the 13-month shape by its own
+    // first-to-last once put a green line above a red -19.3% 1M.
+    const sparks = await page.evaluate(() => {
+      const tiles = [...document.querySelectorAll(".bz-index-tile")].map((t) => ({
+        stroke: t.querySelector(".tile-spark path")?.getAttribute("stroke"),
+        down: !!t.querySelector("em")?.classList.contains("down"),
+        hasSpark: !!t.querySelector(".tile-spark"),
+      }));
+      const moverSpark = document.querySelector(".bz-mover .bz-spark svg");
+      return {
+        tiles,
+        tileSparks: tiles.filter((t) => t.hasSpark).length,
+        moverSparks: document.querySelectorAll(".bz-mover .bz-spark svg").length,
+        moverSparkVisible: moverSpark ? getComputedStyle(moverSpark.parentElement).display !== "none" : false,
+      };
+    });
+    ok(sparks.tileSparks >= 3, "index tiles draw sparklines", String(sparks.tileSparks));
+    ok(sparks.moverSparks >= 2, "mover rows draw sparklines on mobile", String(sparks.moverSparks));
+    ok(sparks.moverSparkVisible, "mover sparklines are visible on mobile, not display:none");
+    const mismatched = sparks.tiles.filter((t) => t.stroke && (t.down !== (t.stroke === "var(--red)")));
+    ok(mismatched.length === 0, "every index tile's sparkline colour agrees with its own % sign", JSON.stringify(mismatched));
+
+    // The "0/224 live" state must be actionable, not just described.
+    const hasConnect = await page.evaluate(() => !!document.querySelector("#homeConnectLive"));
+    if (hasConnect) {
+      await page.evaluate(() => document.querySelector("#homeConnectLive").click());
+      await page.waitForFunction(() => document.querySelector("#modal")?.classList.contains("open"), { timeout: 3000 });
+      ok(await page.evaluate(() => document.activeElement?.id === "finnhubKey"),
+        "connect-live focuses the Finnhub key field");
+      await page.evaluate(() => document.querySelector("#closeModal").click());
+    }
     await page.evaluate(() => document.querySelector("#navList").click());
     await page.waitForSelector("#watchlist .spark", { timeout: 10000 });
     const mobileList = await page.evaluate(() => ({
@@ -217,8 +272,13 @@ async function main() {
       await context.setOffline(true);
       await page.reload({ waitUntil: "domcontentloaded" });
       await page.waitForSelector("#main", { timeout: 10000 });
-      await page.waitForSelector("#topnav .topnav-group", { timeout: 10000 });
+      // still at the mobile viewport here, so the top nav is display:none --
+      // assert it rebuilt in the DOM ('attached', not 'visible') and that the
+      // tab bar, which is the nav the user actually sees on mobile, is live.
+      await page.waitForSelector("#topnav .topnav-group", { state: "attached", timeout: 10000 });
       ok((await page.$$("#topnav .topnav-group")).length >= 4, "offline reload lost the top-nav shell");
+      await page.waitForSelector("#tabbar button", { timeout: 10000 });
+      ok((await page.$$("#tabbar button")).length === 5, "offline reload lost the mobile tab bar");
       await context.setOffline(false);
     }
 
