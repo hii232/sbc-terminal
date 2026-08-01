@@ -124,7 +124,53 @@ def matched_pair(S, L, key):
     return None, None, f, []
 
 
+def aligned_pair(S, L, key):
+    """Same-fiscal-year comparison, mirroring the app's own secCheckOf: pick
+    the LATEST year where both the SEC history and the fy-aligned terminal
+    series carry a value. Latest-vs-latest breaks in BOTH directions during
+    filing windows — SEC ahead of the provider (MSFT's June-FY 10-K) or the
+    provider ahead of SEC (COIN's capex tag history ends in 2022 while Yahoo
+    keeps publishing). Only usable when the terminal series length matches the
+    fy label list; otherwise alignment is unknown and the caller falls back."""
+    f = (S.get("f") or {}).get(key)
+    hist = (f or {}).get("hist") or []
+    series = L.get(key) or []
+    fy = L.get("fy") or []
+    if not hist or not series or len(series) != len(fy):
+        return None
+    sec_by_year = {}
+    for x in hist:
+        end = x.get("periodEnd") or ""
+        if len(end) >= 4 and x.get("value") is not None:
+            y = end[:4]
+            prev = sec_by_year.get(y)
+            if prev is None or x.get("filed", "") > prev.get("filed", ""):
+                sec_by_year[y] = x
+    local_by_year = {y: v for y, v in zip(fy, series) if v is not None}
+    common = sorted(set(sec_by_year) & set(local_by_year))
+    if not common:
+        return None
+    y = common[-1]
+    return sec_by_year[y]["value"], local_by_year[y], sec_by_year[y], y
+
+
 def compare_field(S, L, key, local_key, tol, label, severity):
+    ap = aligned_pair(S, L, key)
+    if ap:
+        raw_sv, lv, h, year = ap
+        sv = raw_sv / 1e9
+        diff = abs(lv - sv) / max(abs(sv), 1e-9)
+        status = "verified" if diff <= tol else "CONFLICT"
+        return {
+            "label": label,
+            "severity": severity,
+            "status": status,
+            "comparedFiscalYear": year,
+            "secB": round(sv, 3),
+            "terminalB": round(lv, 3),
+            "diffPct": round(diff * 100, 2),
+            "evidence": evidence(h),
+        }, status == "verified", status == "CONFLICT"
     raw_sv, lv, f, hist = matched_pair(S, L, key)
     sv = raw_sv / 1e9 if raw_sv is not None else None
     if sv is None or lv is None:
