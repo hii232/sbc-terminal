@@ -217,6 +217,40 @@ async function main() {
       "picking a tool from the More sheet closes it");
     await page.evaluate(() => document.querySelector('#tabbar [data-tab="homeBtn"]').click());
     await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("Owner-Earnings Dashboard"), { timeout: 5000 });
+
+    // Sparklines are the element that makes a finance row scannable; they were
+    // previously display:none on mobile. A tile's line must also agree with the
+    // number printed under it -- colouring the 13-month shape by its own
+    // first-to-last once put a green line above a red -19.3% 1M.
+    const sparks = await page.evaluate(() => {
+      const tiles = [...document.querySelectorAll(".bz-index-tile")].map((t) => ({
+        stroke: t.querySelector(".tile-spark path")?.getAttribute("stroke"),
+        down: !!t.querySelector("em")?.classList.contains("down"),
+        hasSpark: !!t.querySelector(".tile-spark"),
+      }));
+      const moverSpark = document.querySelector(".bz-mover .bz-spark svg");
+      return {
+        tiles,
+        tileSparks: tiles.filter((t) => t.hasSpark).length,
+        moverSparks: document.querySelectorAll(".bz-mover .bz-spark svg").length,
+        moverSparkVisible: moverSpark ? getComputedStyle(moverSpark.parentElement).display !== "none" : false,
+      };
+    });
+    ok(sparks.tileSparks >= 3, "index tiles draw sparklines", String(sparks.tileSparks));
+    ok(sparks.moverSparks >= 2, "mover rows draw sparklines on mobile", String(sparks.moverSparks));
+    ok(sparks.moverSparkVisible, "mover sparklines are visible on mobile, not display:none");
+    const mismatched = sparks.tiles.filter((t) => t.stroke && (t.down !== (t.stroke === "var(--red)")));
+    ok(mismatched.length === 0, "every index tile's sparkline colour agrees with its own % sign", JSON.stringify(mismatched));
+
+    // The "0/224 live" state must be actionable, not just described.
+    const hasConnect = await page.evaluate(() => !!document.querySelector("#homeConnectLive"));
+    if (hasConnect) {
+      await page.evaluate(() => document.querySelector("#homeConnectLive").click());
+      await page.waitForFunction(() => document.querySelector("#modal")?.classList.contains("open"), { timeout: 3000 });
+      ok(await page.evaluate(() => document.activeElement?.id === "finnhubKey"),
+        "connect-live focuses the Finnhub key field");
+      await page.evaluate(() => document.querySelector("#closeModal").click());
+    }
     await page.evaluate(() => document.querySelector("#navList").click());
     await page.waitForSelector("#watchlist .spark", { timeout: 10000 });
     const mobileList = await page.evaluate(() => ({

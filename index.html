@@ -209,6 +209,7 @@
   .bz-mover strong span{margin-top:5px;padding:4px 7px;border-radius:6px;color:#fff;font-size:12px;font-weight:900}
   .bz-mover strong span.up{background:#18b982}.bz-mover strong span.down{background:#ef4d66}
   .bz-spark .spark{display:block;width:96px;height:36px}
+  .bz-index-tile .tile-spark{display:block;width:100%;height:22px;margin:2px 0 1px;opacity:.95}
   .bz-brief{display:flex;align-items:center;justify-content:space-between;gap:14px;border-radius:0;padding:18px 16px}
   .bz-brief p{margin-top:7px;color:#fff;font-size:21px;line-height:1.28;font-weight:850}
   .bz-brief span{display:block;margin-top:8px;color:var(--muted);font-size:13px}
@@ -595,11 +596,15 @@
     .bz-section-head button,.bz-brief button,.bz-feature button{padding:8px 11px;font-size:12px}
     .bz-mover-cols{grid-template-columns:1fr 1fr;gap:10px}
     .bz-mover-cols h3{font-size:13px}
-    .bz-mover{grid-template-columns:minmax(0,1fr) auto;gap:6px;min-height:70px;padding:10px 0}
-    .bz-mover .bz-spark{display:none}
-    .bz-mover b{font-size:23px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .bz-mover strong{font-size:16px}
-    .bz-mover strong span{font-size:14px}
+    /* Sparklines were hidden on mobile, which removed the one element that
+       makes a finance row scannable at a glance. They are back at a size that
+       fits the two-column mover grid. */
+    .bz-mover{grid-template-columns:minmax(0,1fr) auto;gap:5px;min-height:62px;padding:8px 0}
+    .bz-mover .bz-spark{display:block;grid-column:1/-1;order:3;margin-top:2px}
+    .bz-mover .bz-spark .spark{width:100%;height:26px}
+    .bz-mover b{font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .bz-mover strong{font-size:14px}
+    .bz-mover strong span{font-size:12px}
     .bz-brief{align-items:flex-start;padding:16px 14px}
     .bz-brief p{font-size:20px}
     .bz-feature{grid-template-columns:74px minmax(0,1fr) auto;gap:10px}

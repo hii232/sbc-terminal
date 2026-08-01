@@ -872,6 +872,25 @@
       <path d="${line}" fill="none" stroke="${col}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`;
   }
+  /* miniSpark() takes a company row; this takes a bare number series, so the
+     index tiles can draw the same shape from a sector's close history. Colour
+     follows first-to-last, matching the sparkline convention used elsewhere. */
+  function seriesSpark(vals, cls, dir) {
+    const a = (vals || []).filter(hasNum);
+    if (a.length < 2) return "";
+    const W = 88, H = 26, P = 2;
+    const lo = Math.min(...a), hi = Math.max(...a), rng = hi - lo || 1;
+    const x = i => P + (i / (a.length - 1)) * (W - P * 2);
+    const y = v => P + (H - P * 2) - ((v - lo) / rng) * (H - P * 2);
+    const line = a.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    // Colour follows `dir` when the caller supplies one, so the line agrees
+    // with the number printed beside it. The index tiles draw a full 13-month
+    // shape but label a 1-MONTH move: colouring by the series' own first-to-last
+    // showed a green line above a red -19.3%, which reads as a contradiction.
+    const basis = hasNum(dir) ? dir : a.at(-1) - a[0];
+    const col = basis >= 0 ? "var(--green)" : "var(--red)";
+    return `<svg class="spark ${cls || ""}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><path d="${line}" fill="none" stroke="${col}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
   const watchScoreText = (s) => s == null ? "--" : String(Math.round(s));
   function liveHeaderStatus() {
     if (!state.liveStatus.lastFullRefresh) return state.keys.finnhub || state.keys.fmp ? "live pending" : "yahoo pending";
@@ -6245,6 +6264,7 @@
       px: s.closes[s.closes.length - 1],
       move: retOver(s, 1),
       color: s.color || "var(--cyan)",
+      closes: s.closes,   // real monthly closes -> tile sparkline
     }));
     const gainers = [...DATA].filter(d => moverChange(d) > 0).sort((a, b) => moverChange(b) - moverChange(a)).slice(0, 3);
     const losers = [...DATA].filter(d => moverChange(d) < 0).sort((a, b) => moverChange(a) - moverChange(b)).slice(0, 3);
@@ -6286,7 +6306,7 @@
       </div>`;
     };
     const marketTile = (x) => `<button class="bz-index-tile" data-sector="${x.t}" type="button" style="--tile:${x.color}">
-      <b>${x.t}</b><span>${fmtPx(x.px)}</span><em class="${signCls(x.move)}">${pct(x.move, 1)} 1M</em>
+      <b>${x.t}</b>${seriesSpark(x.closes, "tile-spark", x.move)}<span>${fmtPx(x.px)}</span><em class="${signCls(x.move)}">${pct(x.move, 1)} 1M</em>
     </button>`;
     const storyAge = (a) => {
       if (!a.datetime) return "latest";
@@ -6378,7 +6398,7 @@
             <span id="homeLiveStatus" class="sub">${state.liveStatus.lastFullRefresh ? `${liveCoverage} live · updated ${Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000)}s ago` : "fetching live prices…"}${state.liveStatus.lastError ? ` · last error: ${escapeHtml(state.liveStatus.lastError)}` : ""}</span>
             ${state.liveStatus.lastFullRefresh && liveCoverage === 0 ? `<span class="sub" style="color:var(--orange)">No live quotes reached this device — the free Yahoo feed is being blocked (CORS relay or network). <b>Prices below are the last pipeline close, not intraday.</b> A free Finnhub key in ⚙️ bypasses the relays entirely.</span>`
               : liveCoverage && liveCoverage < DATA.length * 0.5 ? `<span class="sub">Partial live coverage — the rest show the last pipeline close.</span>` : ""}
-            ${liveCoverage < 40 && !state.keys.finnhub ? `<span class="sub">For instant live quotes (no proxy): add a free <b>Finnhub</b> key in ⚙️.</span>` : ""}
+            ${liveCoverage < 40 && !state.keys.finnhub ? `<button id="homeConnectLive" type="button" style="cursor:pointer;background:rgba(38,208,124,.12);border:1px solid rgba(38,208,124,.45);border-radius:6px;padding:4px 11px;color:var(--green);font-weight:700">⚡ Connect live prices — free, 30s</button><span class="sub">Until then every price on this page is the last pipeline close, not intraday.</span>` : ""}
           </div>
           <div class="bz-mover-cols">
             <div><h3>GAINERS</h3>${gainers.length ? gainers.map(moverCompact).join("") : `<div class="note">No positive movers loaded yet.</div>`}</div>
@@ -6491,6 +6511,17 @@
     const openConvBtn = el("openConv");
     if (openConvBtn) openConvBtn.onclick = showSetups;
     el("main").querySelectorAll("[data-narr]").forEach(r => r.onclick = (e) => { e.stopPropagation(); showNarratives(); });
+    // "0/224 live" was previously stated as a sentence the user had to act on
+    // by hunting for a gear icon. It is the app's biggest functional gap --
+    // without a key every price shown is a stale pipeline close -- so it now
+    // routes straight into the settings modal with the Finnhub field focused.
+    // Delegates to gearBtn so the key-prefill logic stays in one place.
+    const connectLive = el("homeConnectLive");
+    if (connectLive) connectLive.onclick = () => {
+      el("gearBtn").click();
+      const f = el("finnhubKey");
+      if (f) { try { f.focus(); } catch (err) { /* focus is best-effort */ } }
+    };
     const refreshBtn = el("homeRefreshPrices");
     if (refreshBtn) refreshBtn.onclick = async () => {
       refreshBtn.textContent = "↻ refreshing…"; refreshBtn.disabled = true;
