@@ -2,7 +2,7 @@
  "ticker": "AMZN",
  "cik": "0001018724",
  "entityName": "AMAZON COM INC",
- "retrievedAt": "2026-07-29T13:00:30.698499Z",
+ "retrievedAt": "2026-08-01T18:50:13.077926Z",
  "fields": {
   "buyback": [
    {
@@ -1558,12 +1558,12 @@
     "confidence": 100
    },
    {
-    "value": 10757109436,
+    "value": 10786313572,
     "unit": "shares",
-    "periodEnd": "2026-04-22",
+    "periodEnd": "2026-07-22",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001018724-26-000014",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0001018724-26-000026",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

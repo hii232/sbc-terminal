@@ -2,7 +2,7 @@
  "ticker": "ETN",
  "cik": "0001551182",
  "entityName": "EATON CORPORATION plc",
- "retrievedAt": "2026-07-29T13:01:03.144601Z",
+ "retrievedAt": "2026-08-01T18:50:49.391394Z",
  "fields": {
   "buyback": [
    {
@@ -1766,12 +1766,12 @@
     "confidence": 100
    },
    {
-    "value": 388300000,
+    "value": 388400000,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0001551182-26-000013",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0001551182-26-000030",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

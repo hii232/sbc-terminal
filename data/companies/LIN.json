@@ -1,8 +1,8 @@
 {
  "ticker": "LIN",
  "cik": "0001707925",
- "entityName": "LINDE PLC",
- "retrievedAt": "2026-07-29T13:01:08.884355Z",
+ "entityName": "Linde plc",
+ "retrievedAt": "2026-08-01T18:50:55.108252Z",
  "fields": {
   "buyback": [
    {
@@ -1742,12 +1742,12 @@
     "confidence": 100
    },
    {
-    "value": 462599539,
+    "value": 460980163,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0001628280-26-029165",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0001628280-26-051289",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

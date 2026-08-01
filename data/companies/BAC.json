@@ -2,7 +2,7 @@
  "ticker": "BAC",
  "cik": "0000070858",
  "entityName": "BofA Finance LLC",
- "retrievedAt": "2026-07-29T13:00:48.797017Z",
+ "retrievedAt": "2026-08-01T18:50:36.028123Z",
  "fields": {
   "buyback": [
    {
@@ -1461,12 +1461,12 @@
     "confidence": 100
    },
    {
-    "value": 7096590651,
+    "value": 6992748365,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-30",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0000070858-26-000249",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0000070858-26-000394",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

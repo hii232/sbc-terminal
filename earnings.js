@@ -2,7 +2,7 @@
    Beat/miss ledger + next-report consensus + estimate revisions for the
    official universe. Missing values are null, never zero. */
 const EARNINGS_INTEL = {
- "asOf": "2026-07-29",
+ "asOf": "2026-08-01",
  "source": "Yahoo Finance quoteSummary (earningsHistory, calendarEvents, earningsTrend)",
  "tickers": {
   "A": {
@@ -30,7 +30,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.48614,
    "epsHigh": 1.5,
    "epsLow": 1.43,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.37,
@@ -81,9 +81,9 @@ const EARNINGS_INTEL = {
     "analystsEps": 17,
     "analystsRev": 15,
     "endDate": "2026-07-31",
-    "eps30dAgo": 1.48878,
-    "eps60dAgo": 1.49721,
-    "eps7dAgo": 1.4884,
+    "eps30dAgo": 1.48778,
+    "eps60dAgo": 1.4936,
+    "eps7dAgo": 1.48614,
     "eps90dAgo": 1.49721,
     "epsNow": 1.48614,
     "growth": 0.0848,
@@ -106,20 +106,20 @@ const EARNINGS_INTEL = {
      "revenue": 478846665480
     },
     "fy1": {
-     "analysts": 43,
+     "analysts": 41,
      "endDate": "2027-09-30",
-     "eps": 9.71808,
+     "eps": 9.73237,
      "epsHigh": 10.96,
      "epsLow": 8.79,
-     "growth": 0.1016,
-     "revenue": 523644400140
+     "growth": 0.1028,
+     "revenue": 525634620140
     },
     "lt5y": null
    },
-   "epsEstimate": 1.89138,
+   "epsEstimate": 1.89243,
    "epsHigh": 1.99,
    "epsLow": 1.82,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.57,
@@ -146,10 +146,73 @@ const EARNINGS_INTEL = {
      "surprisePct": 3.46
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "DA Davidson",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-31",
+     "firm": "Needham",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Rosenblatt",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-23",
@@ -170,47 +233,19 @@ const EARNINGS_INTEL = {
      "firm": "Keybanc",
      "from": "Sector Weight",
      "to": "Underweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-13",
-     "firm": "Citigroup",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-25",
-     "firm": "Evercore ISI Group",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "down",
-     "date": "2026-06-22",
-     "firm": "KGI Securities",
-     "from": "Outperform",
-     "to": "Hold"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-18",
-     "firm": "B of A Securities",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 108959817930,
    "trend": {
-    "analystsEps": 31,
+    "analystsEps": 30,
     "analystsRev": 27,
     "endDate": "2026-06-30",
     "eps30dAgo": 1.89429,
     "eps60dAgo": 1.89429,
     "eps7dAgo": 1.89396,
     "eps90dAgo": 1.73951,
-    "epsNow": 1.89138,
-    "growth": 0.2047,
+    "epsNow": 1.89243,
+    "growth": 0.2054,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 24,
@@ -227,30 +262,24 @@ const EARNINGS_INTEL = {
      "epsHigh": 14.68,
      "epsLow": 13.92,
      "growth": 0.4116,
-     "revenue": 67272865920
+     "revenue": 67273986460
     },
     "fy1": {
-     "analysts": 24,
+     "analysts": 25,
      "endDate": "2027-12-31",
-     "eps": 16.29598,
+     "eps": 16.28094,
      "epsHigh": 17.48,
      "epsLow": 15.23669,
-     "growth": 0.15439999,
-     "revenue": 72858638020
+     "growth": 0.1534,
+     "revenue": 72869236440
     },
     "lt5y": null
    },
-   "epsEstimate": 3.60841,
-   "epsHigh": 3.71,
-   "epsLow": 3.54,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.83926,
+   "epsHigh": 4.08,
+   "epsLow": 3.67,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.97,
-     "epsEstimate": 2.90783,
-     "quarter": "2025-06-30",
-     "surprisePct": 2.14
-    },
     {
      "epsActual": 1.86,
      "epsEstimate": 1.78451,
@@ -268,11 +297,18 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.67067,
      "quarter": "2026-03-31",
      "surprisePct": -0.77
+    },
+    {
+     "epsActual": 3.65,
+     "epsEstimate": 3.61114,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 1.08
     }
    ],
-   "nextDate": "2026-07-31",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -359,22 +395,22 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 16762322359,
+   "revEstimate": 17294652850,
    "trend": {
-    "analystsEps": 22,
-    "analystsRev": 21,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 3.76628,
-    "eps60dAgo": 3.76771,
-    "eps7dAgo": 3.65062,
-    "eps90dAgo": 3.74087,
-    "epsNow": 3.60841,
-    "growth": 0.215,
-    "revDown30": 1,
+    "analystsEps": 17,
+    "analystsRev": 17,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 3.8485,
+    "eps60dAgo": 3.84694,
+    "eps7dAgo": 3.83526,
+    "eps90dAgo": 3.84277,
+    "epsNow": 3.83926,
+    "growth": 1.0641,
+    "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 16762322359
+    "revenueAvg": 17294652850
    }
   },
   "ABNB": {
@@ -382,27 +418,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 39,
      "endDate": "2026-12-31",
-     "eps": 5.08495,
+     "eps": 5.08531,
      "epsHigh": 5.76,
      "epsLow": 3.98,
-     "growth": 0.2489,
-     "revenue": 13961877790
+     "growth": 0.2486,
+     "revenue": 13962273750
     },
     "fy1": {
      "analysts": 39,
      "endDate": "2027-12-31",
-     "eps": 6.03236,
+     "eps": 6.03469,
      "epsHigh": 7.58,
      "epsLow": 5.35,
      "growth": 0.19620001,
-     "revenue": 15429632600
+     "revenue": 15430595700
     },
     "lt5y": null
    },
    "epsEstimate": 1.22267,
    "epsHigh": 1.41,
    "epsLow": 0.93,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.03,
@@ -435,6 +471,20 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
+     "date": "2026-07-30",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
      "date": "2026-07-14",
      "firm": "Jefferies",
      "from": "Buy",
@@ -448,22 +498,22 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 3575459130,
+   "revEstimate": 3575594810,
    "trend": {
     "analystsEps": 31,
     "analystsRev": 34,
     "endDate": "2026-06-30",
-    "eps30dAgo": 1.24657,
+    "eps30dAgo": 1.24757,
     "eps60dAgo": 1.24557,
-    "eps7dAgo": 1.247,
+    "eps7dAgo": 1.24857,
     "eps90dAgo": 1.15595,
-    "epsNow": 1.24857,
+    "epsNow": 1.24886,
     "growth": 0.1871,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 3575459130
+    "revenueAvg": 3575594810
    }
   },
   "ABT": {
@@ -491,7 +541,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.41931,
    "epsHigh": 1.44194,
    "epsLow": 1.41,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.3,
@@ -520,7 +570,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -612,8 +662,8 @@ const EARNINGS_INTEL = {
     "analystsEps": 22,
     "analystsRev": 24,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.41993,
-    "eps60dAgo": 1.41932,
+    "eps30dAgo": 1.41982,
+    "eps60dAgo": 1.41993,
     "eps7dAgo": 1.41721,
     "eps90dAgo": 1.42063,
     "epsNow": 1.41931,
@@ -628,36 +678,30 @@ const EARNINGS_INTEL = {
   "ACGL": {
    "annual": {
     "fy0": {
-     "analysts": 20,
+     "analysts": 18,
      "endDate": "2026-12-31",
-     "eps": 9.28158,
-     "epsHigh": 9.7,
-     "epsLow": 8.74,
-     "growth": -0.056799997,
-     "revenue": 16188469000
+     "eps": 9.37231,
+     "epsHigh": 9.85,
+     "epsLow": 8.97,
+     "growth": -0.0475,
+     "revenue": 15739157330
     },
     "fy1": {
      "analysts": 20,
      "endDate": "2027-12-31",
-     "eps": 9.80667,
-     "epsHigh": 11.02918,
+     "eps": 9.781,
+     "epsHigh": 10.80979,
      "epsLow": 9.13,
-     "growth": 0.056599997,
-     "revenue": 16492124000
+     "growth": 0.0436,
+     "revenue": 16148726330
     },
     "lt5y": null
    },
-   "epsEstimate": 2.46174,
-   "epsHigh": 2.82392,
-   "epsLow": 2.29,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.82966,
+   "epsHigh": 2.19,
+   "epsLow": 1.51,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.58,
-     "epsEstimate": 2.29935,
-     "quarter": "2025-06-30",
-     "surprisePct": 12.21
-    },
     {
      "epsActual": 2.77,
      "epsEstimate": 2.25446,
@@ -675,12 +719,33 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.46369,
      "quarter": "2026-03-31",
      "surprisePct": 1.47
+    },
+    {
+     "epsActual": 2.56,
+     "epsEstimate": 2.46174,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 3.99
     }
    ],
    "nextDate": "2026-10-26",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-20",
@@ -731,22 +796,22 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 4202540500,
+   "revEstimate": 3837019000,
    "trend": {
-    "analystsEps": 19,
-    "analystsRev": 6,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 2.40774,
-    "eps60dAgo": 2.4009,
-    "eps7dAgo": 2.45777,
-    "eps90dAgo": 2.47664,
-    "epsNow": 2.46174,
-    "growth": -0.0458,
-    "revDown30": 1,
+    "analystsEps": 18,
+    "analystsRev": 2,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.85238,
+    "eps60dAgo": 1.8529,
+    "eps7dAgo": 1.837,
+    "eps90dAgo": 1.85864,
+    "epsNow": 1.82966,
+    "growth": -0.3395,
+    "revDown30": 3,
     "revDown7": null,
-    "revUp30": 3,
-    "revUp7": 2,
-    "revenueAvg": 4202540500
+    "revUp30": 1,
+    "revUp7": 0,
+    "revenueAvg": 3837019000
    }
   },
   "ACN": {
@@ -774,7 +839,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.17936,
    "epsHigh": 3.23,
    "epsLow": 3.12,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.03,
@@ -874,13 +939,6 @@ const EARNINGS_INTEL = {
      "firm": "Evercore ISI Group",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "down",
-     "date": "2026-06-15",
-     "firm": "Morgan Stanley",
-     "from": "Overweight",
-     "to": "Equal-Weight"
     }
    ],
    "revEstimate": 18040245700,
@@ -926,7 +984,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.07854,
    "epsHigh": 6.35,
    "epsLow": 5.82354,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.31,
@@ -1022,7 +1080,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.33322,
    "epsHigh": 3.42,
    "epsLow": 3.29,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.05,
@@ -1103,36 +1161,30 @@ const EARNINGS_INTEL = {
   "ADP": {
    "annual": {
     "fy0": {
-     "analysts": 14,
-     "endDate": "2026-06-30",
-     "eps": 11.07698,
-     "epsHigh": 11.11,
-     "epsLow": 11.04,
-     "growth": 0.1066,
-     "revenue": 21828196810
+     "analysts": 16,
+     "endDate": "2027-06-30",
+     "eps": 12.24492,
+     "epsHigh": 12.39,
+     "epsLow": 12.11143,
+     "growth": 0.1012,
+     "revenue": 23218182130
     },
     "fy1": {
-     "analysts": 17,
-     "endDate": "2027-06-30",
-     "eps": 12.20285,
-     "epsHigh": 12.38,
-     "epsLow": 11.85063,
-     "growth": 0.1016,
-     "revenue": 23115209530
+     "analysts": 15,
+     "endDate": "2028-06-30",
+     "eps": 13.37146,
+     "epsHigh": 13.66,
+     "epsLow": 13.00475,
+     "growth": 0.092,
+     "revenue": 24553900060
     },
     "lt5y": null
    },
-   "epsEstimate": 2.59887,
-   "epsHigh": 2.63,
-   "epsLow": 2.55,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 2.78095,
+   "epsHigh": 2.96474,
+   "epsLow": 2.67,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.26,
-     "epsEstimate": 2.22652,
-     "quarter": "2025-06-30",
-     "surprisePct": 1.5
-    },
     {
      "epsActual": 2.49,
      "epsEstimate": 2.44263,
@@ -1150,12 +1202,54 @@ const EARNINGS_INTEL = {
      "epsEstimate": 3.29555,
      "quarter": "2026-03-31",
      "surprisePct": 2.26
+    },
+    {
+     "epsActual": 2.64,
+     "epsEstimate": 2.59887,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 1.58
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Stifel",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-22",
@@ -1199,22 +1293,22 @@ const EARNINGS_INTEL = {
      "to": "Hold"
     }
    ],
-   "revEstimate": 5440552830,
+   "revEstimate": 5489210530,
    "trend": {
-    "analystsEps": 15,
-    "analystsRev": 14,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 2.59808,
-    "eps60dAgo": 2.59808,
-    "eps7dAgo": 2.5995,
-    "eps90dAgo": 2.56299,
-    "epsNow": 2.59887,
-    "growth": 0.1499,
-    "revDown30": 3,
+    "analystsEps": 13,
+    "analystsRev": 13,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 2.75264,
+    "eps60dAgo": 2.75264,
+    "eps7dAgo": 2.75702,
+    "eps90dAgo": 2.74102,
+    "epsNow": 2.78095,
+    "growth": 0.1168,
+    "revDown30": 4,
     "revDown7": null,
-    "revUp30": 11,
-    "revUp7": 0,
-    "revenueAvg": 5440552830
+    "revUp30": 9,
+    "revUp7": 2,
+    "revenueAvg": 5489210530
    }
   },
   "ADSK": {
@@ -1242,7 +1336,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.11861,
    "epsHigh": 3.14895,
    "epsLow": 3.07,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.62,
@@ -1271,7 +1365,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-08-27",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "init",
@@ -1331,7 +1425,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.75787,
    "epsHigh": 1.81,
    "epsLow": 1.68,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.78,
@@ -1462,7 +1556,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.92792,
    "epsHigh": 2.21604,
    "epsLow": 1.72,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.81,
@@ -1573,10 +1667,10 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 23,
      "endDate": "2026-12-31",
-     "eps": 31.41825,
+     "eps": 31.44608,
      "epsHigh": 35.08284,
      "epsLow": 28.3,
-     "growth": -0.098000005,
+     "growth": -0.097200006,
      "revenue": 70444069140
     },
     "fy1": {
@@ -1585,15 +1679,15 @@ const EARNINGS_INTEL = {
      "eps": 26.50911,
      "epsHigh": 31.85,
      "epsLow": 23.011,
-     "growth": -0.15630001,
+     "growth": -0.157,
      "revenue": 73490445060
     },
     "lt5y": null
    },
-   "epsEstimate": 6.0425,
+   "epsEstimate": 6.07298,
    "epsHigh": 7.51,
    "epsLow": 4.87,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.94,
@@ -1700,12 +1794,12 @@ const EARNINGS_INTEL = {
     "analystsEps": 21,
     "analystsRev": 2,
     "endDate": "2026-06-30",
-    "eps30dAgo": 4.947,
-    "eps60dAgo": 4.62085,
-    "eps7dAgo": 5.34516,
-    "eps90dAgo": 4.42625,
-    "epsNow": 6.0425,
-    "growth": 0.0173,
+    "eps30dAgo": 5.02726,
+    "eps60dAgo": 4.62585,
+    "eps7dAgo": 6.0425,
+    "eps90dAgo": 4.42125,
+    "epsNow": 6.07298,
+    "growth": 0.0224,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 8,
@@ -1738,7 +1832,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.45087,
    "epsHigh": 1.6,
    "epsLow": 1.37772,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.15,
@@ -1767,7 +1861,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-16",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -1841,7 +1935,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.38874,
    "epsHigh": 3.56,
    "epsLow": 3.17,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.48,
@@ -1980,27 +2074,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 46,
      "endDate": "2026-12-31",
-     "eps": 7.45208,
+     "eps": 7.44795,
      "epsHigh": 9.8,
      "epsLow": 6.57,
-     "growth": 0.7871,
-     "revenue": 49724722100
+     "growth": 0.78610003,
+     "revenue": 49714062530
     },
     "fy1": {
      "analysts": 45,
      "endDate": "2027-12-31",
-     "eps": 13.77774,
+     "eps": 13.8213,
      "epsHigh": 19.46,
      "epsLow": 8.0,
-     "growth": 0.84879994,
-     "revenue": 79581294500
+     "growth": 0.8557,
+     "revenue": 79726209390
     },
     "lt5y": null
    },
-   "epsEstimate": 1.6087,
+   "epsEstimate": 1.61045,
    "epsHigh": 1.74,
    "epsLow": 1.48,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.48,
@@ -2031,6 +2125,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
     {
      "action": "main",
      "date": "2026-07-27",
@@ -2107,31 +2208,24 @@ const EARNINGS_INTEL = {
      "firm": "Keybanc",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-13",
-     "firm": "TD Cowen",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
-   "revEstimate": 11299953750,
+   "revEstimate": 11305415290,
    "trend": {
     "analystsEps": 40,
     "analystsRev": 39,
     "endDate": "2026-06-30",
-    "eps30dAgo": 1.60522,
+    "eps30dAgo": 1.60597,
     "eps60dAgo": 1.60538,
-    "eps7dAgo": 1.60898,
-    "eps90dAgo": 1.41689,
-    "epsNow": 1.6087,
-    "growth": 2.3515,
+    "eps7dAgo": 1.60995,
+    "eps90dAgo": 1.42573,
+    "epsNow": 1.61045,
+    "growth": 2.3551,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 0,
-    "revenueAvg": 11299953750
+    "revenueAvg": 11305415290
    }
   },
   "AMGN": {
@@ -2159,7 +2253,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.6183,
    "epsHigh": 6.28,
    "epsLow": 4.99,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 6.02,
@@ -2231,13 +2325,6 @@ const EARNINGS_INTEL = {
      "firm": "Cantor Fitzgerald",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-16",
-     "firm": "Mizuho",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
    "revEstimate": 9423042070,
@@ -2283,7 +2370,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.81695,
    "epsHigh": 2.1,
    "epsLow": 1.56,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.68,
@@ -2310,72 +2397,93 @@ const EARNINGS_INTEL = {
      "surprisePct": 68.18
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
-     "date": "2026-07-28",
+     "date": "2026-07-31",
      "firm": "UBS",
      "from": "Buy",
      "to": "Buy"
     },
     {
      "action": "main",
-     "date": "2026-07-28",
-     "firm": "BMO Capital",
+     "date": "2026-07-31",
+     "firm": "Telsey Advisory Group",
      "from": "Outperform",
      "to": "Outperform"
     },
     {
      "action": "main",
-     "date": "2026-07-28",
+     "date": "2026-07-31",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
      "firm": "Mizuho",
      "from": "Outperform",
      "to": "Outperform"
     },
     {
-     "action": "reit",
-     "date": "2026-07-23",
-     "firm": "Wedbush",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
      "action": "main",
-     "date": "2026-07-21",
-     "firm": "Wells Fargo",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-16",
-     "firm": "Keybanc",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "reit",
-     "date": "2026-07-15",
-     "firm": "Citizens",
-     "from": "Market Outperform",
-     "to": "Market Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-08",
+     "date": "2026-07-31",
      "firm": "TD Cowen",
      "from": "Buy",
      "to": "Buy"
     },
     {
      "action": "main",
-     "date": "2026-07-02",
+     "date": "2026-07-31",
+     "firm": "DA Davidson",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
      "firm": "Wells Fargo",
      "from": "Overweight",
      "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-31",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Benchmark",
+     "from": "Buy",
+     "to": "Buy"
     }
    ],
    "revEstimate": 196433361480,
@@ -2421,7 +2529,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.88559,
    "epsHigh": 0.92098,
    "epsLow": 0.87,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.73,
@@ -2524,7 +2632,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.1576,
    "epsHigh": 2.3,
    "epsLow": 2.07,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.92,
@@ -2621,27 +2729,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 25,
      "endDate": "2026-12-31",
-     "eps": 16.05279,
+     "eps": 16.03378,
      "epsHigh": 17.24,
      "epsLow": 15.0,
      "growth": 0.55689996,
-     "revenue": 8187016480
+     "revenue": 8181230160
     },
     "fy1": {
      "analysts": 26,
      "endDate": "2027-12-31",
-     "eps": 21.15868,
+     "eps": 21.15921,
      "epsHigh": 25.44,
      "epsLow": 15.72,
      "growth": 0.308,
-     "revenue": 10618637340
+     "revenue": 10617701950
     },
     "lt5y": null
    },
    "epsEstimate": 4.21,
    "epsHigh": 4.21,
    "epsLow": 4.21,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.39,
@@ -2687,22 +2795,22 @@ const EARNINGS_INTEL = {
      "to": "Strong Buy"
     }
    ],
-   "revEstimate": 1942004700,
+   "revEstimate": 1942023770,
    "trend": {
     "analystsEps": 17,
     "analystsRev": 21,
     "endDate": "2026-06-30",
     "eps30dAgo": 3.75405,
-    "eps60dAgo": 3.73699,
+    "eps60dAgo": 3.75405,
     "eps7dAgo": 3.75771,
     "eps90dAgo": 3.68567,
-    "epsNow": 3.75771,
+    "epsNow": 3.7549,
     "growth": 0.7875,
     "revDown30": 4,
     "revDown7": null,
     "revUp30": 12,
     "revUp7": 3,
-    "revenueAvg": 1942004700
+    "revenueAvg": 1942023770
    }
   },
   "ARES": {
@@ -2727,17 +2835,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 1.27172,
-   "epsHigh": 1.33,
-   "epsLow": 1.212,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.42135,
+   "epsHigh": 1.56,
+   "epsLow": 1.342,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.03,
-     "epsEstimate": 1.093,
-     "quarter": "2025-06-30",
-     "surprisePct": -5.76
-    },
     {
      "epsActual": 1.19,
      "epsEstimate": 1.14439,
@@ -2755,6 +2857,13 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.32721,
      "quarter": "2026-03-31",
      "surprisePct": -6.57
+    },
+    {
+     "epsActual": 1.29,
+     "epsEstimate": 1.27172,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 1.44
     }
    ],
    "nextDate": "2026-07-31",
@@ -2797,57 +2906,51 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 1142967800,
+   "revEstimate": 1258458800,
    "trend": {
-    "analystsEps": 13,
+    "analystsEps": 11,
     "analystsRev": 5,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.34691,
-    "eps60dAgo": 1.34691,
-    "eps7dAgo": 1.27612,
-    "eps90dAgo": 1.35996,
-    "epsNow": 1.27172,
-    "growth": 0.2347,
-    "revDown30": 2,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.4836,
+    "eps60dAgo": 1.4836,
+    "eps7dAgo": 1.42947,
+    "eps90dAgo": 1.49346,
+    "epsNow": 1.42135,
+    "growth": 0.19440001,
+    "revDown30": 0,
     "revDown7": null,
-    "revUp30": 0,
-    "revUp7": 0,
-    "revenueAvg": 1142967800
+    "revUp30": 2,
+    "revUp7": 2,
+    "revenueAvg": 1258458800
    }
   },
   "ARM": {
    "annual": {
     "fy0": {
-     "analysts": 38,
+     "analysts": 33,
      "endDate": "2027-03-31",
-     "eps": 2.16948,
+     "eps": 2.22735,
      "epsHigh": 2.42,
-     "epsLow": 1.9,
-     "growth": 0.22569999,
-     "revenue": 5971516640
+     "epsLow": 2.06,
+     "growth": 0.2584,
+     "revenue": 6047581910
     },
     "fy1": {
-     "analysts": 36,
+     "analysts": 37,
      "endDate": "2028-03-31",
-     "eps": 3.07542,
-     "epsHigh": 3.51,
+     "eps": 3.07476,
+     "epsHigh": 3.69,
      "epsLow": 2.59944,
-     "growth": 0.41759998,
-     "revenue": 8103890430
+     "growth": 0.3805,
+     "revenue": 8189095800
     },
     "lt5y": null
    },
-   "epsEstimate": 0.4038,
-   "epsHigh": 0.46,
-   "epsLow": 0.37,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.4666,
+   "epsHigh": 0.51,
+   "epsLow": 0.42,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.35,
-     "epsEstimate": 0.3511,
-     "quarter": "2025-06-30",
-     "surprisePct": -0.31
-    },
     {
      "epsActual": 0.39,
      "epsEstimate": 0.33134,
@@ -2865,12 +2968,75 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.5793,
      "quarter": "2026-03-31",
      "surprisePct": 3.57
+    },
+    {
+     "epsActual": 0.45,
+     "epsEstimate": 0.4038,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 11.44
     }
    ],
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-22",
@@ -2898,79 +3064,44 @@ const EARNINGS_INTEL = {
      "firm": "HSBC",
      "from": "Buy",
      "to": "Hold"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-14",
-     "firm": "Keybanc",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-24",
-     "firm": "TD Cowen",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-24",
-     "firm": "UBS",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-23",
-     "firm": "B of A Securities",
-     "from": "Neutral",
-     "to": "Neutral"
-    },
-    {
-     "action": "down",
-     "date": "2026-06-18",
-     "firm": "New Street Research",
-     "from": "Buy",
-     "to": "Neutral"
     }
    ],
-   "revEstimate": 1267464830,
+   "revEstimate": 1369628890,
    "trend": {
-    "analystsEps": 32,
-    "analystsRev": 29,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.40037,
-    "eps60dAgo": 0.4004,
-    "eps7dAgo": 0.40036,
-    "eps90dAgo": 0.36638,
-    "epsNow": 0.4038,
-    "growth": 0.1537,
-    "revDown30": 1,
+    "analystsEps": 28,
+    "analystsRev": 26,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.43432,
+    "eps60dAgo": 0.43244,
+    "eps7dAgo": 0.43655,
+    "eps90dAgo": 0.42704,
+    "epsNow": 0.4666,
+    "growth": 0.19639999,
+    "revDown30": 0,
     "revDown7": null,
-    "revUp30": 0,
-    "revUp7": 0,
-    "revenueAvg": 1267464830
+    "revUp30": 1,
+    "revUp7": 1,
+    "revenueAvg": 1369628890
    }
   },
   "ASML": {
    "annual": {
     "fy0": {
-     "analysts": 33,
+     "analysts": 32,
      "endDate": "2026-12-31",
-     "eps": 37.9014,
+     "eps": 38.05051,
      "epsHigh": 40.41908,
      "epsLow": 31.81,
-     "growth": 0.5338,
-     "revenue": 42962573940
+     "growth": 0.5399,
+     "revenue": 43043950990
     },
     "fy1": {
-     "analysts": 35,
+     "analysts": 34,
      "endDate": "2027-12-31",
-     "eps": 50.91877,
+     "eps": 51.08785,
      "epsHigh": 59.10128,
      "epsLow": 37.43,
-     "growth": 0.3435,
+     "growth": 0.3426,
      "revenue": 53842738480
     },
     "lt5y": null
@@ -2978,7 +3109,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 10.58262,
    "epsHigh": 11.5,
    "epsLow": 8.65,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.49,
@@ -3064,10 +3195,10 @@ const EARNINGS_INTEL = {
     "analystsEps": 14,
     "analystsRev": 17,
     "endDate": "2026-09-30",
-    "eps30dAgo": 8.29963,
+    "eps30dAgo": 8.42468,
     "eps60dAgo": 8.3196,
-    "eps7dAgo": 8.46437,
-    "eps90dAgo": 8.28889,
+    "eps7dAgo": 10.58262,
+    "eps90dAgo": 8.29963,
     "epsNow": 10.58262,
     "growth": 0.9276,
     "revDown30": 1,
@@ -3082,27 +3213,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 44,
      "endDate": "2026-10-31",
-     "eps": 11.62703,
+     "eps": 11.62543,
      "epsHigh": 12.1445,
-     "epsLow": 11.23,
-     "growth": 0.7048,
+     "epsLow": 11.16,
+     "growth": 0.7046,
      "revenue": 106039607190
     },
     "fy1": {
-     "analysts": 45,
+     "analysts": 46,
      "endDate": "2027-10-31",
-     "eps": 19.51378,
+     "eps": 19.49196,
      "epsHigh": 22.01179,
      "epsLow": 16.22,
-     "growth": 0.6783,
-     "revenue": 173128195620
+     "growth": 0.6767,
+     "revenue": 173211633120
     },
     "lt5y": null
    },
    "epsEstimate": 3.23823,
    "epsHigh": 3.33,
    "epsLow": 3.08,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.69,
@@ -3146,8 +3277,8 @@ const EARNINGS_INTEL = {
     "analystsEps": 37,
     "analystsRev": 36,
     "endDate": "2026-07-31",
-    "eps30dAgo": 3.23688,
-    "eps60dAgo": 3.2436,
+    "eps30dAgo": 3.23823,
+    "eps60dAgo": 3.19033,
     "eps7dAgo": 3.23823,
     "eps90dAgo": 3.24061,
     "epsNow": 3.23823,
@@ -3184,7 +3315,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.84394,
    "epsHigh": 2.18,
    "epsLow": 1.53,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.12,
@@ -3263,7 +3394,7 @@ const EARNINGS_INTEL = {
      "eps": 17.65139,
      "epsHigh": 18.5238,
      "epsLow": 17.04,
-     "growth": 0.1451,
+     "growth": 0.1455,
      "revenue": 79482825300
     },
     "fy1": {
@@ -3272,7 +3403,7 @@ const EARNINGS_INTEL = {
      "eps": 20.10054,
      "epsHigh": 20.50147,
      "epsLow": 18.92,
-     "growth": 0.1417,
+     "growth": 0.1412,
      "revenue": 86714088300
     },
     "lt5y": null
@@ -3280,7 +3411,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.54834,
    "epsHigh": 4.78,
    "epsLow": 4.29,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.14,
@@ -3440,7 +3571,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 54.50026,
    "epsHigh": 56.97,
    "epsLow": 51.46,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 48.71,
@@ -3492,29 +3623,29 @@ const EARNINGS_INTEL = {
   "BA": {
    "annual": {
     "fy0": {
-     "analysts": 2,
+     "analysts": 16,
      "endDate": "2026-12-31",
-     "eps": -1.555,
-     "epsHigh": -1.45,
-     "epsLow": -1.66,
-     "growth": -2.3067,
-     "revenue": 98398968720
+     "eps": -1.09002,
+     "epsHigh": -0.3,
+     "epsLow": -1.79,
+     "growth": -1.916,
+     "revenue": 97732185450
     },
     "fy1": {
-     "analysts": 22,
+     "analysts": 21,
      "endDate": "2027-12-31",
-     "eps": 4.18427,
+     "eps": 4.18436,
      "epsHigh": 6.8,
-     "epsLow": 2.00436,
-     "growth": 3.6908,
-     "revenue": 112025356250
+     "epsLow": 2.0,
+     "growth": 4.8388,
+     "revenue": 112548405440
     },
     "lt5y": null
    },
-   "epsEstimate": -0.44,
-   "epsHigh": -0.44,
-   "epsLow": -0.44,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": -0.11823,
+   "epsHigh": 0.23,
+   "epsLow": -0.43,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": -7.47,
@@ -3545,23 +3676,38 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-28",
    "nextDateEnd": null,
    "nextDateEstimate": true,
-   "ratings": [],
-   "revEstimate": 25768000000,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    }
+   ],
+   "revEstimate": 24804230650,
    "trend": {
-    "analystsEps": 1,
-    "analystsRev": 1,
+    "analystsEps": 17,
+    "analystsRev": 19,
     "endDate": "2026-09-30",
-    "eps30dAgo": -0.0925,
+    "eps30dAgo": -0.09167,
     "eps60dAgo": -0.0925,
     "eps7dAgo": -0.11108,
     "eps90dAgo": -0.00627,
-    "epsNow": -0.44,
-    "growth": 0.9411,
+    "epsNow": -0.11823,
+    "growth": 0.9842,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 25768000000
+    "revenueAvg": 24804230650
    }
   },
   "BAC": {
@@ -3569,27 +3715,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 18,
      "endDate": "2026-12-31",
-     "eps": 4.66985,
+     "eps": 4.676,
      "epsHigh": 5.01,
-     "epsLow": 4.56,
-     "growth": 0.2245,
-     "revenue": 124075485640
+     "epsLow": 4.58,
+     "growth": 0.22610001,
+     "revenue": 124111629600
     },
     "fy1": {
      "analysts": 19,
      "endDate": "2027-12-31",
-     "eps": 5.2622,
+     "eps": 5.27075,
      "epsHigh": 5.59,
      "epsLow": 5.05605,
-     "growth": 0.1289,
-     "revenue": 130220732530
+     "growth": 0.1293,
+     "revenue": 130304915860
     },
     "lt5y": null
    },
-   "epsEstimate": 1.18694,
+   "epsEstimate": 1.19186,
    "epsHigh": 1.25,
    "epsLow": 1.13,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.06,
@@ -3620,6 +3766,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-17",
@@ -3696,16 +3849,9 @@ const EARNINGS_INTEL = {
      "firm": "Wells Fargo",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "down",
-     "date": "2026-06-30",
-     "firm": "Oppenheimer",
-     "from": "Outperform",
-     "to": "Perform"
     }
    ],
-   "revEstimate": 31158130090,
+   "revEstimate": 31200241200,
    "trend": {
     "analystsEps": 16,
     "analystsRev": 9,
@@ -3713,14 +3859,14 @@ const EARNINGS_INTEL = {
     "eps30dAgo": 1.13452,
     "eps60dAgo": 1.13518,
     "eps7dAgo": 1.18253,
-    "eps90dAgo": 1.13506,
-    "epsNow": 1.18628,
-    "growth": 0.119799994,
+    "eps90dAgo": 1.13628,
+    "epsNow": 1.19089,
+    "growth": 0.1244,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 2,
-    "revenueAvg": 31158130090
+    "revenueAvg": 31200241200
    }
   },
   "BIIB": {
@@ -3745,17 +3891,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 2.02954,
-   "epsHigh": 3.8,
-   "epsLow": -21.1,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 2.33286,
+   "epsHigh": 3.57,
+   "epsLow": 1.71,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 5.47,
-     "epsEstimate": 3.88017,
-     "quarter": "2025-06-30",
-     "surprisePct": 40.97
-    },
     {
      "epsActual": 4.81,
      "epsEstimate": 3.88288,
@@ -3773,12 +3913,68 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.88817,
      "quarter": "2026-03-31",
      "surprisePct": 23.61
+    },
+    {
+     "epsActual": 3.6,
+     "epsEstimate": 2.02954,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 77.38
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "HC Wainwright & Co.",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wedbush",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-29",
@@ -3813,52 +4009,24 @@ const EARNINGS_INTEL = {
      "firm": "Morgan Stanley",
      "from": "Equal-Weight",
      "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-07",
-     "firm": "RBC Capital",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-29",
-     "firm": "Needham",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-18",
-     "firm": "Morgan Stanley",
-     "from": "Equal-Weight",
-     "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "Mizuho",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
-   "revEstimate": 2460628410,
+   "revEstimate": 2562363870,
    "trend": {
-    "analystsEps": 27,
-    "analystsRev": 26,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 2.09105,
-    "eps60dAgo": 1.93966,
-    "eps7dAgo": 2.10781,
-    "eps90dAgo": 3.96033,
-    "epsNow": 2.02954,
-    "growth": -0.629,
+    "analystsEps": 26,
+    "analystsRev": 23,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 3.93451,
+    "eps60dAgo": 3.93096,
+    "eps7dAgo": 2.71889,
+    "eps90dAgo": 4.19618,
+    "epsNow": 2.33286,
+    "growth": -0.515,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 2460628410
+    "revenueAvg": 2562363870
    }
   },
   "BKNG": {
@@ -3866,27 +4034,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 30,
      "endDate": "2026-12-31",
-     "eps": 10.44363,
+     "eps": 10.44995,
      "epsHigh": 10.9744,
      "epsLow": 10.07,
-     "growth": 0.14479999,
-     "revenue": 29333075260
+     "growth": 0.1455,
+     "revenue": 29339957050
     },
     "fy1": {
      "analysts": 30,
      "endDate": "2027-12-31",
-     "eps": 12.27339,
+     "eps": 12.28585,
      "epsHigh": 13.68979,
      "epsLow": 10.53,
-     "growth": 0.1752,
-     "revenue": 32051774480
+     "growth": 0.1757,
+     "revenue": 32063179230
     },
     "lt5y": null
    },
-   "epsEstimate": 2.44188,
+   "epsEstimate": 2.44311,
    "epsHigh": 2.6424,
    "epsLow": 2.25,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.216,
@@ -3919,6 +4087,13 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
+     "date": "2026-07-30",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
      "date": "2026-07-14",
      "firm": "Jefferies",
      "from": "Hold",
@@ -3932,22 +4107,22 @@ const EARNINGS_INTEL = {
      "to": "Equal-Weight"
     }
    ],
-   "revEstimate": 7183947320,
+   "revEstimate": 7186358130,
    "trend": {
     "analystsEps": 23,
     "analystsRev": 29,
     "endDate": "2026-06-30",
-    "eps30dAgo": 2.439,
+    "eps30dAgo": 2.4381,
     "eps60dAgo": 2.439,
-    "eps7dAgo": 2.4357,
-    "eps90dAgo": 2.59506,
-    "epsNow": 2.44188,
-    "growth": 0.1019,
+    "eps7dAgo": 2.43927,
+    "eps90dAgo": 2.45482,
+    "epsNow": 2.44311,
+    "growth": 0.1025,
     "revDown30": 20,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 7183947320
+    "revenueAvg": 7186358130
    }
   },
   "BLK": {
@@ -3975,7 +4150,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 14.27767,
    "epsHigh": 14.95,
    "epsLow": 13.62994,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 11.55,
@@ -4004,7 +4179,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -4112,36 +4287,30 @@ const EARNINGS_INTEL = {
   "BMY": {
    "annual": {
     "fy0": {
-     "analysts": 27,
+     "analysts": 21,
      "endDate": "2026-12-31",
-     "eps": 6.34075,
-     "epsHigh": 6.54046,
-     "epsLow": 6.19,
-     "growth": 0.031,
-     "revenue": 47461913870
+     "eps": 6.6092,
+     "epsHigh": 7.15,
+     "epsLow": 6.33,
+     "growth": 0.0747,
+     "revenue": 48740404710
     },
     "fy1": {
-     "analysts": 26,
+     "analysts": 25,
      "endDate": "2027-12-31",
-     "eps": 6.18546,
+     "eps": 6.26528,
      "epsHigh": 6.85,
      "epsLow": 5.49661,
-     "growth": -0.024500001,
-     "revenue": 46375122870
+     "growth": -0.051999997,
+     "revenue": 46903674910
     },
     "lt5y": null
    },
-   "epsEstimate": 1.59701,
-   "epsHigh": 1.68,
-   "epsLow": 1.48,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.66278,
+   "epsHigh": 1.92,
+   "epsLow": 1.55,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.46,
-     "epsEstimate": 1.10106,
-     "quarter": "2025-06-30",
-     "surprisePct": 32.6
-    },
     {
      "epsActual": 1.63,
      "epsEstimate": 1.51554,
@@ -4159,12 +4328,61 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.42112,
      "quarter": "2026-03-31",
      "surprisePct": 11.18
+    },
+    {
+     "epsActual": 2.04,
+     "epsEstimate": 1.59701,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 27.74
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-31",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-10",
@@ -4180,57 +4398,51 @@ const EARNINGS_INTEL = {
      "to": "Neutral"
     }
    ],
-   "revEstimate": 11736768190,
+   "revEstimate": 12443058500,
    "trend": {
-    "analystsEps": 23,
-    "analystsRev": 21,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.60652,
-    "eps60dAgo": 1.61106,
-    "eps7dAgo": 1.59542,
-    "eps90dAgo": 1.63737,
-    "epsNow": 1.59701,
-    "growth": 0.0938,
-    "revDown30": 3,
+    "analystsEps": 16,
+    "analystsRev": 12,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.60339,
+    "eps60dAgo": 1.60536,
+    "eps7dAgo": 1.61144,
+    "eps90dAgo": 1.60051,
+    "epsNow": 1.66278,
+    "growth": 0.0201,
+    "revDown30": 2,
     "revDown7": null,
-    "revUp30": 0,
+    "revUp30": 2,
     "revUp7": 0,
-    "revenueAvg": 11736768190
+    "revenueAvg": 12443058500
    }
   },
   "BSX": {
    "annual": {
     "fy0": {
-     "analysts": 26,
+     "analysts": 23,
      "endDate": "2026-12-31",
-     "eps": 3.36029,
-     "epsHigh": 3.4,
-     "epsLow": 3.3,
-     "growth": 0.09810001,
-     "revenue": 21564470390
+     "eps": 3.30501,
+     "epsHigh": 3.37,
+     "epsLow": 3.28,
+     "growth": 0.0801,
+     "revenue": 21403798930
     },
     "fy1": {
      "analysts": 27,
      "endDate": "2027-12-31",
-     "eps": 3.71232,
+     "eps": 3.47889,
      "epsHigh": 3.9,
-     "epsLow": 3.6,
-     "growth": 0.10479999,
-     "revenue": 23294282120
+     "epsLow": 3.32,
+     "growth": 0.052600004,
+     "revenue": 22439461310
     },
     "lt5y": null
    },
-   "epsEstimate": 0.82801,
+   "epsEstimate": 0.80467,
    "epsHigh": 0.84,
-   "epsLow": 0.81,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 0.79573,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.75,
-     "epsEstimate": 0.72522,
-     "quarter": "2025-06-30",
-     "surprisePct": 3.42
-    },
     {
      "epsActual": 0.75,
      "epsEstimate": 0.71366,
@@ -4248,12 +4460,89 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.78722,
      "quarter": "2026-03-31",
      "surprisePct": 1.62
+    },
+    {
+     "epsActual": 0.86,
+     "epsEstimate": 0.82801,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 3.86
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-21",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-31",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-27",
@@ -4267,73 +4556,24 @@ const EARNINGS_INTEL = {
      "firm": "Truist Securities",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-15",
-     "firm": "Mizuho",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-13",
-     "firm": "RBC Capital",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-08",
-     "firm": "Needham",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-06",
-     "firm": "Evercore ISI Group",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
-     "firm": "Stifel",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-24",
-     "firm": "Jefferies",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-16",
-     "firm": "BTIG",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
-   "revEstimate": 5365936480,
+   "revEstimate": 5254761270,
    "trend": {
-    "analystsEps": 23,
-    "analystsRev": 25,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.82865,
-    "eps60dAgo": 0.82951,
-    "eps7dAgo": 0.82813,
-    "eps90dAgo": 0.83217,
-    "epsNow": 0.82801,
-    "growth": 0.103999995,
-    "revDown30": 10,
+    "analystsEps": 22,
+    "analystsRev": 23,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.8387,
+    "eps60dAgo": 0.84126,
+    "eps7dAgo": 0.83797,
+    "eps90dAgo": 0.84517,
+    "epsNow": 0.80467,
+    "growth": 0.0729,
+    "revDown30": 14,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 5365936480
+    "revenueAvg": 5254761270
    }
   },
   "BX": {
@@ -4341,19 +4581,19 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 21,
      "endDate": "2026-12-31",
-     "eps": 6.02006,
+     "eps": 6.0234,
      "epsHigh": 6.18,
      "epsLow": 5.79386,
-     "growth": 0.0808,
+     "growth": 0.08140001,
      "revenue": 15029765280
     },
     "fy1": {
      "analysts": 22,
      "endDate": "2027-12-31",
-     "eps": 7.47294,
+     "eps": 7.46703,
      "epsHigh": 8.17,
      "epsLow": 6.79833,
-     "growth": 0.24129999,
+     "growth": 0.23969999,
      "revenue": 18622128970
     },
     "lt5y": null
@@ -4361,7 +4601,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.36617,
    "epsHigh": 1.54,
    "epsLow": 1.25223,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.52,
@@ -4392,6 +4632,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -4493,27 +4740,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 8,
      "endDate": "2026-12-31",
-     "eps": 11.08956,
-     "epsHigh": 11.51,
+     "eps": 11.07581,
+     "epsHigh": 11.4,
      "epsLow": 10.65,
-     "growth": 0.4729,
-     "revenue": 95526395890
+     "growth": 0.471,
+     "revenue": 95640247150
     },
     "fy1": {
      "analysts": 11,
      "endDate": "2027-12-31",
-     "eps": 12.80655,
+     "eps": 12.82655,
      "epsHigh": 13.35,
      "epsLow": 12.3466,
-     "growth": 0.1548,
-     "revenue": 99318603360
+     "growth": 0.15810001,
+     "revenue": 99391577600
     },
     "lt5y": null
    },
    "epsEstimate": 2.59,
    "epsHigh": 2.73,
    "epsLow": 2.3,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.263,
@@ -4622,50 +4869,50 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 23660238620,
+   "revEstimate": 23687571950,
    "trend": {
     "analystsEps": 8,
     "analystsRev": 15,
     "endDate": "2026-09-30",
-    "eps30dAgo": 2.65909,
-    "eps60dAgo": 2.65638,
-    "eps7dAgo": 2.68858,
-    "eps90dAgo": 2.65772,
+    "eps30dAgo": 2.67728,
+    "eps60dAgo": 2.65241,
+    "eps7dAgo": 2.59,
+    "eps90dAgo": 2.665,
     "epsNow": 2.59,
     "growth": 0.1445,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 23660238620
+    "revenueAvg": 23687571950
    }
   },
   "CAT": {
    "annual": {
     "fy0": {
-     "analysts": 24,
+     "analysts": 25,
      "endDate": "2026-12-31",
-     "eps": 24.72273,
+     "eps": 24.72342,
      "epsHigh": 26.33,
      "epsLow": 23.05,
      "growth": 0.29709998,
-     "revenue": 76460487630
+     "revenue": 76607173580
     },
     "fy1": {
-     "analysts": 26,
+     "analysts": 27,
      "endDate": "2027-12-31",
-     "eps": 30.45379,
+     "eps": 30.45142,
      "epsHigh": 35.43,
      "epsLow": 25.78,
-     "growth": 0.2318,
-     "revenue": 84639474380
+     "growth": 0.2317,
+     "revenue": 84976721180
     },
     "lt5y": null
    },
    "epsEstimate": 6.19742,
    "epsHigh": 6.73,
    "epsLow": 5.75,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.72,
@@ -4696,22 +4943,22 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [],
-   "revEstimate": 19174761460,
+   "revEstimate": 19199012500,
    "trend": {
     "analystsEps": 20,
-    "analystsRev": 12,
+    "analystsRev": 11,
     "endDate": "2026-06-30",
-    "eps30dAgo": 6.14944,
+    "eps30dAgo": 6.1604,
     "eps60dAgo": 6.12786,
-    "eps7dAgo": 6.21935,
-    "eps90dAgo": 5.71087,
+    "eps7dAgo": 6.19742,
+    "eps90dAgo": 5.71883,
     "epsNow": 6.19742,
     "growth": 0.313,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 19174761460
+    "revenueAvg": 19199012500
    }
   },
   "CB": {
@@ -4739,7 +4986,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.32338,
    "epsHigh": 6.85,
    "epsLow": 5.70043,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 7.49,
@@ -4895,17 +5142,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 3.48982,
-   "epsHigh": 3.64,
-   "epsLow": 3.45,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.41084,
+   "epsHigh": 3.72,
+   "epsLow": 3.08,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.46,
-     "epsEstimate": 2.43295,
-     "quarter": "2025-06-30",
-     "surprisePct": 1.11
-    },
     {
      "epsActual": 2.67,
      "epsEstimate": 2.52892,
@@ -4923,11 +5164,18 @@ const EARNINGS_INTEL = {
      "epsEstimate": 3.37766,
      "quarter": "2026-03-31",
      "surprisePct": 9.54
+    },
+    {
+     "epsActual": 3.56,
+     "epsEstimate": 3.48982,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 2.01
     }
    ],
-   "nextDate": "2026-07-31",
+   "nextDate": "2026-10-30",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -4958,22 +5206,22 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 720843580,
+   "revEstimate": 705642630,
    "trend": {
-    "analystsEps": 11,
+    "analystsEps": 10,
     "analystsRev": 7,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 3.33895,
-    "eps60dAgo": 3.33821,
-    "eps7dAgo": 3.48982,
-    "eps90dAgo": 3.07387,
-    "epsNow": 3.48982,
-    "growth": 0.4186,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 3.32986,
+    "eps60dAgo": 3.32831,
+    "eps7dAgo": 3.41084,
+    "eps90dAgo": 3.08777,
+    "epsNow": 3.41084,
+    "growth": 0.2775,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 720843580
+    "revenueAvg": 705642630
    }
   },
   "CDNS": {
@@ -4985,7 +5233,7 @@ const EARNINGS_INTEL = {
      "epsHigh": 4.86,
      "epsLow": 4.68135,
      "growth": 0.1409,
-     "revenue": 6318705080
+     "revenue": 6318712360
     },
     "fy1": {
      "analysts": 24,
@@ -4994,14 +5242,14 @@ const EARNINGS_INTEL = {
      "epsHigh": 10.0499,
      "epsLow": 8.78,
      "growth": 0.16950001,
-     "revenue": 7151509640
+     "revenue": 7151507280
     },
     "lt5y": null
    },
-   "epsEstimate": 2.04453,
+   "epsEstimate": 2.04544,
    "epsHigh": 2.08,
    "epsLow": 2.02,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.93,
@@ -5031,7 +5279,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-26",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -5090,22 +5338,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 1609285750,
+   "revEstimate": 1609434320,
    "trend": {
-    "analystsEps": 16,
-    "analystsRev": 17,
+    "analystsEps": 17,
+    "analystsRev": 18,
     "endDate": "2026-09-30",
     "eps30dAgo": 1.93084,
     "eps60dAgo": 1.94024,
     "eps7dAgo": 1.94579,
     "eps90dAgo": 1.94024,
-    "epsNow": 2.04453,
-    "growth": 0.059299998,
+    "epsNow": 2.04544,
+    "growth": 0.0598,
     "revDown30": 6,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 2,
-    "revenueAvg": 1609285750
+    "revenueAvg": 1609434320
    }
   },
   "CEG": {
@@ -5113,27 +5361,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 20,
      "endDate": "2026-12-31",
-     "eps": 11.68288,
+     "eps": 11.70706,
      "epsHigh": 12.68,
      "epsLow": 11.07,
-     "growth": 0.2442,
-     "revenue": 34589319740
+     "growth": 0.2468,
+     "revenue": 34708305220
     },
     "fy1": {
      "analysts": 21,
      "endDate": "2027-12-31",
-     "eps": 13.37407,
-     "epsHigh": 14.79,
+     "eps": 13.37721,
+     "epsHigh": 14.86904,
      "epsLow": 12.25,
-     "growth": 0.14479999,
-     "revenue": 35468618940
+     "growth": 0.1427,
+     "revenue": 35503579500
     },
     "lt5y": null
    },
-   "epsEstimate": 2.31447,
+   "epsEstimate": 2.40035,
    "epsHigh": 3.34,
-   "epsLow": 1.12786,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 2.0,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.91,
@@ -5214,22 +5462,22 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 7789049790,
+   "revEstimate": 7809794660,
    "trend": {
     "analystsEps": 15,
     "analystsRev": 8,
     "endDate": "2026-06-30",
     "eps30dAgo": 2.41163,
     "eps60dAgo": 2.5672,
-    "eps7dAgo": 2.40969,
-    "eps90dAgo": 2.49583,
-    "epsNow": 2.31447,
-    "growth": 0.21180001,
+    "eps7dAgo": 2.43277,
+    "eps90dAgo": 2.53463,
+    "epsNow": 2.40035,
+    "growth": 0.2567,
     "revDown30": 4,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 7789049790
+    "revenueAvg": 7809794660
    }
   },
   "CFG": {
@@ -5237,27 +5485,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 14,
      "endDate": "2026-12-31",
-     "eps": 5.29064,
+     "eps": 5.29441,
      "epsHigh": 5.38,
-     "epsLow": 5.24023,
-     "growth": 0.37060001,
-     "revenue": 9176892720
+     "epsLow": 5.25,
+     "growth": 0.3716,
+     "revenue": 9182502680
     },
     "fy1": {
      "analysts": 13,
      "endDate": "2027-12-31",
-     "eps": 6.50681,
+     "eps": 6.5106,
      "epsHigh": 6.82,
-     "epsLow": 6.34725,
-     "growth": 0.2299,
-     "revenue": 9969634570
+     "epsLow": 6.39644,
+     "growth": 0.2297,
+     "revenue": 9977637000
     },
     "lt5y": null
    },
-   "epsEstimate": 1.39169,
+   "epsEstimate": 1.39414,
    "epsHigh": 1.42,
    "epsLow": 1.35,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.05,
@@ -5288,6 +5536,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -5364,66 +5619,53 @@ const EARNINGS_INTEL = {
      "firm": "Cantor Fitzgerald",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-07",
-     "firm": "UBS",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
-   "revEstimate": 2336443500,
+   "revEstimate": 2339193500,
    "trend": {
     "analystsEps": 13,
     "analystsRev": 8,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.37875,
+    "eps30dAgo": 1.38029,
     "eps60dAgo": 1.37932,
-    "eps7dAgo": 1.38242,
-    "eps90dAgo": 1.37429,
-    "epsNow": 1.39169,
-    "growth": 0.3254,
+    "eps7dAgo": 1.39169,
+    "eps90dAgo": 1.37486,
+    "epsNow": 1.39414,
+    "growth": 0.32779998,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 2336443500
+    "revenueAvg": 2339193500
    }
   },
   "CI": {
    "annual": {
     "fy0": {
-     "analysts": 24,
+     "analysts": 17,
      "endDate": "2026-12-31",
-     "eps": 30.40529,
-     "epsHigh": 30.58,
-     "epsLow": 30.21755,
-     "growth": 0.0189,
-     "revenue": 284495452270
+     "eps": 30.42316,
+     "epsHigh": 30.53,
+     "epsLow": 30.36,
+     "growth": 0.0195,
+     "revenue": 284674820160
     },
     "fy1": {
      "analysts": 24,
      "endDate": "2027-12-31",
-     "eps": 33.48265,
+     "eps": 33.48932,
      "epsHigh": 34.26,
      "epsLow": 32.42,
-     "growth": 0.1012,
-     "revenue": 297064357540
+     "growth": 0.1008,
+     "revenue": 297263757540
     },
     "lt5y": null
    },
-   "epsEstimate": 7.59972,
-   "epsHigh": 7.73,
-   "epsLow": 7.53,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 7.62718,
+   "epsHigh": 7.86,
+   "epsLow": 7.31,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 7.2,
-     "epsEstimate": 7.15372,
-     "quarter": "2025-06-30",
-     "surprisePct": 0.65
-    },
     {
      "epsActual": 7.83,
      "epsEstimate": 7.64116,
@@ -5441,6 +5683,13 @@ const EARNINGS_INTEL = {
      "epsEstimate": 7.60633,
      "quarter": "2026-03-31",
      "surprisePct": 2.41
+    },
+    {
+     "epsActual": 7.78,
+     "epsEstimate": 7.59972,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 2.37
     }
    ],
    "nextDate": "2026-07-30",
@@ -5449,28 +5698,49 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Guggenheim",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Barclays",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
      "date": "2026-07-09",
      "firm": "Bernstein",
      "from": "Outperform",
      "to": "Outperform"
     }
    ],
-   "revEstimate": 70183055450,
+   "revEstimate": 71901500000,
    "trend": {
-    "analystsEps": 22,
-    "analystsRev": 13,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 7.56583,
-    "eps60dAgo": 7.56112,
-    "eps7dAgo": 7.56875,
-    "eps90dAgo": 7.39295,
-    "epsNow": 7.59972,
-    "growth": 0.0555,
-    "revDown30": 0,
+    "analystsEps": 16,
+    "analystsRev": 2,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 7.61675,
+    "eps60dAgo": 7.61612,
+    "eps7dAgo": 7.61679,
+    "eps90dAgo": 7.6691,
+    "epsNow": 7.62718,
+    "growth": -0.025899999,
+    "revDown30": 1,
     "revDown7": null,
-    "revUp30": 2,
+    "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 70183055450
+    "revenueAvg": 71901500000
    }
   },
   "CL": {
@@ -5498,7 +5768,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.94709,
    "epsHigh": 0.97,
    "epsLow": 0.91094,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.92,
@@ -5579,8 +5849,8 @@ const EARNINGS_INTEL = {
     "endDate": "2026-06-30",
     "eps30dAgo": 0.94833,
     "eps60dAgo": 0.94851,
-    "eps7dAgo": 0.94715,
-    "eps90dAgo": 0.95926,
+    "eps7dAgo": 0.94709,
+    "eps90dAgo": 0.9586,
     "epsNow": 0.94709,
     "growth": 0.0294,
     "revDown30": 1,
@@ -5615,7 +5885,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.94004,
    "epsHigh": 3.15,
    "epsLow": 2.81,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.68,
@@ -5745,36 +6015,30 @@ const EARNINGS_INTEL = {
   "CMG": {
    "annual": {
     "fy0": {
-     "analysts": 34,
+     "analysts": 29,
      "endDate": "2026-12-31",
-     "eps": 1.13466,
-     "epsHigh": 1.21,
-     "epsLow": 1.08,
-     "growth": -0.030199999,
-     "revenue": 12992083510
+     "eps": 1.14414,
+     "epsHigh": 1.17,
+     "epsLow": 1.1138,
+     "growth": -0.0221,
+     "revenue": 13024662640
     },
     "fy1": {
-     "analysts": 35,
+     "analysts": 33,
      "endDate": "2027-12-31",
-     "eps": 1.35411,
-     "epsHigh": 1.46,
-     "epsLow": 1.23,
-     "growth": 0.1934,
-     "revenue": 14387966240
+     "eps": 1.36893,
+     "epsHigh": 1.4501,
+     "epsLow": 1.27,
+     "growth": 0.1965,
+     "revenue": 14415700480
     },
     "lt5y": null
    },
-   "epsEstimate": 0.31744,
-   "epsHigh": 0.33,
-   "epsLow": 0.29,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.29118,
+   "epsHigh": 0.30258,
+   "epsLow": 0.28,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.33,
-     "epsEstimate": 0.32588,
-     "quarter": "2025-06-30",
-     "surprisePct": 1.26
-    },
     {
      "epsActual": 0.29,
      "epsEstimate": 0.28749,
@@ -5792,12 +6056,75 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.23668,
      "quarter": "2026-03-31",
      "surprisePct": 1.4
+    },
+    {
+     "epsActual": 0.33,
+     "epsEstimate": 0.31744,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 3.96
     }
    ],
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Guggenheim",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Stephens & Co.",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
     {
      "action": "main",
      "date": "2026-07-13",
@@ -5813,22 +6140,22 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 3331723240,
+   "revEstimate": 3276670290,
    "trend": {
-    "analystsEps": 33,
-    "analystsRev": 30,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.31799,
-    "eps60dAgo": 0.31782,
-    "eps7dAgo": 0.31744,
-    "eps90dAgo": 0.32858,
-    "epsNow": 0.31744,
-    "growth": -0.0381,
-    "revDown30": 3,
+    "analystsEps": 30,
+    "analystsRev": 25,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.28928,
+    "eps60dAgo": 0.28996,
+    "eps7dAgo": 0.28845,
+    "eps90dAgo": 0.28938,
+    "epsNow": 0.29118,
+    "growth": 0.0041,
+    "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
-    "revUp7": 1,
-    "revenueAvg": 3331723240
+    "revUp7": 0,
+    "revenueAvg": 3276670290
    }
   },
   "COF": {
@@ -5856,7 +6183,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.33562,
    "epsHigh": 5.78,
    "epsLow": 4.01,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.95,
@@ -5885,7 +6212,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -5981,11 +6308,11 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 19,
      "endDate": "2026-12-31",
-     "eps": -0.4974,
+     "eps": -0.50477,
      "epsHigh": 2.48,
      "epsLow": -4.13,
-     "growth": -1.1118,
-     "revenue": 5923722140
+     "growth": -1.1134,
+     "revenue": 5976584570
     },
     "fy1": {
      "analysts": 26,
@@ -5993,22 +6320,16 @@ const EARNINGS_INTEL = {
      "eps": 4.21316,
      "epsHigh": 7.27,
      "epsLow": -1.44,
-     "growth": 9.4704,
-     "revenue": 7581078150
+     "growth": 9.3467,
+     "revenue": 7577325720
     },
     "lt5y": null
    },
-   "epsEstimate": -0.22781,
-   "epsHigh": 0.97,
-   "epsLow": -1.75,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.44394,
+   "epsHigh": 1.0,
+   "epsLow": -0.81,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 5.14,
-     "epsEstimate": 1.48733,
-     "quarter": "2025-06-30",
-     "surprisePct": 245.59
-    },
     {
      "epsActual": 1.5,
      "epsEstimate": 1.13369,
@@ -6026,12 +6347,89 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.04436,
      "quarter": "2026-03-31",
      "surprisePct": -3458.88
+    },
+    {
+     "epsActual": -1.36,
+     "epsEstimate": -0.2315,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": -487.47
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Benchmark",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Barclays",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Canaccord Genuity",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-31",
+     "firm": "HC Wainwright & Co.",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-28",
@@ -6045,94 +6443,24 @@ const EARNINGS_INTEL = {
      "firm": "Citigroup",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-16",
-     "firm": "Oppenheimer",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-15",
-     "firm": "Piper Sandler",
-     "from": "Neutral",
-     "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-13",
-     "firm": "BTIG",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-09",
-     "firm": "Citizens",
-     "from": "Market Outperform",
-     "to": "Market Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-09",
-     "firm": "Barclays",
-     "from": "Underweight",
-     "to": "Underweight"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-17",
-     "firm": "Cantor Fitzgerald",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-17",
-     "firm": "Benchmark",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-17",
-     "firm": "Rosenblatt",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-17",
-     "firm": "Needham",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-17",
-     "firm": "BTIG",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
-   "revEstimate": 1289204150,
+   "revEstimate": 1187796000,
    "trend": {
-    "analystsEps": 19,
-    "analystsRev": 23,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.15933,
-    "eps60dAgo": 0.12424,
-    "eps7dAgo": -0.01038,
-    "eps90dAgo": 0.53929,
-    "epsNow": -0.22781,
-    "growth": -1.0443,
+    "analystsEps": 20,
+    "analystsRev": 1,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.58246,
+    "eps60dAgo": 0.63084,
+    "eps7dAgo": 0.45082,
+    "eps90dAgo": 0.93912,
+    "epsNow": 0.44394,
+    "growth": -0.704,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 1289204150
+    "revenueAvg": 1187796000
    }
   },
   "COP": {
@@ -6160,7 +6488,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.88955,
    "epsHigh": 3.42,
    "epsLow": 2.07,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.42,
@@ -6277,7 +6605,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.34768,
    "epsHigh": 4.43,
    "epsLow": 4.29,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.0,
@@ -6359,7 +6687,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.55177,
    "epsHigh": 7.10533,
    "epsLow": 6.28,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.87,
@@ -6441,7 +6769,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.27034,
    "epsHigh": 3.47,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.91,
@@ -6470,7 +6798,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-09-02",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "down",
@@ -6505,20 +6833,6 @@ const EARNINGS_INTEL = {
      "date": "2026-07-01",
      "firm": "Guggenheim",
      "from": "Neutral",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-16",
-     "firm": "Needham",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-16",
-     "firm": "Canaccord Genuity",
-     "from": "Buy",
      "to": "Buy"
     }
    ],
@@ -6565,7 +6879,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.29195,
    "epsHigh": 0.2975,
    "epsLow": 0.29,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.2325,
@@ -6704,27 +7018,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 18,
      "endDate": "2026-12-31",
-     "eps": -4.92088,
+     "eps": -5.04646,
      "epsHigh": -3.17,
-     "epsLow": -6.05,
-     "growth": -1.7635001,
-     "revenue": 12646963940
+     "epsLow": -6.09,
+     "growth": -1.8312,
+     "revenue": 12634200150
     },
     "fy1": {
      "analysts": 17,
      "endDate": "2027-12-31",
-     "eps": -3.67395,
+     "eps": -3.68765,
      "epsHigh": -1.38,
      "epsLow": -6.91,
-     "growth": 0.5864,
-     "revenue": 25125755640
+     "growth": 0.5944,
+     "revenue": 25135536440
     },
     "lt5y": null
    },
-   "epsEstimate": -1.16371,
+   "epsEstimate": -1.19621,
    "epsHigh": -0.42,
    "epsLow": -1.82,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": -0.6,
@@ -6810,31 +7124,24 @@ const EARNINGS_INTEL = {
      "firm": "Rosenblatt",
      "from": null,
      "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-16",
-     "firm": "Cantor Fitzgerald",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
-   "revEstimate": 2557435580,
+   "revEstimate": 2556080740,
    "trend": {
     "analystsEps": 16,
     "analystsRev": 31,
     "endDate": "2026-06-30",
-    "eps30dAgo": -1.24767,
-    "eps60dAgo": -1.23743,
-    "eps7dAgo": -1.27829,
-    "eps90dAgo": -1.03101,
-    "epsNow": -1.40392,
-    "growth": -3.329,
+    "eps30dAgo": -1.26251,
+    "eps60dAgo": -1.23579,
+    "eps7dAgo": -1.40392,
+    "eps90dAgo": -1.09444,
+    "epsNow": -1.44761,
+    "growth": -3.4499,
     "revDown30": 9,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 2557435580
+    "revenueAvg": 2556080740
    }
   },
   "CSCO": {
@@ -6862,7 +7169,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.17034,
    "epsHigh": 1.2,
    "epsLow": 1.15,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.99,
@@ -6944,7 +7251,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.53763,
    "epsHigh": 0.56,
    "epsLow": 0.5,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.44,
@@ -7100,17 +7407,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 1.37912,
-   "epsHigh": 1.43,
-   "epsLow": 1.36,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.46516,
+   "epsHigh": 1.51,
+   "epsLow": 1.43,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.31,
-     "epsEstimate": 1.25968,
-     "quarter": "2025-06-30",
-     "surprisePct": 3.99
-    },
     {
      "epsActual": 1.39,
      "epsEstimate": 1.30241,
@@ -7128,12 +7429,54 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.33362,
      "quarter": "2026-03-31",
      "surprisePct": 4.98
+    },
+    {
+     "epsActual": 1.37,
+     "epsEstimate": 1.37912,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": -0.66
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-27",
@@ -7182,31 +7525,24 @@ const EARNINGS_INTEL = {
      "firm": "TD Cowen",
      "from": "Hold",
      "to": "Hold"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-23",
-     "firm": "Morgan Stanley",
-     "from": "Equal-Weight",
-     "to": "Equal-Weight"
     }
    ],
-   "revEstimate": 5480916310,
+   "revEstimate": 5699071900,
    "trend": {
-    "analystsEps": 24,
-    "analystsRev": 23,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.37839,
-    "eps60dAgo": 1.37922,
-    "eps7dAgo": 1.37685,
-    "eps90dAgo": 1.39624,
-    "epsNow": 1.37912,
-    "growth": 0.052800003,
-    "revDown30": 4,
+    "analystsEps": 23,
+    "analystsRev": 21,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.46491,
+    "eps60dAgo": 1.46558,
+    "eps7dAgo": 1.46411,
+    "eps90dAgo": 1.46977,
+    "epsNow": 1.46516,
+    "growth": 0.0541,
+    "revDown30": 2,
     "revDown7": null,
-    "revUp30": 2,
-    "revUp7": 1,
-    "revenueAvg": 5480916310
+    "revUp30": 1,
+    "revUp7": 0,
+    "revenueAvg": 5699071900
    }
   },
   "CVX": {
@@ -7231,17 +7567,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 5.56791,
-   "epsHigh": 5.91172,
-   "epsLow": 3.28,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 4.32337,
+   "epsHigh": 5.83,
+   "epsLow": 2.77,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.77,
-     "epsEstimate": 1.7402,
-     "quarter": "2025-06-30",
-     "surprisePct": 1.71
-    },
     {
      "epsActual": 1.85,
      "epsEstimate": 1.70678,
@@ -7259,11 +7589,18 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.96868,
      "quarter": "2026-03-31",
      "surprisePct": 45.56
+    },
+    {
+     "epsActual": 6.06,
+     "epsEstimate": 5.6037,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 8.14
     }
    ],
-   "nextDate": "2026-07-31",
+   "nextDate": "2026-10-30",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -7294,22 +7631,22 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 60380594990,
+   "revEstimate": 55354635430,
    "trend": {
-    "analystsEps": 19,
-    "analystsRev": 9,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 5.16988,
-    "eps60dAgo": 5.30925,
-    "eps7dAgo": 5.4339,
-    "eps90dAgo": 4.45086,
-    "epsNow": 5.56791,
-    "growth": 2.1457,
+    "analystsEps": 17,
+    "analystsRev": 10,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 4.3148,
+    "eps60dAgo": 4.46191,
+    "eps7dAgo": 4.08608,
+    "eps90dAgo": 3.78707,
+    "epsNow": 4.32337,
+    "growth": 1.337,
     "revDown30": 3,
     "revDown7": null,
-    "revUp30": 0,
+    "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 60380594990
+    "revenueAvg": 55354635430
    }
   },
   "DASH": {
@@ -7317,27 +7654,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 37,
      "endDate": "2026-12-31",
-     "eps": 2.54433,
+     "eps": 2.54192,
      "epsHigh": 3.52,
      "epsLow": 1.93,
-     "growth": 0.0934,
-     "revenue": 17588243540
+     "growth": 0.0955,
+     "revenue": 17592012780
     },
     "fy1": {
      "analysts": 37,
      "endDate": "2027-12-31",
-     "eps": 4.4087,
+     "eps": 4.40818,
      "epsHigh": 5.77,
      "epsLow": 2.99,
-     "growth": 0.39349997,
-     "revenue": 21208824920
+     "growth": 0.38759997,
+     "revenue": 21215090270
     },
     "lt5y": null
    },
-   "epsEstimate": 1.22174,
+   "epsEstimate": 1.22905,
    "epsHigh": 1.31,
    "epsLow": 1.1,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.65,
@@ -7397,22 +7734,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 4337192480,
+   "revEstimate": 4337742600,
    "trend": {
     "analystsEps": 30,
     "analystsRev": 37,
     "endDate": "2026-06-30",
     "eps30dAgo": 0.46588,
-    "eps60dAgo": 0.46988,
-    "eps7dAgo": 0.46788,
-    "eps90dAgo": 0.4723,
-    "epsNow": 0.46954,
-    "growth": -0.132,
+    "eps60dAgo": 0.46888,
+    "eps7dAgo": 0.46954,
+    "eps90dAgo": 0.47018,
+    "epsNow": 0.47074,
+    "growth": -0.1268,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 4337192480
+    "revenueAvg": 4337742600
    }
   },
   "DDOG": {
@@ -7440,7 +7777,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.58332,
    "epsHigh": 0.62,
    "epsLow": 0.567,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.46,
@@ -7579,11 +7916,11 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 21,
      "endDate": "2026-10-31",
-     "eps": 18.11402,
+     "eps": 18.1045,
      "epsHigh": 18.83007,
      "epsLow": 17.55,
-     "growth": -0.023599999,
-     "revenue": 41452535400
+     "growth": -0.0241,
+     "revenue": 41418802070
     },
     "fy1": {
      "analysts": 21,
@@ -7591,15 +7928,15 @@ const EARNINGS_INTEL = {
      "eps": 22.82973,
      "epsHigh": 25.26369,
      "epsLow": 20.4,
-     "growth": 0.2584,
-     "revenue": 44718114000
+     "growth": 0.2591,
+     "revenue": 44677914000
     },
     "lt5y": null
    },
-   "epsEstimate": 4.70102,
+   "epsEstimate": 4.69269,
    "epsHigh": 5.22,
    "epsLow": 4.33,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.75,
@@ -7652,22 +7989,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 10766353150,
+   "revEstimate": 10733737770,
    "trend": {
     "analystsEps": 17,
     "analystsRev": 13,
     "endDate": "2026-07-31",
     "eps30dAgo": 4.71286,
-    "eps60dAgo": 4.74492,
-    "eps7dAgo": 4.71286,
+    "eps60dAgo": 4.70992,
+    "eps7dAgo": 4.7311,
     "eps90dAgo": 5.08573,
-    "epsNow": 4.7311,
-    "growth": -0.010299999,
+    "epsNow": 4.72227,
+    "growth": -0.0121,
     "revDown30": 14,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 10766353150
+    "revenueAvg": 10733737770
    }
   },
   "DECK": {
@@ -7678,7 +8015,7 @@ const EARNINGS_INTEL = {
      "eps": 7.5284,
      "epsHigh": 7.99,
      "epsLow": 7.37,
-     "growth": 0.0726,
+     "growth": 0.0734,
      "revenue": 5884491870
     },
     "fy1": {
@@ -7687,7 +8024,7 @@ const EARNINGS_INTEL = {
      "eps": 8.39655,
      "epsHigh": 9.45,
      "epsLow": 7.65,
-     "growth": 0.1102,
+     "growth": 0.109799996,
      "revenue": 6316403930
     },
     "lt5y": null
@@ -7695,7 +8032,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.78831,
    "epsHigh": 1.86268,
    "epsLow": 1.74,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.82,
@@ -7724,7 +8061,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-22",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -7819,7 +8156,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.99577,
    "epsHigh": 2.09,
    "epsLow": 1.92794,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.86,
@@ -7848,7 +8185,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-08-27",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -7879,29 +8216,29 @@ const EARNINGS_INTEL = {
   "DHR": {
    "annual": {
     "fy0": {
-     "analysts": 22,
+     "analysts": 23,
      "endDate": "2026-12-31",
-     "eps": 8.507,
+     "eps": 8.51061,
      "epsHigh": 8.55,
-     "epsLow": 8.35,
-     "growth": 0.09060001,
-     "revenue": 26305247520
+     "epsLow": 8.45,
+     "growth": 0.0911,
+     "revenue": 26341173830
     },
     "fy1": {
      "analysts": 23,
      "endDate": "2027-12-31",
-     "eps": 9.26009,
-     "epsHigh": 9.485,
-     "epsLow": 9.05,
-     "growth": 0.0885,
-     "revenue": 28358733220
+     "eps": 9.28878,
+     "epsHigh": 9.5,
+     "epsLow": 9.12,
+     "growth": 0.091400005,
+     "revenue": 28453095130
     },
     "lt5y": null
    },
-   "epsEstimate": 1.91381,
+   "epsEstimate": 1.91731,
    "epsHigh": 1.99,
-   "epsLow": 1.82,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 1.89,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.89,
@@ -7930,7 +8267,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -7975,22 +8312,22 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 6540251670,
+   "revEstimate": 6559517370,
    "trend": {
     "analystsEps": 20,
-    "analystsRev": 18,
+    "analystsRev": 19,
     "endDate": "2026-09-30",
     "eps30dAgo": 2.068,
     "eps60dAgo": 2.02406,
-    "eps7dAgo": 2.06008,
+    "eps7dAgo": 1.9119,
     "eps90dAgo": 2.03352,
-    "epsNow": 1.91381,
-    "growth": 0.0126,
+    "epsNow": 1.91731,
+    "growth": 0.014400001,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 0,
-    "revenueAvg": 6540251670
+    "revenueAvg": 6559517370
    }
   },
   "DIS": {
@@ -8018,7 +8355,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.85484,
    "epsHigh": 1.98,
    "epsLow": 1.762,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.61,
@@ -8049,6 +8386,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-20",
@@ -8142,7 +8486,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.09456,
    "epsHigh": 1.19,
    "epsLow": 1.0,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.77,
@@ -8173,6 +8517,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Bernstein",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
     {
      "action": "up",
      "date": "2026-07-08",
@@ -8238,7 +8589,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.0864,
    "epsHigh": 1.13,
    "epsLow": 0.98,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.92,
@@ -8274,10 +8625,10 @@ const EARNINGS_INTEL = {
     "analystsEps": 19,
     "analystsRev": 17,
     "endDate": "2026-07-31",
-    "eps30dAgo": 1.06074,
-    "eps60dAgo": 1.06074,
-    "eps7dAgo": 1.06096,
-    "eps90dAgo": 1.02235,
+    "eps30dAgo": 1.0864,
+    "eps60dAgo": 1.06096,
+    "eps7dAgo": 1.0864,
+    "eps90dAgo": 1.06074,
     "epsNow": 1.0864,
     "growth": 0.18090001,
     "revDown30": 3,
@@ -8312,7 +8663,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.3062,
    "epsHigh": 1.34,
    "epsLow": 1.27,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.25,
@@ -8426,17 +8777,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 0.60814,
-   "epsHigh": 0.66,
-   "epsLow": 0.57,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.6737,
+   "epsHigh": 0.69722,
+   "epsLow": 0.62,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.48,
-     "epsEstimate": 0.44341,
-     "quarter": "2025-06-30",
-     "surprisePct": 8.25
-    },
     {
      "epsActual": 0.61,
      "epsEstimate": 0.56739,
@@ -8454,12 +8799,89 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.47061,
      "quarter": "2026-03-31",
      "surprisePct": 18.99
+    },
+    {
+     "epsActual": 0.7,
+     "epsEstimate": 0.60814,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 15.11
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-31",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Benchmark",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-16",
@@ -8473,38 +8895,24 @@ const EARNINGS_INTEL = {
      "firm": "Mizuho",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "init",
-     "date": "2026-06-23",
-     "firm": "Deutsche Bank",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "Piper Sandler",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
-   "revEstimate": 1290419780,
+   "revEstimate": 1335178710,
    "trend": {
-    "analystsEps": 21,
-    "analystsRev": 24,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.60747,
-    "eps60dAgo": 0.60786,
-    "eps7dAgo": 0.60697,
-    "eps90dAgo": 0.60307,
-    "epsNow": 0.60814,
-    "growth": 0.26700002,
-    "revDown30": 4,
+    "analystsEps": 20,
+    "analystsRev": 23,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.67384,
+    "eps60dAgo": 0.67287,
+    "eps7dAgo": 0.67247,
+    "eps90dAgo": 0.67548,
+    "epsNow": 0.6737,
+    "growth": 0.104399994,
+    "revDown30": 0,
     "revDown7": null,
-    "revUp30": 10,
+    "revUp30": 4,
     "revUp7": 2,
-    "revenueAvg": 1290419780
+    "revenueAvg": 1335178710
    }
   },
   "EA": {
@@ -8532,7 +8940,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.80595,
    "epsHigh": 1.32,
    "epsLow": 0.3741,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.79,
@@ -8606,7 +9014,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.66488,
    "epsHigh": 4.99,
    "epsLow": 4.55,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 6.03,
@@ -8635,7 +9043,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-21",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -8765,7 +9173,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.82278,
    "epsHigh": 0.87219,
    "epsLow": 0.8,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.66,
@@ -8861,7 +9269,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.99359,
    "epsHigh": 5.58,
    "epsLow": 3.61,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.32,
@@ -8975,17 +9383,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 3.07642,
-   "epsHigh": 3.19,
-   "epsLow": 3.03,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.50781,
+   "epsHigh": 3.63,
+   "epsLow": 3.39,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.95,
-     "epsEstimate": 2.92238,
-     "quarter": "2025-06-30",
-     "surprisePct": 0.95
-    },
     {
      "epsActual": 3.07,
      "epsEstimate": 3.05448,
@@ -9003,28 +9405,35 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.73079,
      "quarter": "2026-03-31",
      "surprisePct": 2.9
+    },
+    {
+     "epsActual": 3.15,
+     "epsEstimate": 3.07642,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 2.39
     }
    ],
    "nextDate": "2026-07-31",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [],
-   "revEstimate": 8155060710,
+   "revEstimate": 8253223580,
    "trend": {
-    "analystsEps": 21,
+    "analystsEps": 20,
     "analystsRev": 17,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 3.07548,
-    "eps60dAgo": 3.0743,
-    "eps7dAgo": 3.07642,
-    "eps90dAgo": 3.1194,
-    "epsNow": 3.07642,
-    "growth": 0.0429,
-    "revDown30": 1,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 3.50662,
+    "eps60dAgo": 3.5065,
+    "eps7dAgo": 3.50781,
+    "eps90dAgo": 3.572,
+    "epsNow": 3.50781,
+    "growth": 0.1426,
+    "revDown30": 2,
     "revDown7": null,
-    "revUp30": 1,
+    "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 8155060710
+    "revenueAvg": 8253223580
    }
   },
   "EW": {
@@ -9032,27 +9441,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 28,
      "endDate": "2026-12-31",
-     "eps": 2.99873,
+     "eps": 2.99837,
      "epsHigh": 3.05,
      "epsLow": 2.96,
-     "growth": 0.1714,
-     "revenue": 6758329080
+     "growth": 0.1712,
+     "revenue": 6759257650
     },
     "fy1": {
      "analysts": 28,
      "endDate": "2027-12-31",
-     "eps": 3.37591,
+     "eps": 3.37555,
      "epsHigh": 3.46,
      "epsLow": 3.29,
      "growth": 0.1258,
-     "revenue": 7426645940
+     "revenue": 7429110230
     },
     "lt5y": null
    },
-   "epsEstimate": 0.73781,
+   "epsEstimate": 0.73694,
    "epsHigh": 0.77,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.67,
@@ -9079,9 +9488,9 @@ const EARNINGS_INTEL = {
      "surprisePct": 5.11
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "up",
@@ -9145,31 +9554,24 @@ const EARNINGS_INTEL = {
      "firm": "BTIG",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-16",
-     "firm": "RBC Capital",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
-   "revEstimate": 1676443230,
+   "revEstimate": 1676276560,
    "trend": {
     "analystsEps": 23,
     "analystsRev": 24,
     "endDate": "2026-09-30",
     "eps30dAgo": 0.74499,
-    "eps60dAgo": 0.7452,
+    "eps60dAgo": 0.74499,
     "eps7dAgo": 0.74612,
-    "eps90dAgo": 0.74412,
-    "epsNow": 0.73781,
-    "growth": 0.1012,
+    "eps90dAgo": 0.7452,
+    "epsNow": 0.73694,
+    "growth": 0.0999,
     "revDown30": 12,
     "revDown7": null,
     "revUp30": 4,
     "revUp7": 3,
-    "revenueAvg": 1676443230
+    "revenueAvg": 1676276560
    }
   },
   "FCX": {
@@ -9197,7 +9599,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.72583,
    "epsHigh": 0.84,
    "epsLow": 0.53,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.5,
@@ -9290,13 +9692,6 @@ const EARNINGS_INTEL = {
      "firm": "UBS",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "Scotiabank",
-     "from": "Sector Outperform",
-     "to": "Sector Outperform"
     }
    ],
    "revEstimate": 7368118070,
@@ -9342,7 +9737,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.14,
    "epsHigh": 4.18,
    "epsLow": 4.1,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.05,
@@ -9369,7 +9764,7 @@ const EARNINGS_INTEL = {
      "surprisePct": 6.01
     }
    ],
-   "nextDate": "2026-06-23",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
@@ -9444,36 +9839,30 @@ const EARNINGS_INTEL = {
   "FICO": {
    "annual": {
     "fy0": {
-     "analysts": 21,
+     "analysts": 17,
      "endDate": "2026-09-30",
-     "eps": 43.20799,
-     "epsHigh": 45.96,
-     "epsLow": 40.15,
-     "growth": 0.4461,
-     "revenue": 2552504530
+     "eps": 43.12214,
+     "epsHigh": 44.48,
+     "epsLow": 42.2524,
+     "growth": 0.4432,
+     "revenue": 2547522760
     },
     "fy1": {
      "analysts": 21,
      "endDate": "2027-09-30",
-     "eps": 54.55058,
-     "epsHigh": 62.93,
-     "epsLow": 49.99901,
-     "growth": 0.2625,
-     "revenue": 2933900300
+     "eps": 53.78032,
+     "epsHigh": 57.33,
+     "epsLow": 51.18,
+     "growth": 0.2472,
+     "revenue": 2909307130
     },
     "lt5y": null
    },
-   "epsEstimate": 11.77603,
-   "epsHigh": 12.94,
-   "epsLow": 10.11,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 11.10773,
+   "epsHigh": 12.04,
+   "epsLow": 10.32288,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 8.57,
-     "epsEstimate": 7.70158,
-     "quarter": "2025-06-30",
-     "surprisePct": 11.28
-    },
     {
      "epsActual": 7.74,
      "epsEstimate": 7.35683,
@@ -9491,6 +9880,13 @@ const EARNINGS_INTEL = {
      "epsEstimate": 10.97338,
      "quarter": "2026-03-31",
      "surprisePct": 13.91
+    },
+    {
+     "epsActual": 12.18,
+     "epsEstimate": 11.77641,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 3.43
     }
    ],
    "nextDate": "2026-07-29",
@@ -9499,35 +9895,49 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
-     "date": "2026-07-02",
-     "firm": "UBS",
-     "from": "Neutral",
-     "to": "Neutral"
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
     },
     {
      "action": "main",
-     "date": "2026-06-16",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-02",
      "firm": "UBS",
      "from": "Neutral",
      "to": "Neutral"
     }
    ],
-   "revEstimate": 676731190,
+   "revEstimate": 665170990,
    "trend": {
-    "analystsEps": 17,
-    "analystsRev": 16,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 11.70668,
-    "eps60dAgo": 11.69103,
-    "eps7dAgo": 11.71545,
-    "eps90dAgo": 11.51052,
-    "epsNow": 11.77603,
-    "growth": 0.3741,
+    "analystsEps": 16,
+    "analystsRev": 15,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 11.39634,
+    "eps60dAgo": 11.39246,
+    "eps7dAgo": 11.47962,
+    "eps90dAgo": 11.38364,
+    "epsNow": 11.10773,
+    "growth": 0.4351,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 2,
-    "revenueAvg": 676731190
+    "revenueAvg": 665170990
    }
   },
   "FIS": {
@@ -9535,27 +9945,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 27,
      "endDate": "2026-12-31",
-     "eps": 6.27432,
+     "eps": 6.27442,
      "epsHigh": 6.4,
      "epsLow": 6.07,
      "growth": 0.0912,
-     "revenue": 13795398410
+     "revenue": 13795395970
     },
     "fy1": {
      "analysts": 27,
      "endDate": "2027-12-31",
-     "eps": 6.84939,
+     "eps": 6.84923,
      "epsHigh": 7.02,
      "epsLow": 6.42,
-     "growth": 0.0917,
-     "revenue": 14436809080
+     "growth": 0.0916,
+     "revenue": 14436799980
     },
     "lt5y": null
    },
-   "epsEstimate": 1.47215,
+   "epsEstimate": 1.47206,
    "epsHigh": 1.5,
    "epsLow": 1.46,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.36,
@@ -9607,11 +10017,11 @@ const EARNINGS_INTEL = {
     "analystsRev": 21,
     "endDate": "2026-06-30",
     "eps30dAgo": 1.47143,
-    "eps60dAgo": 1.47234,
-    "eps7dAgo": 1.47182,
+    "eps60dAgo": 1.47052,
+    "eps7dAgo": 1.47215,
     "eps90dAgo": 1.49291,
-    "epsNow": 1.47215,
-    "growth": 0.0825,
+    "epsNow": 1.47206,
+    "growth": 0.082399994,
     "revDown30": 15,
     "revDown7": null,
     "revUp30": 5,
@@ -9624,27 +10034,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 15,
      "endDate": "2026-12-31",
-     "eps": 3.033,
+     "eps": 3.02672,
      "epsHigh": 3.39,
      "epsLow": 2.68,
-     "growth": 0.1399,
-     "revenue": 12857727680
+     "growth": 0.14029999,
+     "revenue": 12847303570
     },
     "fy1": {
      "analysts": 16,
      "endDate": "2027-12-31",
-     "eps": 4.88807,
+     "eps": 4.88793,
      "epsHigh": 5.15,
      "epsLow": 4.16,
-     "growth": 0.1895,
+     "growth": 0.189,
      "revenue": 13943915960
     },
     "lt5y": null
    },
-   "epsEstimate": 1.06836,
+   "epsEstimate": 1.06905,
    "epsHigh": 1.12,
    "epsLow": 0.74,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.91,
@@ -9675,6 +10085,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -9751,13 +10168,6 @@ const EARNINGS_INTEL = {
      "firm": "Morgan Stanley",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-24",
-     "firm": "Truist Securities",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 3338371980,
@@ -9765,12 +10175,12 @@ const EARNINGS_INTEL = {
     "analystsEps": 14,
     "analystsRev": 8,
     "endDate": "2026-09-30",
-    "eps30dAgo": 0.90594,
+    "eps30dAgo": 0.93013,
     "eps60dAgo": 0.91233,
-    "eps7dAgo": 0.89101,
-    "eps90dAgo": 0.94276,
-    "epsNow": 0.8274,
-    "growth": 0.1488,
+    "eps7dAgo": 0.84612,
+    "eps90dAgo": 0.91571,
+    "epsNow": 0.81696,
+    "growth": 0.1495,
     "revDown30": 3,
     "revDown7": null,
     "revUp30": 3,
@@ -9781,36 +10191,30 @@ const EARNINGS_INTEL = {
   "FTNT": {
    "annual": {
     "fy0": {
-     "analysts": 41,
+     "analysts": 33,
      "endDate": "2026-12-31",
-     "eps": 3.15963,
-     "epsHigh": 3.37,
-     "epsLow": 3.11,
-     "growth": 0.14479999,
-     "revenue": 7813740100
+     "eps": 3.45209,
+     "epsHigh": 3.62,
+     "epsLow": 3.41,
+     "growth": 0.2508,
+     "revenue": 8121860690
     },
     "fy1": {
      "analysts": 43,
      "endDate": "2027-12-31",
-     "eps": 3.42543,
-     "epsHigh": 3.93,
-     "epsLow": 2.99,
-     "growth": 0.0841,
-     "revenue": 8639314280
+     "eps": 3.7116,
+     "epsHigh": 4.55,
+     "epsLow": 3.23,
+     "growth": 0.0752,
+     "revenue": 8963644400
     },
     "lt5y": null
    },
-   "epsEstimate": 0.74669,
-   "epsHigh": 0.8,
-   "epsLow": 0.72,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.85766,
+   "epsHigh": 0.92,
+   "epsLow": 0.84,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.64,
-     "epsEstimate": 0.59111,
-     "quarter": "2025-06-30",
-     "surprisePct": 8.27
-    },
     {
      "epsActual": 0.74,
      "epsEstimate": 0.63298,
@@ -9828,6 +10232,13 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.61828,
      "quarter": "2026-03-31",
      "surprisePct": 32.63
+    },
+    {
+     "epsActual": 0.9,
+     "epsEstimate": 0.74669,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 20.53
     }
    ],
    "nextDate": "2026-07-29",
@@ -9836,133 +10247,134 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
-     "date": "2026-07-28",
-     "firm": "Evercore ISI Group",
-     "from": "In-Line",
-     "to": "In-Line"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-23",
-     "firm": "Cantor Fitzgerald",
+     "date": "2026-07-31",
+     "firm": "Susquehanna",
      "from": "Neutral",
      "to": "Neutral"
     },
     {
      "action": "main",
-     "date": "2026-07-22",
+     "date": "2026-07-30",
      "firm": "Citigroup",
      "from": "Neutral",
      "to": "Neutral"
     },
     {
      "action": "main",
-     "date": "2026-07-21",
-     "firm": "Truist Securities",
-     "from": "Buy",
-     "to": "Buy"
+     "date": "2026-07-30",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
     },
     {
-     "action": "up",
-     "date": "2026-07-21",
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
      "firm": "Morgan Stanley",
-     "from": "Underweight",
+     "from": "Equal-Weight",
      "to": "Equal-Weight"
     },
     {
      "action": "main",
-     "date": "2026-07-20",
+     "date": "2026-07-30",
+     "firm": "Stifel",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
      "firm": "Wells Fargo",
      "from": "Underweight",
      "to": "Underweight"
     },
     {
      "action": "main",
-     "date": "2026-07-15",
-     "firm": "Mizuho",
-     "from": "Underperform",
-     "to": "Underperform"
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
     },
     {
      "action": "main",
-     "date": "2026-07-13",
-     "firm": "TD Cowen",
+     "date": "2026-07-30",
+     "firm": "Cantor Fitzgerald",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Rosenblatt",
      "from": "Buy",
      "to": "Buy"
     },
     {
      "action": "main",
-     "date": "2026-07-13",
+     "date": "2026-07-30",
      "firm": "Barclays",
      "from": "Equal-Weight",
      "to": "Equal-Weight"
     },
     {
      "action": "main",
-     "date": "2026-07-10",
+     "date": "2026-07-30",
      "firm": "BTIG",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "down",
-     "date": "2026-06-30",
-     "firm": "HSBC",
-     "from": "Hold",
-     "to": "Reduce"
     }
    ],
-   "revEstimate": 1888783950,
+   "revEstimate": 2062026700,
    "trend": {
-    "analystsEps": 39,
-    "analystsRev": 38,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.74485,
-    "eps60dAgo": 0.74473,
-    "eps7dAgo": 0.74643,
-    "eps90dAgo": 0.69548,
-    "epsNow": 0.74669,
-    "growth": 0.1667,
-    "revDown30": 0,
+    "analystsEps": 32,
+    "analystsRev": 31,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.76451,
+    "eps60dAgo": 0.76451,
+    "eps7dAgo": 0.76505,
+    "eps90dAgo": 0.77694,
+    "epsNow": 0.85766,
+    "growth": 0.159,
+    "revDown30": 1,
     "revDown7": null,
-    "revUp30": 38,
-    "revUp7": 38,
-    "revenueAvg": 1888783950
+    "revUp30": 0,
+    "revUp7": 0,
+    "revenueAvg": 2062026700
    }
   },
   "GD": {
    "annual": {
     "fy0": {
-     "analysts": 19,
+     "analysts": 15,
      "endDate": "2026-12-31",
-     "eps": 16.70161,
-     "epsHigh": 17.15548,
-     "epsLow": 16.34,
-     "growth": 0.080299996,
-     "revenue": 55395674580
+     "eps": 16.93019,
+     "epsHigh": 17.1367,
+     "epsLow": 16.8,
+     "growth": 0.0962,
+     "revenue": 55841562630
     },
     "fy1": {
      "analysts": 19,
      "endDate": "2027-12-31",
-     "eps": 18.26492,
-     "epsHigh": 19.05795,
-     "epsLow": 17.34,
-     "growth": 0.0916,
-     "revenue": 57840863980
+     "eps": 18.47089,
+     "epsHigh": 19.35,
+     "epsLow": 17.59,
+     "growth": 0.0884,
+     "revenue": 58341185400
     },
     "lt5y": null
    },
-   "epsEstimate": 3.97733,
-   "epsHigh": 4.12195,
-   "epsLow": 3.76,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 4.11386,
+   "epsHigh": 4.24613,
+   "epsLow": 3.99,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 3.74,
-     "epsEstimate": 3.54185,
-     "quarter": "2025-06-30",
-     "surprisePct": 5.59
-    },
     {
      "epsActual": 3.88,
      "epsEstimate": 3.71045,
@@ -9980,12 +10392,61 @@ const EARNINGS_INTEL = {
      "epsEstimate": 3.69302,
      "quarter": "2026-03-31",
      "surprisePct": 11.02
+    },
+    {
+     "epsActual": 4.24,
+     "epsEstimate": 3.96796,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 6.86
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "BNP Paribas",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-09",
@@ -10001,22 +10462,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 13543619020,
+   "revEstimate": 13746142020,
    "trend": {
-    "analystsEps": 17,
-    "analystsRev": 20,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 3.94428,
-    "eps60dAgo": 3.94392,
-    "eps7dAgo": 3.96596,
-    "eps90dAgo": 3.86932,
-    "epsNow": 3.96796,
-    "growth": 0.0635,
+    "analystsEps": 14,
+    "analystsRev": 13,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 4.07628,
+    "eps60dAgo": 4.07149,
+    "eps7dAgo": 4.0784,
+    "eps90dAgo": 4.06997,
+    "epsNow": 4.12886,
+    "growth": 0.060300004,
     "revDown30": 0,
     "revDown7": null,
-    "revUp30": 3,
+    "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 13543619020
+    "revenueAvg": 13746142020
    }
   },
   "GE": {
@@ -10028,7 +10489,7 @@ const EARNINGS_INTEL = {
      "epsHigh": 8.15,
      "epsLow": 7.73,
      "growth": 0.24229999,
-     "revenue": 50291014880
+     "revenue": 50291008630
     },
     "fy1": {
      "analysts": 13,
@@ -10037,14 +10498,14 @@ const EARNINGS_INTEL = {
      "epsHigh": 10.51,
      "epsLow": 8.20513,
      "growth": 0.1468,
-     "revenue": 55675430070
+     "revenue": 55675424190
     },
     "lt5y": null
    },
    "epsEstimate": 1.98645,
    "epsHigh": 2.09,
    "epsLow": 1.89883,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.66,
@@ -10073,7 +10534,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -10144,10 +10605,10 @@ const EARNINGS_INTEL = {
     "analystsEps": 16,
     "analystsRev": 12,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.91439,
+    "eps30dAgo": 1.91389,
     "eps60dAgo": 1.91392,
-    "eps7dAgo": 1.99174,
-    "eps90dAgo": 1.92522,
+    "eps7dAgo": 1.98895,
+    "eps90dAgo": 1.92062,
     "epsNow": 1.98645,
     "growth": 0.1967,
     "revDown30": 2,
@@ -10182,7 +10643,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.03121,
    "epsHigh": 4.65,
    "epsLow": 2.74,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.64,
@@ -10320,7 +10781,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -7.24211,
    "epsHigh": -6.4,
    "epsLow": -7.93,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.01,
@@ -10406,13 +10867,6 @@ const EARNINGS_INTEL = {
      "firm": "HSBC",
      "from": "Hold",
      "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-16",
-     "firm": "Cantor Fitzgerald",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 7395129720,
@@ -10458,7 +10912,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.71593,
    "epsHigh": 0.76,
    "epsLow": 0.67,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.86,
@@ -10487,7 +10941,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-09-23",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -10581,29 +11035,29 @@ const EARNINGS_INTEL = {
   "GLW": {
    "annual": {
     "fy0": {
-     "analysts": 14,
+     "analysts": 13,
      "endDate": "2026-12-31",
-     "eps": 3.20957,
-     "epsHigh": 3.3,
-     "epsLow": 3.039,
-     "growth": 0.2736,
-     "revenue": 19098872670
+     "eps": 3.26523,
+     "epsHigh": 3.337,
+     "epsLow": 3.2,
+     "growth": 0.29569998,
+     "revenue": 19223120400
     },
     "fy1": {
      "analysts": 16,
      "endDate": "2027-12-31",
-     "eps": 4.27828,
-     "epsHigh": 5.0,
+     "eps": 4.30486,
+     "epsHigh": 4.99,
      "epsLow": 3.84,
-     "growth": 0.333,
-     "revenue": 22735533870
+     "growth": 0.3184,
+     "revenue": 22856823010
     },
     "lt5y": null
    },
-   "epsEstimate": 0.85281,
-   "epsHigh": 0.90006,
-   "epsLow": 0.765,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.873,
+   "epsHigh": 0.89,
+   "epsLow": 0.85,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.67,
@@ -10635,6 +11089,34 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Mizuho",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-29",
@@ -10685,50 +11167,50 @@ const EARNINGS_INTEL = {
      "to": "Hold"
     }
    ],
-   "revEstimate": 5004793060,
+   "revEstimate": 4993645500,
    "trend": {
-    "analystsEps": 11,
+    "analystsEps": 12,
     "analystsRev": 8,
     "endDate": "2026-09-30",
     "eps30dAgo": 0.85113,
     "eps60dAgo": 0.85448,
     "eps7dAgo": 0.85007,
     "eps90dAgo": 0.84897,
-    "epsNow": 0.85281,
-    "growth": 0.27290002,
+    "epsNow": 0.873,
+    "growth": 0.303,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 5004793060
+    "revenueAvg": 4993645500
    }
   },
   "GOOGL": {
    "annual": {
     "fy0": {
-     "analysts": 48,
+     "analysts": 50,
      "endDate": "2026-12-31",
-     "eps": 20.59177,
+     "eps": 20.5849,
      "epsHigh": 21.92,
      "epsLow": 19.7,
-     "growth": 0.90410006,
-     "revenue": 497722951210
+     "growth": 0.90339994,
+     "revenue": 497702572620
     },
     "fy1": {
-     "analysts": 54,
+     "analysts": 55,
      "endDate": "2027-12-31",
-     "eps": 14.75642,
+     "eps": 14.76976,
      "epsHigh": 17.21393,
      "epsLow": 13.39,
-     "growth": -0.2849,
-     "revenue": 605474746820
+     "growth": -0.2839,
+     "revenue": 605844990400
     },
     "lt5y": null
    },
-   "epsEstimate": 2.99903,
+   "epsEstimate": 2.99429,
    "epsHigh": 3.68,
    "epsLow": 2.64,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.87,
@@ -10757,7 +11239,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -10844,22 +11326,22 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 127004670610,
+   "revEstimate": 126995438030,
    "trend": {
     "analystsEps": 41,
-    "analystsRev": 38,
+    "analystsRev": 39,
     "endDate": "2026-09-30",
-    "eps30dAgo": 3.00261,
+    "eps30dAgo": 3.00314,
     "eps60dAgo": 3.00575,
-    "eps7dAgo": 3.00992,
-    "eps90dAgo": 2.89894,
-    "epsNow": 3.00284,
-    "growth": 0.045,
+    "eps7dAgo": 3.00488,
+    "eps90dAgo": 2.98257,
+    "epsNow": 2.99845,
+    "growth": 0.0433,
     "revDown30": 3,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 2,
-    "revenueAvg": 127004670610
+    "revenueAvg": 126995438030
    }
   },
   "GPN": {
@@ -10887,7 +11369,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.44062,
    "epsHigh": 3.55,
    "epsLow": 3.4,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.1,
@@ -10970,27 +11452,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 21,
      "endDate": "2026-12-31",
-     "eps": 70.81133,
+     "eps": 70.83418,
      "epsHigh": 75.5,
-     "epsLow": 65.25,
-     "growth": 0.3791,
-     "revenue": 72135316840
+     "epsLow": 65.73,
+     "growth": 0.3796,
+     "revenue": 72149205730
     },
     "fy1": {
      "analysts": 22,
      "endDate": "2027-12-31",
-     "eps": 73.88007,
+     "eps": 73.94189,
      "epsHigh": 87.5,
      "epsLow": 66.2938,
-     "growth": 0.041300002,
-     "revenue": 73303761090
+     "growth": 0.0419,
+     "revenue": 73333866350
     },
     "lt5y": null
    },
-   "epsEstimate": 16.46669,
+   "epsEstimate": 16.48203,
    "epsHigh": 18.98,
-   "epsLow": 12.46,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 12.69,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 12.25,
@@ -11106,22 +11588,22 @@ const EARNINGS_INTEL = {
      "to": "Neutral"
     }
    ],
-   "revEstimate": 17600324180,
+   "revEstimate": 17767745000,
    "trend": {
     "analystsEps": 17,
-    "analystsRev": 14,
+    "analystsRev": 13,
     "endDate": "2026-09-30",
-    "eps30dAgo": 14.03737,
+    "eps30dAgo": 14.05515,
     "eps60dAgo": 13.80323,
     "eps7dAgo": 16.32139,
     "eps90dAgo": 13.86369,
-    "epsNow": 16.47433,
-    "growth": 0.3442,
+    "epsNow": 16.48786,
+    "growth": 0.3455,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 8,
     "revUp7": 5,
-    "revenueAvg": 17600324180
+    "revenueAvg": 17767745000
    }
   },
   "HCA": {
@@ -11149,7 +11631,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.77736,
    "epsHigh": 7.4538,
    "epsLow": 5.83,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 6.96,
@@ -11308,7 +11790,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.72761,
    "epsHigh": 4.86216,
    "epsLow": 4.62,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.68,
@@ -11382,29 +11864,29 @@ const EARNINGS_INTEL = {
   "HIG": {
    "annual": {
     "fy0": {
-     "analysts": 21,
+     "analysts": 18,
      "endDate": "2026-12-31",
-     "eps": 12.65267,
+     "eps": 12.73174,
      "epsHigh": 13.193,
-     "epsLow": 12.1,
-     "growth": -0.0572,
-     "revenue": 28794884900
+     "epsLow": 12.13793,
+     "growth": -0.0513,
+     "revenue": 28857413530
     },
     "fy1": {
      "analysts": 23,
      "endDate": "2027-12-31",
-     "eps": 13.72422,
+     "eps": 13.72586,
      "epsHigh": 14.41,
-     "epsLow": 13.2,
-     "growth": 0.0847,
-     "revenue": 29721186350
+     "epsLow": 13.18,
+     "growth": 0.078099996,
+     "revenue": 29760535840
     },
     "lt5y": null
    },
-   "epsEstimate": 3.05523,
-   "epsHigh": 3.22,
+   "epsEstimate": 3.06153,
+   "epsHigh": 3.31,
    "epsLow": 2.79,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.78,
@@ -11431,7 +11913,7 @@ const EARNINGS_INTEL = {
      "surprisePct": 8.93
     }
    ],
-   "nextDate": "2026-07-23",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
@@ -11514,9 +11996,9 @@ const EARNINGS_INTEL = {
     "eps30dAgo": 3.09827,
     "eps60dAgo": 3.23359,
     "eps7dAgo": 3.06965,
-    "eps90dAgo": 3.22979,
-    "epsNow": 3.05523,
-    "growth": -0.1917,
+    "eps90dAgo": 3.23729,
+    "epsNow": 3.06153,
+    "growth": -0.1901,
     "revDown30": 11,
     "revDown7": null,
     "revUp30": 0,
@@ -11527,29 +12009,29 @@ const EARNINGS_INTEL = {
   "HLT": {
    "annual": {
     "fy0": {
-     "analysts": 18,
+     "analysts": 23,
      "endDate": "2026-12-31",
-     "eps": 8.99978,
-     "epsHigh": 9.07,
+     "eps": 9.03167,
+     "epsHigh": 9.23,
      "epsLow": 8.92106,
-     "growth": 0.1097,
-     "revenue": 13079078060
+     "growth": 0.11359999,
+     "revenue": 13046894300
     },
     "fy1": {
-     "analysts": 23,
+     "analysts": 24,
      "endDate": "2027-12-31",
-     "eps": 10.45665,
+     "eps": 10.43709,
      "epsHigh": 11.24,
      "epsLow": 9.96721,
-     "growth": 0.1619,
-     "revenue": 14149487350
+     "growth": 0.15560001,
+     "revenue": 14170064070
     },
     "lt5y": null
    },
-   "epsEstimate": 2.41312,
+   "epsEstimate": 2.37185,
    "epsHigh": 2.47,
    "epsLow": 2.3,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.11,
@@ -11571,16 +12053,30 @@ const EARNINGS_INTEL = {
     },
     {
      "epsActual": 2.29,
-     "epsEstimate": 2.26991,
+     "epsEstimate": 2.27229,
      "quarter": "2026-06-30",
      "reportedOn": "2026-07-28",
-     "surprisePct": 0.89
+     "surprisePct": 0.78
     }
    ],
    "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Macquarie",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-29",
@@ -11638,50 +12134,50 @@ const EARNINGS_INTEL = {
      "to": "Neutral"
     }
    ],
-   "revEstimate": 3378250000,
+   "revEstimate": 3364157200,
    "trend": {
-    "analystsEps": 18,
-    "analystsRev": 4,
+    "analystsEps": 19,
+    "analystsRev": 10,
     "endDate": "2026-09-30",
     "eps30dAgo": 2.43106,
     "eps60dAgo": 2.43106,
     "eps7dAgo": 2.42505,
-    "eps90dAgo": 2.40904,
-    "epsNow": 2.41312,
-    "growth": 0.1437,
+    "eps90dAgo": 2.41817,
+    "epsNow": 2.37185,
+    "growth": 0.1241,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 16,
     "revUp7": 1,
-    "revenueAvg": 3378250000
+    "revenueAvg": 3364157200
    }
   },
   "HON": {
    "annual": {
     "fy0": {
-     "analysts": 19,
+     "analysts": 18,
      "endDate": "2026-12-31",
-     "eps": 8.29054,
+     "eps": 8.29223,
      "epsHigh": 8.48116,
      "epsLow": 8.08,
      "growth": -0.5761,
-     "revenue": 20199389230
+     "revenue": 20189459110
     },
     "fy1": {
-     "analysts": 18,
+     "analysts": 17,
      "endDate": "2027-12-31",
-     "eps": 9.98413,
+     "eps": 9.98202,
      "epsHigh": 10.93,
      "epsLow": 9.25,
-     "growth": 0.2043,
-     "revenue": 20561835400
+     "growth": 0.2038,
+     "revenue": 20532289440
     },
     "lt5y": null
    },
    "epsEstimate": 2.14638,
    "epsHigh": 2.25,
    "epsLow": 1.95,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.64,
@@ -11797,10 +12293,10 @@ const EARNINGS_INTEL = {
      "to": "Equal-Weight"
     }
    ],
-   "revEstimate": 5008424290,
+   "revEstimate": 5020083960,
    "trend": {
     "analystsEps": 14,
-    "analystsRev": 12,
+    "analystsRev": 13,
     "endDate": "2026-09-30",
     "eps30dAgo": 5.39905,
     "eps60dAgo": 5.4021,
@@ -11812,42 +12308,36 @@ const EARNINGS_INTEL = {
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 5008424290
+    "revenueAvg": 5020083960
    }
   },
   "HOOD": {
    "annual": {
     "fy0": {
-     "analysts": 20,
+     "analysts": 14,
      "endDate": "2026-12-31",
-     "eps": 1.89779,
-     "epsHigh": 2.16,
-     "epsLow": 1.72,
-     "growth": -0.013099999,
-     "revenue": 5084046720
+     "eps": 2.03176,
+     "epsHigh": 2.18,
+     "epsLow": 1.87,
+     "growth": 0.0588,
+     "revenue": 5130070560
     },
     "fy1": {
-     "analysts": 20,
+     "analysts": 19,
      "endDate": "2027-12-31",
-     "eps": 2.64228,
+     "eps": 2.64739,
      "epsHigh": 3.25,
      "epsLow": 2.34,
-     "growth": 0.3405,
-     "revenue": 6371029860
+     "growth": 0.2699,
+     "revenue": 6449015000
     },
     "lt5y": null
    },
-   "epsEstimate": 0.54644,
-   "epsHigh": 0.57,
-   "epsLow": 0.52287,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.60474,
+   "epsHigh": 0.62,
+   "epsLow": 0.58949,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.42,
-     "epsEstimate": 0.30884,
-     "quarter": "2025-06-30",
-     "surprisePct": 35.99
-    },
     {
      "epsActual": 0.61,
      "epsEstimate": 0.5443,
@@ -11865,12 +12355,54 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.38768,
      "quarter": "2026-03-31",
      "surprisePct": -1.98
+    },
+    {
+     "epsActual": 0.62,
+     "epsEstimate": 0.43141,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 43.71
     }
    ],
    "nextDate": "2026-07-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Goldman Sachs",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-22",
@@ -11919,94 +12451,53 @@ const EARNINGS_INTEL = {
      "firm": "Mizuho",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "reit",
-     "date": "2026-07-02",
-     "firm": "BTIG",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-30",
-     "firm": "Deutsche Bank",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-29",
-     "firm": "Goldman Sachs",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "init",
-     "date": "2026-06-26",
-     "firm": "BTIG",
-     "from": null,
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-17",
-     "firm": "Argus Research",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
-   "revEstimate": 1281470670,
+   "revEstimate": 1341059000,
    "trend": {
-    "analystsEps": 16,
+    "analystsEps": 13,
     "analystsRev": 15,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.40997,
-    "eps60dAgo": 0.40122,
-    "eps7dAgo": 0.41597,
-    "eps90dAgo": 0.48118,
-    "epsNow": 0.43141,
-    "growth": 0.0962,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.46377,
+    "eps60dAgo": 0.454,
+    "eps7dAgo": 0.48888,
+    "eps90dAgo": 0.4615,
+    "epsNow": 0.5034,
+    "growth": -0.1109,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 1281470670
+    "revenueAvg": 1341059000
    }
   },
   "HSY": {
    "annual": {
     "fy0": {
-     "analysts": 22,
+     "analysts": 20,
      "endDate": "2026-12-31",
-     "eps": 8.42391,
-     "epsHigh": 8.58,
-     "epsLow": 8.25325,
-     "growth": 0.335,
-     "revenue": 12243993670
+     "eps": 8.44214,
+     "epsHigh": 8.59,
+     "epsLow": 8.32,
+     "growth": 0.3379,
+     "revenue": 12248761260
     },
     "fy1": {
      "analysts": 22,
      "endDate": "2027-12-31",
-     "eps": 9.85792,
+     "eps": 9.86064,
      "epsHigh": 10.23,
      "epsLow": 9.31,
-     "growth": 0.1702,
-     "revenue": 12588759050
+     "growth": 0.168,
+     "revenue": 12592640000
     },
     "lt5y": null
    },
-   "epsEstimate": 1.42761,
-   "epsHigh": 1.62,
-   "epsLow": 1.36,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 2.26714,
+   "epsHigh": 2.38,
+   "epsLow": 2.12,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.21,
-     "epsEstimate": 1.00483,
-     "quarter": "2025-06-30",
-     "surprisePct": 20.42
-    },
     {
      "epsActual": 1.3,
      "epsEstimate": 1.06365,
@@ -12024,12 +12515,40 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.04888,
      "quarter": "2026-03-31",
      "surprisePct": 14.7
+    },
+    {
+     "epsActual": 1.9,
+     "epsEstimate": 1.42761,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 33.09
     }
    ],
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
     {
      "action": "main",
      "date": "2026-07-23",
@@ -12080,22 +12599,22 @@ const EARNINGS_INTEL = {
      "to": "Neutral"
     }
    ],
-   "revEstimate": 2633891720,
+   "revEstimate": 3313078390,
    "trend": {
     "analystsEps": 17,
-    "analystsRev": 15,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.42837,
-    "eps60dAgo": 1.43122,
-    "eps7dAgo": 1.42767,
-    "eps90dAgo": 1.61009,
-    "epsNow": 1.42761,
-    "growth": 0.17979999,
+    "analystsRev": 9,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 2.29332,
+    "eps60dAgo": 2.2941,
+    "eps7dAgo": 2.2789,
+    "eps90dAgo": 2.28822,
+    "epsNow": 2.26714,
+    "growth": 0.744,
     "revDown30": 1,
     "revDown7": null,
-    "revUp30": 0,
-    "revUp7": 0,
-    "revenueAvg": 2633891720
+    "revUp30": 1,
+    "revUp7": 1,
+    "revenueAvg": 3313078390
    }
   },
   "HUBS": {
@@ -12123,7 +12642,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.01566,
    "epsHigh": 3.09,
    "epsLow": 2.99557,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.19,
@@ -12177,7 +12696,7 @@ const EARNINGS_INTEL = {
     "eps30dAgo": 3.01564,
     "eps60dAgo": 3.01564,
     "eps7dAgo": 3.01564,
-    "eps90dAgo": 2.86022,
+    "eps90dAgo": 2.85724,
     "epsNow": 3.01566,
     "growth": 0.377,
     "revDown30": 2,
@@ -12190,13 +12709,13 @@ const EARNINGS_INTEL = {
   "IBKR": {
    "annual": {
     "fy0": {
-     "analysts": 12,
+     "analysts": 11,
      "endDate": "2026-12-31",
-     "eps": 2.72406,
+     "eps": 2.72352,
      "epsHigh": 2.82,
      "epsLow": 2.59,
-     "growth": 0.2439,
-     "revenue": 7507771170
+     "growth": 0.24360001,
+     "revenue": 7520089570
     },
     "fy1": {
      "analysts": 12,
@@ -12204,15 +12723,15 @@ const EARNINGS_INTEL = {
      "eps": 3.19118,
      "epsHigh": 3.53,
      "epsLow": 2.98,
-     "growth": 0.1715,
-     "revenue": 8709030670
+     "growth": 0.1717,
+     "revenue": 8703026290
     },
     "lt5y": null
    },
    "epsEstimate": 0.70201,
    "epsHigh": 0.74,
    "epsLow": 0.65,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.57,
@@ -12241,7 +12760,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -12300,29 +12819,29 @@ const EARNINGS_INTEL = {
   "IBM": {
    "annual": {
     "fy0": {
-     "analysts": 23,
+     "analysts": 24,
      "endDate": "2026-12-31",
-     "eps": 12.32254,
+     "eps": 12.3266,
      "epsHigh": 12.63,
      "epsLow": 12.08,
-     "growth": 0.063200004,
-     "revenue": 70344424420
+     "growth": 0.0636,
+     "revenue": 70375241150
     },
     "fy1": {
      "analysts": 24,
      "endDate": "2027-12-31",
-     "eps": 13.19449,
-     "epsHigh": 13.96,
+     "eps": 13.17491,
+     "epsHigh": 13.86,
      "epsLow": 12.30183,
-     "growth": 0.0708,
-     "revenue": 73379033760
+     "growth": 0.0688,
+     "revenue": 73259816370
     },
     "lt5y": null
    },
-   "epsEstimate": 2.89761,
+   "epsEstimate": 2.88811,
    "epsHigh": 3.12,
    "epsLow": 2.78,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.65,
@@ -12438,57 +12957,51 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 16839520190,
+   "revEstimate": 16837324630,
    "trend": {
     "analystsEps": 20,
-    "analystsRev": 17,
+    "analystsRev": 18,
     "endDate": "2026-09-30",
     "eps30dAgo": 2.92793,
     "eps60dAgo": 2.93498,
-    "eps7dAgo": 2.86448,
+    "eps7dAgo": 2.87285,
     "eps90dAgo": 2.97155,
-    "epsNow": 2.89761,
-    "growth": 0.0934,
+    "epsNow": 2.88811,
+    "growth": 0.089899994,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 2,
-    "revenueAvg": 16839520190
+    "revenueAvg": 16837324630
    }
   },
   "ICE": {
    "annual": {
     "fy0": {
-     "analysts": 15,
+     "analysts": 6,
      "endDate": "2026-12-31",
-     "eps": 8.02577,
-     "epsHigh": 8.298,
-     "epsLow": 7.84,
-     "growth": 0.1548,
-     "revenue": 10931994450
+     "eps": 7.97394,
+     "epsHigh": 8.05,
+     "epsLow": 7.91,
+     "growth": 0.14729999,
+     "revenue": 10927930720
     },
     "fy1": {
-     "analysts": 15,
+     "analysts": 14,
      "endDate": "2027-12-31",
-     "eps": 8.72123,
+     "eps": 8.69893,
      "epsHigh": 9.19,
      "epsLow": 8.21171,
-     "growth": 0.0867,
-     "revenue": 11468039190
+     "growth": 0.090900004,
+     "revenue": 11466179910
     },
     "lt5y": null
    },
-   "epsEstimate": 1.83828,
-   "epsHigh": 1.87,
-   "epsLow": 1.81,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.86124,
+   "epsHigh": 1.92,
+   "epsLow": 1.8113,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.81,
-     "epsEstimate": 1.77007,
-     "quarter": "2025-06-30",
-     "surprisePct": 2.26
-    },
     {
      "epsActual": 1.71,
      "epsEstimate": 1.60658,
@@ -12506,12 +13019,40 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.26276,
      "quarter": "2026-03-31",
      "surprisePct": 3.86
+    },
+    {
+     "epsActual": 1.9,
+     "epsEstimate": 1.83828,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 3.36
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-15",
@@ -12555,22 +13096,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 2621622250,
+   "revEstimate": 2665916480,
    "trend": {
-    "analystsEps": 13,
-    "analystsRev": 8,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.91943,
-    "eps60dAgo": 1.9241,
-    "eps7dAgo": 1.87552,
-    "eps90dAgo": 1.98388,
-    "epsNow": 1.83828,
-    "growth": 0.0156,
-    "revDown30": 2,
+    "analystsEps": 8,
+    "analystsRev": 7,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.90847,
+    "eps60dAgo": 1.90855,
+    "eps7dAgo": 1.88059,
+    "eps90dAgo": 1.89503,
+    "epsNow": 1.86124,
+    "growth": 0.0884,
+    "revDown30": 1,
     "revDown7": null,
-    "revUp30": 0,
+    "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 2621622250
+    "revenueAvg": 2665916480
    }
   },
   "IDXX": {
@@ -12598,7 +13139,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.93417,
    "epsHigh": 4.03,
    "epsLow": 3.81,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.63,
@@ -12658,29 +13199,29 @@ const EARNINGS_INTEL = {
   "INTC": {
    "annual": {
     "fy0": {
-     "analysts": 34,
+     "analysts": 33,
      "endDate": "2026-12-31",
-     "eps": 1.5169,
+     "eps": 1.51711,
      "epsHigh": 1.69,
      "epsLow": 1.12,
-     "growth": 2.6117,
+     "growth": 2.6122,
      "revenue": 63028311600
     },
     "fy1": {
-     "analysts": 42,
+     "analysts": 40,
      "endDate": "2027-12-31",
-     "eps": 2.01367,
+     "eps": 2.03735,
      "epsHigh": 3.44,
-     "epsLow": 1.14,
-     "growth": 0.3275,
-     "revenue": 70743756410
+     "epsLow": 1.41,
+     "growth": 0.3429,
+     "revenue": 71098848030
     },
     "lt5y": null
    },
-   "epsEstimate": 0.38943,
+   "epsEstimate": 0.38941,
    "epsHigh": 0.45,
    "epsLow": 0.37,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.23,
@@ -12709,7 +13250,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-22",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -12798,15 +13339,15 @@ const EARNINGS_INTEL = {
    ],
    "revEstimate": 16409016730,
    "trend": {
-    "analystsEps": 30,
+    "analystsEps": 29,
     "analystsRev": 29,
     "endDate": "2026-09-30",
     "eps30dAgo": 0.26749,
     "eps60dAgo": 0.26597,
     "eps7dAgo": 0.27317,
     "eps90dAgo": 0.26346,
-    "epsNow": 0.38943,
-    "growth": 0.6932,
+    "epsNow": 0.38941,
+    "growth": 0.6931,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 4,
@@ -12839,7 +13380,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.58858,
    "epsHigh": 3.72,
    "epsLow": 3.49,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.75,
@@ -12866,9 +13407,9 @@ const EARNINGS_INTEL = {
      "surprisePct": 1.84
     }
    ],
-   "nextDate": "2026-08-20",
+   "nextDate": "2026-08-25",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "down",
@@ -12920,29 +13461,29 @@ const EARNINGS_INTEL = {
   "IQV": {
    "annual": {
     "fy0": {
-     "analysts": 22,
+     "analysts": 21,
      "endDate": "2026-12-31",
-     "eps": 12.80407,
-     "epsHigh": 12.9,
-     "epsLow": 12.62035,
-     "growth": 0.074200004,
-     "revenue": 17350510750
+     "eps": 12.95895,
+     "epsHigh": 13.38,
+     "epsLow": 12.86677,
+     "growth": 0.0872,
+     "revenue": 17413339760
     },
     "fy1": {
-     "analysts": 22,
+     "analysts": 21,
      "endDate": "2027-12-31",
-     "eps": 14.16942,
-     "epsHigh": 14.81809,
-     "epsLow": 13.7,
-     "growth": 0.1066,
-     "revenue": 18278561230
+     "eps": 14.43079,
+     "epsHigh": 15.48,
+     "epsLow": 13.9,
+     "growth": 0.11359999,
+     "revenue": 18463236560
     },
     "lt5y": null
    },
-   "epsEstimate": 3.24469,
-   "epsHigh": 3.4,
-   "epsLow": 3.15,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.27307,
+   "epsHigh": 3.54,
+   "epsLow": 3.22,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.0,
@@ -12977,6 +13518,41 @@ const EARNINGS_INTEL = {
     {
      "action": "main",
      "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
      "firm": "Baird",
      "from": "Outperform",
      "to": "Outperform"
@@ -13003,22 +13579,22 @@ const EARNINGS_INTEL = {
      "to": "Equal-Weight"
     }
    ],
-   "revEstimate": 4331320000,
+   "revEstimate": 4362404890,
    "trend": {
-    "analystsEps": 18,
-    "analystsRev": 6,
+    "analystsEps": 16,
+    "analystsRev": 14,
     "endDate": "2026-09-30",
-    "eps30dAgo": 3.24506,
-    "eps60dAgo": 3.23922,
-    "eps7dAgo": 3.24469,
-    "eps90dAgo": 3.18417,
-    "epsNow": 3.24469,
-    "growth": 0.081599995,
+    "eps30dAgo": 3.251,
+    "eps60dAgo": 3.24447,
+    "eps7dAgo": 3.25026,
+    "eps90dAgo": 3.18207,
+    "epsNow": 3.27307,
+    "growth": 0.091000006,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 4331320000
+    "revenueAvg": 4362404890
    }
   },
   "IREN": {
@@ -13046,7 +13622,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.455,
    "epsHigh": -0.4,
    "epsLow": -0.51,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.2102,
@@ -13140,7 +13716,7 @@ const EARNINGS_INTEL = {
      "epsHigh": 11.08,
      "epsLow": 10.66,
      "growth": 0.2087,
-     "revenue": 11779474510
+     "revenue": 11772669820
     },
     "fy1": {
      "analysts": 27,
@@ -13149,14 +13725,14 @@ const EARNINGS_INTEL = {
      "epsHigh": 12.72,
      "epsLow": 11.28,
      "growth": 0.1183,
-     "revenue": 13258938380
+     "revenue": 13249549360
     },
     "lt5y": null
    },
    "epsEstimate": 2.63773,
    "epsHigh": 2.76,
    "epsLow": 2.53,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.4,
@@ -13185,8 +13761,15 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-30",
+     "firm": "HSBC",
+     "from": "Buy",
+     "to": "Hold"
+    },
     {
      "action": "main",
      "date": "2026-07-17",
@@ -13263,13 +13846,6 @@ const EARNINGS_INTEL = {
      "firm": "Bernstein",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-17",
-     "firm": "Leerink Partners",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
    "revEstimate": 2906195640,
@@ -13295,27 +13871,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 23,
      "endDate": "2026-12-31",
-     "eps": 11.67516,
+     "eps": 11.64777,
      "epsHigh": 11.89,
-     "epsLow": 11.45,
-     "growth": 0.081999995,
+     "epsLow": 11.05,
+     "growth": 0.0795,
      "revenue": 101261342360
     },
     "fy1": {
      "analysts": 23,
      "endDate": "2027-12-31",
-     "eps": 12.83218,
+     "eps": 12.83175,
      "epsHigh": 13.54,
      "epsLow": 12.25,
-     "growth": 0.0991,
+     "growth": 0.1016,
      "revenue": 108382241590
     },
     "lt5y": null
    },
-   "epsEstimate": 3.04957,
+   "epsEstimate": 3.00957,
    "epsHigh": 3.18,
-   "epsLow": 2.95,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 2.31,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.8,
@@ -13337,9 +13913,9 @@ const EARNINGS_INTEL = {
     },
     {
      "epsActual": 2.9,
-     "epsEstimate": 2.85454,
+     "epsEstimate": 2.85484,
      "quarter": "2026-06-30",
-     "surprisePct": 1.59
+     "surprisePct": 1.58
     }
    ],
    "nextDate": "2026-10-13",
@@ -13430,11 +14006,11 @@ const EARNINGS_INTEL = {
     "analystsRev": 15,
     "endDate": "2026-09-30",
     "eps30dAgo": 3.02384,
-    "eps60dAgo": 3.02444,
+    "eps60dAgo": 3.02322,
     "eps7dAgo": 3.04957,
     "eps90dAgo": 3.01738,
-    "epsNow": 3.04957,
-    "growth": 0.089099996,
+    "epsNow": 3.00957,
+    "growth": 0.0748,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 1,
@@ -13467,7 +14043,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.90243,
    "epsHigh": 6.21,
    "epsLow": 5.71,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.07,
@@ -13604,29 +14180,29 @@ const EARNINGS_INTEL = {
   "KEY": {
    "annual": {
     "fy0": {
-     "analysts": 14,
+     "analysts": 15,
      "endDate": "2026-12-31",
-     "eps": 1.83117,
+     "eps": 1.82702,
      "epsHigh": 1.86,
      "epsLow": 1.8,
-     "growth": 0.2208,
+     "growth": 0.218,
      "revenue": 8068990500
     },
     "fy1": {
      "analysts": 15,
      "endDate": "2027-12-31",
-     "eps": 2.14018,
+     "eps": 2.13848,
      "epsHigh": 2.21,
      "epsLow": 2.06,
-     "growth": 0.1688,
+     "growth": 0.1705,
      "revenue": 8606050440
     },
     "lt5y": null
    },
-   "epsEstimate": 0.45993,
+   "epsEstimate": 0.45815,
    "epsHigh": 0.47,
    "epsLow": 0.44,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.41,
@@ -13735,10 +14311,10 @@ const EARNINGS_INTEL = {
     "endDate": "2026-09-30",
     "eps30dAgo": 0.46954,
     "eps60dAgo": 0.4658,
-    "eps7dAgo": 0.47164,
-    "eps90dAgo": 0.46192,
-    "epsNow": 0.45993,
-    "growth": 0.121800005,
+    "eps7dAgo": 0.46069,
+    "eps90dAgo": 0.46187,
+    "epsNow": 0.45815,
+    "growth": 0.1174,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
@@ -13771,7 +14347,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.53031,
    "epsHigh": 0.5625,
    "epsLow": 0.51,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.69,
@@ -13878,17 +14454,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 1.42696,
-   "epsHigh": 1.56,
-   "epsLow": 1.34,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.58874,
+   "epsHigh": 1.68358,
+   "epsLow": 1.42707,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.18,
-     "epsEstimate": 1.13863,
-     "quarter": "2025-06-30",
-     "surprisePct": 3.63
-    },
     {
      "epsActual": 1.41,
      "epsEstimate": 1.29786,
@@ -13906,12 +14476,33 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.26039,
      "quarter": "2026-03-31",
      "surprisePct": 10.28
+    },
+    {
+     "epsActual": 1.63,
+     "epsEstimate": 1.42696,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 14.23
     }
    ],
    "nextDate": "2026-07-30",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -13962,57 +14553,51 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 2462221500,
+   "revEstimate": 2567306160,
    "trend": {
-    "analystsEps": 18,
+    "analystsEps": 13,
     "analystsRev": 4,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.38219,
-    "eps60dAgo": 1.38634,
-    "eps7dAgo": 1.42808,
-    "eps90dAgo": 1.45437,
-    "epsNow": 1.42696,
-    "growth": 0.2093,
-    "revDown30": 12,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.55146,
+    "eps60dAgo": 1.55146,
+    "eps7dAgo": 1.58951,
+    "eps90dAgo": 1.60587,
+    "epsNow": 1.58874,
+    "growth": 0.1268,
+    "revDown30": 10,
     "revDown7": null,
-    "revUp30": 0,
-    "revUp7": 0,
-    "revenueAvg": 2462221500
+    "revUp30": 2,
+    "revUp7": 1,
+    "revenueAvg": 2567306160
    }
   },
   "KLAC": {
    "annual": {
     "fy0": {
-     "analysts": 28,
-     "endDate": "2026-06-30",
-     "eps": 3.70459,
-     "epsHigh": 3.755,
-     "epsLow": 3.637,
-     "growth": 0.113199994,
-     "revenue": 13519252700
+     "analysts": 23,
+     "endDate": "2027-06-30",
+     "eps": 5.44883,
+     "epsHigh": 5.86,
+     "epsLow": 5.05,
+     "growth": 0.44919997,
+     "revenue": 18040895560
     },
     "fy1": {
-     "analysts": 27,
-     "endDate": "2027-06-30",
-     "eps": 5.13135,
-     "epsHigh": 6.468,
-     "epsLow": 4.409,
-     "growth": 0.38509998,
-     "revenue": 17214452980
+     "analysts": 22,
+     "endDate": "2028-06-30",
+     "eps": 6.53834,
+     "epsHigh": 7.62648,
+     "epsLow": 5.042,
+     "growth": 0.2,
+     "revenue": 20979437890
     },
     "lt5y": null
    },
-   "epsEstimate": 0.99866,
-   "epsHigh": 1.03166,
-   "epsLow": 0.987,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.17852,
+   "epsHigh": 1.25,
+   "epsLow": 1.16,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.938,
-     "epsEstimate": 0.85531,
-     "quarter": "2025-06-30",
-     "surprisePct": 9.67
-    },
     {
      "epsActual": 0.881,
      "epsEstimate": 0.86172,
@@ -14030,12 +14615,47 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.91703,
      "quarter": "2026-03-31",
      "surprisePct": 2.5
+    },
+    {
+     "epsActual": 1.05,
+     "epsEstimate": 0.99866,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 5.14
     }
    ],
    "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Susquehanna",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "reit",
      "date": "2026-07-29",
@@ -14091,52 +14711,24 @@ const EARNINGS_INTEL = {
      "firm": "UBS",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-10",
-     "firm": "Stifel",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-10",
-     "firm": "Needham",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-09",
-     "firm": "TD Cowen",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-06",
-     "firm": "Morgan Stanley",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
-   "revEstimate": 3602913010,
+   "revEstimate": 4040194880,
    "trend": {
-    "analystsEps": 23,
+    "analystsEps": 22,
     "analystsRev": 21,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.99692,
-    "eps60dAgo": 0.99515,
-    "eps7dAgo": 0.99818,
-    "eps90dAgo": 0.98111,
-    "epsNow": 0.99866,
-    "growth": 0.0647,
-    "revDown30": 1,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.13002,
+    "eps60dAgo": 1.12048,
+    "eps7dAgo": 1.13373,
+    "eps90dAgo": 1.11731,
+    "epsNow": 1.17852,
+    "growth": 0.3377,
+    "revDown30": 3,
     "revDown7": null,
-    "revUp30": 3,
-    "revUp7": 0,
-    "revenueAvg": 3602913010
+    "revUp30": 4,
+    "revUp7": 1,
+    "revenueAvg": 4040194880
    }
   },
   "KMB": {
@@ -14164,7 +14756,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.00599,
    "epsHigh": 2.1,
    "epsLow": 1.93,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.92,
@@ -14267,7 +14859,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.87695,
    "epsHigh": 0.89,
    "epsLow": 0.86,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.82,
@@ -14297,8 +14889,57 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Argus Research",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
     {
      "action": "main",
      "date": "2026-07-29",
@@ -14356,36 +14997,30 @@ const EARNINGS_INTEL = {
   "LHX": {
    "annual": {
     "fy0": {
-     "analysts": 7,
+     "analysts": 9,
      "endDate": "2026-12-31",
-     "eps": 11.763,
+     "eps": 11.85233,
      "epsHigh": 12.61,
      "epsLow": 11.26,
-     "growth": 0.0963,
-     "revenue": 23576371380
+     "growth": 0.1046,
+     "revenue": 23574236380
     },
     "fy1": {
      "analysts": 16,
      "endDate": "2027-12-31",
-     "eps": 13.63323,
+     "eps": 13.58386,
      "epsHigh": 14.14,
      "epsLow": 12.84,
-     "growth": 0.159,
-     "revenue": 25439238010
+     "growth": 0.1461,
+     "revenue": 25387413010
     },
     "lt5y": null
    },
-   "epsEstimate": 2.82688,
-   "epsHigh": 2.99,
-   "epsLow": 2.63,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.00987,
+   "epsHigh": 3.23,
+   "epsLow": 2.87,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.78,
-     "epsEstimate": 2.49692,
-     "quarter": "2025-06-30",
-     "surprisePct": 11.34
-    },
     {
      "epsActual": 2.7,
      "epsEstimate": 2.56918,
@@ -14403,28 +15038,50 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.57261,
      "quarter": "2026-03-31",
      "surprisePct": 12.99
+    },
+    {
+     "epsActual": 3.6295,
+     "epsEstimate": 2.82688,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 28.39
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
-   "ratings": [],
-   "revEstimate": 5822661190,
+   "nextDateEstimate": true,
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "BNP Paribas",
+     "from": "Neutral",
+     "to": "Neutral"
+    }
+   ],
+   "revEstimate": 6011771160,
    "trend": {
-    "analystsEps": 11,
-    "analystsRev": 18,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 2.83321,
-    "eps60dAgo": 2.82412,
-    "eps7dAgo": 2.83143,
-    "eps90dAgo": 2.87397,
-    "epsNow": 2.82688,
-    "growth": 0.016900001,
+    "analystsEps": 10,
+    "analystsRev": 16,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 3.02688,
+    "eps60dAgo": 3.0287,
+    "eps7dAgo": 3.00897,
+    "eps90dAgo": 3.03206,
+    "epsNow": 3.00987,
+    "growth": 0.1148,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 5822661190
+    "revenueAvg": 6011771160
    }
   },
   "LIN": {
@@ -14452,7 +15109,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.48597,
    "epsHigh": 4.57,
    "epsLow": 4.45,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.09,
@@ -14479,9 +15136,9 @@ const EARNINGS_INTEL = {
      "surprisePct": 1.4
     }
    ],
-   "nextDate": "2026-07-31",
+   "nextDate": "2026-10-30",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -14548,7 +15205,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.54902,
    "epsHigh": 9.08,
    "epsLow": 5.28,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 6.31,
@@ -14700,7 +15357,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 7.4242,
    "epsHigh": 7.76987,
    "epsLow": 5.8,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 6.95,
@@ -14804,7 +15461,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.15236,
    "epsHigh": 3.74709,
    "epsLow": 2.48,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.8814,
@@ -14907,7 +15564,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.24995,
    "epsHigh": 4.35,
    "epsLow": 4.21,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.33,
@@ -14937,7 +15594,15 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-08-19",
    "nextDateEnd": null,
    "nextDateEstimate": null,
-   "ratings": [],
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    }
+   ],
    "revEstimate": 26233395680,
    "trend": {
     "analystsEps": 29,
@@ -14959,36 +15624,30 @@ const EARNINGS_INTEL = {
   "LRCX": {
    "annual": {
     "fy0": {
-     "analysts": 33,
-     "endDate": "2026-06-30",
-     "eps": 5.69461,
-     "epsHigh": 5.82,
-     "epsLow": 5.62412,
-     "growth": 0.3755,
-     "revenue": 23202045360
+     "analysts": 25,
+     "endDate": "2027-06-30",
+     "eps": 9.45414,
+     "epsHigh": 10.82,
+     "epsLow": 8.44,
+     "growth": 0.62439996,
+     "revenue": 34768162220
     },
     "fy1": {
-     "analysts": 32,
-     "endDate": "2027-06-30",
-     "eps": 8.18042,
-     "epsHigh": 10.82,
-     "epsLow": 7.25,
-     "growth": 0.4365,
-     "revenue": 31006961490
+     "analysts": 24,
+     "endDate": "2028-06-30",
+     "eps": 11.44776,
+     "epsHigh": 15.12,
+     "epsLow": 8.78,
+     "growth": 0.21090001,
+     "revenue": 39839243050
     },
     "lt5y": null
    },
-   "epsEstimate": 1.68363,
-   "epsHigh": 1.82,
-   "epsLow": 1.64,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 2.17575,
+   "epsHigh": 2.28,
+   "epsLow": 2.09,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.33,
-     "epsEstimate": 1.2051,
-     "quarter": "2025-06-30",
-     "surprisePct": 10.36
-    },
     {
      "epsActual": 1.26,
      "epsEstimate": 1.22013,
@@ -15006,12 +15665,54 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.3628,
      "quarter": "2026-03-31",
      "surprisePct": 7.87
+    },
+    {
+     "epsActual": 1.82,
+     "epsEstimate": 1.68363,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 8.1
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-21",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "B. Riley Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Jefferies",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-20",
@@ -15060,59 +15761,24 @@ const EARNINGS_INTEL = {
      "firm": "Susquehanna",
      "from": "Positive",
      "to": "Positive"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-29",
-     "firm": "Cantor Fitzgerald",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-23",
-     "firm": "B of A Securities",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-22",
-     "firm": "Wells Fargo",
-     "from": "Overweight",
-     "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-17",
-     "firm": "Citigroup",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "Oppenheimer",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
-   "revEstimate": 6671305710,
+   "revEstimate": 8129872680,
    "trend": {
-    "analystsEps": 27,
-    "analystsRev": 26,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.67545,
-    "eps60dAgo": 1.67434,
-    "eps7dAgo": 1.67785,
-    "eps90dAgo": 1.67548,
-    "epsNow": 1.68363,
-    "growth": 0.26590002,
+    "analystsEps": 22,
+    "analystsRev": 22,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.81186,
+    "eps60dAgo": 1.80334,
+    "eps7dAgo": 1.83591,
+    "eps90dAgo": 1.80264,
+    "epsNow": 2.17575,
+    "growth": 0.7268,
     "revDown30": 0,
     "revDown7": null,
-    "revUp30": 1,
-    "revUp7": 1,
-    "revenueAvg": 6671305710
+    "revUp30": 4,
+    "revUp7": 2,
+    "revenueAvg": 8129872680
    }
   },
   "LULU": {
@@ -15140,7 +15806,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.80164,
    "epsHigh": 1.91,
    "epsLow": 1.66,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.1,
@@ -15207,36 +15873,30 @@ const EARNINGS_INTEL = {
   "MA": {
    "annual": {
     "fy0": {
-     "analysts": 38,
+     "analysts": 35,
      "endDate": "2026-12-31",
-     "eps": 19.66215,
-     "epsHigh": 20.0,
-     "epsLow": 19.46,
-     "growth": 0.1559,
-     "revenue": 37081179670
+     "eps": 19.73979,
+     "epsHigh": 20.2,
+     "epsLow": 19.5,
+     "growth": 0.16049999,
+     "revenue": 37200951590
     },
     "fy1": {
-     "analysts": 38,
+     "analysts": 39,
      "endDate": "2027-12-31",
-     "eps": 22.79702,
-     "epsHigh": 23.46,
-     "epsLow": 21.95,
-     "growth": 0.1594,
-     "revenue": 41748926260
+     "eps": 22.8428,
+     "epsHigh": 23.52,
+     "epsLow": 22.22,
+     "growth": 0.15720001,
+     "revenue": 41799987750
     },
     "lt5y": null
    },
-   "epsEstimate": 4.77606,
-   "epsHigh": 4.88,
-   "epsLow": 4.61,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 5.12684,
+   "epsHigh": 5.23,
+   "epsLow": 5.03,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 4.15,
-     "epsEstimate": 4.02443,
-     "quarter": "2025-06-30",
-     "surprisePct": 3.12
-    },
     {
      "epsActual": 4.38,
      "epsEstimate": 4.31425,
@@ -15254,12 +15914,75 @@ const EARNINGS_INTEL = {
      "epsEstimate": 4.41328,
      "quarter": "2026-03-31",
      "surprisePct": 4.23
+    },
+    {
+     "epsActual": 5.04,
+     "epsEstimate": 4.77606,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 5.53
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Macquarie",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
     {
      "action": "main",
      "date": "2026-07-24",
@@ -15287,42 +16010,35 @@ const EARNINGS_INTEL = {
      "firm": "Baird",
      "from": "Outperform",
      "to": "Outperform"
-    },
-    {
-     "action": "init",
-     "date": "2026-06-30",
-     "firm": "Piper Sandler",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
-   "revEstimate": 9077859690,
+   "revEstimate": 9635738940,
    "trend": {
-    "analystsEps": 30,
-    "analystsRev": 28,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 4.76134,
-    "eps60dAgo": 4.76384,
-    "eps7dAgo": 4.77216,
-    "eps90dAgo": 4.85246,
-    "epsNow": 4.77606,
-    "growth": 0.1509,
+    "analystsEps": 27,
+    "analystsRev": 26,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 5.11363,
+    "eps60dAgo": 5.1145,
+    "eps7dAgo": 5.1134,
+    "eps90dAgo": 5.11668,
+    "epsNow": 5.12684,
+    "growth": 0.1705,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 9077859690
+    "revenueAvg": 9635738940
    }
   },
   "MAR": {
    "annual": {
     "fy0": {
-     "analysts": 26,
+     "analysts": 25,
      "endDate": "2026-12-31",
-     "eps": 11.62972,
+     "eps": 11.63691,
      "epsHigh": 12.21,
      "epsLow": 11.45,
-     "growth": 0.1607,
+     "growth": 0.16139999,
      "revenue": 27922921540
     },
     "fy1": {
@@ -15331,7 +16047,7 @@ const EARNINGS_INTEL = {
      "eps": 13.11196,
      "epsHigh": 14.63,
      "epsLow": 12.63549,
-     "growth": 0.1275,
+     "growth": 0.1268,
      "revenue": 29544588380
     },
     "lt5y": null
@@ -15339,7 +16055,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.0782,
    "epsHigh": 3.14,
    "epsLow": 2.9,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.65,
@@ -15418,13 +16134,6 @@ const EARNINGS_INTEL = {
      "firm": "Macquarie",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "UBS",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
    "revEstimate": 7192555930,
@@ -15433,9 +16142,9 @@ const EARNINGS_INTEL = {
     "analystsRev": 16,
     "endDate": "2026-06-30",
     "eps30dAgo": 3.05042,
-    "eps60dAgo": 3.0558,
-    "eps7dAgo": 3.062,
-    "eps90dAgo": 3.0559,
+    "eps60dAgo": 3.06125,
+    "eps7dAgo": 3.0741,
+    "eps90dAgo": 3.05537,
     "epsNow": 3.0782,
     "growth": 0.1616,
     "revDown30": 2,
@@ -15470,7 +16179,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.32242,
    "epsHigh": 3.47,
    "epsLow": 3.15256,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.19,
@@ -15501,6 +16210,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-27",
@@ -15601,7 +16317,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.69923,
    "epsHigh": 0.76,
    "epsLow": 0.69,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.27,
@@ -15679,10 +16395,10 @@ const EARNINGS_INTEL = {
     "fy1": {
      "analysts": 17,
      "endDate": "2028-03-31",
-     "eps": 50.37005,
+     "eps": 50.37593,
      "epsHigh": 52.58172,
      "epsLow": 49.48,
-     "growth": 0.1382,
+     "growth": 0.1383,
      "revenue": 463460796820
     },
     "lt5y": null
@@ -15690,7 +16406,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 9.53552,
    "epsHigh": 9.89,
    "epsLow": 9.25,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 8.26,
@@ -15743,8 +16459,8 @@ const EARNINGS_INTEL = {
     "endDate": "2026-06-30",
     "eps30dAgo": 9.62725,
     "eps60dAgo": 9.58353,
-    "eps7dAgo": 9.58524,
-    "eps90dAgo": 9.55201,
+    "eps7dAgo": 9.56019,
+    "eps90dAgo": 9.65676,
     "epsNow": 9.53552,
     "growth": 0.15439999,
     "revDown30": 2,
@@ -15759,27 +16475,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 24,
      "endDate": "2026-12-31",
-     "eps": 16.92419,
+     "eps": 16.94088,
      "epsHigh": 17.26,
-     "epsLow": 16.52399,
-     "growth": 0.1328,
-     "revenue": 8289343720
+     "epsLow": 16.73,
+     "growth": 0.1339,
+     "revenue": 8286768040
     },
     "fy1": {
      "analysts": 24,
      "endDate": "2027-12-31",
-     "eps": 18.84737,
+     "eps": 18.87248,
      "epsHigh": 20.0,
      "epsLow": 17.78,
-     "growth": 0.11359999,
-     "revenue": 8894033050
+     "growth": 0.11399999,
+     "revenue": 8888066970
     },
     "lt5y": null
    },
-   "epsEstimate": 4.26372,
-   "epsHigh": 4.53128,
+   "epsEstimate": 4.25152,
+   "epsHigh": 4.39,
    "epsLow": 3.99,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.92,
@@ -15867,22 +16583,22 @@ const EARNINGS_INTEL = {
      "to": "Market Perform"
     }
    ],
-   "revEstimate": 2078919040,
+   "revEstimate": 2072905560,
    "trend": {
     "analystsEps": 21,
     "analystsRev": 19,
     "endDate": "2026-09-30",
     "eps30dAgo": 4.36527,
     "eps60dAgo": 4.36527,
-    "eps7dAgo": 4.36274,
-    "eps90dAgo": 4.35077,
-    "epsNow": 4.26372,
-    "growth": 0.0877,
+    "eps7dAgo": 4.36798,
+    "eps90dAgo": 4.35777,
+    "epsNow": 4.25152,
+    "growth": 0.0846,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 2078919040
+    "revenueAvg": 2072905560
    }
   },
   "MDB": {
@@ -15910,7 +16626,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.61073,
    "epsHigh": 1.77566,
    "epsLow": 1.54,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.0,
@@ -15999,7 +16715,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.67973,
    "epsHigh": 0.71,
    "epsLow": 0.63,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.73,
@@ -16029,7 +16745,36 @@ const EARNINGS_INTEL = {
    "nextDate": "2026-10-27",
    "nextDateEnd": null,
    "nextDateEstimate": true,
-   "ratings": [],
+   "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "BNP Paribas",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    }
+   ],
    "revEstimate": 9198036350,
    "trend": {
     "analystsEps": 16,
@@ -16073,7 +16818,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.3875,
    "epsHigh": 1.40065,
    "epsLow": 1.37,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.26,
@@ -16156,27 +16901,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 16,
      "endDate": "2026-12-31",
-     "eps": 39.98288,
+     "eps": 39.97664,
      "epsHigh": 51.52,
      "epsLow": 35.1,
-     "growth": 0.0404,
-     "revenue": 40720142780
+     "growth": 0.0402,
+     "revenue": 40722708230
     },
     "fy1": {
      "analysts": 18,
      "endDate": "2027-12-31",
-     "eps": 57.35612,
+     "eps": 57.31614,
      "epsHigh": 73.46,
      "epsLow": 49.78083,
-     "growth": 0.42279997,
-     "revenue": 51791001220
+     "growth": 0.42189997,
+     "revenue": 51791822020
     },
     "lt5y": null
    },
    "epsEstimate": 9.10708,
    "epsHigh": 9.61,
    "epsLow": 8.6754,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 10.31,
@@ -16258,7 +17003,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.2889,
    "epsHigh": 2.39679,
    "epsLow": 2.2,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.02,
@@ -16393,7 +17138,7 @@ const EARNINGS_INTEL = {
      "eps": 33.04684,
      "epsHigh": 38.62,
      "epsLow": 29.2,
-     "growth": 0.0689,
+     "growth": 0.0506,
      "revenue": 253312160540
     },
     "fy1": {
@@ -16402,22 +17147,16 @@ const EARNINGS_INTEL = {
      "eps": 35.09669,
      "epsHigh": 43.23371,
      "epsLow": 30.19803,
-     "growth": 0.1667,
+     "growth": 0.1871,
      "revenue": 304059399260
     },
     "lt5y": null
    },
-   "epsEstimate": 7.39818,
-   "epsHigh": 8.55,
-   "epsLow": 6.46,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 7.36375,
+   "epsHigh": 8.99,
+   "epsLow": 6.0,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 7.14,
-     "epsEstimate": 5.90298,
-     "quarter": "2025-06-30",
-     "surprisePct": 20.96
-    },
     {
      "epsActual": 1.05,
      "epsEstimate": 6.70696,
@@ -16435,28 +17174,35 @@ const EARNINGS_INTEL = {
      "epsEstimate": 6.65872,
      "quarter": "2026-03-31",
      "surprisePct": 56.79
+    },
+    {
+     "epsActual": 6.18,
+     "epsEstimate": 7.22143,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": -14.42
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [],
-   "revEstimate": 60286774230,
+   "revEstimate": 63239546540,
    "trend": {
-    "analystsEps": 47,
-    "analystsRev": 50,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 7.20067,
-    "eps60dAgo": 7.20067,
-    "eps7dAgo": 7.22457,
-    "eps90dAgo": 7.1478,
-    "epsNow": 7.22143,
-    "growth": 0.036199998,
-    "revDown30": 13,
+    "analystsEps": 45,
+    "analystsRev": 46,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 7.04256,
+    "eps60dAgo": 7.04256,
+    "eps7dAgo": 7.06049,
+    "eps90dAgo": 7.14597,
+    "epsNow": 7.04605,
+    "growth": 0.015700001,
+    "revDown30": 22,
     "revDown7": null,
-    "revUp30": 22,
-    "revUp7": 1,
-    "revenueAvg": 60286774230
+    "revUp30": 10,
+    "revUp7": 0,
+    "revenueAvg": 63239546540
    }
   },
   "MPC": {
@@ -16484,7 +17230,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 13.95183,
    "epsHigh": 15.5466,
    "epsLow": 8.56,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.96,
@@ -16605,17 +17351,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 5.88072,
-   "epsHigh": 6.05,
-   "epsLow": 5.83,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 6.47582,
+   "epsHigh": 6.68,
+   "epsLow": 6.21,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 4.21,
-     "epsEstimate": 4.11742,
-     "quarter": "2025-06-30",
-     "surprisePct": 2.25
-    },
     {
      "epsActual": 4.73,
      "epsEstimate": 4.63526,
@@ -16633,12 +17373,54 @@ const EARNINGS_INTEL = {
      "epsEstimate": 4.90131,
      "quarter": "2026-03-31",
      "surprisePct": 4.05
+    },
+    {
+     "epsActual": 6.5,
+     "epsEstimate": 5.88072,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 10.53
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Keybanc",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Rosenblatt",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-20",
@@ -16647,22 +17429,22 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 903343230,
+   "revEstimate": 985343340,
    "trend": {
     "analystsEps": 13,
     "analystsRev": 13,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 5.86235,
-    "eps60dAgo": 5.85953,
-    "eps7dAgo": 5.87164,
-    "eps90dAgo": 5.16807,
-    "epsNow": 5.88072,
-    "growth": 0.3968,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 6.41669,
+    "eps60dAgo": 6.41357,
+    "eps7dAgo": 6.47582,
+    "eps90dAgo": 5.63208,
+    "epsNow": 6.47582,
+    "growth": 0.3691,
     "revDown30": 0,
     "revDown7": null,
-    "revUp30": 13,
-    "revUp7": 13,
-    "revenueAvg": 903343230
+    "revUp30": 15,
+    "revUp7": 14,
+    "revenueAvg": 985343340
    }
   },
   "MRK": {
@@ -16690,7 +17472,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.25761,
    "epsHigh": -0.02581,
    "epsLow": -0.4,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.13,
@@ -16842,7 +17624,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.92727,
    "epsHigh": 0.94,
    "epsLow": 0.88,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.67,
@@ -16871,7 +17653,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-08-27",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -16946,27 +17728,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 20,
      "endDate": "2026-12-31",
-     "eps": 12.98336,
+     "eps": 12.98836,
      "epsHigh": 13.67,
      "epsLow": 12.50916,
-     "growth": 0.2705,
-     "revenue": 82646180240
+     "growth": 0.271,
+     "revenue": 82646214520
     },
     "fy1": {
      "analysts": 21,
      "endDate": "2027-12-31",
-     "eps": 13.62595,
+     "eps": 13.63833,
      "epsHigh": 15.1,
      "epsLow": 11.54,
-     "growth": 0.049099997,
-     "revenue": 86285095650
+     "growth": 0.0497,
+     "revenue": 86285074320
     },
     "lt5y": null
    },
-   "epsEstimate": 3.1034,
+   "epsEstimate": 3.10724,
    "epsHigh": 3.56,
    "epsLow": 2.90154,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.8,
@@ -17087,12 +17869,12 @@ const EARNINGS_INTEL = {
     "analystsEps": 14,
     "analystsRev": 9,
     "endDate": "2026-09-30",
-    "eps30dAgo": 2.91321,
+    "eps30dAgo": 2.90856,
     "eps60dAgo": 2.89521,
-    "eps7dAgo": 3.12071,
-    "eps90dAgo": 2.91568,
-    "epsNow": 3.15219,
-    "growth": 0.1084,
+    "eps7dAgo": 3.13433,
+    "eps90dAgo": 2.91235,
+    "epsNow": 3.15576,
+    "growth": 0.1097,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 5,
@@ -17105,16 +17887,16 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 16,
      "endDate": "2026-12-31",
-     "eps": 19.65132,
+     "eps": 19.66069,
      "epsHigh": 19.89,
      "epsLow": 19.3,
-     "growth": 0.1372,
+     "growth": 0.1378,
      "revenue": 3512932470
     },
     "fy1": {
      "analysts": 18,
      "endDate": "2027-12-31",
-     "eps": 22.46624,
+     "eps": 22.47513,
      "epsHigh": 23.51,
      "epsLow": 21.65,
      "growth": 0.1432,
@@ -17125,7 +17907,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 5.02283,
    "epsHigh": 5.13,
    "epsLow": 4.92,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.47,
@@ -17234,36 +18016,30 @@ const EARNINGS_INTEL = {
   "MSFT": {
    "annual": {
     "fy0": {
-     "analysts": 26,
-     "endDate": "2026-06-30",
-     "eps": 16.77883,
-     "epsHigh": 17.12,
-     "epsLow": 16.69775,
-     "growth": 0.2301,
-     "revenue": 329549893930
+     "analysts": 31,
+     "endDate": "2027-06-30",
+     "eps": 19.49515,
+     "epsHigh": 20.24,
+     "epsLow": 18.93,
+     "growth": 0.1282,
+     "revenue": 390094558140
     },
     "fy1": {
-     "analysts": 36,
-     "endDate": "2027-06-30",
-     "eps": 19.391,
-     "epsHigh": 20.52,
-     "epsLow": 18.25,
-     "growth": 0.1557,
-     "revenue": 384801898580
+     "analysts": 28,
+     "endDate": "2028-06-30",
+     "eps": 23.08484,
+     "epsHigh": 26.0,
+     "epsLow": 19.0,
+     "growth": 0.1841,
+     "revenue": 464293830870
     },
     "lt5y": null
    },
-   "epsEstimate": 4.23939,
-   "epsHigh": 4.89,
-   "epsLow": 4.07,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 4.68025,
+   "epsHigh": 4.79914,
+   "epsLow": 4.43,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 3.65,
-     "epsEstimate": 3.37669,
-     "quarter": "2025-06-30",
-     "surprisePct": 8.09
-    },
     {
      "epsActual": 4.13,
      "epsEstimate": 3.66355,
@@ -17281,113 +18057,120 @@ const EARNINGS_INTEL = {
      "epsEstimate": 4.07062,
      "quarter": "2026-03-31",
      "surprisePct": 4.9
+    },
+    {
+     "epsActual": 4.74,
+     "epsEstimate": 4.23939,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 11.81
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
-     "action": "reit",
-     "date": "2026-07-28",
-     "firm": "Citizens",
-     "from": "Market Outperform",
-     "to": "Market Outperform"
-    },
-    {
      "action": "main",
-     "date": "2026-07-27",
-     "firm": "UBS",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-07-27",
-     "firm": "Guggenheim",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "reit",
-     "date": "2026-07-22",
+     "date": "2026-07-30",
      "firm": "Bernstein",
      "from": "Outperform",
      "to": "Outperform"
     },
     {
-     "action": "reit",
-     "date": "2026-07-22",
-     "firm": "Oppenheimer",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "reit",
-     "date": "2026-07-22",
-     "firm": "Truist Securities",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "init",
-     "date": "2026-07-20",
-     "firm": "CLSA",
-     "from": null,
-     "to": "Outperform"
-    },
-    {
      "action": "main",
-     "date": "2026-07-15",
-     "firm": "Evercore ISI Group",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-15",
-     "firm": "Mizuho",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-15",
+     "date": "2026-07-30",
      "firm": "Citigroup",
      "from": "Buy",
      "to": "Buy"
     },
     {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
      "action": "main",
-     "date": "2026-07-15",
+     "date": "2026-07-30",
+     "firm": "Stifel",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "DA Davidson",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
      "firm": "Wells Fargo",
      "from": "Overweight",
      "to": "Overweight"
     },
     {
      "action": "main",
-     "date": "2026-07-10",
-     "firm": "Argus Research",
-     "from": "Buy",
-     "to": "Buy"
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "Citizens",
+     "from": "Market Outperform",
+     "to": "Market Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
     }
    ],
-   "revEstimate": 87630789490,
+   "revEstimate": 90531492500,
    "trend": {
-    "analystsEps": 30,
-    "analystsRev": 42,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 4.23836,
-    "eps60dAgo": 4.23727,
-    "eps7dAgo": 4.23972,
-    "eps90dAgo": 4.25155,
-    "epsNow": 4.23939,
-    "growth": 0.16149999,
-    "revDown30": 17,
+    "analystsEps": 26,
+    "analystsRev": 35,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 4.62281,
+    "eps60dAgo": 4.61434,
+    "eps7dAgo": 4.61628,
+    "eps90dAgo": 4.62627,
+    "epsNow": 4.68025,
+    "growth": 0.13319999,
+    "revDown30": 7,
     "revDown7": null,
-    "revUp30": 8,
-    "revUp7": 10,
-    "revenueAvg": 87630789490
+    "revUp30": 11,
+    "revUp7": 11,
+    "revenueAvg": 90531492500
    }
   },
   "MTB": {
@@ -17395,27 +18178,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 13,
      "endDate": "2026-12-31",
-     "eps": 19.30344,
+     "eps": 19.30825,
      "epsHigh": 19.86,
      "epsLow": 19.0,
-     "growth": 0.1355,
-     "revenue": 10031844730
+     "growth": 0.1358,
+     "revenue": 10034303900
     },
     "fy1": {
      "analysts": 15,
      "endDate": "2027-12-31",
-     "eps": 21.03996,
+     "eps": 21.04702,
      "epsHigh": 21.4,
      "epsLow": 20.62892,
-     "growth": 0.09,
-     "revenue": 10383973940
+     "growth": 0.090100005,
+     "revenue": 10391174240
     },
     "lt5y": null
    },
-   "epsEstimate": 4.90714,
+   "epsEstimate": 4.91006,
    "epsHigh": 5.16,
    "epsLow": 4.74,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.82,
@@ -17446,6 +18229,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -17522,31 +18312,24 @@ const EARNINGS_INTEL = {
      "firm": "JP Morgan",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-06",
-     "firm": "Wells Fargo",
-     "from": "Underweight",
-     "to": "Underweight"
     }
    ],
-   "revEstimate": 2521197960,
+   "revEstimate": 2521864630,
    "trend": {
     "analystsEps": 12,
     "analystsRev": 9,
     "endDate": "2026-09-30",
-    "eps30dAgo": 4.89555,
+    "eps30dAgo": 4.89444,
     "eps60dAgo": 4.88314,
-    "eps7dAgo": 4.89631,
-    "eps90dAgo": 4.87345,
-    "epsNow": 4.90714,
-    "growth": 0.018099999,
+    "eps7dAgo": 4.90714,
+    "eps90dAgo": 4.87427,
+    "epsNow": 4.91006,
+    "growth": 0.0187,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 2521197960
+    "revenueAvg": 2521864630
    }
   },
   "MU": {
@@ -17574,7 +18357,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 31.32898,
    "epsHigh": 37.44,
    "epsLow": 28.04,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.03,
@@ -17603,7 +18386,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-09-23",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -17733,7 +18516,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.60667,
    "epsHigh": -0.47,
    "epsLow": -0.73,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.4482,
@@ -17760,9 +18543,9 @@ const EARNINGS_INTEL = {
      "surprisePct": 396.14
     }
    ],
-   "nextDate": "2026-08-06",
+   "nextDate": "2026-08-12",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "init",
@@ -17829,7 +18612,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.02829,
    "epsHigh": 1.09,
    "epsLow": 1.0,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.88,
@@ -17960,7 +18743,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.22245,
    "epsHigh": 1.4,
    "epsLow": 1.00046,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.13,
@@ -18071,7 +18854,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.26976,
    "epsHigh": 0.29,
    "epsLow": 0.25473,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.21,
@@ -18171,13 +18954,6 @@ const EARNINGS_INTEL = {
      "firm": "Scotiabank",
      "from": "Sector Perform",
      "to": "Sector Outperform"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-15",
-     "firm": "Citizens",
-     "from": "Market Outperform",
-     "to": "Market Outperform"
     }
    ],
    "revEstimate": 666362430,
@@ -18223,7 +18999,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.8213,
    "epsHigh": 0.87,
    "epsLow": 0.79,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.587,
@@ -18252,7 +19028,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-20",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -18382,7 +19158,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.45092,
    "epsHigh": 0.5,
    "epsLow": 0.41,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.49,
@@ -18411,7 +19187,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-09-29",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -18541,7 +19317,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 7.13862,
    "epsHigh": 7.35,
    "epsLow": 6.68819,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 7.67,
@@ -18652,27 +19428,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 44,
      "endDate": "2026-12-31",
-     "eps": 4.07242,
+     "eps": 4.06764,
      "epsHigh": 4.36,
      "epsLow": 3.84,
-     "growth": 0.1602,
-     "revenue": 16219510280
+     "growth": 0.15890001,
+     "revenue": 16219289110
     },
     "fy1": {
      "analysts": 44,
      "endDate": "2027-12-31",
-     "eps": 5.01256,
+     "eps": 5.00619,
      "epsHigh": 5.57,
      "epsLow": 4.35,
-     "growth": 0.2309,
-     "revenue": 19264242560
+     "growth": 0.2307,
+     "revenue": 19262432930
     },
     "lt5y": null
    },
-   "epsEstimate": 1.02699,
+   "epsEstimate": 1.02553,
    "epsHigh": 1.17,
    "epsLow": 0.91,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.964,
@@ -18789,22 +19565,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 4095763860,
+   "revEstimate": 4095770420,
    "trend": {
-    "analystsEps": 38,
-    "analystsRev": 35,
+    "analystsEps": 39,
+    "analystsRev": 36,
     "endDate": "2026-09-30",
     "eps30dAgo": 1.09106,
     "eps60dAgo": 1.09106,
-    "eps7dAgo": 1.08766,
-    "eps90dAgo": 1.09128,
-    "epsNow": 1.02699,
-    "growth": 0.0653,
+    "eps7dAgo": 1.08776,
+    "eps90dAgo": 1.08972,
+    "epsNow": 1.02553,
+    "growth": 0.0638,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 4095763860
+    "revenueAvg": 4095770420
    }
   },
   "NRG": {
@@ -18812,27 +19588,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 12,
      "endDate": "2026-12-31",
-     "eps": 9.38742,
+     "eps": 9.30825,
      "epsHigh": 11.62,
-     "epsLow": 8.51,
-     "growth": 0.1393,
-     "revenue": 34914631400
+     "epsLow": 8.26,
+     "growth": 0.1296,
+     "revenue": 34874520290
     },
     "fy1": {
      "analysts": 12,
      "endDate": "2027-12-31",
-     "eps": 11.38631,
-     "epsHigh": 12.94,
+     "eps": 11.29798,
+     "epsHigh": 12.44,
      "epsLow": 9.86,
-     "growth": 0.21290001,
-     "revenue": 36220487540
+     "growth": 0.2138,
+     "revenue": 36210820870
     },
     "lt5y": null
    },
-   "epsEstimate": 1.63004,
+   "epsEstimate": 1.63448,
    "epsHigh": 2.254,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.73,
@@ -18899,22 +19675,22 @@ const EARNINGS_INTEL = {
      "to": "Sector Outperform"
     }
    ],
-   "revEstimate": 7186514680,
+   "revEstimate": 7147848020,
    "trend": {
-    "analystsEps": 8,
+    "analystsEps": 9,
     "analystsRev": 6,
     "endDate": "2026-06-30",
     "eps30dAgo": 1.72628,
     "eps60dAgo": 1.6362,
     "eps7dAgo": 1.65857,
     "eps90dAgo": 1.77517,
-    "epsNow": 1.63004,
-    "growth": -0.057800002,
+    "epsNow": 1.63448,
+    "growth": -0.0552,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 2,
     "revUp7": 1,
-    "revenueAvg": 7186514680
+    "revenueAvg": 7147848020
    }
   },
   "NSC": {
@@ -18942,7 +19718,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.58237,
    "epsHigh": 3.7,
    "epsLow": 3.39817,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.3,
@@ -19079,29 +19855,29 @@ const EARNINGS_INTEL = {
   "NUE": {
    "annual": {
     "fy0": {
-     "analysts": 14,
+     "analysts": 9,
      "endDate": "2026-12-31",
-     "eps": 16.72647,
-     "epsHigh": 19.19,
-     "epsLow": 14.03,
-     "growth": 1.1695,
-     "revenue": 40682416700
+     "eps": 18.53622,
+     "epsHigh": 19.76,
+     "epsLow": 17.37,
+     "growth": 1.4042,
+     "revenue": 40150172560
     },
     "fy1": {
-     "analysts": 13,
+     "analysts": 14,
      "endDate": "2027-12-31",
-     "eps": 17.60097,
-     "epsHigh": 20.58,
+     "eps": 18.14205,
+     "epsHigh": 22.23,
      "epsLow": 14.14,
-     "growth": 0.0523,
-     "revenue": 39781206690
+     "growth": -0.021300001,
+     "revenue": 40712980370
     },
     "lt5y": null
    },
-   "epsEstimate": 6.16979,
+   "epsEstimate": 5.7556,
    "epsHigh": 6.16979,
-   "epsLow": 6.16979,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 5.37,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.63,
@@ -19131,8 +19907,22 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-26",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
     {
      "action": "main",
      "date": "2026-07-29",
@@ -19183,22 +19973,22 @@ const EARNINGS_INTEL = {
      "to": "Overweight"
     }
    ],
-   "revEstimate": 10850115320,
+   "revEstimate": 10703288840,
    "trend": {
-    "analystsEps": 1,
-    "analystsRev": 1,
+    "analystsEps": 8,
+    "analystsRev": 8,
     "endDate": "2026-09-30",
     "eps30dAgo": 5.24167,
     "eps60dAgo": 4.03955,
     "eps7dAgo": 5.13163,
-    "eps90dAgo": 4.11381,
-    "epsNow": 6.16979,
-    "growth": 1.3458999,
+    "eps90dAgo": 4.16083,
+    "epsNow": 5.7556,
+    "growth": 1.1883999,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 5,
     "revUp7": 1,
-    "revenueAvg": 10850115320
+    "revenueAvg": 10703288840
    }
   },
   "NVDA": {
@@ -19226,7 +20016,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.08225,
    "epsHigh": 2.2,
    "epsLow": 2.03128,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.05,
@@ -19286,29 +20076,29 @@ const EARNINGS_INTEL = {
   "NXPI": {
    "annual": {
     "fy0": {
-     "analysts": 24,
+     "analysts": 25,
      "endDate": "2026-12-31",
-     "eps": 14.88139,
-     "epsHigh": 15.91,
-     "epsLow": 13.93,
-     "growth": 0.2601,
-     "revenue": 14126454580
+     "eps": 15.08759,
+     "epsHigh": 15.72036,
+     "epsLow": 14.28,
+     "growth": 0.2775,
+     "revenue": 14250767540
     },
     "fy1": {
-     "analysts": 24,
+     "analysts": 26,
      "endDate": "2027-12-31",
-     "eps": 17.93023,
-     "epsHigh": 20.25554,
-     "epsLow": 14.64,
-     "growth": 0.2049,
-     "revenue": 15662275580
+     "eps": 18.16868,
+     "epsHigh": 20.38,
+     "epsLow": 16.26,
+     "growth": 0.2042,
+     "revenue": 15878449510
     },
     "lt5y": null
    },
-   "epsEstimate": 4.04273,
-   "epsHigh": 4.52,
-   "epsLow": 3.77,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 4.1106,
+   "epsHigh": 4.21,
+   "epsLow": 3.85,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.11,
@@ -19340,6 +20130,27 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Mizuho",
+     "from": "Underperform",
+     "to": "Underperform"
+    },
     {
      "action": "reit",
      "date": "2026-07-29",
@@ -19397,57 +20208,51 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 3708286250,
+   "revEstimate": 3754829230,
    "trend": {
-    "analystsEps": 19,
-    "analystsRev": 21,
+    "analystsEps": 22,
+    "analystsRev": 23,
     "endDate": "2026-09-30",
     "eps30dAgo": 3.99152,
     "eps60dAgo": 3.98463,
     "eps7dAgo": 4.0256,
     "eps90dAgo": 3.98463,
-    "epsNow": 4.04273,
-    "growth": 0.2999,
+    "epsNow": 4.1106,
+    "growth": 0.32169998,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 3708286250
+    "revenueAvg": 3754829230
    }
   },
   "ODFL": {
    "annual": {
     "fy0": {
-     "analysts": 19,
+     "analysts": 14,
      "endDate": "2026-12-31",
-     "eps": 5.5639,
-     "epsHigh": 5.85,
-     "epsLow": 5.17,
-     "growth": 0.1515,
-     "revenue": 5869161850
+     "eps": 5.77651,
+     "epsHigh": 5.97286,
+     "epsLow": 5.6,
+     "growth": 0.1981,
+     "revenue": 5904832330
     },
     "fy1": {
-     "analysts": 19,
+     "analysts": 16,
      "endDate": "2027-12-31",
-     "eps": 6.44418,
-     "epsHigh": 7.0,
-     "epsLow": 6.08,
-     "growth": 0.16350001,
-     "revenue": 6336201440
+     "eps": 6.52529,
+     "epsHigh": 6.75,
+     "epsLow": 6.1,
+     "growth": 0.1338,
+     "revenue": 6338802470
     },
     "lt5y": null
    },
-   "epsEstimate": 1.53567,
-   "epsHigh": 1.61212,
-   "epsLow": 1.4,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.59207,
+   "epsHigh": 1.6214,
+   "epsLow": 1.57139,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.27,
-     "epsEstimate": 1.28355,
-     "quarter": "2025-06-30",
-     "surprisePct": -1.06
-    },
     {
      "epsActual": 1.28,
      "epsEstimate": 1.21623,
@@ -19465,12 +20270,47 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.04947,
      "quarter": "2026-03-31",
      "surprisePct": 8.63
+    },
+    {
+     "epsActual": 1.68,
+     "epsEstimate": 1.5312,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 9.72
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -19526,52 +20366,24 @@ const EARNINGS_INTEL = {
      "firm": "Morgan Stanley",
      "from": "Overweight",
      "to": "Equal-Weight"
-    },
-    {
-     "action": "up",
-     "date": "2026-07-01",
-     "firm": "Evercore ISI Group",
-     "from": "In-Line",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
-     "firm": "Barclays",
-     "from": "Equal-Weight",
-     "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-23",
-     "firm": "Goldman Sachs",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "down",
-     "date": "2026-06-15",
-     "firm": "Citigroup",
-     "from": "Neutral",
-     "to": "Sell"
     }
    ],
-   "revEstimate": 1539369640,
+   "revEstimate": 1548594600,
    "trend": {
-    "analystsEps": 17,
-    "analystsRev": 17,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.47239,
-    "eps60dAgo": 1.4493,
-    "eps7dAgo": 1.51297,
-    "eps90dAgo": 1.3087,
-    "epsNow": 1.5312,
-    "growth": 0.2092,
+    "analystsEps": 12,
+    "analystsRev": 11,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.49485,
+    "eps60dAgo": 1.4499,
+    "eps7dAgo": 1.53341,
+    "eps90dAgo": 1.46802,
+    "epsNow": 1.59082,
+    "growth": 0.24379998,
     "revDown30": 0,
     "revDown7": null,
-    "revUp30": 9,
-    "revUp7": 1,
-    "revenueAvg": 1539369640
+    "revUp30": 8,
+    "revUp7": 2,
+    "revenueAvg": 1548594600
    }
   },
   "OKTA": {
@@ -19599,7 +20411,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.96492,
    "epsHigh": 0.98319,
    "epsLow": 0.94,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.91,
@@ -19628,7 +20440,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-08-25",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -19686,9 +20498,9 @@ const EARNINGS_INTEL = {
     "analystsRev": 39,
     "endDate": "2026-07-31",
     "eps30dAgo": 0.96492,
-    "eps60dAgo": 0.95617,
+    "eps60dAgo": 0.9643,
     "eps7dAgo": 0.96492,
-    "eps90dAgo": 0.959,
+    "eps90dAgo": 0.95641,
     "epsNow": 0.96492,
     "growth": 0.060399998,
     "revDown30": 13,
@@ -19723,7 +20535,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.71532,
    "epsHigh": 0.76,
    "epsLow": 0.7,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.53,
@@ -19823,13 +20635,6 @@ const EARNINGS_INTEL = {
      "firm": "Stifel",
      "from": "Hold",
      "to": "Hold"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "Citigroup",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
    "revEstimate": 1589052600,
@@ -19875,7 +20680,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.73873,
    "epsHigh": 1.8,
    "epsLow": 1.64,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.47,
@@ -19904,7 +20709,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-09-09",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "init",
@@ -19935,36 +20740,30 @@ const EARNINGS_INTEL = {
   "ORLY": {
    "annual": {
     "fy0": {
-     "analysts": 20,
+     "analysts": 21,
      "endDate": "2026-12-31",
-     "eps": 3.25365,
-     "epsHigh": 3.3,
+     "eps": 3.26058,
+     "epsHigh": 3.32,
      "epsLow": 3.2,
-     "growth": 0.096499994,
-     "revenue": 19061908590
+     "growth": 0.09770001,
+     "revenue": 19070234100
     },
     "fy1": {
-     "analysts": 20,
+     "analysts": 21,
      "endDate": "2027-12-31",
-     "eps": 3.61759,
-     "epsHigh": 3.75073,
+     "eps": 3.62577,
+     "epsHigh": 3.79999,
      "epsLow": 3.49,
      "growth": 0.1116,
-     "revenue": 20235140130
+     "revenue": 20236536200
     },
     "lt5y": null
    },
-   "epsEstimate": 0.86148,
-   "epsHigh": 0.89616,
-   "epsLow": 0.83,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.91202,
+   "epsHigh": 0.95,
+   "epsLow": 0.88453,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.78,
-     "epsEstimate": 0.78199,
-     "quarter": "2025-06-30",
-     "surprisePct": -0.25
-    },
     {
      "epsActual": 0.85,
      "epsEstimate": 0.83035,
@@ -19982,12 +20781,33 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.69668,
      "quarter": "2026-03-31",
      "surprisePct": 3.35
+    },
+    {
+     "epsActual": 0.86,
+     "epsEstimate": 0.85853,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 0.17
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-22",
@@ -20003,22 +20823,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 4861242410,
+   "revEstimate": 4981888850,
    "trend": {
-    "analystsEps": 18,
+    "analystsEps": 19,
     "analystsRev": 21,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.8602,
-    "eps60dAgo": 0.86139,
-    "eps7dAgo": 0.8602,
-    "eps90dAgo": 0.85516,
-    "epsNow": 0.85853,
-    "growth": 0.104499996,
-    "revDown30": 2,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.90951,
+    "eps60dAgo": 0.91007,
+    "eps7dAgo": 0.91006,
+    "eps90dAgo": 0.9098,
+    "epsNow": 0.91131,
+    "growth": 0.073,
+    "revDown30": 3,
     "revDown7": null,
     "revUp30": 7,
     "revUp7": 6,
-    "revenueAvg": 4861242410
+    "revenueAvg": 4981888850
    }
   },
   "OXY": {
@@ -20046,7 +20866,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.864,
    "epsHigh": 2.21,
    "epsLow": 1.34,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.39,
@@ -20149,7 +20969,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.97763,
    "epsHigh": 1.08,
    "epsLow": 0.96,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.95,
@@ -20178,7 +20998,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-08-18",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -20273,7 +21093,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.29973,
    "epsHigh": 2.33,
    "epsLow": 2.26,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.29,
@@ -20302,7 +21122,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-08",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -20432,7 +21252,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.68221,
    "epsHigh": 0.76,
    "epsLow": 0.61,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.78,
@@ -20527,29 +21347,29 @@ const EARNINGS_INTEL = {
   "PG": {
    "annual": {
     "fy0": {
-     "analysts": 23,
+     "analysts": 22,
      "endDate": "2027-06-30",
-     "eps": 7.04674,
-     "epsHigh": 7.34,
-     "epsLow": 6.82,
-     "growth": 0.0227,
-     "revenue": 89370311500
+     "eps": 7.02255,
+     "epsHigh": 7.25,
+     "epsLow": 6.89,
+     "growth": 0.019199999,
+     "revenue": 88725449440
     },
     "fy1": {
-     "analysts": 15,
+     "analysts": 19,
      "endDate": "2028-06-30",
-     "eps": 7.4291,
-     "epsHigh": 7.71,
-     "epsLow": 7.27,
-     "growth": 0.0543,
-     "revenue": 92354828640
+     "eps": 7.41327,
+     "epsHigh": 7.55,
+     "epsLow": 7.07,
+     "growth": 0.0556,
+     "revenue": 91679452930
     },
     "lt5y": null
    },
-   "epsEstimate": 1.92275,
-   "epsHigh": 2.02,
-   "epsLow": 1.83,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.88637,
+   "epsHigh": 2.0,
+   "epsLow": 1.85,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.99,
@@ -20577,10 +21397,24 @@ const EARNINGS_INTEL = {
      "surprisePct": 1.64
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-22",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-30",
+     "firm": "HSBC",
+     "from": "Buy",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -20603,22 +21437,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 22941141070,
+   "revEstimate": 22752834250,
    "trend": {
-    "analystsEps": 13,
-    "analystsRev": 12,
+    "analystsEps": 16,
+    "analystsRev": 11,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.97397,
+    "eps30dAgo": 1.97371,
     "eps60dAgo": 1.97247,
-    "eps7dAgo": 1.93562,
-    "eps90dAgo": 2.01399,
-    "epsNow": 1.92275,
-    "growth": -0.033800002,
+    "eps7dAgo": 1.92275,
+    "eps90dAgo": 1.97247,
+    "epsNow": 1.88637,
+    "growth": -0.0521,
     "revDown30": 3,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 22941141070
+    "revenueAvg": 22752834250
    }
   },
   "PGR": {
@@ -20626,27 +21460,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 23,
      "endDate": "2026-12-31",
-     "eps": 17.59569,
+     "eps": 17.56742,
      "epsHigh": 19.09974,
      "epsLow": 16.2,
-     "growth": -0.0356,
+     "growth": -0.037100002,
      "revenue": 87358075000
     },
     "fy1": {
-     "analysts": 23,
+     "analysts": 22,
      "endDate": "2027-12-31",
-     "eps": 16.23508,
+     "eps": 16.29031,
      "epsHigh": 18.3,
      "epsLow": 14.2,
-     "growth": -0.0773,
-     "revenue": 93058866670
+     "growth": -0.0727,
+     "revenue": 92658850000
     },
     "lt5y": null
    },
-   "epsEstimate": 3.6503,
+   "epsEstimate": 3.6373,
    "epsHigh": 4.21,
    "epsLow": 2.91,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.0511,
@@ -20675,7 +21509,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "up",
@@ -20768,11 +21602,11 @@ const EARNINGS_INTEL = {
     "analystsRev": 7,
     "endDate": "2026-09-30",
     "eps30dAgo": 3.70098,
-    "eps60dAgo": 3.51954,
-    "eps7dAgo": 3.62254,
+    "eps60dAgo": 3.51854,
+    "eps7dAgo": 3.6463,
     "eps90dAgo": 3.50738,
-    "epsNow": 3.6503,
-    "growth": -0.098900005,
+    "epsNow": 3.6373,
+    "growth": -0.1021,
     "revDown30": 3,
     "revDown7": null,
     "revUp30": 15,
@@ -20805,7 +21639,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.34665,
    "epsHigh": 0.4,
    "epsLow": 0.33,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.16,
@@ -20838,6 +21672,13 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
+     "date": "2026-07-30",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
      "date": "2026-07-24",
      "firm": "Citigroup",
      "from": "Buy",
@@ -20856,13 +21697,6 @@ const EARNINGS_INTEL = {
      "firm": "DA Davidson",
      "from": "Neutral",
      "to": "Buy"
-    },
-    {
-     "action": "up",
-     "date": "2026-06-16",
-     "firm": "Wolfe Research",
-     "from": "Underperform",
-     "to": "Peer Perform"
     }
    ],
    "revEstimate": 1811802120,
@@ -20888,27 +21722,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 18,
      "endDate": "2026-12-31",
-     "eps": 18.88962,
+     "eps": 18.8924,
      "epsHigh": 19.21,
-     "epsLow": 18.58,
-     "growth": 0.1596,
-     "revenue": 26298149570
+     "epsLow": 18.59,
+     "growth": 0.16209999,
+     "revenue": 26300721830
     },
     "fy1": {
      "analysts": 19,
      "endDate": "2027-12-31",
-     "eps": 21.50326,
+     "eps": 21.51594,
      "epsHigh": 22.25,
      "epsLow": 19.94,
-     "growth": 0.111,
-     "revenue": 27671137100
+     "growth": 0.1094,
+     "revenue": 27687604290
     },
     "lt5y": null
    },
-   "epsEstimate": 4.97504,
+   "epsEstimate": 4.97872,
    "epsHigh": 5.1,
    "epsLow": 4.82,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.35,
@@ -20939,6 +21773,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-20",
@@ -21015,31 +21856,24 @@ const EARNINGS_INTEL = {
      "firm": "UBS",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-06",
-     "firm": "Evercore ISI Group",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
-   "revEstimate": 6600200000,
+   "revEstimate": 6600866670,
    "trend": {
     "analystsEps": 16,
     "analystsRev": 6,
     "endDate": "2026-09-30",
-    "eps30dAgo": 4.90681,
+    "eps30dAgo": 4.90717,
     "eps60dAgo": 4.89666,
-    "eps7dAgo": 4.89093,
-    "eps90dAgo": 4.89601,
-    "epsNow": 4.88321,
-    "growth": 0.1437,
+    "eps7dAgo": 4.88321,
+    "eps90dAgo": 4.89552,
+    "epsNow": 4.88481,
+    "growth": 0.1445,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 2,
-    "revenueAvg": 6600200000
+    "revenueAvg": 6600866670
    }
   },
   "PRU": {
@@ -21067,7 +21901,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.49515,
    "epsHigh": 3.64,
    "epsLow": 3.3,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.58,
@@ -21183,29 +22017,29 @@ const EARNINGS_INTEL = {
   "PYPL": {
    "annual": {
     "fy0": {
-     "analysts": 39,
+     "analysts": 41,
      "endDate": "2026-12-31",
-     "eps": 5.32722,
-     "epsHigh": 5.53,
+     "eps": 5.37948,
+     "epsHigh": 5.75,
      "epsLow": 5.22,
-     "growth": 0.0032,
-     "revenue": 34406088330
+     "growth": 0.013099999,
+     "revenue": 34668154810
     },
     "fy1": {
      "analysts": 42,
      "endDate": "2027-12-31",
-     "eps": 5.75855,
+     "eps": 5.79168,
      "epsHigh": 6.08,
-     "epsLow": 5.27,
-     "growth": 0.081,
-     "revenue": 35870311220
+     "epsLow": 5.31,
+     "growth": 0.0766,
+     "revenue": 36127334790
     },
     "lt5y": null
    },
-   "epsEstimate": 1.32366,
+   "epsEstimate": 1.31731,
    "epsHigh": 1.4,
-   "epsLow": 1.29,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 1.28,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.34,
@@ -21235,8 +22069,78 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-27",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "BMO Capital",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Macquarie",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Mizuho",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Keefe, Bruyette & Woods",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
     {
      "action": "main",
      "date": "2026-07-29",
@@ -21250,115 +22154,53 @@ const EARNINGS_INTEL = {
      "firm": "Baird",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-29",
-     "firm": "Canaccord Genuity",
-     "from": "Hold",
-     "to": "Hold"
-    },
-    {
-     "action": "up",
-     "date": "2026-07-24",
-     "firm": "Truist Securities",
-     "from": "Sell",
-     "to": "Hold"
-    },
-    {
-     "action": "up",
-     "date": "2026-07-16",
-     "firm": "Barclays",
-     "from": "Underweight",
-     "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-16",
-     "firm": "Canaccord Genuity",
-     "from": "Hold",
-     "to": "Hold"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-15",
-     "firm": "Macquarie",
-     "from": "Neutral",
-     "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-09",
-     "firm": "Goldman Sachs",
-     "from": "Sell",
-     "to": "Sell"
-    },
-    {
-     "action": "init",
-     "date": "2026-07-08",
-     "firm": "Barclays",
-     "from": "Overweight",
-     "to": "Underweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-30",
-     "firm": "Piper Sandler",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
-   "revEstimate": 8712898490,
+   "revEstimate": 8703453660,
    "trend": {
-    "analystsEps": 32,
-    "analystsRev": 18,
+    "analystsEps": 33,
+    "analystsRev": 29,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.32999,
+    "eps30dAgo": 1.32966,
     "eps60dAgo": 1.33421,
     "eps7dAgo": 1.32991,
     "eps90dAgo": 1.33492,
-    "epsNow": 1.32366,
-    "growth": -0.012200001,
+    "epsNow": 1.31731,
+    "growth": -0.016900001,
     "revDown30": 4,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 8712898490
+    "revenueAvg": 8703453660
    }
   },
   "QCOM": {
    "annual": {
     "fy0": {
-     "analysts": 33,
+     "analysts": 28,
      "endDate": "2026-09-30",
-     "eps": 10.80594,
-     "epsHigh": 11.79,
-     "epsLow": 10.45,
-     "growth": -0.1018,
-     "revenue": 42600720220
+     "eps": 10.56576,
+     "epsHigh": 10.82,
+     "epsLow": 10.44,
+     "growth": -0.121700004,
+     "revenue": 42886036110
     },
     "fy1": {
-     "analysts": 33,
+     "analysts": 34,
      "endDate": "2027-09-30",
-     "eps": 10.99304,
-     "epsHigh": 13.03,
-     "epsLow": 9.78,
-     "growth": 0.0173,
-     "revenue": 44175685100
+     "eps": 10.4111,
+     "epsHigh": 12.33,
+     "epsLow": 9.37,
+     "growth": -0.0146,
+     "revenue": 44549800200
     },
     "lt5y": null
    },
-   "epsEstimate": 2.22079,
-   "epsHigh": 2.52,
-   "epsLow": 2.12823,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 2.20153,
+   "epsHigh": 2.48,
+   "epsLow": 2.09,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.77,
-     "epsEstimate": 2.71433,
-     "quarter": "2025-06-30",
-     "surprisePct": 2.05
-    },
     {
      "epsActual": 3.0,
      "epsEstimate": 2.87578,
@@ -21376,113 +22218,120 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.56433,
      "quarter": "2026-03-31",
      "surprisePct": 3.34
+    },
+    {
+     "epsActual": 2.21,
+     "epsEstimate": 2.22079,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": -0.49
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
-     "date": "2026-07-13",
-     "firm": "TD Cowen",
+     "date": "2026-07-30",
+     "firm": "Benchmark",
      "from": "Buy",
      "to": "Buy"
     },
     {
      "action": "main",
-     "date": "2026-06-29",
-     "firm": "Mizuho",
-     "from": "Neutral",
-     "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
-     "firm": "Barclays",
-     "from": "Underweight",
-     "to": "Underweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
+     "date": "2026-07-30",
      "firm": "UBS",
      "from": "Neutral",
      "to": "Neutral"
     },
     {
      "action": "main",
-     "date": "2026-06-25",
-     "firm": "Citigroup",
-     "from": "Neutral",
-     "to": "Neutral"
-    },
-    {
-     "action": "up",
-     "date": "2026-06-25",
-     "firm": "Morgan Stanley",
-     "from": "Underweight",
-     "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
-     "firm": "Bernstein",
-     "from": "Market Perform",
-     "to": "Market Perform"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
-     "firm": "Wells Fargo",
-     "from": "Equal-Weight",
-     "to": "Equal-Weight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
-     "firm": "RBC Capital",
-     "from": "Sector Perform",
-     "to": "Sector Perform"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-25",
-     "firm": "TD Cowen",
-     "from": "Buy",
-     "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-25",
+     "date": "2026-07-30",
      "firm": "Susquehanna",
      "from": "Neutral",
      "to": "Neutral"
     },
     {
      "action": "main",
-     "date": "2026-06-25",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "In-Line",
+     "to": "In-Line"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
      "firm": "Cantor Fitzgerald",
      "from": "Neutral",
      "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Rosenblatt",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-13",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
     }
    ],
-   "revEstimate": 9672347990,
+   "revEstimate": 10145642520,
    "trend": {
-    "analystsEps": 29,
-    "analystsRev": 28,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 2.22396,
-    "eps60dAgo": 2.22835,
-    "eps7dAgo": 2.227,
-    "eps90dAgo": 2.43259,
-    "epsNow": 2.22079,
-    "growth": -0.1983,
-    "revDown30": 1,
+    "analystsEps": 27,
+    "analystsRev": 27,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 2.37503,
+    "eps60dAgo": 2.35134,
+    "eps7dAgo": 2.37897,
+    "eps90dAgo": 2.3365,
+    "epsNow": 2.20153,
+    "growth": -0.2662,
+    "revDown30": 2,
     "revDown7": null,
-    "revUp30": 2,
-    "revUp7": 2,
-    "revenueAvg": 9672347990
+    "revUp30": 5,
+    "revUp7": 5,
+    "revenueAvg": 10145642520
    }
   },
   "RBLX": {
@@ -21490,19 +22339,19 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 24,
      "endDate": "2026-12-31",
-     "eps": -1.48931,
+     "eps": -1.49034,
      "epsHigh": -1.27,
      "epsLow": -2.02,
-     "growth": 0.0739,
+     "growth": 0.0712,
      "revenue": 7484896850
     },
     "fy1": {
      "analysts": 25,
      "endDate": "2027-12-31",
-     "eps": -1.11666,
+     "eps": -1.11194,
      "epsHigh": -0.31,
      "epsLow": -1.85,
-     "growth": 0.1008,
+     "growth": 0.1116,
      "revenue": 8947960130
     },
     "lt5y": null
@@ -21510,13 +22359,13 @@ const EARNINGS_INTEL = {
    "epsEstimate": -0.3725,
    "epsHigh": -0.33,
    "epsLow": -0.45,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": -0.41,
-     "epsEstimate": -0.36006,
+     "epsEstimate": -0.38303,
      "quarter": "2025-06-30",
-     "surprisePct": -13.87
+     "surprisePct": -7.04
     },
     {
      "epsActual": -0.37,
@@ -21531,16 +22380,87 @@ const EARNINGS_INTEL = {
      "surprisePct": 3.14
     },
     {
-     "epsActual": -0.35,
-     "epsEstimate": -0.40367,
-     "quarter": "2026-03-31",
-     "surprisePct": 13.3
+     "epsActual": -0.26,
+     "epsEstimate": -0.33282,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 21.88
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "down",
+     "date": "2026-07-31",
+     "firm": "Macquarie",
+     "from": "Outperform",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "TD Cowen",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-31",
+     "firm": "Piper Sandler",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-31",
+     "firm": "Wedbush",
+     "from": "Outperform",
+     "to": "Neutral"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-31",
+     "firm": "Benchmark",
+     "from": "Hold",
+     "to": "Sell"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Needham",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-31",
+     "firm": "BTIG",
+     "from": "Neutral",
+     "to": "Sell"
+    },
+    {
+     "action": "down",
+     "date": "2026-07-31",
+     "firm": "Deutsche Bank",
+     "from": "Buy",
+     "to": "Hold"
+    },
     {
      "action": "reit",
      "date": "2026-07-24",
@@ -21577,36 +22497,30 @@ const EARNINGS_INTEL = {
   "REGN": {
    "annual": {
     "fy0": {
-     "analysts": 27,
+     "analysts": 20,
      "endDate": "2026-12-31",
-     "eps": 45.80598,
-     "epsHigh": 51.65,
-     "epsLow": 37.15,
-     "growth": 0.033800002,
-     "revenue": 15874075870
+     "eps": 50.37578,
+     "epsHigh": 58.33,
+     "epsLow": 45.77,
+     "growth": 0.1369,
+     "revenue": 16661136500
     },
     "fy1": {
-     "analysts": 9,
+     "analysts": 10,
      "endDate": "2027-12-31",
-     "eps": 47.36004,
+     "eps": 48.52603,
      "epsHigh": 57.07,
-     "epsLow": 40.93,
-     "growth": 0.1915,
-     "revenue": 17609494050
+     "epsLow": 41.08,
+     "growth": 0.11270001,
+     "revenue": 17846008160
     },
     "lt5y": null
    },
-   "epsEstimate": 10.19758,
-   "epsHigh": 12.33,
-   "epsLow": 7.64,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 15.36128,
+   "epsHigh": 17.16,
+   "epsLow": 13.87,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 12.89,
-     "epsEstimate": 8.44013,
-     "quarter": "2025-06-30",
-     "surprisePct": 52.72
-    },
     {
      "epsActual": 11.83,
      "epsEstimate": 9.64458,
@@ -21624,12 +22538,54 @@ const EARNINGS_INTEL = {
      "epsEstimate": 8.90183,
      "quarter": "2026-03-31",
      "surprisePct": 6.38
+    },
+    {
+     "epsActual": 14.29,
+     "epsEstimate": 10.20812,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 39.99
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Cantor Fitzgerald",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Truist Securities",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -21678,31 +22634,24 @@ const EARNINGS_INTEL = {
      "firm": "HSBC",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-06",
-     "firm": "Cantor Fitzgerald",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
-   "revEstimate": 3825667420,
+   "revEstimate": 4464606910,
    "trend": {
-    "analystsEps": 22,
-    "analystsRev": 20,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 10.85243,
-    "eps60dAgo": 10.85243,
-    "eps7dAgo": 10.33985,
-    "eps90dAgo": 10.64256,
-    "epsNow": 10.19758,
-    "growth": -0.20889999,
+    "analystsEps": 13,
+    "analystsRev": 10,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 13.07491,
+    "eps60dAgo": 13.07752,
+    "eps7dAgo": 13.20583,
+    "eps90dAgo": 13.00143,
+    "epsNow": 15.36128,
+    "growth": 0.2985,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 3825667420
+    "revenueAvg": 4464606910
    }
   },
   "RF": {
@@ -21710,27 +22659,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 16,
      "endDate": "2026-12-31",
-     "eps": 2.62454,
+     "eps": 2.62885,
      "epsHigh": 2.69,
-     "epsLow": 2.53,
-     "growth": 0.12640001,
+     "epsLow": 2.58,
+     "growth": 0.1283,
      "revenue": 7841594480
     },
     "fy1": {
      "analysts": 16,
      "endDate": "2027-12-31",
-     "eps": 2.84546,
+     "eps": 2.84454,
      "epsHigh": 2.95,
-     "epsLow": 2.75055,
-     "growth": 0.0842,
+     "epsLow": 2.7158,
+     "growth": 0.081999995,
      "revenue": 8220339169
     },
     "lt5y": null
    },
-   "epsEstimate": 0.65719,
+   "epsEstimate": 0.65631,
    "epsHigh": 0.68,
    "epsLow": 0.63,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.63,
@@ -21761,6 +22710,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -21837,13 +22793,6 @@ const EARNINGS_INTEL = {
      "firm": "Wells Fargo",
      "from": "Underweight",
      "to": "Underweight"
-    },
-    {
-     "action": "down",
-     "date": "2026-07-06",
-     "firm": "Baird",
-     "from": "Neutral",
-     "to": "Underperform"
     }
    ],
    "revEstimate": 1997540510,
@@ -21851,12 +22800,12 @@ const EARNINGS_INTEL = {
     "analystsEps": 14,
     "analystsRev": 6,
     "endDate": "2026-09-30",
-    "eps30dAgo": 0.66741,
-    "eps60dAgo": 0.66748,
-    "eps7dAgo": 0.66786,
-    "eps90dAgo": 0.66856,
-    "epsNow": 0.65719,
-    "growth": 0.0432,
+    "eps30dAgo": 0.66825,
+    "eps60dAgo": 0.66729,
+    "eps7dAgo": 0.65719,
+    "eps90dAgo": 0.66841,
+    "epsNow": 0.65631,
+    "growth": 0.0418,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 1,
@@ -21889,7 +22838,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.92507,
    "epsHigh": 2.02568,
    "epsLow": 1.87,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.56,
@@ -21951,19 +22900,19 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 23,
      "endDate": "2026-12-31",
-     "eps": 7.17325,
+     "eps": 7.1863,
      "epsHigh": 7.4,
      "epsLow": 6.64,
-     "growth": 0.14039999,
+     "growth": 0.1425,
      "revenue": 96064563310
     },
     "fy1": {
      "analysts": 23,
      "endDate": "2027-12-31",
-     "eps": 7.80477,
+     "eps": 7.81259,
      "epsHigh": 8.2,
      "epsLow": 7.33,
-     "growth": 0.088,
+     "growth": 0.0872,
      "revenue": 102901666900
     },
     "lt5y": null
@@ -21971,7 +22920,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.76565,
    "epsHigh": 1.85,
    "epsLow": 1.69,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.7,
@@ -22061,34 +23010,28 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 31,
      "endDate": "2026-09-30",
-     "eps": 2.38923,
-     "epsHigh": 2.49,
-     "epsLow": 2.26,
-     "growth": 0.121700004,
-     "revenue": 37748203790
+     "eps": 2.53613,
+     "epsHigh": 2.69,
+     "epsLow": 2.32,
+     "growth": 0.1907,
+     "revenue": 37912000220
     },
     "fy1": {
-     "analysts": 32,
+     "analysts": 33,
      "endDate": "2027-09-30",
-     "eps": 3.01258,
-     "epsHigh": 3.29,
-     "epsLow": 2.73,
-     "growth": 0.2609,
-     "revenue": 38409485410
+     "eps": 3.09311,
+     "epsHigh": 3.44,
+     "epsLow": 2.9,
+     "growth": 0.21959999,
+     "revenue": 38593490000
     },
     "lt5y": null
    },
-   "epsEstimate": 0.64988,
-   "epsHigh": 0.71571,
-   "epsLow": 0.54,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 0.69222,
+   "epsHigh": 0.76,
+   "epsLow": 0.56,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.5,
-     "epsEstimate": 0.64511,
-     "quarter": "2025-06-30",
-     "surprisePct": -22.49
-    },
     {
      "epsActual": 0.52,
      "epsEstimate": 0.55621,
@@ -22106,12 +23049,89 @@ const EARNINGS_INTEL = {
      "epsEstimate": 0.43664,
      "quarter": "2026-03-31",
      "surprisePct": 14.51
+    },
+    {
+     "epsActual": 0.85,
+     "epsEstimate": 0.64988,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 30.79
     }
    ],
-   "nextDate": "2026-07-29",
+   "nextDate": "2026-10-28",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "reit",
+     "date": "2026-07-31",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "UBS",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Citigroup",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "BNP Paribas",
+     "from": "Underperform",
+     "to": "Underperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "DA Davidson",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "reit",
+     "date": "2026-07-30",
+     "firm": "TD Cowen",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-16",
@@ -22125,31 +23145,24 @@ const EARNINGS_INTEL = {
      "firm": "Morgan Stanley",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-14",
-     "firm": "Citigroup",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
-   "revEstimate": 9119963990,
+   "revEstimate": 9222968680,
    "trend": {
-    "analystsEps": 27,
+    "analystsEps": 28,
     "analystsRev": 25,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 0.64599,
-    "eps60dAgo": 0.64577,
-    "eps7dAgo": 0.64721,
-    "eps90dAgo": 0.63728,
-    "epsNow": 0.64988,
-    "growth": 0.2998,
-    "revDown30": 4,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 0.67717,
+    "eps60dAgo": 0.67717,
+    "eps7dAgo": 0.67675,
+    "eps90dAgo": 0.67505,
+    "epsNow": 0.69222,
+    "growth": 0.3312,
+    "revDown30": 1,
     "revDown7": null,
-    "revUp30": 9,
+    "revUp30": 2,
     "revUp7": 0,
-    "revenueAvg": 9119963990
+    "revenueAvg": 9222968680
    }
   },
   "SCCO": {
@@ -22177,7 +23190,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.84387,
    "epsHigh": 1.96608,
    "epsLow": 1.62,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.32734,
@@ -22206,7 +23219,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-27",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -22249,13 +23262,6 @@ const EARNINGS_INTEL = {
      "firm": "JP Morgan",
      "from": "Underweight",
      "to": "Underweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "Scotiabank",
-     "from": "Sector Underperform",
-     "to": "Sector Underweight"
     }
    ],
    "revEstimate": 4153068270,
@@ -22301,7 +23307,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.67095,
    "epsHigh": 1.73,
    "epsLow": 1.63,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.31,
@@ -22330,7 +23336,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-15",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -22423,7 +23429,7 @@ const EARNINGS_INTEL = {
      "epsHigh": 2.23,
      "epsLow": 1.47,
      "growth": 0.2904,
-     "revenue": 14802560570
+     "revenue": 14802317180
     },
     "fy1": {
      "analysts": 41,
@@ -22432,14 +23438,14 @@ const EARNINGS_INTEL = {
      "epsHigh": 3.31,
      "epsLow": 1.73,
      "growth": 0.2636,
-     "revenue": 18336708180
+     "revenue": 18303616870
     },
     "lt5y": null
    },
    "epsEstimate": 0.3998,
    "epsHigh": 0.47,
    "epsLow": 0.3,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.35,
@@ -22499,22 +23505,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 3442044990,
+   "revEstimate": 3441946120,
    "trend": {
     "analystsEps": 34,
-    "analystsRev": 41,
+    "analystsRev": 40,
     "endDate": "2026-06-30",
     "eps30dAgo": 0.39755,
-    "eps60dAgo": 0.3965,
-    "eps7dAgo": 0.39984,
-    "eps90dAgo": 0.39145,
+    "eps60dAgo": 0.39755,
+    "eps7dAgo": 0.3998,
+    "eps90dAgo": 0.39383,
     "epsNow": 0.3998,
     "growth": 0.1423,
     "revDown30": 14,
     "revDown7": null,
     "revUp30": 11,
     "revUp7": 2,
-    "revenueAvg": 3442044990
+    "revenueAvg": 3441946120
    }
   },
   "SLB": {
@@ -22522,27 +23528,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 26,
      "endDate": "2026-12-31",
-     "eps": 2.5101,
+     "eps": 2.51433,
      "epsHigh": 2.72,
      "epsLow": 2.37,
-     "growth": -0.1433,
-     "revenue": 36883192850
+     "growth": -0.1419,
+     "revenue": 36930045030
     },
     "fy1": {
      "analysts": 26,
      "endDate": "2027-12-31",
-     "eps": 3.26365,
+     "eps": 3.26519,
      "epsHigh": 3.92,
      "epsLow": 2.88,
-     "growth": 0.30020002,
-     "revenue": 39815423560
+     "growth": 0.29860002,
+     "revenue": 39875779560
     },
     "lt5y": null
    },
-   "epsEstimate": 0.62517,
+   "epsEstimate": 0.62469,
    "epsHigh": 0.68,
    "epsLow": 0.59,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.69,
@@ -22572,7 +23578,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-23",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -22659,7 +23665,7 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 9226299210,
+   "revEstimate": 9239041310,
    "trend": {
     "analystsEps": 21,
     "analystsRev": 19,
@@ -22667,14 +23673,14 @@ const EARNINGS_INTEL = {
     "eps30dAgo": 0.68516,
     "eps60dAgo": 0.68789,
     "eps7dAgo": 0.64355,
-    "eps90dAgo": 0.69917,
-    "epsNow": 0.62517,
-    "growth": -0.094,
+    "eps90dAgo": 0.69614,
+    "epsNow": 0.62469,
+    "growth": -0.0947,
     "revDown30": 6,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 1,
-    "revenueAvg": 9226299210
+    "revenueAvg": 9239041310
    }
   },
   "SMCI": {
@@ -22702,7 +23708,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.95748,
    "epsHigh": 1.66,
    "epsLow": 0.56755,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.41,
@@ -22776,7 +23782,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.44658,
    "epsHigh": 0.54,
    "epsLow": 0.41,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.35,
@@ -22872,7 +23878,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.67334,
    "epsHigh": 3.78,
    "epsLow": 3.63,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.39,
@@ -22958,17 +23964,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 1.01056,
-   "epsHigh": 1.05155,
-   "epsLow": 0.986,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.64028,
+   "epsHigh": 1.73,
+   "epsLow": 1.35,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.92,
-     "epsEstimate": 0.87912,
-     "quarter": "2025-06-30",
-     "surprisePct": 4.65
-    },
     {
      "epsActual": 1.6,
      "epsEstimate": 1.50886,
@@ -22986,11 +23986,18 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.21245,
      "quarter": "2026-03-31",
      "surprisePct": 8.87
+    },
+    {
+     "epsActual": 1.13,
+     "epsEstimate": 1.01056,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 11.82
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -23028,50 +24035,50 @@ const EARNINGS_INTEL = {
      "to": "Equal-Weight"
     }
    ],
-   "revEstimate": 7272329570,
+   "revEstimate": 8660136560,
    "trend": {
-    "analystsEps": 19,
+    "analystsEps": 13,
     "analystsRev": 9,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.00676,
-    "eps60dAgo": 1.01258,
-    "eps7dAgo": 1.00974,
-    "eps90dAgo": 1.0249,
-    "epsNow": 1.01056,
-    "growth": 0.098400004,
-    "revDown30": 0,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.67561,
+    "eps60dAgo": 1.68549,
+    "eps7dAgo": 1.67006,
+    "eps90dAgo": 1.71822,
+    "epsNow": 1.64028,
+    "growth": 0.0252,
+    "revDown30": 1,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 7272329570
+    "revenueAvg": 8660136560
    }
   },
   "SPGI": {
    "annual": {
     "fy0": {
-     "analysts": 11,
+     "analysts": 15,
      "endDate": "2026-12-31",
-     "eps": 17.86299,
-     "epsHigh": 18.95718,
-     "epsLow": 17.55,
-     "growth": 0.0019,
-     "revenue": 14709435450
+     "eps": 17.83111,
+     "epsHigh": 18.78,
+     "epsLow": 17.568,
+     "growth": 0.0001,
+     "revenue": 14637009420
     },
     "fy1": {
-     "analysts": 21,
+     "analysts": 22,
      "endDate": "2027-12-31",
-     "eps": 20.31326,
-     "epsHigh": 21.65,
-     "epsLow": 19.75,
-     "growth": 0.1372,
-     "revenue": 15745622690
+     "eps": 20.2282,
+     "epsHigh": 20.983,
+     "epsLow": 19.54,
+     "growth": 0.1344,
+     "revenue": 15656487240
     },
     "lt5y": null
    },
-   "epsEstimate": 4.54749,
-   "epsHigh": 4.63,
-   "epsLow": 4.43,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 4.424,
+   "epsHigh": 4.58,
+   "epsLow": 4.31355,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.73,
@@ -23099,10 +24106,24 @@ const EARNINGS_INTEL = {
      "surprisePct": -2.94
     }
    ],
-   "nextDate": "2026-07-28",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "main",
      "date": "2026-07-29",
@@ -23172,38 +24193,24 @@ const EARNINGS_INTEL = {
      "firm": "UBS",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-07",
-     "firm": "RBC Capital",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-07",
-     "firm": "BMO Capital",
-     "from": "Outperform",
-     "to": "Outperform"
     }
    ],
-   "revEstimate": 3671036480,
+   "revEstimate": 3636433620,
    "trend": {
-    "analystsEps": 12,
-    "analystsRev": 9,
+    "analystsEps": 18,
+    "analystsRev": 15,
     "endDate": "2026-09-30",
     "eps30dAgo": 5.07027,
     "eps60dAgo": 5.0734,
     "eps7dAgo": 4.56999,
-    "eps90dAgo": 5.0752,
-    "epsNow": 4.54749,
-    "growth": -0.038599998,
+    "eps90dAgo": 5.08133,
+    "epsNow": 4.424,
+    "growth": -0.0647,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 0,
     "revUp7": 0,
-    "revenueAvg": 3671036480
+    "revenueAvg": 3636433620
    }
   },
   "STZ": {
@@ -23231,7 +24238,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.60896,
    "epsHigh": 4.065,
    "epsLow": 3.32,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.63,
@@ -23260,7 +24267,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-05",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -23374,23 +24381,23 @@ const EARNINGS_INTEL = {
      "epsHigh": 9.77,
      "epsLow": 9.25,
      "growth": -0.005,
-     "revenue": 15200522240
+     "revenue": 15161959740
     },
     "fy1": {
      "analysts": 23,
      "endDate": "2027-12-31",
-     "eps": 10.47876,
+     "eps": 10.46354,
      "epsHigh": 11.98,
      "epsLow": 9.91,
      "growth": 0.1187,
-     "revenue": 16003712530
+     "revenue": 15964587530
     },
     "lt5y": null
    },
    "epsEstimate": 2.36361,
    "epsHigh": 2.61837,
    "epsLow": 2.24,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.86,
@@ -23419,7 +24426,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-14",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -23478,7 +24485,7 @@ const EARNINGS_INTEL = {
      "to": "Neutral"
     }
    ],
-   "revEstimate": 3837241820,
+   "revEstimate": 3822241820,
    "trend": {
     "analystsEps": 16,
     "analystsRev": 12,
@@ -23493,7 +24500,7 @@ const EARNINGS_INTEL = {
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 3837241820
+    "revenueAvg": 3822241820
    }
   },
   "SYK": {
@@ -23518,17 +24525,11 @@ const EARNINGS_INTEL = {
     },
     "lt5y": null
    },
-   "epsEstimate": 3.48816,
-   "epsHigh": 3.61,
-   "epsLow": 3.36,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.67913,
+   "epsHigh": 3.81,
+   "epsLow": 3.0,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 3.13,
-     "epsEstimate": 3.07025,
-     "quarter": "2025-06-30",
-     "surprisePct": 1.95
-    },
     {
      "epsActual": 3.19,
      "epsEstimate": 3.13154,
@@ -23546,12 +24547,54 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.98362,
      "quarter": "2026-03-31",
      "surprisePct": -12.86
+    },
+    {
+     "epsActual": 3.69,
+     "epsEstimate": 3.48816,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 5.79
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-29",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "JP Morgan",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Truist Securities",
+     "from": "Hold",
+     "to": "Hold"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "BTIG",
+     "from": "Buy",
+     "to": "Buy"
+    },
     {
      "action": "init",
      "date": "2026-07-09",
@@ -23567,50 +24610,50 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 6579315680,
+   "revEstimate": 6719224140,
    "trend": {
     "analystsEps": 24,
     "analystsRev": 25,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 3.48794,
-    "eps60dAgo": 3.47654,
-    "eps7dAgo": 3.48707,
-    "eps90dAgo": 3.4601,
-    "epsNow": 3.48816,
-    "growth": 0.1144,
-    "revDown30": 1,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 3.68468,
+    "eps60dAgo": 3.69025,
+    "eps7dAgo": 3.68381,
+    "eps90dAgo": 3.56147,
+    "epsNow": 3.67913,
+    "growth": 0.1533,
+    "revDown30": 2,
     "revDown7": null,
     "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 6579315680
+    "revenueAvg": 6719224140
    }
   },
   "TEAM": {
    "annual": {
     "fy0": {
-     "analysts": 30,
+     "analysts": 31,
      "endDate": "2026-06-30",
-     "eps": 5.5063,
+     "eps": 5.50513,
      "epsHigh": 5.78,
      "epsLow": 5.31,
-     "growth": 0.4963,
+     "growth": 0.496,
      "revenue": 6483109270
     },
     "fy1": {
-     "analysts": 30,
+     "analysts": 31,
      "endDate": "2027-06-30",
-     "eps": 6.09715,
-     "epsHigh": 7.16059,
+     "eps": 6.09805,
+     "epsHigh": 7.07,
      "epsLow": 5.1,
-     "growth": 0.1073,
-     "revenue": 7354196160
+     "growth": 0.107700005,
+     "revenue": 7350150590
     },
     "lt5y": null
    },
-   "epsEstimate": 1.50318,
+   "epsEstimate": 1.50174,
    "epsHigh": 1.77,
    "epsLow": 1.31,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.98,
@@ -23641,6 +24684,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Macquarie",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
     {
      "action": "main",
      "date": "2026-07-16",
@@ -23677,57 +24727,51 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 1661874450,
+   "revEstimate": 1662593220,
    "trend": {
-    "analystsEps": 29,
-    "analystsRev": 27,
+    "analystsEps": 30,
+    "analystsRev": 28,
     "endDate": "2026-06-30",
     "eps30dAgo": 1.50141,
     "eps60dAgo": 1.50141,
     "eps7dAgo": 1.50207,
-    "eps90dAgo": 1.1929,
-    "epsNow": 1.50318,
-    "growth": 0.5339,
+    "eps90dAgo": 1.1829,
+    "epsNow": 1.50174,
+    "growth": 0.5324,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 30,
     "revUp7": 1,
-    "revenueAvg": 1661874450
+    "revenueAvg": 1662593220
    }
   },
   "TER": {
    "annual": {
     "fy0": {
-     "analysts": 17,
+     "analysts": 15,
      "endDate": "2026-12-31",
-     "eps": 7.30368,
-     "epsHigh": 8.03,
-     "epsLow": 6.5,
-     "growth": 0.84440005,
-     "revenue": 4504267920
+     "eps": 9.09271,
+     "epsHigh": 9.35018,
+     "epsLow": 8.82,
+     "growth": 1.2961,
+     "revenue": 5143439780
     },
     "fy1": {
      "analysts": 18,
      "endDate": "2027-12-31",
-     "eps": 10.33391,
+     "eps": 11.55303,
      "epsHigh": 16.53,
-     "epsLow": 7.1,
-     "growth": 0.4149,
-     "revenue": 5617548950
+     "epsLow": 9.0,
+     "growth": 0.2706,
+     "revenue": 6221303320
     },
     "lt5y": null
    },
-   "epsEstimate": 2.0536,
-   "epsHigh": 2.1351,
-   "epsLow": 2.0,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 2.05052,
+   "epsHigh": 2.2,
+   "epsLow": 1.99,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 0.57,
-     "epsEstimate": 0.54317,
-     "quarter": "2025-06-30",
-     "surprisePct": 4.94
-    },
     {
      "epsActual": 0.85,
      "epsEstimate": 0.7911,
@@ -23745,12 +24789,33 @@ const EARNINGS_INTEL = {
      "epsEstimate": 2.11685,
      "quarter": "2026-03-31",
      "surprisePct": 20.93
+    },
+    {
+     "epsActual": 2.47,
+     "epsEstimate": 2.0536,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 20.28
     }
    ],
    "nextDate": "2026-10-21",
    "nextDateEnd": null,
    "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Morgan Stanley",
+     "from": "Equal-Weight",
+     "to": "Equal-Weight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Evercore ISI Group",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
     {
      "action": "reit",
      "date": "2026-07-29",
@@ -23801,22 +24866,22 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 1217944500,
+   "revEstimate": 1262144510,
    "trend": {
     "analystsEps": 15,
-    "analystsRev": 14,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 2.05422,
-    "eps60dAgo": 2.04184,
-    "eps7dAgo": 2.05394,
-    "eps90dAgo": 1.93773,
-    "epsNow": 2.0536,
-    "growth": 2.6028,
+    "analystsRev": 15,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.43551,
+    "eps60dAgo": 1.3763,
+    "eps7dAgo": 1.44346,
+    "eps90dAgo": 1.37693,
+    "epsNow": 2.05052,
+    "growth": 1.4124,
     "revDown30": 0,
     "revDown7": null,
-    "revUp30": 1,
-    "revUp7": 1,
-    "revenueAvg": 1217944500
+    "revUp30": 3,
+    "revUp7": 2,
+    "revenueAvg": 1262144510
    }
   },
   "TFC": {
@@ -23844,7 +24909,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.11496,
    "epsHigh": 1.16,
    "epsLow": 1.08,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.06,
@@ -23875,6 +24940,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Underweight",
+     "to": "Underweight"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -23958,10 +25030,10 @@ const EARNINGS_INTEL = {
     "analystsEps": 14,
     "analystsRev": 9,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.13618,
+    "eps30dAgo": 1.13551,
     "eps60dAgo": 1.13612,
-    "eps7dAgo": 1.13169,
-    "eps90dAgo": 1.13656,
+    "eps7dAgo": 1.11496,
+    "eps90dAgo": 1.13657,
     "epsNow": 1.11496,
     "growth": 0.051799998,
     "revDown30": 1,
@@ -23976,27 +25048,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 36,
      "endDate": "2027-01-31",
-     "eps": 8.35763,
-     "epsHigh": 8.95665,
+     "eps": 8.38124,
+     "epsHigh": 9.0,
      "epsLow": 7.59,
-     "growth": 0.103999995,
-     "revenue": 108897566020
+     "growth": 0.107200004,
+     "revenue": 108932880300
     },
     "fy1": {
      "analysts": 36,
      "endDate": "2028-01-31",
-     "eps": 8.92789,
+     "eps": 8.94872,
      "epsHigh": 9.85451,
      "epsLow": 7.09,
-     "growth": 0.0682,
-     "revenue": 112087569150
+     "growth": 0.0677,
+     "revenue": 112123041380
     },
     "lt5y": null
    },
-   "epsEstimate": 2.25513,
+   "epsEstimate": 2.26738,
    "epsHigh": 2.76477,
    "epsLow": 2.05,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.05,
@@ -24029,6 +25101,20 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
+     "date": "2026-07-31",
+     "firm": "Bernstein",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
      "date": "2026-07-21",
      "firm": "Evercore ISI Group",
      "from": "In-Line",
@@ -24056,22 +25142,22 @@ const EARNINGS_INTEL = {
      "to": "Outperform"
     }
    ],
-   "revEstimate": 26022905490,
+   "revEstimate": 26039939970,
    "trend": {
     "analystsEps": 31,
     "analystsRev": 29,
     "endDate": "2026-07-31",
-    "eps30dAgo": 2.24706,
-    "eps60dAgo": 2.23249,
-    "eps7dAgo": 2.25093,
-    "eps90dAgo": 2.24219,
-    "epsNow": 2.25513,
-    "growth": 0.1001,
+    "eps30dAgo": 2.25093,
+    "eps60dAgo": 2.24448,
+    "eps7dAgo": 2.25513,
+    "eps90dAgo": 2.2451,
+    "epsNow": 2.26738,
+    "growth": 0.106000006,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 1,
-    "revenueAvg": 26022905490
+    "revenueAvg": 26039939970
    }
   },
   "TJX": {
@@ -24099,7 +25185,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.19022,
    "epsHigh": 1.26013,
    "epsLow": 1.16,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.1,
@@ -24173,7 +25259,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.3977,
    "epsHigh": 6.559,
    "epsLow": 6.32,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 5.79,
@@ -24202,7 +25288,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-21",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -24283,7 +25369,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 6.81041,
    "epsHigh": 7.41,
    "epsLow": 6.03,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 8.14,
@@ -24312,7 +25398,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-15",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "main",
@@ -24422,27 +25508,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 33,
      "endDate": "2026-12-31",
-     "eps": 1.78687,
+     "eps": 1.7802,
      "epsHigh": 2.32,
      "epsLow": 1.25,
-     "growth": 0.0764,
-     "revenue": 105689600800
+     "growth": 0.072399996,
+     "revenue": 105717867460
     },
     "fy1": {
      "analysts": 32,
      "endDate": "2027-12-31",
-     "eps": 2.22348,
+     "eps": 2.21755,
      "epsHigh": 3.65,
      "epsLow": 0.8,
-     "growth": 0.24430001,
-     "revenue": 120523395250
+     "growth": 0.2457,
+     "revenue": 120489482210
     },
     "lt5y": null
    },
    "epsEstimate": 0.45577,
    "epsHigh": 0.6,
    "epsLow": 0.27,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.5,
@@ -24471,7 +25557,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-21",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -24579,29 +25665,29 @@ const EARNINGS_INTEL = {
   "TSM": {
    "annual": {
     "fy0": {
-     "analysts": 12,
+     "analysts": 13,
      "endDate": "2026-12-31",
-     "eps": 16.80425,
+     "eps": 16.81977,
      "epsHigh": 17.57,
      "epsLow": 15.23,
-     "growth": 0.5779,
-     "revenue": 5410080691950
+     "growth": 0.5793,
+     "revenue": 5413535303710
     },
     "fy1": {
-     "analysts": 12,
+     "analysts": 13,
      "endDate": "2027-12-31",
-     "eps": 21.5691,
+     "eps": 21.60809,
      "epsHigh": 23.88,
      "epsLow": 19.58,
-     "growth": 0.2836,
-     "revenue": 7166494925660
+     "growth": 0.2847,
+     "revenue": 7170335027520
     },
     "lt5y": null
    },
-   "epsEstimate": 4.46382,
+   "epsEstimate": 4.44959,
    "epsHigh": 4.65,
    "epsLow": 4.26,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.92,
@@ -24630,7 +25716,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-15",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -24682,22 +25768,22 @@ const EARNINGS_INTEL = {
      "to": "Positive"
     }
    ],
-   "revEstimate": 1448593608550,
+   "revEstimate": 1448943648270,
    "trend": {
-    "analystsEps": 7,
+    "analystsEps": 8,
     "analystsRev": 25,
     "endDate": "2026-09-30",
     "eps30dAgo": 4.17162,
     "eps60dAgo": 4.08009,
     "eps7dAgo": 4.49778,
     "eps90dAgo": 4.08009,
-    "epsNow": 4.46382,
-    "growth": 0.5287,
+    "epsNow": 4.44959,
+    "growth": 0.5238,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 1,
-    "revenueAvg": 1448593608550
+    "revenueAvg": 1448943648270
    }
   },
   "TTD": {
@@ -24725,7 +25811,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.402,
    "epsHigh": 0.47,
    "epsLow": 0.32997,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.41,
@@ -24814,7 +25900,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.36003,
    "epsHigh": 1.02,
    "epsLow": 0.25,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": -0.07,
@@ -24907,13 +25993,6 @@ const EARNINGS_INTEL = {
      "firm": "BTIG",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "DA Davidson",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
    "revEstimate": 1360202590,
@@ -24942,8 +26021,8 @@ const EARNINGS_INTEL = {
      "eps": 8.50003,
      "epsHigh": 8.71,
      "epsLow": 8.08,
-     "growth": 0.5339,
-     "revenue": 21905174460
+     "growth": 0.5132,
+     "revenue": 21902801980
     },
     "fy1": {
      "analysts": 28,
@@ -24951,15 +26030,15 @@ const EARNINGS_INTEL = {
      "eps": 10.03407,
      "epsHigh": 13.5,
      "epsLow": 8.52,
-     "growth": 0.2218,
-     "revenue": 24771971210
+     "growth": 0.2301,
+     "revenue": 24824395450
     },
     "lt5y": null
    },
    "epsEstimate": 2.42033,
    "epsHigh": 2.54,
    "epsLow": 2.24,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.48,
@@ -24988,7 +26067,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-27",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -25096,29 +26175,29 @@ const EARNINGS_INTEL = {
   "UBER": {
    "annual": {
     "fy0": {
-     "analysts": 36,
+     "analysts": 37,
      "endDate": "2026-12-31",
-     "eps": 3.04289,
+     "eps": 3.03308,
      "epsHigh": 5.97,
      "epsLow": 2.43,
-     "growth": 0.35,
-     "revenue": 58200954780
+     "growth": 0.3515,
+     "revenue": 58195175050
     },
     "fy1": {
-     "analysts": 37,
+     "analysts": 38,
      "endDate": "2027-12-31",
-     "eps": 4.5399,
+     "eps": 4.52464,
      "epsHigh": 5.96,
      "epsLow": 3.15,
-     "growth": 0.33720002,
-     "revenue": 67092183690
+     "growth": 0.3332,
+     "revenue": 67102043490
     },
     "lt5y": null
    },
-   "epsEstimate": 0.80385,
+   "epsEstimate": 0.80566,
    "epsHigh": 0.84,
-   "epsLow": 0.76,
-   "fetchedAt": "2026-07-29",
+   "epsLow": 0.77,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.63,
@@ -25199,22 +26278,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 14265076580,
+   "revEstimate": 14265074390,
    "trend": {
-    "analystsEps": 31,
+    "analystsEps": 32,
     "analystsRev": 41,
     "endDate": "2026-06-30",
     "eps30dAgo": 0.83349,
     "eps60dAgo": 0.82798,
     "eps7dAgo": 0.8341,
     "eps90dAgo": 0.80847,
-    "epsNow": 0.8365,
-    "growth": 0.22799999,
+    "epsNow": 0.83473,
+    "growth": 0.2308,
     "revDown30": 0,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 1,
-    "revenueAvg": 14265076580
+    "revenueAvg": 14265074390
    }
   },
   "UNH": {
@@ -25242,7 +26321,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.08244,
    "epsHigh": 4.56,
    "epsLow": 3.18,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.92,
@@ -25401,7 +26480,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.44696,
    "epsHigh": 3.57,
    "epsLow": 3.27169,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 3.08,
@@ -25430,7 +26509,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-22",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -25560,7 +26639,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.72838,
    "epsHigh": 1.89,
    "epsLow": 1.58661,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.74,
@@ -25590,8 +26669,50 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-10-27",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Stifel",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Susquehanna",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Stephens & Co.",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Oppenheimer",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "BMO Capital",
+     "from": "Market Perform",
+     "to": "Market Perform"
+    },
     {
      "action": "main",
      "date": "2026-07-21",
@@ -25671,7 +26792,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.31733,
    "epsHigh": 1.4,
    "epsLow": 1.24,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.22,
@@ -25702,6 +26823,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "up",
      "date": "2026-07-20",
@@ -25778,13 +26906,6 @@ const EARNINGS_INTEL = {
      "firm": "Baird",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-07",
-     "firm": "UBS",
-     "from": "Neutral",
-     "to": "Neutral"
     }
    ],
    "revEstimate": 7980735930,
@@ -25792,10 +26913,10 @@ const EARNINGS_INTEL = {
     "analystsEps": 16,
     "analystsRev": 10,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.29397,
+    "eps30dAgo": 1.29198,
     "eps60dAgo": 1.31834,
-    "eps7dAgo": 1.30607,
-    "eps90dAgo": 1.31296,
+    "eps7dAgo": 1.31733,
+    "eps90dAgo": 1.31834,
     "epsNow": 1.31733,
     "growth": 0.0798,
     "revDown30": 1,
@@ -25808,29 +26929,29 @@ const EARNINGS_INTEL = {
   "V": {
    "annual": {
     "fy0": {
-     "analysts": 39,
+     "analysts": 38,
      "endDate": "2026-09-30",
-     "eps": 13.15077,
-     "epsHigh": 13.36,
-     "epsLow": 12.99,
-     "growth": 0.14649999,
-     "revenue": 45578087380
+     "eps": 13.204,
+     "epsHigh": 13.26,
+     "epsLow": 13.12,
+     "growth": 0.1512,
+     "revenue": 45773502940
     },
     "fy1": {
      "analysts": 41,
      "endDate": "2027-09-30",
-     "eps": 14.87416,
-     "epsHigh": 15.32255,
+     "eps": 14.94522,
+     "epsHigh": 15.42195,
      "epsLow": 14.36,
-     "growth": 0.131,
-     "revenue": 50339663660
+     "growth": 0.1319,
+     "revenue": 50652684560
     },
     "lt5y": null
    },
-   "epsEstimate": 3.45043,
-   "epsHigh": 3.56,
-   "epsLow": 3.33,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.43499,
+   "epsHigh": 3.46783,
+   "epsLow": 3.39,
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.98,
@@ -25863,6 +26984,62 @@ const EARNINGS_INTEL = {
    "nextDateEstimate": true,
    "ratings": [
     {
+     "action": "main",
+     "date": "2026-07-30",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Piper Sandler",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Susquehanna",
+     "from": "Positive",
+     "to": "Positive"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "BMO Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "RBC Capital",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Wolfe Research",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "Citigroup",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
      "action": "reit",
      "date": "2026-07-29",
      "firm": "Cantor Fitzgerald",
@@ -25889,52 +27066,24 @@ const EARNINGS_INTEL = {
      "firm": "Truist Securities",
      "from": "Buy",
      "to": "Buy"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-15",
-     "firm": "BMO Capital",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "init",
-     "date": "2026-07-08",
-     "firm": "Barclays",
-     "from": null,
-     "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-07-07",
-     "firm": "Baird",
-     "from": "Outperform",
-     "to": "Outperform"
-    },
-    {
-     "action": "init",
-     "date": "2026-06-30",
-     "firm": "Piper Sandler",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
-   "revEstimate": 12069927330,
+   "revEstimate": 12091840750,
    "trend": {
-    "analystsEps": 30,
-    "analystsRev": 26,
+    "analystsEps": 28,
+    "analystsRev": 28,
     "endDate": "2026-09-30",
-    "eps30dAgo": 3.44419,
+    "eps30dAgo": 3.44439,
     "eps60dAgo": 3.44271,
-    "eps7dAgo": 3.44326,
-    "eps90dAgo": 3.41295,
-    "epsNow": 3.45043,
-    "growth": 0.1579,
+    "eps7dAgo": 3.45009,
+    "eps90dAgo": 3.4402,
+    "epsNow": 3.43499,
+    "growth": 0.1527,
     "revDown30": 2,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 1,
-    "revenueAvg": 12069927330
+    "revenueAvg": 12091840750
    }
   },
   "VEEV": {
@@ -25942,27 +27091,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 26,
      "endDate": "2027-01-31",
-     "eps": 9.06203,
+     "eps": 9.06196,
      "epsHigh": 9.21268,
      "epsLow": 9.0,
      "growth": 0.1188,
-     "revenue": 3641302610
+     "revenue": 3641298420
     },
     "fy1": {
      "analysts": 27,
      "endDate": "2028-01-31",
-     "eps": 10.03382,
+     "eps": 10.03399,
      "epsHigh": 10.59563,
      "epsLow": 9.25,
-     "growth": 0.107200004,
-     "revenue": 4081167490
+     "growth": 0.1073,
+     "revenue": 4081184020
     },
     "lt5y": null
    },
-   "epsEstimate": 2.22219,
+   "epsEstimate": 2.22223,
    "epsHigh": 2.27,
    "epsLow": 2.2,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.99,
@@ -26006,11 +27155,11 @@ const EARNINGS_INTEL = {
     "analystsEps": 25,
     "analystsRev": 23,
     "endDate": "2026-07-31",
-    "eps30dAgo": 2.22232,
-    "eps60dAgo": 2.18516,
+    "eps30dAgo": 2.22228,
+    "eps60dAgo": 2.18477,
     "eps7dAgo": 2.22228,
     "eps90dAgo": 2.18516,
-    "epsNow": 2.22219,
+    "epsNow": 2.22223,
     "growth": 0.1167,
     "revDown30": 3,
     "revDown7": null,
@@ -26022,36 +27171,30 @@ const EARNINGS_INTEL = {
   "VLO": {
    "annual": {
     "fy0": {
-     "analysts": 18,
+     "analysts": 3,
      "endDate": "2026-12-31",
-     "eps": 35.41366,
-     "epsHigh": 46.76,
-     "epsLow": 24.29078,
-     "growth": 2.3378,
-     "revenue": 139647869930
+     "eps": 38.16078,
+     "epsHigh": 40.25,
+     "epsLow": 35.63235,
+     "growth": 2.5967002,
+     "revenue": 145722932560
     },
     "fy1": {
      "analysts": 18,
      "endDate": "2027-12-31",
-     "eps": 25.11625,
+     "eps": 25.21365,
      "epsHigh": 40.86,
      "epsLow": 11.42,
-     "growth": -0.2908,
-     "revenue": 124467178730
+     "growth": -0.3393,
+     "revenue": 123171201220
     },
     "lt5y": null
    },
-   "epsEstimate": 10.12557,
-   "epsHigh": 11.51,
-   "epsLow": 9.3966,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 15.21692,
+   "epsHigh": 15.5,
+   "epsLow": 14.93385,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 2.28,
-     "epsEstimate": 1.76624,
-     "quarter": "2025-06-30",
-     "surprisePct": 29.09
-    },
     {
      "epsActual": 3.66,
      "epsEstimate": 3.05307,
@@ -26069,12 +27212,40 @@ const EARNINGS_INTEL = {
      "epsEstimate": 3.16181,
      "quarter": "2026-03-31",
      "surprisePct": 33.47
+    },
+    {
+     "epsActual": 12.54,
+     "epsEstimate": 10.12557,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 23.84
     }
    ],
-   "nextDate": "2026-07-30",
+   "nextDate": "2026-10-22",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "UBS",
+     "from": "Buy",
+     "to": "Buy"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Wells Fargo",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
+    {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Barclays",
+     "from": "Overweight",
+     "to": "Overweight"
+    },
     {
      "action": "main",
      "date": "2026-07-22",
@@ -26125,22 +27296,22 @@ const EARNINGS_INTEL = {
      "to": "Hold"
     }
    ],
-   "revEstimate": 38428840350,
+   "revEstimate": 42782787880,
    "trend": {
-    "analystsEps": 18,
-    "analystsRev": 9,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 9.9387,
-    "eps60dAgo": 10.03902,
-    "eps7dAgo": 10.14825,
-    "eps90dAgo": 7.96042,
-    "epsNow": 10.12557,
-    "growth": 3.441,
-    "revDown30": 5,
+    "analystsEps": 2,
+    "analystsRev": 3,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 9.29983,
+    "eps60dAgo": 8.78664,
+    "eps7dAgo": 13.31476,
+    "eps90dAgo": 8.02294,
+    "epsNow": 15.21692,
+    "growth": 3.1576002,
+    "revDown30": 3,
     "revDown7": null,
-    "revUp30": 7,
-    "revUp7": 6,
-    "revenueAvg": 38428840350
+    "revUp30": 8,
+    "revUp7": 8,
+    "revenueAvg": 42782787880
    }
   },
   "VRTX": {
@@ -26168,7 +27339,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 4.74764,
    "epsHigh": 5.17,
    "epsLow": 4.26,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 4.52,
@@ -26249,29 +27420,29 @@ const EARNINGS_INTEL = {
   "VST": {
    "annual": {
     "fy0": {
-     "analysts": 12,
+     "analysts": 8,
      "endDate": "2026-12-31",
-     "eps": 9.85042,
+     "eps": 9.94814,
      "epsHigh": 11.31888,
-     "epsLow": 8.3312,
-     "growth": 0.8009,
-     "revenue": 23223187020
+     "epsLow": 8.915,
+     "growth": 0.7611,
+     "revenue": 23191670140
     },
     "fy1": {
-     "analysts": 12,
+     "analysts": 8,
      "endDate": "2027-12-31",
-     "eps": 11.15861,
+     "eps": 11.09583,
      "epsHigh": 12.94,
-     "epsLow": 9.21,
-     "growth": 0.2618,
-     "revenue": 25163136490
+     "epsLow": 9.02637,
+     "growth": 0.2321,
+     "revenue": 25687781990
     },
     "lt5y": null
    },
-   "epsEstimate": 1.97,
+   "epsEstimate": 1.95,
    "epsHigh": 2.51,
    "epsLow": 1.39,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.81,
@@ -26331,22 +27502,22 @@ const EARNINGS_INTEL = {
      "to": "Sector Outperform"
     }
    ],
-   "revEstimate": 5534818330,
+   "revEstimate": 5478968330,
    "trend": {
     "analystsEps": 8,
     "analystsRev": 6,
     "endDate": "2026-06-30",
     "eps30dAgo": 2.15137,
     "eps60dAgo": 1.97585,
-    "eps7dAgo": 2.15145,
-    "eps90dAgo": 2.04762,
-    "epsNow": 1.9621,
-    "growth": 1.7675999,
+    "eps7dAgo": 2.14145,
+    "eps90dAgo": 2.05012,
+    "epsNow": 1.75445,
+    "growth": 1.7394999,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 3,
     "revUp7": 1,
-    "revenueAvg": 5534818330
+    "revenueAvg": 5478968330
    }
   },
   "WDAY": {
@@ -26374,7 +27545,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 2.61226,
    "epsHigh": 2.85,
    "epsLow": 2.41,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 2.21,
@@ -26463,7 +27634,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 3.29968,
    "epsHigh": 3.59572,
    "epsLow": 3.2,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.66,
@@ -26528,13 +27699,6 @@ const EARNINGS_INTEL = {
      "firm": "Cantor Fitzgerald",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "main",
-     "date": "2026-06-15",
-     "firm": "Morgan Stanley",
-     "from": "Overweight",
-     "to": "Overweight"
     }
    ],
    "revEstimate": 3698775840,
@@ -26560,27 +27724,27 @@ const EARNINGS_INTEL = {
     "fy0": {
      "analysts": 19,
      "endDate": "2026-12-31",
-     "eps": 7.27437,
+     "eps": 7.27933,
      "epsHigh": 7.47,
      "epsLow": 6.93,
-     "growth": 0.1371,
-     "revenue": 88901867720
+     "growth": 0.13859999,
+     "revenue": 88904666730
     },
     "fy1": {
      "analysts": 21,
      "endDate": "2027-12-31",
-     "eps": 7.94588,
+     "eps": 7.95118,
      "epsHigh": 8.35,
      "epsLow": 7.31,
-     "growth": 0.0979,
-     "revenue": 92925534990
+     "growth": 0.09770001,
+     "revenue": 92897045720
     },
     "lt5y": null
    },
-   "epsEstimate": 1.80586,
+   "epsEstimate": 1.81034,
    "epsHigh": 1.88,
    "epsLow": 1.71,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.66,
@@ -26611,6 +27775,13 @@ const EARNINGS_INTEL = {
    "nextDateEnd": null,
    "nextDateEstimate": null,
    "ratings": [
+    {
+     "action": "main",
+     "date": "2026-07-29",
+     "firm": "JP Morgan",
+     "from": "Neutral",
+     "to": "Neutral"
+    },
     {
      "action": "main",
      "date": "2026-07-15",
@@ -26661,22 +27832,22 @@ const EARNINGS_INTEL = {
      "to": "Buy"
     }
    ],
-   "revEstimate": 22366285710,
+   "revEstimate": 22361714290,
    "trend": {
     "analystsEps": 19,
     "analystsRev": 7,
     "endDate": "2026-09-30",
-    "eps30dAgo": 1.81365,
+    "eps30dAgo": 1.81309,
     "eps60dAgo": 1.80896,
     "eps7dAgo": 1.82593,
-    "eps90dAgo": 1.8109,
-    "epsNow": 1.82803,
-    "growth": 0.0438,
+    "eps90dAgo": 1.81054,
+    "epsNow": 1.83039,
+    "growth": 0.0464,
     "revDown30": 1,
     "revDown7": null,
     "revUp30": 4,
     "revUp7": 2,
-    "revenueAvg": 22366285710
+    "revenueAvg": 22361714290
    }
   },
   "WMT": {
@@ -26704,7 +27875,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 0.7425,
    "epsHigh": 0.78,
    "epsLow": 0.72,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.68,
@@ -26736,6 +27907,13 @@ const EARNINGS_INTEL = {
    "nextDateEstimate": null,
    "ratings": [
     {
+     "action": "main",
+     "date": "2026-07-31",
+     "firm": "Bernstein",
+     "from": "Outperform",
+     "to": "Outperform"
+    },
+    {
      "action": "reit",
      "date": "2026-07-22",
      "firm": "RBC Capital",
@@ -26764,12 +27942,12 @@ const EARNINGS_INTEL = {
   "XOM": {
    "annual": {
     "fy0": {
-     "analysts": 24,
+     "analysts": 21,
      "endDate": "2026-12-31",
-     "eps": 11.07687,
-     "epsHigh": 13.45,
+     "eps": 11.11196,
+     "epsHigh": 13.11,
      "epsLow": 7.91,
-     "growth": 0.5847,
+     "growth": 0.5897,
      "revenue": 390875527590
     },
     "fy1": {
@@ -26778,22 +27956,16 @@ const EARNINGS_INTEL = {
      "eps": 10.58827,
      "epsHigh": 13.5,
      "epsLow": 7.46192,
-     "growth": -0.044099998,
+     "growth": -0.0471,
      "revenue": 390930474890
     },
     "lt5y": null
    },
-   "epsEstimate": 3.6815,
-   "epsHigh": 4.46,
-   "epsLow": 3.23,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 3.37173,
+   "epsHigh": 4.67,
+   "epsLow": 2.02886,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.64,
-     "epsEstimate": 1.56293,
-     "quarter": "2025-06-30",
-     "surprisePct": 4.93
-    },
     {
      "epsActual": 1.88,
      "epsEstimate": 1.82466,
@@ -26811,11 +27983,18 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.00743,
      "quarter": "2026-03-31",
      "surprisePct": 15.14
+    },
+    {
+     "epsActual": 4.11,
+     "epsEstimate": 3.62571,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 13.36
     }
    ],
-   "nextDate": "2026-07-31",
+   "nextDate": "2026-10-30",
    "nextDateEnd": null,
-   "nextDateEstimate": null,
+   "nextDateEstimate": true,
    "ratings": [
     {
      "action": "down",
@@ -26844,43 +28023,36 @@ const EARNINGS_INTEL = {
      "firm": "Morgan Stanley",
      "from": "Overweight",
      "to": "Overweight"
-    },
-    {
-     "action": "up",
-     "date": "2026-06-16",
-     "firm": "B of A Securities",
-     "from": "Neutral",
-     "to": "Buy"
     }
    ],
-   "revEstimate": 97656912680,
+   "revEstimate": 96208828710,
    "trend": {
-    "analystsEps": 19,
-    "analystsRev": 8,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 3.72522,
-    "eps60dAgo": 3.71882,
-    "eps7dAgo": 3.6858,
-    "eps90dAgo": 3.37492,
-    "epsNow": 3.6815,
-    "growth": 1.2448001,
-    "revDown30": 4,
+    "analystsEps": 16,
+    "analystsRev": 9,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 3.39587,
+    "eps60dAgo": 3.45188,
+    "eps7dAgo": 3.35244,
+    "eps90dAgo": 3.076,
+    "epsNow": 3.37173,
+    "growth": 0.7935,
+    "revDown30": 2,
     "revDown7": null,
-    "revUp30": 0,
+    "revUp30": 1,
     "revUp7": 0,
-    "revenueAvg": 97656912680
+    "revenueAvg": 96208828710
    }
   },
   "YUM": {
    "annual": {
     "fy0": {
-     "analysts": 21,
+     "analysts": 7,
      "endDate": "2026-12-31",
-     "eps": 6.74524,
-     "epsHigh": 7.0,
-     "epsLow": 6.45333,
-     "growth": 0.1149,
-     "revenue": 9190736810
+     "eps": 6.75963,
+     "epsHigh": 6.85,
+     "epsLow": 6.72,
+     "growth": 0.1173,
+     "revenue": 9159203100
     },
     "fy1": {
      "analysts": 21,
@@ -26888,22 +28060,16 @@ const EARNINGS_INTEL = {
      "eps": 7.45375,
      "epsHigh": 7.8,
      "epsLow": 6.89665,
-     "growth": 0.105,
-     "revenue": 9656761180
+     "growth": 0.1027,
+     "revenue": 9641513810
     },
     "lt5y": null
    },
-   "epsEstimate": 1.56202,
-   "epsHigh": 1.63,
-   "epsLow": 1.39145,
-   "fetchedAt": "2026-07-29",
+   "epsEstimate": 1.67908,
+   "epsHigh": 1.84,
+   "epsLow": 1.55206,
+   "fetchedAt": "2026-08-01",
    "history": [
-    {
-     "epsActual": 1.44,
-     "epsEstimate": 1.4596,
-     "quarter": "2025-06-30",
-     "surprisePct": -1.34
-    },
     {
      "epsActual": 1.58,
      "epsEstimate": 1.4811,
@@ -26921,6 +28087,13 @@ const EARNINGS_INTEL = {
      "epsEstimate": 1.38948,
      "quarter": "2026-03-31",
      "surprisePct": 7.95
+    },
+    {
+     "epsActual": 1.62,
+     "epsEstimate": 1.56202,
+     "quarter": "2026-06-30",
+     "reportedOn": "2026-08-01",
+     "surprisePct": 3.71
     }
    ],
    "nextDate": "2026-07-30",
@@ -26929,35 +28102,35 @@ const EARNINGS_INTEL = {
    "ratings": [
     {
      "action": "main",
+     "date": "2026-07-31",
+     "firm": "RBC Capital",
+     "from": "Sector Perform",
+     "to": "Sector Perform"
+    },
+    {
+     "action": "main",
      "date": "2026-07-13",
      "firm": "Citigroup",
      "from": "Neutral",
      "to": "Neutral"
-    },
-    {
-     "action": "reit",
-     "date": "2026-06-16",
-     "firm": "TD Cowen",
-     "from": "Buy",
-     "to": "Buy"
     }
    ],
-   "revEstimate": 2176508810,
+   "revEstimate": 2210069310,
    "trend": {
-    "analystsEps": 23,
-    "analystsRev": 21,
-    "endDate": "2026-06-30",
-    "eps30dAgo": 1.56928,
-    "eps60dAgo": 1.57186,
-    "eps7dAgo": 1.56293,
-    "eps90dAgo": 1.58838,
-    "epsNow": 1.56202,
-    "growth": 0.0847,
-    "revDown30": 4,
+    "analystsEps": 21,
+    "analystsRev": 11,
+    "endDate": "2026-09-30",
+    "eps30dAgo": 1.69202,
+    "eps60dAgo": 1.69859,
+    "eps7dAgo": 1.69025,
+    "eps90dAgo": 1.70209,
+    "epsNow": 1.67908,
+    "growth": 0.0627,
+    "revDown30": 2,
     "revDown7": null,
-    "revUp30": 1,
+    "revUp30": 2,
     "revUp7": 0,
-    "revenueAvg": 2176508810
+    "revenueAvg": 2210069310
    }
   },
   "ZM": {
@@ -26985,7 +28158,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.4752,
    "epsHigh": 1.6,
    "epsLow": 1.45,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.53,
@@ -27044,7 +28217,7 @@ const EARNINGS_INTEL = {
     "analystsRev": 26,
     "endDate": "2026-07-31",
     "eps30dAgo": 1.4752,
-    "eps60dAgo": 1.47246,
+    "eps60dAgo": 1.4752,
     "eps7dAgo": 1.4752,
     "eps90dAgo": 1.4742,
     "epsNow": 1.4752,
@@ -27081,7 +28254,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.09001,
    "epsHigh": 1.16,
    "epsLow": 1.076,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 0.89,
@@ -27110,7 +28283,7 @@ const EARNINGS_INTEL = {
    ],
    "nextDate": "2026-09-02",
    "nextDateEnd": null,
-   "nextDateEstimate": true,
+   "nextDateEstimate": null,
    "ratings": [
     {
      "action": "main",
@@ -27170,7 +28343,7 @@ const EARNINGS_INTEL = {
    "epsEstimate": 1.85237,
    "epsHigh": 1.9,
    "epsLow": 1.77,
-   "fetchedAt": "2026-07-29",
+   "fetchedAt": "2026-08-01",
    "history": [
     {
      "epsActual": 1.76,

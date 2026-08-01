@@ -1,8 +1,8 @@
 {
  "ticker": "TFC",
  "cik": "0000092230",
- "entityName": "TRUIST FINANCIAL CORP",
- "retrievedAt": "2026-07-29T13:01:31.788323Z",
+ "entityName": "TRUIST FINANCIAL CORPORATION",
+ "retrievedAt": "2026-08-01T18:51:23.385004Z",
  "fields": {
   "buyback": [
    {
@@ -1321,12 +1321,12 @@
     "confidence": 100
    },
    {
-    "value": 1245879275,
+    "value": 1221626188,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0000092230-26-000062",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0000092230-26-000099",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

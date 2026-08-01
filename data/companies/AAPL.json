@@ -2,7 +2,7 @@
  "ticker": "AAPL",
  "cik": "0000320193",
  "entityName": "Apple Inc.",
- "retrievedAt": "2026-07-29T13:00:29.932076Z",
+ "retrievedAt": "2026-08-01T18:50:11.945210Z",
  "fields": {
   "buyback": [
    {
@@ -1978,12 +1978,12 @@
     "confidence": 100
    },
    {
-    "value": 14687356000,
+    "value": 14594180000,
     "unit": "shares",
-    "periodEnd": "2026-04-17",
+    "periodEnd": "2026-07-17",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0000320193-26-000013",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0000320193-26-000020",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

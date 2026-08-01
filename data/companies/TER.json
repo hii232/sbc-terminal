@@ -2,7 +2,7 @@
  "ticker": "TER",
  "cik": "0000097210",
  "entityName": "TERADYNE, INC.",
- "retrievedAt": "2026-07-29T13:01:17.111768Z",
+ "retrievedAt": "2026-08-01T18:51:06.024199Z",
  "fields": {
   "buyback": [
    {
@@ -1970,12 +1970,12 @@
     "confidence": 100
    },
    {
-    "value": 156542162,
+    "value": 156340750,
     "unit": "shares",
-    "periodEnd": "2026-04-27",
+    "periodEnd": "2026-07-27",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0001193125-26-201058",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0001193125-26-327715",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

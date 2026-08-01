@@ -2,7 +2,7 @@
  "ticker": "CMG",
  "cik": "0001058090",
  "entityName": "CHIPOTLE MEXICAN GRILL, INC.",
- "retrievedAt": "2026-07-29T13:00:59.649152Z",
+ "retrievedAt": "2026-08-01T18:50:46.564539Z",
  "fields": {
   "buyback": [
    {
@@ -1731,12 +1731,12 @@
     "confidence": 100
    },
    {
-    "value": 1282734000,
+    "value": 1265418000,
     "unit": "shares",
-    "periodEnd": "2026-04-24",
+    "periodEnd": "2026-07-24",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001058090-26-000028",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0001058090-26-000066",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

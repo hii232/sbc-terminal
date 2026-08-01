@@ -2,7 +2,7 @@
  "ticker": "ICE",
  "cik": "0001571949",
  "entityName": "INTERCONTINENTAL EXCHANGE, INC.",
- "retrievedAt": "2026-07-29T13:01:25.422099Z",
+ "retrievedAt": "2026-08-01T18:51:14.951959Z",
  "fields": {
   "buyback": [
    {
@@ -1782,12 +1782,12 @@
     "confidence": 100
    },
    {
-    "value": 565512495,
+    "value": 561394487,
     "unit": "shares",
-    "periodEnd": "2026-04-27",
+    "periodEnd": "2026-07-27",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001571949-26-000007",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0001571949-26-000011",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

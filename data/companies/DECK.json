@@ -1,8 +1,8 @@
 {
  "ticker": "DECK",
  "cik": "0000910521",
- "entityName": "DECKERS OUTDOOR CORPORATION",
- "retrievedAt": "2026-07-29T13:01:56.341082Z",
+ "entityName": "DECKERS OUTDOOR CORP",
+ "retrievedAt": "2026-08-01T18:51:57.527260Z",
  "fields": {
   "buyback": [
    {
@@ -1978,12 +1978,12 @@
     "confidence": 100
    },
    {
-    "value": 138880957,
+    "value": 136414227,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
-    "form": "10-K",
-    "filedDate": "2026-05-22",
-    "accessionNumber": "0001628280-26-037664",
+    "periodEnd": "2026-07-09",
+    "form": "10-Q",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0000910521-26-000022",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

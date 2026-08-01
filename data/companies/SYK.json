@@ -2,7 +2,7 @@
  "ticker": "SYK",
  "cik": "0000310764",
  "entityName": "STRYKER CORP",
- "retrievedAt": "2026-07-29T13:01:46.529325Z",
+ "retrievedAt": "2026-08-01T18:51:42.285886Z",
  "fields": {
   "buyback": [
    {
@@ -1778,12 +1778,12 @@
     "confidence": 100
    },
    {
-    "value": 383360762,
+    "value": 383573046,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-11",
-    "accessionNumber": "0000310764-26-000031",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0000310764-26-000050",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

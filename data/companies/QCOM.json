@@ -2,7 +2,7 @@
  "ticker": "QCOM",
  "cik": "0000804328",
  "entityName": "QUALCOMM INC/DE",
- "retrievedAt": "2026-07-29T13:00:33.040754Z",
+ "retrievedAt": "2026-08-01T18:50:16.283978Z",
  "fields": {
   "buyback": [
    {
@@ -1982,12 +1982,12 @@
     "confidence": 100
    },
    {
-    "value": 1054000000,
+    "value": 1050000000,
     "unit": "shares",
-    "periodEnd": "2026-04-27",
+    "periodEnd": "2026-07-27",
     "form": "10-Q",
-    "filedDate": "2026-04-29",
-    "accessionNumber": "0000804328-26-000061",
+    "filedDate": "2026-07-29",
+    "accessionNumber": "0000804328-26-000086",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

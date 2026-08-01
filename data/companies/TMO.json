@@ -2,7 +2,7 @@
  "ticker": "TMO",
  "cik": "0000097745",
  "entityName": "THERMO FISHER SCIENTIFIC INC.",
- "retrievedAt": "2026-07-29T13:00:55.548051Z",
+ "retrievedAt": "2026-08-01T18:50:41.998578Z",
  "fields": {
   "buyback": [
    {
@@ -1762,12 +1762,12 @@
     "confidence": 100
    },
    {
-    "value": 371621465,
+    "value": 369747286,
     "unit": "shares",
-    "periodEnd": "2026-03-28",
+    "periodEnd": "2026-06-27",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0000097745-26-000092",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0000097745-26-000144",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -2,7 +2,7 @@
  "ticker": "VLO",
  "cik": "0001035002",
  "entityName": "VALERO ENERGY CORP/TX",
- "retrievedAt": "2026-07-29T13:01:07.883145Z",
+ "retrievedAt": "2026-08-01T18:50:54.228984Z",
  "fields": {
   "buyback": [
    {
@@ -1774,12 +1774,12 @@
     "confidence": 100
    },
    {
-    "value": 296932782,
+    "value": 287927461,
     "unit": "shares",
-    "periodEnd": "2026-04-24",
+    "periodEnd": "2026-07-24",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001628280-26-028690",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0001628280-26-050937",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

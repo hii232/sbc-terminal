@@ -2,7 +2,7 @@
  "ticker": "LHX",
  "cik": "0000202058",
  "entityName": "L3HARRIS TECHNOLOGIES, INC.",
- "retrievedAt": "2026-07-29T13:01:59.209828Z",
+ "retrievedAt": "2026-08-01T18:52:00.540755Z",
  "fields": {
   "buyback": [
    {
@@ -1665,12 +1665,12 @@
     "confidence": 100
    },
    {
-    "value": 186294951,
+    "value": 186214616,
     "unit": "shares",
-    "periodEnd": "2026-04-24",
+    "periodEnd": "2026-07-24",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0000202058-26-000035",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0000202058-26-000058",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -1,8 +1,8 @@
 {
  "ticker": "BMY",
  "cik": "0000014272",
- "entityName": "Bristol-Myers Squibb Company",
- "retrievedAt": "2026-07-29T13:01:43.474938Z",
+ "entityName": "BRISTOL-MYERS SQUIBB COMPANY",
+ "retrievedAt": "2026-08-01T18:51:37.296302Z",
  "fields": {
   "buyback": [
    {
@@ -1732,12 +1732,12 @@
     "confidence": 100
    },
    {
-    "value": 2042071247,
+    "value": 2042714656,
     "unit": "shares",
-    "periodEnd": "2026-04-21",
+    "periodEnd": "2026-07-22",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0000014272-26-000010",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0000014272-26-000020",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

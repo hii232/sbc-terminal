@@ -2,7 +2,7 @@
  "ticker": "CI",
  "cik": "0001739940",
  "entityName": "The Cigna Group",
- "retrievedAt": "2026-07-29T13:01:44.440645Z",
+ "retrievedAt": "2026-08-01T18:51:38.391655Z",
  "fields": {
   "buyback": [
    {
@@ -1449,12 +1449,12 @@
     "confidence": 100
    },
    {
-    "value": 264532404,
+    "value": 264240486,
     "unit": "shares",
-    "periodEnd": "2026-04-24",
+    "periodEnd": "2026-07-24",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001739940-26-000043",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0001739940-26-000065",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

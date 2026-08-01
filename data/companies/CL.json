@@ -2,7 +2,7 @@
  "ticker": "CL",
  "cik": "0000021665",
  "entityName": "COLGATE-PALMOLIVE COMPANY",
- "retrievedAt": "2026-07-29T13:01:51.848717Z",
+ "retrievedAt": "2026-08-01T18:51:52.094561Z",
  "fields": {
   "buyback": [
    {
@@ -1570,12 +1570,12 @@
     "confidence": 100
    },
    {
-    "value": 800189310,
+    "value": 797172829,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0000021665-26-000023",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0000021665-26-000042",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

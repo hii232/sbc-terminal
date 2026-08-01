@@ -1,8 +1,8 @@
 {
  "ticker": "FICO",
  "cik": "0000814547",
- "entityName": "Fair Isaac Corp",
- "retrievedAt": "2026-07-29T13:01:28.644408Z",
+ "entityName": "FAIR ISAAC CORP",
+ "retrievedAt": "2026-08-01T18:51:19.893454Z",
  "fields": {
   "buyback": [
    {
@@ -1974,12 +1974,12 @@
     "confidence": 100
    },
    {
-    "value": 23190906,
+    "value": 21597635,
     "unit": "shares",
-    "periodEnd": "2026-04-16",
+    "periodEnd": "2026-07-17",
     "form": "10-Q",
-    "filedDate": "2026-04-28",
-    "accessionNumber": "0000814547-26-000021",
+    "filedDate": "2026-07-29",
+    "accessionNumber": "0000814547-26-000030",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

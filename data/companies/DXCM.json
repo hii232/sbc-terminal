@@ -2,7 +2,7 @@
  "ticker": "DXCM",
  "cik": "0001093557",
  "entityName": "DEXCOM, INC.",
- "retrievedAt": "2026-07-29T13:01:47.456888Z",
+ "retrievedAt": "2026-08-01T18:51:44.768772Z",
  "fields": {
   "buyback": [
    {
@@ -1749,12 +1749,12 @@
     "confidence": 100
    },
    {
-    "value": 385872977,
+    "value": 377360765,
     "unit": "shares",
-    "periodEnd": "2026-04-23",
+    "periodEnd": "2026-07-23",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001093557-26-000073",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0001093557-26-000143",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

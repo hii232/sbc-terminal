@@ -2,7 +2,7 @@
  "ticker": "FTNT",
  "cik": "0001262039",
  "entityName": "FORTINET, INC.",
- "retrievedAt": "2026-07-29T13:01:21.966441Z",
+ "retrievedAt": "2026-08-01T18:51:10.053174Z",
  "fields": {
   "buyback": [
    {
@@ -1982,12 +1982,12 @@
     "confidence": 100
    },
    {
-    "value": 732648391,
+    "value": 733713653,
     "unit": "shares",
-    "periodEnd": "2026-05-04",
+    "periodEnd": "2026-07-28",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0001262039-26-000013",
+    "filedDate": "2026-07-30",
+    "accessionNumber": "0001262039-26-000021",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

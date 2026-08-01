@@ -1,8 +1,8 @@
 {
  "ticker": "SCCO",
  "cik": "0001001838",
- "entityName": "SOUTHERN COPPER CORPORATION",
- "retrievedAt": "2026-07-29T13:01:09.853339Z",
+ "entityName": "SOUTHERN COPPER CORP/",
+ "retrievedAt": "2026-08-01T18:50:56.341523Z",
  "fields": {
   "buyback": [
    {
@@ -1236,12 +1236,12 @@
     "confidence": 100
    },
    {
-    "value": 826065041,
+    "value": 834331706,
     "unit": "shares",
-    "periodEnd": "2026-04-29",
+    "periodEnd": "2026-07-30",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001104659-26-052647",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0001104659-26-089169",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

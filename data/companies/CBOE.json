@@ -2,7 +2,7 @@
  "ticker": "CBOE",
  "cik": "0001374310",
  "entityName": "Cboe Global Markets, Inc.",
- "retrievedAt": "2026-07-29T13:01:26.748044Z",
+ "retrievedAt": "2026-08-01T18:51:16.766747Z",
  "fields": {
   "buyback": [
    {
@@ -1802,12 +1802,12 @@
     "confidence": 100
    },
    {
-    "value": 104653784,
+    "value": 104431019,
     "unit": "shares",
-    "periodEnd": "2026-04-24",
+    "periodEnd": "2026-07-24",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0001628280-26-029112",
+    "filedDate": "2026-07-31",
+    "accessionNumber": "0001628280-26-051239",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
