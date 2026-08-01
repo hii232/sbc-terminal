@@ -959,6 +959,82 @@
       { id: "auditBtn", label: "Data Audit — sources & trust", ic: "🧾" },
     ] },
   ];
+  /* ---- MOBILE TAB BAR ----
+     The five tabs are the DAILY PATH, not a menu of everything: open the app,
+     see the tape (Home), find an idea (Setups), check what reports next
+     (Earnings), manage what you own (Portfolio). Everything else is a tool you
+     reach for occasionally, so it lives one tap deeper under More rather than
+     competing for the same attention. Each tab delegates to the existing
+     drawer button, so all the show*() wiring stays untouched. */
+  const TAB_BAR = [
+    { id: "homeBtn", label: "Home", ic: "🏠" },
+    { id: "setupsBtn", label: "Setups", ic: "⭐" },
+    { id: "calBtn", label: "Earnings", ic: "🎯" },
+    { id: "portBtn", label: "Portfolio", ic: "💼" },
+    { id: "__more", label: "More", ic: "☰" },
+  ];
+  const TAB_IDS = TAB_BAR.filter(t => t.id !== "__more").map(t => t.id);
+  // Everything not on the bar, grouped as it is in the desktop nav so the
+  // sheet reads as an index of the terminal rather than a flat dump.
+  const moreSections = () => NAV_GROUPS
+    .map(g => ({ name: g.name, tools: (g.tools || []).filter(t => !TAB_IDS.includes(t.id)) }))
+    .filter(g => g.tools.length);
+  function closeMoreSheet() {
+    const s = el("moreSheet"); if (s) s.classList.remove("open");
+    const b = el("backdrop"); if (b && !$("aside").classList.contains("open")) b.classList.remove("show");
+  }
+  function renderTabBar() {
+    const bar = el("tabbar");
+    if (!bar) return;
+    bar.innerHTML = TAB_BAR.map(t =>
+      `<button type="button" data-tab="${t.id}"><span class="tb-ic">${t.ic}</span>${t.label}</button>`).join("");
+    bar.querySelectorAll("[data-tab]").forEach(b => b.onclick = (e) => {
+      e.stopPropagation();
+      const id = b.dataset.tab;
+      if (id === "__more") {
+        const sheet = el("moreSheet");
+        const opening = !sheet.classList.contains("open");
+        closeDrawer();
+        sheet.classList.toggle("open", opening);
+        const bd = el("backdrop"); if (bd) bd.classList.toggle("show", opening);
+        syncTabBar();
+        return;
+      }
+      closeMoreSheet();
+      const real = el(id);
+      if (real) real.click();
+    });
+    const sheet = el("moreSheet");
+    if (sheet) {
+      sheet.innerHTML = `<div class="sheet-grip"></div>`
+        + moreSections().map(g => `<h4>${escapeHtml(g.name)}</h4>
+          <div class="sheet-grid">${g.tools.map(t =>
+            `<button type="button" data-tool="${t.id}"><span class="tn-ic">${t.ic}</span>${escapeHtml(t.label)}</button>`).join("")}</div>`).join("");
+      sheet.querySelectorAll("[data-tool]").forEach(item => item.onclick = (e) => {
+        e.stopPropagation();
+        closeMoreSheet();
+        const real = el(item.dataset.tool);
+        if (real) real.click();
+      });
+      sheet.addEventListener("click", (e) => e.stopPropagation());
+    }
+    document.addEventListener("click", closeMoreSheet);
+    syncTabBar();
+  }
+  function syncTabBar() {
+    const bar = el("tabbar");
+    if (!bar) return;
+    const activeId = VIEW_BTNS.find(id => { const e = el(id); return e && e.classList.contains("active"); });
+    const sheetOpen = el("moreSheet") && el("moreSheet").classList.contains("open");
+    bar.querySelectorAll("[data-tab]").forEach(b => {
+      const id = b.dataset.tab;
+      b.classList.toggle("active", id === "__more"
+        ? !!sheetOpen || (!sheetOpen && !!activeId && !TAB_IDS.includes(activeId))
+        : !sheetOpen && id === activeId);
+    });
+    const sheet = el("moreSheet");
+    if (sheet) sheet.querySelectorAll("[data-tool]").forEach(i => i.classList.toggle("active", i.dataset.tool === activeId));
+  }
   function closeTopnavDD() {
     el("topnav").querySelectorAll(".topnav-group.open").forEach(g => g.classList.remove("open"));
   }
@@ -1062,6 +1138,7 @@
     el("navPE").classList.toggle("active", !drawerOpen && state.view === "screener");
     el("navRank").classList.toggle("active", !drawerOpen && state.view === "rankings");
     syncTopNav();
+    syncTabBar();
   }
   function syncMobileChrome() {
     el("cmdInput").placeholder = window.matchMedia("(max-width:720px)").matches
@@ -2103,15 +2180,26 @@
     // real, measured slippage of up to ~5 trading days on this bundle.
     // tradingDaysBetween(report date, d.pd's end date) gives a real,
     // day-resolution lookback into the SAME array pctMoveFrom already uses.
+    // The reaction is only real if there is price data AFTER the report. A
+    // company that reported on the 29th when the bundle's closes end on the
+    // 28th has no post-report tape at all -- the previous weekly-bar fallback
+    // silently measured the days BEFORE the report and labelled the result
+    // "tape since report", i.e. it reported pre-earnings drift as the
+    // post-earnings reaction (real case: 8 names on this bundle, BA showing
+    // "+4.8% since report" with zero post-report closes). Missing stays
+    // missing: no covering data -> no reaction term, and the drift score is
+    // simply built from the components that DO exist.
     const tradingDaysSince = window.ScoreEngine && d.pd && d.pd.to
       ? window.ScoreEngine.tradingDaysBetween(r.date, d.pd.to) : null;
-    const reaction = tradingDaysSince != null
+    const reaction = tradingDaysSince != null && tradingDaysSince >= 1
       ? pctMoveFrom(d.pd && d.pd.v || [], tradingDaysSince)
-      : pctMoveFrom(d.px && d.px.v || [], Math.max(1, Math.round(daysSince / 7)));
+      : null;
     if (reaction != null) {
       // PEAD needs the initial reaction to CONFIRM the surprise's direction
       score += clamp(reaction * Math.sign(surprise || 1), -8, 8);
       bits.push(`tape since report ${reaction >= 0 ? "+" : ""}${reaction.toFixed(1)}%`);
+    } else {
+      bits.push("no post-report price data yet — reaction not scored");
     }
     score = Math.round(clamp(score, 3, 97));
     const up = surprise >= 0;
@@ -7127,10 +7215,11 @@
       el("cmdInput").focus();
       flash("Ticker search ready", "ok");
     };
-    el("backdrop").onclick = closeDrawer;
+    el("backdrop").onclick = () => { closeMoreSheet(); closeDrawer(); };
     window.addEventListener("resize", syncMobileChrome);
 
     renderTopNav();
+    renderTabBar();
     showHome();
     syncMobileChrome();
     updateLiveDot();

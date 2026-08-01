@@ -459,13 +459,27 @@ const ok = (cond, name, detail = "") => {
     }
   }
   ok(checkedReal > 0, "at least one real bundled report has a driftScoreOf reaction to check", String(checkedReal));
-  // >=90%, not a hard 100%: this walks the LIVE earnings ledger (its
-  // membership shifts with Date.now() as reports age in/out of the 45-day
-  // window), so a small number of names sitting exactly at a data-
-  // availability boundary (e.g. very little pd.v history) can legitimately
-  // diverge without the underlying daily-close mechanism being wrong --
-  // verified separately via direct computation that it is.
-  ok(matchedDaily / checkedReal >= 0.9, "the vast majority of real reports' shown reaction matches a daily-close (d.pd) computation, not a weekly one", `${matchedDaily}/${checkedReal}`);
+  // Back to a hard 100%. An earlier version of this test was loosened to 90%
+  // after CI drift, on the assumption the stragglers were a benign
+  // data-availability boundary. They were not: they were companies that
+  // reported AFTER the bundle's last daily close, where driftScoreOf fell
+  // back to weekly bars and reported pre-earnings drift as the post-earnings
+  // reaction. That is now fixed at the source (no covering data -> no
+  // reaction term), so an exact match is once again the correct assertion.
+  ok(matchedDaily === checkedReal, "every real report's shown reaction matches a daily-close (d.pd) computation, not a weekly one", `${matchedDaily}/${checkedReal}`);
+  // and the names with no post-report tape must say so rather than showing a number
+  let noTape = 0, noTapeWithNumber = 0;
+  for (const r of realLedger) {
+    const dR = DATA.find(x => x.ticker === r.symbol);
+    if (!dR || !dR.pd || !dR.pd.to) continue;
+    const dsReal = E.driftScoreOf(r, dR);
+    if (!dsReal) continue;
+    if (dsReal.bits.some(b => /no post-report price data yet/.test(b))) {
+      noTape++;
+      if (dsReal.bits.some(b => /^tape since report/.test(b))) noTapeWithNumber++;
+    }
+  }
+  ok(noTapeWithNumber === 0, "a report with no post-report price data never also shows a 'tape since report' number", String(noTapeWithNumber));
   ok(divergedFromWeekly > 0, "the daily-resolution reaction differs meaningfully from the old weekly-bucketed value for real reports (proving the fix changed real output, not just refactored)", String(divergedFromWeekly));
 
   // calibration: pure math over synthetic snapshots

@@ -406,6 +406,45 @@
   .backdrop.show{display:block}
   .bottom-nav{display:none}
 
+  /* ============ MOBILE TAB BAR + "MORE" SHEET ============
+     Hidden entirely on desktop, where the top nav already fits. */
+  .tabbar{display:none}
+  .sheet{display:none}
+  @media(max-width:860px){
+    .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
+      background:rgba(10,15,23,.96);backdrop-filter:blur(12px);
+      border-top:1px solid var(--line2);
+      padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
+    .tabbar button{flex:1 1 0;min-width:0;background:none;border:none;cursor:pointer;
+      display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;
+      color:var(--muted);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.2px;
+      border-radius:10px}
+    .tabbar button .tb-ic{font-size:19px;line-height:1}
+    .tabbar button.active{color:var(--cyan)}
+    .tabbar button.active .tb-ic{filter:drop-shadow(0 0 6px rgba(77,227,247,.5))}
+    .tabbar button:active{background:rgba(77,227,247,.1)}
+    /* the bar floats over content — give the page room so the last card clears it */
+    body{padding-bottom:64px}
+    .topnav{display:none}
+
+    .sheet{display:block;position:fixed;left:0;right:0;bottom:0;z-index:75;
+      max-height:78vh;overflow-y:auto;transform:translateY(102%);transition:transform .22s ease;
+      background:linear-gradient(180deg,#111a27,#0a0f17);border-top:1px solid var(--line2);
+      border-radius:16px 16px 0 0;padding:10px 12px calc(18px + env(safe-area-inset-bottom,0px));
+      box-shadow:0 -12px 40px rgba(0,0,0,.6)}
+    .sheet.open{transform:translateY(0)}
+    .sheet h4{margin:12px 4px 6px;font-family:var(--mono);font-size:10px;letter-spacing:1.2px;
+      color:var(--dim);text-transform:uppercase;font-weight:700}
+    .sheet-grip{width:38px;height:4px;border-radius:3px;background:var(--line2);margin:2px auto 8px}
+    .sheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .sheet-grid button{display:flex;align-items:center;gap:8px;text-align:left;
+      background:rgba(255,255,255,.03);border:1px solid var(--line2);border-radius:10px;
+      color:var(--text);font-family:var(--sans);font-size:12.5px;font-weight:600;
+      padding:10px 10px;cursor:pointer;min-height:44px}
+    .sheet-grid button.active{border-color:var(--cyan);color:var(--cyan);background:rgba(77,227,247,.1)}
+    .sheet-grid button .tn-ic{flex:0 0 auto;font-size:15px}
+  }
+
   /* ============ CONDENSED TOP NAVIGATION ============ */
   .topnav{position:sticky;top:0;z-index:46;display:flex;gap:4px;align-items:center;overflow-x:auto;overflow-y:visible;
     background:linear-gradient(180deg,#0f1622,#0a0f17);border-bottom:1px solid var(--line2);
@@ -533,17 +572,26 @@
     .home-row span{font-size:11px;max-width:150px}
     .home-row strong{font-size:16px}
     .bz-home{max-width:none;margin:0 0 14px}
-    .bz-hero{padding:16px 6px 14px;align-items:flex-end}
-    .bz-kicker{font-size:10px;color:var(--gold)}
-    .bz-hero h1{font-size:33px}
-    .bz-hero p{font-size:14px;max-width:330px}
+    /* Mobile density pass: the old scale (h1 34px, h2 27px) fit ~2.5 cards
+       per screen and wrapped the title to three lines. A finance app is read
+       by scanning, so headings shrink to make room for rows of DATA. */
+    .bz-hero{padding:10px 6px 8px;align-items:flex-end}
+    .bz-kicker{font-size:9.5px;color:var(--gold);letter-spacing:1.4px}
+    .bz-hero h1{font-size:20px;line-height:1.15;font-weight:900}
+    .bz-hero p{font-size:11.5px;max-width:330px;line-height:1.4;margin-top:3px}
     .bz-best{min-width:86px}
-    .bz-best b{font-size:22px}
-    .bz-index-strip{margin:0 -10px;padding:8px 10px 10px}
-    .bz-index-tile{flex-basis:124px;min-height:66px;padding:9px}
-    .bz-index-tile b{font-size:20px}
-    .bz-panel{margin:10px 0;padding:14px 14px;border-radius:7px}
-    .bz-section-head h2,.bz-panel h2,.bz-feature h2{font-size:27px}
+    .bz-best b{font-size:20px}
+    .bz-index-strip{margin:0 -10px;padding:6px 10px 8px}
+    .bz-index-tile{flex-basis:112px;min-height:56px;padding:7px 8px}
+    .bz-index-tile b{font-size:16px}
+    .bz-panel{margin:8px 0;padding:11px 12px;border-radius:7px}
+    .bz-section-head h2,.bz-panel h2,.bz-feature h2{font-size:17px;line-height:1.2}
+    /* a heading's unit/sub text must never inherit the heading's size --
+       "Watchlist Movers morning snapshot · 0/224 live" rendered as one
+       5-line 27px block before this. */
+    .bz-section-head h2 .unit,.bz-panel h2 .unit,.bz-feature h2 .unit{
+      display:block;font-size:10.5px;font-weight:600;letter-spacing:.2px;
+      color:var(--dim);margin-top:2px;line-height:1.3}
     .bz-section-head button,.bz-brief button,.bz-feature button{padding:8px 11px;font-size:12px}
     .bz-mover-cols{grid-template-columns:1fr 1fr;gap:10px}
     .bz-mover-cols h3{font-size:13px}
@@ -688,6 +736,16 @@
   table.sec td:first-child,table.sec th:first-child{text-align:left}
   table.sec tr:hover td{background:rgba(77,227,247,.055)}
   .sec-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* ---- mobile overrides that must WIN, so they live last ----
+     The .topnav rule below is deliberately at the end of the stylesheet:
+     .topnav's own `display:flex` is declared later than the tab-bar block
+     above, and at equal specificity the last declaration wins. */
+  @media(max-width:860px){
+    .topnav{display:none !important}
+    /* the bar is fixed over the page; the drawer and any sheet must clear it */
+    aside{padding-bottom:64px}
+  }
 </style>
 </head>
 <body>
@@ -772,6 +830,13 @@
 
   <main id="main"></main>
 </div>
+
+<!-- Mobile primary navigation. 18 views behind a horizontally-scrolling bar
+     meant the daily path (find a trade -> size it) was never one tap away.
+     Five fixed tabs carry that path; "More" holds everything else, so nothing
+     is removed, just de-prioritised. Desktop keeps the full top nav. -->
+<nav class="tabbar" id="tabbar" aria-label="Primary mobile"></nav>
+<div class="sheet" id="moreSheet" role="dialog" aria-label="All tools" aria-modal="true"></div>
 
 <!-- settings modal -->
 <div class="modal" id="modal">
