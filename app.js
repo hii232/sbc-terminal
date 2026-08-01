@@ -6301,8 +6301,21 @@
     // name on the same morning-snapshot basis, and say so.
     const liveCoverage = DATA.filter(d => state.live[d.ticker]?.quote).length;
     const broadLive = liveCoverage >= 40;
+    // TWO different jobs, two different bases -- conflating them was a real
+    // bug: a user tapped NBIS, saw its live $190 on the stock page, came back,
+    // and Home still showed Thursday's $169.69 because this gate suppressed
+    // every live price until 40+ names were live.
+    //  - RANKING (which six names make the board) stays on ONE consistent
+    //    basis until live coverage is broad, so "top movers" never means
+    //    "whichever names happened to refresh first".
+    //  - DISPLAY is always each row's freshest number: if a real quote
+    //    exists it is shown, full stop -- the per-row chip declares which
+    //    basis each price is on. Showing a stale close for a name whose live
+    //    price is already in memory is never right.
     const moverChange = (d) => broadLive ? quoteChangeOf(d) : (Number.isFinite(+d.change) ? +d.change : 0);
-    const moverPrice = (d) => broadLive ? quotePriceOf(d) : (Number.isFinite(+d.price) && +d.price > 0 ? +d.price : null);
+    const rowHasLive = (d) => !!state.live[d.ticker]?.quote;
+    const rowChange = (d) => rowHasLive(d) ? quoteChangeOf(d) : (Number.isFinite(+d.change) ? +d.change : 0);
+    const rowPrice = (d) => rowHasLive(d) ? quotePriceOf(d) : (Number.isFinite(+d.price) && +d.price > 0 ? +d.price : null);
     const moverBasis = broadLive ? "live" : "morning snapshot";
     const movers = [...DATA].sort((a, b) => Math.abs(moverChange(b)) - Math.abs(moverChange(a))).slice(0, 6);
     const sectors = SECTORS.series.filter(s => s.t !== "SPY").map(s => ({ s, r3: retOver(s, 3), fd: flowDelta(s) }))
@@ -6359,7 +6372,7 @@
       </div>`;
     };
     const moverCompact = (d) => {
-      const ch = moverChange(d);
+      const ch = rowChange(d);
       // Freshness must be visible PER PRICE: a stale close shown naked reads
       // as the current price and is simply wrong to anyone who knows the tape
       // (real case: NBIS shown $169.69 -- Thursday's close -- while trading
@@ -6369,7 +6382,7 @@
       return `<div class="bz-mover" data-tk="${d.ticker}">
         <div><b>${d.ticker}</b><span>${escapeHtml(d.name)}</span></div>
         <div class="bz-spark">${miniSpark(d)}</div>
-        <strong>${fmtPx(moverPrice(d))}<span class="${signCls(ch)}">${pct(ch)}</span>${asof}</strong>
+        <strong>${fmtPx(rowPrice(d))}<span class="${signCls(ch)}">${pct(ch)}</span>${asof}</strong>
       </div>`;
     };
     const marketTile = (x) => `<button class="bz-index-tile" data-sector="${x.t}" type="button" style="--tile:${x.color}">
