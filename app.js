@@ -6324,6 +6324,11 @@
     }));
     const gainers = [...DATA].filter(d => moverChange(d) > 0).sort((a, b) => moverChange(b) - moverChange(a)).slice(0, 3);
     const losers = [...DATA].filter(d => moverChange(d) < 0).sort((a, b) => moverChange(a) - moverChange(b)).slice(0, 3);
+    // The live sweep reads this: the six names ON SCREEN are fetched first.
+    // Before this existed, the queue ran by market cap, so a mid-cap mover the
+    // user was actually staring at could sit stale for minutes while the sweep
+    // refreshed 100 megacaps nobody was looking at.
+    state.homeMoverTks = [...gainers, ...losers].map(d => d.ticker);
     const stockDay = leaders[0] || ranked[0];
     let earningsRows = upcomingEarningsRows(21);
     if (!earningsRows.length) {
@@ -6355,10 +6360,16 @@
     };
     const moverCompact = (d) => {
       const ch = moverChange(d);
+      // Freshness must be visible PER PRICE: a stale close shown naked reads
+      // as the current price and is simply wrong to anyone who knows the tape
+      // (real case: NBIS shown $169.69 -- Thursday's close -- while trading
+      // near $190). Live rows say live; everything else names its date.
+      const q = state.live[d.ticker]?.quote;
+      const asof = q ? `<i class="mv-asof live">live</i>` : `<i class="mv-asof">close ${d.pd && d.pd.to ? d.pd.to.slice(5) : ""}</i>`;
       return `<div class="bz-mover" data-tk="${d.ticker}">
         <div><b>${d.ticker}</b><span>${escapeHtml(d.name)}</span></div>
         <div class="bz-spark">${miniSpark(d)}</div>
-        <strong>${fmtPx(moverPrice(d))}<span class="${signCls(ch)}">${pct(ch)}</span></strong>
+        <strong>${fmtPx(moverPrice(d))}<span class="${signCls(ch)}">${pct(ch)}</span>${asof}</strong>
       </div>`;
     };
     const marketTile = (x) => `<button class="bz-index-tile" data-sector="${x.t}" type="button" style="--tile:${x.color}">
@@ -7137,6 +7148,8 @@
       const seen = new Set(), out = [];
       const add = (tk) => { if (tk && !seen.has(tk)) { seen.add(tk); out.push(tk); } };
       add(state.active);
+      // what the user can SEE outranks what is merely big
+      (state.homeMoverTks || []).forEach(add);
       allCompanies().filter(d => state.favs.has(d.ticker)).forEach(d => add(d.ticker));
       [...allCompanies()].sort((a, b) => (b.mktCap || 0) - (a.mktCap || 0)).forEach(d => add(d.ticker));
       return out;
@@ -7166,7 +7179,7 @@
         // The free tier is 60 calls/min, so a full 224-name sweep is ~4
         // minutes BY DESIGN. The status must move during it — a frozen
         // "0/224" for four minutes is indistinguishable from broken.
-        let done = 0;
+        let done = 0, flipped = false;
         for (const tk of all) {
           try { await fetchLive(tk, false); if (state.live[tk]?.quote) ok++; }
           catch (e) { fails++; }
@@ -7180,6 +7193,15 @@
           const hc = el("homeLiveCount");
           if (hc) hc.textContent = `sweeping · ${ok}/${DATA.length} live`;
           if (done % 10 === 0) updateLiveDot();
+          // the six on-screen movers now sit at the head of the queue, so this
+          // fires within the first ~15 seconds of a sweep
+          if (!flipped && state.view === "home" && (state.homeMoverTks || []).length
+              && state.homeMoverTks.every(t => state.live[t]?.quote)) {
+            flipped = true;
+            const y = window.scrollY;
+            renderHomeMobileDashboard();
+            window.scrollTo({ top: y });
+          }
           // every early call failing = the key/network is broken for ALL of
           // them; finishing the sweep would just delay the message 4 minutes
           if (done >= 8 && ok === 0) {
