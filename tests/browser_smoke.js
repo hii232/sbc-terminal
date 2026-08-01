@@ -239,6 +239,11 @@ async function main() {
     ok(sparks.tileSparks >= 3, "index tiles draw sparklines", String(sparks.tileSparks));
     ok(sparks.moverSparks >= 2, "mover rows draw sparklines on mobile", String(sparks.moverSparks));
     ok(sparks.moverSparkVisible, "mover sparklines are visible on mobile, not display:none");
+    // every mover price must disclose its freshness (live vs a dated close) --
+    // in CI no live quotes exist, so every chip must be the dated-close form
+    const asof = await page.evaluate(() => [...document.querySelectorAll(".bz-mover .mv-asof")].map((x) => x.textContent.trim()));
+    ok(asof.length >= 4, "every mover row carries a freshness chip", String(asof.length));
+    ok(asof.every((t) => /^close \d{2}-\d{2}$/.test(t)), "with no live quotes, every chip names the close date it came from", JSON.stringify(asof));
     const mismatched = sparks.tiles.filter((t) => t.stroke && (t.down !== (t.stroke === "var(--red)")));
     ok(mismatched.length === 0, "every index tile's sparkline colour agrees with its own % sign", JSON.stringify(mismatched));
 
