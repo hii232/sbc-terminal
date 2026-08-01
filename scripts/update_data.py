@@ -343,10 +343,13 @@ def main():
             ocf = secmerge("ocf", ocf)
             fcf = [(o - c) if o is not None and c is not None else None for o, c in zip(ocf, capex)]
             gross = series("annualGrossProfit"); opinc = series("annualOperatingIncome")
+            # 3 decimals, not arr()'s default 2: small-cap capex lines are tens
+            # of millions ($B 0.015), and 2-decimal rounding turned PLTR's
+            # 0.0151 into 0.02 — a 32% error that failed the 5% audit gate.
             for qk, qv in (("ocf", ocf), ("fcf", fcf), ("capex", capex),
                            ("gross", gross), ("opinc", opinc)):
                 if any(v is not None for v in qv):
-                    block = re.sub(qk + r":\[[^\]]*\]", qk + ":" + arr(qv), block)
+                    block = re.sub(qk + r":\[[^\]]*\]", qk + ":" + arr(qv, 3), block)
             ls, lr, ln = sbc[-1], rev[-1], ni[-1]
             lo = ocf[-1] if ocf else None
             if ls is not None and lr:
