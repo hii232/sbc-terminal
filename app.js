@@ -6448,7 +6448,7 @@
           })()}
         </section>
         <section class="bz-panel bz-movers-panel">
-          <div class="bz-section-head"><h2>Watchlist Movers <span class="unit" style="font-weight:600">${moverBasis} · ${liveCoverage}/${DATA.length} live</span></h2><button id="openAllMovers" type="button">View All Movers</button></div>
+          <div class="bz-section-head"><h2>Watchlist Movers <span class="unit" id="homeLiveCount" style="font-weight:600">${moverBasis} · ${liveCoverage}/${DATA.length} live</span></h2><button id="openAllMovers" type="button">View All Movers</button></div>
           <div class="note" style="margin:-4px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
             <button id="homeRefreshPrices" type="button" style="cursor:pointer;background:none;border:1px solid var(--line);border-radius:6px;padding:3px 10px;color:var(--cyan)">↻ Refresh prices</button>
             <span id="homeLiveStatus" class="sub">${state.liveStatus.lastFullRefresh ? `${liveCoverage} live · updated ${Math.round((Date.now() - state.liveStatus.lastFullRefresh) / 1000)}s ago` : "fetching live prices…"}${state.liveStatus.lastError ? ` · last error: ${escapeHtml(state.liveStatus.lastError)}` : ""}</span>
@@ -7175,8 +7175,10 @@
           const hs = el("homeLiveStatus");
           if (hs) {
             const left = Math.round(((all.length - done) * 1.05) / 60);
-            hs.textContent = `live sweep ${ok}/${done} fetched of ${all.length} · ~${left}m left (free tier is 60 calls/min)`;
+            hs.textContent = `live sweep: ${done}/${all.length} names fetched (${ok} quotes OK) · ~${left}m left (free tier is 60 calls/min)`;
           }
+          const hc = el("homeLiveCount");
+          if (hc) hc.textContent = `sweeping · ${ok}/${DATA.length} live`;
           if (done % 10 === 0) updateLiveDot();
           // every early call failing = the key/network is broken for ALL of
           // them; finishing the sweep would just delay the message 4 minutes
@@ -7196,6 +7198,14 @@
       if (state.active && state.live[state.active]?.quote) render();
       renderWatchlist();
       updateLiveDot();
+      // The Home movers board was rendered from the pre-sweep snapshot; once
+      // real quotes exist it must show them without requiring a manual reload.
+      // Re-render in place, restoring scroll so nothing jumps mid-read.
+      if (state.view === "home" && ok > 0) {
+        const y = window.scrollY;
+        renderHomeMobileDashboard();
+        window.scrollTo({ top: y });
+      }
       if (!silent) flash(`Live prices updated: ${ok}/${all.length} via ${source}${fails ? ` - ${fails} failed` : ""}`, ok ? "ok" : "err");
       return ok;
     } finally {
