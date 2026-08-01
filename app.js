@@ -6767,6 +6767,9 @@
         const r = await fetch(url, ctrl ? { signal: ctrl.signal } : undefined);
         if (timer) clearTimeout(timer);
         if (r.status === 429) { const e = new Error(`${provider} ${ticker} HTTP 429`); e.rateLimited = true; throw e; }
+        // 401/403 = the key itself is rejected. Retrying cannot fix credentials,
+        // it only delays the moment the user learns their key is wrong.
+        if (r.status === 401 || r.status === 403) { const e = new Error(`${provider} ${ticker} HTTP ${r.status}`); e.auth = true; throw e; }
         if (!r.ok) throw new Error(`${provider} ${ticker} HTTP ${r.status}`);
         const data = await r.json();
         requestCache.set(url, { ts: Date.now(), data });
@@ -6775,6 +6778,7 @@
       } catch (e) {
         if (timer) clearTimeout(timer);
         lastErr = e;
+        if (e && e.auth) break; // credential rejection: no retry can help
         if (attempt === retries) break;
         await sleep((e && e.rateLimited ? 1400 : 450) * Math.pow(2, attempt));
       }
@@ -7066,12 +7070,8 @@
     return null;
   }
 
-  function updateLiveDot() {
-    const on = !!(state.keys.finnhub || state.keys.fmp);
-    el("liveDot").classList.toggle("on", on);
-    el("liveBtn").title = on ? "LIVE data connected" : "Bundled snapshots (click gear to connect)";
-  }
-
+  // (a richer updateLiveDot is defined later in this file; an identical-named
+  //  duplicate used to sit here and was silently shadowed -- removed.)
   function etParts(now = new Date()) {
     const parts = new Intl.DateTimeFormat("en-US", {
       timeZone: "America/New_York", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
@@ -7101,6 +7101,24 @@
     // the spark endpoint takes 40 symbols per request, so the whole board costs
     // ~6 calls — no reason to quietly sample a fraction of it any more
     return out;
+  }
+  /* One direct, uncached Finnhub call to find out IMMEDIATELY whether the key
+     works. Without this, a wrong key (classically: the WEBHOOK SECRET pasted
+     instead of the API key -- the two look identical) produced four silent
+     minutes of per-name 401s and then an unexplained "0/224". */
+  async function probeFinnhubKey() {
+    try {
+      const r = await fetch(`https://finnhub.io/api/v1/quote?symbol=AAPL&token=${state.keys.finnhub}`);
+      if (r.status === 401 || r.status === 403) {
+        return { ok: false, msg: `Finnhub rejected this key (HTTP ${r.status}). Most common cause: the WEBHOOK SECRET was pasted instead of the API key — they look alike. Copy the key labelled "API Key" at finnhub.io/dashboard.` };
+      }
+      if (!r.ok) return { ok: false, msg: `Finnhub returned HTTP ${r.status} on a test call — key not confirmed; will retry on the next sweep.` };
+      const q = await r.json();
+      if (!q || !hasNum(q.c) || q.c === 0) return { ok: false, msg: "Finnhub answered but returned no quote on a test call — key not confirmed." };
+      return { ok: true };
+    } catch (e) {
+      return { ok: false, msg: "Could not reach Finnhub for a key test (network/adblock?) — will retry on the next sweep." };
+    }
   }
   async function refreshAllLive(opts = {}) {
     const silent = !!opts.silent;
@@ -7134,11 +7152,43 @@
       if (useFmp) {
         ok = await fetchFmpQuoteBatch(all);
       } else if (useFinnhub) {
+        // Preflight: fail in one second with a specific message, not in four
+        // silent minutes with an unexplained zero.
+        const probe = await probeFinnhubKey();
+        if (!probe.ok) {
+          state.liveStatus = { lastFullRefresh: state.liveStatus.lastFullRefresh, lastCount: 0, source, lastError: probe.msg };
+          updateLiveDot();
+          const hs0 = el("homeLiveStatus");
+          if (hs0) hs0.textContent = probe.msg;
+          if (!silent) flash(probe.msg, "err");
+          return 0;
+        }
+        // The free tier is 60 calls/min, so a full 224-name sweep is ~4
+        // minutes BY DESIGN. The status must move during it — a frozen
+        // "0/224" for four minutes is indistinguishable from broken.
+        let done = 0;
         for (const tk of all) {
           try { await fetchLive(tk, false); if (state.live[tk]?.quote) ok++; }
           catch (e) { fails++; }
+          done++;
+          state.liveStatus = { ...state.liveStatus, lastCount: ok, source, sweeping: true };
+          const hs = el("homeLiveStatus");
+          if (hs) {
+            const left = Math.round(((all.length - done) * 1.05) / 60);
+            hs.textContent = `live sweep ${ok}/${done} fetched of ${all.length} · ~${left}m left (free tier is 60 calls/min)`;
+          }
+          if (done % 10 === 0) updateLiveDot();
+          // every early call failing = the key/network is broken for ALL of
+          // them; finishing the sweep would just delay the message 4 minutes
+          if (done >= 8 && ok === 0) {
+            state.liveStatus = { lastFullRefresh: state.liveStatus.lastFullRefresh, lastCount: 0, source, sweeping: false, lastError: "First 8 quote calls all failed — key or network is not working; sweep stopped early." };
+            if (!silent) flash(state.liveStatus.lastError, "err");
+            updateLiveDot();
+            return 0;
+          }
           await sleep(1050);
         }
+        state.liveStatus.sweeping = false;
       } else {
         ok = await fetchYahooQuoteBatch(all);
       }
@@ -7267,6 +7317,7 @@
       localStorage.setItem("fmpKey", state.keys.fmp);
       el("modal").classList.remove("open");
       updateLiveDot();
+      if (state.keys.finnhub) flash("Key saved — testing it against Finnhub now…", "ok");
       startLiveTape();
     };
     el("liveBtn").onclick = () => startLiveTape();
