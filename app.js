@@ -184,6 +184,14 @@
     }
     return { value: tw.v / 1e9, periodEnd: tw.periodEnd || null };
   }
+  /* Withholding fallback proxy. 25% was an unexamined guess; measured against
+     the 105 universe companies that BOTH file the real SEC withholding tag AND
+     have a computable TTM SBC, actual vest-date withholding runs a median
+     34.1% / mean 35.2% of SBC. 0.35 is the calibrated estimate for names where
+     the real tag is absent, stale, or degenerate. Still labelled low-confidence
+     in every withholdingSource string -- a fitted proxy is better than an
+     unfitted one, but it is not a filing. */
+  const WITHHOLDING_PROXY = 0.35;
   function trueOwnerEarnings(d) {
     // v3 economics. GAAP expenses SBC at grant-date fair value; we REPLACE that
     // with an estimate of the CURRENT economic cost of equity comp:
@@ -224,8 +232,8 @@
     // Withholding: use the company's SEC-REPORTED vest-date tax withholding
     // when filed; only fall back to the 25%-of-SBC proxy when it is not.
     const secW = secWithholdingOf(d.ticker);
-    const withholding = secW != null ? secW.value : sbc * 0.25;
-    const withholdingSource = secW != null ? "SEC-reported employee tax withholding" : "low-confidence estimate (25% of SBC proxy)";
+    const withholding = secW != null ? secW.value : sbc * WITHHOLDING_PROXY;
+    const withholdingSource = secW != null ? "SEC-reported employee tax withholding" : "low-confidence estimate (35% of SBC proxy, calibrated to 105 real filings)";
     const sbcMissing = !(d.sbc || []).some(v => v != null);
     const trueCost = shareCost + withholding;
     const owner = ni + sbc - trueCost;
@@ -281,11 +289,49 @@
     // the annual path), so leaving it proxy-only left real filed data unused
     // for the large majority of the universe.
     const secW = secWithholdingOf(d.ticker);
-    const withholding = secW != null ? secW.value : ttmSbc * 0.25;
-    const withholdingSource = secW != null ? "SEC-reported employee tax withholding" : "low-confidence estimate (25% of SBC proxy)";
+    const withholding = secW != null ? secW.value : ttmSbc * WITHHOLDING_PROXY;
+    const withholdingSource = secW != null ? "SEC-reported employee tax withholding" : "low-confidence estimate (35% of SBC proxy, calibrated to 105 real filings)";
     const owner = ttmNI + ttmSbc - shareCost - withholding;
     return { owner, ownerEps: latestShares > 0 ? +(owner / latestShares).toFixed(2) : null,
       ni: ttmNI, sbc: ttmSbc, shareCost, withholding, withholdingSource, mnaShares, source: "TTM quarterly owner EPS" };
+  }
+  /* CASH CROSS-CHECK. Both independent audits made the same structural
+     criticism: owner earnings here is built from ACCRUALS (NI + SBC - costs)
+     and never checked against CASH. FCF (OCF - capex) already contains the
+     SBC add-back, so the parallel cash-basis figure uses the identical cost
+     side: cashOwner = FCF - shareCost - withholding. When the accrual figure
+     materially exceeds the cash one, reported earnings are running ahead of
+     the cash the business actually produces -- the classic earnings-quality
+     red flag this whole app exists to surface. Display + disclosure ONLY:
+     it feeds no score, so it cannot silently re-rank the universe; it arms
+     the reader instead. Returns null when FCF isn't bundled (27/224 names)
+     or the accrual side itself couldn't be computed -- missing stays missing. */
+  function cashOwnerCheck(d) {
+    const st = trueOwnerEarnings(d);
+    if (!st || st.insufficientData || st.owner == null) return null;
+    const fcf = lastVal(d.qm && d.qm.fcf);
+    if (!hasNum(fcf)) return null;
+    const cashOwner = fcf - st.shareCost - st.withholding;
+    const sh = lastVal(d.shares);
+    // divergence: how far accrual owner earnings run ABOVE cash owner earnings,
+    // as a share of the accrual figure (only meaningful when accrual is positive)
+    const gapPct = st.owner > 0 ? ((st.owner - cashOwner) / st.owner) * 100 : null;
+    // FCF is NOT a meaningful lens for financials/REITs -- loan and client-asset
+    // flows swing OCF violently in ways that say nothing about earnings quality
+    // (the sector baselines set netDebtFcf null for XLF for the same reason).
+    // For those sectors the comparison is shown as informational, never a red
+    // flag: crying wolf on every bank would teach the reader to ignore the one
+    // flag that matters on an operating company.
+    const etf = sectorETF(d.sector);
+    const fcfMeaningful = etf !== "XLF" && etf !== "XLRE";
+    return {
+      fcf, cashOwner,
+      cashOwnerEps: sh && sh > 0 ? +(cashOwner / sh).toFixed(2) : null,
+      accrualOwner: st.owner,
+      gapPct: gapPct == null ? null : +gapPct.toFixed(1),
+      fcfMeaningful,
+      flag: fcfMeaningful && gapPct != null && gapPct > 25,
+    };
   }
   function recomputeOwnerEconomics(d) {
     const yrs = (d.ni || []).length;
@@ -294,7 +340,7 @@
       const ni = d.ni[i];
       const sbc = d.sbc && d.sbc[i];
       if (!hasNum(ni) || !hasNum(sbc)) continue;
-      sumNI += ni; sumOwner += ni - 0.25 * sbc; valid++;
+      sumNI += ni; sumOwner += ni - WITHHOLDING_PROXY * sbc; valid++;
     }
     const st = trueOwnerEarnings(d);
     if (st.insufficientData) {
@@ -1705,6 +1751,8 @@
           <tbody>${caseRows}</tbody>
         </table></div>
         <div class="sub" style="margin-top:6px">Est. cost = employee-share cost ${money(st.shareCost)} (${st.empShares != null ? "≈" + (st.empShares * 1000).toFixed(0) + "M shares reconciled from the count at avg $" + st.avgP.toFixed(0) + ", floored at GAAP SBC" : "GAAP SBC floor — share reconciliation unavailable"}) + vest-date tax withholding ${money(st.withholding)} <b>(${st.withholdingSource})</b>.${st.mnaShares > 0.001 ? ` <b style=\"color:var(--amber)\">${(st.mnaShares * 1000).toFixed(0)}M shares of issuance exceed what SBC can explain (M&A/raise/converts) — excluded from SBC cost.</b>` : ""} Retention here is <b>${d.keepSource === "computed" ? "computed (pooled multi-year)" : "a heuristic fallback"}</b>, not filing-verified.</div>
+        ${(() => { const cc = cashOwnerCheck(d); if (!cc) return `<div class="sub" style="margin-top:6px;color:var(--dim)">Cash cross-check unavailable — no bundled FCF for this name.</div>`;
+          return `<div class="note" style="margin-top:8px;border-left-color:${cc.flag ? "var(--red)" : "var(--green)"}"><b>CASH CROSS-CHECK:</b> same cost side applied to real cash flow — FCF ${money(cc.fcf)} − SBC costs = <b>${money(cc.cashOwner)}</b> cash owner earnings${cc.cashOwnerEps != null ? ` ($${cc.cashOwnerEps.toFixed(2)}/sh)` : ""} vs ${money(cc.accrualOwner)} accrual-based.${cc.gapPct != null ? ` Accrual runs <b>${cc.gapPct >= 0 ? "+" : ""}${cc.gapPct.toFixed(0)}%</b> ${cc.gapPct >= 0 ? "above" : "below"} cash.` : ""} ${!cc.fcfMeaningful ? "<b style=\"color:var(--dim)\">Informational only for this sector — FCF is not a meaningful earnings-quality lens for financials/REITs (loan and client-asset flows dominate cash flow).</b>" : cc.flag ? "<b style=\"color:var(--red)\">Reported owner earnings are materially ahead of the cash the business produced — treat the accrual figure with suspicion until they reconverge.</b>" : "Accruals are backed by cash — the owner-earnings figure is corroborated, not just computed."}</div>`; })()}
       </div>
 
       <!-- STEP 6: valuation re-rate -->
@@ -3021,8 +3069,16 @@
      will not do that.
      v1 -> v2: the confluence pillar (weight 24) moved from the raw vote
      tally to the de-duplicated one, which changed 28.6% of names'
-     confluence scores (up to 18 points) and therefore reshuffled ranks. */
-  const MASTER_MODEL_VERSION = 2;
+     confluence scores (up to 18 points) and therefore reshuffled ranks.
+     v2 -> v3: the withholding fallback proxy was recalibrated from an
+     unexamined 25% of SBC to a measured 35% (median 34.1% / mean 35.2%
+     across the 105 universe companies that file the real SEC tag). Owner
+     EPS falls slightly for every proxy-basis name (~124 of 224), which
+     moves truePE and the valuation/price pillar, which moves ranks.
+     Bumped within a day of v2, deliberately: v2 had barely any recorded
+     history, so consolidating score-affecting changes now costs the proof
+     clock almost nothing versus letting them trickle out over weeks. */
+  const MASTER_MODEL_VERSION = 3;
   function masterSignalOf(d, ctx) {
     if (!d) return null;
     const ms = marketScoreOf(d);
@@ -7272,7 +7328,7 @@
   }
   // regression-test / console handle: production engines, read-only
   window.__engines = { ivLadder, grahamOf, verdictOf, rankOf, qualityOf, capexOf,
-    buybackQuality, shareTrend, medianOf, trueOwnerEarnings, ttmOwnerEarnings, secWithholdingOf, latestKnownSecPeriodEnd, latestSecFact,
+    buybackQuality, shareTrend, medianOf, trueOwnerEarnings, ttmOwnerEarnings, cashOwnerCheck, secWithholdingOf, latestKnownSecPeriodEnd, latestSecFact,
     tabFinancials, renderAudit, secCheckOf, dataQualityOf, dataConfidenceOf, analyzeNews,
     lastVal, fetchQuoteOnly, fetchNews, fetchAnalystData, fetchInsiderData, fetchFundamentalsFallback,
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,

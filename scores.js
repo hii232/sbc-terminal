@@ -175,9 +175,12 @@
     const sh = (d.shares || [])[i];
     return v != null && sh ? v / sh : null;
   });
+  // 0.35 = the withholding proxy, calibrated to the median of the 105 universe
+  // companies that file the real SEC tag (was 0.25, an unexamined guess).
+  // Must track WITHHOLDING_PROXY in app.js.
   const ownerEpsSeries = (d) => (d.ni || []).map((ni, i) => {
     const sbc = d.sbc && d.sbc[i], sh = d.shares && d.shares[i];
-    return ni != null && sbc != null && sh ? (ni - 0.25 * sbc) / sh : null;
+    return ni != null && sbc != null && sh ? (ni - 0.35 * sbc) / sh : null;
   });
   const recurringProxy = (d) => /Software|Cloud|Cyber|Payments|Data|Subscription|Streaming|ServiceNow|Adobe|Intuit|Workday|Mongo|Datadog|Cloudflare/i.test(`${d.sector} ${d.name}`);
 
