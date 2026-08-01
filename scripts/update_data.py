@@ -26,6 +26,7 @@ DATA_JS = Path(__file__).resolve().parent.parent / "data.js"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 FUND_TYPES = ("annualTotalRevenue,annualNetIncome,annualStockBasedCompensation,"
               "annualRepurchaseOfCapitalStock,annualDilutedAverageShares,annualOperatingCashFlow,"
+              "annualCapitalExpenditure,annualGrossProfit,annualOperatingIncome,"
               "quarterlyTotalRevenue,quarterlyNetIncome,quarterlyStockBasedCompensation,"
               "quarterlyRepurchaseOfCapitalStock,quarterlyDilutedAverageShares,"
               # Graham & Dodd balance-sheet inputs (latest FY)
@@ -191,8 +192,9 @@ def arr(vals, nd=2):
 # Rule: provider (Yahoo) data must never overwrite SEC-backed annual facts.
 # After the Yahoo arrays are written, any fiscal year for which the SEC
 # ingest (data/companies/<TK>.json) carries an annual fact wins.
-SEC_ANNUAL_FIELD_MAP = {"revenue": "revenue", "ni": "netIncome", "sbc": "sbc", "buyback": "buyback", "shares": "dilShares"}
-SEC_ANNUAL_DECIMALS = {"revenue": 2, "ni": 2, "sbc": 3, "buyback": 3, "shares": 3}
+SEC_ANNUAL_FIELD_MAP = {"revenue": "revenue", "ni": "netIncome", "sbc": "sbc", "buyback": "buyback", "shares": "dilShares",
+                        "ocf": "ocf", "capex": "capex"}
+SEC_ANNUAL_DECIMALS = {"revenue": 2, "ni": 2, "sbc": 3, "buyback": 3, "shares": 3, "ocf": 2, "capex": 2}
 
 def sec_annual_overrides(tk):
     path = DATA_JS.parent / "data" / "companies" / f"{tk}.json"
@@ -213,7 +215,9 @@ def sec_annual_overrides(tk):
                 continue
             end, val = r.get("periodEnd") or "", r.get("value")
             if len(end) >= 4 and isinstance(val, (int, float)):
-                by_year[end[:4]] = (abs(val) if local == "buyback" else val) / 1e9
+                # buyback/capex XBRL tags are cash *payments* — positive by
+                # definition; abs() guards providers that sign-flip them.
+                by_year[end[:4]] = (abs(val) if local in ("buyback", "capex") else val) / 1e9
         if by_year:
             out[local] = by_year
     return out
@@ -326,6 +330,23 @@ def main():
                 block = re.sub(r"fy:\[[^\]]*\],", fy, block)
             else:
                 block = block.replace("sbcPctRev:", fy + " sbcPctRev:")
+            # The qm annual cash-flow/margin series used to stay FROZEN while
+            # the fy labels above slid forward — nothing ever rewrote it. The
+            # day MSFT's FY2026 10-K hit EDGAR, sec.js carried FY2026 OCF while
+            # qm.ocf still ended at FY2025, which failed the golden audit and
+            # blocked the entire daily refresh (and quietly staled the cash
+            # cross-check, which reads qm.fcf). Rebuild each sub-array from
+            # Yahoo annuals aligned to the same `years` as fy, SEC facts
+            # winning per fiscal year. A key with no data anywhere keeps its
+            # existing array untouched rather than being nulled out.
+            capex = secmerge("capex", series("annualCapitalExpenditure", absval=True))
+            ocf = secmerge("ocf", ocf)
+            fcf = [(o - c) if o is not None and c is not None else None for o, c in zip(ocf, capex)]
+            gross = series("annualGrossProfit"); opinc = series("annualOperatingIncome")
+            for qk, qv in (("ocf", ocf), ("fcf", fcf), ("capex", capex),
+                           ("gross", gross), ("opinc", opinc)):
+                if any(v is not None for v in qv):
+                    block = re.sub(qk + r":\[[^\]]*\]", qk + ":" + arr(qv), block)
             ls, lr, ln = sbc[-1], rev[-1], ni[-1]
             lo = ocf[-1] if ocf else None
             if ls is not None and lr:

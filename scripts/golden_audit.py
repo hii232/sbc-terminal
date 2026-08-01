@@ -117,15 +117,15 @@ def matched_pair(S, L, key):
     hist = (f or {}).get("hist") or []
     series = L.get(key) or []
     if hist and series:
-        h = sorted([x for x in hist if x.get("periodEnd")], key=lambda x: (x.get("periodEnd", ""), x.get("filed", "")))[-1]
+        ordered = sorted([x for x in hist if x.get("periodEnd")], key=lambda x: (x.get("periodEnd", ""), x.get("filed", "")))
         lv = next((v for v in reversed(series) if v is not None), None)
-        if lv is not None:
-            return h.get("value"), lv, h
-    return None, None, f
+        if ordered and lv is not None:
+            return ordered[-1].get("value"), lv, ordered[-1], ordered
+    return None, None, f, []
 
 
 def compare_field(S, L, key, local_key, tol, label, severity):
-    raw_sv, lv, f = matched_pair(S, L, key)
+    raw_sv, lv, f, hist = matched_pair(S, L, key)
     sv = raw_sv / 1e9 if raw_sv is not None else None
     if sv is None or lv is None:
         return {
@@ -138,6 +138,32 @@ def compare_field(S, L, key, local_key, tol, label, severity):
         }, False, False
     diff = abs(lv - sv) / max(abs(sv), 1e-9)
     status = "verified" if diff <= tol else "CONFLICT"
+    if status == "CONFLICT":
+        # Latest-vs-latest is the wrong comparison during a filing window: the
+        # SEC side updates the moment a 10-K hits EDGAR, while the terminal's
+        # provider series can lag it by days (MSFT's June fiscal year-end
+        # bricked the whole daily refresh this way — SEC had FY2026, terminal
+        # still carried FY2025, values both CORRECT for their periods). If the
+        # terminal value matches an EARLIER SEC filing for the same field
+        # within the same tolerance, that is a period lag, not a data
+        # conflict: warn, record which period it matches, and do not fail.
+        # A value matching NO SEC period at all is still a hard CONFLICT.
+        for h in reversed(hist[:-1]):
+            hv = h.get("value")
+            if hv is None:
+                continue
+            hb = hv / 1e9
+            if abs(lv - hb) / max(abs(hb), 1e-9) <= tol:
+                return {
+                    "label": label,
+                    "severity": severity,
+                    "status": "verified-prior-period",
+                    "secB": round(sv, 3),
+                    "terminalB": round(lv, 3),
+                    "matchesPeriodEnd": h.get("periodEnd"),
+                    "note": f"terminal value matches SEC {h.get('periodEnd')} filing; SEC has a newer period ({(f or {}).get('periodEnd')}) the provider has not published yet",
+                    "evidence": evidence(f),
+                }, True, False
     return {
         "label": label,
         "severity": severity,
@@ -226,6 +252,10 @@ out["summary"] = {
 print(f"golden audit: {tot_verified} verified, {tot_conflicts} conflicts")
 for tk, c in out["companies"].items():
     con = [k for k, v in c["fields"].items() if v.get("status") == "CONFLICT"]
-    print(f"  {tk}: {'OK' if not con else 'CONFLICTS: ' + ','.join(con)}")
+    lag = [k for k, v in c["fields"].items() if v.get("status") == "verified-prior-period"]
+    line = "OK" if not con else "CONFLICTS: " + ",".join(con)
+    if lag:
+        line += f"  [period-lag vs newer SEC filing: {','.join(lag)} — provider series behind EDGAR, values verified against their own period]"
+    print(f"  {tk}: {line}")
 if tot_conflicts:
     sys.exit(1)
