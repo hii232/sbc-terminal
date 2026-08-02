@@ -1629,5 +1629,53 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   ok(E.MASTER_MODEL_VERSION === 3, "MASTER_MODEL_VERSION bumped to 3 for the proxy recalibration", String(E.MASTER_MODEL_VERSION));
 }
 
+// =============== 36. Punished Growth divergence detector ===============
+{
+  // The whole point of this screen is "revenue up, profits up, price down,
+  // AND no measurable excuse". Each leg must be individually load-bearing.
+  const declining = Array.from({ length: 30 }, (_, i) => 140 - i * 2); // ~-24% over the 13-week window
+  const rising = Array.from({ length: 30 }, (_, i) => 80 + i * 0.8);
+  const base = {
+    ticker: "PG_SYN", sector: "UnknownSector", price: declining[declining.length - 1],
+    qd: { labels: ["a", "b", "c", "d", "e"], revenue: [10, 11, 12, 13, 12.6], ni: [1.0, 1.1, 1.25, 1.4, 1.3] },
+    px: { from: "2025-07-01", to: "2026-08-01", v: declining },
+  };
+  const hit = E.punishedGrowthOf(base);
+  ok(hit && /DIVERGENCE/.test(hit.verdict), "rev up + ni up + price down with no excuse -> DIVERGENCE", JSON.stringify(hit && hit.verdict));
+  ok(hit && Math.abs(hit.revYoY - 26) < 0.5 && Math.abs(hit.niYoY - 30) < 0.5,
+    "YoY math is latest quarter vs same quarter last year (5-quarter window)", hit && `${hit.revYoY?.toFixed(1)}/${hit.niYoY?.toFixed(1)}`);
+  ok(hit && hit.score >= 60, "a clean strong divergence scores high", String(hit && hit.score));
+  ok(E.punishedGrowthOf({ ...base, qd: { ...base.qd, ni: [1.4, 1.3, 1.2, 1.1, 1.0] } }) === null,
+    "falling profits -> not a punished GROWER, excluded");
+  ok(E.punishedGrowthOf({ ...base, qd: { ...base.qd, ni: [-1, -0.5, -0.2, -0.1, -0.05] } }) === null,
+    "still loss-making -> excluded (shrinking losses are not this screen)");
+  const swung = E.punishedGrowthOf({ ...base, qd: { ...base.qd, ni: [-0.5, 0.1, 0.4, 0.8, 1.1] } });
+  ok(swung && swung.swung === true && swung.niYoY === null, "loss -> profit swing counts as growth but never fabricates a YoY%", JSON.stringify(swung && { s: swung.swung, n: swung.niYoY }));
+  ok(E.punishedGrowthOf({ ...base, price: rising[rising.length - 1], px: { ...base.px, v: rising } }) === null,
+    "price rising -> no punishment, excluded");
+  // the MU false-positive: up 8% over 3 months but 20% off an even higher
+  // peak — that is a pullback in an uptrend, not the market punishing growth
+  const runupDip = [...Array(28)].map((_, i) => 60 + i * 3.2).concat([150, 120]);
+  ok(E.punishedGrowthOf({ ...base, price: 120, px: { ...base.px, v: runupDip } }) === null,
+    "positive 3M move with a deep drawdown -> pullback in an uptrend, excluded");
+  ok(E.punishedGrowthOf({ ...base, qd: null }) === null, "missing quarterly data -> null, never a guess");
+
+  // real universe: every boarded name satisfies every leg, and excused names
+  // can never board — the "no reason" claim must hold by construction
+  const board = E.punishedGrowthBoard();
+  for (const x of board) {
+    ok(x.pg.revYoY > 2 && (x.pg.swung || x.pg.niYoY > 5), `${x.d.ticker} boarded with real growth`, x.pg.headline);
+    ok((x.pg.px3m != null && x.pg.px3m <= -8) || (x.pg.ddCurrent != null && x.pg.ddCurrent <= -18 && (x.pg.px3m == null || x.pg.px3m <= 0)),
+      `${x.d.ticker} boarded with a real drop, never a positive tape`, x.pg.headline);
+    ok(x.pg.excuses.length === 0, `${x.d.ticker} boarded with zero measurable excuses`);
+  }
+  const ledger = E.earningsLedger();
+  const excusedSomewhere = DATA.map(d => E.punishedGrowthOf(d, ledger)).filter(x => x && x.excuses.length);
+  const boardTks = new Set(board.map(x => x.d.ticker));
+  ok(excusedSomewhere.every(x => !boardTks.has(x.ticker)), "excused names never appear on the board", String(excusedSomewhere.length));
+  const scores = board.map(x => x.pg.score);
+  ok(scores.every((s, i) => i === 0 || s <= scores[i - 1]), "board is sorted by divergence score");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

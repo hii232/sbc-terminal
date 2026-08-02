@@ -2355,6 +2355,80 @@
     return rows.filter(x => x.score != null).sort((a, b) => (b.aligned - a.aligned) || b.score - a.score);
   }
 
+  /* ------------------- PUNISHED GROWTH (fundamentals-vs-price divergence) ---
+     "Revenue going up, net profits going up, market punishing it anyway."
+     The market USUALLY has a reason for punishing a grower, so a bare
+     price-vs-growth screen is a trap magnet. This engine measures the
+     stated reasons it CAN check — last report missed, Street cutting
+     numbers, the whole sector selling off — and only calls DIVERGENCE
+     when growth is real, the drop is real, and none of those excuses
+     hold. An excused name is returned with its excuse spelled out (so
+     the page can say WHY it is not a divergence) but never boarded. */
+  function punishedGrowthOf(d, ledger) {
+    const yoy = (arr) => {
+      if (!Array.isArray(arr) || arr.length < 5) return null;
+      const now = arr[arr.length - 1], base = arr[arr.length - 5];
+      if (now == null || base == null) return null;
+      if (base <= 0) return now > 0 ? { pct: null, swung: true } : null;
+      return { pct: (now / base - 1) * 100, swung: false };
+    };
+    const rev = yoy(d.qd && d.qd.revenue), ni = yoy(d.qd && d.qd.ni);
+    const niNow = d.qd && d.qd.ni ? lastVal(d.qd.ni) : null;
+    // growth must clear noise: revenue +2% YoY minimum, profit +5% (or a
+    // genuine swing from loss to profit), and the company must be profitable
+    // NOW — "growing" losses are not what this screen is for
+    const growingRev = rev && !rev.swung && rev.pct > 2;
+    const growingNi = ni && (ni.swung || ni.pct > 5) && (niNow == null || niNow > 0);
+    if (!growingRev || !growingNi) return null;
+    const px3m = pctMoveFrom(d.px && d.px.v, 13);
+    const dd = tickerDrawdown(d);
+    // "Punished" must mean the tape is actually DOWN. The drawdown leg alone
+    // let a stock that ran +10% in 3 months board because it sat 15% off an
+    // even higher peak — that is a pullback in an uptrend, not punishment.
+    let drop = null, dropLabel = null;
+    if (px3m != null && px3m <= -8) { drop = px3m; dropLabel = "over 3 months"; }
+    else if (dd && dd.current != null && dd.current <= -18 && (px3m == null || px3m <= 0)) { drop = dd.current; dropLabel = "off its recent peak"; }
+    if (drop == null) return null;
+    // ---- the "for no reason" part is MEASURED, not assumed ----
+    const excuses = [], support = [];
+    const led = (ledger || earningsLedger()).filter(r => r.symbol === d.ticker)
+      .sort((a, b) => (a.date < b.date ? 1 : -1))[0];
+    if (led && hasNum(led.surprisePct)) {
+      if (led.surprisePct < 0) excuses.push(`last report MISSED estimates (${led.surprisePct.toFixed(1)}%) — the selling has a stated reason`);
+      else support.push(`last report BEAT estimates by ${led.surprisePct.toFixed(1)}% and the stock fell anyway`);
+    }
+    const it = earnIntelOf(d.ticker), t = it && it.trend;
+    if (t && hasNum(t.revUp30) && hasNum(t.revDown30)) {
+      const net = t.revUp30 - t.revDown30;
+      if (net <= -5) excuses.push(`Street is cutting numbers (net 30d revisions ${net}) — the market is pricing the cuts`);
+      else if (net >= 5) support.push(`estimates are RISING while the price falls (net 30d +${net})`);
+    }
+    const s = secByT(sectorETF(d.sector));
+    let sectorNote = null;
+    if (s && px3m != null) {
+      const r3 = retOver(s, 3);
+      if (r3 <= -8 && (px3m - r3) > -6) sectorNote = `${sectorETF(d.sector)} itself is ${r3.toFixed(1)}% over 3M — much of this drop is sector-wide, not aimed at this company`;
+    }
+    const L = ivLadder(d), price = priceOf(d);
+    if (L && price && price <= L.IV15) support.push(`now ${(100 * (1 - price / L.IV15)).toFixed(0)}% below the IV15 buy price`);
+    const g = (rev.pct ?? 30) * 0.45 + (ni.swung ? 25 : Math.min(ni.pct, 80) * 0.35);
+    const score = Math.round(clamp(30 + g * 0.6 + Math.min(-drop, 45) * 0.9 - excuses.length * 22 - (sectorNote ? 10 : 0), 0, 100));
+    const verdict = excuses.length ? "EXCUSED — the market has a stated reason"
+      : sectorNote ? "PARTLY SECTOR — better than its tape"
+      : "DIVERGENCE — punished with no measurable reason";
+    const color = excuses.length ? "var(--dim)" : sectorNote ? "var(--amber)" : "var(--green)";
+    const headline = `revenue +${rev.pct.toFixed(1)}% YoY · net profit ${ni.swung ? "swung to positive" : (ni.pct >= 0 ? "+" : "") + ni.pct.toFixed(1) + "% YoY"} · stock ${drop.toFixed(1)}% ${dropLabel}`;
+    return { ticker: d.ticker, revYoY: rev.pct, niYoY: ni.swung ? null : ni.pct, swung: ni.swung,
+      px3m, ddCurrent: dd ? dd.current : null, excuses, support, sectorNote, score, verdict, color, headline };
+  }
+  function punishedGrowthBoard(limit) {
+    const ledger = earningsLedger();
+    const rows = DATA.map(d => ({ d, pg: punishedGrowthOf(d, ledger) }))
+      .filter(x => x.pg && !x.pg.excuses.length)
+      .sort((a, b) => b.pg.score - a.pg.score);
+    return limit ? rows.slice(0, limit) : rows;
+  }
+
   /* ================= FORWARD P/E CURVE (to 2029) =================
      WHAT IS DATA AND WHAT IS NOT — the whole design rests on this line:
 
@@ -5138,6 +5212,23 @@
         ${board.length ? `<div class="grid g2">${board.map(convCard).join("")}</div>`
           : `<div class="sub" style="padding:6px 0;line-height:1.6">No name currently has 3+ independent signals pointing the same way with fewer objections than agreements. That is information too — a mixed tape is exactly when the patient investor waits. Signals re-vote on every data refresh.</div>`}
       </div>
+      ${(() => {
+        const pgRows = punishedGrowthBoard(8);
+        const pgRow = (x) => `<tr data-tk="${x.d.ticker}">
+          <td style="text-align:left"><span class="rk-tk">${x.d.ticker}</span> <span class="sub">${x.d.sector}</span></td>
+          <td><span class="rk-pill" style="background:${x.pg.color};color:#071018">${x.pg.score}</span></td>
+          <td class="sub" style="text-align:left">${escapeHtml(x.pg.headline)}</td>
+          <td style="text-align:left"><b style="color:${x.pg.color};font-size:10px">${x.pg.verdict}</b>${x.pg.support.length ? `<div class="sub" style="white-space:normal">${x.pg.support.map(escapeHtml).join(" · ")}</div>` : ""}${x.pg.sectorNote ? `<div class="sub" style="white-space:normal;color:var(--amber)">${escapeHtml(x.pg.sectorNote)}</div>` : ""}</td>
+        </tr>`;
+        return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--cyan)">
+        <h3>📉 PUNISHED GROWTH <span class="unit">revenue up · profits up · price down — divergence, measured</span></h3>
+        <div class="sub" style="line-height:1.6;margin:4px 0 10px">The market usually has a reason for selling a grower, so "for no reason" is <b>checked, not assumed</b>: a name only appears here if quarterly revenue AND net profit are growing year-over-year, the stock is down hard anyway, its last report was <b>not</b> a miss, and the Street is <b>not</b> cutting numbers. Names where the whole sector is selling off are shown but flagged — that drop has an owner. Divergences resolve both ways: sometimes the price catches up to the numbers, sometimes the market knew something the filings didn't yet show.</div>
+        ${pgRows.length ? `<div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th style="text-align:left">TICKER</th><th>DIV</th><th style="text-align:left">THE DIVERGENCE</th><th style="text-align:left">VERDICT</th></tr></thead>
+          <tbody>${pgRows.map(pgRow).join("")}</tbody></table></div>`
+          : `<div class="sub" style="padding:6px 0;line-height:1.6">No unexcused divergence on the board right now — every beaten-down grower currently has a measurable reason attached (a miss, estimate cuts, or a sector-wide selloff). This list repopulates on every data refresh; selloff days are when it fills up.</div>`}
+      </div>`;
+      })()}
       ${prime.length ? `<div class="grid g2" style="margin-bottom:12px">${prime.slice(0, 6).map(primeCard).join("")}</div>`
         : `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--amber)"><h3>NO PRIME SETUPS RIGHT NOW</h3>
           <div class="sub" style="padding:8px 0;line-height:1.6">${anyRsi ? "Nothing on the board is both brain-approved AND at a washed-out RSI today. That is normal — prime setups appear in selloffs, which is exactly when they're hardest to act on. The watch list below shows what gets promoted the moment its RSI breaks down." : "The quality side is ranked below; RSI alignment switches on after the next data refresh."}</div></div>`}
@@ -7281,7 +7372,7 @@
     if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
     if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
     if (["EASY", "SIMPLE", "GAME PLAN", "GAMEPLAN", "PLAN", "KID", "HELP ME"].includes(q)) { showEasy(); flash("Easy mode — today's game plan", "ok"); return; }
-    if (["SETUPS", "SETUP", "BEST", "BEST SETUPS", "RSI", "ALIGN", "PRIME"].includes(q)) { showSetups(); flash("Best setups — brain + RSI", "ok"); return; }
+    if (["SETUPS", "SETUP", "BEST", "BEST SETUPS", "RSI", "ALIGN", "PRIME", "PUNISHED", "DIVERGENCE"].includes(q)) { showSetups(); flash("Best setups — brain + RSI", "ok"); return; }
     if (["BLACKROCK", "13F", "WHALE", "WHALES", "BLACK ROCK"].includes(q)) { showBlackrock(); flash("Whale tracker", "ok"); return; }
     if (["BERKSHIRE", "BUFFETT", "WARREN"].includes(q)) { whaleState.focus = "berkshire"; showBlackrock(); flash("Whale tracker — Berkshire", "ok"); return; }
     if (["CITADEL", "GRIFFIN"].includes(q)) { whaleState.focus = "citadel"; showBlackrock(); flash("Whale tracker — Citadel", "ok"); return; }
@@ -7430,7 +7521,7 @@
     fetchJsonWithRetry, ScoreEngine: window.ScoreEngine, marketScoreOf, refreshMarketScores, forwardPEOf,
     directionEdgeOf, macroRegimeOf, estimateSetupPart, estimateSetupFallbackScore, optionsPositioningPart, optDteNow, momentumPart, EARNINGS_FOCUS, bundledEarningsRows, mergeEarningsRows,
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
-    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf,
+    driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf, punishedGrowthOf, punishedGrowthBoard,
     NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, clusterAdjustedVoteCounts, CONVICTION_CLUSTERS,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
