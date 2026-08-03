@@ -2278,7 +2278,7 @@
     return { symbol: r.symbol, score, label, color, daysSince, windowLeft: Math.max(0, 60 - daysSince), bits, up };
   }
 
-  /* ------------------- RSI + BEST SETUPS -------------------
+  /* ------------------- RSI + ENTRY TIMING -------------------
      RSI(14) on real daily closes (Wilder smoothing) from the bundled pd:{}
      blocks. A Best Setup = the brain's quality/valuation gate AND the tape
      at a washed-out RSI — great business, fair price, seller exhaustion.
@@ -5406,7 +5406,7 @@
     return [...map.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
   }
   /* ============================================================================
-     ⭐ BEST SETUPS — the brain's picks, only when the tape agrees.
+     ⭐ ENTRY TIMING — the brain's picks, only when the tape agrees.
      Quality gate first (great business, sane price), then RSI(14) on real
      daily closes decides alignment: washed-out RSI on a quality name is
      the setup; oversold junk is a falling knife and never shows here. */
@@ -7678,7 +7678,7 @@
     if (["CALENDAR", "EARNINGS", "CAL", "BEATS", "BEAT", "ODDS", "DRIFT", "PEAD"].includes(q)) { showCalendar(); flash("Earnings command center", "ok"); return; }
     if (["SIGNALS", "SIGNAL", "CHANGED", "WHAT CHANGED", "FEED", "DELTAS", "NEW"].includes(q)) { showSignals(); flash("What changed — signals feed", "ok"); return; }
     if (["EASY", "SIMPLE", "GAME PLAN", "GAMEPLAN", "PLAN", "KID", "HELP ME"].includes(q)) { showEasy(); flash("Easy mode — today's game plan", "ok"); return; }
-    if (["SETUPS", "SETUP", "BEST", "BEST SETUPS", "RSI", "ALIGN", "PRIME", "PUNISHED", "DIVERGENCE"].includes(q)) { showSetups(); flash("Best setups — brain + RSI", "ok"); return; }
+    if (["SETUPS", "SETUP", "BEST", "BEST SETUPS", "RSI", "ALIGN", "PRIME", "PUNISHED", "DIVERGENCE"].includes(q)) { showSetups(); flash("Entry timing — brain + RSI", "ok"); return; }
     if (["BLACKROCK", "13F", "WHALE", "WHALES", "BLACK ROCK"].includes(q)) { showBlackrock(); flash("Whale tracker", "ok"); return; }
     if (["BERKSHIRE", "BUFFETT", "WARREN"].includes(q)) { whaleState.focus = "berkshire"; showBlackrock(); flash("Whale tracker — Berkshire", "ok"); return; }
     if (["CITADEL", "GRIFFIN"].includes(q)) { whaleState.focus = "citadel"; showBlackrock(); flash("Whale tracker — Citadel", "ok"); return; }
