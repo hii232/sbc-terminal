@@ -2849,6 +2849,40 @@
     return deduped;
   }
 
+  /* Per-name read for the Master Signal: is this company's STATED strategy
+     converging with peers, and is it early to language that is spreading?
+     Reuses the same themes the radar shows, so the board and the vote can
+     never disagree. */
+  function languageSignalOf(tk) {
+    const themes = languageThemes();
+    if (!themes) return null;
+    const corpus = languageCorpus() || [];
+    if (!corpus.some(c => c.ticker === tk)) return null;   // not in the corpus
+    const mine = themes.filter(t => t.companies.includes(tk));
+    const emerging = mine.filter(t => t.emergence >= LANG_EMERGE_MIN);
+    const adopting = emerging.filter(t => t.adopters.includes(tk));
+    return {
+      ticker: tk, shared: mine.length, emerging: emerging.length,
+      adopting: adopting.length, crossSector: mine.filter(t => t.crossSector).length,
+      topShared: mine.slice().sort((a, b) => b.dfNow - a.dfNow)[0] || null,
+      topEmerging: adopting.slice().sort((a, b) => b.emergence - a.emergence)[0] || null,
+    };
+  }
+
+  /* COVERAGE GATE, same rule the insider sweep already follows. The corpus is
+     built largest-company-first, so a partial corpus is not a random sample --
+     it is a MEGA-CAP sample. Letting only covered names earn a vote would put
+     a size thumb on a ranking that spans the whole universe, which is exactly
+     the bias an audit already caught once on insiders. The vote is therefore
+     cast only when the corpus reaches essentially the whole universe, and
+     until then no name gets it. */
+  const LANG_COVERAGE_MIN = 0.9;
+  function languageReady() {
+    const corpus = languageCorpus();
+    if (!corpus || typeof LANGUAGE_META === "undefined" || LANGUAGE_META.narrativeGrade !== true) return false;
+    return corpus.length / Math.max(DATA.length, 1) >= LANG_COVERAGE_MIN;
+  }
+
   /* The headline board: language being ADOPTED, not language already common.
      Cross-sector adoption ranks above single-sector, because a phrase
      spreading beyond one industry is the stronger rotation tell. */
@@ -2971,7 +3005,7 @@
   // every independent source convictionOf consults: edge, beat odds, drift,
   // RSI, revisions, tier-1 ratings, whale 13Fs, insider buying, filing diffs,
   // narrative heat. Fixed, so completeness means the same thing for every name.
-  const CONVICTION_SOURCES = 10;
+  const CONVICTION_SOURCES = 11;   // +1: management language (stated strategy)
   /* An audit found several of the 10 votes are not actually independent --
      they read the same underlying fact and vote on it more than once. The
      clearest, most heavily-weighted case: 'revisions' (direct
@@ -3062,11 +3096,23 @@
     // whichever half of the universe the sweep has not reached. So the vote is
     // cast only when the sweep is COMPLETE, and until then no name gets it.
     // Comparing like with like beats using a real signal unevenly.
+    const langReady = languageReady();
     const insReady = !!(B && B.asOf && (B.scanned || 0) >= (B.universe || 0) && !B.partial);
     const ins = insReady ? insiderSignalOf(d) : null;
     if (ins && ins.score != null && ins.label !== "QUIET" && ins.label !== "NO FILINGS")
       vote("insider", "Insider buying", ins.buyers >= 2 || (ins.buyers === 1 && ins.senior) ? 1 : ins.buyers ? 0 : -1,
         ins.buyers ? `${ins.buyers} insider${ins.buyers === 1 ? "" : "s"} bought${ins.senior ? " incl. a CEO/CFO" : ""}${hasNum(ins.buyValue) ? " · " + usd(ins.buyValue) : ""}` : `${ins.sellers} insiders selling`);
+    // Management language: the company's own stated strategy converging with
+    // peers. POSITIVE ONLY -- an idiosyncratic strategy is not bearish (it may
+    // be differentiation), so absence of shared language never penalises a name.
+    if (langReady) {
+      const lg = languageSignalOf(d.ticker);
+      if (lg && lg.shared)
+        vote("language", "Stated strategy", lg.adopting ? 1 : 0,
+          lg.adopting && lg.topEmerging
+            ? `just adopted "${lg.topEmerging.phrase}" — ${lg.topEmerging.dfPrior}→${lg.topEmerging.dfNow} companies now say it`
+            : `shares "${lg.topShared.phrase}" with ${lg.topShared.dfNow - 1} peer${lg.topShared.dfNow === 2 ? "" : "s"}, nothing newly adopted`);
+    }
     const cut14 = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
     const filing = signalsEvents().find(e => e.tk === d.ticker && e.type === "filing" && e.d >= cut14 && /(ACCELERATED|DECELERATED)/.test(e.detail || ""));
     if (filing) vote("filing", "Fresh filing", /ACCELERATED/.test(filing.detail) ? 1 : -1, /ACCELERATED/.test(filing.detail) ? "growth accelerated in the new filing" : "growth decelerated in the new filing");
@@ -3080,6 +3126,7 @@
     // missing evidence rather than merit. Tracking what was evaluable lets the
     // Master Signal discount that name's confluence instead of rewarding it.
     const notEvaluated = [];
+    if (!langReady) notEvaluated.push(`management-language corpus covers ${(languageCorpus() || []).length}/${DATA.length} — held back from every name, because the corpus is built largest-first and a partial one would tilt the ranking toward mega-caps`);
     if (!insReady) notEvaluated.push(`insider sweep incomplete (${(B && B.scanned) || 0}/${(B && B.universe) || DATA.length}) — held back from every name so the ranking compares like with like`);
     const bulls = votes.filter(v => v.dir > 0), bears = votes.filter(v => v.dir < 0);
     const active = bulls.length + bears.length;
@@ -3341,8 +3388,18 @@
      moves truePE and the valuation/price pillar, which moves ranks.
      Bumped within a day of v2, deliberately: v2 had barely any recorded
      history, so consolidating score-affecting changes now costs the proof
-     clock almost nothing versus letting them trickle out over weeks. */
-  const MASTER_MODEL_VERSION = 3;
+     clock almost nothing versus letting them trickle out over weeks.
+     v3 -> v4: an 11th conviction signal was added -- management's STATED
+     strategy, read out of MD&A sections and canonicalised so shared strategy
+     is countable across companies. It votes positive only (an idiosyncratic
+     strategy is not bearish) and is gated on corpus coverage exactly the way
+     the insider vote is gated on sweep completeness, because the corpus is
+     built largest-company-first and a partial one would tilt the ranking
+     toward mega-caps. It also changes the CONVICTION_SOURCES denominator from
+     10 to 11, which moves every name's evidence-completeness figure and
+     therefore the coverage the Master Signal reports. Both effects reshuffle
+     ranks, so verdicts recorded before this point are not comparable. */
+  const MASTER_MODEL_VERSION = 4;
   function masterSignalOf(d, ctx) {
     if (!d) return null;
     const ms = marketScoreOf(d);
@@ -7761,7 +7818,7 @@
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf, punishedGrowthOf, punishedGrowthBoard,
     NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, clusterAdjustedVoteCounts, CONVICTION_CLUSTERS,
-    languageCorpus, languageThemes, emergingLanguage, sharedLanguage, companyLanguageOf, collapseNearDuplicates, isNarrativePhrase,
+    languageCorpus, languageThemes, emergingLanguage, sharedLanguage, companyLanguageOf, collapseNearDuplicates, isNarrativePhrase, languageSignalOf, languageReady,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
