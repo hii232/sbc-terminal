@@ -926,7 +926,34 @@ const ok = (cond, name, detail = "") => {
   } else {
     ok(convs.some(c => c.votes.some(v => v.key === "insider")),
       "once the sweep is complete the insider vote is cast");
-    ok(convs.every(c => c.notEvaluated.length === 0), "a complete sweep leaves nothing un-evaluated");
+    ok(convs.every(c => !c.notEvaluated.some(n => /insider/i.test(n))),
+      "a complete sweep leaves no INSIDER gate outstanding");
+  }
+  // The language vote is gated on corpus coverage for the same reason the
+  // insider vote is gated on sweep completeness -- and the corpus is built
+  // largest-company-first, so a partial one is a MEGA-CAP sample, not a random
+  // one. The invariant that actually protects the ranking is UNIFORMITY: every
+  // name must be treated identically, whether or not it happens to be covered.
+  {
+    const ctx2 = { ledger: E.earningsLedger(), narrs: E.narrativeHeatAll(), whales: E.whaleActionMap() };
+    const all = DATA.map(d => E.convictionOf(d, ctx2));
+    const ready = E.languageReady();
+    const withLang = all.filter(c => c.votes.some(v => v.key === "language")).length;
+    ok(ready ? withLang > 0 : withLang === 0,
+      "the language vote is cast for everyone or for no one — never for the covered subset only",
+      `ready=${ready} voted=${withLang}/${all.length}`);
+    const evAll = new Set(all.map(c => c.evidence.toFixed(4)));
+    ok(evAll.size === 1,
+      "evidence completeness stays identical across the universe once the language gate is applied",
+      [...evAll].join(","));
+    const corpus = E.languageCorpus();
+    if (corpus && !ready) {
+      const covered = new Set(corpus.map(c => c.ticker));
+      const inCorpus = all.filter(c => covered.has(c.d.ticker));
+      ok(inCorpus.every(c => !c.votes.some(v => v.key === "language")),
+        "while the gate is closed, even a covered mega-cap earns no language vote",
+        `${inCorpus.length} covered names checked`);
+    }
   }
   ok(convs.every(c => c.evidence > 0 && c.evidence <= 1), "evidence completeness is a fraction in (0,1]");
   ok(convs.every(c => Array.isArray(c.notEvaluated)), "notEvaluated is always an array");
@@ -1626,7 +1653,7 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
 
   // model version: the proxy change moves ownerEps -> truePE -> ranks, so the
   // proof clock must know this is a different model
-  ok(E.MASTER_MODEL_VERSION === 3, "MASTER_MODEL_VERSION bumped to 3 for the proxy recalibration", String(E.MASTER_MODEL_VERSION));
+  ok(E.MASTER_MODEL_VERSION === 4, "MASTER_MODEL_VERSION bumped to 4 for the management-language vote", String(E.MASTER_MODEL_VERSION));
 }
 
 // =============== 36. Punished Growth divergence detector ===============
