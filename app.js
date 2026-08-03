@@ -5447,15 +5447,15 @@
     </div>`;
     el("main").innerHTML = `
       <div class="hdr">
-        <div><div class="tick gradient-title">⭐ BEST SETUPS</div>
-        <div class="co">Only the brain's highest-conviction names — surfaced when the tape hands them to you at a washed-out RSI. Quality first, technicals as the trigger.</div></div>
+        <div><div class="tick gradient-title">⭐ ENTRY TIMING</div>
+        <div class="co">WHEN to buy, not WHAT to buy. RSI is 30% of this score, so it ranks names differently from the Master Signal on purpose — a quality name near a wash-out outranks a better one that is not. Quality first, technicals as the trigger.</div></div>
         <div class="spacer"></div>
         <div style="text-align:right"><div class="sub">CANDIDATES PASSING THE GATE</div><div class="stat sm" style="color:var(--gold)">${rows.length}</div></div>
       </div>
       <div class="note" style="margin-bottom:12px"><b>How this list works:</b> a name must FIRST pass the brain's gate (business quality ≥65, long-term view ≥55, verified data, not LIKELY DOWN). Only then does the tape matter: RSI(14) on real daily closes at/near the bottom (≤38) plus proximity to the IV15 buy price marks a <b style="color:var(--green)">PRIME</b> setup. Oversold RSI on a weak business is a falling knife — those names are filtered out before you ever see them. ${anyRsi ? "" : "<b>RSI arms on the next data refresh (daily closes are being added to the bundle).</b>"} Research signals, not advice.</div>
       <div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
         <h3>🎯 CONVICTION BOARD <span class="unit">where independent signals stack — confluence, never certainty</span></h3>
-        <div class="sub" style="line-height:1.6;margin:4px 0 10px">Nobody on Earth predicts the future. What CAN be measured is agreement: up to nine independent signals — Direction Edge, Beat Odds, post-earnings drift, RSI setup, analyst revisions, tier-1 desk actions, whale 13Fs, fresh filing diffs, narrative heat — each votes, and only names where <b>3 or more agree</b> make this board. Objections are shown, silence is counted as silence.</div>
+        <div class="sub" style="line-height:1.6;margin:4px 0 10px">Nobody on Earth predicts the future. What CAN be measured is agreement: up to ${CONVICTION_SOURCES} independent signals — Direction Edge, Beat Odds, post-earnings drift, RSI setup, analyst revisions, tier-1 desk actions, whale 13Fs, insider buying, fresh filing diffs, narrative heat, management's stated strategy — each votes, and only names where <b>3 or more agree</b> make this board. Objections are shown, silence is counted as silence.</div>
         ${board.length ? `<div class="grid g2">${board.map(convCard).join("")}</div>`
           : `<div class="sub" style="padding:6px 0;line-height:1.6">No name currently has 3+ independent signals pointing the same way with fewer objections than agreements. That is information too — a mixed tape is exactly when the patient investor waits. Signals re-vote on every data refresh.</div>`}
       </div>
