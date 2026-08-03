@@ -59,5 +59,15 @@ jobs:
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
           git add data.js sec.js sectors.js track.js earnings.js signals.js whales.js insiders.js language.js data/ || true
-          git diff --cached --quiet || git commit -m "data: automated refresh $(date -u +%F)"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "data: automated refresh $(date -u +%F)"
+          # Same rebase-and-retry as language-refresh: this job runs for many
+          # minutes and a merge landing on main meanwhile must not throw away
+          # the day's collected data.
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            git push origin HEAD:"${GITHUB_REF_NAME}" && exit 0
+            echo "push attempt $attempt rejected — refetching and retrying"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1
