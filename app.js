@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "79"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "80"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -2698,6 +2698,159 @@
     return NARRATIVES.map(n => narrativeStats(n, ctx)).filter(Boolean).sort((a, b) => b.heat - a.heat);
   }
 
+  /* ------------------- NARRATIVE RADAR (MANAGEMENT LANGUAGE) -------------
+     Every other engine here reads what companies REPORT or what the market
+     DOES. This one reads what management SAYS, because capital allocation
+     shows up in language a quarter or two before it shows up in a line item.
+
+     The single idea that makes this a signal rather than a word cloud:
+
+       A phrase used by ONE company is that company's story.
+       A phrase used by MANY companies is a narrative.
+       A phrase whose company count is RISING is money being redirected.
+
+     So nothing is scored on how OFTEN a phrase is said -- that just measures
+     who talks most. Everything is scored on HOW MANY INDEPENDENT COMPANIES
+     say it, and whether that number is climbing. When six firms who did not
+     coordinate all start describing the same thing in the same quarter, that
+     is the observable part of a capital rotation.
+
+     Boilerplate is suppressed STATISTICALLY, not by a hand-kept blacklist:
+     any phrase most of the corpus uses is universal language by definition
+     ("strong execution", "our customers") and is dropped. That rule needs no
+     maintenance and cannot go stale. */
+  const LANG_MIN_COMPANIES = 3;      // below this it is not yet a shared narrative
+  const LANG_UNIVERSAL_SHARE = 0.55; // used by more than this share of the corpus = boilerplate
+  const LANG_EMERGE_MIN = 2;         // net new companies adopting the phrase
+
+  // The bundle is injectable so the convergence math is unit-testable against
+  // a synthetic corpus without a browser or a collector run.
+  function languageCorpus(bundle) {
+    const B = bundle || (typeof LANGUAGE !== "undefined" ? LANGUAGE : null);
+    if (!B) return null;
+    const rows = [];
+    for (const tk of Object.keys(B)) {
+      const periods = (B[tk].periods || []).filter(p => p && p.phrases && Object.keys(p.phrases).length);
+      if (!periods.length) continue;
+      rows.push({ ticker: tk, name: B[tk].name, sector: B[tk].sector,
+        latest: periods[0], prior: periods.slice(1) });
+    }
+    return rows.length ? rows : null;
+  }
+
+  /* Near-duplicate collapse. "accelerated computing" and "accelerated
+     computing platform" are the same narrative counted twice; showing both
+     fakes breadth. The better-supported phrase wins; ties go to the more
+     specific (longer) one. Only collapses when one CONTAINS the other AND
+     their company sets substantially agree, so genuinely different phrases
+     that share a word are never merged. */
+  function collapseNearDuplicates(rows) {
+    const kept = [];
+    for (const r of rows) {
+      const dupe = kept.find(k => {
+        const a = k.phrase, b = r.phrase;
+        if (!(a.includes(b) || b.includes(a))) return false;
+        const setA = new Set(k.companies);
+        const shared = r.companies.filter(t => setA.has(t)).length;
+        return shared / Math.min(k.companies.length, r.companies.length) >= 0.75;
+      });
+      if (!dupe) kept.push(r);
+    }
+    return kept;
+  }
+
+  function languageThemes(bundle) {
+    const corpus = languageCorpus(bundle);
+    // Convergence across a handful of companies is coincidence, not a
+    // narrative. Below this the engine reports nothing rather than a weak read.
+    if (!corpus || corpus.length < 8) return null;
+    const N = corpus.length;
+    const now = new Map(), prior = new Map(), mentions = new Map();
+    for (const c of corpus) {
+      for (const p of Object.keys(c.latest.phrases)) {
+        if (!now.has(p)) now.set(p, []);
+        now.get(p).push(c.ticker);
+        mentions.set(p, (mentions.get(p) || 0) + c.latest.phrases[p]);
+      }
+      // a company counts ONCE toward prior no matter how many old periods
+      // repeated the phrase -- this measures adoption breadth, not repetition
+      const seen = new Set();
+      for (const per of c.prior) for (const p of Object.keys(per.phrases)) seen.add(p);
+      for (const p of seen) {
+        if (!prior.has(p)) prior.set(p, []);
+        prior.get(p).push(c.ticker);
+      }
+    }
+    const rows = [];
+    for (const [phrase, tks] of now) {
+      const dfNow = tks.length;
+      if (dfNow < LANG_MIN_COMPANIES) continue;
+      if (dfNow / N > LANG_UNIVERSAL_SHARE) continue;
+      const priorTks = prior.get(phrase) || [];
+      const dfPrior = priorTks.length;
+      const adopters = tks.filter(t => !priorTks.includes(t));
+      rows.push({
+        phrase, companies: tks.slice().sort(), dfNow, dfPrior,
+        emergence: dfNow - dfPrior, adopters: adopters.sort(),
+        mentions: mentions.get(phrase) || 0, corpusSize: N,
+        share: +(dfNow / N).toFixed(3),
+      });
+    }
+    rows.sort((a, b) => b.emergence - a.emergence || b.dfNow - a.dfNow || b.mentions - a.mentions);
+    const deduped = collapseNearDuplicates(rows);
+    for (const r of deduped) {
+      // which hand-authored narrative, if any, this language belongs to --
+      // links emergent wording back to the themes the terminal already tracks
+      const overlap = NARRATIVES.map(n => ({
+        key: n.key, name: n.name, icon: n.icon,
+        hits: r.companies.filter(t => n.members.includes(t)).length,
+      })).filter(x => x.hits >= 2).sort((a, b) => b.hits - a.hits);
+      r.narrative = overlap[0] || null;
+      r.sectors = [...new Set(r.companies.map(t => (companyOf(t) || {}).sector).filter(Boolean))];
+      r.crossSector = r.sectors.length >= 3;
+    }
+    return deduped;
+  }
+
+  /* The headline board: language being ADOPTED, not language already common.
+     Cross-sector adoption ranks above single-sector, because a phrase
+     spreading beyond one industry is the stronger rotation tell. */
+  function emergingLanguage(limit, bundle) {
+    const themes = languageThemes(bundle);
+    if (!themes) return null;
+    const rows = themes.filter(t => t.emergence >= LANG_EMERGE_MIN)
+      .map(t => ({ ...t, score: Math.round(clamp(
+        30 + t.emergence * 11 + (t.crossSector ? 14 : 0) + Math.min(t.dfNow, 12) * 2.5, 0, 100)) }))
+      .sort((a, b) => b.score - a.score || b.emergence - a.emergence);
+    return limit ? rows.slice(0, limit) : rows;
+  }
+
+  /* "Which companies state similar goals" — shared language regardless of
+     whether it is new. Useful for spotting peers converging on one strategy. */
+  function sharedLanguage(limit, bundle) {
+    const themes = languageThemes(bundle);
+    if (!themes) return null;
+    const rows = themes.slice().sort((a, b) => b.dfNow - a.dfNow || b.mentions - a.mentions);
+    return limit ? rows.slice(0, limit) : rows;
+  }
+
+  /* Per-company view: the phrases this company shares with peers, and the
+     ones it introduced this period. */
+  function companyLanguageOf(tk) {
+    const corpus = languageCorpus();
+    if (!corpus) return null;
+    const me = corpus.find(c => c.ticker === tk);
+    if (!me) return null;
+    const themes = languageThemes() || [];
+    const shares = themes.filter(t => t.companies.includes(tk));
+    return {
+      ticker: tk, period: me.latest.period, date: me.latest.date, source: me.latest.source,
+      words: me.latest.words, periods: 1 + me.prior.length,
+      shared: shares.sort((a, b) => b.dfNow - a.dfNow).slice(0, 12),
+      adopted: shares.filter(t => t.adopters.includes(tk)).sort((a, b) => b.emergence - a.emergence).slice(0, 8),
+    };
+  }
+
   /* ------------------- INSIDER SIGNAL (SEC FORM 4) -------------------
      The only input in this terminal that comes from the people running
      the business, spending their own money. The asymmetry is real and
@@ -5249,6 +5402,45 @@
      than its own numbers do. Heat comes only from the members' own data:
      tape, breadth, revisions, season beats, tier-1 desks, whale 13Fs.
      A story without enough live inputs reports nothing — never a guess. */
+  /* 📡 NARRATIVE RADAR — the language half of the narratives page. Heat (below)
+     measures how the market is TRADING each story; the radar measures what
+     management is SAYING, which tends to move first. Both are shown; neither
+     is dressed up as the other. */
+  function renderNarrativeRadar() {
+    const meta = typeof LANGUAGE_META !== "undefined" ? LANGUAGE_META : null;
+    const emerging = emergingLanguage(8);
+    const shared = sharedLanguage(6);
+    if (!emerging && !shared) {
+      return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--purple)">
+        <h3>📡 NARRATIVE RADAR <span class="unit">what management is saying, across companies</span></h3>
+        <div class="sub" style="padding:6px 0;line-height:1.7">Reads earnings-call transcripts and SEC 8-K earnings releases for the largest names, then looks for language <b>spreading between companies</b> — the tell that capital is being redirected before it shows up in any line item. ${meta && meta.generated ? `Collected ${escapeHtml(String(meta.generated).slice(0, 10))}, but not yet enough companies to call convergence.` : "Arms with the next data refresh — the collector has not run yet."} Nothing is shown until it can be measured.</div>
+      </div>`;
+    }
+    const tkChips = (tks, hl) => tks.map(t => `<button type="button" data-tk="${t}" class="sec-chip"${hl && hl.includes(t) ? ' style="border-color:var(--green)"' : ""}>${t}</button>`).join("");
+    const row = (t) => `<div class="card" style="border-left:3px solid ${t.emergence >= 4 ? "var(--green)" : "var(--cyan)"}">
+      <h3>“${escapeHtml(t.phrase)}” <span class="rk-pill" style="background:${t.emergence >= 4 ? "var(--green)" : "var(--cyan)"};color:#071018">${t.score}</span>
+        <span class="unit">${t.dfPrior} → ${t.dfNow} companies</span></h3>
+      <div class="sub" style="line-height:1.6;margin:4px 0 8px">
+        <b style="color:${t.emergence >= 4 ? "var(--green)" : "var(--cyan)"}">+${t.emergence} companies</b> started using this language since their prior report${t.crossSector ? ` · <b style="color:var(--gold)">cross-sector</b> (${t.sectors.length} sectors)` : ` · ${escapeHtml(t.sectors[0] || "one sector")}`}${t.narrative ? ` · maps to ${t.narrative.icon} ${escapeHtml(t.narrative.name)}` : ""}
+      </div>
+      <div class="kv"><span class="k">NEWLY SAYING IT</span><span class="v"><span class="sec-chips">${tkChips(t.adopters)}</span></span></div>
+      ${t.dfPrior ? `<div class="kv"><span class="k">ALREADY SAID IT</span><span class="v"><span class="sub">${t.companies.filter(c => !t.adopters.includes(c)).join(" · ")}</span></span></div>` : ""}
+    </div>`;
+    const sharedRow = (t) => `<tr><td style="text-align:left"><b>“${escapeHtml(t.phrase)}”</b></td>
+      <td>${t.dfNow}</td>
+      <td class="sub" style="text-align:left">${t.companies.slice(0, 10).join(" · ")}${t.companies.length > 10 ? ` +${t.companies.length - 10}` : ""}</td></tr>`;
+    const srcNote = meta && meta.sources ? Object.entries(meta.sources).map(([k, v]) => `${v} via ${escapeHtml(k)}`).join(" · ") : "";
+    return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--purple)">
+      <h3>📡 NARRATIVE RADAR <span class="unit">language spreading between companies — the earliest read here</span></h3>
+      <div class="sub" style="line-height:1.7;margin:4px 0 10px">Heat (below) measures how the market is <b>trading</b> each story. This measures what management is <b>saying</b>, which usually moves first. The rule that makes it a signal rather than a word cloud: a phrase one company uses is <b>that company's story</b>; a phrase many independent companies suddenly use is <b>capital being redirected</b>. Scored on how many companies adopted the language, never on how often it was said — and any phrase most of the corpus already uses is dropped automatically as boilerplate. ${meta && meta.companies ? `Corpus: ${meta.companies} companies${srcNote ? ` (${srcNote})` : ""}.` : ""} <b>Language is intent, not results</b> — it says where money is being pointed, not that it will work.</div>
+      ${emerging && emerging.length ? `<div class="grid g2">${emerging.map(row).join("")}</div>`
+        : `<div class="sub" style="padding:4px 0;line-height:1.6">No language is spreading between companies right now — every shared phrase is one the same names were already using. That is a settled narrative, not a rotating one.</div>`}
+      ${shared && shared.length ? `<div style="overflow-x:auto;margin-top:10px"><table class="rank">
+        <thead><tr><th style="text-align:left">SHARED LANGUAGE — COMPANIES STATING SIMILAR GOALS</th><th>FIRMS</th><th style="text-align:left">WHO</th></tr></thead>
+        <tbody>${shared.map(sharedRow).join("")}</tbody></table></div>` : ""}
+    </div>`;
+  }
+
   function renderNarratives() {
     const ctx = { ledger: earningsLedger(), whales: whaleActionMap() };
     const heats = NARRATIVES.map(n => narrativeStats(n, ctx)).filter(Boolean).sort((a, b) => b.heat - a.heat);
@@ -5281,6 +5473,7 @@
       </div>
       ${heats.length ? `<div class="sec-chips" style="margin-bottom:12px">${heats.map(h => `<button type="button" class="sec-chip" data-nk="${h.key}" style="border-color:${h.color}">${h.icon} ${h.name} <b style="color:${h.color}">${h.heat}</b></button>`).join("")}</div>` : ""}
       <div class="note" style="margin-bottom:12px"><b>Why this matters:</b> most days, a stock moves because of the story it lives in, not its own news. Elite investors know the story FIRST — a great company inside a story the market hates stays cheap longer; an average one inside a hot story gets rewarded anyway. <b style="color:var(--green)">HOT</b> stories reward momentum but punish late buyers. <b style="color:var(--red)">COLD</b> stories are where the Best Setups quality gate finds real bargains. <b style="color:var(--purple)">🌱 FORMING</b> is the earliest read this terminal can offer: a story still below HOT/WARMING whose heat is rising fast day over day — flagged from the RATE OF CHANGE, not the level, so it's the most speculative tier here and will produce more false starts than a confirmed HOT read. Needs enough recorded daily history to measure; arms in as snapshots accumulate. Shifts land in the What Changed feed the day they happen.</div>
+      ${renderNarrativeRadar()}
       ${heats.length ? heats.map(card).join("") : `<div class="card"><h3>NARRATIVE HEAT IS ARMING</h3><div class="sub" style="padding:8px 0;line-height:1.6">Heat needs at least two live inputs per story (tape, breadth, revisions, season beats, tier-1 actions, whale flows). Those arrive with the daily data refresh — nothing is shown until it can be measured.</div></div>`}
       ${silent.length ? `<div class="note" style="margin-top:4px"><b>Not enough data today:</b> ${silent.map(n => `${n.icon} ${n.name}`).join(" · ")} — fewer than 2 tracked members or fewer than 2 live inputs. Silence beats a made-up number.</div>` : ""}
       <div class="card" style="margin-top:12px"><h3>HOW TO USE THIS PAGE</h3>
@@ -7523,6 +7716,7 @@
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf, punishedGrowthOf, punishedGrowthBoard,
     NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, clusterAdjustedVoteCounts, CONVICTION_CLUSTERS,
+    languageCorpus, languageThemes, emergingLanguage, sharedLanguage, companyLanguageOf, collapseNearDuplicates,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
