@@ -10,10 +10,15 @@ moves.
 SOURCES, in priority order per company:
   1. FMP earnings-call transcript (needs FMP_API_KEY and a plan that
      includes transcripts; the richest source -- prepared remarks + Q&A)
-  2. SEC 8-K Item 2.02 exhibit EX-99.1 (the quarterly earnings press
-     release, which carries management's prepared framing). Free, primary,
-     public domain, and always reachable.
-A company that yields neither is recorded as missing -- never guessed.
+  2. SEC 10-Q Item 2 / 10-K Item 7 Management's Discussion and Analysis --
+     thousands of words in which management explains what is driving the
+     business, in its own words. Free, primary, public domain, always
+     reachable. (An earlier cut used 8-K earnings-release exhibits instead
+     and produced garbage: those are ~800 words of tables plus a two-line
+     CEO quote, so the only "themes" they yield are words like "earnings"
+     and "million". Source quality, not filtering, was the fix.)
+A company that yields neither is recorded as missing WITH THE REASON -- a
+silent gap quietly biases every convergence count computed afterwards.
 
 WHAT IS STORED — and what deliberately is NOT:
   Only DERIVED PHRASE COUNTS land in data/ and language.js. Raw transcript
@@ -42,7 +47,10 @@ UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 FMP_KEY = __import__("os").environ.get("FMP_API_KEY", "").strip()
 
 DEFAULT_TOP = 50          # companies, ranked by market cap
-PERIODS_PER_COMPANY = 4   # quarters of history -> gives the engine a time axis
+PERIODS_PER_COMPANY = 3   # latest + 2 prior; enough for an adoption delta.
+                          # 10-Qs are megabytes each, so every extra period is
+                          # ~50 large fetches -- 3 keeps the sweep inside a
+                          # sane runtime while still giving the engine a past.
 TOP_PHRASES = 90          # kept per company-period (bundle size guard)
 MAX_NGRAM = 4
 
@@ -83,6 +91,36 @@ BOILER_SUBSTR = (
     "webcast", "investor relations", "sec filings", "exhibit", "reconciliation of",
     "unaudited", "trademarks", "all rights reserved",
 )
+
+# GENERIC BUSINESS VOCABULARY. The rule: drop an n-gram only when EVERY token
+# is generic. "cash flow", "financial measures" and "earnings growth" are all
+# generic-only and vanish; "inference demand", "cloud capacity" and "GPU
+# revenue" each carry at least one substantive token and survive. This is what
+# separates a narrative from a filing's furniture, and it degrades gracefully
+# -- a term missing from this list is still caught by the statistical
+# universal-language test downstream.
+GENERIC = set("""
+revenue revenues earnings income profit profits loss losses margin margins sales cost costs expense expenses
+cash flow flows capital financial finance fiscal gaap operating operations operational company companies business
+businesses corporate segment segments results result performance growth increase increased decrease decreased
+higher lower change changes compared comparison period periods annual quarterly month months week weeks date dates
+million billion thousand percent basis point points dollar dollars usd amount amounts total net gross rate rates
+share shares shareholder shareholders stockholder stockholders equity asset assets liability liabilities debt
+balance sheet statement statements report reports reported reporting disclosure disclosures management managements
+discussion analysis condition conditions factors factor future prior previous current including include includes
+included primarily due driven driver drivers reflect reflects reflecting impact impacts related relating respect
+approximately additional additionally significant significantly certain various overall continued continue
+continues remain remains position positions level levels value values based principally partially offset
+million's billions estimate estimates estimated expect expects expected anticipate anticipates believe believes
+plan plans planned outlook guidance target targets range ranges strong solid record release releases inc corp
+corporation ltd holdings group products product services service customers customer market markets industry
+""".split())
+
+
+def _informative(gram):
+    """True when at least one token carries domain meaning."""
+    return any(w not in GENERIC for w in gram)
+
 
 WORD_RE = re.compile(r"[a-z][a-z0-9'\-]*")
 SENT_SPLIT = re.compile(r"[.!?;:\n\r]+")
@@ -131,6 +169,8 @@ def phrase_counts(text):
                     keep = (len(w) >= 3) or (len(w) == 2 and w in acros)
                     if not keep:
                         continue
+                if not _informative(gram):
+                    continue
                 phrase = " ".join(gram)
                 if any(b in phrase for b in BOILER_SUBSTR):
                     continue
@@ -191,48 +231,86 @@ def fmp_transcripts(ticker, want):
 
 
 # ---------------------------------------------------------------- SEC source
-def sec_earnings_releases(cik10, want):
-    """8-K Item 2.02 (Results of Operations) exhibits — management's own
-    written framing of the quarter. Public domain and always available."""
+# WHY MD&A AND NOT THE EARNINGS PRESS RELEASE:
+# The first cut of this collector read 8-K Item 2.02 EX-99.1 exhibits. Those
+# are ~800 words that are mostly financial TABLES plus legal furniture; the
+# only narrative in them is a two-sentence CEO quote. Run over the real
+# universe it produced exactly the failure you would predict -- the "themes"
+# it surfaced were "earnings", "future", "million", "company's". No amount of
+# filtering rescues a source that contains no strategy prose.
+# Item 2 of a 10-Q (and Item 7 of a 10-K) is Management's Discussion and
+# Analysis: thousands of words in which management explains, in its own
+# words, what is driving the business and where it is spending. That is the
+# narrative layer this engine needs, and it is free and primary.
+MDNA_FORMS = {"10-Q", "10-K", "20-F", "40-F"}
+MDNA_START = re.compile(
+    r"item\s*[27][.\s:\-]*\s*management.{0,10}s\s+discussion|"
+    r"operating\s+and\s+financial\s+review\s+and\s+prospects", re.I)
+MDNA_END = re.compile(
+    r"item\s*[38][.\s:\-]*\s*(quantitative|financial\s+statements)|"
+    r"quantitative\s+and\s+qualitative\s+disclosures", re.I)
+MAX_DOC_BYTES = 14_000_000
+
+
+def extract_mdna(text):
+    """Slice Management's Discussion and Analysis out of the filing. Falls back
+    to the whole document when the headings do not match a known pattern --
+    a filing whose narrative we cannot locate precisely is still far richer
+    than a press release, and the phrase filter handles the rest."""
+    starts = [m.start() for m in MDNA_START.finditer(text)]
+    if not starts:
+        return text
+    # the LAST match is the section body; earlier ones are the table of contents
+    start = starts[-1]
+    end_m = MDNA_END.search(text, start + 200)
+    section = text[start:end_m.start()] if end_m else text[start:]
+    return section if len(section) > 1500 else text
+
+
+def sec_narrative_filings(cik10, want):
+    """MD&A from the most recent periodic filings. Returns (docs, reason) so a
+    company that yields nothing says WHY -- silent gaps in a corpus quietly
+    bias every convergence count that follows."""
     try:
         sub = json.loads(get(f"https://data.sec.gov/submissions/CIK{cik10}.json"))
-    except Exception:
-        return []
+    except Exception as e:
+        return [], f"submissions fetch failed: {e}"
     rec = sub.get("filings", {}).get("recent", {})
     forms = rec.get("form", [])
-    out = []
+    if not forms:
+        return [], "no recent filings listed"
+    out, tried = [], 0
     for i in range(len(forms)):
-        if out and len(out) >= want:
+        if len(out) >= want or tried >= want + 4:
             break
-        if forms[i] != "8-K":
+        if forms[i] not in MDNA_FORMS:
             continue
-        if "2.02" not in (rec.get("items", [""] * len(forms))[i] or ""):
-            continue
+        tried += 1
         accn = rec["accessionNumber"][i].replace("-", "")
         filed = rec["filingDate"][i]
-        base = f"https://www.sec.gov/Archives/edgar/data/{int(cik10)}/{accn}"
+        doc = rec.get("primaryDocument", [""] * len(forms))[i]
+        if not doc:
+            continue
+        url = f"https://www.sec.gov/Archives/edgar/data/{int(cik10)}/{accn}/{doc}"
         try:
-            idx = json.loads(get(f"{base}/index.json"))
-            items = idx.get("directory", {}).get("item", [])
+            raw = get(url, timeout=60)
         except Exception:
+            time.sleep(0.3)
             continue
-        # EX-99.1 is the earnings release by convention; fall back to any ex99
-        docs = [x.get("name", "") for x in items if x.get("name", "").lower().endswith((".htm", ".html", ".txt"))]
-        pick = next((n for n in docs if re.search(r"ex.?99[._-]?1", n, re.I)), None) \
-            or next((n for n in docs if re.search(r"ex.?99", n, re.I)), None)
-        if not pick:
+        if len(raw) > MAX_DOC_BYTES:
+            raw = raw[:MAX_DOC_BYTES]
+        text = extract_mdna(html_to_text(raw))
+        if len(text) < 2500:
+            time.sleep(0.2)
             continue
-        try:
-            text = html_to_text(get(f"{base}/{pick}"))
-        except Exception:
-            continue
-        if len(text) < 400:
-            continue
-        q = (int(filed[5:7]) - 1) // 3 + 1
-        out.append({"period": f"{filed[:4]}Q{q}", "date": filed,
-                    "source": "SEC 8-K EX-99.1 earnings release", "text": text})
-        time.sleep(0.2)
-    return out
+        end = rec.get("reportDate", [""] * len(forms))[i] or filed
+        q = (int(end[5:7]) - 1) // 3 + 1 if len(end) >= 7 else 1
+        out.append({"period": f"{end[:4]}Q{q}", "date": filed,
+                    "source": f"SEC {forms[i]} MD&A", "text": text})
+        time.sleep(0.25)
+    if not out:
+        return [], f"no usable MD&A in {tried} periodic filing(s)"
+    return out, ""
 
 
 def market_caps():
@@ -261,11 +339,12 @@ def main():
     for i, c in enumerate(companies):
         tk = c["ticker"]
         docs = fmp_transcripts(tk, PERIODS_PER_COMPANY)
+        reason = ""
         if not docs:
-            docs = sec_earnings_releases(c["cik10"], PERIODS_PER_COMPANY)
+            docs, reason = sec_narrative_filings(c["cik10"], PERIODS_PER_COMPANY)
         if not docs:
-            missing.append(tk)
-            print(f"  {tk}: no management text found", flush=True)
+            missing.append({"ticker": tk, "reason": reason or "no source yielded text"})
+            print(f"  {tk}: SKIPPED — {reason or 'no source yielded text'}", flush=True)
             time.sleep(0.15)
             continue
 
@@ -283,7 +362,7 @@ def main():
                 "phrases": dict(counts.most_common(TOP_PHRASES)),
             })
         if not periods:
-            missing.append(tk)
+            missing.append({"ticker": tk, "reason": "text found but no phrases survived filtering"})
             continue
         periods.sort(key=lambda p: p["date"], reverse=True)
         src_counts[periods[0]["source"]] += 1
