@@ -6729,6 +6729,16 @@
     // refreshed 100 megacaps nobody was looking at.
     state.homeMoverTks = [...gainers, ...losers].map(d => d.ticker);
     const stockDay = leaders[0] || ranked[0];
+    // THE HEADLINE IS THE MASTER SIGNAL, NOT A SUB-SCORE. The hero badge used
+    // to show `stockDay` -- the business-quality + market-reward leader, two
+    // inputs -- under the label "BEST SETUP", while the Best Setups card below
+    // it ran a five-input model and the Master Signal ran eleven. Three boards,
+    // three winners, top billing going to the weakest of them: TRV led the
+    // header while ranking #29 on the full model. One screen must not publish
+    // three different "best". The sub-scores are still shown, just no longer as
+    // rivals to the model that already contains them.
+    const masterTop = masterBoardCached()[0] || null;
+    const masterTopD = masterTop ? DATA.find(x => x.ticker === masterTop.ticker) : null;
     let earningsRows = upcomingEarningsRows(21);
     if (!earningsRows.length) {
       const asOf = new Date(`${EARNINGS_FOCUS.asOf}T00:00:00`);
@@ -6832,15 +6842,16 @@
           <div>
             <div class="bz-kicker">SBC TERMINAL</div>
             <h1>Owner-Earnings Dashboard</h1>
-            <p>Daily tape, movers, earnings, buy prices, and owner-economics edge. ${DATA.length} official names, ${ranked.length} ranked. <span class="sub">build v${SHELL_BUILD}</span></p>
+            <p>Daily tape, movers, earnings, buy prices, and owner-economics edge. ${DATA.length} official names, ${masterBoardCached().length} ranked by the Master Signal. <span class="sub">build v${SHELL_BUILD}</span></p>
           </div>
-          <button class="bz-best" type="button" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
-            <span>BEST SETUP</span><b>${stockDay?.d.ticker || "--"}</b><em>${stockDay ? `BQ ${stockDay.m.businessQuality.score} / MR ${stockDay.m.marketReward.score}` : "n/a"}</em>
+          <button class="bz-best" type="button" ${masterTop ? `data-tk="${masterTop.ticker}"` : ""}>
+            <span>MASTER SIGNAL</span><b>${masterTop?.ticker || "--"}</b><em>${masterTop ? `${masterTop.score} · ${masterTop.label}` : "n/a"}</em>
           </button>
         </section>
         <div class="bz-index-strip">${marketTiles.map(marketTile).join("")}</div>
         <section class="bz-panel">
-          <div class="bz-section-head"><h2>⭐ Best Setups</h2><button id="openSetups" type="button">Full Board</button></div>
+          <div class="bz-section-head"><h2>⭐ Entry Timing</h2><button id="openSetups" type="button">Full Board</button></div>
+          <div class="note" style="margin:0 0 10px">WHEN to buy, not WHAT to buy — RSI is 30% of this score, so it ranks the same names differently from the Master Signal on purpose. A name near a wash-out outranks a better company that is not. Only ${bestSetupsOf().length} of ${DATA.length} names clear the quality gate to appear here at all.</div>
           ${(() => {
             const rows = bestSetupsOf();
             const prime = rows.filter(x => x.aligned);
@@ -6922,7 +6933,7 @@
         </section>
         <section class="bz-feature" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
           <div class="bz-feature-pill">${stockDay?.d.ticker || "--"}</div>
-          <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: best combined business quality and market reward setup on the board.` : "No ranked setup loaded."}</p></div>
+          <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: highest business quality + market reward combined${masterTop && stockDay.d.ticker !== masterTop.ticker ? ` — two of the eleven inputs behind the Master Signal, which ranks it #${masterBoardCached().findIndex(r => r.ticker === stockDay.d.ticker) + 1 || "—"}` : ""}.` : "No ranked name loaded."}</p></div>
           <button type="button">Open</button>
         </section>
         <section class="bz-panel bz-why">
