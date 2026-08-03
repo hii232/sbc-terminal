@@ -56,5 +56,17 @@ jobs:
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
           git add language.js data/language/ || true
-          git diff --cached --quiet || git commit -m "data: management-language refresh $(date -u +%F)"
-          git push origin HEAD:${GITHUB_REF_NAME}
+          git diff --cached --quiet && exit 0
+          git commit -m "data: management-language refresh $(date -u +%F)"
+          # A long sweep can take 35+ minutes, and main routinely moves in that
+          # window (a merged PR, another data job). A bare push is then rejected
+          # and the whole run's work dies with the runner. Rebase onto whatever
+          # landed meanwhile and retry: this job only ever adds generated data
+          # files, so it never conflicts with source changes.
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            git push origin HEAD:"${GITHUB_REF_NAME}" && exit 0
+            echo "push attempt $attempt rejected — refetching and retrying"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1
