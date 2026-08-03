@@ -1,0 +1,86 @@
+{
+ "name": "COLGATE PALMOLIVE CO",
+ "sector": "Staples",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 17974,
+   "themes": [
+    {
+     "theme": "supply chain optimization and agility",
+     "quote": "optimize the Company's global supply chain to drive agility and efficiencies"
+    },
+    {
+     "theme": "organizational restructuring and overhead reduction",
+     "quote": "simplify and streamline its organizational structure to reduce overhead costs"
+    },
+    {
+     "theme": "geographic segment realignment",
+     "quote": "realigned its reportable operating segments effective for the quarter ended March 31, 2026. As a result, the Company combined the results of its Europe and Africa/Eurasia (excluding Russia and Belarus) reportable operating segments and its "
+    },
+    {
+     "theme": "fresh pet food category expansion",
+     "quote": "This acquisition provides the Company's Hill's Pet Nutrition segment with an entry into the fast-growing fresh pet food category in Australia"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 15690,
+   "themes": [
+    {
+     "theme": "strategic restructuring and productivity",
+     "quote": "Strategic Growth and Productivity Program to drive future growth and support the Company's 2030 strategy...optimize the Company's global supply chain to drive agility and efficiencies and simplify and streamline its organizational structure"
+    },
+    {
+     "theme": "fresh pet food expansion",
+     "quote": "acquisition provides the Company's Hill's Pet Nutrition segment with an entry into the fast-growing fresh pet food category in Australia"
+    },
+    {
+     "theme": "emerging markets growth",
+     "quote": "approximately 45% of our Net sales coming from emerging markets (which consist of Latin America, Asia (excluding Japan), Africa, the Middle East and Eastern and Central Europe)"
+    },
+    {
+     "theme": "organic sales growth focus",
+     "quote": "we are focused on driving organic sales growth; delivering consistent, compounded earnings per share growth; achieving operational efficiencies"
+    },
+    {
+     "theme": "geographic realignment and scale leverage",
+     "quote": "to further optimize and leverage the operating scale and drive growth within the Europe and Africa/Eurasia regions, the Company realigned its reportable operating segments"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-23",
+   "source": "SEC 10-K MD&A",
+   "words": 43160,
+   "themes": [
+    {
+     "theme": "omni-channel demand generation",
+     "quote": "harnessing the power of best-in-class omni-channel demand generation"
+    },
+    {
+     "theme": "data analytics and artificial intelligence",
+     "quote": "leading in capabilities such as data, analytics and artificial intelligence (\"AI\")"
+    },
+    {
+     "theme": "organic sales growth",
+     "quote": "focused on driving organic sales growth"
+    },
+    {
+     "theme": "operational efficiencies",
+     "quote": "achieving operational efficiencies"
+    },
+    {
+     "theme": "free cash flow growth",
+     "quote": "driving growth in free cash flow along with the efficient use of our balance sheet"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "name": "CHIPOTLE MEXICAN GRILL INC",
+ "sector": "Restaurants",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 2765,
+   "themes": [
+    {
+     "theme": "chipotlane drive-thru expansion",
+     "quote": "we opened 100 company-owned restaurants, which included 80 restaurants with a Chipotlane"
+    },
+    {
+     "theme": "digital sales channel growth",
+     "quote": "Digital sales represented 38.3% of total food and beverage revenue for the three months ended June 30, 2026, an increase from 35.5%"
+    },
+    {
+     "theme": "international partner-operated restaurants",
+     "quote": "the expected costs and risks related to our international expansion, including through partner-operated restaurants in the Middle East, Asia, and Mexico"
+    },
+    {
+     "theme": "menu price increases",
+     "quote": "our ability to achieve expected levels of comparable restaurant sales due to factors such as changes in guests' perceptions of our brand...or the inability to increase menu prices or realize the benefits of menu price increases"
+    },
+    {
+     "theme": "supply chain resilience",
+     "quote": "intermittent supply shortages relating to our Food with Integrity philosophy, rapid expansion, limited time offerings, and supply chain disruptions"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 2323,
+   "themes": [
+    {
+     "theme": "chipotlane drive-through expansion",
+     "quote": "We expect around 80% of our new company-owned restaurants will include a Chipotlane"
+    },
+    {
+     "theme": "digital sales channel growth",
+     "quote": "Digital sales represented 38.6% of total food and beverage revenue"
+    },
+    {
+     "theme": "international partner-operated expansion",
+     "quote": "we expect to open approximately 350 to 370 restaurants in 2026, which includes 10 to 15 international partner-operated restaurants"
+    },
+    {
+     "theme": "menu price optimization",
+     "quote": "our ability to achieve expected levels of comparable restaurant sales due to factors such as changes in guests' perceptions of our brand...or the inability to increase menu prices or realize the benefits of menu price increases"
+    },
+    {
+     "theme": "supply chain cost management",
+     "quote": "our ability to manage prices, risks and volatility in our supply chain...increases in ingredient and other operating costs due to inflation, global conflicts, severe weather, our Food with Integrity philosophy, tariffs or trade restrictions"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-04",
+   "source": "SEC 10-K MD&A",
+   "words": 3740,
+   "themes": [
+    {
+     "theme": "chipotlane drive-through expansion",
+     "quote": "we opened 334 company-owned restaurants, which included 257 restaurants with a Chipotlane. We expect to open approximately 350 to 370 restaurants in 2026, which includes 10 to 15 international partner-operated restaurants. We expect around "
+    },
+    {
+     "theme": "digital channel penetration",
+     "quote": "Digital sales represented 36.7% of total food and beverage revenue."
+    },
+    {
+     "theme": "menu price increases",
+     "quote": "The decrease was primarily due to a 0.6% benefit from menu price increases and, to a lesser extent, cost of sales efficiencies."
+    },
+    {
+     "theme": "international partner-operated model",
+     "quote": "During the year ended December 31, 2025, 11 partner-operated restaurants were opened in the Middle East."
+    },
+    {
+     "theme": "restaurant remodeling and technology",
+     "quote": "We expect approximately $266.9 million in capital expenditures related to investments in existing restaurants including remodeling and similar improvements, new equipment and hardware, and technology to optimize efficiencies."
+    }
+   ]
+  }
+ ]
+}

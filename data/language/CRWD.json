@@ -1,0 +1,86 @@
+{
+ "name": "CrowdStrike Holdings, Inc.",
+ "sector": "Cybersecurity",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 6760,
+   "themes": [
+    {
+     "theme": "cloud-native ai-powered platform",
+     "quote": "the first, true cloud-native unified platform built with artificial intelligence (\"AI\") at the core, capable of harnessing vast amounts of security and enterprise data"
+    },
+    {
+     "theme": "multi-module product expansion",
+     "quote": "delivering unified protection across endpoints, cloud workloads, identities, SaaS environments, browsers, and the prompt and agentic interaction layer"
+    },
+    {
+     "theme": "enterprise licensing flexibility",
+     "quote": "Falcon Flex, our enterprise licensing model that enables customers to commit to a broader platform investment upfront and draw down that commitment across multiple products over time"
+    },
+    {
+     "theme": "land and expand sales model",
+     "quote": "Our land-and-expand sales strategy where customers start with any number of modules and easily add capabilities over time"
+    },
+    {
+     "theme": "cloud hosting infrastructure scaling",
+     "quote": "As new customers subscribe to our platform and existing subscription customers increase the number of endpoints on our Falcon platform, our cost of revenue will increase due to greater cloud hosting costs related to powering new cloud modul"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-05",
+   "source": "SEC 10-K MD&A",
+   "words": 7521,
+   "themes": [
+    {
+     "theme": "cloud-scale ai infrastructure",
+     "quote": "Using cloud-scale AI, our Security Cloud enriches and correlates trillions of cybersecurity events per week with indicators of attack, threat intelligence, and enterprise data"
+    },
+    {
+     "theme": "modular cloud module expansion",
+     "quote": "Our low friction land-and-expand sales strategy...When customers deploy our Falcon platform, they can start with any number of cloud modules and easily add additional cloud modules"
+    },
+    {
+     "theme": "data center capacity expansion",
+     "quote": "As new customers subscribe to our platform and existing subscription customers increase the number of endpoints on our Falcon platform, our cost of revenue will increase due to greater cloud hosting costs related to powering new cloud modul"
+    },
+    {
+     "theme": "endpoint and identity security acquisitions",
+     "quote": "we entered into a definitive agreement to acquire 100% of the equity interest of SGNL.AI, Inc., a leader in continuous identity...and Seraphic Algorithms Ltd., a leader in browser runtime security"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 7771,
+   "themes": [
+    {
+     "theme": "cloud-native platform expansion",
+     "quote": "our open cloud architecture and single data model have allowed us to rapidly build and deploy new cloud modules, and we expect to continue investing in those efforts to further enhance our technology platform and product functionality"
+    },
+    {
+     "theme": "land-and-expand sales strategy",
+     "quote": "low friction land-and-expand sales strategy. When customers deploy our Falcon platform, they can start with any number of cloud modules and easily add additional cloud modules"
+    },
+    {
+     "theme": "ai-driven threat detection",
+     "quote": "cloud-scale AI enriches and correlates trillions of cybersecurity events per week with indicators of attack, threat intelligence, and enterprise data to create actionable data, identify shifts in adversary tactics, and automatically prevent"
+    },
+    {
+     "theme": "endpoint security consolidation",
+     "quote": "a single lightweight agent capable of harnessing vast amounts of security and enterprise data to deliver highly modular solutions"
+    },
+    {
+     "theme": "international market penetration",
+     "quote": "we believe that our market opportunity is large and requires us to continue to invest significantly in sales and marketing efforts to further grow our customer base, both domestically and internationally"
+    }
+   ]
+  }
+ ]
+}

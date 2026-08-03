@@ -1,0 +1,98 @@
+{
+ "name": "MSCI Inc.",
+ "sector": "Financial Data",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 13154,
+   "themes": [
+    {
+     "theme": "private markets data expansion",
+     "quote": "Vantager, an AI-enabled platform that supports pre-investment due diligence, data extraction and reporting for private markets investors"
+    },
+    {
+     "theme": "alternative asset class indexes",
+     "quote": "Compass, an index services provider that supports the calculation and development of multi-asset and alternative asset class indexes"
+    },
+    {
+     "theme": "physical climate risk analytics",
+     "quote": "First Street, a provider of physics-based physical climate risk data and analytics"
+    },
+    {
+     "theme": "sustainability integration solutions",
+     "quote": "leading the enablement of sustainability and climate investment integration"
+    },
+    {
+     "theme": "research-enhanced content expansion",
+     "quote": "extending leadership in research-enhanced content across asset classes"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 5141,
+   "themes": [
+    {
+     "theme": "index etf market growth",
+     "quote": "growth in revenues from ETFs linked to MSCI equity indexes and non-ETF indexed funds linked to MSCI indexes increased by 33.1% and 13.1%, respectively, primarily driven by increases in average AUM"
+    },
+    {
+     "theme": "sustainability and climate product expansion",
+     "quote": "leading the enablement of sustainability and climate investment integration"
+    },
+    {
+     "theme": "emerging market talent centers",
+     "quote": "Continued growth of our emerging market centers around the world is an important factor in our ability to manage and control the growth of our compensation and benefits costs. As of March 31, 2026, 71% of our employees were located in emerg"
+    },
+    {
+     "theme": "analytics and multi-asset class solutions",
+     "quote": "Analytics operating revenues increased 10.3%, primarily driven by growth from recurring subscriptions related to both Multi-Asset Class and Equity Analytics products"
+    },
+    {
+     "theme": "custom index product development",
+     "quote": "Run Rate from Index recurring subscriptions increased 10.7%, primarily driven by growth from market cap-weighted and custom Index products"
+    },
+    {
+     "theme": "private assets and capital solutions",
+     "quote": "All Other - Private Assets operating revenues increased 7.9%, primarily driven by growth from recurring subscriptions in Private Capital Solutions related to Private Capital Intel and Total Plan Manager products"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-06",
+   "source": "SEC 10-K MD&A",
+   "words": 8666,
+   "themes": [
+    {
+     "theme": "research-enhanced content expansion",
+     "quote": "extending leadership in research-enhanced content across asset classes"
+    },
+    {
+     "theme": "sustainability investment integration",
+     "quote": "leading the enablement of sustainability and climate investment integration"
+    },
+    {
+     "theme": "client customization solutions",
+     "quote": "expanding solutions that empower client customization"
+    },
+    {
+     "theme": "technology platform enhancement",
+     "quote": "enhancing distribution and content-enabling technology"
+    },
+    {
+     "theme": "emerging market cost centers",
+     "quote": "Continued growth of our emerging market centers around the world is an important factor in our ability to manage and control the growth of our compensation and benefits costs"
+    },
+    {
+     "theme": "strategic partnerships and acquisitions",
+     "quote": "executing strategic partnerships and acquisitions with complementary data, content and technology companies"
+    }
+   ]
+  }
+ ]
+}

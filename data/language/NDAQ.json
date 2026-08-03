@@ -1,0 +1,90 @@
+{
+ "name": "NASDAQ, INC.",
+ "sector": "Financial Data",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 23043,
+   "themes": [
+    {
+     "theme": "cloud-based compliance technology",
+     "quote": "Nasdaq Verafin solution, a cloud-based platform leveraging consortium data and AI to help more than 2,800 financial institutions detect, investigate, and report money laundering and financial fraud"
+    },
+    {
+     "theme": "ai-powered analytics expansion",
+     "quote": "we have entered into a definitive agreement to acquire Dasseti, Inc., an AI-powered due diligence platform used by institutional asset allocators and managers across public and private markets"
+    },
+    {
+     "theme": "regulatory technology platform growth",
+     "quote": "AxiomSL is a global leader in risk data management and regulatory reporting solutions for the financial industry, including banks, broker dealers and asset managers"
+    },
+    {
+     "theme": "market data and index licensing",
+     "quote": "481 ETPs listed on 28 exchanges in over 20 countries tracked a Nasdaq index and accounted for $1.1 trillion in AUM"
+    },
+    {
+     "theme": "enterprise data management solutions",
+     "quote": "AxiomSL's platform supports compliance across a wide range of global and local regulations"
+    },
+    {
+     "theme": "strategic acquisitions and divestitures",
+     "quote": "we have entered into a definitive agreement to acquire Dasseti, Inc."
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-24",
+   "source": "SEC 10-Q MD&A",
+   "words": 22256,
+   "themes": [
+    {
+     "theme": "ai integration in compliance products",
+     "quote": "leveraging consortium data and AI to help more than 2,800 financial institutions detect, investigate, and report money laundering and financial fraud"
+    },
+    {
+     "theme": "regulatory capital optimization",
+     "quote": "Capital held for regulatory purposes is invested to optimize returns while staying within approved risk tolerances"
+    },
+    {
+     "theme": "nordic power futures divestiture",
+     "quote": "In the first quarter of 2026 we completed the transfer of existing open positions in our Nordic power futures business to a European exchange"
+    },
+    {
+     "theme": "cloud-based saas platform expansion",
+     "quote": "a cloud-based platform leveraging consortium data and AI"
+    },
+    {
+     "theme": "market technology solutions deployment",
+     "quote": "Our market technology solutions are utilized by leading markets in North America, Europe and Asia as well as emerging markets in the Middle East, Latin America, and Africa"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 1173,
+   "themes": [
+    {
+     "theme": "adenza integration and synergies",
+     "quote": "we expect to incur approximately $140 million in pre-tax charges...We have achieved benefits primarily in the form of expense synergies with over $160 million net expense synergies actioned through December 31, 2025"
+    },
+    {
+     "theme": "ai capabilities enhancement",
+     "quote": "expect to incur additional costs in these areas in an effort to accelerate efficiencies through location strategy and enhanced AI capabilities"
+    },
+    {
+     "theme": "business divestitures and portfolio optimization",
+     "quote": "we entered into an agreement to transfer existing open positions in our Nordic power futures business to a European exchange...in October 2025, Nasdaq completed the sale of our Solovis business"
+    },
+    {
+     "theme": "financial technology platform consolidation",
+     "quote": "part of finalizing the purchase accounting of the Adenza acquisition, a one-time net revenue reduction of $32 million was recorded in our Financial Technology segment, reflecting the net impact of the accounting change on AxiomSL subscripti"
+    }
+   ]
+  }
+ ]
+}

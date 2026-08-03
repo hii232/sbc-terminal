@@ -1,0 +1,90 @@
+{
+ "name": "HONEYWELL INTERNATIONAL INC",
+ "sector": "Industrials",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 4754,
+   "themes": [
+    {
+     "theme": "aerospace spin-off completion",
+     "quote": "On June 29, 2026, the Company completed the Aerospace Spin-Off. Each Honeywell Technologies shareowner received one share of Honeywell Aerospace common stock for every two shares of Honeywell Technologies common stock held"
+    },
+    {
+     "theme": "portfolio simplification and divestiture",
+     "quote": "We continually assess the relative strength of each business in our portfolio as to strategic fit, market position, profit, and cash flow contribution in order to identify target investment and acquisition opportunities in order to upgrade "
+    },
+    {
+     "theme": "catalyst technology acquisition",
+     "quote": "On July 17, 2026, we acquired Johnson Matthey's Catalyst Technologies business segment for total consideration of $1,750 million, net of cash acquired"
+    },
+    {
+     "theme": "supply chain diversification and localization",
+     "quote": "Mitigation strategies are an important component of our approach to managing these risks, including portfolio and supply chain simplification, alignment to local and regional supply sources, pricing actions, dual-source strategies, and long"
+    },
+    {
+     "theme": "quantum computing equity investment",
+     "quote": "On June 4, 2026, the Company's former consolidated subsidiary Quantinuum completed its IPO. Upon completion of the IPO, the Company retained a 48% noncontrolling ownership interest in Quantinuum and accounts for its Quantinuum investment as"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 3872,
+   "themes": [
+    {
+     "theme": "aerospace business separation",
+     "quote": "announced our intention to pursue a separation of Honeywell from Honeywell Aerospace, into independent, U.S. publicly traded companies, which is intended to be completed in the third quarter on June 29, 2026"
+    },
+    {
+     "theme": "portfolio divestiture acceleration",
+     "quote": "evaluating strategic alternatives for our Productivity Solutions and Services and Warehouse and Workflow Solutions businesses within the Industrial Automation reportable segment to further simplify Honeywell's portfolio and accelerate share"
+    },
+    {
+     "theme": "catalyst technologies acquisition",
+     "quote": "announced its agreement to acquire Johnson Matthey's Catalyst Technologies business segment in an all-cash transaction"
+    },
+    {
+     "theme": "aerospace product development investment",
+     "quote": "Research and development expenses increased as a percentage of net sales due to increased investment in new product development in our Aerospace Technologies business"
+    },
+    {
+     "theme": "supply chain resilience and localization",
+     "quote": "Mitigation strategies are an important component of our approach to managing these risks, including supply chain simplification, alignment to local and regional supply sources, pricing actions, dual-source strategies, and longer-term approa"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-17",
+   "source": "SEC 10-K MD&A",
+   "words": 49605,
+   "themes": [
+    {
+     "theme": "aerospace and defense aftermarket",
+     "quote": "Commercial Aviation Aftermarket and Defense Services remain key growth drivers"
+    },
+    {
+     "theme": "automation software and controls",
+     "quote": "Building automation and industrial control solutions driving digital transformation"
+    },
+    {
+     "theme": "energy transition and sustainability",
+     "quote": "Energy and Sustainability Solutions segment focused on decarbonization technologies"
+    },
+    {
+     "theme": "commercial aviation original equipment",
+     "quote": "Commercial Aviation Original Equipment programs supporting fleet modernization"
+    },
+    {
+     "theme": "warehouse automation systems",
+     "quote": "Warehouse and Workflow Solutions providing automation for supply chain optimization"
+    }
+   ]
+  }
+ ]
+}

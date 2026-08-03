@@ -1,0 +1,90 @@
+{
+ "name": "VEEVA SYSTEMS INC",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 27707,
+   "themes": [
+    {
+     "theme": "agentic ai capability expansion",
+     "quote": "Veeva AI adds agentic AI capabilities to our Vault platform and deep, industry-specific agents to our Commercial and R&D and Quality Solutions"
+    },
+    {
+     "theme": "data solutions investment",
+     "quote": "The increase in data costs was related to investment in our data solutions"
+    },
+    {
+     "theme": "professional services scaling",
+     "quote": "expansion of headcount to support our existing and future demand for implementation and business consulting services"
+    },
+    {
+     "theme": "platform development acceleration",
+     "quote": "The expansion of our headcount in research and development was to support development work for the products that we offer or may offer in the future"
+    },
+    {
+     "theme": "customer engagement acquisition",
+     "quote": "Ostro provides an engagement platform for life sciences that gives patients and doctors immediate, compliant answers through an AI-driven chat"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-20",
+   "source": "SEC 10-K MD&A",
+   "words": 41002,
+   "themes": [
+    {
+     "theme": "vault platform consolidation",
+     "quote": "The migration of our customers to our Vault CRM applications built on our own Veeva Vault platform could cause business disruptions for customers and adversely affect our operating results."
+    },
+    {
+     "theme": "veeva ai agent deployment",
+     "quote": "Veeva AI adds agentic artificial intelligence (\"AI\") to our proprietary Veeva Vault platform and deep, industry-specific agents for Veeva applications. Veeva AI Agents work seamlessly within Veeva applications and have direct, secure access"
+    },
+    {
+     "theme": "clinical platform modernization",
+     "quote": "Veeva Clinical Platform advances clinical trial execution by providing a complete and connected technology ecosystem... designed to enable seamless execution and flow of data between clinical trial stakeholders"
+    },
+    {
+     "theme": "data platform expansion",
+     "quote": "Veeva Data Cloud is a modern data platform comprised of connected reference data, deep data, and transaction data... designed to bring greater efficiency and precision across clinical and commercial operations"
+    },
+    {
+     "theme": "quality cloud buildout",
+     "quote": "Veeva Quality Cloud unifies quality applications, processes, and partners across content management, training, quality assurance, and quality control lab solutions on the Veeva Vault platform."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 28478,
+   "themes": [
+    {
+     "theme": "cloud infrastructure expansion",
+     "quote": "expenses related to our computing infrastructure provided by third parties, including Amazon Web Services and Salesforce, Inc."
+    },
+    {
+     "theme": "r&d solutions growth",
+     "quote": "Revenues associated with our R&D Solutions are expected to increase as a percentage of both subscription services revenues and total revenues in the future"
+    },
+    {
+     "theme": "geographic expansion",
+     "quote": "We also offer certain of our R&D Solutions to industries outside the life sciences industry primarily in North America and Europe"
+    },
+    {
+     "theme": "customer acquisition and retention",
+     "quote": "As of January 31, 2025, 2024, and 2023, we served 1,477, 1,432, and 1,388 customers, respectively"
+    },
+    {
+     "theme": "professional services capacity",
+     "quote": "We utilize our own personnel to perform our professional services and business consulting engagements with customers"
+    }
+   ]
+  }
+ ]
+}

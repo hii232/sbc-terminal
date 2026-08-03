@@ -1,0 +1,90 @@
+{
+ "name": "TARGET CORP",
+ "sector": "Retail",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 3033,
+   "themes": [
+    {
+     "theme": "digital advertising expansion",
+     "quote": "Non-merchandise sales growth of 24.6 percent, primarily driven by growth in our Roundel digital advertising business offering"
+    },
+    {
+     "theme": "supply chain productivity",
+     "quote": "supply chain and digital fulfillment, including productivity improvements in supply chain facilities, and the leveraging impact of higher sales"
+    },
+    {
+     "theme": "store fulfillment automation",
+     "quote": "Our stores fulfill the majority of digitally originated sales, including shipment from stores to guests, store Order Pickup or Drive Up, and Same Day Delivery"
+    },
+    {
+     "theme": "tariff supply chain adaptation",
+     "quote": "Approximately one-half of the merchandise we offer is sourced from outside the U.S., either directly or through our vendors, with China as the single largest source of merchandise we import"
+    },
+    {
+     "theme": "organizational restructuring",
+     "quote": "In 2025, we announced a multi-year initiative to transform various aspects of our business\u2014including our organizational structure, processes, and technology\u2014to enable greater agility"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-11",
+   "source": "SEC 10-K MD&A",
+   "words": 26264,
+   "themes": [
+    {
+     "theme": "owned brand merchandise expansion",
+     "quote": "our owned and exclusive brand products represent approximately thirty percent of our overall merchandise sales and generally carry higher margins than equivalent national brand products"
+    },
+    {
+     "theme": "stores-as-fulfillment-hubs strategy",
+     "quote": "stores fulfilling more than 97 percent of total Merchandise Sales in each of the last three years, which provides convenience for our guests at a reduced fulfillment cost"
+    },
+    {
+     "theme": "digital advertising network growth",
+     "quote": "Roundel, our in-house retail media network, offers advertising services on a variety of digital platforms primarily to our merchandise vendors"
+    },
+    {
+     "theme": "supply chain infrastructure investment",
+     "quote": "significant investments in our technology infrastructure, digital platforms, and supply chain infrastructure"
+    },
+    {
+     "theme": "business transformation and operational efficiency",
+     "quote": "Beginning in 2025, we began a company-wide business transformation effort to increase speed and agility across the organization in support of our strategic priorities. This initiative is intended to simplify cross-functional ways of working"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-26",
+   "source": "SEC 10-Q MD&A",
+   "words": 3281,
+   "themes": [
+    {
+     "theme": "supply chain facility investments",
+     "quote": "investments in new supply chain facilities and the deleveraging impact of lower sales"
+    },
+    {
+     "theme": "digital fulfillment capability",
+     "quote": "productivity improvements at supply chain facilities and in digital fulfillment"
+    },
+    {
+     "theme": "tariff sourcing mitigation",
+     "quote": "Approximately one-half of the merchandise we offer is sourced from outside the U.S., either directly or through our vendors, with China as the single largest source of merchandise we import. We are closely monitoring the evolving consumer a"
+    },
+    {
+     "theme": "organizational restructuring",
+     "quote": "multi-year initiative to transform various aspects of our business\u2014including our organizational structure, processes, and technology\u2014to enable greater agility and optimize the use of the Company's assets"
+    },
+    {
+     "theme": "advertising revenue growth",
+     "quote": "growth in advertising and other revenues"
+    }
+   ]
+  }
+ ]
+}

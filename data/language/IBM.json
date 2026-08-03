@@ -1,0 +1,90 @@
+{
+ "name": "INTERNATIONAL BUSINESS MACHINES CORP",
+ "sector": "IT Services",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 10293,
+   "themes": [
+    {
+     "theme": "hybrid cloud and ai platform expansion",
+     "quote": "We believe our strategic investments over the past several years continue to strengthen IBM's position as a software-led Hybrid Cloud and AI platform company"
+    },
+    {
+     "theme": "quantum computing development",
+     "quote": "we continue to build leadership in quantum... we disclosed our plans to invest more than $10 billion in quantum over the next five years, spanning R&D, capital expenditures, manufacturing scaling, M&A and ecosystem expansion"
+    },
+    {
+     "theme": "software recurring revenue growth",
+     "quote": "about 80 percent of our software revenue is recurring in nature and delivered healthy growth in the quarter, reflecting the demand for our offerings"
+    },
+    {
+     "theme": "open source software security",
+     "quote": "we launched Lightwell, an investment to establish a trusted enterprise clearinghouse, combined with a global workforce of engineers, to address open-source software vulnerabilities at scale"
+    },
+    {
+     "theme": "data infrastructure modernization",
+     "quote": "Data revenue increased 18.9 percent as reported reflecting the contribution from recent acquisitions, primarily Confluent"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 8047,
+   "themes": [
+    {
+     "theme": "hybrid cloud and ai platform",
+     "quote": "our software-led hybrid cloud and AI strategy, position us well to navigate the current climate"
+    },
+    {
+     "theme": "generative ai product innovation",
+     "quote": "our ongoing generative AI innovation, and the continued shift to higher growth end markets"
+    },
+    {
+     "theme": "software recurring revenue expansion",
+     "quote": "annual recurring revenue (ARR) was solid at $24.6 billion, which increased approximately $3 billion as reported year to year"
+    },
+    {
+     "theme": "mission critical workload modernization",
+     "quote": "Clients are investing in IBM Z as they modernize mission-critical workloads, driven by requirements for resiliency, security and compliance, while enabling new AI capabilities on the platform"
+    },
+    {
+     "theme": "data infrastructure acquisitions",
+     "quote": "Data revenue grew 19.2 percent as reported reflecting demand for our generative AI products, strength in our strategic partnerships, and inorganic contribution from our acquisitions, including DataStax and Confluent"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 15766,
+   "themes": [
+    {
+     "theme": "hybrid cloud infrastructure",
+     "quote": "our strategy to deliver hybrid cloud services across on-premises, private cloud, and public cloud environments"
+    },
+    {
+     "theme": "generative ai integration",
+     "quote": "embedding AI capabilities across our software, infrastructure, and consulting offerings"
+    },
+    {
+     "theme": "software acquisitions and consolidation",
+     "quote": "strategic acquisitions including HashiCorp and StreamSets to expand our software portfolio"
+    },
+    {
+     "theme": "managed services expansion",
+     "quote": "growing our managed services and infrastructure support business"
+    },
+    {
+     "theme": "open-source software strategy",
+     "quote": "leveraging open-source technologies in our software solutions"
+    }
+   ]
+  }
+ ]
+}

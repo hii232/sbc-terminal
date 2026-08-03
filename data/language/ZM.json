@@ -1,0 +1,82 @@
+{
+ "name": "Zoom Communications, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-22",
+   "source": "SEC 10-Q MD&A",
+   "words": 44408,
+   "themes": [
+    {
+     "theme": "federated ai model selection",
+     "quote": "Zoom's federated approach to AI enables the use of multiple large language models (\"LLMs\"), including Zoom's own, to complete tasks for users. Zoom's federated approach allows its platform architecture to dynamically select from multiple AI"
+    },
+    {
+     "theme": "agentic ai capabilities expansion",
+     "quote": "We are enhancing our agentic AI capabilities within AI Companion to continue delivering practical value to customers while advancing our ambitious vision of AI that truly amplifies human potential"
+    },
+    {
+     "theme": "ai-embedded product expansion",
+     "quote": "In addition to AI Companion, we have embedded AI capabilities across our broader product portfolio, including Zoom Revenue Accelerator and Zoom Virtual Agent, to support sales and customer service use cases"
+    },
+    {
+     "theme": "strategic ai equity investments",
+     "quote": "During the three months ended April 30, 2026, we made an additional $46.0 million investment in preferred stock of Anthropic, PBC (\"Anthropic\"), bringing the total carrying value of our Anthropic preferred stock to $1,266.9 million, based o"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-02-27",
+   "source": "SEC 10-K MD&A",
+   "words": 63527,
+   "themes": [
+    {
+     "theme": "ai-first platform strategy",
+     "quote": "our AI-first platform is central to this evolution, turning live collaboration into completed results"
+    },
+    {
+     "theme": "federated large language models",
+     "quote": "our federated approach to AI, which enables the use of multiple large language models (\"LLMs\"), including Zoom's own, to complete each task for users"
+    },
+    {
+     "theme": "unified communications expansion",
+     "quote": "consolidate all of their business communications and collaboration requirements onto Zoom"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "Drive international expansion. With users, offices, and data centers strategically located around the world, we are poised to reach new customers globally"
+    },
+    {
+     "theme": "contact center platform growth",
+     "quote": "Zoom Contact Center is an omnichannel cloud contact center platform that is optimized for video and intentionally supports a robust suite of channels"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-25",
+   "source": "SEC 10-Q MD&A",
+   "words": 45976,
+   "themes": [
+    {
+     "theme": "ai platform integration",
+     "quote": "Our platform is designed to enable seamless communication and collaboration through a suite of products that includes Zoom Workplace (including Zoom Meetings and Zoom Phone), Zoom Business Services (including Zoom Contact Center), Employee "
+    },
+    {
+     "theme": "large enterprise expansion",
+     "quote": "As we increase sales to large organizations, our sales cycles have and could continue to lengthen, and we could experience greater deployment challenges"
+    },
+    {
+     "theme": "product bundling and upsell",
+     "quote": "Our business depends on our ability to attract new customers, retain and upsell additional products and new product categories to existing customers, and upgrade free users to one of our paid offerings"
+    },
+    {
+     "theme": "international market growth",
+     "quote": "We have significant and expanding operations outside the United States, which may subject us to increased business, regulatory, and economic risks that could harm our business"
+    }
+   ]
+  }
+ ]
+}

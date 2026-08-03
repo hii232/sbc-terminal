@@ -1,0 +1,86 @@
+{
+ "name": "ServiceNow, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 17342,
+   "themes": [
+    {
+     "theme": "security workflow acquisition expansion",
+     "quote": "The acquisition is intended to expand our security workflow offerings and advance AI-native, proactive cybersecurity and vulnerability response across all connected devices"
+    },
+    {
+     "theme": "identity security platform integration",
+     "quote": "The acquisition is intended to extend the capabilities of our security and risk portfolios to include identity security, which will enable organizations to understand and control who and what has access to their critical data, applications,"
+    },
+    {
+     "theme": "enterprise ai platform consolidation",
+     "quote": "ServiceNow delivers solutions that help public and private organizations govern, secure and manage artificial intelligence (\"AI\") and digitalize and streamline workflows"
+    },
+    {
+     "theme": "crm and platform adoption acceleration",
+     "quote": "The acquisition is intended to drive use of our Platform to accelerate enterprise adoption and innovation across key growth areas, including CRM"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 15648,
+   "themes": [
+    {
+     "theme": "ai platform consolidation",
+     "quote": "ServiceNow AI Platform (\"Platform\"), a robust, cloud-based Platform that facilitates comprehensive delivery of seamless workflows"
+    },
+    {
+     "theme": "enterprise m&a integration",
+     "quote": "acquired all outstanding shares of Veza Technologies, Inc. (\"Veza\"), a privately held AI identity security company... approximately $1.2 billion"
+    },
+    {
+     "theme": "workflow automation expansion",
+     "quote": "solutions that help public and private organizations govern, secure and manage artificial intelligence (\"AI\") and digitalize and streamline workflows"
+    },
+    {
+     "theme": "identity security capabilities",
+     "quote": "extend the capabilities of our security and risk portfolios to include identity security, which will enable organizations to understand and control who and what has access"
+    },
+    {
+     "theme": "remaining performance obligations growth",
+     "quote": "total non-cancellable RPO under our contracts with customers was $27.7 billion and we expect to recognize revenues on approximately 46% of these RPO over the following 12 months"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-29",
+   "source": "SEC 10-K MD&A",
+   "words": 45691,
+   "themes": [
+    {
+     "theme": "ai-powered workflow automation",
+     "quote": "organizations are prioritizing the digitalization and modernization of their workflows through AI-powered automation"
+    },
+    {
+     "theme": "enterprise ai governance and risk management",
+     "quote": "they are seeking secure and reliable tools to manage the heightened risks associated with AI innovation and ensure measurable returns on investment"
+    },
+    {
+     "theme": "cross-functional workflow orchestration",
+     "quote": "our Platform manages complex, cross-functional workflows end-to-end"
+    },
+    {
+     "theme": "multi-source data integration",
+     "quote": "our Platform's single data fabric and integrated data layer, enabled by our Workflow Data Fabric and RaptorDB products, supports organizations' operationalization of their AI strategy"
+    },
+    {
+     "theme": "low-code application development",
+     "quote": "App Engine enables organizations to create enterprise-class workflows using low-code and no-code development tools, supported by AI"
+    }
+   ]
+  }
+ ]
+}

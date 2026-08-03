@@ -1,0 +1,90 @@
+{
+ "name": "FREEPORT-MCMORAN INC",
+ "sector": "Materials",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 14658,
+   "themes": [
+    {
+     "theme": "underground mine ramp-up execution",
+     "quote": "A phased restart and ramp-up of the Grasberg Block Cave underground mine is in progress"
+    },
+    {
+     "theme": "leaching technology innovation",
+     "quote": "We are incorporating new applications, technologies and data analytics into our leaching processes across our U.S. and South America operations"
+    },
+    {
+     "theme": "organic brownfield expansion projects",
+     "quote": "We have defined an opportunity to more than double the concentrator capacity of the Bagdad operation in northwest Arizona"
+    },
+    {
+     "theme": "integrated downstream processing facilities",
+     "quote": "With the completion of its downstream processing facilities, PTFI is a fully integrated producer of refined copper and gold"
+    },
+    {
+     "theme": "long-term mining rights extension",
+     "quote": "In February 2026, we and PTFI entered into a Memorandum of Understanding (MOU) with the Indonesia government for a life of resource extension of operating rights in the Grasberg minerals district beyond the current expiration in 2041"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-13",
+   "source": "SEC 10-K MD&A",
+   "words": 94191,
+   "themes": [
+    {
+     "theme": "copper mine expansion",
+     "quote": "capital expenditures for major mine development projects to increase future copper production"
+    },
+    {
+     "theme": "grasberg underground development",
+     "quote": "advancing underground mining operations at Grasberg to extend mine life and increase ore processing capacity"
+    },
+    {
+     "theme": "asset impairment recovery",
+     "quote": "operations at Grasberg impacted by mud rush events affecting production and requiring mine rehabilitation efforts"
+    },
+    {
+     "theme": "indonesia export compliance",
+     "quote": "managing regulatory requirements and export restrictions in Indonesian operations affecting production timing"
+    },
+    {
+     "theme": "debt refinancing management",
+     "quote": "senior notes and credit facilities with varying maturity dates requiring ongoing refinancing strategy"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 16145,
+   "themes": [
+    {
+     "theme": "leaching and technology innovation",
+     "quote": "We are continuing to incorporate new applications, technologies and data analytics into our leaching processes across our U.S. and South America operations...targeting annual production of 300 million pounds of copper in 2026 from these ini"
+    },
+    {
+     "theme": "downstream processing facilities expansion",
+     "quote": "With the completion of PTFI's newly constructed downstream processing facilities, PTFI became a fully integrated producer of refined copper and gold"
+    },
+    {
+     "theme": "brownfield mine expansion projects",
+     "quote": "We have a potential expansion project to more than double the concentrator capacity of the Bagdad operation...opportunity to construct new concentrating facilities to increase copper production by 200 to 250 million pounds per year"
+    },
+    {
+     "theme": "autonomous fleet deployment",
+     "quote": "In October 2025, the conversion of Bagdad's haul truck fleet to autonomous haulage was substantially complete, making Bagdad the first major mine in the U.S. to operate a fully autonomous haulage fleet"
+    },
+    {
+     "theme": "large-scale sulfide development",
+     "quote": "At the El Abra operations in Chile, we have completed substantial drilling...to define a large sulfide resource...could result in the addition of 750 million pounds of copper production per year"
+    }
+   ]
+  }
+ ]
+}

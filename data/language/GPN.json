@@ -1,0 +1,86 @@
+{
+ "name": "GLOBAL PAYMENTS INC",
+ "sector": "Payments",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 14967,
+   "themes": [
+    {
+     "theme": "merchant payments platform consolidation",
+     "quote": "Together, the Worldpay and Issuer Solutions transactions simplify our business model and position Global Payments as a leading pure play commerce solutions provider for merchants of all sizes with extensive global scale"
+    },
+    {
+     "theme": "worldpay acquisition integration",
+     "quote": "On January 9, 2026, we acquired 100% of Worldpay Holdco, LLC from Fidelity National Information Services, Inc. and affiliates of GTCR LLC"
+    },
+    {
+     "theme": "debt refinancing and capital structure",
+     "quote": "On November 14, 2025, we issued $6.2 billion aggregate principal amount of senior unsecured notes in connection with the acquisition of Worldpay"
+    },
+    {
+     "theme": "international expansion",
+     "quote": "We are a leading payments technology company delivering innovative software and services to our customers globally. Our technologies, services and team member expertise allow us to provide a broad range of solutions that enable our customer"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-20",
+   "source": "SEC 10-K MD&A",
+   "words": 2344,
+   "themes": [
+    {
+     "theme": "cloud migration and modernization",
+     "quote": "migration of certain underlying technology platforms to cloud environments to enhance performance, improve speed to market and drive cost efficiencies"
+    },
+    {
+     "theme": "digital payment expansion",
+     "quote": "expansion of ecommerce, omnichannel and contactless payment solutions has accelerated"
+    },
+    {
+     "theme": "emerging technology development",
+     "quote": "an increasing portion of our future capital investment will be allocated to support the development of new and emerging technologies, including technology modernization, innovation and integration through strategic partnerships"
+    },
+    {
+     "theme": "business transformation and cost reduction",
+     "quote": "combining business operations, streamlining technology infrastructure, eliminating duplicative corporate and operational support structures and realizing scale efficiencies"
+    },
+    {
+     "theme": "portfolio optimization via divestitures",
+     "quote": "We also continue to assess our business portfolio to evaluate potential assets for disposition to further streamline our business and create value for shareholders"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 16939,
+   "themes": [
+    {
+     "theme": "worldpay acquisition integration",
+     "quote": "acquire 100% of Worldpay Holdco, LLC from Fidelity National Information Services, Inc. and divest our Issuer Solutions business to FIS"
+    },
+    {
+     "theme": "issuer solutions divestiture",
+     "quote": "divestiture of our Issuer Solutions business consists of approximately $7.5 billion in cash and FIS' ownership interest in Worldpay"
+    },
+    {
+     "theme": "merchant software consolidation",
+     "quote": "we wrote off capitalized software assets of $27.3 million and capitalized cloud implementation cost assets of $28.5 million that will no longer be utilized under a revised development strategy"
+    },
+    {
+     "theme": "cloud infrastructure expansion",
+     "quote": "capitalized cloud implementation cost assets that will no longer be utilized under a revised development strategy"
+    },
+    {
+     "theme": "convertible debt issuance",
+     "quote": "$2.0 billion in aggregate principal amount of 1.500% convertible unsecured senior notes due March 2031"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "name": "THERMO FISHER SCIENTIFIC INC.",
+ "sector": "Life Sciences",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 11460,
+   "themes": [
+    {
+     "theme": "contract manufacturing expansion",
+     "quote": "remaining performance obligations for all open customer contracts as of June 27, 2026, was $29.70 billion"
+    },
+    {
+     "theme": "clinical research services growth",
+     "quote": "Amounts expected to occur thereafter generally relate to contract manufacturing, clinical research and extended warranty service agreements"
+    },
+    {
+     "theme": "diagnostics and patient health focus",
+     "quote": "improve patient health through diagnostics and the development and manufacture of life-changing therapies"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 10204,
+   "themes": [
+    {
+     "theme": "laboratory automation and productivity",
+     "quote": "increase laboratory productivity"
+    },
+    {
+     "theme": "contract manufacturing services expansion",
+     "quote": "contract manufacturing, clinical research and extended warranty service agreements, which typically have durations of three to five years"
+    },
+    {
+     "theme": "diagnostic and healthcare solutions",
+     "quote": "improve patient health through diagnostics and the development and manufacture of life-changing therapies"
+    },
+    {
+     "theme": "facility consolidation and cost reduction",
+     "quote": "streamline operations"
+    },
+    {
+     "theme": "remaining performance obligations growth",
+     "quote": "aggregate amount of the transaction price allocated to the remaining performance obligations for all open customer contracts as of March 28, 2026, was $29.41 billion"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 38549,
+   "themes": [
+    {
+     "theme": "biotech services expansion",
+     "quote": "We expanded our capabilities in biotech services and increasing demand for our services"
+    },
+    {
+     "theme": "precision medicine diagnostics",
+     "quote": "advancing precision diagnostics and personalized medicine solutions across our specialty diagnostics segment"
+    },
+    {
+     "theme": "life sciences equipment portfolio",
+     "quote": "strengthening our position in life sciences tools and equipment for research and bioproduction"
+    },
+    {
+     "theme": "analytical instruments innovation",
+     "quote": "continuing innovation in chromatography, mass spectrometry and electron microscopy technologies"
+    },
+    {
+     "theme": "laboratory products consolidation",
+     "quote": "integrating laboratory products and expanding our service-based offerings to customers"
+    }
+   ]
+  }
+ ]
+}

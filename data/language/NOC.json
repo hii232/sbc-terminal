@@ -1,0 +1,94 @@
+{
+ "name": "NORTHROP GRUMMAN CORP /DE/",
+ "sector": "Defense",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 15808,
+   "themes": [
+    {
+     "theme": "b-21 aircraft production rate expansion",
+     "quote": "agreement with the U.S. Air Force to expand production capacity and increase the aircraft production rate for the B-21 program"
+    },
+    {
+     "theme": "solid rocket motor manufacturing optimization",
+     "quote": "increases in the projected cost and quantity of material needed to complete the program"
+    },
+    {
+     "theme": "software architecture qualification programs",
+     "quote": "increases in the projected costs to support the design and qualification of system software and hardware architecture for the U.S. Air Force"
+    },
+    {
+     "theme": "research and development tax incentives",
+     "quote": "Key income tax-related provisions of the OBBBA include the repeal of mandatory capitalization of research and development expenditures under Internal Revenue Code (IRC) Section 174 (reinstating full expensing beginning in 2025)"
+    },
+    {
+     "theme": "defense portfolio optimization",
+     "quote": "completed its previously announced sale of substantially all of the Immersive Mission Solutions (IMS) operating unit of Defense Systems"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 13583,
+   "themes": [
+    {
+     "theme": "b-21 production rate acceleration",
+     "quote": "reached an agreement with the U.S. Air Force to expand production capacity and increase the aircraft production rate for the B-21 program"
+    },
+    {
+     "theme": "solid rocket motor supply",
+     "quote": "recorded a $71 million unfavorable EAC adjustment on the Graphite Epoxy Motor (GEM) 63XL program at Space Systems associated with the evaluation and implementation of corrective actions for a solid rocket motor anomaly"
+    },
+    {
+     "theme": "research and development tax benefits",
+     "quote": "first quarter 2026 ETR decreased to 15.0 percent from 16.8 percent primarily due to higher research credits, including a $19 million benefit related to the CAMT guidance"
+    },
+    {
+     "theme": "pension cost accounting compliance",
+     "quote": "Defense Contract Management Agency (DCMA) raised questions about an interest rate assumption used by the company to determine our CAS pension expense"
+    },
+    {
+     "theme": "environmental remediation investments",
+     "quote": "company has worked closely with the United States Navy, the United States Environmental Protection Agency, the New York State Department of Environmental Conservation...to address environmental conditions allegedly resulting from historic o"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-27",
+   "source": "SEC 10-K MD&A",
+   "words": 9372,
+   "themes": [
+    {
+     "theme": "strategic aircraft production scale",
+     "quote": "we are in discussions with the U.S. Air Force regarding the potential for an accelerated production rate on the program. While the ultimate outcome of these discussions remains uncertain, we currently expect any agreement to accelerate prod"
+    },
+    {
+     "theme": "fixed-price development contract risk",
+     "quote": "Cost estimates on fixed-price development contracts and early-stage/low-rate production contracts are inherently more uncertain as to future events than on mature, full-rate production contracts. As a result, there is typically more variabi"
+    },
+    {
+     "theme": "space and c4isr capabilities expansion",
+     "quote": "our capabilities, particularly in space, C4ISR, air and missile defense, battle management, advanced weapons, strategic deterrence, survivable aircraft and mission systems should help our customers in the U.S. and globally defend against cu"
+    },
+    {
+     "theme": "hypersonic and advanced propulsion",
+     "quote": "advanced propulsion, including tactical solid rocket motors and high speed air-breathing and hypersonic systems"
+    },
+    {
+     "theme": "supply chain and inflation mitigation",
+     "quote": "we have included in our EACs management's best estimate of the impact inflation and disruptions in the supply chain have had and may continue to have on our contracts"
+    },
+    {
+     "theme": "restricted classified program growth",
+     "quote": "2025 net awards totaled $46.3 billion. Significant 2025 new awards include $14.8 billion for restricted programs (primarily at Aeronautics Systems, Space Systems, and Mission Systems)"
+    }
+   ]
+  }
+ ]
+}

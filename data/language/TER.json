@@ -1,0 +1,66 @@
+{
+ "name": "TERADYNE, INC",
+ "sector": "Semi Equip",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 3196,
+   "themes": [
+    {
+     "theme": "ai data center test solutions",
+     "quote": "sustained demand in Artificial Intelligence (\"AI\") applications across both compute and memory markets"
+    },
+    {
+     "theme": "high bandwidth memory testing",
+     "quote": "strong demand for high bandwidth memory (\"HBM\") and DRAM test solutions supporting AI compute deployments"
+    },
+    {
+     "theme": "collaborative robotics for electronics manufacturing",
+     "quote": "Strong Robotics revenue of $100 million, marked the fifth consecutive quarter of sequential growth, driven primarily by demand from electronics manufacturing and semiconductor customers"
+    },
+    {
+     "theme": "strategic acquisitions and joint ventures",
+     "quote": "we and HTP Holding SAL formed a joint venture to serve the growing demand from the AI Data Center equipment market by accelerating the development of test solutions for critical high speed data connections"
+    },
+    {
+     "theme": "engineering and product development investment",
+     "quote": "strategic investments in Semiconductor Test and from higher variable compensation across all segments"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 2800,
+   "themes": [
+    {
+     "theme": "ai compute test capacity",
+     "quote": "Semiconductor Test revenue alone exceeding $1.0 billion for the first time. AI-related customer demand continues to be significant in the quarter, reflecting the investments by hyperscalers, vertically integrated producers, and merchant com"
+    },
+    {
+     "theme": "high bandwidth memory testing",
+     "quote": "Memory test revenue remained at near-record levels, driven by robust demand for high bandwidth memory (\"HBM\") and DRAM test solutions supporting AI compute deployments"
+    },
+    {
+     "theme": "strategic product acquisitions",
+     "quote": "On April 8, 2026, we and MultiLane formed a joint venture, MultiLane Test Products (\"MLTP\"), to which MultiLane contributed the assets of its test and measurement business. MLTP is expected to serve the growing demand from the AI Data Cente"
+    },
+    {
+     "theme": "semiconductor test software capabilities",
+     "quote": "On April 16, 2026, we acquired all of the issued and outstanding shares of TestInsight Ltd. (\"TestInsight\") for a total purchase price of $29.0 million. TestInsight is a leading provider of semiconductor test development, validation, and co"
+    },
+    {
+     "theme": "collaborative robotics expansion",
+     "quote": "Our Robotics segment achieved its fourth consecutive quarter of sequential revenue growth, which is notable given the typical seasonality associated with this business. Demand was supported by customer engagement across e-commerce, electron"
+    },
+    {
+     "theme": "defense aerospace test instrumentation",
+     "quote": "In the Product Test Group, first quarter revenue increased year over year, supported by continued strength in defense and aerospace applications"
+    }
+   ]
+  }
+ ]
+}

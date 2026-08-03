@@ -1,0 +1,90 @@
+{
+ "name": "M&T BANK CORP",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 14119,
+   "themes": [
+    {
+     "theme": "commercial real estate criticized loan reduction",
+     "quote": "The Company executed various strategies to reduce the amount of criticized loans in this category throughout 2025."
+    },
+    {
+     "theme": "commercial and industrial lending growth",
+     "quote": "Average commercial and industrial loans grew $1.5 billion reflecting growth in loans to the financial and insurance industry."
+    },
+    {
+     "theme": "interest rate swap hedging deployment",
+     "quote": "The yields received on earning assets in the recent quarter reflect a comparatively favorable impact from interest rate swap agreements entered into for interest rate risk purposes on yields received on commercial and industrial and commerc"
+    },
+    {
+     "theme": "investment security portfolio duration extension",
+     "quote": "The weighted-average duration of that portfolio was 3.1 years at March 31, 2026 as compared with 2.4 years and 2.5 years at December 31, 2025 and March 31, 2025, respectively."
+    },
+    {
+     "theme": "share repurchase acceleration",
+     "quote": "M&T repurchased 5.5 million shares of its common stock during the recent quarter at a total cost of $1.25 billion, compared with 2.7 million shares at a total cost of $507 million in the fourth quarter of 2025."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-18",
+   "source": "SEC 10-K MD&A",
+   "words": 68713,
+   "themes": [
+    {
+     "theme": "digital banking expansion",
+     "quote": "We continue to invest in digital banking capabilities and technology infrastructure to support customer growth and enhance our competitive position"
+    },
+    {
+     "theme": "commercial real estate portfolio stress",
+     "quote": "Commercial real estate exposures remained elevated with higher delinquencies and criticized assets reflecting broader market headwinds"
+    },
+    {
+     "theme": "deposit gathering and retention",
+     "quote": "We focused on maintaining stable deposit levels through competitive pricing and enhanced customer service offerings"
+    },
+    {
+     "theme": "cost management and efficiency",
+     "quote": "We are focused on controlling noninterest expenses through disciplined cost management and operational efficiency initiatives"
+    },
+    {
+     "theme": "risk management and credit quality",
+     "quote": "Enhanced our credit risk management processes to address elevated credit exposures and monitor emerging risks in key portfolios"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-27",
+   "source": "SEC 10-Q MD&A",
+   "words": 14188,
+   "themes": [
+    {
+     "theme": "commercial real estate concentration reduction",
+     "quote": "The Company executed various strategies to lessen its relative concentration of investor-owned commercial real estate loans throughout 2024 and to reduce criticized loans in this category through 2025."
+    },
+    {
+     "theme": "net interest margin optimization",
+     "quote": "the net interest margin expanded 6 basis points...reflecting favorable earning assets and interest-bearing liabilities repricing"
+    },
+    {
+     "theme": "mortgage banking revenue expansion",
+     "quote": "higher residential mortgage banking revenues and a rise in other revenues from operations...The increase in residential mortgage banking revenues in the third quarter of 2025 as compared with the second quarter of 2025 reflects a rise in th"
+    },
+    {
+     "theme": "technology infrastructure enhancement",
+     "quote": "$45 million increase in outside data processing and software costs reflecting costs associated with enhancements to the Company's technology infrastructure, cybersecurity and financial recordkeeping and reporting systems"
+    },
+    {
+     "theme": "long-term debt requirements preparation",
+     "quote": "diversify its wholesale funding sources to provide long-term funding stabilization and prepare for proposed regulations enumerating certain long-term debt requirements"
+    }
+   ]
+  }
+ ]
+}

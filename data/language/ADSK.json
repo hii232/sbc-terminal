@@ -1,0 +1,90 @@
+{
+ "name": "Autodesk, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 5482,
+   "themes": [
+    {
+     "theme": "agentic ai platform development",
+     "quote": "Autodesk has invested in the development, scaling, and monetization of agentic AI in design, engineering, manufacturing, and construction industries"
+    },
+    {
+     "theme": "cloud product migration",
+     "quote": "We believe that customer adoption of these latest offerings will continue to grow as customers across a range of industries begin to take advantage of the scalable computing power and flexibility provided through these services"
+    },
+    {
+     "theme": "design-to-operations platform convergence",
+     "quote": "By bringing Autodesk Construction Cloud's leading construction management tools into Autodesk Forma, we're delivering a full lifecycle platform for our customers that creates a deeper connection from design to construction to operations"
+    },
+    {
+     "theme": "direct channel expansion",
+     "quote": "We are increasingly transacting directly with customers due to the growth of our online store and sales with Solution Providers"
+    },
+    {
+     "theme": "end-to-end manufacturing solutions",
+     "quote": "In manufacturing, our strategy is to combine organic and acquired software in existing and adjacent verticals to create end-to-end, cloud-based solutions for our customers that drive efficiency and sustainability"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-03",
+   "source": "SEC 10-K MD&A",
+   "words": 8159,
+   "themes": [
+    {
+     "theme": "cloud platform convergence",
+     "quote": "drive customer workflow convergence by delivering a trusted design and make platform that connects people through automation, data, and insights"
+    },
+    {
+     "theme": "generative design and ai integration",
+     "quote": "nearly a decade of investment in artificial intelligence technologies used to augment, automate, and analyze customer workflows"
+    },
+    {
+     "theme": "direct sales channel transition",
+     "quote": "we have been decreasing our sales through resellers and distributors and transacting directly with more end customers"
+    },
+    {
+     "theme": "aeco digital transformation",
+     "quote": "to support our strategic priority of digital transformation in Architecture, Engineering, Construction and Operations (\"AECO\"), we are strengthening our AECO solutions' foundation with both organic and inorganic investments"
+    },
+    {
+     "theme": "fusion product adoption acceleration",
+     "quote": "accelerate adoption of Fusion, Forma, and Flow"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-26",
+   "source": "SEC 10-Q MD&A",
+   "words": 7669,
+   "themes": [
+    {
+     "theme": "cloud platform convergence",
+     "quote": "drive customer workflow convergence by delivering a trusted design and make platform that connects people through automation, data, and insights"
+    },
+    {
+     "theme": "aeco digital transformation",
+     "quote": "we are strengthening our AECO solutions' foundation with both organic and inorganic investments"
+    },
+    {
+     "theme": "manufacturing cloud consolidation",
+     "quote": "combine organic and acquired software in existing and adjacent verticals to create end-to-end, cloud-based solutions for our customers that drive efficiency and sustainability"
+    },
+    {
+     "theme": "direct-to-customer transition",
+     "quote": "with the continued growth of our online Autodesk branded store and our new transaction model, we are transacting directly with more end customers, rather than through distributors"
+    },
+    {
+     "theme": "artificial intelligence capability building",
+     "quote": "we have been investing in AI for over a decade. Our focus is on building AI capabilities that add value to our customers' workloads through augmentation, automation and analysis"
+    }
+   ]
+  }
+ ]
+}

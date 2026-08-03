@@ -1,0 +1,82 @@
+{
+ "name": "HERSHEY CO",
+ "sector": "Staples",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 17006,
+   "themes": [
+    {
+     "theme": "brand acquisition and portfolio expansion",
+     "quote": "completed the acquisition of LesserEvil, LLC which complements Hershey's existing product portfolio and brings additional manufacturing capacity"
+    },
+    {
+     "theme": "organic and better-for-you snacking",
+     "quote": "LesserEvil, LLC produces and sells organic popcorn and puffed snack products"
+    },
+    {
+     "theme": "emerging brand integration",
+     "quote": "completed the acquisition of the Sour Strips brand from Actual Candy, LLC. Sour Strips is an emerging sour candy brand"
+    },
+    {
+     "theme": "supply chain and manufacturing optimization",
+     "quote": "leveraging our brand building expertise, supply chain capabilities and retail relationships to accelerate growth"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 14734,
+   "themes": [
+    {
+     "theme": "supply chain automation and efficiency",
+     "quote": "improve supply chain and manufacturing-related spend, optimize selling, general and administrative expenses, leverage new technology and business models to further simplify and automate processes"
+    },
+    {
+     "theme": "emerging snacking brands acquisition",
+     "quote": "acquire ownership interests in emerging snacking businesses and startup companies"
+    },
+    {
+     "theme": "organic popcorn and puffed snacks expansion",
+     "quote": "acquisition of LesserEvil, LLC produces and sells organic popcorn and puffed snack products which complements Hershey's existing product portfolio and brings additional manufacturing capacity"
+    },
+    {
+     "theme": "sour candy brand portfolio",
+     "quote": "completed the acquisition of the Sour Strips brand from Actual Candy, LLC. Sour Strips is an emerging sour candy brand"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-17",
+   "source": "SEC 10-K MD&A",
+   "words": 43309,
+   "themes": [
+    {
+     "theme": "automation and operational efficiency",
+     "quote": "Advancing Agility Automation Initiative"
+    },
+    {
+     "theme": "international business optimization",
+     "quote": "International Optimization Program"
+    },
+    {
+     "theme": "portfolio acquisitions and brand expansion",
+     "quote": "market, sell, and distribute our products under more than 85 brand names in approximately 65 countries worldwide"
+    },
+    {
+     "theme": "snacking category growth",
+     "quote": "North America Salty Snacks"
+    },
+    {
+     "theme": "supply chain restructuring",
+     "quote": "restructuring charges"
+    }
+   ]
+  }
+ ]
+}

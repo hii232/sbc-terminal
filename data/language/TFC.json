@@ -1,0 +1,98 @@
+{
+ "name": "TRUIST FINANCIAL CORP",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 10101,
+   "themes": [
+    {
+     "theme": "deposit-centric funding strategy",
+     "quote": "maintain (i) a diversified, but client deposit centric, funding base"
+    },
+    {
+     "theme": "commercial loan growth",
+     "quote": "WB average loans HFI increased $14.8 billion, or 8.2%, for the second quarter of 2026 compared to the second quarter of 2025, primarily due to increases in average commercial and industrial loan balances"
+    },
+    {
+     "theme": "wealth management expansion",
+     "quote": "Wealth management income increased primarily due to higher assets under management"
+    },
+    {
+     "theme": "capital markets revenue diversification",
+     "quote": "Investment banking and trading income increased primarily due to higher trading income and capital markets revenue"
+    },
+    {
+     "theme": "technology talent investment",
+     "quote": "higher investments in enterprise technology talent"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 9176,
+   "themes": [
+    {
+     "theme": "commercial loan growth",
+     "quote": "WB average loans HFI increased $15.4 billion, or 8.6%, for the first quarter of 2026 compared to the first quarter of 2025, primarily due to increases in average commercial and industrial loan balances."
+    },
+    {
+     "theme": "deposit funding diversification",
+     "quote": "Truist funds its balance sheet through diverse sources of funding, including client deposits, secured and unsecured capital markets funding, and shareholders' equity."
+    },
+    {
+     "theme": "capital return to shareholders",
+     "quote": "During the first quarter of 2026, we returned $1.8 billion of capital to our common shareholders through $645 million of common stock dividends and $1.1 billion in common share repurchases."
+    },
+    {
+     "theme": "scalable technology investment",
+     "quote": "continued to invest in scalable technology to better serve our clients and operate more efficiently"
+    },
+    {
+     "theme": "wealth management expansion",
+     "quote": "Wealth management income increased primarily due to higher assets under management."
+    },
+    {
+     "theme": "investment banking and trading",
+     "quote": "Investment banking and trading income increased primarily due to higher trading income and capital markets activity."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 17479,
+   "themes": [
+    {
+     "theme": "commercial middle market expansion",
+     "quote": "capture more of the commercial middle market with an industry banking strategy"
+    },
+    {
+     "theme": "deposit growth and premier client acquisition",
+     "quote": "grow deposits with a focus on Premier clients, increase client acquisition"
+    },
+    {
+     "theme": "investment banking and capital markets momentum",
+     "quote": "continue momentum in Investment Banking and Capital Markets"
+    },
+    {
+     "theme": "digital acquisition and engagement",
+     "quote": "drive digital acquisition and client engagement"
+    },
+    {
+     "theme": "positive operating leverage",
+     "quote": "Drive positive operating leverage through revenue growth and expense discipline"
+    },
+    {
+     "theme": "talent and technology investment",
+     "quote": "Invest in talent, technology, and our risk infrastructure"
+    }
+   ]
+  }
+ ]
+}

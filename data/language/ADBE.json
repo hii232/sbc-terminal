@@ -1,0 +1,86 @@
+{
+ "name": "ADOBE INC.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-15",
+   "source": "SEC 10-Q MD&A",
+   "words": 24231,
+   "themes": [
+    {
+     "theme": "generative ai product integration",
+     "quote": "enhances our ability to serve marketers at every scale, with solutions for search engine optimization, generative engine optimization and agentic search optimization"
+    },
+    {
+     "theme": "marketing cloud expansion",
+     "quote": "acquisition of Semrush Holdings, Inc., a publicly held brand visibility platform company"
+    },
+    {
+     "theme": "subscription revenue growth",
+     "quote": "Subscription revenue for the three and six months ended May 29, 2026"
+    },
+    {
+     "theme": "deferred revenue expansion",
+     "quote": "deferred revenue was $7.25 billion, which includes $99 million of refundable customer deposits"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-25",
+   "source": "SEC 10-Q MD&A",
+   "words": 23268,
+   "themes": [
+    {
+     "theme": "generative ai feature development",
+     "quote": "we are integrating generative AI capabilities across our product portfolio to enhance customer value and drive innovation"
+    },
+    {
+     "theme": "subscription revenue growth",
+     "quote": "Subscription revenue for the three months ended February 27, 2026 and February 28, 2025 were as follows"
+    },
+    {
+     "theme": "enterprise customer expansion",
+     "quote": "Arrangements with some of our enterprise customers with non-cancellable and non-refundable committed funds provide options to either renew monthly on-premise term-based licenses or use some or all funds to purchase other Adobe products or s"
+    },
+    {
+     "theme": "cloud-enabled software delivery",
+     "quote": "Our revenue is derived from the sale of cloud-enabled software subscriptions, cloud-hosted offerings, term-based, royalty, and perpetual software licenses"
+    },
+    {
+     "theme": "digital media platform acquisitions",
+     "quote": "On November 18, 2025, we entered into a definitive agreement to acquire Semrush Holdings, Inc., a publicly held brand visibility platform company, for approximately $1.9 billion"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-15",
+   "source": "SEC 10-K MD&A",
+   "words": 43809,
+   "themes": [
+    {
+     "theme": "generative ai model expansion",
+     "quote": "we offer customers flexibility to use the model of their choice directly within certain Adobe solutions to best serve their needs"
+    },
+    {
+     "theme": "agentic workflow automation",
+     "quote": "We are building agents on the Adobe Experience Platform, informed by our deep understanding of our customers' needs and the complexity of delivering content at scale, to redefine and simplify the future of customer connection"
+    },
+    {
+     "theme": "end-to-end content supply chain",
+     "quote": "Adobe GenStudio is an end-to-end, content supply chain solution for ideation, creation, production, activation, delivery, asset management, analytics and insights"
+    },
+    {
+     "theme": "commercial ai safety",
+     "quote": "Adobe leverages a rich dataset sourced from licensed content and public domain assets to train our Firefly generative AI models that are commercially safe for our customers"
+    },
+    {
+     "theme": "customer data platform integration",
+     "quote": "Adobe Experience Platform is a customer data platform that serves as a foundation in enterprises for digital customer engagement and brings together AI-powered apps and agents"
+    }
+   ]
+  }
+ ]
+}

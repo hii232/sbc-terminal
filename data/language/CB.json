@@ -1,0 +1,82 @@
+{
+ "name": "Chubb Ltd",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 22004,
+   "themes": [
+    {
+     "theme": "alternative investment expansion",
+     "quote": "reserved alternative investment fund"
+    },
+    {
+     "theme": "life insurance portfolio management",
+     "quote": "term life insurance, universal life, whole life insurance, accident and health insurance"
+    },
+    {
+     "theme": "property casualty insurance segments",
+     "quote": "North America Commercial PC Insurance, North American Personal PC, North American Agriculture, Overseas General, Global Reinsurance"
+    },
+    {
+     "theme": "derivative hedging program",
+     "quote": "foreign exchange futures, futures contracts, convertibles and bonds with warrants attached"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 20654,
+   "themes": [
+    {
+     "theme": "alternative investment expansion",
+     "quote": "increased focus on alternative investments and hedge funds as part of diversified portfolio strategy"
+    },
+    {
+     "theme": "life insurance portfolio optimization",
+     "quote": "ongoing efforts to optimize life insurance product mix and underwriting practices"
+    },
+    {
+     "theme": "investment yield enhancement",
+     "quote": "focus on increasing net investment income through strategic allocation to higher-yielding fixed maturity securities"
+    },
+    {
+     "theme": "operational efficiency improvements",
+     "quote": "continued emphasis on operational efficiency and cost management across insurance segments"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-27",
+   "source": "SEC 10-K MD&A",
+   "words": 21415,
+   "themes": [
+    {
+     "theme": "asbestos and environmental reserve management",
+     "quote": "The estimation of our A&E liabilities is particularly sensitive to future changes in the legal, social, and economic environment"
+    },
+    {
+     "theme": "long-tail casualty loss reserving",
+     "quote": "reserve estimates for casualty lines are particularly uncertain given the lengthy reporting patterns and corresponding need for IBNR"
+    },
+    {
+     "theme": "reinsurance counterparty credit risk",
+     "quote": "To estimate the valuation allowance for uncollectible reinsurance, the reinsurance recoverable must first be determined for each reinsurer"
+    },
+    {
+     "theme": "life insurance assumption management",
+     "quote": "Best estimate assumptions are reviewed and updated at least annually, and may be updated in interim periods if we observe a material change indicative of a long-term trend"
+    },
+    {
+     "theme": "catastrophe loss volatility",
+     "quote": "losses arising out of natural or man-made catastrophes"
+    }
+   ]
+  }
+ ]
+}

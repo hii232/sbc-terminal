@@ -1,0 +1,90 @@
+{
+ "name": "IREN Ltd",
+ "sector": "AI Infrastructure",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 23856,
+   "themes": [
+    {
+     "theme": "ai cloud services expansion",
+     "quote": "The Group is a vertically integrated provider of AI Cloud Services, delivering large-scale data centers and GPU clusters for AI training and inference."
+    },
+    {
+     "theme": "gpu cluster buildout",
+     "quote": "delivering large-scale data centers and GPU clusters for AI training and inference"
+    },
+    {
+     "theme": "renewable power infrastructure",
+     "quote": "The Company's platform is underpinned by an expansive portfolio of grid-connected land and power in renewable-rich regions across the globe."
+    },
+    {
+     "theme": "bitcoin mining operations",
+     "quote": "The Bitcoin mining segment generates revenue by mining Bitcoin with the Group's ASIC hardware"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 26080,
+   "themes": [
+    {
+     "theme": "ai cloud services buildout",
+     "quote": "leading provider of AI Cloud Services, delivering large-scale GPU clusters for AI training and inference"
+    },
+    {
+     "theme": "gpu hardware financing",
+     "quote": "The Group accounts for certain finance leases related to GPU financing arrangements using a portfolio approach"
+    },
+    {
+     "theme": "grid-connected data center expansion",
+     "quote": "vertically integrated platform is underpinned by an expansive portfolio of grid-connected land and data centers in renewable-rich regions across the U.S. and Canada"
+    },
+    {
+     "theme": "bitcoin mining operations",
+     "quote": "Bitcoin mining segment generates revenue by mining Bitcoin with the Group's ASIC hardware"
+    },
+    {
+     "theme": "liquid cooling system development",
+     "quote": "ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid cooling systems"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 8600,
+   "themes": [
+    {
+     "theme": "hpc and ai services expansion",
+     "quote": "we are increasing our focus on diversification into HPC and AI services, including the provision of AI Cloud Services and potential colocation services"
+    },
+    {
+     "theme": "gpu infrastructure buildout",
+     "quote": "we entered into purchase order with respect to approximately 2,400 GPUs for a total purchase price of approximately $130 million, which are to be delivered by the end of calendar year 2025"
+    },
+    {
+     "theme": "direct-to-chip liquid cooling deployment",
+     "quote": "we are advancing the design of direct-to-chip liquid cooling systems, including to support an initial IT load of up to 200MW (based on rack density of 200kW, subject to customer requirements) liquid-cooled deployment at Childress"
+    },
+    {
+     "theme": "low-cost power acquisition",
+     "quote": "a key measure of the performance factor of our business is our ability to secure low-cost power, and similarly a key measure of the performance of our Bitcoin mining operations is the amount of power used to mine each Bitcoin"
+    },
+    {
+     "theme": "mining fleet efficiency upgrades",
+     "quote": "to remain cost competitive compared to other mining sector participants, we expect we will need to maintain an energy efficient mining fleet, which will require capital outlays to purchase new miners"
+    },
+    {
+     "theme": "bitcoin mining hashrate expansion",
+     "quote": "Average operating hashrate increased to 45.3 EH/s for the three months ended September 30, 2025 as compared to 12.1 EH/s for the three months ended September 30, 2024"
+    }
+   ]
+  }
+ ]
+}

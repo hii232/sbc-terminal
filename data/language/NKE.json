@@ -1,0 +1,74 @@
+{
+ "name": "NIKE, Inc.",
+ "sector": "Apparel",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-15",
+   "source": "SEC 10-K MD&A",
+   "words": 8045,
+   "themes": [
+    {
+     "theme": "inventory reduction and repositioning",
+     "quote": "liquidating inventory through increased markdowns across NIKE Direct, and higher sales returns and discounts with our wholesale partners to reduce inventory and create capacity for new product"
+    },
+    {
+     "theme": "direct-to-consumer channel shift",
+     "quote": "Repositioning NIKE Brand Digital as a full-price platform and reinvesting in wholesale distribution"
+    },
+    {
+     "theme": "footwear portfolio rebalancing",
+     "quote": "Accelerating product innovation and reducing the supply of certain footwear products in the marketplace to rebalance the mix of our footwear portfolio"
+    },
+    {
+     "theme": "brand marketing investment increase",
+     "quote": "Increasing investment in demand creation including brand marketing and sports marketing, to support key product launches and sports moments"
+    },
+    {
+     "theme": "supply chain and technology restructuring",
+     "quote": "taken steps to operate more efficiently and profitably, primarily through realigning costs across our supply chain and technology to serve an integrated marketplace"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 1967,
+   "themes": [
+    {
+     "theme": "foreign exchange hedging program",
+     "quote": "Transactional exposures are managed on a portfolio basis within our foreign currency risk management program. We manage these exposures by taking advantage of natural offsets and currency correlations that exist within the portfolio and may"
+    },
+    {
+     "theme": "working capital management",
+     "quote": "The net change in certain working capital components and other assets and liabilities was primarily driven by an increase in Accounts receivable, a decrease in Accounts payable and a decrease in Income taxes payable"
+    },
+    {
+     "theme": "capital allocation discipline",
+     "quote": "We paused repurchases under this program during the first quarter of fiscal 2026. The existing program remains authorized by the Board of Directors and we may resume share repurchases in the future at any time, depending upon market conditi"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 1682,
+   "themes": [
+    {
+     "theme": "foreign exchange hedging strategy",
+     "quote": "Transactional exposures are managed on a portfolio basis within our foreign currency risk management program. We manage these exposures by taking advantage of natural offsets and currency correlations that exist within the portfolio and may"
+    },
+    {
+     "theme": "tariff cost absorption",
+     "quote": "The change in Accounts receivable was primarily due to increased wholesale revenues. This was partially offset by a change in Inventories due to lower purchases partially offset by increases in product costs, inclusive of higher tariffs in "
+    },
+    {
+     "theme": "share repurchase program suspension",
+     "quote": "We paused repurchases under this program during the first quarter of fiscal 2026, due to lower operating cash flows in the current year"
+    }
+   ]
+  }
+ ]
+}

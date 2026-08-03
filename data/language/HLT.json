@@ -1,0 +1,90 @@
+{
+ "name": "Hilton Worldwide Holdings Inc.",
+ "sector": "Travel",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 10945,
+   "themes": [
+    {
+     "theme": "franchise system expansion",
+     "quote": "our strategic objectives include the continued expansion of our global hotel network, in particular our fee-based business"
+    },
+    {
+     "theme": "loyalty program monetization",
+     "quote": "we had 260 million members in our award-winning guest loyalty program, Hilton Honors, an increase of 15 percent from June 30, 2025"
+    },
+    {
+     "theme": "debt refinancing and capital management",
+     "quote": "In May 2026, we issued $1.0 billion aggregate principal amount of 5.500% Senior Notes due 2031"
+    },
+    {
+     "theme": "comparable hotel performance optimization",
+     "quote": "System-wide RevPAR increased during the three and six months ended June 30, 2026, primarily due to improvements in system-wide ADR"
+    },
+    {
+     "theme": "development pipeline growth",
+     "quote": "our development pipeline represents hotels that we expect to add to our system in the future, with almost half of the rooms under construction and more than half of the rooms located outside of the U.S."
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 9857,
+   "themes": [
+    {
+     "theme": "franchise expansion pipeline",
+     "quote": "our strategic objectives include the continued expansion of our global hotel network, in particular our fee-based business"
+    },
+    {
+     "theme": "loyalty program monetization",
+     "quote": "Hilton Honors, an increase of 15 percent from March 31, 2025"
+    },
+    {
+     "theme": "management contracts growth",
+     "quote": "By increasing the number of management and franchise contracts with third-party owners, over time we expect to increase revenues, overall return on invested capital and free cash flow"
+    },
+    {
+     "theme": "debt optimization",
+     "quote": "In both July 2025 and December 2025, we issued $1.0 billion Senior Notes for a total aggregate principal amount of $2.0 billion"
+    },
+    {
+     "theme": "asset-light model scaling",
+     "quote": "we expand our business with limited or no capital investment by us as the manager, franchisor or licensor, since the capital required to build, renovate and maintain hotels is typically provided by the third-party owners"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 8410,
+   "themes": [
+    {
+     "theme": "franchise system expansion",
+     "quote": "our strategic objectives include the continued expansion of our global hotel network, in particular our fee-based business"
+    },
+    {
+     "theme": "asset-light growth model",
+     "quote": "we expand our business with limited or no capital investment by us as the manager, franchisor or licensor, since the capital required to build, renovate and maintain hotels is typically provided by the third-party owners"
+    },
+    {
+     "theme": "loyalty program monetization",
+     "quote": "Hilton Honors, an increase of 15 percent from December 31, 2024"
+    },
+    {
+     "theme": "development pipeline acceleration",
+     "quote": "The hotels in our development pipeline were under development throughout 129 countries and territories, including 26 countries and territories where we had no existing hotels, with almost half of the rooms under construction"
+    },
+    {
+     "theme": "strategic partnership licensing",
+     "quote": "Licensing fees increased $104 million primarily as a result of an increase in fees from our strategic partnerships, predominantly resulting from activity under our co-branded credit card arrangements"
+    }
+   ]
+  }
+ ]
+}

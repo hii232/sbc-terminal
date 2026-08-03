@@ -1,0 +1,86 @@
+{
+ "name": "CAPITAL ONE FINANCIAL CORP",
+ "sector": "Payments",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 1087,
+   "themes": [
+    {
+     "theme": "payment network consolidation",
+     "quote": "through the acquisition of Discover, we acquired new products, including personal loans as well as the Discover Network, the PULSE Network and Diners Club (collectively, the \"Global Payment Network\")"
+    },
+    {
+     "theme": "digital channel expansion",
+     "quote": "delivering a broad array of financial products and services to consumers, small businesses and commercial clients through digital channels, branch locations, caf\u00e9s and other distribution channels"
+    },
+    {
+     "theme": "cross-segment product integration",
+     "quote": "The operations of acquired businesses have been integrated into or managed as a part of our existing business segments"
+    },
+    {
+     "theme": "commercial banking expansion",
+     "quote": "Commercial Banking: Consists of our lending, deposit gathering, capital markets and treasury management services to commercial real estate and commercial and industrial customers"
+    },
+    {
+     "theme": "consumer lending portfolio growth",
+     "quote": "acquired new products, including personal loans as well as the Discover Network"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 1081,
+   "themes": [
+    {
+     "theme": "payment network consolidation",
+     "quote": "through the acquisition of Discover, we acquired new products including personal loans as well as the Discover Network, the PULSE Network and Diners Club (collectively, the \"Global Payment Network\")"
+    },
+    {
+     "theme": "digital channel expansion",
+     "quote": "We service banking customer accounts through digital channels and our network of branch locations, caf\\\\\\\\'es, call centers and automated teller machines (\\\"ATMs\\\")"
+    },
+    {
+     "theme": "commercial lending expansion",
+     "quote": "Commercial Banking: Consists of our lending, deposit gathering, capital markets and treasury management services to commercial real estate and commercial and industrial customers"
+    },
+    {
+     "theme": "deposit gathering integration",
+     "quote": "Consumer Banking: Consists of our deposit gathering and lending activities for consumers and small businesses, national auto lending and services offered by the Global Payment Network"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-19",
+   "source": "SEC 10-K MD&A",
+   "words": 25937,
+   "themes": [
+    {
+     "theme": "discover card portfolio integration",
+     "quote": "The Transaction contributed $108.2 billion of loans held for investment as of the Closing Date"
+    },
+    {
+     "theme": "global payment network acquisition",
+     "quote": "Non-interest income increased by $980 million to $1.7 billion in 2025 primarily driven by the impacts of acquiring the Global Payment Network in the Transaction"
+    },
+    {
+     "theme": "deposit base expansion",
+     "quote": "Total deposits increased by $113.1 billion to $475.8 billion as of December 31, 2025 from December 31, 2024 primarily driven by the Transaction and continued growth from our national banking strategy"
+    },
+    {
+     "theme": "technology and marketing investments",
+     "quote": "Higher non-interest expense primarily driven by the impacts of the Transaction, continued investments in technology and higher marketing spend"
+    },
+    {
+     "theme": "credit card loan growth",
+     "quote": "Period-end loans held for investment increased by $117.1 billion to $279.6 billion as of December 31, 2025 from December 31, 2024 primarily driven by the Transaction and growth across our portfolio"
+    }
+   ]
+  }
+ ]
+}

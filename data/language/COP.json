@@ -1,0 +1,86 @@
+{
+ "name": "CONOCOPHILLIPS",
+ "sector": "Energy",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 13013,
+   "themes": [
+    {
+     "theme": "lng project development",
+     "quote": "Port Arthur LNG (PALNG), a joint venture for the development of a large-scale LNG facility. At March 31, 2026, the carrying value of our equity method investment in PALNG was approximately $1.6 billion."
+    },
+    {
+     "theme": "qatar north field expansion",
+     "quote": "QatarEnergy LNG N(3) (N3)\u201430 percent owned joint venture...produces and liquefies natural gas from Qatar's North Field, as well as exports LNG. QatarEnergy LNG NFE(4) (NFE4)\u201425 percent owned joint venture...participant in the North Field Ea"
+    },
+    {
+     "theme": "australia pacific lng operations",
+     "quote": "In Australia, we hold a 47.5 percent shareholding interest in APLNG. At March 31, 2026, the outstanding balance of APLNG's debt was $3.1 billion. The last principal and interest payment on the debt is due in September 2032."
+    },
+    {
+     "theme": "commodity hedging strategy",
+     "quote": "We use futures, forwards, swaps and options in various markets to meet our customer needs, capture market opportunities and manage foreign exchange currency risk."
+    },
+    {
+     "theme": "debt refinancing and interest rate management",
+     "quote": "In 2023, PALNG executed interest rate swaps that had the effect of converting 60 percent of the projected term loans outstanding to finance the cost of development and construction of Phase 1 from floating- to fixed-rate."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-17",
+   "source": "SEC 10-K MD&A",
+   "words": 58423,
+   "themes": [
+    {
+     "theme": "lng project development",
+     "quote": "North Field East and North Field South projects continue construction with investment in LNG capacity"
+    },
+    {
+     "theme": "alaska exploration expansion",
+     "quote": "West Willow and Narwhal trend projects represent significant exploratory well programs in Alaska"
+    },
+    {
+     "theme": "lower 48 asset divestiture",
+     "quote": "Completed sales of Ursa Europa Fields, Anadarko Basin assets, and certain nonccore assets during 2025"
+    },
+    {
+     "theme": "marathon oil integration",
+     "quote": "Completed acquisition of Marathon Oil Corporation in November 2024, integrating Lower 48 operations"
+    },
+    {
+     "theme": "maintained capital discipline",
+     "quote": "Directed capital allocation toward high-return projects while managing debt levels and shareholder returns"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 17758,
+   "themes": [
+    {
+     "theme": "lng project expansion",
+     "quote": "Port Arthur LNG (PALNG) We hold a 30 percent direct equity investment in PALNG, a joint venture for the development of a large-scale LNG facility"
+    },
+    {
+     "theme": "lower 48 asset portfolio optimization",
+     "quote": "In July 2025, we entered into an agreement to divest Lower 48 assets in the Anadarko basin for $ 1.3 billion"
+    },
+    {
+     "theme": "marathon oil integration",
+     "quote": "In November 2024, we completed our acquisition of Marathon Oil, an independent oil and gas exploration and production company with operations across the Lower 48 and in Equatorial Guinea"
+    },
+    {
+     "theme": "equity method lng investments",
+     "quote": "QatarEnergy LNG N(3) (N3)\u2014 30 percent owned joint venture with affiliates of QatarEnergy ( 68.5 percent) and Mitsui & Co., Ltd. ( 1.5 percent)\u2014produces and liquefies natural gas from Qatar's North Field, as well as exports LNG"
+    }
+   ]
+  }
+ ]
+}

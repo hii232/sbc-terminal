@@ -1,0 +1,70 @@
+{
+ "name": "NXP Semiconductors N.V.",
+ "sector": "Semis",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 585,
+   "themes": [
+    {
+     "theme": "automotive semiconductor expansion",
+     "quote": "NXP has one reportable segment representing the entity as a whole, aligning with our organizational structure and with the way our chief operating decision maker manages the growth and profitability of the Company"
+    },
+    {
+     "theme": "portfolio optimization through divestitures",
+     "quote": "Represents the fair value on the closing date of the earn-out receivable from the divestiture of our MEMS Sensors business"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 584,
+   "themes": [
+    {
+     "theme": "automotive semiconductor expansion",
+     "quote": "automotive market demand and NXP's positioning in vehicle electrification and autonomous driving technologies"
+    },
+    {
+     "theme": "edge computing and iot connectivity",
+     "quote": "growth in Internet of Things and edge computing applications requiring our microcontroller and connectivity solutions"
+    },
+    {
+     "theme": "industrial and infrastructure modernization",
+     "quote": "increased demand from industrial automation and smart infrastructure deployments across manufacturing sectors"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-19",
+   "source": "SEC 10-K MD&A",
+   "words": 6816,
+   "themes": [
+    {
+     "theme": "automotive software-defined vehicles",
+     "quote": "TTTech Auto acquisition complements and expands NXP's system and software offerings in the Automotive and Industrial & IoT end markets"
+    },
+    {
+     "theme": "edge ai neural processing",
+     "quote": "Kinara is an industry leader in high performance, energy-efficient and programmable discrete neural processing units (NPUs). The Kinara acquisition complements and expands NXP's solutions for AI-powered edge systems"
+    },
+    {
+     "theme": "in-vehicle connectivity solutions",
+     "quote": "Aviva Links is a provider of Automotive SerDes Alliance (ASA) compliant in-vehicle connectivity solutions"
+    },
+    {
+     "theme": "foundry capacity commitments",
+     "quote": "NXP has committed to invest approximately $1,600 million in equity of the recently founded company VSMC and an agreed purchase commitment with VSMC that over the lifetime of the factory the minimal loading will be between 80% - 90%"
+    },
+    {
+     "theme": "european semiconductor manufacturing",
+     "quote": "EIB Facility agreements provide for an aggregate \u20ac1,000 million in unsecured senior loan facilities, the proceeds from which are expected to fund the research, development and innovation of semiconductor devices, technologies and solutions "
+    }
+   ]
+  }
+ ]
+}

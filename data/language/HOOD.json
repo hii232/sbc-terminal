@@ -1,0 +1,94 @@
+{
+ "name": "Robinhood Markets, Inc.",
+ "sector": "Fintech Brokerage",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 3350,
+   "themes": [
+    {
+     "theme": "prediction markets expansion",
+     "quote": "Event contracts revenues increased primarily due to an acceleration in our prediction markets business, reflecting higher trading activity compared to the same period in 2025 when the offering was still in its early stage."
+    },
+    {
+     "theme": "credit card business growth",
+     "quote": "net interest revenues increased by $32 million and $101 million for the three and six months ended June 30, 2026, primarily driven by higher margin interest and net credit card interest, due to increased margin borrowers and the growth in o"
+    },
+    {
+     "theme": "options trading expansion",
+     "quote": "Options revenues increased due to a 43% and 32% increase in Options Contracts Traded per trader."
+    },
+    {
+     "theme": "subscription revenue monetization",
+     "quote": "Robinhood Gold Subscribers increased 39% to 4.84 million compared to 3.48 million"
+    },
+    {
+     "theme": "cryptocurrency trading services",
+     "quote": "Cryptocurrencies revenues decreased primarily due to lower cryptocurrency rebate rates from crypto market makers, a 16% and 24% decrease in the number of users placing cryptocurrency trades, and a 20% and 21% decrease in the average Notiona"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 3103,
+   "themes": [
+    {
+     "theme": "prediction markets expansion",
+     "quote": "Event contracts revenues increased primarily due to an acceleration in our prediction markets business, reflecting higher trading activity compared to Q1 2025 when the offering was still in its early stage"
+    },
+    {
+     "theme": "credit card product growth",
+     "quote": "higher margin interest and net credit card interest, due to increased margin borrowers and the growth in our credit card business"
+    },
+    {
+     "theme": "government treasury account infrastructure",
+     "quote": "Robinhood will serve as broker and sole initial trustee for the Trump Accounts on behalf of the U.S. Department of the Treasury"
+    },
+    {
+     "theme": "strategic acquisitions integration",
+     "quote": "software and tool expenses driven by the integration of acquired businesses and continued growth of our business"
+    },
+    {
+     "theme": "subscription revenue diversification",
+     "quote": "Robinhood Gold subscription revenues due to growth in Robinhood Gold Subscribers, revenues earned from coin listings, and revenues derived from acquired businesses"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-18",
+   "source": "SEC 10-K MD&A",
+   "words": 5422,
+   "themes": [
+    {
+     "theme": "cryptocurrency trading expansion",
+     "quote": "Cryptocurrencies revenues increased primarily due to higher cryptocurrency rebate rates from crypto market makers and a 6% increase in the number of users placing cryptocurrency trades"
+    },
+    {
+     "theme": "options trading growth",
+     "quote": "Options revenues increased primarily due to higher option rebate rates due to the mix of ticker symbols traded as different ticker symbols pay different rebate rates. In addition, options revenues increased due to a 12% increase in Options "
+    },
+    {
+     "theme": "subscription revenue monetization",
+     "quote": "Robinhood Gold Subscribers increased 58% to 4.18 million compared to 2.64 million"
+    },
+    {
+     "theme": "geographic expansion through acquisition",
+     "quote": "In December 2025, we entered into agreements to acquire PT Buana Capital Sekuritas, an Indonesian brokerage, and PT Pedagang Aset Kripto, a licensed Indonesian digital financial asset trader"
+    },
+    {
+     "theme": "credit card product development",
+     "quote": "credit card related provision for credit losses mainly due to higher balances in purchased credit card receivables"
+    },
+    {
+     "theme": "margin lending and cash deposits",
+     "quote": "net interest revenues increased by $405 million, primarily driven by growth in our interest-earning asset balances and securities lending activities"
+    }
+   ]
+  }
+ ]
+}

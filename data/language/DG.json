@@ -1,0 +1,98 @@
+{
+ "name": "DOLLAR GENERAL CORP",
+ "sector": "Retail",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-02",
+   "source": "SEC 10-Q MD&A",
+   "words": 9627,
+   "themes": [
+    {
+     "theme": "inventory shrink and damage reduction",
+     "quote": "Inventory shrink has significantly improved from elevated levels in recent years, and although damages remain elevated, we have made progress reducing damages for the last five consecutive quarters."
+    },
+    {
+     "theme": "store format innovation and expansion",
+     "quote": "In 2026, we are utilizing store formats averaging approximately 8,500 square feet of selling space for the significant majority of new stores. These formats allow for expanded high-capacity-cooler counts, an extended queue line, and a broad"
+    },
+    {
+     "theme": "digital commerce and delivery integration",
+     "quote": "The delivery component of our digital initiatives contributes meaningfully to our comparable store sales performance. Third-party delivery services and myDG\u00ae Delivery are available in the majority of our stores, providing added convenience "
+    },
+    {
+     "theme": "non-consumable sales growth",
+     "quote": "non-consumables have outpaced consumables in same-store sales growth for the last five consecutive quarters."
+    },
+    {
+     "theme": "remodel and modernization programs",
+     "quote": "In 2026, we plan to open approximately 450 new stores...remodel approximately 2,000 stores through Project Renovate, remodel approximately 2,250 stores through Project Elevate, and relocate approximately 20 stores, for a total of 4,730 real"
+    },
+    {
+     "theme": "media network and advertising platform",
+     "quote": "the DG Media Network (our platform that connects brand partners with our customers)...these digital efforts will contribute to the continued growth of our DG Media Network."
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-20",
+   "source": "SEC 10-K MD&A",
+   "words": 19456,
+   "themes": [
+    {
+     "theme": "inventory shrink reduction",
+     "quote": "inventory shrinkage and damages may negatively affect our results of operations and financial condition"
+    },
+    {
+     "theme": "private brand expansion",
+     "quote": "The sale of private brand items is an important component of our sales growth and gross profit rate enhancement plans"
+    },
+    {
+     "theme": "non-consumables sales mix",
+     "quote": "our sales mix remains heavily weighted towards consumables, and there is no guarantee that these initiatives will continue to improve our sales mix"
+    },
+    {
+     "theme": "digital and e-commerce capability",
+     "quote": "we currently do not offer traditional online shopping to a significant degree and have seen a greater willingness of our customers to adopt online shopping generally"
+    },
+    {
+     "theme": "store format diversification",
+     "quote": "we have short-term and long-term strategies, initiatives and investments (such as those relating to merchandising, real estate and new store development, mature stores and store remodels (including Project Elevate), international expansion,"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 10378,
+   "themes": [
+    {
+     "theme": "store remodel program expansion",
+     "quote": "In 2025, we expanded our efforts to improve the performance and profitability of our mature stores through the rollout of an incremental remodel program, Project Elevate."
+    },
+    {
+     "theme": "digital and delivery capabilities",
+     "quote": "in September 2024, we partnered with a third-party provider to fully execute a same-day home delivery offering through our DG app and website in select stores. We have significantly expanded this offering to additional stores throughout 202"
+    },
+    {
+     "theme": "larger format store rollout",
+     "quote": "In 2025 and 2026 we expect the significant majority of the new stores to be in one of our 8,500 square foot formats. These formats allow for expanded high-capacity-cooler counts, an extended queue line, and a broader product assortment"
+    },
+    {
+     "theme": "inventory shrink reduction",
+     "quote": "we have made progress in reducing shrink for five consecutive quarters, and we began to see improvement in damages during the first three quarters of 2025."
+    },
+    {
+     "theme": "private label and sourcing growth",
+     "quote": "we remain focused on enhancing our margins through inventory shrink and damage reduction initiatives, as well as pricing and markdown optimization, effective category management and inventory reduction efforts, distribution and transportati"
+    },
+    {
+     "theme": "media network monetization",
+     "quote": "we believe these efforts will contribute to the continued growth of our DG Media Network, our platform that connects brand partners with our customers."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "name": "GENERAL DYNAMICS CORP",
+ "sector": "Defense",
+ "periods": [
+  {
+   "period": "2026Q3",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 4674,
+   "themes": [
+    {
+     "theme": "submarine production capacity expansion",
+     "quote": "We have invested significantly in our facilities and workforce to increase production capacity to meet this demand, and expect to continue to do so"
+    },
+    {
+     "theme": "next-generation combat vehicle development",
+     "quote": "We have also been investing in the development of the next generation of combat vehicles and artillery"
+    },
+    {
+     "theme": "munitions production scaling",
+     "quote": "Demand for our munitions products has been high and is expected to remain at an elevated level given ongoing conflicts and the administration's support for further increases"
+    },
+    {
+     "theme": "european military market expansion",
+     "quote": "Internationally, as a result of ongoing regional conflicts and the overall threat environment, we have seen increased demand, particularly in Europe, for our Combat Systems military products and services"
+    },
+    {
+     "theme": "new aircraft family commercialization",
+     "quote": "We believe our investments in a new family of Gulfstream aircraft will continue to fuel demand. The most recent addition is the G800, which entered into service last year"
+    },
+    {
+     "theme": "supply chain stabilization and hiring",
+     "quote": "To meet this expected demand, there will be increased pressure on the supply chain and our hiring of skilled workers"
+    }
+   ]
+  },
+  {
+   "period": "2026Q2",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 4386,
+   "themes": [
+    {
+     "theme": "submarine production capacity expansion",
+     "quote": "We have invested significantly in our facilities and workforce to increase production capacity to meet this demand, and expect to continue to do so."
+    },
+    {
+     "theme": "munitions manufacturing scale-up",
+     "quote": "Demand for our munitions products has been high and is expected to remain at an elevated level given ongoing conflicts and regional threats."
+    },
+    {
+     "theme": "next-generation combat vehicle development",
+     "quote": "We have also been investing in the development of the next generation of combat vehicles and artillery."
+    },
+    {
+     "theme": "supply chain stabilization and hiring",
+     "quote": "Together with the Navy customer, we have been working to stabilize and grow the supply chain to meet this heightened demand. To meet this expected demand, there will be increased pressure on the supply chain and our hiring of skilled worker"
+    },
+    {
+     "theme": "gulfstream aircraft portfolio expansion",
+     "quote": "We believe our investments in a new family of Gulfstream aircraft will continue to fuel demand. The most recent addition is the G800, which entered into service last year."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-30",
+   "source": "SEC 10-K MD&A",
+   "words": 6245,
+   "themes": [
+    {
+     "theme": "submarine production capacity expansion",
+     "quote": "We have invested in our facilities and workforce to increase production capacity to meet this demand, and expect to continue to do so"
+    },
+    {
+     "theme": "supply chain stabilization and growth",
+     "quote": "Together with the Navy customer, we have been working to stabilize and grow the supply chain to meet this heightened demand"
+    },
+    {
+     "theme": "next-generation aircraft development",
+     "quote": "we believe our investments in a new family of Gulfstream aircraft will continue to fuel demand. The most recent addition is the G800, which entered service in 2025"
+    },
+    {
+     "theme": "international combat vehicle exports",
+     "quote": "Internationally, as a result of ongoing regional conflicts and the overall threat environment, we have seen increased demand, particularly in Europe, for our Combat Systems military products and services"
+    },
+    {
+     "theme": "munitions production expansion",
+     "quote": "Demand for our munitions products has been high and is expected to remain at an elevated level given ongoing conflicts and regional threats"
+    }
+   ]
+  }
+ ]
+}

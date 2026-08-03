@@ -1,0 +1,86 @@
+{
+ "name": "SHOPIFY INC.",
+ "sector": "E-commerce",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 2101,
+   "themes": [
+    {
+     "theme": "payment processing expansion",
+     "quote": "Shopify Payments is a fully integrated payment solution...generating merchant solutions revenue from payment processing fees and currency conversion fees"
+    },
+    {
+     "theme": "merchant solutions monetization",
+     "quote": "merchant solutions revenues accounted for 76% of total revenues...generated from payment processing fees...lending services and financial products, referral fees from partners, the sale of shipping labels...advertising on the Shopify App St"
+    },
+    {
+     "theme": "ai technology integration",
+     "quote": "leverage emerging technologies, including AI"
+    },
+    {
+     "theme": "international localization",
+     "quote": "localize features for specific geographies...due to offering Shopify Payments, Shopify Capital, subscriptions and other billings to select countries in local currency"
+    },
+    {
+     "theme": "enterprise tier expansion",
+     "quote": "Shopify Plus is offered at a starting rate that is several times that of our standard Shopify plans...solving for the complexity of merchants as they grow and scale globally"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 2066,
+   "themes": [
+    {
+     "theme": "merchant solutions revenue mix",
+     "quote": "Merchant solutions are intended to complement subscription solutions by providing additional value to our merchants and increasing their use of our platform"
+    },
+    {
+     "theme": "shopify payments expansion",
+     "quote": "As a result of the continued growth of Shopify Payments, referral fees, other transaction services and other services rendered as part of strategic partnerships and Shopify Capital, our revenues from merchant solutions have increased"
+    },
+    {
+     "theme": "artificial intelligence integration",
+     "quote": "Our future success depends on many factors, including our ability to expand our merchant base; localize features for specific geographies; retain merchants as they grow their businesses on our platform and adopt more features; offer more sa"
+    },
+    {
+     "theme": "paid trial strategy expansion",
+     "quote": "In the year ended December 31, 2025, the MRR growth rate for the period was lower than the same period in 2024 driven by the impact of extending the length of paid trials"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 2116,
+   "themes": [
+    {
+     "theme": "merchant solutions revenue expansion",
+     "quote": "Merchant solutions revenues increased from $4.4 billion in the nine months ended September 30, 2024 to $5.9 billion in the nine months ended September 30, 2025, representing an increase of 35%"
+    },
+    {
+     "theme": "shopify payments market penetration",
+     "quote": "We principally generate merchant solutions revenues from payment processing fees and currency conversion fees from Shopify Payments"
+    },
+    {
+     "theme": "enterprise merchant tiering",
+     "quote": "Shopify Plus solves for the complexity of merchants as they grow and scale globally, offering additional functionality and support, including features like Shopify Audiences, B2B features and Launchpad, for ecommerce automation"
+    },
+    {
+     "theme": "ai-driven platform capabilities",
+     "quote": "leverage emerging technologies, including AI"
+    },
+    {
+     "theme": "international localization and expansion",
+     "quote": "our ability to expand our merchant base; localize features for specific geographies; retain merchants as they grow their businesses on our platform"
+    }
+   ]
+  }
+ ]
+}

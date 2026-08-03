@@ -1,0 +1,94 @@
+{
+ "name": "VERTEX PHARMACEUTICALS INC / MA",
+ "sector": "Biotech",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4700,
+   "themes": [
+    {
+     "theme": "cystic fibrosis label expansion",
+     "quote": "The U.S. Food and Drug Administration (the \"FDA\") approved label extensions for ALYFTREK and TRIKAFTA, expanding availability of these medicines to approximately 95% of all people with CF in the United States"
+    },
+    {
+     "theme": "cell and genetic therapy platform",
+     "quote": "Our research expenses include investment in our pipeline, including our cell and genetic therapy capabilities, which has increased our salary and benefits and infrastructure costs"
+    },
+    {
+     "theme": "pipeline-in-a-product development",
+     "quote": "Povetacicept, has shown potential to treat multiple diseases or conditions and become a pipeline-in-a-product"
+    },
+    {
+     "theme": "geographic out-licensing expansion",
+     "quote": "In January 2025 and June 2025, we entered into agreements with Zai Lab Limited (\"Zai\") and Ono Pharmaceuticals Co., Ltd (\"Ono\"), respectively, for the development and commercialization of povetacicept in various Asian markets"
+    },
+    {
+     "theme": "reimbursement access securing",
+     "quote": "We dedicate substantial management and other resources to obtain and maintain appropriate levels of reimbursement for our products from third-party payors"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-13",
+   "source": "SEC 10-K MD&A",
+   "words": 7950,
+   "themes": [
+    {
+     "theme": "gene-edited cell therapy expansion",
+     "quote": "CASGEVY, our ex-vivo, non-viral CRISPR/Cas9 gene-edited cell therapy, is approved in the U.S., the E.U., the U.K., the Kingdom of Saudi Arabia, the Kingdom of Bahrain, Qatar, the United Arab Emirates, Kuwait, Switzerland and Canada"
+    },
+    {
+     "theme": "pediatric label expansion",
+     "quote": "We expect to begin global regulatory submissions for approvals for CASGEVY in children 5 to 11 years of age, in the first half of 2026 and Following positive results from the clinical trial evaluating TRIKAFTA in children 1 year to less tha"
+    },
+    {
+     "theme": "non-opioid pain franchise",
+     "quote": "JOURNAVX, our selective non-opioid NaV1.8 pain signal inhibitor, is approved in the U.S. for the treatment of people with moderate-to-severe acute pain and more than 550,000 prescriptions for JOURNAVX were written and filled across the hosp"
+    },
+    {
+     "theme": "multi-indication pipeline platform",
+     "quote": "Povetacicept represents a potentially best-in-class approach to control B cell activity in immunoglobulin A nephropathy and primary membranous nephropathy, another B cell-mediated disease"
+    },
+    {
+     "theme": "cell therapy manufacturing infrastructure",
+     "quote": "we have partnered with Lonza to build a 130,000 square foot dedicated new facility operated by Lonza in New Hampshire and we are advancing a diversified pipeline of potentially transformative medicines for serious diseases utilizing a range"
+    },
+    {
+     "theme": "geographic out-licensing",
+     "quote": "In 2025, we entered into agreements with Zai Lab Limited and Ono Pharmaceuticals, Co Ltd respectively, for the development and commercialization of povetacicept in various Asian markets"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 15403,
+   "themes": [
+    {
+     "theme": "gene therapy development expansion",
+     "quote": "povetacicept was in Phase 2 development and had shown potential best-in-class efficacy in IgA nephropathy, a serious, progressive, autoimmune disease of the kidney"
+    },
+    {
+     "theme": "crispr-based hemoglobinopathy treatments",
+     "quote": "CASGEVY was approved by the U.S. Food and Drug Administration in December 2023 for the treatment of SCD"
+    },
+    {
+     "theme": "geographic expansion of pipeline assets",
+     "quote": "we entered into an agreement with Zai Lab Limited for the development and commercialization of povetacicept in mainland China, Hong Kong SAR, Macau SAR, Taiwan region and Singapore"
+    },
+    {
+     "theme": "in-process research acquisitions",
+     "quote": "Our AIPR&D included $76.5 million in the nine months ended September 30, 2025 related to upfront, contingent milestone, or other payments pursuant to our business development transactions"
+    },
+    {
+     "theme": "dual pathway immunotherapy programs",
+     "quote": "povetacicept also holds the potential to benefit patients with other serious autoimmune diseases of the kidney, such as primary membranous nephropathy and lupus nephritis"
+    }
+   ]
+  }
+ ]
+}

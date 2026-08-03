@@ -1,0 +1,90 @@
+{
+ "name": "lululemon athletica inc.",
+ "sector": "Apparel",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 20759,
+   "themes": [
+    {
+     "theme": "tariff cost management",
+     "quote": "higher tariffs...had a significant adverse effect on our business and results of operations in 2025, which continues in 2026"
+    },
+    {
+     "theme": "store expansion in asia",
+     "quote": "We opened 19 net new stores in China Mainland and 13 net new stores in Rest of World which contributed to the respective increases in net revenue"
+    },
+    {
+     "theme": "americas turnaround strategy",
+     "quote": "we have initiated an action plan to drive sustainable net revenue growth in the Americas, structured around three strategic pillars: product creation, product activation, and enterprise enablement"
+    },
+    {
+     "theme": "full price selling focus",
+     "quote": "a plan to increase the reliance of full price selling to drive sustainable revenue growth"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-17",
+   "source": "SEC 10-K MD&A",
+   "words": 37426,
+   "themes": [
+    {
+     "theme": "mens apparel expansion",
+     "quote": "Our men's range is a key pillar of our strategic growth plans"
+    },
+    {
+     "theme": "china mainland store expansion",
+     "quote": "expect the most company-operated store openings in 2026 to be in this market"
+    },
+    {
+     "theme": "omni-channel retail capabilities",
+     "quote": "we continue to evolve and integrate our digital and physical channels in order to enrich our interactions with our guests, and to provide a seamless omni-channel experience"
+    },
+    {
+     "theme": "product innovation and technical fabrics",
+     "quote": "Our design and development team continues to source technically advanced fabrics, with new feel and fit, and craft innovative functional features for our products"
+    },
+    {
+     "theme": "vertical retail store expansion",
+     "quote": "We plan to continue to expand square footage and open new company-operated stores to support our growth objectives"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-11",
+   "source": "SEC 10-Q MD&A",
+   "words": 23134,
+   "themes": [
+    {
+     "theme": "tariff exposure management",
+     "quote": "On April 2, 2025, the United States announced the implementation of a 10% baseline tariff on imports from nearly all countries with higher country-specific tariff rates scheduled to begin April 9, 2025."
+    },
+    {
+     "theme": "china mainland growth acceleration",
+     "quote": "China Mainland comparable sales increased 24%, or 25% on a constant dollar basis."
+    },
+    {
+     "theme": "americas market stabilization",
+     "quote": "We experienced lower average order value, conversion rates, and store traffic in the Americas, partially reflective of economic uncertainty, lower consumer confidence, changes in discretionary spending, and certain product categories experi"
+    },
+    {
+     "theme": "direct-to-consumer expansion",
+     "quote": "The Company conducts its business through a number of different channels in each market, including company-operated stores, e-commerce, outlets, temporary locations, wholesale, license and supply arrangements, and a re-commerce program."
+    },
+    {
+     "theme": "footwear and accessories diversification",
+     "quote": "We expect to continue to broaden our merchandise offerings through expansion across these product areas."
+    },
+    {
+     "theme": "store portfolio optimization",
+     "quote": "There were 796 and 767 company-operated stores as of November 2, 2025 and February 2, 2025, respectively."
+    }
+   ]
+  }
+ ]
+}

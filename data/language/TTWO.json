@@ -1,0 +1,86 @@
+{
+ "name": "TAKE TWO INTERACTIVE SOFTWARE INC",
+ "sector": "Gaming",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-22",
+   "source": "SEC 10-K MD&A",
+   "words": 59330,
+   "themes": [
+    {
+     "theme": "live services monetization",
+     "quote": "Many of our releases offer a steady cadence of post-launch content to drive further engagement with our franchises, including virtual currency, add-on content, and in-game purchases"
+    },
+    {
+     "theme": "mobile portfolio expansion",
+     "quote": "Zynga's strategy is to have numerous games in concept development and to determine which titles are best suited for soft and worldwide launch based on the achievement of various milestones and key performance indicator (KPI) thresholds"
+    },
+    {
+     "theme": "player data and analytics",
+     "quote": "We continue to invest in tools and infrastructure to deepen our understanding of our players and to strengthen our relationships with them. This includes our customer data platform and our customer insights and analytics"
+    },
+    {
+     "theme": "geographic expansion asia",
+     "quote": "we believe that there are meaningful opportunities to expand our presence in Asia, the Middle East, and Latin America. Within these regions, China is our most established market"
+    },
+    {
+     "theme": "emerging platform innovation",
+     "quote": "We are constantly evaluating and investing selectively in emerging platforms, technologies, business models, and geographies that we believe will help us grow and strengthen our business"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 18752,
+   "themes": [
+    {
+     "theme": "recurrent consumer spending growth",
+     "quote": "RCS is generated from ongoing consumer engagement and includes revenue from virtual currency, add-on content, in-game purchases, and in-game advertising"
+    },
+    {
+     "theme": "digital distribution expansion",
+     "quote": "Our products are delivered through digital online services (digital download, online platforms, and cloud streaming) and physical retail and other"
+    },
+    {
+     "theme": "multi-platform development",
+     "quote": "We develop, operate, and publish products principally through Rockstar Games, 2K, and Zynga. Our products are designed for console gaming systems, mobile, including smartphones and tablets, and PC"
+    },
+    {
+     "theme": "software portfolio optimization",
+     "quote": "we recorded software development impairment charges of $3.3 and $1.5...primarily related to a decision not to proceed with further development of certain interactive entertainment software products"
+    },
+    {
+     "theme": "debt refinancing and capital management",
+     "quote": "On April 14, 2025, we repaid our 2025 Notes with a principal amount of $600.0, with proceeds from the New Notes"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 17722,
+   "themes": [
+    {
+     "theme": "live service game engagement",
+     "quote": "ongoing consumer engagement and includes revenue from virtual currency, add-on content, in-game purchases, and in-game advertising"
+    },
+    {
+     "theme": "recurrent consumer spending monetization",
+     "quote": "Recurrent consumer spending (\"RCS\") is generated from ongoing consumer engagement and includes revenue from virtual currency, add-on content, in-game purchases, and in-game advertising"
+    },
+    {
+     "theme": "digital distribution channel expansion",
+     "quote": "products are delivered through digital online services (digital download, online platforms, and cloud streaming) and physical retail and other"
+    },
+    {
+     "theme": "accounts receivable monetization",
+     "quote": "entered into an arrangement to sell designated pools of high credit quality accounts receivable under an uncommitted accounts receivables purchase facility"
+    }
+   ]
+  }
+ ]
+}

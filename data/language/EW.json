@@ -1,0 +1,86 @@
+{
+ "name": "Edwards Lifesciences Corp",
+ "sector": "Medical Devices",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 14825,
+   "themes": [
+    {
+     "theme": "structural heart disease innovation",
+     "quote": "developing a pulmonary heart valve for pediatric patients with congenital valve disease"
+    },
+    {
+     "theme": "transcatheter valve expansion",
+     "quote": "transcatheter mitral and tricuspid therapies"
+    },
+    {
+     "theme": "early-stage company investments",
+     "quote": "equity investments in limited liability companies that invest in qualified community development entities"
+    },
+    {
+     "theme": "strategic acquisitions and options",
+     "quote": "exercised its option to acquire Autus and as a result, acquired all outstanding shares of Autus for total consideration of $128.9 million"
+    },
+    {
+     "theme": "transition services monetization",
+     "quote": "recorded income from the TSA of $13.2 million and $17.9 million, during the three months ended March 31, 2026 and 2025, respectively"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 47571,
+   "themes": [
+    {
+     "theme": "transcatheter valve expansion",
+     "quote": "Our innovative work encompasses both surgical and transcatheter therapies. In addition, our unique portfolio of repair and replacement technologies for aortic, mitral, tricuspid and pulmonic heart valves"
+    },
+    {
+     "theme": "clinical evidence generation",
+     "quote": "Edwards remains committed to its strategy of transformative product innovation, high-quality, expansive clinical evidence to support approvals and adoption"
+    },
+    {
+     "theme": "structural heart innovation focus",
+     "quote": "Edwards Lifesciences Corporation is the leading global structural heart innovation company"
+    },
+    {
+     "theme": "acquired technology integration",
+     "quote": "Unsuccessful clinical trials or procedures; manufacturing, logistics or quality issues; competition; dependence on key physicians, research institutions and hospital systems; public health crises; reliance on vendors, suppliers, and other t"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 17312,
+   "themes": [
+    {
+     "theme": "structural heart disease focus",
+     "quote": "exit businesses that are not focused on implantable medical innovations for structural heart disease"
+    },
+    {
+     "theme": "transcatheter valve expansion",
+     "quote": "Transcatheter Aortic Valve Replacement"
+    },
+    {
+     "theme": "acquisitions and product portfolio",
+     "quote": "risks or challenges related to integrating acquired businesses"
+    },
+    {
+     "theme": "manufacturing and quality control",
+     "quote": "ability to develop new products and avoid manufacturing and quality issues"
+    },
+    {
+     "theme": "critical care divestiture",
+     "quote": "On September 3, 2024, the Company sold its Critical Care product group"
+    }
+   ]
+  }
+ ]
+}

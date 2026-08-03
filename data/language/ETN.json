@@ -1,0 +1,98 @@
+{
+ "name": "Eaton Corp plc",
+ "sector": "Industrials",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 5406,
+   "themes": [
+    {
+     "theme": "data center capacity expansion",
+     "quote": "strength in data center and machine OEM end-markets in the Electrical Americas business segment"
+    },
+    {
+     "theme": "aerospace defense growth",
+     "quote": "strength in commercial aerospace and defense markets"
+    },
+    {
+     "theme": "electrification and grid infrastructure",
+     "quote": "capitalizing on the megatrends of the electrification, digitalization, and the reindustrialization of and growth of megaprojects in North America and increased global infrastructure spending"
+    },
+    {
+     "theme": "mobility business separation",
+     "quote": "Eaton announced its intention to separate its Mobility business segment from the rest of Eaton via a spin-off"
+    },
+    {
+     "theme": "strategic portfolio consolidation",
+     "quote": "The Company continues to actively manage its portfolio of businesses to deliver on its strategic objectives, focused on deploying its capital toward businesses that provide opportunities for above-market growth"
+    },
+    {
+     "theme": "thermal management acquisitions",
+     "quote": "Company paid $9.55 billion, net of cash acquired, to acquire Boyd Thermal"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4782,
+   "themes": [
+    {
+     "theme": "data center power infrastructure",
+     "quote": "strength in data center and machine OEM end-markets in the Electrical Americas and Electrical Global business segments"
+    },
+    {
+     "theme": "aerospace defense growth",
+     "quote": "strength in military aftermarket, commercial OEM, and commercial aftermarket in the Aerospace business segment"
+    },
+    {
+     "theme": "electrification and decarbonization",
+     "quote": "capitalizing on the megatrends of the electrification, digitalization, and the reindustrialization of and growth of megaprojects in North America and increased global infrastructure spending"
+    },
+    {
+     "theme": "capacity expansion capex",
+     "quote": "The Company plans to increase capital expenditures over the next several years to expand production capacity across various markets to support anticipated growth. As a result, Eaton expects approximately $1.15 billion in capital expenditure"
+    },
+    {
+     "theme": "portfolio consolidation through acquisition",
+     "quote": "On April 1, 2025, the Company paid $1.43 billion, net of cash acquired, to acquire Fibrebond Corporation. On August 6, 2025, the Company acquired Resilient Power Systems Inc. for $86 million and on March 12, 2026, the Company paid $9.55 bil"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 38158,
+   "themes": [
+    {
+     "theme": "data center power infrastructure",
+     "quote": "capitalizing on the megatrends of the electrification, digitalization, and the reindustrialization of and growth of megaprojects in North America and increased global infrastructure spending, all of which are expanding our end markets"
+    },
+    {
+     "theme": "aerospace electrification",
+     "quote": "strengthening our participation across the entire electrical power value chain and benefiting from momentum in the data center and utility end markets as well as a growth cycle in the commercial aerospace and defense markets"
+    },
+    {
+     "theme": "solid-state transformer technology",
+     "quote": "The acquisition of Resilient strengthens our power distribution offerings and accelerates the commercialization of solid-state transformer technology for future global applications in data centers and energy storage"
+    },
+    {
+     "theme": "modular data center solutions",
+     "quote": "Adding Fibrebond to the portfolio expands Eaton's presence in the growing market for modular solutions for multi-tenant and hyperscale data center customers"
+    },
+    {
+     "theme": "liquid cooling for data centers",
+     "quote": "The agreement to acquire Boyd Thermal expands Eaton's existing portfolio of solutions for data center customers to include critical liquid cooling technology, enabling the Company to serve hyperscale and colocation customers from the chip t"
+    },
+    {
+     "theme": "electric vehicle technology",
+     "quote": "The company is committed to enabling the transition to electrified vehicles (EVs) while also continuing to provide innovative and efficient internal combustion engine (ICE) solutions"
+    }
+   ]
+  }
+ ]
+}

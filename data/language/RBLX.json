@@ -1,0 +1,98 @@
+{
+ "name": "Roblox Corp",
+ "sector": "Gaming",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 53770,
+   "themes": [
+    {
+     "theme": "infrastructure capacity expansion",
+     "quote": "lease agreements pursuant to which the Company will lease an additional 352,192 square feet of office space for two additional buildings at its corporate headquarters"
+    },
+    {
+     "theme": "creator monetization tools",
+     "quote": "improving creator economics through price optimization tools, regional pricing expansions, and other investments in our creator community"
+    },
+    {
+     "theme": "age verification systems",
+     "quote": "we continue to develop, test, and implement new systems designed to check the ages of our users, which we refer to as 'age-checking,' and currently we incorporate facial age estimation technology, identity verification, and parent or caregi"
+    },
+    {
+     "theme": "advertising business scaling",
+     "quote": "our potential to scale and grow our advertising business, our international users and creators, and our ability to create new revenue opportunities"
+    },
+    {
+     "theme": "ai and automation investment",
+     "quote": "future acquisitions or investments, including infrastructure investments to increase capacity and investments in AI and automation"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 51703,
+   "themes": [
+    {
+     "theme": "infrastructure capacity expansion",
+     "quote": "investments in infrastructure to increase capacity and investments in AI and automation"
+    },
+    {
+     "theme": "creator monetization improvement",
+     "quote": "our goal to increase creator earnings, including by improving creator economics through price optimization tools, regional pricing expansions, and other investments in our creator community"
+    },
+    {
+     "theme": "international user growth",
+     "quote": "our potential to scale and grow our advertising business, our international users and creators, and our ability to create new revenue opportunities"
+    },
+    {
+     "theme": "advertising business scaling",
+     "quote": "our potential to scale and grow our advertising business, our international users and creators"
+    },
+    {
+     "theme": "age-checking systems",
+     "quote": "our efforts related to age-checking of users"
+    },
+    {
+     "theme": "platform safety and moderation",
+     "quote": "our efforts to provide a safe and civil digital environment, particularly for children"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 7684,
+   "themes": [
+    {
+     "theme": "user-generated content platform expansion",
+     "quote": "Our Platform is powered by user-generated content and draws inspiration from gaming, entertainment, social media, and even toys."
+    },
+    {
+     "theme": "ai-powered safety and moderation",
+     "quote": "We have been and expect to continue investing in AI and automation to increase the accuracy and efficiency of our safety moderation and customer support related efforts"
+    },
+    {
+     "theme": "infrastructure and gpu capacity scaling",
+     "quote": "Over the long term, as our Platform continues to grow, we expect to increase our investment to support our global infrastructure, including expanding our graphics processing units (GPUs) infrastructure both in our owned and operated data ce"
+    },
+    {
+     "theme": "creator monetization program expansion",
+     "quote": "Beginning July 24, 2025, our EBP Program was replaced by our Creator Rewards Program that allows creators who publish experiences to accumulate earned Robux based on the achievement of various metrics"
+    },
+    {
+     "theme": "paying user monetization and differential pricing",
+     "quote": "Differential Robux pricing launched in November 2024, and offers more Robux for users purchasing Robux through payment processing channels with lower transaction processing fees."
+    },
+    {
+     "theme": "age verification and child safety compliance",
+     "quote": "We are currently developing, testing, and implementing age-check systems designed to check a user's age prior to accessing chat on our Platform."
+    }
+   ]
+  }
+ ]
+}

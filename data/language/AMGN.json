@@ -1,0 +1,86 @@
+{
+ "name": "AMGEN INC",
+ "sector": "Biotech",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 10245,
+   "themes": [
+    {
+     "theme": "government drug price regulation",
+     "quote": "CMS has issued guidance that allows for the re-setting of prices for drugs for which it previously set a price"
+    },
+    {
+     "theme": "medicare price negotiation exposure",
+     "quote": "other of our medicines may also be subject to selection by CMS in the next, or in a future, cycle of mandatory Medicare price setting"
+    },
+    {
+     "theme": "state drug pricing controls",
+     "quote": "Seven states currently use PDABs to identify drugs that pose affordability challenges, and four such states include authority for the state PDABs to set upper payment limits"
+    },
+    {
+     "theme": "payer consolidation leverage",
+     "quote": "significant consolidation in the health insurance industry has resulted in a few large insurers and PBMs, which places greater pressure on pricing and usage negotiations"
+    },
+    {
+     "theme": "international price reference pressures",
+     "quote": "policies under consideration or adopted in the United States that reference or tie drug prices to those paid in foreign jurisdictions, including through most-favored-nation or similar pricing approaches"
+    },
+    {
+     "theme": "cybersecurity and data protection",
+     "quote": "A breakdown of our information technology systems, cyberattack or information security breach could significantly compromise the confidentiality, integrity and availability of our information technology systems"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-13",
+   "source": "SEC 10-K MD&A",
+   "words": 29575,
+   "themes": [
+    {
+     "theme": "business combination integration",
+     "quote": "We have acquired and continue to acquire intangible assets in connection with business combinations and asset acquisitions"
+    },
+    {
+     "theme": "in-process research development",
+     "quote": "These intangible assets consist primarily of technology associated with currently marketed human therapeutic products and IPR&D product candidates"
+    },
+    {
+     "theme": "contingent consideration valuation",
+     "quote": "Significant estimates and assumptions required for these valuations included but were not limited to the timing and probability of achieving regulatory milestones, product sales projections under various scenarios and discount rates"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4937,
+   "themes": [
+    {
+     "theme": "government price negotiation exposure",
+     "quote": "CMS announced the next 15 drugs for Medicare price setting that will be applicable beginning on January 1, 2027, which includes Otezla"
+    },
+    {
+     "theme": "state-level pricing regulations",
+     "quote": "Eight states have enacted laws that establish PDABs to identify drugs that pose affordability challenges, and four such states include authority for the state PDABs to set upper payment limits on certain drugs"
+    },
+    {
+     "theme": "340b program channel pressure",
+     "quote": "inappropriate expanded utilization of the 340B Program from broadened application of the 340B discounts has had, and is expected to continue to have, a negative impact on the Company's product sales"
+    },
+    {
+     "theme": "payer consolidation and rebate demands",
+     "quote": "significant consolidation in the health insurance industry has resulted in a few large insurers and PBMs, which places greater pressure on pricing and usage negotiations"
+    },
+    {
+     "theme": "international reference pricing constraints",
+     "quote": "International reference pricing policies can change quickly and frequently and may not reflect differences in the burden of disease, indications, market structures or affordability across countries or regions"
+    }
+   ]
+  }
+ ]
+}

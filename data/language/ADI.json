@@ -1,0 +1,82 @@
+{
+ "name": "ANALOG DEVICES INC",
+ "sector": "Semis",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-20",
+   "source": "SEC 10-Q MD&A",
+   "words": 6035,
+   "themes": [
+    {
+     "theme": "ai-driven data center growth",
+     "quote": "Revenue also increased in the data center portion of the Communications end market related to artificial intelligence-driven infrastructure investments"
+    },
+    {
+     "theme": "manufacturing capacity utilization",
+     "quote": "primarily due to higher utilization of our manufacturing fixed costs as a result of increased customer demand"
+    },
+    {
+     "theme": "aerospace and defense expansion",
+     "quote": "notably within all Industrial sub-markets with the highest growth coming from our test equipment and aerospace and defense sub-markets"
+    },
+    {
+     "theme": "global repositioning restructuring",
+     "quote": "The Company recorded net special charges of $32.4 million as part of its Global Repositioning Actions in the six months ended May 2, 2026. The Global Repositioning Actions were part of a transformation initiative aimed at aligning the Compa"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-02-18",
+   "source": "SEC 10-Q MD&A",
+   "words": 5784,
+   "themes": [
+    {
+     "theme": "datacenter product expansion",
+     "quote": "broad-based increase in demand for our products, notably within the wireline sub-markets of the Communications end market that supports datacenter expansion"
+    },
+    {
+     "theme": "factory utilization efficiency",
+     "quote": "higher utilization of our factories as a result of increased customer demand and favorable mix of products sold into our end markets"
+    },
+    {
+     "theme": "organizational restructuring costs",
+     "quote": "The Global Repositioning Actions were part of a transformation initiative aimed at aligning the Company's enterprise strategy and organizational design and streamlining its operations"
+    },
+    {
+     "theme": "capital expenditure discipline",
+     "quote": "We expect capital expenditures for fiscal 2026 to be between approximately 4% and 6% of fiscal 2026 revenue"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-25",
+   "source": "SEC 10-K MD&A",
+   "words": 43195,
+   "themes": [
+    {
+     "theme": "edge computing and intelligent sensing",
+     "quote": "The Intelligent Edge is characterized by ubiquitous sensing, hyper-scale and edge computing, artificial intelligence (AI) and pervasive connectivity."
+    },
+    {
+     "theme": "power management and electrification",
+     "quote": "The global drive towards improved energy efficiency, conservation, reliability and clean energy is driving investments in electrification across many different application areas, including electric vehicle charging infrastructure, renewable"
+    },
+    {
+     "theme": "ai and physical intelligence capabilities",
+     "quote": "This initiative integrates signal, power, sensing, time-series sampling, actuation and more to support autonomous operation and enhanced system responsiveness through foundational AI models that can reason about and interact with the real w"
+    },
+    {
+     "theme": "software and embedded platform expansion",
+     "quote": "we recently introduced an upgrade to our open-source embedded development platform, CodeFusion Studio 2.0, designed to support embedded system design through integrated workflows for signal processing, edge computing and connectivity"
+    },
+    {
+     "theme": "automotive electrification and autonomous systems",
+     "quote": "We develop differentiated, high-performance signal processing technologies that enable intelligent, efficient and immersive mobility solutions across electrification, digital cabin systems and autonomous platforms"
+    }
+   ]
+  }
+ ]
+}

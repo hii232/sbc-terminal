@@ -1,0 +1,82 @@
+{
+ "name": "Workday, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-22",
+   "source": "SEC 10-Q MD&A",
+   "words": 32238,
+   "themes": [
+    {
+     "theme": "enterprise ai platform expansion",
+     "quote": "Workday is a leading enterprise AI platform that operates at the core of human resources, finance, and information technology, providing solutions for human capital management, financial management, spend management, and planning. Workday c"
+    },
+    {
+     "theme": "subscription services growth",
+     "quote": "As of April 30, 2026, approximately $27.3 billion of revenues are expected to be recognized from remaining performance obligations for subscription contracts."
+    },
+    {
+     "theme": "cloud infrastructure scaling",
+     "quote": "In order to reduce the risk of disruption of our cloud applications, we host our applications in data centers operated by third parties located in the U.S., Europe, Canada, and the Asia-Pacific region. These data centers include third-party"
+    },
+    {
+     "theme": "acquisitions and intangible assets",
+     "quote": "Amortization expense related to acquisition-related intangible assets was $36 million and $21 million for the three months ended April 30, 2026, and 2025, respectively."
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-06",
+   "source": "SEC 10-K MD&A",
+   "words": 48971,
+   "themes": [
+    {
+     "theme": "enterprise ai agent development",
+     "quote": "In fiscal 2026, we introduced new Workday AI agents to accelerate hiring, enhance frontline worker experiences, simplify financial processes, and improve employee information access."
+    },
+    {
+     "theme": "open platform and developer ecosystem",
+     "quote": "Workday Build, a new open developer platform that will give customers and our partners the ability to create and share AI-powered solutions directly on the Workday platform."
+    },
+    {
+     "theme": "data platform and analytics integration",
+     "quote": "Workday Data Cloud, a new data service based on an open architecture and industry standards, such as Apache Iceberg, designed to enable organizations to gain greater strategic value from their HCM and finance data"
+    },
+    {
+     "theme": "ai-powered acquisitions and integrations",
+     "quote": "During fiscal 2026, we expanded our AI capabilities through the acquisitions of FlowiseAI, Inc., Paradox, Inc., Sana Labs AB, and Pipedream, Inc."
+    },
+    {
+     "theme": "flexible subscription pricing models",
+     "quote": "Flex Credits, a new subscription-based flexible pricing model for certain AI solutions and platform capabilities, designed to make AI use simple, flexible, and scalable for our customers."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-26",
+   "source": "SEC 10-Q MD&A",
+   "words": 34157,
+   "themes": [
+    {
+     "theme": "ai-powered platform expansion",
+     "quote": "artificial intelligence (\"AI\")-powered cloud platform to help manage their people, money, and agents"
+    },
+    {
+     "theme": "conversational ai acquisition",
+     "quote": "acquired all outstanding stock of Paradox, Inc. (\"Paradox\"), a candidate experience agent that uses conversational AI to simplify the job application journey"
+    },
+    {
+     "theme": "enterprise cloud consolidation",
+     "quote": "leading enterprise platform that provides organizations with solutions for financial management, human capital management (\"HCM\"), planning, spend management, and analytics"
+    },
+    {
+     "theme": "cloud infrastructure deployment",
+     "quote": "host our applications in data centers operated by third parties located in the United States, Europe, Canada, and the Asia-Pacific region"
+    }
+   ]
+  }
+ ]
+}

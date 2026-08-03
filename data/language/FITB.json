@@ -1,0 +1,86 @@
+{
+ "name": "FIFTH THIRD BANCORP",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 40692,
+   "themes": [
+    {
+     "theme": "commercial real estate loan origination",
+     "quote": "commercial mortgage loans and commercial and industrial loans remain important components of our loan portfolio"
+    },
+    {
+     "theme": "solar lending expansion",
+     "quote": "solar energy installation loans are a growing component of our consumer loan portfolio"
+    },
+    {
+     "theme": "wealth and asset management growth",
+     "quote": "we continue to focus on growing our wealth and asset management business through organic growth and strategic initiatives"
+    },
+    {
+     "theme": "deposit core funding strategy",
+     "quote": "core deposits remain our primary and most stable source of funding"
+    },
+    {
+     "theme": "commercial real estate stress management",
+     "quote": "we continue to monitor the credit quality of our commercial real estate portfolio, including office properties"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 99353,
+   "themes": [
+    {
+     "theme": "solar lending growth",
+     "quote": "solar energy installation loans"
+    },
+    {
+     "theme": "commercial real estate exposure",
+     "quote": "commercial mortgage loans owner occupied and non-owner occupied"
+    },
+    {
+     "theme": "construction loan portfolio",
+     "quote": "construction loans"
+    },
+    {
+     "theme": "indirect auto lending",
+     "quote": "indirect secured consumer loans"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 50106,
+   "themes": [
+    {
+     "theme": "commercial real estate exposure",
+     "quote": "Commercial portfolio includes commercial and industrial loans, commercial mortgage loans, and construction loans across owner-occupied and non-owner-occupied segments"
+    },
+    {
+     "theme": "residential mortgage servicing",
+     "quote": "Residential portfolio segment includes residential mortgage loans and home equity products with significant servicing activities"
+    },
+    {
+     "theme": "consumer lending diversification",
+     "quote": "Consumer portfolio includes indirect auto loans, solar installation financing, credit cards, and other consumer loans and leases"
+    },
+    {
+     "theme": "asset quality management",
+     "quote": "Monitoring of loan modifications including extended maturity, payment deferrals, and other restructuring modifications across commercial portfolio"
+    },
+    {
+     "theme": "government-backed loan origination",
+     "quote": "Portfolio includes loans insured or guaranteed by US government authorities and Federal Housing Administration loans"
+    }
+   ]
+  }
+ ]
+}

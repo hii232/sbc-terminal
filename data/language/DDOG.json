@@ -1,0 +1,90 @@
+{
+ "name": "Datadog, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 4279,
+   "themes": [
+    {
+     "theme": "platform product expansion",
+     "quote": "over 20 products"
+    },
+    {
+     "theme": "customer land-and-expand",
+     "quote": "customers often significantly increase their usage of the products they initially buy from us and expand their usage to other products we offer on our platform"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "we have made and plan to continue to make significant investments to expand geographically, particularly in EMEA and APAC"
+    },
+    {
+     "theme": "cloud infrastructure scaling",
+     "quote": "increase of $41.8 million in third-party cloud infrastructure hosting and software costs and an increase of $13.4 million in cloud infrastructure-related investments"
+    },
+    {
+     "theme": "sales organization hiring",
+     "quote": "increase of $53.7 million in personnel costs including allocated overhead costs for our sales and marketing organization as a result of increased headcount"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-18",
+   "source": "SEC 10-K MD&A",
+   "words": 5411,
+   "themes": [
+    {
+     "theme": "multi-product platform expansion",
+     "quote": "approximately 84% of our customers were using two or more products as of December 31, 2025, consistent with approximately 83% a year earlier. Additionally, as of December 31, 2025, approximately 55% of our customers were using four or more "
+    },
+    {
+     "theme": "land-and-expand customer monetization",
+     "quote": "Our land-and-expand business model centered around offering products that are easy to adopt and have a very short time to value... Our customers often significantly increase their usage of the products they initially buy from us and expand "
+    },
+    {
+     "theme": "international geographic expansion",
+     "quote": "Revenue from regions outside of North America was approximately 29% of our total revenue for each of the years ended December 31, 2025 and 2024. In addition, we have made and plan to continue to make significant investments to expand geogra"
+    },
+    {
+     "theme": "cloud infrastructure scaling",
+     "quote": "increase of $149.8 million in third-party cloud infrastructure hosting and software costs and... increase of $60.0 million in cloud infrastructure-related investments"
+    },
+    {
+     "theme": "sales and marketing headcount growth",
+     "quote": "Sales and marketing expense increased by $199.8 million, or 26%, for the year ended December 31, 2025 compared to the year ended December 31, 2024. This increase was primarily due to an increase of $165.4 million in personnel costs includin"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 5203,
+   "themes": [
+    {
+     "theme": "multi-product platform expansion",
+     "quote": "approximately 54% of our customers were using four or more products, up from approximately 49% a year earlier, approximately 31% of our customers were using six or more products, up from 26% a year earlier, and approximately 16% of our cust"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "we have made and plan to continue to make significant investments to expand geographically, particularly in EMEA and APAC"
+    },
+    {
+     "theme": "cloud infrastructure scaling",
+     "quote": "We intend to continue to invest additional resources in our platform infrastructure and our customer support and success organizations to expand the capability of our platform"
+    },
+    {
+     "theme": "product innovation investment",
+     "quote": "We intend to continue to invest in building additional products, features and functionality that expand our capabilities and facilitate the extension of our platform to new use cases"
+    },
+    {
+     "theme": "sales force expansion",
+     "quote": "We expect that our sales and marketing expense will increase in absolute dollars as we expand our sales and marketing efforts"
+    }
+   ]
+  }
+ ]
+}

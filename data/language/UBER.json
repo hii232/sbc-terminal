@@ -1,0 +1,86 @@
+{
+ "name": "Uber Technologies, Inc",
+ "sector": "Ride-Hailing",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 5892,
+   "themes": [
+    {
+     "theme": "autonomous vehicle fleet deployment",
+     "quote": "agreed to purchase, or have our designated fleet operators purchase, a minimum of 20,000 Lucid vehicles equipped with Nuro's Level 4 autonomous driving systems over a six-year period"
+    },
+    {
+     "theme": "mobility regulatory compliance",
+     "quote": "We have incurred and expect to incur additional expenses, including expenses associated with a guaranteed minimum earnings floor for Drivers, insurance for injury protection and subsidies for health care"
+    },
+    {
+     "theme": "delivery platform expansion",
+     "quote": "Delivery Segment Operating Income increased primarily attributable to an increase in Delivery revenue including advertising, partially offset by a $631 million increase in Courier payments"
+    },
+    {
+     "theme": "cloud infrastructure investment",
+     "quote": "In March 2026, we entered into a five-year cloud infrastructure and technology services agreement with a major provider that includes a total minimum spend commitment of $1.1 billion through March 2031"
+    },
+    {
+     "theme": "parking services aggregation",
+     "quote": "on April 16, 2026, we completed the acquisition of SpotHero, Inc., a leading digital parking aggregator, for total cash consideration of approximately $600 million"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-13",
+   "source": "SEC 10-K MD&A",
+   "words": 10399,
+   "themes": [
+    {
+     "theme": "mobility trip volume growth",
+     "quote": "Mobility Gross Bookings grew 19% year-over-year, on a constant currency basis, primarily due to an increase in Mobility Trip volumes"
+    },
+    {
+     "theme": "delivery platform expansion",
+     "quote": "Delivery Gross Bookings grew 22% year-over-year, on a constant currency basis, primarily driven by an increase in Delivery Trip volumes"
+    },
+    {
+     "theme": "driver classification risk mitigation",
+     "quote": "To comply with Proposition 22, we have incurred and expect to incur additional expenses, including expenses associated with a guaranteed minimum earnings floor for Drivers, insurance for injury protection and subsidies for health care"
+    },
+    {
+     "theme": "advertising revenue monetization",
+     "quote": "Delivery revenue increased primarily attributable to an increase in Delivery Gross Bookings of 22%, driven by an increase in Trip volumes, and a $568 million increase in advertising revenue"
+    },
+    {
+     "theme": "autonomous vehicle deployment",
+     "quote": "In July 2025, we agreed to purchase, or have our designated fleet operators purchase, a minimum of 20,000 Lucid vehicles equipped with Nuro's Level 4 autonomous driving systems over a six-year period following the start of production"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 7737,
+   "themes": [
+    {
+     "theme": "autonomous vehicle deployment",
+     "quote": "agreed to purchase, or have our designated fleet operators purchase, a minimum of 20,000 Lucid vehicles equipped with Nuro's Level 4 autonomous driving systems over a six-year period"
+    },
+    {
+     "theme": "delivery advertising expansion",
+     "quote": "Delivery revenue increased primarily attributable to an increase in Delivery Gross Bookings of 25%, driven by an increase in Trip volumes, and a $146 million increase in advertising revenue"
+    },
+    {
+     "theme": "platform trip volume growth",
+     "quote": "Mobility Gross Bookings grew 19% year-over-year, on a constant currency basis primarily due to an increase in Mobility Trip volumes. Delivery Gross Bookings grew 24% year-over-year, on a constant currency basis, primarily driven by an incre"
+    },
+    {
+     "theme": "freight market navigation",
+     "quote": "Freight revenue was flat, primarily attributable to a challenging freight market cycle, keeping Freight Gross Bookings relatively flat due to lower revenue per load"
+    }
+   ]
+  }
+ ]
+}

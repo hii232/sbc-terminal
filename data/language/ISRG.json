@@ -1,0 +1,90 @@
+{
+ "name": "INTUITIVE SURGICAL INC",
+ "sector": "Medical Devices",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 22580,
+   "themes": [
+    {
+     "theme": "robotic surgery system expansion",
+     "quote": "da Vinci surgical system is designed to enable surgeons to perform a wide range of surgical procedures within our targeted general surgery, urologic, gynecologic, cardiothoracic, and head and neck specialties"
+    },
+    {
+     "theme": "international distribution network buildout",
+     "quote": "As a result of the acquisition, Intuitive assumed direct distribution responsibilities for Italy, Spain, Portugal, Malta, San Marino, and associated territories"
+    },
+    {
+     "theme": "endoluminal platform development",
+     "quote": "The Ion endoluminal system is a flexible, robotic-assisted, catheter-based platform for which the first cleared indication is minimally invasive biopsies in the lung"
+    },
+    {
+     "theme": "system leasing market expansion",
+     "quote": "The Company enters into sales-type leases with certain qualified customers to purchase its systems"
+    },
+    {
+     "theme": "installed base service revenue growth",
+     "quote": "A significant portion of these performance obligations relate to service obligations in the Company's system sale and lease arrangements that will be satisfied and recognized as revenue in future periods"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-22",
+   "source": "SEC 10-Q MD&A",
+   "words": 20781,
+   "themes": [
+    {
+     "theme": "robotic surgery system expansion",
+     "quote": "da Vinci surgical system is designed to enable surgeons to perform a wide range of surgical procedures within our targeted general surgery, urologic, gynecologic, cardiothoracic, and head and neck specialties"
+    },
+    {
+     "theme": "ion endoluminal platform development",
+     "quote": "The Ion endoluminal system is a flexible, robotic-assisted, catheter-based platform for which the first cleared indication is minimally invasive biopsies in the lung"
+    },
+    {
+     "theme": "direct distribution market consolidation",
+     "quote": "Intuitive acquired the da Vinci and Ion distribution businesses previously operated by ab medica, Abex, Excelencia Rob\u00f3tica, and their affiliates... Intuitive assumed direct distribution responsibilities for Italy, Spain, Portugal, Malta, S"
+    },
+    {
+     "theme": "procedure volume growth targeting",
+     "quote": "The 2025 PSU grant metrics are focused on relative adjusted operating margin as compared to selected peers, da Vinci and Ion procedure growth in 2026 compared to 2024, and da Vinci and Ion procedure growth in 2027 compared to 2024"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-03",
+   "source": "SEC 10-K MD&A",
+   "words": 40731,
+   "themes": [
+    {
+     "theme": "robotic surgical system competition",
+     "quote": "Companies that have introduced products in the field of robotic-assisted medical procedures, or have made explicit statements about their efforts to enter the field, include, but are not limited to, the following: Beijing Surgerii Robotics "
+    },
+    {
+     "theme": "usage-based lease arrangements",
+     "quote": "We are increasingly offering usage-based arrangements as part of our business model...we lease our systems to certain qualified customers where the lease payments are based on their usage of the systems"
+    },
+    {
+     "theme": "international tariffs and supply chain",
+     "quote": "potential tariffs on goods imported from Mexico where we manufacture a significant majority of our instruments and accessories that we sell; protectionist laws, policies, and business practices that favor local competitors"
+    },
+    {
+     "theme": "china market reimbursement pressure",
+     "quote": "In China, since 2022, several provinces have implemented significant limits on what hospitals can charge patients for surgeries using robotic surgical technology, which have impacted the number of procedures performed and pricing of our ins"
+    },
+    {
+     "theme": "manufacturing capacity expansion",
+     "quote": "If demand for our products exceeds our manufacturing capacity, we could develop a substantial backlog of customer orders...we are building new facilities for manufacturing capacity"
+    },
+    {
+     "theme": "rare earth element supply constraints",
+     "quote": "the Chinese government announced export controls and licensing requirements applicable to certain products containing Chinese-origin rare earth elements...Rare earth elements are critical to certain components contained in our products"
+    }
+   ]
+  }
+ ]
+}

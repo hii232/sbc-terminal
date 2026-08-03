@@ -1,0 +1,82 @@
+{
+ "name": "AUTOZONE INC",
+ "sector": "Retail",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-12",
+   "source": "SEC 10-Q MD&A",
+   "words": 9510,
+   "themes": [
+    {
+     "theme": "commercial sales channel expansion",
+     "quote": "Domestic commercial sales increased $132.4 million to $1.4 billion, or 10.4% over the comparable prior year"
+    },
+    {
+     "theme": "same-store sales growth",
+     "quote": "This growth was primarily driven by an increase in total company same store sales of 3.9% on a constant currency basis"
+    },
+    {
+     "theme": "tariff policy management",
+     "quote": "On April 20, 2026, the Company filed for refunds of IEEPA tariffs paid directly by the Company via the U.S. Customs and Border Protection's consolidated administration and processing of entries tool"
+    },
+    {
+     "theme": "lifo inventory valuation",
+     "quote": "Due to price changes on the Company's merchandise purchases, primarily due to inflation driven by tariffs, the Company's LIFO credit reserve balance was $ 260.0 million at May 9, 2026, and $ 83.0 million at August 30, 2025"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-20",
+   "source": "SEC 10-Q MD&A",
+   "words": 9324,
+   "themes": [
+    {
+     "theme": "commercial sales expansion",
+     "quote": "Domestic commercial sales increased $103.0 million to $1.2 billion, or 9.8% over the comparable prior year"
+    },
+    {
+     "theme": "new store openings",
+     "quote": "net sales of $114.4 million from new domestic and international stores"
+    },
+    {
+     "theme": "same-store sales growth",
+     "quote": "increase in total company same store sales of 3.3% on a constant currency basis"
+    },
+    {
+     "theme": "tariff policy navigation",
+     "quote": "Tariff policy continues to evolve, and we are monitoring potential impacts on our business and results of operations"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-19",
+   "source": "SEC 10-Q MD&A",
+   "words": 8523,
+   "themes": [
+    {
+     "theme": "hub and mega hub expansion",
+     "quote": "investments are expected to be directed primarily to our growth initiatives, which include new stores and hub and mega hub store expansion projects"
+    },
+    {
+     "theme": "domestic commercial sales growth",
+     "quote": "Domestic commercial sales increased $163.7 million to $1.3 billion, or 14.5% over the comparable prior year period"
+    },
+    {
+     "theme": "new store openings",
+     "quote": "During the twelve weeks ended November 22, 2025, and November 23, 2024, we opened 53 and 34 net new stores, respectively"
+    },
+    {
+     "theme": "tariff-driven inventory inflation",
+     "quote": "Due to price changes on the Company's merchandise purchases, primarily due to inflation driven by tariffs, the Company's LIFO credit reserve balance was $ 181.0 million"
+    },
+    {
+     "theme": "capital expenditure increase",
+     "quote": "Capital expenditures for the twelve weeks ended November 22, 2025, were $314.2 million compared to $247.0 million in the comparable prior year period"
+    }
+   ]
+  }
+ ]
+}

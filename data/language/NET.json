@@ -1,0 +1,90 @@
+{
+ "name": "Cloudflare, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 38220,
+   "themes": [
+    {
+     "theme": "large enterprise customer expansion",
+     "quote": "Attracting, expanding, and retaining sales to large customers involve risks that may not be present, or that are present to a lesser extent, with sales to smaller customers"
+    },
+    {
+     "theme": "global network infrastructure investment",
+     "quote": "increased usage of our global network that may require us to incur greater network infrastructure expenditures"
+    },
+    {
+     "theme": "sales force productivity and scaling",
+     "quote": "our ability to effectively attract, train, and retain qualified sales personnel, particularly as our lines of products and product features expand"
+    },
+    {
+     "theme": "bundled product pricing models",
+     "quote": "we have limited experience with respect to determining the optimal prices and pricing models for some of our newer subscription plans and products, as well as our bundled sales of products and solutions"
+    },
+    {
+     "theme": "ai and emerging technology competition",
+     "quote": "we expect competition to increase as other established and emerging companies and start-ups enter the markets for products and solutions for security, performance, and reliability, in particular with respect to cloud-based solutions, as cus"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 8689,
+   "themes": [
+    {
+     "theme": "ai-enabled developer platform",
+     "quote": "including both traditional applications and those that are enhanced with artificial intelligence (AI)"
+    },
+    {
+     "theme": "global network infrastructure expansion",
+     "quote": "We intend to continue to make substantial investments in our global network infrastructure to support the growth of our business, including the addition of servers with storage capabilities to support our storage and database products and s"
+    },
+    {
+     "theme": "large enterprise customer growth",
+     "quote": "While we continue to grow customers across all sizes, over time, our large customers have contributed an increasing share of our revenue"
+    },
+    {
+     "theme": "contracted customer sales force expansion",
+     "quote": "We continue to invest to build our direct sales force, increase brand awareness, leverage and expand channel partners, and improve the sophistication of our sales operations for contracted customers, particularly large customers"
+    },
+    {
+     "theme": "platform consolidation and upsell",
+     "quote": "As we add more products and functionality to our network, we see opportunities to drive upsell as customers seek to consolidate onto one infrastructure platform to meet all of their security, performance, and reliability network requirement"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 37813,
+   "themes": [
+    {
+     "theme": "enterprise sales expansion",
+     "quote": "Attracting, expanding, and retaining sales to large customers involve risks...longer evaluation periods, more detailed evaluations, and more cumbersome contract negotiation and approval processes"
+    },
+    {
+     "theme": "sales force productivity",
+     "quote": "since late 2022, we periodically have experienced a reduction in average productivity among our sales personnel, which we believe was due in part to new sales hires not becoming as productive as we expected"
+    },
+    {
+     "theme": "network infrastructure expansion",
+     "quote": "increased usage of our global network that may require us to incur greater network infrastructure expenditures"
+    },
+    {
+     "theme": "zero trust and developer platform products",
+     "quote": "as we continue to develop and sell newer types of products and product features, such as our suite of Zero Trust and network services solutions and our Cloudflare Developer Platform products"
+    },
+    {
+     "theme": "large customer retention and expansion",
+     "quote": "our ability to retain and upgrade paying customers and expand the number of products sold to paying customers, especially our large customers"
+    }
+   ]
+  }
+ ]
+}

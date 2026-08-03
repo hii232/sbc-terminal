@@ -1,0 +1,90 @@
+{
+ "name": "HUBSPOT INC",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 5419,
+   "themes": [
+    {
+     "theme": "agentic ai platform development",
+     "quote": "Breeze is our AI that powers the customer platform, including our Smart CRM, engagement Hubs, and the connected ecosystem"
+    },
+    {
+     "theme": "data center infrastructure expansion",
+     "quote": "We also plan to continue investing in our data center infrastructure and services capabilities in order to support continued future customer growth"
+    },
+    {
+     "theme": "ai-enhanced sales tooling",
+     "quote": "We intend to continue to invest in sales and marketing to support our growth, including investments in AI-enabled tools for guided selling and content generation designed to drive efficiencies and improve conversion rates"
+    },
+    {
+     "theme": "machine learning product capabilities",
+     "quote": "We plan to continue to invest in research and development as we continue to introduce new products and applications to extend the functionality of our customer platform, including machine learning capabilities intended to accelerate innovat"
+    },
+    {
+     "theme": "mid-market customer acquisition",
+     "quote": "We focus on selling to mid-market business-to-business, or B2B, companies, which we define as companies that have between 2 and 2,000 employees"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 24610,
+   "themes": [
+    {
+     "theme": "agentic ai platform expansion",
+     "quote": "We provide an agentic customer platform that helps marketing, sales, and customer service teams drive business growth"
+    },
+    {
+     "theme": "mid-market b2b customer acquisition",
+     "quote": "We focus on selling to mid-market business-to-business, or B2B, companies, which we define as companies that have between 2 and 2,000 employees"
+    },
+    {
+     "theme": "ai-powered engagement hubs",
+     "quote": "Our engagement Hubs that enable companies to attract, engage, and delight customers throughout the customer lifecycle include Marketing, Sales, Service, Operations, Content and Commerce"
+    },
+    {
+     "theme": "data center infrastructure buildout",
+     "quote": "We intend to continue investing in our data center infrastructure and services capabilities in order to support continued future customer growth"
+    },
+    {
+     "theme": "machine learning and ai automation",
+     "quote": "We plan to continue to invest in research and development as we continue to introduce new products and applications to extend the functionality of our customer platform, including machine learning capabilities intended to accelerate innovat"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 6550,
+   "themes": [
+    {
+     "theme": "ai-powered engagement hubs expansion",
+     "quote": "Breeze is our AI that powers the customer platform, including our Smart CRM, engagement Hubs, and the connected ecosystem"
+    },
+    {
+     "theme": "mid-market b2b customer acquisition",
+     "quote": "We focus on selling to mid-market business-to-business, or B2B, companies, which we define as companies that have between two and 2,000 employees"
+    },
+    {
+     "theme": "data enrichment and enrichment capabilities",
+     "quote": "As data is becoming more important to our customers' success and a differentiator for our business, there is a need to move quickly on data enrichment"
+    },
+    {
+     "theme": "ai-guided selling and automation",
+     "quote": "Included in these investments are AI-enabled tools for guided selling and content generation to drive efficiencies and improve conversion rates, as well as machine learning capabilities to accelerate innovation, increase productivity, and s"
+    },
+    {
+     "theme": "marketplace ecosystem expansion",
+     "quote": "Over 2,000 integrations and applications are available for our users, across a wide range of categories, including integrations with leading social media, email, sales, video, analytics, content and webinar tools"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "name": "LOCKHEED MARTIN CORP",
+ "sector": "Defense",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 18478,
+   "themes": [
+    {
+     "theme": "f-35 production and sustainment",
+     "quote": "Sales for the F-35 program represented approximately 28% and 27% of our total consolidated sales for the quarters and six months ended both June 28, 2026 and June 29, 2025"
+    },
+    {
+     "theme": "tactical and strike missile manufacturing",
+     "quote": "contract assets increased $3.0 billion primarily due to the F-35 program at Aeronautics and tactical and strike missiles at MFC"
+    },
+    {
+     "theme": "advance procurement for program execution",
+     "quote": "Pre-contract costs that are initially capitalized in inventory generally are eventually recognized as operating costs consistent with the transfer of products and services to the customer upon the receipt of the anticipated contract"
+    },
+    {
+     "theme": "classified defense programs expansion",
+     "quote": "Pre-contract costs (primarily the classified contracts, F-35 program and F-16 program at Aeronautics and Sikorsky programs at RMS) were included in work-in-process inventories"
+    },
+    {
+     "theme": "international military sales growth",
+     "quote": "International sales include foreign military sales (FMS) contracted through the U.S. Government and direct commercial sales to international governments and other international customers"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 16587,
+   "themes": [
+    {
+     "theme": "fixed-price development risk management",
+     "quote": "fixed-price development programs involve significant management judgment, as development contracts by nature have elements that have not been done before and thus, are highly subject to future unexpected changes in estimates"
+    },
+    {
+     "theme": "f-35 program execution",
+     "quote": "Sales for the F-35 program represented approximately 27% and 25% of our total consolidated sales for the quarters ended March 29, 2026 and March 30, 2025"
+    },
+    {
+     "theme": "classified program cost recovery",
+     "quote": "Pre-contract costs that are initially capitalized in inventory are eventually generally recognized as operating costs consistent with the transfer of products and services to the customer upon the receipt of the anticipated contract"
+    },
+    {
+     "theme": "contract estimate revisions",
+     "quote": "We review our estimates related to sales, cost, and profit for each contract at least annually or when a change in circumstances warrants a modification to a previous estimate"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-29",
+   "source": "SEC 10-K MD&A",
+   "words": 58274,
+   "themes": [
+    {
+     "theme": "missile production capacity expansion",
+     "quote": "increased production rates and capacity investments in our Missiles and Fire Control segment to meet strong international and domestic demand"
+    },
+    {
+     "theme": "hypersonic weapons development",
+     "quote": "continued development and production of advanced hypersonic systems to address evolving threats"
+    },
+    {
+     "theme": "next-generation fighter aircraft sustainment",
+     "quote": "F-35 program continues to be a significant driver of revenue with ongoing production, sustainment, and modernization activities"
+    },
+    {
+     "theme": "space launch capability growth",
+     "quote": "expansion of launch capacity and infrastructure investments for United Launch Alliance to support increased demand for assured access to space"
+    },
+    {
+     "theme": "unmanned systems and autonomous capabilities",
+     "quote": "advancing unmanned and autonomous system capabilities across multiple platforms to support customer requirements"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "name": "COGNIZANT TECHNOLOGY SOLUTIONS CORP",
+ "sector": "IT Services",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 15964,
+   "themes": [
+    {
+     "theme": "ai capabilities integration",
+     "quote": "our ability to successfully use AI-based technologies in our client offerings and our own internal operations"
+    },
+    {
+     "theme": "project leap restructuring",
+     "quote": "our ability to successfully implement Project Leap and the amount of costs, timing of incurring costs, and ultimate benefits of such project"
+    },
+    {
+     "theme": "organic and inorganic growth",
+     "quote": "challenges related to growing our business organically as well as inorganically through acquisitions, and our ability to achieve our targeted growth rates and successfully integrate acquired businesses"
+    },
+    {
+     "theme": "talent acquisition and retention",
+     "quote": "our ability to attract, train and retain skilled employees, including highly skilled technical personnel and personnel with experience in key AI and digital areas"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 12860,
+   "themes": [
+    {
+     "theme": "azure cloud services expansion",
+     "quote": "acquired 100% ownership in 3Cloud, one of the largest independent Microsoft Azure services providers and a global leader in Azure-dedicated AI enablement solutions"
+    },
+    {
+     "theme": "ai-driven service delivery",
+     "quote": "our ability to successfully use AI-based technologies in our client offerings and our own internal operations"
+    },
+    {
+     "theme": "project leap cost transformation",
+     "quote": "our ability to successfully implement Project Leap and the amount of costs, timing of incurring costs, and ultimate benefits of such project"
+    },
+    {
+     "theme": "consulting and digital services",
+     "quote": "Our consulting and technology services include consulting, application development, systems integration, quality engineering and assurance services as well as software solutions and related services"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 16158,
+   "themes": [
+    {
+     "theme": "generative ai capability development",
+     "quote": "We increasingly use AI-based technologies, including GenAI, in our client offerings and our own internal operations. We have incurred and plan to continue to incur significant development and operational costs to build and support our AI ca"
+    },
+    {
+     "theme": "digital service offerings expansion",
+     "quote": "Our competitiveness also depends on our ability to continue to develop and implement services and solutions that anticipate and respond to rapid and continuing changes in technology to serve the evolving needs of our clients. Examples inclu"
+    },
+    {
+     "theme": "india delivery center optimization",
+     "quote": "Economic and political developments in India, where a significant majority of our operations and technical personnel are located, or in other countries where we maintain delivery operations, may also have a significant impact on our busines"
+    },
+    {
+     "theme": "skilled workforce recruitment and retention",
+     "quote": "Our success is dependent, in large part, on our ability to keep our supply of skilled employees, including project managers, IT engineers and senior technical personnel, in particular those with experience in key AI and digital areas"
+    },
+    {
+     "theme": "strategic acquisition and integration",
+     "quote": "Additionally, we expect to continue pursuing strategic and targeted acquisitions and investments to enhance our offerings of services and solutions or to enable us to expand our talent, experience and capabilities in key AI and digital area"
+    }
+   ]
+  }
+ ]
+}

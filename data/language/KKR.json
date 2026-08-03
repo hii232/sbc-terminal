@@ -1,0 +1,82 @@
+{
+ "name": "KKR & Co. Inc.",
+ "sector": "Asset Mgmt",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 29658,
+   "themes": [
+    {
+     "theme": "alternative asset class expansion",
+     "quote": "expanded our investment strategies and product offerings from traditional private equity to other alternative asset classes such as leveraged credit, alternative credit, infrastructure, real estate, energy, growth equity, and core private e"
+    },
+    {
+     "theme": "recurring earnings diversification",
+     "quote": "we believe enables us to grow long-term, durable, recurring earnings with a focus on large addressable markets where we can be an industry leader"
+    },
+    {
+     "theme": "global geographic scaling",
+     "quote": "scaled from being a U.S.-focused firm to a global operation with 35 offices around the world as of March 31, 2026"
+    },
+    {
+     "theme": "insurance business integration",
+     "quote": "our business further expanded with the acquisition of Global Atlantic in 2021, which today conducts our insurance business providing retirement and life insurance solutions"
+    },
+    {
+     "theme": "strategic long-term holdings",
+     "quote": "we intend to hold the companies in our Strategic Holdings segment over a longer period of time, and we believe most of these companies generally have a lower risk profile than would be typical for an investment through our traditional priva"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-27",
+   "source": "SEC 10-K MD&A",
+   "words": 2913,
+   "themes": [
+    {
+     "theme": "insurance liability hedging",
+     "quote": "Global Atlantic established a hedge program that seeks to mitigate economic impacts primarily from interest rate, equity price, and foreign exchange rate movements"
+    },
+    {
+     "theme": "reinsurance embedded derivatives",
+     "quote": "Global Atlantic's reinsurance agreements include modified coinsurance and funds withheld coinsurance arrangements. Such arrangements are deemed to contain embedded derivatives, which are measured at fair value"
+    },
+    {
+     "theme": "variable annuity risk management",
+     "quote": "For Global Atlantic's variable annuity policies, Global Atlantic generally seeks to dynamically hedge its exposure to changes in the value of the guarantee Global Atlantic provides to policyholders"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 43623,
+   "themes": [
+    {
+     "theme": "alternative asset management expansion",
+     "quote": "we have expanded our investment strategies and product offerings from traditional private equity to areas such as leveraged credit, alternative credit, infrastructure, energy, real estate, growth equity (including technology, health care, a"
+    },
+    {
+     "theme": "insurance business integration",
+     "quote": "Our insurance business is operated by our wholly-owned subsidiary Global Atlantic, which is a leading retirement and life insurance company that provides a broad suite of protection, legacy and savings products, and reinsurance solutions to"
+    },
+    {
+     "theme": "private credit strategy growth",
+     "quote": "Our private credit strategies focus on privately or directly originated and negotiated transactions. These strategies include direct lending typically in the senior part of a company's capital structure, junior mezzanine debt, and asset-bas"
+    },
+    {
+     "theme": "balance sheet deployment for capital solutions",
+     "quote": "We also use our balance sheet to bridge investment activity during fundraising and, for example, by funding investments for new funds. We also use our own capital to bridge capital selectively for our funds' investments or finance strategic"
+    },
+    {
+     "theme": "core private equity long-term holdings",
+     "quote": "In our core private equity strategy, our objective is to acquire and manage controlling interests in operating companies, which we intend to hold over a longer period of time and that we believe have a lower anticipated risk profile than ou"
+    }
+   ]
+  }
+ ]
+}

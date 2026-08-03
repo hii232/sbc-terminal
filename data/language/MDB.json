@@ -1,0 +1,94 @@
+{
+ "name": "MongoDB, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 5584,
+   "themes": [
+    {
+     "theme": "ai-powered application development",
+     "quote": "natively provides access to Voyage AI's embedding and reranking models. These capabilities, when combined with the core functionality of Atlas, enable organizations to build, deploy and scale AI-powered applications with higher accuracy, lo"
+    },
+    {
+     "theme": "atlas cloud database expansion",
+     "quote": "During the three months ended April 30, 2026, Atlas revenue represented 75%, as compared to 72% of our total revenue during the three months ended April 30, 2025, respectively, reflecting the continued growth of Atlas since its introduction"
+    },
+    {
+     "theme": "usage-based consumption billing",
+     "quote": "We expect to continue to see a higher portion of our Atlas contracts to be billed monthly in arrears based on usage without requiring upfront commitments"
+    },
+    {
+     "theme": "developer platform feature integration",
+     "quote": "our developer data platform includes a set of, tightly integrated, capabilities such as search, time series, data lifecycle, application-driven analytics and stream processing that allow developers to address a broader range of application "
+    },
+    {
+     "theme": "land and expand revenue growth",
+     "quote": "The economic attractiveness of our subscription-based model is demonstrated by customer renewals and increasing existing customer subscriptions over time, referred to as land-and-expand. We believe that there is a significant opportunity to"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-11",
+   "source": "SEC 10-K MD&A",
+   "words": 6240,
+   "themes": [
+    {
+     "theme": "ai-powered embedding models",
+     "quote": "we acquired all of the outstanding shares of Voyage AI Innovations, Inc. (\"Voyage AI\"), an AI-powered software company that specializes in embedding and reranking models"
+    },
+    {
+     "theme": "multi-cloud database platform expansion",
+     "quote": "our developer data platform includes a set of, tightly integrated, capabilities such as search, time series, data lifecycle, application-driven analytics and stream processing"
+    },
+    {
+     "theme": "atlas usage-based consumption growth",
+     "quote": "Subscription revenue increased by $442.1 million primarily due to an increase in consumption of Atlas by our large existing customers as evidenced by our net ARR expansion rate of 121%"
+    },
+    {
+     "theme": "developer community adoption and mindshare",
+     "quote": "we are committed to delivering market-leading products to continue to build and maintain credibility with the global software developer community"
+    },
+    {
+     "theme": "land-and-expand customer strategy",
+     "quote": "core component of our growth strategy for Atlas and MongoDB Enterprise Advanced is to convert developers and their organizations who are already using Community Server or the free tier of Atlas to become customers of our commercial products"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-02",
+   "source": "SEC 10-Q MD&A",
+   "words": 5730,
+   "themes": [
+    {
+     "theme": "multi-cloud hosted database expansion",
+     "quote": "MongoDB Atlas revenue represented 75% and 74%, respectively, as compared to 68% and 70% of our total revenue during the three and nine months ended October 31, 2024, respectively, reflecting the continued strength of MongoDB Atlas"
+    },
+    {
+     "theme": "land-and-expand with existing customers",
+     "quote": "We believe that there is a significant opportunity to drive additional sales to existing customers, and expect to invest in sales and marketing and customer success personnel and activities to achieve additional revenue growth from existing"
+    },
+    {
+     "theme": "developer platform feature integration",
+     "quote": "In addition to the database, our developer data platform includes a set of, tightly integrated, capabilities such as search, time series, data lifecycle, application-driven analytics and stream processing"
+    },
+    {
+     "theme": "self-serve adoption growth",
+     "quote": "We have experienced strong growth in self-serve customers of MongoDB Atlas, which are charged monthly in arrears based on their usage"
+    },
+    {
+     "theme": "sales force and channel expansion",
+     "quote": "We plan to continue to invest in acquiring new customers and additional workloads from existing customers across all of our channels"
+    },
+    {
+     "theme": "infrastructure cost optimization",
+     "quote": "The increase in third-party cloud infrastructure costs was partially offset by continued cost efficiencies realized as we scale MongoDB Atlas"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "name": "Apollo Global Management, Inc.",
+ "sector": "Asset Mgmt",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 1135,
+   "themes": [
+    {
+     "theme": "interest rate risk management",
+     "quote": "estimated impact on income (loss) before income tax (provision) benefit of an immediate, parallel increase in interest rates of 100 basis points"
+    },
+    {
+     "theme": "fixed maturity securities portfolio",
+     "quote": "any such decreases in the fair value of fixed maturity securities, unless related to credit concerns of the issuer requiring recognition of credit losses, would generally be realized only if Athene were required to sell such securities at l"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 43099,
+   "themes": [
+    {
+     "theme": "retirement services consolidation",
+     "quote": "Apollo's retirement services business is conducted by Athene, a leading financial services company that specializes in issuing, reinsuring and acquiring retirement savings products"
+    },
+    {
+     "theme": "alternative asset management expansion",
+     "quote": "Apollo's asset management business focuses on two investing strategies: credit and equity. Through its asset management business, Apollo raises, invests and manages funds, accounts and other vehicles, on behalf of some of the world's most p"
+    },
+    {
+     "theme": "illiquid investment valuation capabilities",
+     "quote": "Certain funds may hold significant illiquid investments whose fair values are based on unobservable inputs. These investments have limited observable market activity and the inputs used in the determination of the investments fair value req"
+    },
+    {
+     "theme": "strategic acquisitions integration",
+     "quote": "On September 2, 2025 (the 'Acquisition Date'), Apollo completed the previously announced acquisition of Bridge in an all-stock transaction. As a result, Bridge became a consolidated subsidiary of AAM"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-10",
+   "source": "SEC 10-Q MD&A",
+   "words": 1053,
+   "themes": [
+    {
+     "theme": "interest rate risk management",
+     "quote": "actively manages its assets and liabilities, the net exposure to interest rates can vary over time"
+    },
+    {
+     "theme": "fixed income investment positioning",
+     "quote": "any such decreases in the fair value of fixed maturity securities, unless related to credit concerns of the issuer requiring recognition of credit losses, would generally be realized only if Athene were required to sell such securities at l"
+    }
+   ]
+  }
+ ]
+}

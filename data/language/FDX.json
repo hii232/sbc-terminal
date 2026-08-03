@@ -1,0 +1,78 @@
+{
+ "name": "FEDEX CORP",
+ "sector": "Industrials",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-20",
+   "source": "SEC 10-K MD&A",
+   "words": 19289,
+   "themes": [
+    {
+     "theme": "fleet modernization and retirement",
+     "quote": "align with Federal Express's fleet reduction and modernization strategy as we continue to improve our global network efficiency"
+    },
+    {
+     "theme": "network optimization transformation",
+     "quote": "Network 2.0 is our multi-year effort to improve the efficiency with which FedEx picks up, transports, and delivers packages in the U.S. and Canada"
+    },
+    {
+     "theme": "international operations streamlining",
+     "quote": "FedEx initiated operational transformation programs in certain international locations designed to modernize, streamline, and optimize international domestic operations"
+    },
+    {
+     "theme": "freight business separation",
+     "quote": "On June 1, 2026, we completed the spin-off of FedEx Freight into a new, publicly traded company"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-19",
+   "source": "SEC 10-Q MD&A",
+   "words": 19494,
+   "themes": [
+    {
+     "theme": "network optimization",
+     "quote": "Network 2.0 is our multi-year effort to improve the efficiency with which FedEx picks up, transports, and delivers packages in the U.S. and Canada"
+    },
+    {
+     "theme": "international operational transformation",
+     "quote": "In January 2026, FedEx initiated operational transformation programs in certain international locations designed to modernize, streamline, and optimize international domestic operations"
+    },
+    {
+     "theme": "fedex freight separation",
+     "quote": "In December 2024, we announced that FedEx's Board of Directors decided to pursue a full separation of FedEx Freight through the capital markets, creating a new publicly traded company"
+    },
+    {
+     "theme": "business process automation",
+     "quote": "our business optimization costs relate to transformation initiatives aimed to improve long-term profitability, drive efficiency within and between our transportation segments, lower our overhead and support costs, and transform our digital "
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-18",
+   "source": "SEC 10-Q MD&A",
+   "words": 17035,
+   "themes": [
+    {
+     "theme": "network optimization consolidation",
+     "quote": "Network 2.0 is our multi-year effort to improve the efficiency with which FedEx picks up, transports, and delivers packages in the U.S. and Canada. Through Network 2.0, we continue to consolidate our sortation facilities and equipment, redu"
+    },
+    {
+     "theme": "fedex freight separation",
+     "quote": "In December 2024, we announced that FedEx's Board of Directors decided to pursue a full separation of FedEx Freight through the capital markets, creating a new publicly traded company. The transaction, which will be implemented through the "
+    },
+    {
+     "theme": "workforce reduction europe",
+     "quote": "The plan was announced in June 2024 and occurred over an 18-month period in accordance with local country processes and regulations. The plan resulted in a pre-tax cost of approximately $250 million for severance benefits and legal and prof"
+    },
+    {
+     "theme": "one fedex integration",
+     "quote": "Following our one FedEx consolidation in 2024, Federal Express operates a unified, fully integrated air-ground express network under the respected FedEx brand"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "name": "Walt Disney Co",
+ "sector": "Media",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 19554,
+   "themes": [
+    {
+     "theme": "streaming profitability improvement",
+     "quote": "we are making disciplined investments that prioritize profitability and cash generation within our streaming services"
+    },
+    {
+     "theme": "advertising revenue expansion",
+     "quote": "the market for advertising sales on our streaming services and linear networks"
+    },
+    {
+     "theme": "sports content rights acquisition",
+     "quote": "Effective January 31, 2026, the financial results attributable to the media assets acquired from the NFL have been included in the Company's Condensed Consolidated Financial Statements"
+    },
+    {
+     "theme": "theme park capacity optimization",
+     "quote": "development of business strategies that we believe most significantly impact the economic performance of the Asia Theme Parks"
+    },
+    {
+     "theme": "cost rationalization execution",
+     "quote": "our ability to quickly execute on cost rationalization while preserving revenue"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-02",
+   "source": "SEC 10-Q MD&A",
+   "words": 14938,
+   "themes": [
+    {
+     "theme": "streaming service profitability",
+     "quote": "the Company has implemented and is continuing to implement cost rationalization initiatives to improve profitability of its streaming services"
+    },
+    {
+     "theme": "nfl media rights integration",
+     "quote": "ESPN acquired NFL Network and certain other media assets owned and controlled by NFL Enterprises LLC, including the NFL RedZone channel's pay TV distribution and NFL Fantasy"
+    },
+    {
+     "theme": "virtual mvpd consolidation",
+     "quote": "the Company and Fubo combined certain Hulu Live TV assets, including its carriage agreements, subscription agreements and related data"
+    },
+    {
+     "theme": "international theme park expansion",
+     "quote": "Asia Theme Parks together with Disneyland Paris are collectively referred to as the International Theme Parks"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-13",
+   "source": "SEC 10-K MD&A",
+   "words": 9392,
+   "themes": [
+    {
+     "theme": "direct-to-consumer streaming profitability",
+     "quote": "Operating income from Direct-to-Consumer increased $1,184 million, to $1,327 million from $143 million due to increases at Disney+ and Hulu"
+    },
+    {
+     "theme": "sports rights cost management",
+     "quote": "Domestic ESPN programming and production costs increased primarily due to expanded college football programming rights and contractual rate increases"
+    },
+    {
+     "theme": "theme park capacity expansion",
+     "quote": "Capital expenditures at Experiences are principally for theme park and resort expansion, new attractions, cruise ships, capital improvements and systems infrastructure"
+    },
+    {
+     "theme": "linear network subscriber decline",
+     "quote": "Lower domestic affiliate revenue was due to a decline of 9% from fewer subscribers, partially offset by an increase of 7% from higher effective rates"
+    },
+    {
+     "theme": "pricing increases across streaming services",
+     "quote": "Growth in subscription fees was due to increases of 8% attributable to higher effective rates reflecting increases in pricing and 4% from more subscribers"
+    }
+   ]
+  }
+ ]
+}

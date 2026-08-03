@@ -1,0 +1,90 @@
+{
+ "name": "CSX CORP",
+ "sector": "Rails",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-22",
+   "source": "SEC 10-Q MD&A",
+   "words": 12641,
+   "themes": [
+    {
+     "theme": "intermodal terminal optimization",
+     "quote": "CSX Intermodal Terminals owns and operates a system of intermodal terminals, predominantly in the eastern United States and also performs drayage services"
+    },
+    {
+     "theme": "bulk chemical trucking expansion",
+     "quote": "Quality Carriers is the largest provider of bulk liquid chemicals truck transportation in North America"
+    },
+    {
+     "theme": "rail network modernization",
+     "quote": "provides an important link to the transportation supply chain through its approximately 20,000 route-mile rail network"
+    },
+    {
+     "theme": "automotive distribution services",
+     "quote": "TDSI serves the automotive industry with distribution centers and storage locations"
+    },
+    {
+     "theme": "non-rail customer connectivity",
+     "quote": "Transflo connects non-rail served customers to the many benefits of rail by transferring products from rail to trucks"
+    },
+    {
+     "theme": "interest rate risk management",
+     "quote": "CSX entered into fixed-to-floating interest rate swaps classified as fair value hedges to hedge interest rate risk"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-22",
+   "source": "SEC 10-Q MD&A",
+   "words": 11975,
+   "themes": [
+    {
+     "theme": "intermodal terminal expansion",
+     "quote": "CSX Intermodal Terminals owns and operates a system of intermodal terminals, predominantly in the eastern United States and also performs drayage services"
+    },
+    {
+     "theme": "bulk chemical transportation",
+     "quote": "Quality Carriers is the largest provider of bulk liquid chemicals truck transportation in North America"
+    },
+    {
+     "theme": "automotive distribution network",
+     "quote": "TDSI serves the automotive industry with distribution centers and storage locations"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 14702,
+   "themes": [
+    {
+     "theme": "rail network modernization",
+     "quote": "work on the Howard Street tunnel and severe winter weather. These impacts include rerouting costs"
+    },
+    {
+     "theme": "intermodal volume growth",
+     "quote": "Intermodal volume increased primarily due to international shipments driven by higher port volumes and growth with key customers"
+    },
+    {
+     "theme": "coal market headwinds",
+     "quote": "Revenue of $14.1 billion decreased $448 million or 3% versus the prior year primarily due to declines in export coal revenue"
+    },
+    {
+     "theme": "trucking integration",
+     "quote": "higher trucking headcount, including the impacts from acquiring previously independent affiliates"
+    },
+    {
+     "theme": "cybersecurity infrastructure",
+     "quote": "The Company has implemented processes designed to assess, identify, and manage material cybersecurity risks"
+    },
+    {
+     "theme": "operational resilience planning",
+     "quote": "The Company equips CSX systems with various cybersecurity tools, conducts vulnerability scans and provides critical cybersecurity information to application users"
+    }
+   ]
+  }
+ ]
+}

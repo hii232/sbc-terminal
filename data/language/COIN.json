@@ -1,0 +1,94 @@
+{
+ "name": "Coinbase Global, Inc.",
+ "sector": "Crypto Exchange",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 4966,
+   "themes": [
+    {
+     "theme": "everything exchange expansion",
+     "quote": "Our top three product priorities for 2026 are to grow the everything exchange, scale stablecoins and payments, and expand onchain adoption."
+    },
+    {
+     "theme": "stablecoin and payments scaling",
+     "quote": "increased average USDC held in Coinbase products to an all-time high"
+    },
+    {
+     "theme": "onchain adoption expansion",
+     "quote": "expand onchain adoption"
+    },
+    {
+     "theme": "diversified asset classes",
+     "quote": "As our business has evolved to support multiple asset classes, we believe the prior Trading Volume metric which focused on spot crypto volume no longer reflects the breadth of our business."
+    },
+    {
+     "theme": "institutional derivatives growth",
+     "quote": "an increase in institutional transaction revenue, due mainly to the acquisition of Deribit in August 2025"
+    },
+    {
+     "theme": "ai era optimization",
+     "quote": "we anticipate the restructuring plan announced in May 2026 will help us better align our operating expenses with current market conditions and optimize our operations for the AI era"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 5066,
+   "themes": [
+    {
+     "theme": "everything exchange expansion",
+     "quote": "We announced the Everything Exchange in December 2025, and during the first quarter of 2026, we saw strong growth across derivatives, prediction markets, and decentralized exchange trading."
+    },
+    {
+     "theme": "stablecoin adoption scaling",
+     "quote": "Stablecoin adoption is accelerating and USDC reached an all-time high in both market capitalization and average USDC held in Coinbase products"
+    },
+    {
+     "theme": "institutional financing products",
+     "quote": "a $122.6 million increase in cash and cash equivalents used for the origination of fiat and payment stablecoin loans, net of repayments, reflecting higher demand for institutional financing products"
+    },
+    {
+     "theme": "derivatives trading growth",
+     "quote": "an increase of $68.5 million attributed to derivatives trading, due mainly to the acquisition of Deribit in August 2025"
+    },
+    {
+     "theme": "platform asset consolidation",
+     "quote": "We are working to further grow assets on our platform, and in turn revenue, as customers discover and adopt more products where their assets already reside."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 7149,
+   "themes": [
+    {
+     "theme": "crypto derivatives expansion",
+     "quote": "we completed the acquisition of Deribit in August, which we believe will play a key role in our goal to be the premier global platform for crypto derivatives, and we launched U.S. perpetual-style futures"
+    },
+    {
+     "theme": "stablecoin payments infrastructure",
+     "quote": "Stablecoin adoption is accelerating. USDC reached an all-time high in market capitalization, as did USDC held in Coinbase products. We are scaling payments infrastructure, expanding distribution with new partnerships, and extending utility "
+    },
+    {
+     "theme": "spot asset listing expansion",
+     "quote": "we continued to make progress towards our mission by expanding access to trading through innovative derivative products, listing more spot assets, and expanding our offerings in markets globally"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "changes in employee-related expenses driven by higher average headcount supporting international expansion and new product initiatives"
+    },
+    {
+     "theme": "institutional financing products",
+     "quote": "a $614.0 million increase in cash and cash equivalents used for the origination of fiat and payment stablecoin loans, net of repayments, reflecting higher demand for institutional financing products"
+    }
+   ]
+  }
+ ]
+}

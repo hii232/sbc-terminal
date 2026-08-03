@@ -1,0 +1,58 @@
+{
+ "name": "Constellation Energy Corp",
+ "sector": "Utilities",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-11",
+   "source": "SEC 10-Q MD&A",
+   "words": 743,
+   "themes": [
+    {
+     "theme": "calpine integration",
+     "quote": "completed the acquisition of Calpine and are in the process of integrating Calpine into our system of internal control over financial reporting"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 33065,
+   "themes": [
+    {
+     "theme": "nuclear generation fleet expansion",
+     "quote": "we acquired all the outstanding equity interest of Calpine in a cash and stock transaction for a purchase price of approximately $22 billion"
+    },
+    {
+     "theme": "natural gas generation integration",
+     "quote": "Calpine owns and operates a generation fleet of natural gas, geothermal, battery storage, and solar assets with approximately 23 GWs of generation capacity"
+    },
+    {
+     "theme": "retail electric supply platform",
+     "quote": "Calpine also operates a competitive retail electric supplier platform serving approximately 62 TWhs of load annually"
+    },
+    {
+     "theme": "nuclear tax credit monetization",
+     "quote": "the OBBBA preserves transferability and certain federal tax credits from the IRA, specifically, 45U for existing nuclear plants through 2032 and 45Y for new nuclear projects"
+    },
+    {
+     "theme": "joint nuclear ownership strategy",
+     "quote": "we completed the acquisition of NRG South Texas LP (renamed and converted as Constellation South Texas, LLC), which owns a 44% undivided ownership interest in the jointly-owned STP, a 2,645 MW, dual-unit nuclear plant"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 857,
+   "themes": [
+    {
+     "theme": "share repurchase program",
+     "quote": "In June 2025, we entered into an ASR agreement with a financial institution to initiate share repurchases of our common stock for $404 million"
+    }
+   ]
+  }
+ ]
+}

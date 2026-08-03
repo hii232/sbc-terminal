@@ -1,0 +1,70 @@
+{
+ "name": "AGILENT TECHNOLOGIES, INC.",
+ "sector": "Life Sciences",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 9874,
+   "themes": [
+    {
+     "theme": "acquisitions and integration",
+     "quote": "we entered into a definitive agreement to acquire 100 percent of the outstanding capital stock of BC Midco I, Inc. ("
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 7922,
+   "themes": [
+    {
+     "theme": "nucleic acid manufacturing expansion",
+     "quote": "These continued investments in property plant and equipment are primarily due to the planned expansion of our manufacturing capacity for production of nucleic acid based therapeutics in Frederick, Colorado."
+    },
+    {
+     "theme": "specialty cdmo business growth",
+     "quote": "The rising demand for several of the modalities provided by our specialty CDMO business positions us well to serve expanding customer demand."
+    },
+    {
+     "theme": "digital service capabilities",
+     "quote": "Digital and remote capabilities will continue to be a key factor in improving the service quality and the customers' experience."
+    },
+    {
+     "theme": "tariff mitigation strategies",
+     "quote": "we expect to pursue mitigation strategies through supply chain optimization, targeted pricing actions, and other cost-efficiency initiatives to protect margins and sustain long-term growth"
+    },
+    {
+     "theme": "applications and solutions portfolio expansion",
+     "quote": "We will continue investing in research and development, advancing our applications and solutions portfolio, and expanding our position in developing and emerging markets."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-22",
+   "source": "SEC 10-K MD&A",
+   "words": 65921,
+   "themes": [
+    {
+     "theme": "life sciences instrumentation expansion",
+     "quote": "Life Sciences and Diagnostics Markets segment focuses on instrumentation products serving pharmaceutical, diagnostics, and academic research customers"
+    },
+    {
+     "theme": "applied markets growth",
+     "quote": "Applied Markets segment includes products for chemical, environmental, food, and clinical markets with focus on expanding market presence"
+    },
+    {
+     "theme": "service and software revenue",
+     "quote": "Service and software revenues are growing as part of non-instrumentation business expansion"
+    },
+    {
+     "theme": "research and development investment",
+     "quote": "Significant R&D spending to develop new products and capabilities across instrumentation and applied markets"
+    }
+   ]
+  }
+ ]
+}

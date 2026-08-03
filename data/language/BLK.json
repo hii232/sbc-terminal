@@ -1,0 +1,90 @@
+{
+ "name": "BlackRock, Inc.",
+ "sector": "Asset Mgmt",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 24245,
+   "themes": [
+    {
+     "theme": "alternatives and private markets expansion",
+     "quote": "Product offerings include single- and multi-asset portfolios investing in equities, fixed income, private markets, liquid alternatives, digital assets"
+    },
+    {
+     "theme": "technology platform monetization",
+     "quote": "BlackRock also offers technology and subscription services, including the investment and risk management technology platform, Aladdin, Aladdin Wealth, eFront, Preqin and Cachematrix"
+    },
+    {
+     "theme": "index and etf growth",
+     "quote": "iShares exchange-traded funds (\"ETFs\"), separate accounts, collective trust funds and other pooled investment vehicles"
+    },
+    {
+     "theme": "wealth management advisory services",
+     "quote": "advisory services and solutions to a broad base of institutional and wealth management clients"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 43288,
+   "themes": [
+    {
+     "theme": "private markets platform consolidation",
+     "quote": "The Company is differentiated in being able to deliver across public and private markets, equity and debt, and in the way that best serves each client \u2013 from broad-based ETFs to customized whole portfolio solutions."
+    },
+    {
+     "theme": "whole portfolio advisory solutions",
+     "quote": "Clients increasingly want to build portfolios that are seamlessly integrated across public and private markets, and that are underpinned by data, risk management, and technology."
+    },
+    {
+     "theme": "aladdin platform expansion",
+     "quote": "Through the integration of Aladdin and eFront, clients are able to better manage and analyze risk across their whole portfolio spanning public and private markets."
+    },
+    {
+     "theme": "etf market growth",
+     "quote": "BlackRock views ETFs as a technology that facilitates investing, and ETFs have become core to asset management. The Company believes that ETFs will continue to be a structural growth area as clients turn to ETFs as the preferred vehicle for"
+    },
+    {
+     "theme": "systematic active strategies",
+     "quote": "The Company is optimistic about the potential of its systematic platform to deliver continued double-digit organic base fee growth and positive inflows, despite outflows in the broader active equity fund industry."
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 31383,
+   "themes": [
+    {
+     "theme": "alternative assets expansion",
+     "quote": "private markets and alternative investment products continue to grow in importance as we expand our capabilities in private equity, real estate, infrastructure and credit"
+    },
+    {
+     "theme": "etf product proliferation",
+     "quote": "we have launched new ETF products including digital assets, commodities and multi-asset ETFs to capture evolving client demand"
+    },
+    {
+     "theme": "technology services monetization",
+     "quote": "technology services and subscription revenue represents a growing revenue stream as we expand digital advisory platforms and data solutions"
+    },
+    {
+     "theme": "preqin acquisition integration",
+     "quote": "the integration of Preqin enhances our capabilities in alternative investment data, analytics and research for institutional clients"
+    },
+    {
+     "theme": "institutional advisory expansion",
+     "quote": "institutional advisory revenue grew as we expanded relationships with large asset owners and institutional clients globally"
+    },
+    {
+     "theme": "index and passive product scaling",
+     "quote": "index and non-ETF index revenue remains a significant and stable component of our business as client demand for low-cost passive solutions continues"
+    }
+   ]
+  }
+ ]
+}

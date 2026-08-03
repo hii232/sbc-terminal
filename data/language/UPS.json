@@ -1,0 +1,94 @@
+{
+ "name": "UNITED PARCEL SERVICE INC",
+ "sector": "Industrials",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 6656,
+   "themes": [
+    {
+     "theme": "healthcare logistics expansion",
+     "quote": "we continued a number of initiatives supporting growth in healthcare and international markets. We advanced the integration of Andlauer Healthcare Group (\"AHG\") to further strengthen our healthcare logistics capabilities"
+    },
+    {
+     "theme": "network automation and consolidation",
+     "quote": "Our Network of the Future initiative, which is intended to enhance the efficiency of our U.S. Domestic Package network through automation and operational sort consolidation"
+    },
+    {
+     "theme": "last-mile outsourcing to usps",
+     "quote": "progress on previously announced initiatives related to workforce optimization and the outsourcing of last-mile delivery of a portion of our Ground Saver product to the United States Postal Service (\"USPS\")"
+    },
+    {
+     "theme": "revenue quality over volume",
+     "quote": "the deliberate shift in our business to increase our focus on higher yielding volume and progress on previously announced initiatives related to workforce optimization"
+    },
+    {
+     "theme": "international network optimization",
+     "quote": "Internationally, we invested in network enhancements, including expansion at our Incheon, South Korea hub, in Taiwan we opened our largest and most advanced logistics center in the region in Europe we executed initiatives to improve ground "
+    },
+    {
+     "theme": "smb customer growth",
+     "quote": "grow in the most attractive parts of the market including healthcare, small and medium-sized businesses (\"SMBs\") and international"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-17",
+   "source": "SEC 10-K MD&A",
+   "words": 12190,
+   "themes": [
+    {
+     "theme": "healthcare logistics expansion",
+     "quote": "our global healthcare portfolio generated more than $11 billion in revenue, furthering our progress towards our goal to become the number one complex healthcare logistics provider in the world"
+    },
+    {
+     "theme": "network automation and consolidation",
+     "quote": "Network Reconfiguration and Efficiency Reimagined initiatives...intended to enhance the efficiency of our network through automation and operational sort consolidation in our U.S. Domestic network"
+    },
+    {
+     "theme": "revenue quality over volume growth",
+     "quote": "we drove a reduction in volume from our largest customer, with a targeted reduction of 50% by June 2026 from 2024 levels...we increased consolidated revenue per piece by 6.6%"
+    },
+    {
+     "theme": "small business customer penetration",
+     "quote": "expanded SMB penetration to over 30% of total U.S. volume...continued growth from SMBs, including through the increased use of our Digital Access Program"
+    },
+    {
+     "theme": "international gateway expansion",
+     "quote": "our new air hub in the Philippines is slated to open towards the end of 2026 and our expansion in Hong Kong is planned to open in 2028...expected to give us broader access and faster time in transit on the trade lanes that are growing in As"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 8948,
+   "themes": [
+    {
+     "theme": "healthcare logistics expansion",
+     "quote": "The acquisition has increased our complex cold-chain logistics capabilities"
+    },
+    {
+     "theme": "network automation and consolidation",
+     "quote": "Our Network of the Future initiative is intended to enhance the efficiency of our network through automation and operational sort consolidation in our U.S. Domestic network"
+    },
+    {
+     "theme": "high-yield volume mix shift",
+     "quote": "we took several steps in furtherance of this strategy, including continuing our deliberate shift in our business to increase our focus on higher yielding volume"
+    },
+    {
+     "theme": "workforce reduction and facility closures",
+     "quote": "we have reduced our U.S. operational workforce by approximately 34,000 positions and closed daily operations at 93 leased and owned buildings"
+    },
+    {
+     "theme": "usps air cargo contract",
+     "quote": "Revenue in our global small package operations during the third quarter and year-to-date periods of 2025 also benefited from growth in air cargo revenue as we fully onboarded volume under our contract with USPS"
+    }
+   ]
+  }
+ ]
+}

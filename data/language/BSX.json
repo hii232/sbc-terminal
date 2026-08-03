@@ -1,0 +1,62 @@
+{
+ "name": "BOSTON SCIENTIFIC CORP",
+ "sector": "Medical Devices",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 830,
+   "themes": [
+    {
+     "theme": "geographic manufacturing consolidation",
+     "quote": "facility consolidations and closures and the transfer of product lines between manufacturing facilities"
+    },
+    {
+     "theme": "portfolio rationalization",
+     "quote": "discontinuations of significant product lines"
+    },
+    {
+     "theme": "organic growth measurement",
+     "quote": "remove the impact of certain acquisitions and divestitures with less than a full period of comparable net sales"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-17",
+   "source": "SEC 10-K MD&A",
+   "words": 779,
+   "themes": [
+    {
+     "theme": "global erp system implementation",
+     "quote": "multi-year implementation of a new global enterprise resource planning (ERP) system, which will replace our existing system. The implementation is expected to occur in phases over the next several years"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 3031,
+   "themes": [
+    {
+     "theme": "restructuring and facility consolidation",
+     "quote": "movement of business activities, facility consolidations and closures and the transfer of product lines between manufacturing facilities"
+    },
+    {
+     "theme": "enterprise resource planning system implementation",
+     "quote": "operational interruptions as we continue to implement our new global enterprise resource planning (ERP) system"
+    },
+    {
+     "theme": "product line portfolio optimization",
+     "quote": "management's decision to discontinue worldwide sales of the ACURATE neo2 and ACURATE Prime Aortic Valve Systems"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "Our dependency on international net sales to achieve growth, and our ability to maintain or expand our worldwide market positions in the various markets in which we compete or seek to compete, including through investments in China and othe"
+    }
+   ]
+  }
+ ]
+}

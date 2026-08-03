@@ -1,0 +1,82 @@
+{
+ "name": "SOUTHERN COPPER CORP/",
+ "sector": "Materials",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 2458,
+   "themes": [
+    {
+     "theme": "ore grade decline management",
+     "quote": "lower production at Toquepala (-14.7%; which was due to a decrease in ore grades and mineral milled) and Cuajone (-7.8%; due to lower ore grades)"
+    },
+    {
+     "theme": "by-product revenue optimization",
+     "quote": "operating cash cost per pound net of by-product revenues improved significantly and decreased from a cost of $0.63 per pound to $0.05 per pound, bolstered mainly by higher by-product revenues from silver and molybdenum"
+    },
+    {
+     "theme": "solvent extraction expansion",
+     "quote": "higher production at our Buenavista (+2.9%; due to increased SX-EW production), La Caridad (+3.9%; due to improved recoveries, higher ore grades, and increased SX-EW production)"
+    },
+    {
+     "theme": "cost control amid inflation",
+     "quote": "higher production costs (+4.7%), which reflected an increase in costs for fuel and operating material costs that was partially offset by a decrease in treatment and refining charges"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 2081,
+   "themes": [
+    {
+     "theme": "operating cash cost reduction",
+     "quote": "our management, therefore, focuses on value creation through copper production, cost control, production enhancement"
+    },
+    {
+     "theme": "by-product revenue optimization",
+     "quote": "operating cash cost per pound net of by-product revenues improved significantly, shifting from a cost of $0.77 per pound to a credit of ($0.11) per pound, boosted primarily by growth in by-product revenues from silver, molybdenum, and zinc"
+    },
+    {
+     "theme": "capital spending programs",
+     "quote": "We endeavor to achieve these goals through capital spending programs, exploration efforts and cost reduction programs"
+    },
+    {
+     "theme": "exploration program expansion",
+     "quote": "We also have exploration programs in Chile and Argentina"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-27",
+   "source": "SEC 10-K MD&A",
+   "words": 75549,
+   "themes": [
+    {
+     "theme": "mine development and expansion",
+     "quote": "We have significant capital investments in our mine development projects in Peru"
+    },
+    {
+     "theme": "copper production growth",
+     "quote": "Our focus is on increasing copper production from our existing and developing mining operations"
+    },
+    {
+     "theme": "energy infrastructure development",
+     "quote": "We have invested in renewable energy generation through our affiliated companies to support our mining operations"
+    },
+    {
+     "theme": "cost management and operational efficiency",
+     "quote": "We continue to focus on controlling costs and improving operational efficiency at our mining facilities"
+    },
+    {
+     "theme": "strategic commodity hedging",
+     "quote": "We use derivative financial instruments to manage our exposure to commodity price fluctuations"
+    }
+   ]
+  }
+ ]
+}

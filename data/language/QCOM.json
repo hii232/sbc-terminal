@@ -1,0 +1,90 @@
+{
+ "name": "QUALCOMM INC/DE",
+ "sector": "Semis",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 4244,
+   "themes": [
+    {
+     "theme": "automotive digital cockpit expansion",
+     "quote": "higher automotive revenues, due to a $381 million increase in revenues per unit driven by favorable mix and higher average selling prices and $223 million in higher shipments primarily from new vehicle launches with our Snapdragon digital c"
+    },
+    {
+     "theme": "on-device ai integration",
+     "quote": "We believe that on-device AI and high-performance, low-power computing combined with cellular technology (such as 5G) will continue to drive adoption of certain technologies that are already commonly used in smartphones by industries and ap"
+    },
+    {
+     "theme": "data center semiconductor acquisition",
+     "quote": "$88 million in higher equipment and services revenues from our Data Center segment, primarily driven by our acquisition of Alphawave in the first quarter of fiscal 2026"
+    },
+    {
+     "theme": "wireless technology diversification",
+     "quote": "We expect to continue investing in key growth and diversification initiatives"
+    },
+    {
+     "theme": "supply chain cost mitigation",
+     "quote": "The semiconductor industry is experiencing a broad-based increase in input costs and capacity constraints across wafer fabrication, assembly, test, advanced packaging, memory and other materials, due in part to increasing demand for leading"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 3967,
+   "themes": [
+    {
+     "theme": "automotive and adas adoption",
+     "quote": "higher automotive revenues, due to $191 million in higher shipments primarily from new vehicle launches with our Snapdragon digital cockpit and advanced driver assistance and automated driving (ADAS/AD) products"
+    },
+    {
+     "theme": "on-device ai expansion",
+     "quote": "on-device AI and high-performance, low-power computing combined with cellular technology (such as 5G) will continue to drive adoption of certain technologies that are already commonly used in smartphones by industries and applications beyon"
+    },
+    {
+     "theme": "data center acquisition integration",
+     "quote": "$97 million in higher equipment and services revenues from our Data Center segment, primarily driven by our acquisition of Alphawave in the first quarter of fiscal 2026"
+    },
+    {
+     "theme": "wireless and integrated circuit rd investment",
+     "quote": "higher costs related to the development of wireless and integrated circuit technologies (including investments in key growth and diversification opportunities)"
+    },
+    {
+     "theme": "long-term diversification strategy",
+     "quote": "This approach is designed to motivate and retain our team to execute our long-term diversification strategy, while further aligning their compensation with the interests of our stockholders"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 3225,
+   "themes": [
+    {
+     "theme": "on-device ai expansion",
+     "quote": "on-device AI and high-performance, low-power computing combined with cellular technology (such as 5G) will continue to drive adoption of certain technologies that are already commonly used in smartphones by industries and applications beyon"
+    },
+    {
+     "theme": "data center market entry",
+     "quote": "Alphawave develops high-speed wired connectivity technologies delivering IP, custom silicon and connectivity products. The acquisition is intended to further accelerate, and provide key assets for, our expansion into data centers"
+    },
+    {
+     "theme": "automotive platform adoption",
+     "quote": "higher automotive revenues, primarily driven by an increase in shipments from new vehicle launches with our Snapdragon digital cockpit products"
+    },
+    {
+     "theme": "diversification beyond handsets",
+     "quote": "We expect to continue investing in key growth and diversification initiatives"
+    },
+    {
+     "theme": "customer vertical integration defense",
+     "quote": "we expect continued intense competition, including from vertical integration by certain of our customers (for example, Apple and Samsung)"
+    }
+   ]
+  }
+ ]
+}

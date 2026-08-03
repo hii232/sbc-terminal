@@ -1,0 +1,86 @@
+{
+ "name": "Cheniere Energy, Inc.",
+ "sector": "Energy",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 1062,
+   "themes": [
+    {
+     "theme": "liquefaction capacity expansion",
+     "quote": "construction costs for the Corpus Christi Stage 3 Project, which were $414 million and $321 million during the three months ended March 31, 2026 and 2025, respectively"
+    },
+    {
+     "theme": "midscale modular lng development",
+     "quote": "$247 million of costs paid for the CCL Midscale Trains 8 & 9 Project during the three months ended March 31, 2026, primarily related to procurement and engineering"
+    },
+    {
+     "theme": "shareholder capital returns",
+     "quote": "we paid $537 million and $350 million to repurchase approximately 2.7 million and 1.6 million shares of our common stock, respectively, under our share repurchase program"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 17418,
+   "themes": [
+    {
+     "theme": "lng expansion capacity buildout",
+     "quote": "Timely and cost-effective completion of the Corpus Christi Stage 3 Project, the CCL Midscale Trains 8 & 9 Project and any potential expansion projects, including the SPL Expansion Project and the CCL Expansion Project, in compliance with ag"
+    },
+    {
+     "theme": "long-term sales contracts",
+     "quote": "as of December 31, 2025, we have contracted through our SPAs and IPM agreements approximately 90% of the total anticipated production from the Liquefaction Projects through the mid-2030s"
+    },
+    {
+     "theme": "natural gas feedstock supply",
+     "quote": "The supply of natural gas to our Liquefaction Projects to meet our LNG production requirements timely and at sufficient quantities is critical to our operations and the fulfillment of our customer contracts"
+    },
+    {
+     "theme": "vessel charter procurement",
+     "quote": "To fulfill our transportation requirements under these arrangements, including those under long term SPAs, we depend on the ability to secure chartered vessels often through long term lease arrangements"
+    },
+    {
+     "theme": "us maritime vessel mandates",
+     "quote": "These measures require that, beginning in April 2029, 1% of U.S. LNG exports must be exported on U.S.-built vessels, with such percentage gradually increasing to 15% in April 2047"
+    },
+    {
+     "theme": "derivative hedging programs",
+     "quote": "our net income for the years ended December 31, 2025 and 2024 included $3.6 billion and $1.3 billion of gains, respectively, resulting from changes in the fair values of our derivatives (before tax and the impact of non-controlling interest"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 1166,
+   "themes": [
+    {
+     "theme": "midscale liquefaction capacity expansion",
+     "quote": "substantial completions of the first two of seven midscale Trains of the Corpus Christi Stage 3 Project were achieved"
+    },
+    {
+     "theme": "lng terminal stage development",
+     "quote": "our Board made a positive FID with respect to the CCL Midscale Trains 8 & 9 Project and issued a full notice to proceed with construction to Bechtel"
+    },
+    {
+     "theme": "tax optimization and cash deferral",
+     "quote": "reinstating 100% accelerated tax bonus depreciation on qualifying assets acquired after January 19, 2025, which is expected to defer our income tax liability, ultimately reducing our income tax payable to a nominal amount in 2025"
+    },
+    {
+     "theme": "shareholder capital returns",
+     "quote": "we paid $1.7 billion and $2.0 billion to repurchase approximately 7.4 million and 12.2 million shares of our common stock"
+    },
+    {
+     "theme": "subsidiary capital structure management",
+     "quote": "SPL, CQP, CCH and Cheniere operate with independent capital structures"
+    }
+   ]
+  }
+ ]
+}

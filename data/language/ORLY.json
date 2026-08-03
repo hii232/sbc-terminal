@@ -1,0 +1,90 @@
+{
+ "name": "O REILLY AUTOMOTIVE INC",
+ "sector": "Retail",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 9775,
+   "themes": [
+    {
+     "theme": "omnichannel retail expansion",
+     "quote": "The successful execution of our growth strategy includes aggressively opening new stores, growing sales in existing stores, continually enhancing merchandising and store layouts, and implementing our Omnichannel initiatives."
+    },
+    {
+     "theme": "comparable store sales growth",
+     "quote": "Comparable store sales increased 8.1% and 3.6% for the three months ended March 31, 2026 and 2025, respectively."
+    },
+    {
+     "theme": "net store openings",
+     "quote": "We opened 59 and 38 net, new stores during the three months ended March 31, 2026 and 2025, respectively. We anticipate total new store growth to be 225 to 235 net, new store openings in 2026."
+    },
+    {
+     "theme": "average ticket value optimization",
+     "quote": "Our comparable store sales increase for the three months ended March 31, 2026, was driven by an increase in average ticket values for both professional service provider and DIY customers and an increase in transaction counts for professiona"
+    },
+    {
+     "theme": "dual market strategy execution",
+     "quote": "We remain confident in our ability to gain market share in our existing markets and grow our business in new markets by focusing on our dual market strategy and the core O'Reilly values of hard work and excellent customer service."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-27",
+   "source": "SEC 10-K MD&A",
+   "words": 34804,
+   "themes": [
+    {
+     "theme": "omnichannel digital expansion",
+     "quote": "Our Omnichannel growth strategies are focused on offering our customers an enhanced and seamless research and buying experience through any of these channels"
+    },
+    {
+     "theme": "store network consolidation",
+     "quote": "we intend to continue to consolidate the fragmented automotive aftermarket. During 2025, we opened 207 net, new stores. In 2026, we plan to open 225 to 235 net, new stores"
+    },
+    {
+     "theme": "distribution network enhancement",
+     "quote": "we plan to: enhance our distribution network in 2026 through strategic investments supporting our ongoing expansion into new markets and penetration in existing markets"
+    },
+    {
+     "theme": "professional customer growth",
+     "quote": "Historically, we have increased our sales to professional service provider customers at a faster pace than the increase in our sales to DIY customers due to the more fragmented nature of the professional service provider business"
+    },
+    {
+     "theme": "talent retention and development",
+     "quote": "Our Company philosophy is to 'promote from within,' and the vast majority of our senior managers, district managers, and store managers have been promoted from within the Company"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 10776,
+   "themes": [
+    {
+     "theme": "omnichannel retail expansion",
+     "quote": "The successful execution of our growth strategy includes aggressively opening new stores, growing sales in existing stores, continually enhancing merchandising and store layouts, and implementing our Omnichannel initiatives."
+    },
+    {
+     "theme": "dual market strategy focus",
+     "quote": "We are one of the largest North American automotive aftermarket specialty retailers, selling our products to both DIY customers and professional service providers \u2013 our \"dual market strategy.\""
+    },
+    {
+     "theme": "value spectrum merchandising",
+     "quote": "Our extensive product line includes an assortment of products that are differentiated by quality and price for most of the product lines we offer. For many of our product offerings, this quality differentiation reflects \"good,\" \"better,\" an"
+    },
+    {
+     "theme": "store network expansion",
+     "quote": "As of September 30, 2025, we operated 6,406 stores in 48 U.S. states and Puerto Rico, 107 stores in Mexico, and 25 stores in Canada."
+    },
+    {
+     "theme": "supplier finance programs",
+     "quote": "The Company has established and maintains supplier finance programs with certain third-party financial institutions, which allow participating merchandise suppliers to voluntarily elect to assign the Company's payment obligations due to the"
+    }
+   ]
+  }
+ ]
+}

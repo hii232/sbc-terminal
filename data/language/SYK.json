@@ -1,0 +1,86 @@
+{
+ "name": "STRYKER CORP",
+ "sector": "Medical Devices",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 8728,
+   "themes": [
+    {
+     "theme": "peripheral vascular portfolio expansion",
+     "quote": "AVS is developing a next-generation intravascular lithotripsy platform designed to treat complex peripheral arterial disease"
+    },
+    {
+     "theme": "minimally invasive venous thromboembolism treatment",
+     "quote": "Inari's product portfolio includes minimally invasive products for the treatment of venous thromboembolism"
+    },
+    {
+     "theme": "orthopedic robotics and navigation systems",
+     "quote": "implants and surgical equipment such as navigation systems and robotics used in total joint replacements"
+    },
+    {
+     "theme": "artificial intelligence clinical platform",
+     "quote": "clinical communication and artificial intelligence-assisted virtual care platform technology"
+    },
+    {
+     "theme": "import tariff cost reduction",
+     "quote": "Gross profit as a percentage of net sales in the three months 2026 increased to 68.3% from 63.8% in 2025 primarily driven by a reduction of certain import tariffs"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-11",
+   "source": "SEC 10-Q MD&A",
+   "words": 10219,
+   "themes": [
+    {
+     "theme": "surgical robotics and navigation integration",
+     "quote": "By bringing Mako, power tools, cutting accessories, enabling technologies and the teams behind these products together under one business, we are simplifying the customer experience and striving to increase our speed to market through focus"
+    },
+    {
+     "theme": "minimally invasive vascular portfolio expansion",
+     "quote": "Inari's product portfolio includes minimally invasive products for the treatment of venous thromboembolism. Inari is part of our Peripheral Vascular business within MedSurg and Neurotechnology."
+    },
+    {
+     "theme": "intravascular lithotripsy platform development",
+     "quote": "AVS is developing a next-generation intravascular lithotripsy platform designed to treat complex peripheral arterial disease."
+    },
+    {
+     "theme": "orthopaedic instruments consolidation",
+     "quote": "Our new Ortho Tech business combines the orthopaedic instruments portfolio from our Instruments business with the Mako and enabling technologies portfolio from our Other Orthopaedics business."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 32882,
+   "themes": [
+    {
+     "theme": "robotic surgery platform expansion",
+     "quote": "we continued to expand the global footprint of Mako SmartRobotics, which is now available in more than 45 countries"
+    },
+    {
+     "theme": "minimally invasive vascular products",
+     "quote": "In 2025 we changed the name of our Neurovascular business to Vascular with the acquisition of Inari Medical, Inc. (Inari) whose product portfolio includes minimally invasive products for the treatment of venous thromboembolism"
+    },
+    {
+     "theme": "next-generation monitoring platforms",
+     "quote": "Medical continued the global launch of the LIFEPAK 35 monitor/defibrillator, our next generation platform designed to optimize care with new clinical features"
+    },
+    {
+     "theme": "digital health and connected care",
+     "quote": "launched the Vocera Sync Badge this year, a trusted clinician handsfree communication endpoint that provides real-time communication and alerts while extending Smart Hospital workflows"
+    },
+    {
+     "theme": "surgical wound care expansion",
+     "quote": "completed the acquisition of Guard Medical Inc., whose primary focus is on Negative Pressure Wound Therapy for surgical patients"
+    }
+   ]
+  }
+ ]
+}

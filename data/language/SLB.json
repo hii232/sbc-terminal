@@ -1,0 +1,82 @@
+{
+ "name": "SLB LIMITED/NV",
+ "sector": "Energy",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 2236,
+   "themes": [
+    {
+     "theme": "digital exploration data monetization",
+     "quote": "Digital Exploration revenue resulting from higher sales of exploration data licenses and transfer fees"
+    },
+    {
+     "theme": "production chemicals and artificial lift integration",
+     "quote": "Production Systems revenue of $7.3 billion increased 26% year on year from the acquired ChampionX production chemicals and artificial lift businesses"
+    },
+    {
+     "theme": "subsea production systems expansion",
+     "quote": "Sequential growth was supported by higher revenue from SLB OneSubsea, along with increased sales of artificial lift, valves, surface production systems, and completions"
+    },
+    {
+     "theme": "offshore activity growth",
+     "quote": "broad-based growth across international markets\u2014led by offshore activity in Latin America, Europe & Africa, and Asia"
+    },
+    {
+     "theme": "fit for basin strategy",
+     "quote": "the business strategies of SLB, including digital and \"fit for basin\""
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 2340,
+   "themes": [
+    {
+     "theme": "digital services adoption expansion",
+     "quote": "growth was supported by increased digital services adoption and new technology introduction"
+    },
+    {
+     "theme": "production chemicals and artificial lift integration",
+     "quote": "acquired ChampionX production chemicals and artificial lift businesses, which contributed $833 million revenue"
+    },
+    {
+     "theme": "deepwater offshore development positioning",
+     "quote": "SLB expects these trends to drive increased investment in short-cycle projects in North America and Latin America as well as long-cycle developments, particularly in deepwater offshore markets"
+    },
+    {
+     "theme": "supply diversification and exploration investments",
+     "quote": "many countries are likely to prioritize supply diversification, invest in exploration and domestic resource development, and replenish strategic reserves"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-23",
+   "source": "SEC 10-K MD&A",
+   "words": 14971,
+   "themes": [
+    {
+     "theme": "production and recovery focus",
+     "quote": "production and recovery activity is becoming a strategic priority for our customers to unlock incremental barrels at the lowest cost"
+    },
+    {
+     "theme": "data center solutions expansion",
+     "quote": "Data Center Solutions will be our fastest growing business for years to come"
+    },
+    {
+     "theme": "digital operations deployment",
+     "quote": "increased deployment of AI solutions and the rapid expansion of our Data Center Solutions business"
+    },
+    {
+     "theme": "hyperscaler partnerships",
+     "quote": "we strengthen strategic partnerships with hyperscalers to leverage our modular data center manufacturing capabilities"
+    }
+   ]
+  }
+ ]
+}

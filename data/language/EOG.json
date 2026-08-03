@@ -1,0 +1,82 @@
+{
+ "name": "EOG RESOURCES INC",
+ "sector": "Energy",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 12625,
+   "themes": [
+    {
+     "theme": "utica play integration",
+     "quote": "The assets of Encino principally include producing wells and developed and undeveloped acreage in the Utica play"
+    },
+    {
+     "theme": "drilling efficiency programs",
+     "quote": "EOG's downhole drilling motor program, which has resulted in increased footage drilled per day and, in turn, reduced drilling times"
+    },
+    {
+     "theme": "horizontal drilling capacity",
+     "quote": "EOG has placed an emphasis on applying its horizontal drilling and completion expertise to unconventional crude oil plays and natural gas plays"
+    },
+    {
+     "theme": "reserve replacement through acquisitions",
+     "quote": "EOG continued to evaluate certain potential crude oil and condensate, NGLs and natural gas exploration and development prospects and to look for opportunities to add drilling inventory through leasehold acquisitions, farm-ins, exchanges or "
+    },
+    {
+     "theme": "cost structure optimization",
+     "quote": "Maintaining the lowest possible operating cost structure, coupled with efficient and safe operations and robust environmental stewardship practices and performance, is integral in the implementation of EOG's strategy"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 51343,
+   "themes": [
+    {
+     "theme": "unconventional resource development",
+     "quote": "focused on crude oil and natural gas plays"
+    },
+    {
+     "theme": "low-cost reserve replacement",
+     "quote": "emphasizing the drilling of internally generated prospects in order to find and develop low-cost reserves"
+    },
+    {
+     "theme": "international asset expansion",
+     "quote": "In February 2025, a subsidiary of EOG signed an exploration participation agreement with Bapco Energies B.S.C. (Closed) (Bapco) to evaluate a gas exploration prospect in the Kingdom of Bahrain. In May 2025, a subsidiary of EOG was awarded a"
+    },
+    {
+     "theme": "strategic acquisitions",
+     "quote": "For discussion regarding EOG's August 2025 acquisition of Encino Acquisition Partners, LLC"
+    },
+    {
+     "theme": "cost structure optimization",
+     "quote": "Maintaining the lowest possible operating cost structure, coupled with efficient and safe operations and robust environmental stewardship practices and performance, is integral in the implementation of EOG's strategy"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 16062,
+   "themes": [
+    {
+     "theme": "unconventional shale production growth",
+     "quote": "EOG's operations are all crude oil, natural gas liquids (NGLs) and natural gas exploration and production-related"
+    },
+    {
+     "theme": "capital allocation and share buybacks",
+     "quote": "During the nine months ended September 30, 2025, EOG repurchased 15.4 million shares of common stock for approximately $ 1.8 billion"
+    },
+    {
+     "theme": "debt refinancing and capital markets access",
+     "quote": "On July 1, 2025, EOG closed on its offering of $ 500 million aggregate principal amount of its 4.400 % Senior Notes due 2028, $ 1.25 billion aggregate principal amount of its 5.000 % Senior Notes due 2032, $ 1.25 billion aggregate principal"
+    }
+   ]
+  }
+ ]
+}

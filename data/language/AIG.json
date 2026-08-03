@@ -1,0 +1,30 @@
+{
+ "name": "AMERICAN INTERNATIONAL GROUP, INC.",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 35853,
+   "themes": [
+    {
+     "theme": "specialty insurance portfolio acquisition",
+     "quote": "AIG announced strategic investments in Convex Group Limited (Convex), a global specialty insurer... AIG will acquire a 35 percent equity interest in Convex for approximately $2.1 billion"
+    },
+    {
+     "theme": "commercial insurance renewal rights",
+     "quote": "AIG announced definitive agreements with Everest Group, Ltd. (Everest) to acquire the renewal rights of Everest's global retail commercial insurance portfolios for an aggregate purchase price of $301 million"
+    },
+    {
+     "theme": "asset management and alternative investments",
+     "quote": "a 9.9 percent ownership stake in Onex, for approximately $646 million, with the intent to invest up to $2.0 billion over three years in Onex's investment funds"
+    },
+    {
+     "theme": "loss reserve valuation",
+     "quote": "the valuation of insurance liabilities - unpaid losses and loss adjustment expenses (Loss Reserves), Net of Reinsurance... the Company's net liability for unpaid losses and loss adjustment expenses was $41.8 billion"
+    }
+   ]
+  }
+ ]
+}

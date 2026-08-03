@@ -1,0 +1,86 @@
+{
+ "name": "KIMBERLY CLARK CORP",
+ "sector": "Staples",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 10644,
+   "themes": [
+    {
+     "theme": "consumer health acquisition integration",
+     "quote": "acquire the outstanding equity interests of Kenvue, Inc., a global consumer health leader"
+    },
+    {
+     "theme": "joint venture divestiture model",
+     "quote": "form a joint venture with Suzano S.A. comprised of substantially all the operations of the Company's former International Family Care and Professional segment"
+    },
+    {
+     "theme": "supply chain optimization",
+     "quote": "implement initiatives and deploy technology and data analytics designed to create a fast, adaptable, integrated supply chain with greater visibility that can deliver continuous improvement"
+    },
+    {
+     "theme": "cost productivity program",
+     "quote": "Total pre-tax savings are expected to be $3.0 billion in gross productivity; inclusive of input cost and manufacturing cost savings"
+    },
+    {
+     "theme": "category innovation investment",
+     "quote": "Accelerating pioneering innovation to capture significant growth available in our product categories by investing in science-based and proprietary technology"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 41017,
+   "themes": [
+    {
+     "theme": "consumer health acquisitions",
+     "quote": "On November 2, 2025, we entered into an Agreement and Plan of Merger to acquire the outstanding equity interests of Kenvue, Inc., a global consumer health leader"
+    },
+    {
+     "theme": "joint venture portfolio restructuring",
+     "quote": "we announced that the Company will form a joint venture with Suzano S.A., comprised of substantially all the operations of the Company's former International Family Care and Professional segment"
+    },
+    {
+     "theme": "proprietary innovation focus",
+     "quote": "Accelerating pioneering innovation to capture significant growth available in our product categories by investing in science-based and proprietary technology to solve unmet and evolving consumer needs"
+    },
+    {
+     "theme": "supply chain optimization",
+     "quote": "Optimizing our margin structure to deliver superior consumer propositions and implement initiatives designed to create a fast, adaptable, integrated supply chain with greater visibility"
+    },
+    {
+     "theme": "organizational agility transformation",
+     "quote": "Wiring our organization for growth to drive agility, speed, and focused execution that extends our competitive advantages further into the future"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 11934,
+   "themes": [
+    {
+     "theme": "supply chain optimization",
+     "quote": "realigning our internal operating and management structure to streamline our global supply chain and improve the efficiency of our corporate and regional overhead cost structures"
+    },
+    {
+     "theme": "portfolio transformation",
+     "quote": "International Family Care and Professional (IFP) Business are reported as discontinued operations... Buyer will acquire a 51% interest in the Joint Venture for a purchase price of approximately $1.7 billion"
+    },
+    {
+     "theme": "cost structure reduction",
+     "quote": "2024 Transformation Initiative intended to improve our focus on growth and reduce our structural cost base... workforce reductions are expected to be in the range of 4% to 5%"
+    },
+    {
+     "theme": "market exit and rationalization",
+     "quote": "incremental depreciation and asset write-offs, including losses associated with the expected exit of certain markets"
+    }
+   ]
+  }
+ ]
+}

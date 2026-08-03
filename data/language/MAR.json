@@ -1,0 +1,86 @@
+{
+ "name": "MARRIOTT INTERNATIONAL INC /MD/",
+ "sector": "Travel",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 2543,
+   "themes": [
+    {
+     "theme": "international rooms expansion",
+     "quote": "Over half of the rooms in our quarter-end development pipeline were located outside U.S. & Canada"
+    },
+    {
+     "theme": "technology systems transformation",
+     "quote": "higher than typical spending on our worldwide technology systems transformation"
+    },
+    {
+     "theme": "co-branded credit card partnerships",
+     "quote": "higher co-branded credit card fees ($60 million)"
+    },
+    {
+     "theme": "asset-light franchise model",
+     "quote": "Under our asset-light business model and consistent with our focus on franchising, management, and licensing, we own or lease very few of our lodging properties"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-10",
+   "source": "SEC 10-K MD&A",
+   "words": 31751,
+   "themes": [
+    {
+     "theme": "luxury and distinctive brand expansion",
+     "quote": "Our brands are categorized by style of offering - Classic and Distinctive. Our Classic brands offer time-honored hospitality for the modern traveler, and our Distinctive brands offer memorable experiences with a unique perspective"
+    },
+    {
+     "theme": "loyalty program monetization",
+     "quote": "Payments received under our co-branded credit card agreements represent a significant funding source for the Loyalty Program"
+    },
+    {
+     "theme": "technology systems transformation",
+     "quote": "This multi-year transformation of our reservations, property management, and loyalty systems is focused on introducing new technology that delivers more choices for guests, new capabilities for associates, and new revenue opportunities for "
+    },
+    {
+     "theme": "direct digital channel development",
+     "quote": "Our focus on creating frictionless experiences across our direct digital channels is foundational to our worldwide technology systems transformation"
+    },
+    {
+     "theme": "pipeline growth acceleration",
+     "quote": "we also had approximately 4,100 properties (nearly 610,000 rooms) in our development pipeline"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 2949,
+   "themes": [
+    {
+     "theme": "global rooms pipeline expansion",
+     "quote": "we had approximately 3,900 properties and over 596,000 rooms in our development pipeline"
+    },
+    {
+     "theme": "technology systems transformation",
+     "quote": "higher than typical spending on our worldwide technology systems transformation, the overwhelming portion of which we expect to be reimbursed over time"
+    },
+    {
+     "theme": "luxury and upper-midscale positioning",
+     "quote": "strong demand at our luxury hotels, offset by weaker business transient demand at our select service hotels"
+    },
+    {
+     "theme": "international geographic diversification",
+     "quote": "Over half of the rooms in our quarter-end development pipeline are located outside U.S. & Canada"
+    },
+    {
+     "theme": "asset-light franchise model",
+     "quote": "Under our asset-light business model, we typically manage or franchise hotels and other lodging offerings, rather than own them"
+    }
+   ]
+  }
+ ]
+}

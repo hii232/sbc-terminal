@@ -1,0 +1,58 @@
+{
+ "name": "PEPSICO INC",
+ "sector": "Beverages",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-09",
+   "source": "SEC 10-Q MD&A",
+   "words": 955,
+   "themes": [
+    {
+     "theme": "enterprise resource planning migration",
+     "quote": "we continued migrating certain of our financial processing systems to an Enterprise Resource Planning (ERP) solution"
+    },
+    {
+     "theme": "business process automation",
+     "quote": "continue to migrate to shared business models across our operations to further simplify, harmonize and automate processes"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-16",
+   "source": "SEC 10-Q MD&A",
+   "words": 1037,
+   "themes": [
+    {
+     "theme": "enterprise resource planning migration",
+     "quote": "we continued migrating certain of our financial processing systems to an Enterprise Resource Planning (ERP) solution"
+    },
+    {
+     "theme": "business process automation",
+     "quote": "continue to migrate to shared business models across our operations to further simplify, harmonize and automate processes"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-03",
+   "source": "SEC 10-K MD&A",
+   "words": 1544,
+   "themes": [
+    {
+     "theme": "enterprise resource planning migration",
+     "quote": "we continued migrating certain of our financial processing systems to an Enterprise Resource Planning (ERP) solution"
+    },
+    {
+     "theme": "business process automation",
+     "quote": "continue to migrate to shared business models across our operations to further simplify, harmonize and automate processes"
+    },
+    {
+     "theme": "global business transformation",
+     "quote": "These systems implementations are part of our ongoing global business transformation initiative"
+    }
+   ]
+  }
+ ]
+}

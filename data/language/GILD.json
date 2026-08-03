@@ -1,0 +1,94 @@
+{
+ "name": "GILEAD SCIENCES, INC.",
+ "sector": "Biotech",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 8541,
+   "themes": [
+    {
+     "theme": "oncology portfolio expansion through acquisition",
+     "quote": "Completed the acquisition of Arcellx, Inc. for $115 per share, or an implied equity value of $7.8 billion, and one contingent value right of $5 per share. This acquisition builds on an existing collaboration agreement with Arcellx for the d"
+    },
+    {
+     "theme": "antibody-drug conjugate development",
+     "quote": "Announced a definitive agreement to acquire Tubulis GmbH, a private clinical-stage biotechnology company developing next-generation antibody-drug conjugates, including lead asset TUB-040, a NaPi2b-directed topoisomerase-I inhibitor ADC curr"
+    },
+    {
+     "theme": "t cell engager immunotherapy",
+     "quote": "Announced a definitive agreement to acquire Ouro Medicines, LLC, a private clinical-stage biotechnology company developing T cell engager therapies for autoimmune diseases. This acquisition adds Ouro's lead asset, OM336 (gamgertamig), a BCM"
+    },
+    {
+     "theme": "hiv treatment innovation",
+     "quote": "Announced U.S. Food and Drug Administration accepted New Drug Application for bictegravir and lenacapavir for virologically suppressed people with HIV under priority review. BIC/LEN maintained high levels of virologic suppression, demonstra"
+    },
+    {
+     "theme": "cell therapy commercialization",
+     "quote": "Announced that the Biologics License Application for anito-cel in 4L+ R/R MM has been accepted by FDA, with a PDUFA target action date of December 23, 2026. Received FDA full approval for Tecartus in adult patients with R/R mantle cell lymp"
+    },
+    {
+     "theme": "inflammatory disease pipeline development",
+     "quote": "Entered into a strategic partnership with LEO Pharma A/S to accelerate the development and commercialization of LEO Pharma's small molecule oral signal transducer and activator of transcription 6 programs for the potential treatment of pati"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 5958,
+   "themes": [
+    {
+     "theme": "long-acting hiv therapy expansion",
+     "quote": "maximize impact of long-acting HIV therapies"
+    },
+    {
+     "theme": "oncology pipeline acceleration",
+     "quote": "accelerate our pipeline build in oncology and inflammation"
+    },
+    {
+     "theme": "artificial intelligence adoption",
+     "quote": "adopt and scale artificial intelligence to transform how we work"
+    },
+    {
+     "theme": "car-t cell therapy acquisition",
+     "quote": "entered into a definitive agreement to acquire all of the outstanding common stock of Arcellx, Inc., providing us with full control of its leading pipeline candidate, anitocabtagene autoleucel, an investigational BCMA-directed CAR-T cell th"
+    },
+    {
+     "theme": "in vivo gene therapy development",
+     "quote": "Entered into a collaboration with Shenzhen Pregene Biopharma Co., Ltd. to develop next-generation in vivo therapies; Announced the acquisition of Interius BioTherapeutics, Inc., a privately held biotechnology company developing in vivo chim"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 12167,
+   "themes": [
+    {
+     "theme": "lenacapavir hiv prep expansion",
+     "quote": "Received a strong recommendation for the use of twice-yearly injectable Yeztugo (lenacapavir) for HIV pre-exposure prophylaxis (PrEP) in the new U.S. Centers for Disease Control and Prevention guidelines. Announced a partnership with the U."
+    },
+    {
+     "theme": "seladelpar liver disease commercialization",
+     "quote": "In August 2024, FDA granted accelerated approval for Livdelzi (seladelpar) for the treatment of primary biliary cholangitis in combination with ursodeoxycholic acid (UDCA) in adults who have had an inadequate response to UDCA, or as monothe"
+    },
+    {
+     "theme": "in vivo car-t cell therapy",
+     "quote": "Announced the acquisition of Interius BioTherapeutics, Inc., a privately held biotechnology company developing in vivo chimeric antigen receptor therapeutics, for approximately $350 million. Entered into a collaboration with Shenzhen Pregen"
+    },
+    {
+     "theme": "oral stat6 inflammatory disease",
+     "quote": "we entered into a strategic partnership with LEO Pharma A/S (LEO Pharma) to accelerate the development and commercialization of LEO Pharma's small molecule oral signal transducer and activator of transcription 6 (STAT6) programs for the pot"
+    },
+    {
+     "theme": "biktarvy patent protection extension",
+     "quote": "Announced settlement agreements to resolve Biktarvy patent litigation with generic manufacturers Lupin Ltd., Cipla Ltd. and Laurus Labs Ltd. Under the agreements, the earliest date the three generic manufacturers can market a generic versio"
+    }
+   ]
+  }
+ ]
+}

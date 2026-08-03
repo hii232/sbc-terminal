@@ -1,0 +1,98 @@
+{
+ "name": "L3HARRIS TECHNOLOGIES, INC. /DE/",
+ "sector": "Defense",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 11833,
+   "themes": [
+    {
+     "theme": "defense electronics integration",
+     "quote": "Integrates satellite and payload capabilities, including missile warning and defense, with maritime, air special missions, and other global defense and civil government programs"
+    },
+    {
+     "theme": "resilient communications solutions",
+     "quote": "Enables warfighters across all domains with solutions critical to mission success even in the most contested environments"
+    },
+    {
+     "theme": "space propulsion systems divestiture",
+     "quote": "Under the agreement we will contribute certain assets and liabilities of the Space Propulsion and Power Systems sector and the Space Avionics & Communications division to a new entity in which we will retain approximately 40 % noncontrollin"
+    },
+    {
+     "theme": "segment realignment and consolidation",
+     "quote": "Effective in fiscal 2026, we streamlined our operating segments from four segments to three segments, more closely aligning common capabilities and business models"
+    },
+    {
+     "theme": "missile technology portfolio expansion",
+     "quote": "Provides a comprehensive portfolio of missile technologies spanning the full mission lifecycle, as well as critical space propulsion capabilities"
+    },
+    {
+     "theme": "estimate at completion management",
+     "quote": "After establishing the estimated total cost at completion, we follow a standard estimate at completion process in which we review the progress and performance on our ongoing contracts"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 30682,
+   "themes": [
+    {
+     "theme": "platform-agnostic defense solutions",
+     "quote": "Our products are used across many customer platforms and this platform-agnostic approach gives us a unique advantage in rapidly adapting to the changing threat environment"
+    },
+    {
+     "theme": "organizational agility and operational efficiency",
+     "quote": "we continued to make progress with our LHX NeXt initiative, our targeted program designed to enhance organizational agility and performance by leveraging our scale and relationships across segments, driving operational efficiency and compet"
+    },
+    {
+     "theme": "international defense expansion",
+     "quote": "higher revenue of $179 million in Tactical Communications associated with increased international deliveries for our software-defined resilient communications equipment"
+    },
+    {
+     "theme": "space and missile programs growth",
+     "quote": "higher revenues of $235 million in Missile Solutions from increased production volume on key missile and munitions programs and new program ramp and $56 million in Space Propulsion & Power Solutions from higher volume on a NASA program"
+    },
+    {
+     "theme": "pension de-risking and liability management",
+     "quote": "we executed transactions to purchase nonparticipating single premium group annuity contracts and transfer $1.4 billion of our benefit obligation associated with certain U.S. or Canadian pension plans to insurance providers"
+    },
+    {
+     "theme": "backlog growth and contract diversity",
+     "quote": "we ended fiscal 2025 with contractual backlog of $38.7 billion, a 13% increase over the prior year"
+    }
+   ]
+  },
+  {
+   "period": "2025Q1",
+   "date": "2025-02-14",
+   "source": "SEC 10-K MD&A",
+   "words": 32275,
+   "themes": [
+    {
+     "theme": "organizational agility transformation",
+     "quote": "our targeted three-year program designed to enhance organizational agility and performance by leveraging our scale and relationships across segments, driving operational efficiency and competitiveness for the enterprise"
+    },
+    {
+     "theme": "defense prime consolidation",
+     "quote": "proven alternative to traditional primes and new entrants, our flexible business model allows us to operate as either a prime, merchant supplier, or subcontractor"
+    },
+    {
+     "theme": "space propulsion acquisition integration",
+     "quote": "AR segment includes missile solutions with propulsion technologies for strategic defense, missile defense, and hypersonic and tactical systems; and space propulsion and power systems for national security space and exploration missions"
+    },
+    {
+     "theme": "resilient communications expansion",
+     "quote": "higher revenues of $208 million in Tactical Communications and $95 million in Integrated Vision Solutions associated with increased domestic and international demand for our resilient communication equipment, related waveforms, and night vi"
+    },
+    {
+     "theme": "research and development investment",
+     "quote": "we invested $515 million (2% of total revenue) in company-funded R&D focused on technologies that expand our capabilities across our domains"
+    }
+   ]
+  }
+ ]
+}

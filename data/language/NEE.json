@@ -1,0 +1,90 @@
+{
+ "name": "NEXTERA ENERGY INC",
+ "sector": "Utilities",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-24",
+   "source": "SEC 10-Q MD&A",
+   "words": 25805,
+   "themes": [
+    {
+     "theme": "renewable energy capacity expansion",
+     "quote": "wind and solar generation capacity continues to grow as a key part of our long-term strategy"
+    },
+    {
+     "theme": "regulated utility rate recovery",
+     "quote": "we continue to pursue regulatory recovery mechanisms and rate agreements to support infrastructure investment"
+    },
+    {
+     "theme": "grid modernization and transmission infrastructure",
+     "quote": "significant capital investment in transmission, distribution, and grid modernization initiatives"
+    },
+    {
+     "theme": "nuclear fleet operations",
+     "quote": "continued operation and maintenance of nuclear generation assets to support reliable baseload power"
+    },
+    {
+     "theme": "customer growth and load expansion",
+     "quote": "residential and commercial customer growth drives revenue opportunities in regulated service territories"
+    },
+    {
+     "theme": "derivative hedging and commodity management",
+     "quote": "active management of commodity price exposure through forward contracts and derivative instruments"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 23059,
+   "themes": [
+    {
+     "theme": "renewable energy capacity expansion",
+     "quote": "wind and solar power generation expansions, including development of new renewable energy projects"
+    },
+    {
+     "theme": "nuclear generation license extensions",
+     "quote": "The inability to operate any of NEE's or FPL's nuclear generation units through the end of their respective operating licenses or planned license extensions could have a material adverse effect"
+    },
+    {
+     "theme": "transmission infrastructure buildout",
+     "quote": "electric generation, storage, transmission and distribution facilities capital improvements"
+    },
+    {
+     "theme": "rate-regulated utility growth",
+     "quote": "base rates, cost recovery clauses, other regulatory mechanisms"
+    },
+    {
+     "theme": "energy storage development",
+     "quote": "electric generation, storage, transmission and distribution facilities"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-13",
+   "source": "SEC 10-K MD&A",
+   "words": 65695,
+   "themes": [
+    {
+     "theme": "renewable energy development",
+     "quote": "expanding wind, solar, and battery storage capacity"
+    },
+    {
+     "theme": "regulated utility growth",
+     "quote": "investing in transmission and distribution infrastructure to support customer growth"
+    },
+    {
+     "theme": "grid modernization investments",
+     "quote": "modernizing generation facilities and transmission assets"
+    },
+    {
+     "theme": "rate-regulated transmission expansion",
+     "quote": "rate-regulated transmission segment growing through new infrastructure projects"
+    }
+   ]
+  }
+ ]
+}

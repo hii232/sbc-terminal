@@ -1,0 +1,102 @@
+{
+ "name": "MERCADOLIBRE INC",
+ "sector": "E-commerce",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 9945,
+   "themes": [
+    {
+     "theme": "credit card portfolio expansion",
+     "quote": "increase of $197 million in our Credit revenues and an increase of $137 million in our revenues from Financial services and income"
+    },
+    {
+     "theme": "logistics network buildout",
+     "quote": "investments in property and equipment (such as certain assets used in our fulfillment centers and offices) and intangible assets"
+    },
+    {
+     "theme": "first-party commerce growth",
+     "quote": "an increase of $510 million in our revenues from Commerce product sales for the three-month period ended March 31, 2026"
+    },
+    {
+     "theme": "off-platform fintech expansion",
+     "quote": "an increase of $474 million in our revenues from Financial services and income for the three-month period ended March 31, 2026, mainly related to our off-platform transactional fees"
+    },
+    {
+     "theme": "advertising platform monetization",
+     "quote": "ad sales fees due to advertising services provided to sellers, vendors, brands and others, through product searches and display formats"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 12452,
+   "themes": [
+    {
+     "theme": "lending business expansion",
+     "quote": "growth of credit originations from our lending solution, an increase in total payment volume and fees due to payment in installments in our Mercado Pago platform"
+    },
+    {
+     "theme": "first-party retail sales growth",
+     "quote": "an increase of $1,461 million in our revenues from Commerce products sales, mainly in Brazil, Mexico and Argentina"
+    },
+    {
+     "theme": "logistics network buildout",
+     "quote": "investment in property and equipment (mainly related to our shipping network and information technology assets)"
+    },
+    {
+     "theme": "fintech off-platform expansion",
+     "quote": "expanded our array of Mercado Pago services to third parties outside Mercado Libre's Marketplace"
+    },
+    {
+     "theme": "advertising platform monetization",
+     "quote": "Mercado Ads solution and the platform enables sellers and brands to access the millions of consumers who browse and purchase on our Marketplace, as well as the first-party data"
+    },
+    {
+     "theme": "digital assets and stablecoin offerings",
+     "quote": "launched a digital assets feature as part of the Mercado Pago account in Brazil, Mexico and Chile, in 2021, 2022 and 2023, respectively. This service allows our millions of users to purchase, hold and sell selected digital assets"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 11838,
+   "themes": [
+    {
+     "theme": "credit origination expansion",
+     "quote": "an increase of $1,452 million and $625 million in our Credit revenues for the nine and three-month periods ended September 30, 2025, respectively, mainly as a consequence of higher originations"
+    },
+    {
+     "theme": "off-platform payment volume growth",
+     "quote": "an increase of $1,245 million and $434 million in our revenues from Financial services and income for the nine and three-month periods ended September 30, 2025, respectively, mainly related to our off-platform transactional fees and financi"
+    },
+    {
+     "theme": "logistics network buildout",
+     "quote": "we require cash for capital expenditures related to technology infrastructure, software applications, office space, business acquisitions, to build out our logistics capacity"
+    },
+    {
+     "theme": "first-party merchandise sales",
+     "quote": "an increase of $955 million and $378 million in our revenues from Commerce product sales for the nine and three-month periods ended September 30, 2025, respectively, as compared to the same periods in 2024, mainly in Brazil, Mexico and Arge"
+    },
+    {
+     "theme": "free shipping threshold reduction",
+     "quote": "the reduction of our free shipping threshold in Brazil, together with an increase in our cost of sales of goods, funding costs related to our fintech business and shipping carrier costs"
+    },
+    {
+     "theme": "seller marketing investments",
+     "quote": "a $359 million increase in online and offline marketing expenses across all of our main segments"
+    },
+    {
+     "theme": "credit card portfolio expansion",
+     "quote": "during August 2025 we launched the Mercado Pago credit card in Argentina"
+    }
+   ]
+  }
+ ]
+}

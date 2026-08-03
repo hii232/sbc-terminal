@@ -1,0 +1,82 @@
+{
+ "name": "KEYCORP /NEW/",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 19449,
+   "themes": [
+    {
+     "theme": "share repurchase program execution",
+     "quote": "During the fourth quarter of 2025, we began repurchasing shares under the share repurchase program authorized by the Board of Directors in March 2025. Open market share repurchases, inclusive of shares repurchased from Scotiabank, totaled a"
+    },
+    {
+     "theme": "deposit-funded lending model",
+     "quote": "Most of our liquidity risk is derived from our business model, which involves taking in deposits, many of which can be withdrawn at any time, and lending them out in the form of illiquid loan assets. Our primary source of funding for KeyBan"
+    },
+    {
+     "theme": "interest rate risk positioning",
+     "quote": "We are actively managing the balance sheet to maintain desired IRR positioning in the current environment. At March 31, 2026, our simulated exposure to changes in interest rates remained relatively neutral."
+    },
+    {
+     "theme": "parent company liquidity management",
+     "quote": "We use a parent cash coverage months metric as the primary measure to assess parent company liquidity. The parent company generally maintains cash and short-term investments in an amount sufficient to meet projected debt maturities and divi"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-23",
+   "source": "SEC 10-K MD&A",
+   "words": 11139,
+   "themes": [
+    {
+     "theme": "share repurchase program",
+     "quote": "In March 2025, the Board of Directors authorized a share repurchase program pursuant to which we may purchase up to $1.0 billion of Common Shares"
+    },
+    {
+     "theme": "deposit-funded lending strategy",
+     "quote": "Our long-term liquidity strategy is to be predominantly funded by core deposits"
+    },
+    {
+     "theme": "interest rate risk management",
+     "quote": "Most of our nontrading market risk is derived from interest rate fluctuations and its impacts on our traditional loan and deposit products"
+    },
+    {
+     "theme": "capital adequacy maintenance",
+     "quote": "Our capital management objective is to maintain capital levels consistent with our risk appetite and of a sufficient amount to operate and support our clients under a wide range of economic conditions"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 21127,
+   "themes": [
+    {
+     "theme": "deposit funding stability",
+     "quote": "Our primary source of funding for KeyBank are customer deposits resulting in a consolidated loan-to-deposit ratio of 71% as of September 30, 2025"
+    },
+    {
+     "theme": "interest rate risk management",
+     "quote": "We are actively managing the balance sheet to maintain desired IRR positioning in the current environment"
+    },
+    {
+     "theme": "capital adequacy maintenance",
+     "quote": "Our current capital levels position us well to execute against our capital priorities including supporting organic growth and paying dividends"
+    },
+    {
+     "theme": "liquidity stress testing",
+     "quote": "In the normal course of business, we perform a monthly internal liquidity stress test at the consolidated KeyCorp level"
+    },
+    {
+     "theme": "credit loss estimation",
+     "quote": "We estimate the appropriate level of the ALLL on at least a quarterly basis using various models and estimation techniques based on our historical loss experience, current borrower characteristics, current economic conditions, reasonable an"
+    }
+   ]
+  }
+ ]
+}

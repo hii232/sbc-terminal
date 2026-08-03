@@ -1,0 +1,82 @@
+{
+ "name": "Super Micro Computer, Inc.",
+ "sector": "Hardware",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-11",
+   "source": "SEC 10-Q MD&A",
+   "words": 26472,
+   "themes": [
+    {
+     "theme": "ai accelerator system design",
+     "quote": "our accelerator products, which include GPU-based and custom AI accelerator systems"
+    },
+    {
+     "theme": "data center power supply manufacturing",
+     "quote": "we design and manufacture server, storage and subsystem solutions including advanced power supplies"
+    },
+    {
+     "theme": "software and service revenue",
+     "quote": "Services sales. Our sale of services mainly consists of extended warranty and on-site services as well as system rack installation and integration services"
+    },
+    {
+     "theme": "liquid cooling systems",
+     "quote": "our accelerator products include liquid cooling capabilities for high-performance systems"
+    },
+    {
+     "theme": "custom subsystem integration",
+     "quote": "we design and manufacture server, storage and subsystem solutions including advanced power supplies and cooling systems"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 22950,
+   "themes": [
+    {
+     "theme": "gpu server product expansion",
+     "quote": "We generate revenues from the sale of server and storage systems, subsystems, accessories and services."
+    },
+    {
+     "theme": "receivables securitization facility",
+     "quote": "On July 16, 2025, we entered into a Receivables Purchase Agreement...Pursuant to the Receivables Purchase Agreement, we may...sell certain of our accounts receivable and related rights to the Purchasers...with an initial aggregate facility "
+    },
+    {
+     "theme": "extended payment terms financing",
+     "quote": "Our credit terms are predominantly short-term in nature; however, we also grant extended payment terms for certain customers. For the contracts with the extended payment terms in which the financing component is determined to be significant"
+    },
+    {
+     "theme": "multi-year service revenue growth",
+     "quote": "Our sale of services mainly consists of extended warranty and on-site services...These service contracts are typically one to five years in length"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 19864,
+   "themes": [
+    {
+     "theme": "ai infrastructure capacity scaling",
+     "quote": "we may, subject to the terms and conditions set out therein, sell certain of our accounts receivable and related rights to the Purchasers...with an initial aggregate facility limit of $1,790.0 million"
+    },
+    {
+     "theme": "modular server architecture",
+     "quote": "develops and provides high-performance server solutions based upon an innovative, modular and open-standard architecture"
+    },
+    {
+     "theme": "extended warranty and services expansion",
+     "quote": "revenue related to services recognized over time ratably over the contract term was $71.9 million and $50.1 million for the three months ended September 30, 2025 and 2024, respectively"
+    },
+    {
+     "theme": "multi-currency working capital financing",
+     "quote": "First Bank Credit Lines Foreign Currency Working Capital Loan"
+    }
+   ]
+  }
+ ]
+}

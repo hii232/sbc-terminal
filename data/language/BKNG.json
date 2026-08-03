@@ -1,0 +1,74 @@
+{
+ "name": "Booking Holdings Inc.",
+ "sector": "Travel",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 12536,
+   "themes": [
+    {
+     "theme": "ai-powered traveler experience",
+     "quote": "executing against our long-term strategy to create an ideal AI-powered traveler experience, offering our customers relevant options and suggestions"
+    },
+    {
+     "theme": "connected trip vision",
+     "quote": "The goal of our Connected Trip vision is to offer a differentiated and personalized travel planning, booking, payment, and in-trip experience for each trip, enhanced by a robust loyalty program"
+    },
+    {
+     "theme": "non-accommodation service expansion",
+     "quote": "the expansion of our Connected Trip vision involves a higher proportion of non-accommodation services which have lower margins than our accommodation services"
+    },
+    {
+     "theme": "diversified brand portfolio",
+     "quote": "our diversified global portfolio of leading travel brands, flexible platforms, and strong financial position helps us to navigate a range of scenarios"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-18",
+   "source": "SEC 10-K MD&A",
+   "words": 18012,
+   "themes": [
+    {
+     "theme": "meta-search customer acquisition costs",
+     "quote": "meta-search business being impacted by expected increases in customer acquisition costs"
+    },
+    {
+     "theme": "goodwill impairment and asset write-downs",
+     "quote": "Company recognized an impairment charge of $180 million for the three months ended September 30, 2025 for KAYAK reporting unit and $277 million for intangible assets"
+    },
+    {
+     "theme": "online travel reservation automation",
+     "quote": "majority of the processes to calculate and record revenue are highly automated, rely on a number of custom systems, and involve interfacing significant volumes of data across multiple systems"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 16177,
+   "themes": [
+    {
+     "theme": "advertising revenue expansion",
+     "quote": "Revenues from all other sources of online travel reservation services and advertising and other revenues"
+    },
+    {
+     "theme": "metasearch customer acquisition pressure",
+     "quote": "impairments were primarily driven by a reduction in the forecasted cash flows for KAYAK, reflecting its meta-search business being impacted by expected increases in customer acquisition costs"
+    },
+    {
+     "theme": "convertible debt refinancing",
+     "quote": "In May 2025, upon the maturity of the May 2025 Notes, the Company paid $1.9 billion in cash in the aggregate to repay the principal amount and settle the conversion premium"
+    },
+    {
+     "theme": "share repurchase capital allocation",
+     "quote": "In the first quarter of 2025, the Company's Board of Directors authorized a program to repurchase up to $20 billion of the Company's common stock"
+    }
+   ]
+  }
+ ]
+}

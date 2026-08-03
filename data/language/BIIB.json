@@ -1,0 +1,94 @@
+{
+ "name": "BIOGEN INC.",
+ "sector": "Biotech",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 26184,
+   "themes": [
+    {
+     "theme": "specialized immunology portfolio expansion",
+     "quote": "The addition of Apellis is expected to enhance our short- and long-term revenue growth profile by adding two commercialized, differentiated, specialized immunology products to our growth portfolio."
+    },
+    {
+     "theme": "rare disease commercialization",
+     "quote": "we are focused on advancing our pipeline, including significant late stage programs, in neurology, specialized immunology and rare diseases across multiple modalities"
+    },
+    {
+     "theme": "small molecule anti-inflammatory pipeline",
+     "quote": "RayThera's portfolio includes a lead program which entered Phase 1 development during the third quarter of 2026 and other anti-inflammatory assets that could potentially treat immune-mediated conditions"
+    },
+    {
+     "theme": "intrathecal delivery device development",
+     "quote": "The lead asset acquired is ThecaFlex DRx, an implantable subcutaneous port and catheter device being investigated for the intrathecal delivery of ASOs, including SPINRAZA."
+    },
+    {
+     "theme": "alzheimer's disease collaboration",
+     "quote": "We have collaborations with Eisai on the commercialization of LEQEMBI for the treatment of Alzheimer's disease"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 20863,
+   "themes": [
+    {
+     "theme": "alzheimers disease treatment",
+     "quote": "co-developed treatments to address a defining pathology of Alzheimer's disease and launched the first approved treatment to target a genetic cause of ALS"
+    },
+    {
+     "theme": "rare disease portfolio expansion",
+     "quote": "proposed acquisition of Apellis would acquire two FDA-approved products from Apellis: SYFOVRE for geographic atrophy and EMPAVELI for paroxysmal nocturnal hemoglobinuria and C3 glomerulopathy"
+    },
+    {
+     "theme": "intrathecal delivery device",
+     "quote": "completed the acquisition of Alcyone Therapeutics with lead asset ThecaFlex DRx, an implantable subcutaneous port and catheter device for intrathecal delivery of ASOs, designed to provide alternative to repeat lumbar punctures"
+    },
+    {
+     "theme": "antisense oligonucleotide pipeline",
+     "quote": "advancing pipeline in neurology, specialized immunology and rare diseases with collaborations including zorevunersen ASO for Dravet syndrome and salanersen for SMA"
+    },
+    {
+     "theme": "cost reduction restructuring",
+     "quote": "Fit for Growth program generated approximately $1.0 billion in gross operating expense savings by end of 2025, with net headcount reductions of approximately 1,400 employees"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-06",
+   "source": "SEC 10-K MD&A",
+   "words": 11136,
+   "themes": [
+    {
+     "theme": "multiple sclerosis biosimilar competition",
+     "quote": "A biosimilar entrant of TYSABRI was approved in the U.S. and the E.U. in 2023. We expect the future sales of TYSABRI will continue to be adversely affected by the entrance of this biosimilar."
+    },
+    {
+     "theme": "rare disease pipeline expansion",
+     "quote": "we are focused on advancing our pipeline in neurology, specialized immunology and rare diseases"
+    },
+    {
+     "theme": "alzheimer's amyloid targeting",
+     "quote": "co-developed treatments to address a defining pathology of Alzheimer's disease and launched the first approved treatment to target a genetic cause of ALS"
+    },
+    {
+     "theme": "large molecule manufacturing capacity",
+     "quote": "In order to support our future growth and drug development pipeline, we expanded our large molecule production capacity and built a large-scale biologics manufacturing facility in Solothurn, Switzerland."
+    },
+    {
+     "theme": "genetic mutation targeting therapies",
+     "quote": "launched the first approved treatment to target a genetic cause of ALS"
+    },
+    {
+     "theme": "antisense oligonucleotide development",
+     "quote": "development of salanersen for the treatment of SMA; and development of BIIB080 for the treatment of Alzheimer's disease"
+    }
+   ]
+  }
+ ]
+}

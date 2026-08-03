@@ -1,0 +1,90 @@
+{
+ "name": "Accenture plc",
+ "sector": "IT Services",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-18",
+   "source": "SEC 10-Q MD&A",
+   "words": 10883,
+   "themes": [
+    {
+     "theme": "ai capability building",
+     "quote": "clients continue to prioritize large-scale transformations, which include becoming AI-ready"
+    },
+    {
+     "theme": "cloud platform modernization",
+     "quote": "helping our clients accelerate their reinvention, leveraging cloud, enterprise platforms, security, AI and data"
+    },
+    {
+     "theme": "managed services expansion",
+     "quote": "Managed services revenue growth in local currency for the third quarter of fiscal 2026 was driven by very strong growth in EMEA, strong growth in Asia Pacific"
+    },
+    {
+     "theme": "workforce optimization",
+     "quote": "We proactively plan and manage the size and composition of our workforce and take actions as needed to address changes in the anticipated demand"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-19",
+   "source": "SEC 10-Q MD&A",
+   "words": 10657,
+   "themes": [
+    {
+     "theme": "ai-ready transformation services",
+     "quote": "clients continue to prioritize large-scale transformations, which include becoming AI-ready"
+    },
+    {
+     "theme": "advanced ai capability development",
+     "quote": "helping our clients accelerate their reinvention, leveraging cloud, enterprise platforms, security, AI and data, including advanced AI"
+    },
+    {
+     "theme": "cost savings and operational resilience",
+     "quote": "clients continue to be focused on initiatives designed to deliver cost savings, supply chain and operational resilience"
+    },
+    {
+     "theme": "cloud and security infrastructure",
+     "quote": "growing demand to assist clients with reinvented operations, application development and maintenance, and infrastructure management including cloud and security"
+    },
+    {
+     "theme": "proprietary assets and platforms",
+     "quote": "bringing together our people, proprietary assets and platforms, and deep ecosystem relationships"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-18",
+   "source": "SEC 10-Q MD&A",
+   "words": 9773,
+   "themes": [
+    {
+     "theme": "ai readiness and adoption",
+     "quote": "clients continue to prioritize large-scale transformations, which include becoming AI-ready"
+    },
+    {
+     "theme": "managed services expansion",
+     "quote": "Managed services revenue growth in local currency for the first quarter of fiscal 2026 was driven by very strong growth in Asia Pacific and strong growth in EMEA and the Americas"
+    },
+    {
+     "theme": "workforce optimization",
+     "quote": "We proactively plan and manage the size and composition of our workforce and take actions as needed to address changes in the anticipated demand for our solutions and services"
+    },
+    {
+     "theme": "cloud and infrastructure modernization",
+     "quote": "We continue to experience growing demand to assist clients with reinvented operations, application development and maintenance, and infrastructure management including cloud and security"
+    },
+    {
+     "theme": "pricing and margin improvement",
+     "quote": "pricing improved in several areas of our business"
+    },
+    {
+     "theme": "business optimization restructuring",
+     "quote": "we completed our six-month business optimization program. We recorded a total of $923 million under the program, including $628 million of employee severance"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "name": "S&P Global Inc.",
+ "sector": "Financial Data",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 25838,
+   "themes": [
+    {
+     "theme": "subscription revenue expansion",
+     "quote": "we are continuing to expand our subscription offerings"
+    },
+    {
+     "theme": "portfolio rationalization",
+     "quote": "we disposed of certain businesses during the period including Centennial and Enterprise Data Management"
+    },
+    {
+     "theme": "restructuring and cost optimization",
+     "quote": "we initiated restructuring plans in 2025 and 2026 across multiple segments to optimize costs"
+    },
+    {
+     "theme": "indices and benchmarks growth",
+     "quote": "our Indices segment continues to be a strategic focus driving recurring revenue"
+    },
+    {
+     "theme": "energy transition solutions",
+     "quote": "our Energy segment provides critical intelligence for the energy transition market"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 19983,
+   "themes": [
+    {
+     "theme": "mobility segment separation",
+     "quote": "we announced that our Board of Directors decided to pursue a full separation of our Mobility segment, creating a new publicly traded company"
+    },
+    {
+     "theme": "energy software divestiture",
+     "quote": "we entered into a definitive agreement to sell Energy's geoscience and petroleum engineering software portfolio to SLB"
+    },
+    {
+     "theme": "ai-powered energy forecasting",
+     "quote": "we completed the acquisition of Enertel AI Corporation, a company specializing in AI and machine learning-driven short-term power price forecasting for North American electricity markets"
+    },
+    {
+     "theme": "market intelligence portfolio rationalization",
+     "quote": "we completed the sale of the Enterprise Data Management and thinkFolio businesses within our Market Intelligence segment to Symphony Technology Group"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 66800,
+   "themes": [
+    {
+     "theme": "ai-powered analytics expansion",
+     "quote": "With Intelligence marks our commitment to embedding artificial intelligence across our solutions"
+    },
+    {
+     "theme": "subscription revenue growth",
+     "quote": "we are focused on growing our subscription revenues and enhancing our recurring revenue base"
+    },
+    {
+     "theme": "market data and indices expansion",
+     "quote": "our indices business continues to grow with significant assets under management tracking our indices"
+    },
+    {
+     "theme": "credit and ratings services",
+     "quote": "we continue to expand our credit ratings and analytics capabilities to serve global markets"
+    },
+    {
+     "theme": "energy transition solutions",
+     "quote": "we are providing critical solutions for the energy transition and sustainability"
+    }
+   ]
+  }
+ ]
+}

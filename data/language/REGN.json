@@ -1,0 +1,94 @@
+{
+ "name": "REGENERON PHARMACEUTICALS, INC.",
+ "sector": "Biotech",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 44248,
+   "themes": [
+    {
+     "theme": "oncology pipeline expansion",
+     "quote": "research and development expenses by therapeutic area for the six months ended June 30, 2026, included oncology costs and other therapeutic areas"
+    },
+    {
+     "theme": "eylea biosimilar defense",
+     "quote": "the Company filed patent infringement lawsuits against various parties in several jurisdictions outside the United States alleging infringement of certain Company patents pertaining to EYLEA"
+    },
+    {
+     "theme": "dupixent commercialization growth",
+     "quote": "The Company co-commercializes Dupixent in the United States and in certain countries outside the United States"
+    },
+    {
+     "theme": "manufacturing capacity investment",
+     "quote": "The Company is also obligated to use commercially reasonable efforts to supply clinical and commercial bulk product to Bayer"
+    },
+    {
+     "theme": "sanofi collaboration profit sharing",
+     "quote": "As of June 30, 2026, the 'development balance,' which represented the Company's obligation to reimburse Sanofi for development expenses that were previously funded by Sanofi, was fully repaid and will no longer reduce Sanofi collaboration r"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 43480,
+   "themes": [
+    {
+     "theme": "biosimilar patent defense",
+     "quote": "the Company has filed patent infringement lawsuits against various parties in the United States alleging infringement of certain Company patents pertaining to EYLEA"
+    },
+    {
+     "theme": "dupixent co-commercialization expansion",
+     "quote": "The Company co-commercializes Dupixent in the United States and in certain countries outside the United States"
+    },
+    {
+     "theme": "eylea market protection litigation",
+     "quote": "the Company filed a patent infringement lawsuit (as amended on January 7, 2026) against Amgen alleging that Amgen's filing for U.S. Food and Drug Administration approval of an aflibercept 2 mg biosimilar infringed certain Company patents"
+    },
+    {
+     "theme": "government pricing compliance",
+     "quote": "changes to drug pricing regulations and requirements and our drug pricing strategy, including in connection with our April 2026 agreements with the U.S. government"
+    },
+    {
+     "theme": "strategic collaboration manufacturing",
+     "quote": "the Company supplies certain commercial bulk product to Sanofi"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-04",
+   "source": "SEC 10-K MD&A",
+   "words": 6085,
+   "themes": [
+    {
+     "theme": "retinal anti-vegf market erosion",
+     "quote": "EYLEA net product sales have been, and are likely to continue to be, negatively impacted by increased competition from other anti-VEGF products, including biosimilars, as well as the transition of patients from EYLEA to EYLEA HD"
+    },
+    {
+     "theme": "eylea hd patient transition",
+     "quote": "Net product sales of EYLEA decreased in 2025 compared to 2024, due to (i) lower sales volumes as a result of continued competitive pressures...the continued transition of patients to EYLEA HD"
+    },
+    {
+     "theme": "manufacturing capacity expansion",
+     "quote": "We expect to incur capital expenditures of $1.100 billion to $1.300 billion in 2026, including in connection with the continued expansion of our facilities in Tarrytown, New York and developing our property in Saratoga Springs, New York for"
+    },
+    {
+     "theme": "dupixent collaboration revenue growth",
+     "quote": "The increase in our share of profits during the year ended December 31, 2025, compared to 2024, was driven by higher profits primarily associated with an increase in Dupixent sales"
+    },
+    {
+     "theme": "clinical pipeline expansion",
+     "quote": "approximately 45 product candidates currently in clinical development (including a number of marketed products for which we are investigating additional indications)"
+    },
+    {
+     "theme": "patient assistance funding sustainability",
+     "quote": "if independent not-for-profit patient assistance funds that provide copay assistance are unable to support eligible patients, this will likely have a continued negative impact on patient affordability resulting in lower utilization of highe"
+    }
+   ]
+  }
+ ]
+}

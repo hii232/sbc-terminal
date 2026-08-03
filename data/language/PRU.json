@@ -1,0 +1,86 @@
+{
+ "name": "PRUDENTIAL FINANCIAL INC",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 56000,
+   "themes": [
+    {
+     "theme": "real estate portfolio management",
+     "quote": "real estate investments, including wholly owned properties and investments in real estate partnerships"
+    },
+    {
+     "theme": "fixed maturity securities allocation",
+     "quote": "fixed maturities available-for-sale and fixed maturities trading across diversified government, corporate, and structured credit instruments"
+    },
+    {
+     "theme": "alternative asset investments",
+     "quote": "alternative assets including private equity funds, hedge funds, and real estate investment partnerships"
+    },
+    {
+     "theme": "loan portfolio lending",
+     "quote": "commercial loans, agricultural property loans, residential mortgages, and collateralized loan obligations"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 18278,
+   "themes": [
+    {
+     "theme": "distribution consolidation",
+     "quote": "currently centralizing our distribution channels and unifying our asset management capabilities to better serve our clients and support sustainable growth"
+    },
+    {
+     "theme": "third-party reinsurance partnerships",
+     "quote": "expanding access to investing, insurance, and retirement security for people around the world... increased reinsurance capacity that this partnership provides"
+    },
+    {
+     "theme": "workforce restructuring",
+     "quote": "working to become a leaner and more agile company by simplifying our management structure, empowering our employees with faster decision-making processes and investing in technology and data platforms"
+    },
+    {
+     "theme": "private asset class expansion",
+     "quote": "providing asset management services to third-party reinsurers... public and private asset class capabilities"
+    },
+    {
+     "theme": "japan interest rate optimization",
+     "quote": "beginning in 2024, the Bank of Japan began raising its key short-term interest rates... a continued level of higher interest rates will benefit our results over time"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 66778,
+   "themes": [
+    {
+     "theme": "pension risk transfer",
+     "quote": "Pension Risk Transfer Member"
+    },
+    {
+     "theme": "reinsurance operations",
+     "quote": "Somerset Re Member and Prismic Re International Member"
+    },
+    {
+     "theme": "real estate investment portfolio",
+     "quote": "Real Estate Investment Member and commercial mortgage and agricultural loans"
+    },
+    {
+     "theme": "alternative assets expansion",
+     "quote": "Private equity funds, hedge funds, and real estate partnership interests"
+    },
+    {
+     "theme": "fixed maturity securities management",
+     "quote": "fixed maturities available for sale and trading portfolios across diverse geographies"
+    }
+   ]
+  }
+ ]
+}

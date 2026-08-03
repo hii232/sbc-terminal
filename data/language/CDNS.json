@@ -1,0 +1,86 @@
+{
+ "name": "CADENCE DESIGN SYSTEMS INC",
+ "sector": "EDA Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 16925,
+   "themes": [
+    {
+     "theme": "system design and analysis expansion",
+     "quote": "This acquisition expands Cadence's System Design and Analysis (\"SD&A\") portfolio, building upon its acquisition of BETA CAE in fiscal 2024."
+    },
+    {
+     "theme": "artificial intelligence integration",
+     "quote": "Cadence is leveraging AI to enhance its design automation capabilities and accelerate product development cycles across its portfolio"
+    },
+    {
+     "theme": "subscription and recurring revenue",
+     "quote": "Recurring revenue includes revenue recognized over time from Cadence's Core EDA software licensing arrangements, services, royalties, maintenance on IP licenses and hardware"
+    },
+    {
+     "theme": "custom silicon and chip design tools",
+     "quote": "Core EDA software licensing arrangements"
+    },
+    {
+     "theme": "debt management and capital structure",
+     "quote": "In September 2024, Cadence issued $2.5 billion aggregate principal amount of Senior Notes with various maturity dates to fund operations and strategic investments"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 16014,
+   "themes": [
+    {
+     "theme": "system design analysis expansion",
+     "quote": "expand Cadence's System Design and Analysis (SD&A) portfolio, building upon its acquisition of BETA CAE in fiscal 2024"
+    },
+    {
+     "theme": "semiconductor ip portfolio growth",
+     "quote": "Cadence groups its products and services into categories related to major design activities"
+    },
+    {
+     "theme": "strategic acquisitions and integration",
+     "quote": "On February 23, 2026, Cadence acquired all of the outstanding equity of the design and engineering (D&E) business of Hexagon Smart Solutions AB. The aggregate purchase consideration paid to Hexagon, net of cash acquired of $154.6 million, w"
+    },
+    {
+     "theme": "subscription and recurring revenue model",
+     "quote": "Recurring revenue includes revenue recognized over time from Cadence's Core EDA software licensing arrangements, services, royalties, maintenance on IP licenses and hardware"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-19",
+   "source": "SEC 10-K MD&A",
+   "words": 58605,
+   "themes": [
+    {
+     "theme": "agentic ai integration",
+     "quote": "we integrate agentic and generative AI, machine learning, and digital twin algorithms, into our core products and solutions"
+    },
+    {
+     "theme": "multiphysics simulation expansion",
+     "quote": "we announced our intent to acquire the Design & Engineering business of Hexagon...MSC Nastran for structural analysis and Adams for multibody dynamics simulation"
+    },
+    {
+     "theme": "semiconductor ip consolidation",
+     "quote": "we expanded our design IP portfolio with the acquisition of the Arm Artisan foundation IP business, adding standard cell libraries, memory compilers, and general-purpose I/Os optimized for advanced process nodes"
+    },
+    {
+     "theme": "embedded security capabilities",
+     "quote": "we strengthened our embedded security capabilities with the acquisition of Secure-IC, a leader in embedded security IP, solutions, and evaluation tools"
+    },
+    {
+     "theme": "cloud-native scalability",
+     "quote": "our software and hardware solutions also support cloud access to address our customers' growing computational needs. Customers can access our solutions via our Cadence OnCloud Platform"
+    }
+   ]
+  }
+ ]
+}

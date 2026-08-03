@@ -1,0 +1,82 @@
+{
+ "name": "AFLAC INC",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 8881,
+   "themes": [
+    {
+     "theme": "yen hedging and currency risk management",
+     "quote": "Aflac Japan has entered into foreign currency derivatives to economically hedge the foreign currency exchange risk on the fair value of a portion of the U.S. dollar-denominated investments"
+    },
+    {
+     "theme": "third sector insurance product expansion",
+     "quote": "The foundation of Aflac Japan's product portfolio has been, and continues to be, third sector products, which include cancer, medical and other products. With continued cost pressure on Japan's health care system, the Company expects the ne"
+    },
+    {
+     "theme": "group product sales growth",
+     "quote": "The increase in new annualized premium sales for Aflac U.S. in the first quarter of 2026 was primarily driven by sales of group products"
+    },
+    {
+     "theme": "distribution channel expansion",
+     "quote": "Aflac Japan had agreements to sell its products at 357 banks, approximately 90% of the total number of banks in Japan. During the three-month period ended March 31, 2026, Aflac Japan recruited 82 new sales agencies"
+    },
+    {
+     "theme": "cybersecurity incident remediation and insurance",
+     "quote": "As a result of the cybersecurity incident, the Company has incurred certain costs and may, depending on future developments, incur additional costs, including but not limited to: costs to provide credit monitoring, identity theft protection"
+    },
+    {
+     "theme": "higher yielding asset allocation",
+     "quote": "The increase in the Aflac Japan new money yield in the three-month period ended March 31, 2026 was primarily due to higher allocations to higher yielding asset classes"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 540,
+   "themes": [
+    {
+     "theme": "morbidity assumption management",
+     "quote": "If morbidity assumptions decreased by 100 basis points, the Company's LFPB balance as of December 31, 2025 would decrease by $299 million"
+    },
+    {
+     "theme": "deferred tax asset realization",
+     "quote": "In evaluating the ability to recover deferred tax assets, the Company's management considers all available evidence, including taxable income in open carry back years, the existence of cumulative losses in the most recent years, forecasted "
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 10453,
+   "themes": [
+    {
+     "theme": "cybersecurity incident response",
+     "quote": "The Company identified an incident involving unauthorized access to its network in the U.S. on June 12, 2025...the Company has incurred certain costs and may, depending on future developments, incur additional costs, including but not limit"
+    },
+    {
+     "theme": "product innovation and sales growth",
+     "quote": "The increase in new annualized premium sales on a yen basis in the third quarter and first nine months of 2025 was driven primarily by continued strong sales of the new cancer insurance product, Miraito, that was launched in certain sales c"
+    },
+    {
+     "theme": "technology infrastructure investment",
+     "quote": "Aflac Japan continues to promote digital and web-based sales to groups and use of its system that enables smart device-based insurance application...Further, Aflac Japan continues to utilize its virtual sales tool that enables online consul"
+    },
+    {
+     "theme": "internal reinsurance optimization",
+     "quote": "the internal cancer reinsurance transaction with Aflac Re established in the fourth quarter of 2024...Net earned premiums decreased primarily due to approximately \u00a57 billion related to the internal cancer reinsurance transaction"
+    },
+    {
+     "theme": "assumption updates and reserves",
+     "quote": "Total benefits and claims decreased primarily due to approximately \u00a568 billion of reserve remeasurement gains related to assumption updates in the third quarter of 2025, compared to reserve remeasurement gains of approximately \u00a550 billion i"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "name": "Vistra Corp.",
+ "sector": "Utilities",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 5447,
+   "themes": [
+    {
+     "theme": "nuclear uprate development",
+     "quote": "we are progressing a series of development initiatives across our generation portfolio, including nuclear uprates and other capacity expansions"
+    },
+    {
+     "theme": "long-term power purchase agreements",
+     "quote": "we continue to engage in discussions with various counterparties regarding the potential long-term sale of power from our generation facilities"
+    },
+    {
+     "theme": "natural gas generation expansion",
+     "quote": "Planned Gas-Fueled Dispatchable Power in ERCOT... up to 2,000 MW of dispatchable, natural gas-fueled electricity capacity in west, central, and north Texas"
+    },
+    {
+     "theme": "nuclear fuel supply security",
+     "quote": "We have nuclear fuel contracted to support all our refueling needs through 2030 without any additional Russian deliveries"
+    },
+    {
+     "theme": "data center load growth response",
+     "quote": "Electricity demand drivers including the rise of large scale data centers, the electrification of oil field operations, and electric vehicle load building are contributing to a projected fast paced load growth in the regions we serve"
+    },
+    {
+     "theme": "generation portfolio consolidation",
+     "quote": "Vistra executed definitive agreements to acquire Cogentrix Energy which consists of 10 modern natural gas generation facilities totaling approximately 5,500 MW of capacity"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-27",
+   "source": "SEC 10-K MD&A",
+   "words": 9661,
+   "themes": [
+    {
+     "theme": "long-term contracted nuclear power",
+     "quote": "entered into 20-year PPAs with Amazon Web Services and Meta to supply carbon-free power from our nuclear plants"
+    },
+    {
+     "theme": "nuclear capacity uprates",
+     "quote": "planned uprates at Perry, Davis-Besse, and Beaver Valley would add 433 MW of incremental carbon-free nuclear energy and capacity"
+    },
+    {
+     "theme": "natural gas generation acquisitions",
+     "quote": "executed definitive agreements to acquire Cogentrix Energy consisting of 5,500 MW of capacity and acquired 2,600 MW from Lotus"
+    },
+    {
+     "theme": "nuclear plant license renewal",
+     "quote": "application for license renewal at Perry Nuclear Plant was approved by the NRC, extending through 2046"
+    },
+    {
+     "theme": "integrated generation and retail hedging",
+     "quote": "our integrated power generation and retail electricity business provides flexibility to hedge our generation position by utilizing retail markets as an effective sales channel"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 7555,
+   "themes": [
+    {
+     "theme": "nuclear long-term power contracts",
+     "quote": "Vistra entered into a 20-year power purchase agreement with a large, investment grade company pursuant to which Vistra has agreed to supply to the Customer 1,200 MW of carbon-free power from the Comanche Peak Nuclear Power Plant"
+    },
+    {
+     "theme": "natural gas capacity expansion",
+     "quote": "we announced we will move forward with construction of the 860 MW peaking plants discussed above. Early development work is underway, and we anticipate the units will be online in 2028"
+    },
+    {
+     "theme": "nuclear fleet acquisition and geographic diversification",
+     "quote": "Vistra Operations acquired 100% of the membership interests of subsidiaries of Lotus resulting in the addition of seven natural gas generation facilities totaling 2,600 MW in Delaware and Pennsylvania (PJM), Rhode Island (ISO-NE), New York "
+    },
+    {
+     "theme": "nuclear license renewal",
+     "quote": "our application for license renewal at our Perry Nuclear Plant was approved by the NRC. The license now extends through 2046"
+    },
+    {
+     "theme": "nuclear ptc revenue capture",
+     "quote": "the section 45U nuclear PTC is available to existing nuclear facilities from 2024 through 2032 and provides a federal tax credit of up to $15 per MWh"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "name": "Snowflake Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 10747,
+   "themes": [
+    {
+     "theme": "ai data cloud expansion",
+     "quote": "Our future growth is increasingly dependent on our ability to increase consumption of our platform by building and expanding the AI Data Cloud."
+    },
+    {
+     "theme": "large enterprise customer scaling",
+     "quote": "We had 779 customers with product revenue of greater than $1 million for the trailing 12 months ended April 30, 2026, an increase from 604 such customers as of April 30, 2025."
+    },
+    {
+     "theme": "ai inference and gpu investments",
+     "quote": "third-party cloud infrastructure expenses, including those related to AI inference and graphics processing units (GPUs), incurred in connection with our customers' use of our platform"
+    },
+    {
+     "theme": "international and regulated market expansion",
+     "quote": "we are investing in meeting the needs of organizations in geographies and government and regulated industries that have heightened requirements, including with respect to data localization, privacy, and security."
+    },
+    {
+     "theme": "multi-cloud regional deployments",
+     "quote": "This architecture is built on three major public clouds across 55 regional deployments around the world. These deployments are generally interconnected to deliver the AI Data Cloud"
+    },
+    {
+     "theme": "ai-powered observability acquisition",
+     "quote": "On February 2, 2026, we acquired all of the outstanding capital stock of Observe, Inc., a privately-held company that built an AI-powered observability platform."
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-20",
+   "source": "SEC 10-K MD&A",
+   "words": 10953,
+   "themes": [
+    {
+     "theme": "ai data cloud expansion",
+     "quote": "Our future growth is increasingly dependent on our ability to increase consumption of our platform by building and expanding the AI Data Cloud."
+    },
+    {
+     "theme": "large enterprise customer penetration",
+     "quote": "we focus our selling efforts on large organizations and primarily sell our platform through a direct sales force"
+    },
+    {
+     "theme": "existing customer workload migration",
+     "quote": "we focus on increasing the migration of additional customer workloads to our platform to drive increased consumption, as evidenced by our net revenue retention rate of 125%"
+    },
+    {
+     "theme": "ai and machine learning technology development",
+     "quote": "We will continue to invest significantly in research and development to improve our platform, including in the areas of data science and AI Technology."
+    },
+    {
+     "theme": "regulated market expansion",
+     "quote": "we are investing in meeting the needs of organizations in geographies and government and regulated industries that have heightened requirements, including with respect to data localization, privacy, and security"
+    },
+    {
+     "theme": "observability platform acquisition",
+     "quote": "On February 2, 2026, we acquired all the outstanding capital stock of Observe, Inc., a privately-held company that built an AI-powered observability platform."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 10994,
+   "themes": [
+    {
+     "theme": "ai technology development",
+     "quote": "We will continue to invest significantly in research and development to improve our platform, including in the areas of data science and AI Technology."
+    },
+    {
+     "theme": "consumption-based pricing expansion",
+     "quote": "In future periods, we expect to see an increase in capacity contracts providing for quarterly upfront billings and monthly in arrears billings as our customers increasingly want to align consumption and timing of payments."
+    },
+    {
+     "theme": "large enterprise customer expansion",
+     "quote": "Our ability to increase usage of our platform by, and sell additional contracted capacity to, existing customers, and, in particular, large enterprise customers, will depend on a number of factors"
+    },
+    {
+     "theme": "data marketplace ecosystem",
+     "quote": "Our future growth is increasingly dependent on our ability to increase consumption of our platform by building and expanding the AI Data Cloud."
+    },
+    {
+     "theme": "public sector market entry",
+     "quote": "During the three months ended April 30, 2025, we began marketing the Snowflake platform to selected public sector customers who will have contractual rights to take possession of our software"
+    },
+    {
+     "theme": "gpu infrastructure scaling",
+     "quote": "increase of $63.2 million and $173.5 million in third-party cloud infrastructure expenses (including those related to GPUs) for the three and nine months ended October 31, 2025"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "name": "Marathon Petroleum Corp",
+ "sector": "Energy",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 6115,
+   "themes": [
+    {
+     "theme": "renewable diesel margin expansion",
+     "quote": "Renewable Diesel margin was $133 million for the first quarter of 2026 compared to $26 million for the first quarter of 2025, in addition to recognition of clean fuel production tax credits due to clarity on 45Z regulation"
+    },
+    {
+     "theme": "midstream permian northeast growth",
+     "quote": "our Midstream business is well positioned and has significant opportunities to support the development plans of its producer customers"
+    },
+    {
+     "theme": "refining margin optimization",
+     "quote": "higher realized refining margins supported by stable demand and higher global product prices"
+    },
+    {
+     "theme": "asset portfolio optimization",
+     "quote": "continue to optimize our assets and execute on progressing our growth strategies in the Permian and Northeast"
+    },
+    {
+     "theme": "share repurchase program expansion",
+     "quote": "our board of directors approved an additional $5.0 billion share repurchase authorization"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 67738,
+   "themes": [
+    {
+     "theme": "renewable diesel capacity expansion",
+     "quote": "we are pursuing a renewable diesel strategy that leverages our existing refining assets and logistics network"
+    },
+    {
+     "theme": "midstream acquisitions and integration",
+     "quote": "we completed several midstream acquisitions including Northwind, BANG, and Whiptail to expand our logistics capabilities"
+    },
+    {
+     "theme": "refining utilization and optimization",
+     "quote": "we are focused on maximizing utilization of our refining capacity and optimizing our operations"
+    },
+    {
+     "theme": "shareholder returns and capital allocation",
+     "quote": "we returned significant capital to shareholders through dividends and share repurchases"
+    },
+    {
+     "theme": "crude supply diversification",
+     "quote": "we are diversifying our crude supply sources to optimize our refining operations"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 7610,
+   "themes": [
+    {
+     "theme": "long-haul pipeline growth projects",
+     "quote": "Midstream segment contributed strong results and continued growth in the third quarter of 2025, benefitting from the expansion of its Permian to Gulf Coast natural gas and NGL value chains with the acquisition of Northwind Delaware Holdings"
+    },
+    {
+     "theme": "portfolio optimization and divestitures",
+     "quote": "MPLX entered into a definitive agreement to divest its Rockies operations to a subsidiary of Harvest Midstream for $1.0 billion in cash"
+    },
+    {
+     "theme": "renewable diesel production capacity",
+     "quote": "Renewable Diesel segment adjusted EBITDA increased primarily due to increased Renewable Diesel margins with higher environmental credits associated with increased production volume"
+    }
+   ]
+  }
+ ]
+}

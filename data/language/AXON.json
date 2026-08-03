@@ -1,0 +1,94 @@
+{
+ "name": "AXON ENTERPRISE, INC.",
+ "sector": "Public Safety Tech",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 3048,
+   "themes": [
+    {
+     "theme": "integrated hardware-software platform",
+     "quote": "seamlessly integrates software and hardware with a range of connected devices, including TASER energy devices, cameras and sensors, drones and robotics, cloud-based evidence management, records management, real-time operations software"
+    },
+    {
+     "theme": "premium add-on feature adoption",
+     "quote": "growing adoption of our premium add-on features by existing customers drove the majority of the increase"
+    },
+    {
+     "theme": "counter-drone and fleet systems expansion",
+     "quote": "higher volume for counter-drone equipment and fleet systems"
+    },
+    {
+     "theme": "next-generation body camera rollout",
+     "quote": "continued adoption of our newest body camera, AB4, and higher warranty revenue from more devices in the field"
+    },
+    {
+     "theme": "artificial intelligence enhancement",
+     "quote": "all enhanced by artificial intelligence"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 53724,
+   "themes": [
+    {
+     "theme": "cloud-hosted saas expansion",
+     "quote": "cloud-based Software-as-a-Service (\"SaaS\") solutions that leverage AI and enable our customers to capture, securely store, manage, share and analyze video and other digital evidence"
+    },
+    {
+     "theme": "artificial intelligence integration",
+     "quote": "all enhanced by artificial intelligence (\"AI\"). Designed to work together, these solutions create a unified, data-driven operating system"
+    },
+    {
+     "theme": "hardware-software ecosystem integration",
+     "quote": "Axon's products and services are designed to operate as an integrated ecosystem consisting of integrated connected hardware devices, cloud-hosted software applications and real-time operational tools"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "ongoing international expansion across Europe, Asia, and the Americas, as we continue to drive our mission globally"
+    },
+    {
+     "theme": "recurring revenue growth",
+     "quote": "revenue is derived from a combination of hardware sales, multi-year recurring software subscriptions, professional services, and extended warranties"
+    },
+    {
+     "theme": "product innovation investment",
+     "quote": "Our research & development (\"R&D\") investments support continuous innovation on behalf of our customers"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4452,
+   "themes": [
+    {
+     "theme": "cloud software platform expansion",
+     "quote": "growing adoption of our premium add-on features by existing customers drove the majority of the increase"
+    },
+    {
+     "theme": "body camera market penetration",
+     "quote": "continued adoption of our newest body camera, AB4, and higher warranty revenue from more devices in the field"
+    },
+    {
+     "theme": "counter-drone and robotics deployment",
+     "quote": "higher volume for counter-drone equipment, virtual reality training, and fleet systems"
+    },
+    {
+     "theme": "international market growth",
+     "quote": "International revenue increased compared to the prior year September 30, 2024 comparative period, primarily driven by increased sales in our EMEA region"
+    },
+    {
+     "theme": "taser 10 proliferation",
+     "quote": "increase of $99.9 million in TASER is primarily driven by higher TASER 10 handle and cartridge volume"
+    }
+   ]
+  }
+ ]
+}

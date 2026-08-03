@@ -1,0 +1,86 @@
+{
+ "name": "LOWES COMPANIES INC",
+ "sector": "Home Improvement",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 7978,
+   "themes": [
+    {
+     "theme": "pro customer expansion",
+     "quote": "We continued to drive growth in Pro, Online and Home Services, supported by our loyalty program, expanded fulfillment options and ongoing investments in technology and productivity initiatives."
+    },
+    {
+     "theme": "total home strategy execution",
+     "quote": "FBM strengthens the Company's Total Home strategy by expanding our offerings to Pro customers through enhanced capabilities, faster fulfillment, improved digital tools, a robust trade credit platform, and significant cross-selling opportuni"
+    },
+    {
+     "theme": "acquisition integration",
+     "quote": "the Company completed the acquisition of FBM for an aggregate cash purchase price of $8.8 billion"
+    },
+    {
+     "theme": "digital fulfillment expansion",
+     "quote": "our broad assortment of appliances available next-day to our customers in the majority of the United States"
+    },
+    {
+     "theme": "home services growth",
+     "quote": "specialists on-site to provide services, including home improvement installation services, and tool and equipment rental"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-23",
+   "source": "SEC 10-K MD&A",
+   "words": 2856,
+   "themes": [
+    {
+     "theme": "building materials wholesale acquisition",
+     "quote": "acquisitions of Artisan Design Group and Foundation Building Materials (Acquisition of businesses)"
+    },
+    {
+     "theme": "store productivity improvement",
+     "quote": "Capital expenditures generally consist of investments in our strategic initiatives to enhance our ability to serve customers, improve existing stores"
+    },
+    {
+     "theme": "inventory optimization",
+     "quote": "changes in merchandise inventory due to inventory optimization efforts during the year"
+    },
+    {
+     "theme": "debt-financed growth",
+     "quote": "proceeds from the unsecured notes and the 2025 Term Loan were designated to finance, in part, our acquisition of FBM"
+    }
+   ]
+  },
+  {
+   "period": "2025Q2",
+   "date": "2025-05-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 6768,
+   "themes": [
+    {
+     "theme": "pro customer segment expansion",
+     "quote": "The acquisition is expected to expand the Company's Pro customer offering into a new distribution channel within a highly fragmented market"
+    },
+    {
+     "theme": "total home strategy execution",
+     "quote": "our Pro and online sales continued to grow which reflects the results of our investments in our Total Home strategy"
+    },
+    {
+     "theme": "technology transformation and ai integration",
+     "quote": "our technology transformation has made our gains in online possible through an improved user experience and enhanced visualization tools. We also launched Mylow this quarter, the first Artificial Intelligence (AI)-powered home improvement v"
+    },
+    {
+     "theme": "omnichannel digital capabilities",
+     "quote": "The updated program is more intuitive to use which we expect will lead to greater utilization. In addition, our technology transformation has made our gains in online possible through an improved user experience and enhanced visualization t"
+    },
+    {
+     "theme": "productivity and margin initiatives",
+     "quote": "The gross margin improvement for the quarter is primarily driven by ongoing productivity initiatives and improvement in shrink and credit revenue"
+    }
+   ]
+  }
+ ]
+}

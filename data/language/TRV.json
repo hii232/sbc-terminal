@@ -1,0 +1,86 @@
+{
+ "name": "TRAVELERS COMPANIES, INC.",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-17",
+   "source": "SEC 10-Q MD&A",
+   "words": 25854,
+   "themes": [
+    {
+     "theme": "pricing discipline and rate management",
+     "quote": "We continue to maintain our underwriting discipline and implement appropriate rate increases across all segments"
+    },
+    {
+     "theme": "catastrophe exposure management",
+     "quote": "catastrophe losses continue to be a significant component of our results and impact our underwriting profitability"
+    },
+    {
+     "theme": "reserve adequacy and development",
+     "quote": "Prior year reserve development was favorable across all three segments"
+    },
+    {
+     "theme": "digital and technology capabilities",
+     "quote": "investing in digital capabilities and technology to enhance operational efficiency and customer experience"
+    },
+    {
+     "theme": "commercial lines selective growth",
+     "quote": "We are focused on achieving profitable growth in our commercial lines through selective underwriting and rate increases"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-16",
+   "source": "SEC 10-Q MD&A",
+   "words": 20857,
+   "themes": [
+    {
+     "theme": "canadian business divestiture",
+     "quote": "On May 27, 2025, the Company entered into an agreement to sell its Canadian personal insurance business and the majority of its Canadian commercial insurance business to Definity Financial Corporation for approximately US$ 2.4 billion"
+    },
+    {
+     "theme": "catastrophe loss management",
+     "quote": "Gross claims and claim adjustment expense reserves as of March 31, 2026 increased by $1.18 billion over December 31, 2025, primarily reflecting the impacts of (i) catastrophe losses in the first three months of 2026"
+    },
+    {
+     "theme": "prior year reserve releases",
+     "quote": "For the three months ended March 31, 2026 and 2025, estimated claims and claim adjustment expenses incurred included $385 million and $360 million, respectively, of net favorable development for claims arising in prior years"
+    },
+    {
+     "theme": "share repurchase program",
+     "quote": "During the three months ended March 31, 2026, the Company repurchased 6.0 million common shares under its share repurchase authorizations for a total cost of $1.80 billion"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 100735,
+   "themes": [
+    {
+     "theme": "underwriting discipline and pricing",
+     "quote": "we continue to focus on disciplined underwriting and appropriate pricing"
+    },
+    {
+     "theme": "catastrophe risk management",
+     "quote": "managing our exposure to catastrophic losses through careful risk selection and placement"
+    },
+    {
+     "theme": "digital distribution expansion",
+     "quote": "expanding our digital capabilities and distribution channels to reach customers more efficiently"
+    },
+    {
+     "theme": "operational efficiency",
+     "quote": "focusing on expense management and operational efficiency to improve profitability"
+    },
+    {
+     "theme": "specialty insurance growth",
+     "quote": "growing our specialty insurance businesses in targeted segments where we can earn appropriate returns"
+    }
+   ]
+  }
+ ]
+}

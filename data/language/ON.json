@@ -1,0 +1,82 @@
+{
+ "name": "ON SEMICONDUCTOR CORP",
+ "sector": "Semis",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 2715,
+   "themes": [
+    {
+     "theme": "ai data center power solutions",
+     "quote": "we are well-positioned to benefit as next-generation AI data center processors and racks enter the market"
+    },
+    {
+     "theme": "automotive electrification",
+     "quote": "Our intelligent power technologies enable electrified drivetrain and power management applications in the automotive industry"
+    },
+    {
+     "theme": "manufacturing footprint optimization",
+     "quote": "we continue to optimize and right-size our manufacturing footprint to align our capacity with our long-term outlook"
+    },
+    {
+     "theme": "gross margin expansion",
+     "quote": "focusing on generating efficiencies that result in meaningful gross margin expansion and operating cash flows"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-09",
+   "source": "SEC 10-K MD&A",
+   "words": 6551,
+   "themes": [
+    {
+     "theme": "manufacturing capacity realignment",
+     "quote": "we have focused on operational excellence and cash flow generation... we are actively managing and have taken corrective actions in our manufacturing capacity and spending to align with the forecasted demand"
+    },
+    {
+     "theme": "low-margin product line exit",
+     "quote": "exiting product lines that do not enhance gross margin or satisfy strategic objectives"
+    },
+    {
+     "theme": "operating expense reduction",
+     "quote": "We continue to implement cost-saving initiatives to be able to align our overall cost structure, capital investments and other expenditures with our expected revenue, spending and capacity levels"
+    },
+    {
+     "theme": "capital expenditure discipline",
+     "quote": "Cash paid towards capital expenditures as a percent of revenue for the years ended December 31, 2025, 2024, and 2023 was approximately 6%, 10%, and 19%, respectively. In 2026, based on current plans, we expect capital expenditures to be app"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 3695,
+   "themes": [
+    {
+     "theme": "automotive electrification and power solutions",
+     "quote": "Our intelligent power technologies enable the electrification of the automotive industry that allows for lighter and longer-range electric vehicles"
+    },
+    {
+     "theme": "industrial sensing and automation",
+     "quote": "Our intelligent sensing technologies support the next generation industry, allowing for smarter factories and buildings"
+    },
+    {
+     "theme": "manufacturing footprint optimization",
+     "quote": "we continue to optimize and right-size our manufacturing footprint to align our capacity with anticipated long-term growth"
+    },
+    {
+     "theme": "high-margin product development",
+     "quote": "invest in research and development initiatives to accelerate growth in high-margin products"
+    },
+    {
+     "theme": "capital returns to shareholders",
+     "quote": "We are focused on generating operating cash and returning capital to our shareholders through our Share Repurchase Program"
+    }
+   ]
+  }
+ ]
+}

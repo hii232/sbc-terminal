@@ -1,0 +1,90 @@
+{
+ "name": "OCCIDENTAL PETROLEUM CORP /DE/",
+ "sector": "Energy",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 3776,
+   "themes": [
+    {
+     "theme": "carbon management and sequestration development",
+     "quote": "Advance integrated technologies in CO2, power and midstream to enable differentiated resource recovery and value"
+    },
+    {
+     "theme": "debt deleveraging to ten billion",
+     "quote": "Prioritize excess cash flow for deleveraging until principal debt is approximately $10.0 billion, after which available cash will be allocated to further net debt reduction and/or opportunistic share repurchases"
+    },
+    {
+     "theme": "production base maintenance",
+     "quote": "Maintain production base to preserve asset base integrity and longevity"
+    },
+    {
+     "theme": "dividend growth and sustainability",
+     "quote": "Deliver a sustainable and growing dividend"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-18",
+   "source": "SEC 10-K MD&A",
+   "words": 15691,
+   "themes": [
+    {
+     "theme": "carbon capture and sequestration expansion",
+     "quote": "Completed construction of STRATOS central processing facilities and obtained Class VI permits to sequester CO2, with operations expected to begin in 2026. Actively progressed its sequestration hub plans, with five sequestration hubs in vari"
+    },
+    {
+     "theme": "permian basin development acceleration",
+     "quote": "In 2025, the Company invested approximately $3.4 billion of development capital in the Permian Basin. In 2025, Permian Resources produced from approximately 6,300 gross wells and added 390 MMboe to the Company's proved reserves through infi"
+    },
+    {
+     "theme": "enhanced oil recovery expansion",
+     "quote": "Permian EOR is the industry leader in Permian Basin CO2 flooding, which can increase ultimate oil recovery by 10% to 25%. Significant opportunities also remain to gain additional recovery by expanding the Company's existing CO2 projects int"
+    },
+    {
+     "theme": "low-cost production focus",
+     "quote": "The Company strives to maximize efficiencies to lower breakeven costs, generate excess free cash flow and maintain low development and operating costs thereby enhancing the full-cycle value of its assets. In 2025, the Company invested $5.6 "
+    },
+    {
+     "theme": "debt reduction prioritization",
+     "quote": "Prioritize excess cash flow and proceeds from divestitures, including the OxyChem Transaction, for deleveraging until principal debt is approximately $14.3 billion, after which available cash will be allocated to opportunistic share repurch"
+    },
+    {
+     "theme": "gulf of america secondary recovery",
+     "quote": "As part of its Gulf of America 2.0 program (GOA 2.0), the Company successfully implemented several state-of-the-art artificial lift projects, including down-hole gas-lift and caisson electric submersible pumps at its Horn Mountain platform "
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-10",
+   "source": "SEC 10-Q MD&A",
+   "words": 4221,
+   "themes": [
+    {
+     "theme": "deleveraging via asset monetization",
+     "quote": "Prioritize excess cash flow and proceeds from divestitures, including the announced OxyChem Transaction, for deleveraging to reduce principal debt to below $15 billion"
+    },
+    {
+     "theme": "carbon capture and sequestration",
+     "quote": "Advance integrated technologies in CO2, power and midstream to enable differentiated resource recovery and value"
+    },
+    {
+     "theme": "low-carbon ventures development",
+     "quote": "Occidental's low-carbon ventures businesses seek to leverage Occidental's legacy of carbon management experience to develop carbon capture, utilization and sequestration projects, including the commercialization of direct air capture techno"
+    },
+    {
+     "theme": "production base maintenance",
+     "quote": "Maintain production base to preserve asset base integrity and longevity"
+    },
+    {
+     "theme": "oil and gas asset enhancement",
+     "quote": "Enhance its asset base with investments in its cash-generative oil and gas business"
+    }
+   ]
+  }
+ ]
+}

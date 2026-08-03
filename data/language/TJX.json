@@ -1,0 +1,74 @@
+{
+ "name": "TJX COMPANIES INC /DE/",
+ "sector": "Retail",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 11266,
+   "themes": [
+    {
+     "theme": "tariff refund recovery",
+     "quote": "The Company estimates it has paid approximately $490 million in IEEPA related tariffs"
+    },
+    {
+     "theme": "international store expansion",
+     "quote": "TJX International segment operates TK Maxx, Homesense, tkmaxx.com, tkmaxx.de, and tkmaxx.at in Europe and TK Maxx in Australia"
+    },
+    {
+     "theme": "equity method investments",
+     "quote": "The Company has a 49% ownership stake in MOS, through a joint venture with Grupo Axo, and has a 35% ownership stake in privately held BFL"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-31",
+   "source": "SEC 10-K MD&A",
+   "words": 36793,
+   "themes": [
+    {
+     "theme": "off-price inventory acquisition",
+     "quote": "Our opportunistic buying strategies and flexible business model differentiate us from traditional retailers"
+    },
+    {
+     "theme": "store expansion",
+     "quote": "Expansion of our business through the addition of new stores continues to be an important part of our global growth strategy"
+    },
+    {
+     "theme": "supply chain automation",
+     "quote": "We invest in our supply chain with the goal of continuing to operate with low inventory levels, to ship more efficiently and quickly, and to more precisely and effectively allocate merchandise to each store"
+    },
+    {
+     "theme": "international geographic expansion",
+     "quote": "TK Maxx operates in the U.K., Ireland, Germany, Poland, Austria, the Netherlands, and, starting in March 2026, Spain"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-02",
+   "source": "SEC 10-Q MD&A",
+   "words": 12650,
+   "themes": [
+    {
+     "theme": "off-price retail expansion",
+     "quote": "completed an investment for a 49% ownership stake in Multibrand Outlet Stores S.A.P.I. de C.V. in Mexico and a 35% ownership stake in Brands for Less in UAE and Saudi Arabia"
+    },
+    {
+     "theme": "equity method investments in international markets",
+     "quote": "TJX has the option to increase its ownership interest in the joint venture over the long term and both investments are accounted for under the equity method"
+    },
+    {
+     "theme": "intangible asset amortization",
+     "quote": "Tradenames are definite-lived intangible assets and are amortized straight-line over their useful lives of 10 years and 15 years respectively"
+    },
+    {
+     "theme": "store fleet expansion",
+     "quote": "MOS includes a total of over 200 stores and BFL currently operates over 100 stores, primarily in the UAE and Saudi Arabia"
+    }
+   ]
+  }
+ ]
+}

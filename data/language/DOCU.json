@@ -1,0 +1,90 @@
+{
+ "name": "DOCUSIGN, INC.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4287,
+   "themes": [
+    {
+     "theme": "iam platform expansion",
+     "quote": "The first is to transform IAM into an end-to-end platform for customers. IAM enables customers to manage agreements across every part of an organization and build workflows in functions including sales, human resources, legal, and procureme"
+    },
+    {
+     "theme": "ai data advantage in agreement management",
+     "quote": "Our second priority is to expand our AI data and innovation advantage through IAM as the orchestration layer for agreements. At Docusign, we have leveraged differentiated and large-scale proprietary data, built an expansive ecosystem of int"
+    },
+    {
+     "theme": "go-to-market channel diversification",
+     "quote": "One pillar of our long-term strategy is to evolve our go-to-market (GTM) channels from the historically direct sales-driven approach. We are currently investing in three routes to market, including direct sales, our partner channel, and dig"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "We believe there is a substantial opportunity for us to increase our international customer base by leveraging and expanding investments in our technology, direct sales force, and strategic partnerships around the world, as well as helping "
+    },
+    {
+     "theme": "cloud infrastructure migration",
+     "quote": "The increase in the three months ended April 30, 2026 primarily consisted of a $6.3 million increase in information technology costs, particularly hosting costs to support the expansion of IAM and to continue our migration of customer data "
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-18",
+   "source": "SEC 10-K MD&A",
+   "words": 6031,
+   "themes": [
+    {
+     "theme": "cloud infrastructure migration",
+     "quote": "$30.5 million in information technology costs, particularly hosting costs as we continued our transition from co-located data centers to public cloud infrastructure to support future growth of our platform"
+    },
+    {
+     "theme": "iam platform innovation",
+     "quote": "The first is to accelerate product innovation through research and development investments for our IAM platform. We aim to deliver category-leading value in the agreement management market while evolving into a platform company."
+    },
+    {
+     "theme": "omnichannel go-to-market expansion",
+     "quote": "The second growth pillar is to strengthen our omnichannel GTM by evolving our direct sales, partner, and self-service routes to market to better meet evolving customer needs."
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "We believe there is a substantial opportunity for us to increase our international customer base by leveraging and expanding investments in our technology, direct sales force, and strategic partnerships around the world"
+    },
+    {
+     "theme": "partner channel development",
+     "quote": "We anticipate placing a greater focus on investing in customer success through professional services offered by partners. We believe it plays an important role in accelerating our customers' adoption of our products"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4763,
+   "themes": [
+    {
+     "theme": "public cloud infrastructure migration",
+     "quote": "information technology costs, particularly hosting costs, increased by $9.7 million as we continued our transition from co-located data centers to public cloud storage infrastructure to support future growth of our platform, including IAM"
+    },
+    {
+     "theme": "omnichannel go-to-market evolution",
+     "quote": "One pillar of our long-term strategy is to evolve our go-to-market ('GTM') channels from the historically direct sales-driven approach. We are currently investing in three routes to market, including direct sales, partner-assisted sales, an"
+    },
+    {
+     "theme": "ai-powered agreement management platform",
+     "quote": "Docusign's innovative IAM platform automates agreement workflows, uncovers actionable insights, and leverages AI capabilities, which enables organizations to create, commit to, and manage agreements"
+    },
+    {
+     "theme": "international expansion",
+     "quote": "We have since made significant investments to be able to offer our products in select civil law countries. For example, in Europe, we offer Standards-Based Signature ('SBS') technology tailored for the European Union's ('EU') electronic Ide"
+    },
+    {
+     "theme": "enterprise and mid-market segment growth",
+     "quote": "The increase was primarily due to the expansion of revenue from our commercial and enterprise accounts, as well as our digital channel. The number of our customers with greater than $300,000 in annualized contract value was 1,165 customers "
+    }
+   ]
+  }
+ ]
+}

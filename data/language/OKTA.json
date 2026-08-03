@@ -1,0 +1,90 @@
+{
+ "name": "Okta, Inc.",
+ "sector": "Cybersecurity",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 4432,
+   "themes": [
+    {
+     "theme": "ai agent identity management",
+     "quote": "We are expanding these capabilities to include AI agents with the introduction of new product offerings currently in development and early access."
+    },
+    {
+     "theme": "non-human identity governance",
+     "quote": "the Okta Platform governs the seamless and secure access by human users and non-human identities to the applications they need"
+    },
+    {
+     "theme": "platform expansion and upselling",
+     "quote": "increased revenue from existing customers as reflected in our 107% Dollar-Based Net Retention Rate and increase in the number of customers"
+    },
+    {
+     "theme": "partner ecosystem shift",
+     "quote": "We expect professional services and other revenue to decline as we shift more engagements to our partner ecosystem"
+    },
+    {
+     "theme": "infrastructure hosting capacity",
+     "quote": "We intend to continue to invest additional resources in our platform infrastructure and we anticipate that costs qualifying for capitalization of internal-use software costs and related amortization may fluctuate over time"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-05",
+   "source": "SEC 10-K MD&A",
+   "words": 6338,
+   "themes": [
+    {
+     "theme": "ai agent identity management",
+     "quote": "We are expanding these capabilities to include AI agents with the introduction of new product offerings currently in development and early access."
+    },
+    {
+     "theme": "platform consolidation around identity",
+     "quote": "Our Okta Platform and Auth0 Platform enable our customers to securely connect the right people to the right technologies and services at the right time."
+    },
+    {
+     "theme": "non-human identity governance",
+     "quote": "For IT and security leaders, the Okta Platform governs the seamless and secure access by human users and non-human identities (\"NHIs\") to the applications they need."
+    },
+    {
+     "theme": "shift to partner-led services",
+     "quote": "Beginning in fiscal 2027, we expect professional services and other revenue to decline as we shift more engagements to our partner ecosystem."
+    },
+    {
+     "theme": "customer upsell and expansion",
+     "quote": "we focus on attracting and retaining our customers by building on and increasing the value we provide to them over time. This commitment to our customers' success helps drive increased customer investment in the number of users of our Okta "
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 5097,
+   "themes": [
+    {
+     "theme": "zero trust adoption expansion",
+     "quote": "As organizations shift from network-based security models to a Zero Trust security model focusing on adaptive and context-aware controls, identity has become the most reliable way to manage user access and protect digital assets."
+    },
+    {
+     "theme": "platform infrastructure scaling",
+     "quote": "We intend to continue to invest additional resources in our platform infrastructure, our platforms support organizations and security posture."
+    },
+    {
+     "theme": "customer expansion within accounts",
+     "quote": "By retaining customers and increasing value, we increase their spending with us through expanding the number of users who access our Okta Platform and Auth0 Platform, and by selling additional product offerings."
+    },
+    {
+     "theme": "developer-embedded identity solutions",
+     "quote": "Developers leverage our Okta Platform and Auth0 Platform to securely and efficiently embed identity into the software they build, allowing them to innovate and focus on their core mission."
+    },
+    {
+     "theme": "enterprise migration from legacy systems",
+     "quote": "We expect this trend to continue as larger enterprises recognize the value of our platforms and replace their legacy identity access management infrastructure."
+    }
+   ]
+  }
+ ]
+}

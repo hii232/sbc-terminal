@@ -1,0 +1,78 @@
+{
+ "name": "BRISTOL MYERS SQUIBB CO",
+ "sector": "Pharma",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 569,
+   "themes": [
+    {
+     "theme": "patent exclusivity retention",
+     "quote": "our ability to retain marketing exclusivity of certain products"
+    },
+    {
+     "theme": "drug price regulation management",
+     "quote": "laws, agreements and regulations to lower drug prices"
+    },
+    {
+     "theme": "product development pipeline",
+     "quote": "product development, product approvals, sales efforts"
+    },
+    {
+     "theme": "business development integration",
+     "quote": "our ability to realize the projected benefits of our acquisitions, alliances and other business development activities"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 569,
+   "themes": [
+    {
+     "theme": "drug price regulation response",
+     "quote": "laws, agreements and regulations to lower drug prices"
+    },
+    {
+     "theme": "patent exclusivity retention",
+     "quote": "assumptions about our ability to retain marketing exclusivity of certain products"
+    },
+    {
+     "theme": "acquisition integration benefits",
+     "quote": "ability to realize the projected benefits of our acquisitions, alliances and other business development activities"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 378,
+   "themes": [
+    {
+     "theme": "oncology immunotherapy combinations",
+     "quote": "approval of Opdivo + Yervoy as a first-line treatment of adult patients with unresectable or advanced HCC in both the U.S. and the EU"
+    },
+    {
+     "theme": "car-t cell therapy expansion",
+     "quote": "acquired Orbital Therapeutics, which provided the Company with full rights to OTX-201, a preclinical in vivo CAR T-cell therapy currently in IND-enabling studies for autoimmune disease"
+    },
+    {
+     "theme": "radiopharmaceutical portfolio buildout",
+     "quote": "acquired a global exclusive license from Philochem for OncoACP3, a radiopharmaceutical therapeutic and diagnostic agent targeting prostate cancer, and expanded our development and manufacturing capabilities by opening a new radiopharmaceuti"
+    },
+    {
+     "theme": "bispecific antibody development",
+     "quote": "entered into a strategic collaboration with BioNTech to co-develop and co-commercialize BioNTech's investigational bispecific antibody pumitamig across multiple solid tumor types"
+    },
+    {
+     "theme": "label expansion and patient monitoring reduction",
+     "quote": "received label updates from the FDA that have reduced or removed certain patient monitoring requirements associated with the use of Camzyos, Breyanzi and Abecma"
+    }
+   ]
+  }
+ ]
+}

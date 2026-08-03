@@ -1,0 +1,90 @@
+{
+ "name": "DECKERS OUTDOOR CORP",
+ "sector": "Apparel",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 10919,
+   "themes": [
+    {
+     "theme": "direct-to-consumer channel expansion",
+     "quote": "DTC channel net sales increased 13.0% to $352,817"
+    },
+    {
+     "theme": "international market growth",
+     "quote": "International net sales increased 8.4% to $502,103"
+    },
+    {
+     "theme": "hoka brand acceleration",
+     "quote": "HOKA brand net sales increased 7.7% to $703,538"
+    },
+    {
+     "theme": "tariff mitigation and refund pursuit",
+     "quote": "we have begun filing for refunds of previously paid IEEPA tariffs"
+    },
+    {
+     "theme": "wholesale distribution optimization",
+     "quote": "Teva brand as it refocuses its wholesale distribution with outdoor and premium retailers"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-22",
+   "source": "SEC 10-K MD&A",
+   "words": 44104,
+   "themes": [
+    {
+     "theme": "wholesale distribution expansion",
+     "quote": "We continue to expand our HOKA brand wholesale distribution globally, including through additional mono-branded locations operated by partner retailers"
+    },
+    {
+     "theme": "direct-to-consumer retail footprint",
+     "quote": "We continue to open mono-branded retail stores in key markets to further grow the UGG brand and HOKA brand presence and appeal to a broader consumer base"
+    },
+    {
+     "theme": "brand portfolio streamlining",
+     "quote": "Consistent with our continuous focus on pursuing the most profitable long-term opportunities, we have taken the following strategic actions to streamline our brand portfolio"
+    },
+    {
+     "theme": "supply chain diversification",
+     "quote": "We continue to diversify our independent manufacturers and the regions in which they operate"
+    },
+    {
+     "theme": "inventory management optimization",
+     "quote": "added discipline around SKU productivity, product purchasing decisions, lead time reduction, and selling excess inventory through our liquidation channels, are key areas of focus"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 5115,
+   "themes": [
+    {
+     "theme": "international market expansion",
+     "quote": "international sales increased 27.1% to $1,811,250"
+    },
+    {
+     "theme": "marketplace management strategy",
+     "quote": "our continued marketplace management strategy to meet increased global demand, with consumers adopting key franchises"
+    },
+    {
+     "theme": "retail store footprint expansion",
+     "quote": "higher rent expenses for investments in our global retail store footprint"
+    },
+    {
+     "theme": "promotional marketing investments",
+     "quote": "higher promotional marketing expenses for the UGG and HOKA brands of approximately $49,700 to drive global brand awareness and market share gains"
+    },
+    {
+     "theme": "supply chain optimization",
+     "quote": "transition of one of our international 3PLs to a new partner with an upgraded warehouse management system"
+    }
+   ]
+  }
+ ]
+}

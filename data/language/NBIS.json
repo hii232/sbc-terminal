@@ -1,0 +1,74 @@
+{
+ "name": "Nebius Group N.V.",
+ "sector": "Comm Services",
+ "periods": [
+  {
+   "period": "2025Q4",
+   "date": "2026-04-30",
+   "source": "SEC 20-F MD&A",
+   "words": 24781,
+   "themes": [
+    {
+     "theme": "gpu infrastructure buildout",
+     "quote": "substantial capital expenditures related to the rapid expansion of GPU-based server infrastructure, data center facilities, and related equipment used to support the Company's AI cloud platform"
+    },
+    {
+     "theme": "large enterprise ai contracts",
+     "quote": "the Group entered into two significant customer agreements for cloud computing services"
+    },
+    {
+     "theme": "capacity commitment revenue",
+     "quote": "Microsoft has committed to pay the Group fees under the Microsoft Agreement estimated to be up to $17,392.9, irrespective of actual utilization of the GPU capacity"
+    },
+    {
+     "theme": "independent operations infrastructure",
+     "quote": "significant growth in our business and the substantial changes in our organization following the complex divestment transaction we completed in 2024. Although we took extensive steps in 2024 to create the infrastructure to operate independe"
+    }
+   ]
+  },
+  {
+   "period": "2024Q4",
+   "date": "2025-04-30",
+   "source": "SEC 20-F MD&A",
+   "words": 18516,
+   "themes": [
+    {
+     "theme": "erp system implementation",
+     "quote": "implementation of a new enterprise resource planning (ERP) system following the divestment transaction that was completed in July 2024"
+    },
+    {
+     "theme": "gpu cluster infrastructure buildout",
+     "quote": "building full-stack infrastructure to service the high-growth global AI industry, including large-scale GPU clusters, cloud platforms, and tools and services for developers"
+    },
+    {
+     "theme": "ai data solutions expansion",
+     "quote": "Toloka offers data for Generative AI solutions and projects by leveraging both AI-powered labeling and human expert input"
+    },
+    {
+     "theme": "post-divestment business restructuring",
+     "quote": "substantial change in our businesses and organization as a result of the significant and complex divestment transaction we completed in 2024"
+    }
+   ]
+  },
+  {
+   "period": "2023Q4",
+   "date": "2024-04-26",
+   "source": "SEC 20-F MD&A",
+   "words": 20998,
+   "themes": [
+    {
+     "theme": "russian business divestment",
+     "quote": "on February 4, 2024, the Company entered into a share purchase agreement with \"Consortium First\", relating to the sale of 100% interest in IPJSC \"Yandex\", a subsidiary of the Company consolidating all of the Group's assets and operations in"
+    },
+    {
+     "theme": "cybersecurity risk management",
+     "quote": "we conduct regular monitoring of our environment by our internal security tools, conduct employee trainings, monitor emerging laws and regulations related to data protection and information security and implement appropriate changes"
+    },
+    {
+     "theme": "machine learning product development",
+     "quote": "is a technology company that builds intelligent products and services powered by machine learning and other technologies"
+    }
+   ]
+  }
+ ]
+}

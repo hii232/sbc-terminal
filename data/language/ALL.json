@@ -1,0 +1,90 @@
+{
+ "name": "ALLSTATE CORP",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 7754,
+   "themes": [
+    {
+     "theme": "multi-channel distribution expansion",
+     "quote": "Expanding customer access"
+    },
+    {
+     "theme": "pricing discipline and rate increases",
+     "quote": "we will pursue rate adjustments in states where we are achieving acceptable returns, while implementing rates where needed to keep pace with increasing costs"
+    },
+    {
+     "theme": "catastrophe reinsurance optimization",
+     "quote": "we continually review our aggregate risk appetite and the cost and availability of reinsurance to optimize the risk and return profile of this exposure"
+    },
+    {
+     "theme": "private credit portfolio growth",
+     "quote": "Private credit exposure... Our private credit investments are primarily originated by third-party asset managers with global credit platforms and are generally secured by collateral, with 89% rated investment grade"
+    },
+    {
+     "theme": "prior year reserve releases",
+     "quote": "Favorable auto severity, excluding catastrophes, emergence continued during the quarter, reflecting improved prior period loss development and better than expected claim outcomes"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-20",
+   "source": "SEC 10-K MD&A",
+   "words": 32622,
+   "themes": [
+    {
+     "theme": "cost reduction through technology transformation",
+     "quote": "transform to become the lowest cost protection provider with an affordable, simple, connected experience"
+    },
+    {
+     "theme": "catastrophe exposure management",
+     "quote": "catastrophe risk management actions have led us to reduce the size of the homeowners business in certain states"
+    },
+    {
+     "theme": "artificial intelligence deployment",
+     "quote": "Regulatory restrictions on the use or development of artificial intelligence may impose additional compliance or reporting obligations"
+    },
+    {
+     "theme": "talent acquisition and retention",
+     "quote": "Competition for qualified employees with highly specialized knowledge in areas such as underwriting, data and analytics, technology and cybersecurity, is intense"
+    },
+    {
+     "theme": "omnichannel distribution expansion",
+     "quote": "expanding customer access, increasing sophistication and investment in customer acquisition, deploying a new technology ecosystem"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 9001,
+   "themes": [
+    {
+     "theme": "personal property-liability market share expansion",
+     "quote": "increase personal property-liability market share and expand protection offerings by leveraging the Allstate brand, customer base and capabilities"
+    },
+    {
+     "theme": "multi-channel distribution transformation",
+     "quote": "providing affordable, simple and connected protection through multiple distribution methods"
+    },
+    {
+     "theme": "customer acquisition technology investment",
+     "quote": "Increasing sophistication and investment in customer acquisition"
+    },
+    {
+     "theme": "protection services international expansion",
+     "quote": "We are expanding Protection Services businesses internationally and by leveraging the Allstate brand, customer base and capabilities"
+    },
+    {
+     "theme": "catastrophe reinsurance optimization",
+     "quote": "continually review our aggregate risk appetite and the cost and availability of reinsurance to optimize the risk and return profile"
+    }
+   ]
+  }
+ ]
+}

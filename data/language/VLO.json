@@ -1,0 +1,74 @@
+{
+ "name": "VALERO ENERGY CORP/TX",
+ "sector": "Energy",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 17491,
+   "themes": [
+    {
+     "theme": "refinery idling and california exit",
+     "quote": "approved a plan to idle the processing units and cease refining operations at our Benicia Refinery by the end of April 2026"
+    },
+    {
+     "theme": "renewable diesel expansion",
+     "quote": "DGD, a joint venture that owns and operates two plants that process waste and renewable feedstocks into renewable diesel, renewable naphtha, and neat sustainable aviation fuel"
+    },
+    {
+     "theme": "tariff refund recovery",
+     "quote": "DGD prepared and filed a refund claim of $51 million, which was accepted by CBP"
+    },
+    {
+     "theme": "share repurchase program",
+     "quote": "our Board authorized us to purchase shares of our outstanding common stock for a total cost of up to $5.0 billion"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 1094,
+   "themes": [
+    {
+     "theme": "renewable diesel joint venture expansion",
+     "quote": "DGD's operations compose our Renewable Diesel segment"
+    },
+    {
+     "theme": "refinery asset recovery and maintenance",
+     "quote": "potential impact to our capital expenditures resulting from an incident at the Port Arthur Refinery during the first quarter of 2026"
+    },
+    {
+     "theme": "capital allocation and shareholder returns",
+     "quote": "we purchased for treasury 2,327,023 of our shares for a total cost of $564 million"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 51602,
+   "themes": [
+    {
+     "theme": "renewable fuel production expansion",
+     "quote": "we continue to expand our renewable diesel and sustainable aviation fuel capabilities"
+    },
+    {
+     "theme": "california refinery optimization",
+     "quote": "our California refineries represent a significant portion of our refining capacity and are subject to unique regulatory requirements"
+    },
+    {
+     "theme": "low carbon fuel standards compliance",
+     "quote": "we are working to maximize value from low carbon fuel programs and renewable fuel standards"
+    },
+    {
+     "theme": "strategic asset optimization",
+     "quote": "we are evaluating strategic alternatives for certain assets to optimize operational efficiency"
+    }
+   ]
+  }
+ ]
+}

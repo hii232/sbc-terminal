@@ -1,0 +1,90 @@
+{
+ "name": "MCKESSON CORP",
+ "sector": "Managed Care",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-K MD&A",
+   "words": 12089,
+   "themes": [
+    {
+     "theme": "specialty pharmaceutical distribution",
+     "quote": "Oncology & Multispecialty revenues for the year ended March 31, 2026 increased $11.6 billion or 31% compared to the prior year primarily driven by growth in provider solutions due to the addition of providers within practice management and "
+    },
+    {
+     "theme": "oncology practice consolidation",
+     "quote": "On June 2, 2025, we completed the acquisition of a controlling interest in Community Oncology Revitalization Enterprise Ventures, LLC (\"Core Ventures\"), a business and administrative services organization established by Florida Cancer Speci"
+    },
+    {
+     "theme": "medical-surgical separation",
+     "quote": "During fiscal 2026, we announced our intention to separate this segment into an independent company. As a part of the separation strategy, on April 20, 2026, we announced a definitive agreement under which funds managed by affiliates of Apo"
+    },
+    {
+     "theme": "technology services operational efficiency",
+     "quote": "During the fourth quarter of fiscal 2026, we approved an initiative within our Prescription Technology Solutions segment to increase operational efficiencies and cost optimization efforts, with the intent of aligning with our long-term stra"
+    },
+    {
+     "theme": "patient access solutions",
+     "quote": "Operating profit increased for the year ended March 31, 2026 compared to the prior year primarily driven by higher demand for access solutions"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 5383,
+   "themes": [
+    {
+     "theme": "oncology provider practice consolidation",
+     "quote": "Oncology & Multispecialty revenues for the nine months ended December 31, 2025 increased $8.3 billion or 30% compared to the same prior year period primarily driven by growth in provider solutions due to the addition of providers within pra"
+    },
+    {
+     "theme": "technology service operating model modernization",
+     "quote": "we approved enterprise-wide initiatives to modernize and accelerate our technology service operating model, which were intended to improve business continuity, compliance, operating efficiency and advance investments to streamline the organ"
+    },
+    {
+     "theme": "specialty pharmaceutical distribution expansion",
+     "quote": "Operating profit for this segment increased for the nine months ended December 31, 2025 compared to the same prior year period primarily due to growth in specialty pharmaceuticals"
+    },
+    {
+     "theme": "retail national account customer growth",
+     "quote": "sales to U.S. pharmacies and healthcare providers increased $29.8 billion primarily due to higher volumes from retail national account customers"
+    },
+    {
+     "theme": "third-party logistics and technology services",
+     "quote": "RxTS revenues for the nine months ended December 31, 2025 increased $433 million or 11% compared to the same prior year period due to increased volumes from our third-party logistics and higher technology services revenues"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 5232,
+   "themes": [
+    {
+     "theme": "oncology and specialty care consolidation",
+     "quote": "Oncology & Multispecialty revenues for the six months ended September 30, 2025 increased $4.8 billion or 27% compared to the same prior year period primarily driven by growth in provider solutions due to the addition of providers within pra"
+    },
+    {
+     "theme": "technology service modernization",
+     "quote": "we approved enterprise-wide initiatives to modernize and accelerate our technology service operating model, which were intended to improve business continuity, compliance, operating efficiency and advance investments to streamline the organ"
+    },
+    {
+     "theme": "pharmaceutical distribution volume expansion",
+     "quote": "sales to U.S. pharmacies and healthcare providers increased $22.8 billion primarily due to higher volumes from retail national account customers"
+    },
+    {
+     "theme": "third-party logistics scaling",
+     "quote": "RxTS revenues for the six months ended September 30, 2025 increased $304 million or 12% compared to the same prior year period due to increased volumes from our third-party logistics and higher technology services revenues"
+    },
+    {
+     "theme": "specialty pharmaceutical growth",
+     "quote": "Operating profit for this segment increased for the six months ended September 30, 2025 compared to the same prior year period primarily due to growth in specialty pharmaceuticals"
+    }
+   ]
+  }
+ ]
+}

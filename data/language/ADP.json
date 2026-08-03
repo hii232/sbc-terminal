@@ -1,0 +1,86 @@
+{
+ "name": "AUTOMATIC DATA PROCESSING INC",
+ "sector": "HR Tech",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 3987,
+   "themes": [
+    {
+     "theme": "generative ai transformation",
+     "quote": "Our ADP Assist agents are applying advanced intelligence to real workforce challenges across payroll and HR, and since their launch in January, our clients have seen meaningful time savings for each payroll processed"
+    },
+    {
+     "theme": "next generation product development",
+     "quote": "Research and development expenses increased for the nine months ended March 31, 2026 due to increased costs to develop, support, and maintain our new and existing products, including the integration costs associated with the WorkForce Softw"
+    },
+    {
+     "theme": "sales and marketing expansion",
+     "quote": "Selling, general and administrative expenses increased for the three and nine months ended March 31, 2026 primarily due to increases in selling and marketing expenses of $63.5 million and $180.4 million, respectively, as a result of investm"
+    },
+    {
+     "theme": "peo worksite growth",
+     "quote": "PEO average worksite employees increased 2% for the nine months ended March 31, 2026, as compared to the nine months ended March 31, 2025"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 3807,
+   "themes": [
+    {
+     "theme": "next generation product migration",
+     "quote": "We experienced continued new business momentum for our Next Gen solutions, including Workforce Now Next Gen and ADP Lyric HCM."
+    },
+    {
+     "theme": "integrated workforce management platform",
+     "quote": "We launched the ADP WorkForce Suite, our integrated workforce management solution, across our leading payroll and HCM platforms."
+    },
+    {
+     "theme": "ai-powered assistant expansion",
+     "quote": "we continue to enhance ADP Assist with additional persona-based agents"
+    },
+    {
+     "theme": "retirement services offerings",
+     "quote": "We also introduced our first Pooled Employer Plan in our Retirement Services business, enabling employers to offer robust retirement plan benefits without adding administrative burden."
+    },
+    {
+     "theme": "sales organization investment",
+     "quote": "increases in selling and marketing expenses...as a result of investments in our sales organization"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 2999,
+   "themes": [
+    {
+     "theme": "next-generation hcm platform",
+     "quote": "accelerated the deployment of Workforce Now Next-Gen to a growing percentage of new mid-market clients"
+    },
+    {
+     "theme": "embedded payroll for small business",
+     "quote": "continued to scale ADP Embedded Payroll to reach additional small business clients"
+    },
+    {
+     "theme": "enterprise hcm sales",
+     "quote": "experienced ongoing strong enterprise sales momentum for ADP Lyric HCM"
+    },
+    {
+     "theme": "ai-powered employee tools",
+     "quote": "continued to empower our associates to leverage their HR domain expertise by providing them with AI tools"
+    },
+    {
+     "theme": "global service expansion",
+     "quote": "continued to build on our global scale by enhancing the services offered within our existing footprint of more than 140 countries and territories"
+    }
+   ]
+  }
+ ]
+}

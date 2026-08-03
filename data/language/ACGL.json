@@ -1,0 +1,86 @@
+{
+ "name": "ARCH CAPITAL GROUP LTD.",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 22193,
+   "themes": [
+    {
+     "theme": "mid-market insurance expansion",
+     "quote": "provides a ballast to our existing insurance business. It further enhances the Company's capabilities in the U.S. middle markets"
+    },
+    {
+     "theme": "entertainment insurance entry",
+     "quote": "represents an attractive way to enter a new niche entertainment insurance market"
+    },
+    {
+     "theme": "acquisition integration and retention",
+     "quote": "enhances the Company's capabilities in the U.S. middle markets and represents an attractive way to enter a new niche entertainment insurance market"
+    },
+    {
+     "theme": "reserve adequacy management",
+     "quote": "decrease related to the present value of the reserve for losses and loss adjustment expenses based on the estimated payout patterns, partially offset by an increase in losses and loss adjustment expenses related to the estimated market base"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 16966,
+   "themes": [
+    {
+     "theme": "specialty platform expansion",
+     "quote": "The acquired business further expands our insurance platform, providing more opportunities to capitalize on attractive margins."
+    },
+    {
+     "theme": "risk selection and underwriting discipline",
+     "quote": "Critical to our cycle management is emphasizing risk selection, as we continue to leverage our diversified specialty platform and the expertise of our underwriting teams."
+    },
+    {
+     "theme": "data and analytics investment",
+     "quote": "We invest and use data and analytics to sharpen insights, enhance risk selection and deliver a differentiated customer experience"
+    },
+    {
+     "theme": "selective growth in attractive margins",
+     "quote": "Across the insurance platform, our underwriters continue to pursue growth in areas where risk-adjusted returns exceed or meet our long-term objectives."
+    },
+    {
+     "theme": "mortgage portfolio optimization",
+     "quote": "Our team remains focused on underwriting discipline, expense management and enhancing our data and analytical platforms to further optimize the business."
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 24792,
+   "themes": [
+    {
+     "theme": "underwriting discipline and rate adequacy",
+     "quote": "we continue to see strong momentum in our underwriting discipline with improved loss ratios across our short-tailed business"
+    },
+    {
+     "theme": "mid-market business growth",
+     "quote": "we completed the acquisition of US Mid Corp and Entertainment which expanded our distribution capabilities"
+    },
+    {
+     "theme": "premium volume expansion",
+     "quote": "gross written premiums increased significantly driven by strong premium growth across both insurance and reinsurance segments"
+    },
+    {
+     "theme": "investment yield optimization",
+     "quote": "we have been focusing on maintaining a well-positioned investment portfolio with appropriate duration management"
+    },
+    {
+     "theme": "catastrophe reinsurance positioning",
+     "quote": "our property catastrophe reinsurance business remains a key focus with strategic underwriting of high-quality cat risks"
+    }
+   ]
+  }
+ ]
+}

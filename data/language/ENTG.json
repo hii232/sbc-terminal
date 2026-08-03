@@ -1,0 +1,94 @@
+{
+ "name": "ENTEGRIS INC",
+ "sector": "Semi Equip",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 10208,
+   "themes": [
+    {
+     "theme": "advanced materials for semiconductor manufacturing",
+     "quote": "provides materials-based solutions, such as chemical vapor and atomic layer deposition materials, chemical mechanical planarization slurries and pads, ion implantation specialty gases, formulated etch and clean materials"
+    },
+    {
+     "theme": "filtration and contamination control solutions",
+     "quote": "offers filtration, purification and contamination-control solutions that improve customers' yield, device reliability and cost by ensuring the purity of critical liquid chemistries and gases"
+    },
+    {
+     "theme": "co-optimized integrated product solutions",
+     "quote": "we are uniquely positioned to create new, co-optimized and increasingly integrated solutions for our customers, which should translate into improved device performance, lower cost of ownership and faster time to market"
+    },
+    {
+     "theme": "global manufacturing footprint expansion",
+     "quote": "Our strategy has been, and will continue to be, to build a resilient supply chain and a global manufacturing footprint near our customers"
+    },
+    {
+     "theme": "useful life asset optimization",
+     "quote": "completed an assessment of the useful lives of our property, plant and equipment and adjusted the estimated useful lives of certain property, plant and equipment to more closely reflect the expected economic lives of these assets"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-11",
+   "source": "SEC 10-K MD&A",
+   "words": 44445,
+   "themes": [
+    {
+     "theme": "advanced deposition materials",
+     "quote": "Advanced Deposition Materials Products. Our advanced deposition materials include ultra-pure liquid and solid precursors"
+    },
+    {
+     "theme": "molybdenum integration support",
+     "quote": "As leading semiconductor manufacturers implement molybdenum into advanced nodes, Entegris is uniquely positioned to support this transition and to solve challenges associated with integrating a new material"
+    },
+    {
+     "theme": "cmp slurries and pads",
+     "quote": "CMP slurries for polishing semiconductor materials, including tungsten, dielectric materials, copper, tantalum, molybdenum, aluminum, silicon carbide and gallium nitride"
+    },
+    {
+     "theme": "contamination control and filtration",
+     "quote": "Our advanced filtration and purification products and solutions for air, bulk and specialty gas, and wet chemicals reduce defects and enable higher yields"
+    },
+    {
+     "theme": "geopolitically distributed manufacturing",
+     "quote": "Recent examples of this strategy include our new facilities in Kaohsiung Science Park in Taiwan and in Colorado Springs as well as our new Korea Technology Center in South Korea"
+    },
+    {
+     "theme": "research and development investment",
+     "quote": "We invested approximately $329.0 million, $316.1 million and $277.3 million on such activities in 2025, 2024 and 2023, respectively, representing 10.3%, 9.8% and 7.9% of our net sales"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 12086,
+   "themes": [
+    {
+     "theme": "advanced materials for semiconductor deposition",
+     "quote": "chemical vapor and atomic layer deposition materials, chemical mechanical planarization (CMP) slurries and pads, ion implantation specialty gases, formulated etch and clean materials"
+    },
+    {
+     "theme": "contamination control and purity solutions",
+     "quote": "filtration, purification and contamination-control solutions that improve customers' yield, device reliability and cost by ensuring the purity of critical liquid chemistries and gases"
+    },
+    {
+     "theme": "co-optimized integrated process solutions",
+     "quote": "we have the capabilities and core competencies to develop and co-optimize offerings solving customers' complex manufacturing challenges across the deposition, CMP process and post-CMP modules"
+    },
+    {
+     "theme": "operational efficiency restructuring",
+     "quote": "business restructuring activities aimed at improving operational efficiency and aligning resources with strategic priorities"
+    },
+    {
+     "theme": "government incentives for manufacturing",
+     "quote": "entered into a definitive agreement to receive funding under the CHIPS and Science Act of 2022, providing up to $77.0 million intended to support capital expenditures related to the construction of a manufacturing facility in Colorado Sprin"
+    }
+   ]
+  }
+ ]
+}

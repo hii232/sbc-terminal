@@ -1,0 +1,90 @@
+{
+ "name": "CORNING INC /NY",
+ "sector": "Hardware",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 8326,
+   "themes": [
+    {
+     "theme": "optical communications capacity expansion",
+     "quote": "increase in sales for optical communication products of $506 million... continued growth in our Enterprise business driven by strong demand for our Generative AI products"
+    },
+    {
+     "theme": "polysilicon and solar manufacturing ramp",
+     "quote": "increase in sales for polycrystalline silicon and solar products of $207 million... temporarily higher costs to ramp up capacity to produce more in Solar"
+    },
+    {
+     "theme": "lcd glass demand fulfillment",
+     "quote": "increase in segment net sales for both the three and six month periods was primarily due to continued strong demand for LCD glass"
+    },
+    {
+     "theme": "automotive glass solutions adoption",
+     "quote": "increase in segment net sales for both the three and six month periods was primarily driven by the adoption of our auto glass solutions"
+    },
+    {
+     "theme": "long-term customer supply agreements",
+     "quote": "receipt of an upfront customer deposit of $1.0 billion, related to a long-term supply agreement"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 6680,
+   "themes": [
+    {
+     "theme": "optical communications capacity expansion",
+     "quote": "we have significantly grown annualized sales and expanded our profitability...we therefore expect to increase both our capacity and technology capabilities as required to achieve our goals"
+    },
+    {
+     "theme": "generative ai products development",
+     "quote": "continued growth in our Enterprise business driven by strong demand for our Generative AI products"
+    },
+    {
+     "theme": "solar manufacturing ramp-up",
+     "quote": "temporarily higher costs to ramp up capacity to produce more in Solar"
+    },
+    {
+     "theme": "datacenter interconnect products",
+     "quote": "Carrier business, driven by demand for datacenter interconnect products and fiber-to-the-home products"
+    },
+    {
+     "theme": "polysilicon production scaling",
+     "quote": "growth in polysilicon and solar wafers and module sales for the solar industry"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 8644,
+   "themes": [
+    {
+     "theme": "datacenter interconnect capacity",
+     "quote": "strong demand for our Generative AI products, and in our Carrier business, driven by demand for datacenter interconnect products"
+    },
+    {
+     "theme": "fiber-to-the-home deployment",
+     "quote": "demand for datacenter interconnect products and fiber-to-the-home products"
+    },
+    {
+     "theme": "solar polysilicon and modules",
+     "quote": "growth in polysilicon and solar module sales for the solar industry"
+    },
+    {
+     "theme": "premium mobile device glass",
+     "quote": "continued strong demand for premium glass for mobile devices and growth in our Gorilla Glass solutions business"
+    },
+    {
+     "theme": "manufacturing capacity expansion",
+     "quote": "we expect to increase both our capacity and technology capabilities as required to achieve our goals"
+    }
+   ]
+  }
+ ]
+}

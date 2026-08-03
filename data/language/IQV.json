@@ -1,0 +1,86 @@
+{
+ "name": "IQVIA HOLDINGS INC.",
+ "sector": "Life Sciences",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 12275,
+   "themes": [
+    {
+     "theme": "clinical trial capacity expansion",
+     "quote": "Research & Development Solutions, which primarily serves biopharmaceutical customers, provides outsourced clinical research, clinical trial and real-world research related services"
+    },
+    {
+     "theme": "real-world evidence integration",
+     "quote": "Real-World Late Phase and certain other Real-World offerings that had become more closely related operationally to the clinical research business, were moved from the Technology & Analytics Solutions segment to the Research & Development So"
+    },
+    {
+     "theme": "commercial analytics consolidation",
+     "quote": "the Contract Sales & Medical Solutions segment, which had become more closely related operationally to the Technology & Analytics Solutions segment commercial offerings, was incorporated into the Technology & Analytics Solutions segment, wh"
+    },
+    {
+     "theme": "recurring service contracts",
+     "quote": "Most of the Company's remaining performance obligations where revenues are expected to be recognized beyond the next twelve months are for service contracts for clinical research in the Company's Research & Development Solutions segment"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 11195,
+   "themes": [
+    {
+     "theme": "healthcare-grade ai deployment",
+     "quote": "Healthcare-grade AI\u00ae, advanced analytics, the latest technologies and extensive domain expertise"
+    },
+    {
+     "theme": "real-world data integration",
+     "quote": "Real-World Late Phase and certain other Real-World offerings were moved from the Technology & Analytics Solutions segment to the Research & Development Solutions segment"
+    },
+    {
+     "theme": "privacy-enhancing technologies",
+     "quote": "We are a global leader in protecting individual patient privacy. We use a wide variety of privacy-enhancing technologies and safeguards to protect individual privacy"
+    },
+    {
+     "theme": "segment consolidation and integration",
+     "quote": "the Contract Sales & Medical Solutions segment was incorporated into the Technology & Analytics Solutions segment, which is renamed Commercial Solutions"
+    },
+    {
+     "theme": "global restructuring and capacity optimization",
+     "quote": "continued to take restructuring actions in 2026 to align its resources and reduce overcapacity to adapt to changing market conditions and integrate acquisitions"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-17",
+   "source": "SEC 10-K MD&A",
+   "words": 7446,
+   "themes": [
+    {
+     "theme": "healthcare ai integration",
+     "quote": "IQVIA Connected Intelligence\u2122 to deliver actionable insights and services built on high-quality health data, Healthcare-grade AI\u00ae, advanced analytics"
+    },
+    {
+     "theme": "real-world clinical data",
+     "quote": "revenue growth primarily driven by an increase in Real-World services, as well as information and technology services"
+    },
+    {
+     "theme": "strategic acquisitions expansion",
+     "quote": "invested $1,714 million, net of cash, to acquire businesses that will strengthen and expand our offerings moving forward, including acquisitions in all three reportable segments"
+    },
+    {
+     "theme": "segment reorganization integration",
+     "quote": "Contract Sales & Medical Solutions segment will be incorporated into the Technology & Analytics Solutions segment... Real-World Late Phase offerings will be moved from Technology & Analytics Solutions to Research & Development Solutions"
+    },
+    {
+     "theme": "contract backlog conversion",
+     "quote": "contracted backlog increased from $31.1 billion as of December 31, 2024 to $32.7 billion as of December 31, 2025 and we expect approximately $8.3 billion of this backlog to convert to revenues in the next 12 months"
+    }
+   ]
+  }
+ ]
+}

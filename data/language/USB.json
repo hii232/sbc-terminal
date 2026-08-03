@@ -1,0 +1,90 @@
+{
+ "name": "US BANCORP DE",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 33329,
+   "themes": [
+    {
+     "theme": "consumer deposit growth",
+     "quote": "We continue to focus on growing relationships and deposits through our consumer and commercial franchises"
+    },
+    {
+     "theme": "commercial real estate stress",
+     "quote": "Commercial real estate risks remain elevated given higher interest rate environment and refinancing pressures"
+    },
+    {
+     "theme": "capital return programs",
+     "quote": "We maintain strong capital levels and continue share repurchases and dividend payments"
+    },
+    {
+     "theme": "net interest margin expansion",
+     "quote": "Net interest margin benefited from deposit mix improvement and higher yielding loan originations"
+    },
+    {
+     "theme": "credit quality monitoring",
+     "quote": "We are actively monitoring credit quality across our portfolios given economic uncertainties and elevated delinquencies"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-23",
+   "source": "SEC 10-K MD&A",
+   "words": 22661,
+   "themes": [
+    {
+     "theme": "commercial real estate stress",
+     "quote": "Commercial real estate continues to face headwinds with higher interest rates and slower economic activity impacting property valuations and borrower credit quality"
+    },
+    {
+     "theme": "deposit competition intensity",
+     "quote": "We continue to face intense competition for deposits, which is pressuring deposit margins and funding costs across the industry"
+    },
+    {
+     "theme": "mortgage banking optimization",
+     "quote": "We are focused on optimizing our mortgage banking business through selective originations and enhanced servicing capabilities"
+    },
+    {
+     "theme": "capital markets revenue growth",
+     "quote": "Capital markets revenue increased significantly, reflecting strong client activity in advisory, underwriting, and trading services"
+    },
+    {
+     "theme": "credit quality normalization",
+     "quote": "Credit quality is normalizing from historically low levels as economic conditions moderate, with increases in nonperforming assets and charge-offs"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 36017,
+   "themes": [
+    {
+     "theme": "commercial real estate credit stress",
+     "quote": "Commercial real estate continues to face headwinds from higher interest rates and slower economic growth"
+    },
+    {
+     "theme": "deposit competition and pricing pressure",
+     "quote": "Deposit competition remains intense, with customers continuing to seek higher rates"
+    },
+    {
+     "theme": "net interest margin compression",
+     "quote": "Net interest margin decreased due to the competitive deposit environment and the impact of lower interest rates"
+    },
+    {
+     "theme": "credit card loan growth",
+     "quote": "We are focused on growing our credit card portfolios through strategic initiatives"
+    },
+    {
+     "theme": "mortgage servicing portfolio optimization",
+     "quote": "We continue to optimize our mortgage servicing portfolio"
+    }
+   ]
+  }
+ ]
+}

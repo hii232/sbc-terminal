@@ -1,0 +1,54 @@
+{
+ "name": "HCA Healthcare, Inc.",
+ "sector": "Managed Care",
+ "periods": [
+  {
+   "period": "2025Q4",
+   "date": "2026-02-10",
+   "source": "SEC 10-K MD&A",
+   "words": 2246,
+   "themes": [
+    {
+     "theme": "share repurchase acceleration",
+     "quote": "paid $10.067 billion for repurchases of common stock"
+    },
+    {
+     "theme": "high-yield debt issuance",
+     "quote": "issued $8.500 billion aggregate principal amount of senior notes"
+    },
+    {
+     "theme": "capital expenditure growth",
+     "quote": "Planned capital expenditures are expected to approximate between $5.0 billion and $5.5 billion in 2026"
+    },
+    {
+     "theme": "debt refinancing and restructuring",
+     "quote": "terminated our $4.500 billion senior secured asset-based revolving credit facility, our $3.500 billion senior secured revolving cash flow credit facility"
+    }
+   ]
+  },
+  {
+   "period": "2024Q4",
+   "date": "2025-02-14",
+   "source": "SEC 10-K MD&A",
+   "words": 2123,
+   "themes": [
+    {
+     "theme": "supply chain inventory optimization",
+     "quote": "a targeted effort by our supply chain management to manage and reduce the inventory levels carried in our facilities"
+    },
+    {
+     "theme": "debt refinancing and capital structure management",
+     "quote": "issued $4.500 billion aggregate principal amount of senior notes"
+    },
+    {
+     "theme": "share repurchase programs",
+     "quote": "paid $6.042 billion for repurchases of common stock"
+    },
+    {
+     "theme": "capital expenditure expansion",
+     "quote": "Planned capital expenditures are expected to approximate between $5.0 billion and $5.2 billion in 2025"
+    }
+   ]
+  }
+ ]
+}

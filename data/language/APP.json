@@ -1,0 +1,86 @@
+{
+ "name": "AppLovin Corp",
+ "sector": "AdTech",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 34187,
+   "themes": [
+    {
+     "theme": "axon ai recommendation engine",
+     "quote": "significant investments in our advertising solutions to enhance their effectiveness and value proposition for our clients. We expect to continue to invest in our technology and to incur related costs, including costs to attract and retain c"
+    },
+    {
+     "theme": "datacenter infrastructure expansion",
+     "quote": "Cost of revenue in the three months ended March 31, 2026 increased by $52.0 million, or 34%, compared to the same period in the prior year, due primarily to an increase of $39.9 million in expenses associated with operating our network infr"
+    },
+    {
+     "theme": "non-gaming vertical expansion",
+     "quote": "Our investments will also allow us to continue to enter into and expand into new verticals outside of gaming, such as e-commerce and CTV"
+    },
+    {
+     "theme": "engineering talent acquisition",
+     "quote": "We expect to continue to invest in our technology and to incur related costs, including costs to attract and retain critical engineering talent, such as stock-based compensation"
+    },
+    {
+     "theme": "strategic advertising transactions",
+     "quote": "We also continue to opportunistically explore strategic transactions related to our advertising solutions and the expansion of the markets we serve"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-19",
+   "source": "SEC 10-K MD&A",
+   "words": 5262,
+   "themes": [
+    {
+     "theme": "ai recommendation engine enhancement",
+     "quote": "significant investments in our advertising solutions to enhance their effectiveness and value proposition for our clients...improvements to our Axon AI recommendation engine"
+    },
+    {
+     "theme": "vertical market expansion",
+     "quote": "investments in our technology will further improve effectiveness for advertisers...enter into and expand into new verticals outside of gaming, such as e-commerce and CTV"
+    },
+    {
+     "theme": "network infrastructure scaling",
+     "quote": "datacenter costs as we continue to launch enhancements to our Axon AI recommendation engine...increase of $150.2 million in expenses associated with operating our network infrastructure driven by the growth in our operations"
+    },
+    {
+     "theme": "client retention and expansion",
+     "quote": "We rely on existing clients for a significant portion of our revenue...there is significant room for us to further expand our relationships with existing clients and increase their usage of our advertising solutions"
+    },
+    {
+     "theme": "mobile ecosystem platform dependency",
+     "quote": "Any changes made to the policies of these third party platforms can drive rapid change across the mobile app and advertising ecosystems...we must continue to innovate and stay ahead of developments in the advertising and mobile app ecosyste"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 39650,
+   "themes": [
+    {
+     "theme": "ai-powered advertising recommendation engine",
+     "quote": "our ability to successfully expand our AI capabilities to support the further development of our advertising solutions, including Axon AI, our advertising recommendation engine"
+    },
+    {
+     "theme": "cloud infrastructure spending commitment",
+     "quote": "In August 2024, the Company amended its agreement with the provider, committing to spending a minimum of $1.3 billion over a three-year period"
+    },
+    {
+     "theme": "apps business divestiture",
+     "quote": "the Company and its subsidiaries Morocco, Inc. and AppLovin GmbH entered into a purchase agreement with Tripledot and its subsidiaries Eton Games Inc. and Tripledot Group Holdings Limited to sell the equity interests of certain wholly-owned"
+    },
+    {
+     "theme": "axon platform consolidation",
+     "quote": "The Company's single segment provides end-to-end advertising solutions including Axon Advertising, MAX, Adjust, and Wurl, that allow businesses to reach, monetize and grow their global audiences"
+    }
+   ]
+  }
+ ]
+}

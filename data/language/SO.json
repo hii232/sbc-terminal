@@ -1,0 +1,86 @@
+{
+ "name": "SOUTHERN CO",
+ "sector": "Utilities",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 21410,
+   "themes": [
+    {
+     "theme": "data center electricity demand",
+     "quote": "Weather-adjusted commercial KWH sales increased 10.9% and 8.7% in the second quarter and year-to-date 2026, respectively, primarily due to increased customer usage, largely driven by data centers"
+    },
+    {
+     "theme": "renewable energy capacity expansion",
+     "quote": "Southern Power placed in service all 200 MWs of the repowering project at the Kay wind facility"
+    },
+    {
+     "theme": "natural gas turbine upgrade projects",
+     "quote": "Southern Power committed to development projects to upgrade certain turbines at its existing Franklin and Wansley natural gas facilities, which are projected to add up to 400 MWs of incremental capacity"
+    },
+    {
+     "theme": "power purchase agreement portfolio",
+     "quote": "At June 30, 2026, Southern Power's average investment coverage ratio for its generating assets, including those owned with various partners, based on the ratio of investment under contract to total investment using the respective facilities"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 16090,
+   "themes": [
+    {
+     "theme": "data center load growth",
+     "quote": "Weather-adjusted commercial KWH sales increased 6.4% primarily due to additional sales from data centers."
+    },
+    {
+     "theme": "renewable energy repowering",
+     "quote": "Southern Power committed to development projects to upgrade certain turbines at its existing Franklin and Wansley natural gas facilities, which are projected to add up to 400 MWs of incremental capacity."
+    },
+    {
+     "theme": "wind facility acceleration",
+     "quote": "Southern Power placed in service 51 MWs of the 200-MW repowering project at the Kay wind facility."
+    },
+    {
+     "theme": "long-term power purchase contracts",
+     "quote": "Southern Power's average investment coverage ratio for its generating assets, including those owned with various partners, based on the ratio of investment under contract to total investment was 97% through 2030 and 88% through 2035."
+    },
+    {
+     "theme": "natural gas distribution expansion",
+     "quote": "Changes in rates resulted in an increase in revenues in the first quarter 2026 compared to the corresponding period in 2025 primarily due to base rate increases at Nicor Gas and Atlanta Gas Light."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-19",
+   "source": "SEC 10-K MD&A",
+   "words": 143369,
+   "themes": [
+    {
+     "theme": "grid modernization and resilience investments",
+     "quote": "investing in grid modernization to enhance reliability and resilience"
+    },
+    {
+     "theme": "nuclear capacity expansion",
+     "quote": "Vogtle Units 3 and 4 represent the company's commitment to expanding nuclear generation capacity"
+    },
+    {
+     "theme": "renewable energy development",
+     "quote": "expanding renewable energy portfolio including solar and wind projects"
+    },
+    {
+     "theme": "natural gas distribution infrastructure",
+     "quote": "upgrading natural gas distribution systems and infrastructure investments"
+    },
+    {
+     "theme": "rate recovery mechanisms",
+     "quote": "regulatory clause mechanisms to recover qualifying costs and investments from customers"
+    }
+   ]
+  }
+ ]
+}

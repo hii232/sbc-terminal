@@ -1,0 +1,86 @@
+{
+ "name": "CITIZENS FINANCIAL GROUP INC/RI",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 18287,
+   "themes": [
+    {
+     "theme": "private bank and wealth expansion",
+     "quote": "the continued expansion of Private Bank and Private Wealth, and our aim to position us as a more innovative, modern, and customer-centric bank"
+    },
+    {
+     "theme": "capital markets advisory capabilities",
+     "quote": "we completed the acquisition of substantially all of the assets of Matrix Capital Markets Group, Inc., a market-leading advisory firm in the Downstream Energy & Convenience Retail sector"
+    },
+    {
+     "theme": "auto loan portfolio runoff",
+     "quote": "improved funding costs, including the reduction of higher-cost funding given runoff of the auto loan portfolio"
+    },
+    {
+     "theme": "net interest margin improvement",
+     "quote": "net interest margin of 3.14% increased 25 basis points compared to the same period in 2025"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 15211,
+   "themes": [
+    {
+     "theme": "private bank and wealth management expansion",
+     "quote": "salaries and employee benefits reflecting hiring related to the Private Bank and Private Wealth build-out"
+    },
+    {
+     "theme": "commercial real estate portfolio reduction",
+     "quote": "provision expense of $608 million decreased $79 million compared to 2024, reflecting improving loan mix and reduced CRE"
+    },
+    {
+     "theme": "auto loan portfolio runoff",
+     "quote": "lower funding costs, including the reduction of higher-cost funding given the auto loan portfolio runoff"
+    },
+    {
+     "theme": "deposit mix optimization",
+     "quote": "reduction in higher-cost brokered deposits as we continued to optimize our deposit mix"
+    },
+    {
+     "theme": "capital markets capabilities expansion",
+     "quote": "strong capital markets fee performance and increased medical benefit costs, and outside services given investments across the enterprise"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 18886,
+   "themes": [
+    {
+     "theme": "private banking and wealth expansion",
+     "quote": "salaries and employee benefits reflecting hiring related to the Private Bank and Private Wealth build-out"
+    },
+    {
+     "theme": "non-core portfolio runoff",
+     "quote": "provision expense decreased reflecting runoff of the Non-Core portfolio and improving loan mix"
+    },
+    {
+     "theme": "net interest margin expansion",
+     "quote": "net interest margin on an FTE basis increased 23 basis points driven by lower funding costs, the time-based benefits of the Non-Core portfolio runoff, terminated swap impacts, and fixed-rate asset repricing benefits"
+    },
+    {
+     "theme": "capital markets fee growth",
+     "quote": "Capital markets fees increased driven by higher M&A, loan syndication, and equity underwriting fees"
+    },
+    {
+     "theme": "deposit stability and funding efficiency",
+     "quote": "organically generated deposits continue to be our primary source of funding, resulting in a consolidated period-end loan-to-deposit ratio of 78.3%"
+    }
+   ]
+  }
+ ]
+}

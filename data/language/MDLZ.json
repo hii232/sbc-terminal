@@ -1,0 +1,86 @@
+{
+ "name": "Mondelez International, Inc.",
+ "sector": "Staples",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 18321,
+   "themes": [
+    {
+     "theme": "emerging market currency hedging",
+     "quote": "our consolidated entities in Argentina, T\u00fcrkiye, Egypt and Nigeria are operating in highly inflationary economies"
+    },
+    {
+     "theme": "supply chain financing optimization",
+     "quote": "we have worked with our suppliers over the past several years to optimize our terms and conditions, which include the extension of payment terms"
+    },
+    {
+     "theme": "working capital management",
+     "quote": "continued efforts to improve our working capital efficiency"
+    },
+    {
+     "theme": "brand portfolio rationalization",
+     "quote": "we recognized impairment charges of $33 million related to two biscuit brands in the Europe segment, one biscuit brand in the AMEA segment and one candy brand in the Latin America segment"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 15593,
+   "themes": [
+    {
+     "theme": "premium product portfolio expansion",
+     "quote": "we have worked with our suppliers over the past several years to optimize our terms and conditions"
+    },
+    {
+     "theme": "working capital efficiency optimization",
+     "quote": "we facilitate voluntary supply chain financing programs through several participating financial institutions"
+    },
+    {
+     "theme": "brand portfolio rationalization",
+     "quote": "we recognized impairment charges of $33 million related to two biscuit brands in the Europe segment, one biscuit brand in the AMEA segment and one candy brand in the Latin America segment"
+    },
+    {
+     "theme": "net investment hedging program",
+     "quote": "We designate some of our non-U.S. dollar denominated debt to hedge a portion of our net investments in our non-U.S. operations"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-04",
+   "source": "SEC 10-K MD&A",
+   "words": 11287,
+   "themes": [
+    {
+     "theme": "pricing elasticity management",
+     "quote": "elasticity impacts from those pricing increases has adversely impacted consumer demand, particularly in the United States and Europe"
+    },
+    {
+     "theme": "cocoa cost inflation",
+     "quote": "while we expect cocoa costs to be lower in 2026 compared to the current year, we expect to continue to face elevated cocoa costs as compared to historical levels"
+    },
+    {
+     "theme": "erp systems modernization",
+     "quote": "our Board of Directors approved funding of $1.2 billion for a multi-year systems transformation program to upgrade our global ERP and supply chain systems"
+    },
+    {
+     "theme": "emerging market snacking growth",
+     "quote": "Snack food consumption is highly correlated to GDP growth, urbanization of populations and rising discretionary income levels associated with a growing middle class, particularly in emerging markets"
+    },
+    {
+     "theme": "supply chain tariff management",
+     "quote": "As of January 2026, the U.S. maintains higher tariffs on imported goods (finished products and inputs) from many trading partners as compared to prior years"
+    },
+    {
+     "theme": "china premium snacks expansion",
+     "quote": "During 2024, we completed the acquisition of Evirth (Shanghai) Industrial Co., Ltd. (\"Evirth\"), a leading manufacturer of cakes and pastries in China"
+    }
+   ]
+  }
+ ]
+}

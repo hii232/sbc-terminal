@@ -1,0 +1,94 @@
+{
+ "name": "Synchrony Financial",
+ "sector": "Payments",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 14735,
+   "themes": [
+    {
+     "theme": "partner expansion and diversification",
+     "quote": "we continued to expand and diversify our portfolio with the addition or renewal of more than 30 partners"
+    },
+    {
+     "theme": "digital payment solutions growth",
+     "quote": "Our Digital sales platform includes key partners delivering digital payment solutions, such as PayPal, including our Venmo program, online marketplaces, such as Amazon"
+    },
+    {
+     "theme": "technology infrastructure investment",
+     "quote": "other expense increased $86 million and $159 million for the three and six months ended June 30, 2026, respectively, primarily driven by higher operational losses and costs related to technology investments"
+    },
+    {
+     "theme": "securitized debt funding",
+     "quote": "We access the asset-backed securitization market using the Synchrony Card Issuance Trust through which we may issue asset-backed securities through both public transactions and private transactions"
+    },
+    {
+     "theme": "deposit base expansion",
+     "quote": "At June 30, 2026, we had $82.8 billion in deposits, which represented 83% of our total funding sources"
+    },
+    {
+     "theme": "share repurchase program",
+     "quote": "in April 2026, the Company announced that the Board approved a new share repurchase program of up to $6.5 billion of the Company's common stock, which commenced in the second quarter of 2026"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 12850,
+   "themes": [
+    {
+     "theme": "digital-first partnership expansion",
+     "quote": "Digital sales platform includes key partners delivering digital payment solutions, such as PayPal, including our Venmo program, online marketplaces, such as Amazon"
+    },
+    {
+     "theme": "loan receivables yield management",
+     "quote": "The loan receivables yield increased 47 basis points to 21.80% for the three months ended March 31, 2026, primarily driven by the impacts of our product, pricing and policy changes"
+    },
+    {
+     "theme": "deposit funding diversification",
+     "quote": "At March 31, 2026, we had $82.9 billion in deposits, which represented 83% of our total funding sources"
+    },
+    {
+     "theme": "healthcare payments segment growth",
+     "quote": "Health & Wellness interest and fees on loans increased by $34 million, or 3.7%, for the three months ended March 31, 2026. The increase was primarily driven by an increase in loan receivables yield, reflecting the impact of product, pricing"
+    },
+    {
+     "theme": "co-branded card portfolio expansion",
+     "quote": "Our consumer co-branded cards totaled 34% of our total loan receivables portfolio at March 31, 2026"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-06",
+   "source": "SEC 10-K MD&A",
+   "words": 73565,
+   "themes": [
+    {
+     "theme": "consumer lending portfolio expansion",
+     "quote": "we provide a range of credit products through programs we have established with a diverse group of national and regional retailers, local merchants, manufacturers, buying groups, industry associations and healthcare service providers"
+    },
+    {
+     "theme": "securitization and asset sales",
+     "quote": "our ability to securitize our loan receivables, occurrence of an early amortization of our securitization facilities, loss of the right to service or subservice our securitized loan receivables"
+    },
+    {
+     "theme": "deposit growth strategy",
+     "quote": "our ability to grow our deposits in the future"
+    },
+    {
+     "theme": "partner relationship retention",
+     "quote": "retaining existing partners and attracting new partners, concentration of our revenue in a small number of partners, and promotion and support of our products by our partners"
+    },
+    {
+     "theme": "credit risk management",
+     "quote": "the sufficiency of our allowance for credit losses and the accuracy of the assumptions or estimates used in preparing our financial statements, including those related to the CECL accounting guidance"
+    }
+   ]
+  }
+ ]
+}

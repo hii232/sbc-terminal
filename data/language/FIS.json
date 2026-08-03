@@ -1,0 +1,94 @@
+{
+ "name": "Fidelity National Information Services, Inc.",
+ "sector": "Payments",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 5470,
+   "themes": [
+    {
+     "theme": "issuer solutions business integration",
+     "quote": "On April 17, 2025, FIS entered into definitive agreements to (i) buy the Issuer Solutions business (the \"Issuer Solutions Business\") from Global Payments Inc. and (ii) sell its remaining equity interest in Worldpay to Global Payments"
+    },
+    {
+     "theme": "artificial intelligence embedding",
+     "quote": "As we advance our transformation into a platform company, we are embedding artificial intelligence (\"AI\") across our solutions and operations."
+    },
+    {
+     "theme": "digital-first banking platform",
+     "quote": "Our Digital One platform helps our clients, from top-tier large financial institutions with over $10 billion in assets to top-tier and mid-tier community banks, provide a set of modern digital solutions"
+    },
+    {
+     "theme": "core system modernization",
+     "quote": "Our internal development activities have related primarily to the modernization of our proprietary core systems in each of our segments, design and development of next-generation digital and innovative solutions"
+    },
+    {
+     "theme": "cybersecurity and fraud solutions",
+     "quote": "Using expertise we have gained from our ongoing focus and investment, we have developed and we offer fraud, security, risk management and compliance solutions to target this growth opportunity in the financial services industry."
+    },
+    {
+     "theme": "payment processing innovation",
+     "quote": "we believe that payment processors, like FIS, that have scalable, integrated business models, provide solutions across the payment processing value chain and utilize broad distribution capabilities will be best-positioned to enable emerging"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 17067,
+   "themes": [
+    {
+     "theme": "saas and cloud delivery expansion",
+     "quote": "cloud offerings, software licensing, software-related services and professional services"
+    },
+    {
+     "theme": "platform modernization and technology consolidation",
+     "quote": "platform modernization included sunsetting certain technology platforms, which resulted in shortened estimated useful lives and accelerated amortization"
+    },
+    {
+     "theme": "issuer processing capabilities acquisition",
+     "quote": "acquired 100 % of the Issuer Solutions Business equity pursuant to the Transaction Agreement. The Issuer Solutions Business is a global payments technology and financial services provider specializing in issuer processing"
+    },
+    {
+     "theme": "recurring transaction-based processing services",
+     "quote": "Transaction processing and services revenue is recurring and is typically volume or activity based depending on factors such as the number of payments, transactions, accounts or trades processed"
+    },
+    {
+     "theme": "managed services and dedicated personnel resourcing",
+     "quote": "Other recurring revenue is comprised primarily of services provided by dedicated personnel resources who work full time at client sites"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 6582,
+   "themes": [
+    {
+     "theme": "digital banking modernization",
+     "quote": "Digital One platform helps our clients provide a set of modern digital solutions to support all customer types through any channel, including desktop, tablet, smartphone, and branch"
+    },
+    {
+     "theme": "payments market expansion",
+     "quote": "we believe that payment processors will need to enhance their technology platforms so they can deliver these capabilities and differentiate their offerings from other providers"
+    },
+    {
+     "theme": "issuer solutions acquisition",
+     "quote": "FIS has agreed to buy the Issuer Solutions business from Global Payments Inc. for an enterprise value of $13.5 billion"
+    },
+    {
+     "theme": "core banking system modernization",
+     "quote": "Our internal development activities have related primarily to the modernization of our proprietary core systems in each of our segments"
+    },
+    {
+     "theme": "fraud and cybersecurity solutions",
+     "quote": "we have developed and we offer fraud, security, risk management and compliance solutions to target this growth opportunity in the financial services industry"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "name": "BOEING CO",
+ "sector": "Aerospace",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 16090,
+   "themes": [
+    {
+     "theme": "commercial aircraft production ramp",
+     "quote": "deferred production costs of $ 13,081 and $ 11,777"
+    },
+    {
+     "theme": "spirit aerosystems integration",
+     "quote": "completed our acquisition of Spirit AeroSystems Holdings, Inc. (Spirit) pursuant to the Agreement and Plan of Merger dated June 30, 2024"
+    },
+    {
+     "theme": "defense contract backlog",
+     "quote": "Substantially all contracts at our BDS segment and certain contracts at our BGS segment are long-term contracts with the U.S. government and other customers that generally extend over several years"
+    },
+    {
+     "theme": "widebody aircraft development",
+     "quote": "777X program: $ 6,366 and $ 4,313 of work in process (including deferred production costs of $ 1,659 and $ 651 ) and $ 2,048 and $ 1,816 of unamortized tooling"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-22",
+   "source": "SEC 10-Q MD&A",
+   "words": 14425,
+   "themes": [
+    {
+     "theme": "commercial aircraft production ramp-up",
+     "quote": "Advances and progress billings increased from $ 59,404 at December 31, 2025, to $ 62,591 at March 31, 2026, primarily driven by advances on orders received at BCA"
+    },
+    {
+     "theme": "spirit aerosystems vertical integration",
+     "quote": "On December 8, 2025, we completed our acquisition of Spirit AeroSystems Holdings, Inc. (Spirit) pursuant to the Agreement and Plan of Merger dated June 30, 2024"
+    },
+    {
+     "theme": "fixed-price defense contract losses",
+     "quote": "Long-term contracts that are contracted on a fixed-price basis or have fixed-price options have resulted in losses being recorded in prior periods and could result in losses in future periods"
+    },
+    {
+     "theme": "supply chain cost pressures",
+     "quote": "The additional reach-forward loss during 2025 was primarily driven by higher estimated manufacturing and engineering costs for production support"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-30",
+   "source": "SEC 10-K MD&A",
+   "words": 52644,
+   "themes": [
+    {
+     "theme": "commercial aircraft production ramp",
+     "quote": "we are increasing production rates across our commercial airplane programs"
+    },
+    {
+     "theme": "defense contracts execution",
+     "quote": "our defense segment continues to focus on program execution and delivering value to customers"
+    },
+    {
+     "theme": "supply chain stabilization",
+     "quote": "we are working to stabilize our supply chain and improve operational efficiency"
+    },
+    {
+     "theme": "spirit aero systems integration",
+     "quote": "we completed the acquisition of Spirit AeroSystems to bring key manufacturing in-house"
+    },
+    {
+     "theme": "debt reduction and balance sheet management",
+     "quote": "we are focused on reducing debt levels and strengthening our financial position"
+    }
+   ]
+  }
+ ]
+}

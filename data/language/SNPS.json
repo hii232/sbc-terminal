@@ -1,0 +1,86 @@
+{
+ "name": "SYNOPSYS INC",
+ "sector": "EDA Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-27",
+   "source": "SEC 10-Q MD&A",
+   "words": 29255,
+   "themes": [
+    {
+     "theme": "ai-driven chip design automation",
+     "quote": "pioneering artificial intelligence (AI) driven chip design across the full-stack EDA suite to improve efficiency and accelerate the design, verification testing and manufacturing of advanced digital and analog chips"
+    },
+    {
+     "theme": "design ip integration acceleration",
+     "quote": "IP Accelerated initiative provides architecture design expertise, customized IP subsystems, hardening, and signal and power integrity analysis"
+    },
+    {
+     "theme": "ansys simulation capability integration",
+     "quote": "We acquired Ansys to combine Synopsys' semiconductor electronic design automation expertise with Ansys' S&A capabilities to address the growing demand for integrated design and simulation tools"
+    },
+    {
+     "theme": "cloud-based design productivity",
+     "quote": "cloud-based digital design flow to boost chip-design development productivity"
+    },
+    {
+     "theme": "processor ip portfolio optimization",
+     "quote": "entered into a definitive agreement for the sale of our Processor IP Solutions (Processor IP) business to GlobalFoundries Inc. as part of our reallocation of resources to the highest growth opportunities in our Design IP segment"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-02-25",
+   "source": "SEC 10-Q MD&A",
+   "words": 27922,
+   "themes": [
+    {
+     "theme": "ai-driven chip design",
+     "quote": "pioneering artificial intelligence (AI) driven chip design across the full-stack EDA suite to improve efficiency and accelerate the design, verification testing and manufacturing of advanced digital and analog chips"
+    },
+    {
+     "theme": "simulation and analysis integration",
+     "quote": "acquired Ansys to combine Synopsys' semiconductor electronic design automation expertise with Ansys' S&A capabilities to address the growing demand for integrated design and simulation tools across various industries"
+    },
+    {
+     "theme": "ip accelerated subsystems",
+     "quote": "our IP Accelerated initiative provides architecture design expertise, customized IP subsystems, hardening, and signal and power integrity analysis"
+    },
+    {
+     "theme": "cloud-based design flow",
+     "quote": "cloud-based digital design flow to boost chip-design development productivity"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-22",
+   "source": "SEC 10-K MD&A",
+   "words": 53978,
+   "themes": [
+    {
+     "theme": "ai-driven chip design",
+     "quote": "pioneering artificial intelligence (AI) driven chip design across the full-stack EDA suite to improve efficiency and accelerate the design, verification testing and manufacturing of advanced digital and analog chips"
+    },
+    {
+     "theme": "ansys integration platform",
+     "quote": "With ANSYS, Inc, (Ansys) now part of Synopsys, we can maximize the capabilities of product R&D teams broadly enabling them to rapidly innovate AI-powered products"
+    },
+    {
+     "theme": "simulation and analysis expansion",
+     "quote": "engineering S&A software. Our Ansys solutions portfolio is widely used by engineers, designers, researchers and students across a broad spectrum of industries"
+    },
+    {
+     "theme": "ip accelerated subsystems",
+     "quote": "IP Accelerated initiative provides architecture design expertise, customized IP subsystems, hardening, and signal and power integrity analysis"
+    },
+    {
+     "theme": "cloud-based design flow",
+     "quote": "cloud-based digital and analog design flow to boost chip-design development productivity"
+    }
+   ]
+  }
+ ]
+}

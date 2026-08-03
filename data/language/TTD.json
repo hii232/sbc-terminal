@@ -1,0 +1,98 @@
+{
+ "name": "Trade Desk, Inc.",
+ "sector": "AdTech",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 5881,
+   "themes": [
+    {
+     "theme": "omnichannel inventory expansion",
+     "quote": "continuing development of our omnichannel ad inventory (including in channels such as CTV and other video, mobile, audio and others, including potentially in any new inventory sources that may arise with the advent of AI)"
+    },
+    {
+     "theme": "ai platform capabilities",
+     "quote": "continuing development and incorporation of AI in our platform and related offerings"
+    },
+    {
+     "theme": "data and measurement services",
+     "quote": "continuing development, optimization and adoption of the data usage, measurement and targeting capabilities provided by our platform, which create a natural flywheel in our business"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "We believe the markets outside of the United States, and in particular across Europe and Asia in markets such as the U.K., Germany, France, China, Japan, India and Australia, offer opportunities for growth. We intend to make additional inve"
+    },
+    {
+     "theme": "programmatic adoption growth",
+     "quote": "Adoption of programmatic advertising by advertisers allows us to acquire new clients and grow revenue from existing clients"
+    },
+    {
+     "theme": "data center capacity investment",
+     "quote": "The increase in hosting costs was primarily attributable to investment in new data centers to support the continued growth of our platform; support costs relating to the increased use of our platform to query ad opportunities and purchase a"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-27",
+   "source": "SEC 10-K MD&A",
+   "words": 56695,
+   "themes": [
+    {
+     "theme": "ai-powered campaign automation",
+     "quote": "Koa is our platform's AI co-pilot. It processes and analyzes robust data sets to surface insights, optimizations and recommendations that help platform users make data-driven decisions"
+    },
+    {
+     "theme": "connected television expansion",
+     "quote": "We plan to continue investing significant resources in technology, sales and support staff related to our CTV growth initiatives"
+    },
+    {
+     "theme": "first-party data integration",
+     "quote": "we frequently help our clients drive campaign performance even further by ingesting their proprietary data directly, enabling greater decisioning and campaign optimization"
+    },
+    {
+     "theme": "omnichannel inventory access",
+     "quote": "We intend to continue investing in innovation across all channels, including the integration of new inventory sources within CTV and other video, display, audio and native"
+    },
+    {
+     "theme": "supply chain transparency tools",
+     "quote": "We have launched and will continue to develop OpenSincera, an open-source tool that provides visibility into the ad experience by providing detailed metadata on ad experiences across 400,000 publishers"
+    },
+    {
+     "theme": "identity solutions development",
+     "quote": "We continue to develop and enhance Unified ID 2.0, an open-source identity framework that operates by transforming email addresses or phone numbers into an advertising identifier"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 5519,
+   "themes": [
+    {
+     "theme": "ai platform integration",
+     "quote": "the continuing development and incorporation of AI in our platform and related offerings"
+    },
+    {
+     "theme": "omnichannel inventory expansion",
+     "quote": "continuing development of our omnichannel ad inventory (including in channels such as CTV and other video, mobile, audio and others)"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "We believe the markets outside of the United States, and in particular across Europe and Asia in markets such as the U.K, Germany, France, China, Japan, India and Australia, offer opportunities for growth"
+    },
+    {
+     "theme": "data and measurement capabilities",
+     "quote": "continuing development, optimization and adoption of the data usage, measurement and targeting capabilities provided by our platform"
+    },
+    {
+     "theme": "hosting infrastructure buildout",
+     "quote": "investment in new data centers to support the continued growth of our platform"
+    }
+   ]
+  }
+ ]
+}

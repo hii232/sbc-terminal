@@ -1,0 +1,90 @@
+{
+ "name": "NUCOR CORP",
+ "sector": "Materials",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-13",
+   "source": "SEC 10-Q MD&A",
+   "words": 2993,
+   "themes": [
+    {
+     "theme": "sheet mill capacity expansion",
+     "quote": "the sheet mill being built in West Virginia and the coating complex at our sheet mill in Indiana"
+    },
+    {
+     "theme": "direct reduced iron production",
+     "quote": "Nucor Steel Louisiana and Nu-Iron Unlimited, two facilities that produce DRI used by the steel mills"
+    },
+    {
+     "theme": "import protection from tariffs",
+     "quote": "Federal trade policies, including anti-dumping and countervailing duty laws in combination with Section 232 national security tariffs, are continuing to reduce the flood of unfairly traded imports"
+    },
+    {
+     "theme": "specialty product line expansion",
+     "quote": "construction of two manufacturing locations to expand Nucor Towers & Structures"
+    },
+    {
+     "theme": "scrap processing capability",
+     "quote": "increased profitability of our scrap processing operations"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 18428,
+   "themes": [
+    {
+     "theme": "direct reduced iron capacity",
+     "quote": "Continued successful implementation of our raw material strategy, including key investments in DRI production, coupled with the scrap brokerage and processing services performed by our team at DJJ, give us greater control over our metallic "
+    },
+    {
+     "theme": "sheet mill expansion",
+     "quote": "numerous, large, strategic capital projects at various stages of progress...the sheet mill being built in West Virginia...largest capital expenditures in 2026 are the sheet mill under construction in West Virginia"
+    },
+    {
+     "theme": "higher-value product diversification",
+     "quote": "strategic capital projects...will help us further diversify our product offerings and expand the markets that we serve...expanding our product portfolio into higher value-added offerings"
+    },
+    {
+     "theme": "data center construction demand",
+     "quote": "Demand was strong in several key end markets, including infrastructure, data centers, energy...growing demand from data center construction"
+    },
+    {
+     "theme": "raw material supply integration",
+     "quote": "Our investment in DRI production facilities and scrap brokerage and processing businesses provides Nucor with significant flexibility in optimizing our raw materials costs...having a portion of our raw materials supply under our control red"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-12",
+   "source": "SEC 10-Q MD&A",
+   "words": 4173,
+   "themes": [
+    {
+     "theme": "sheet mill capacity expansion",
+     "quote": "Pre-operating and start-up costs in the third quarter of 2025 primarily included costs related to the sheet mill under construction in West Virginia"
+    },
+    {
+     "theme": "structural steel tower manufacturing",
+     "quote": "the construction of two manufacturing locations to expand Nucor Towers & Structures"
+    },
+    {
+     "theme": "direct reduced iron production",
+     "quote": "increased earnings of our DRI operations"
+    },
+    {
+     "theme": "scrap-based steel production",
+     "quote": "Nucor is North America's largest recycler, using scrap steel as the primary raw material in producing steel and steel products"
+    },
+    {
+     "theme": "metal margins optimization",
+     "quote": "The largest driver of the increase in gross margins in the third quarter of 2025 as compared to the third quarter of 2024 was higher metal margins in the steel mills segment"
+    }
+   ]
+  }
+ ]
+}

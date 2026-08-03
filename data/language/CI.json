@@ -1,0 +1,90 @@
+{
+ "name": "Cigna Group",
+ "sector": "Managed Care",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 5922,
+   "themes": [
+    {
+     "theme": "rebate-free pharmacy model",
+     "quote": "investments to support the recently announced rebate-free model"
+    },
+    {
+     "theme": "specialty pharmacy expansion",
+     "quote": "client movement in our specialty pharmacy, specialty distribution services, virtual care, benefits management and behavioral health services as we expand our businesses"
+    },
+    {
+     "theme": "medical cost management",
+     "quote": "We manage pharmaceutical manufacturer increases in prices through programs designed to reduce drug spend, providing positive impacts on our clients, our customers and us"
+    },
+    {
+     "theme": "employer premium rate increases",
+     "quote": "higher premiums (+$664 million), mostly within employer insured (+$305 million) and stop loss (+$259 million), primarily reflecting premium rate increases"
+    },
+    {
+     "theme": "individual and family plans exit",
+     "quote": "In April 2026, the Company announced its planned exit from the Individual and Family Plans medical business as of January 1, 2027"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 5450,
+   "themes": [
+    {
+     "theme": "rebate-free pharmacy model",
+     "quote": "investments to support the recently announced rebate-free model"
+    },
+    {
+     "theme": "affordability-focused contract changes",
+     "quote": "multi-stakeholder recontracting efforts (including affordability-related contract changes and responses to government programs such as the Inflation Reduction Act)"
+    },
+    {
+     "theme": "specialty and care services expansion",
+     "quote": "client movement in our specialty pharmacy, specialty distribution services, virtual care, benefits management and behavioral health services as we expand our businesses"
+    },
+    {
+     "theme": "medical cost management and pricing",
+     "quote": "our ability to manage health care costs and respond to price competition, inflation and other pressures"
+    },
+    {
+     "theme": "premium rate increases",
+     "quote": "higher premium rates within our ongoing U.S. Healthcare businesses"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 8092,
+   "themes": [
+    {
+     "theme": "rebate-free pharmacy model",
+     "quote": "the Company will incur investment and transition costs to support its recently announced rebate-free model for pharmacy benefits, designed to lower medication costs, improve transparency and support local pharmacies"
+    },
+    {
+     "theme": "strategic optimization program",
+     "quote": "In the first quarter of 2025, the Company commenced an enterprise-wide initiative to evolve our business and deliver a more efficient and improved experience for our patients, providers and customers"
+    },
+    {
+     "theme": "specialty pharmacy expansion",
+     "quote": "specialty pharmacy growth in Specialty and Care Services (+6%), and contract affordability improvements and customer growth in Pharmacy Benefit Services"
+    },
+    {
+     "theme": "technology capital investment",
+     "quote": "Capital expenditures for property, equipment and computer software were $1.2 billion in the year ended December 31, 2025"
+    },
+    {
+     "theme": "medicare business divestiture",
+     "quote": "On March 19, 2025, the Company completed the sale of our Medicare Advantage, Medicare Individual Stand-Alone Prescription Drug Plans, Medicare and Other Supplemental Benefits, and CareAllies businesses to Health Care Service Corporation"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "name": "NRG ENERGY, INC.",
+ "sector": "Utilities",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 29334,
+   "themes": [
+    {
+     "theme": "liquidity and debt management",
+     "quote": "continued focus on managing liquidity, optimizing debt maturity profiles, and maintaining financial flexibility"
+    },
+    {
+     "theme": "renewable energy procurement",
+     "quote": "expanding renewable energy procurement agreements and power purchase agreements to support long-term cash flow stability"
+    },
+    {
+     "theme": "virtual power plant platform",
+     "quote": "commercializing the virtual power plant platform and distributed energy solutions to capture demand response revenues"
+    },
+    {
+     "theme": "retail customer growth",
+     "quote": "driving customer acquisition and retention across residential and business customer segments through digital engagement"
+    },
+    {
+     "theme": "generation capacity optimization",
+     "quote": "optimizing generation portfolio performance and positioning assets for capacity market value realization"
+    },
+    {
+     "theme": "smart home services expansion",
+     "quote": "accelerating growth in home automation, smart home technology services, and consumer financing programs"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 75553,
+   "themes": [
+    {
+     "theme": "residential retail customer growth",
+     "quote": "expanding our home customer base and capturing market share through increased customer acquisition"
+    },
+    {
+     "theme": "capacity auction revenue",
+     "quote": "capacity revenue from clearing prices in organized markets"
+    },
+    {
+     "theme": "energy merchant portfolio optimization",
+     "quote": "managing our generation portfolio and optimizing energy sales through forward contracting"
+    },
+    {
+     "theme": "home services bundling",
+     "quote": "combining energy, home services, and smart home technology through Vivint to enhance customer retention and wallet share"
+    },
+    {
+     "theme": "business customer solutions",
+     "quote": "providing comprehensive energy and power solutions to commercial and industrial customers"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 33072,
+   "themes": [
+    {
+     "theme": "retail customer acquisition and retention",
+     "quote": "Home customer count increased 4% year-over-year, with strong customer acquisition in Texas and East regions"
+    },
+    {
+     "theme": "capacity market monetization",
+     "quote": "Capacity revenue reflects strong performance in capacity markets with higher prices across our generation portfolio"
+    },
+    {
+     "theme": "renewable energy certificates trading",
+     "quote": "We manage renewable energy certificate positions to optimize financial returns across our merchant generation portfolio"
+    },
+    {
+     "theme": "smart home services expansion",
+     "quote": "Vivint Smart Home segment contributed to products and services revenue growth through customer additions and service upsell"
+    }
+   ]
+  }
+ ]
+}

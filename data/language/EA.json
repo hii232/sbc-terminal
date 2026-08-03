@@ -1,0 +1,86 @@
+{
+ "name": "ELECTRONIC ARTS INC.",
+ "sector": "Gaming",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-11",
+   "source": "SEC 10-K MD&A",
+   "words": 37800,
+   "themes": [
+    {
+     "theme": "ai integration into games",
+     "quote": "we are investing, and intend to continue to invest, in research and development to incorporate artificial intelligence into our products and services"
+    },
+    {
+     "theme": "live services expansion",
+     "quote": "Our digital live services and other net revenue represented 71 percent of our total net revenue during fiscal year 2026"
+    },
+    {
+     "theme": "cross-platform player engagement",
+     "quote": "We are focusing on building games and experiences that grow the global online communities around our key franchises; deepening engagement through connecting interactive storytelling to key intellectual property"
+    },
+    {
+     "theme": "free-to-play games growth",
+     "quote": "certain of our products and services are available through a 'free-to-play' model whereby players download the game for free and engage with services provided on an ongoing basis"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 7421,
+   "themes": [
+    {
+     "theme": "live services monetization",
+     "quote": "we offer high-quality experiences designed to provide value to players and to extend and enhance gameplay. These live services include extra content, subscription offerings and other revenue generated in addition to the sale of our full gam"
+    },
+    {
+     "theme": "digital distribution shift",
+     "quote": "players increasingly purchase games digitally as opposed to purchasing physical discs. While this trend, as applied to our business, may not be linear due to a mix of products during a fiscal year, consumer buying patterns and other factors"
+    },
+    {
+     "theme": "franchise-led portfolio strategy",
+     "quote": "a significant portion of our revenue has been derived from games based on a few popular titles, such as EA SPORTS FC, EA SPORTS College Football, EA SPORTS Madden NFL, Apex Legends, Battlefield, and The Sims"
+    },
+    {
+     "theme": "studio investment and talent retention",
+     "quote": "our leading position within the interactive entertainment industry makes us a prime target for recruiting our executives, as well as key creative and technical talent, resulting in retention challenges and increased cost to retain and incen"
+    },
+    {
+     "theme": "online community engagement",
+     "quote": "we are focusing on building games and experiences that grow the global online communities around our key franchises; deepening engagement through connecting interactive storytelling to key intellectual property; and harnessing our communiti"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-10-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 7382,
+   "themes": [
+    {
+     "theme": "live services monetization",
+     "quote": "Live services and other net revenue was $1,221 million...we expect that live services net revenue will continue to be material to our business"
+    },
+    {
+     "theme": "digital game distribution",
+     "quote": "we expect players to continue to purchase a higher proportion of our games digitally...we estimate that 78 percent of our total units sold during fiscal years 2025 were sold digitally"
+    },
+    {
+     "theme": "sports franchise content expansion",
+     "quote": "a significant portion of our net revenue has been derived from games based on a few popular titles, such as EA SPORTS FC, EA SPORTS College Football, EA SPORTS Madden NFL"
+    },
+    {
+     "theme": "free-to-play game development",
+     "quote": "for sales beginning July 1, 2025, the revenue that we recognize for service-related performance obligation related to our mobile free-to-play and PC and console free-to-play games is recognized generally over an eleven-month period"
+    },
+    {
+     "theme": "new game franchise launches",
+     "quote": "net bookings decreased primarily due to a year-over-year decrease in sales from EA SPORTS College Football and our global football franchise, partially offset by an increase in sales from Split Fiction"
+    }
+   ]
+  }
+ ]
+}

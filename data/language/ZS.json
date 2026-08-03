@@ -1,0 +1,90 @@
+{
+ "name": "Zscaler, Inc.",
+ "sector": "Cybersecurity",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-26",
+   "source": "SEC 10-Q MD&A",
+   "words": 8023,
+   "themes": [
+    {
+     "theme": "land-and-expand sales model",
+     "quote": "leverage our land-and-expand model with the goal of generating incremental revenue, often within the term of the initial subscription, by increasing sales to our existing customers"
+    },
+    {
+     "theme": "ai-enabled platform features",
+     "quote": "upgrading to more advanced capabilities, including AI-enabled features"
+    },
+    {
+     "theme": "enterprise customer acquisition",
+     "quote": "increase the number of customers, and more significantly large enterprises, on our cloud platform is an indicator of our market penetration"
+    },
+    {
+     "theme": "cloud infrastructure scale",
+     "quote": "as our customers expand and increase the use of our cloud platform, driven by additional applications, workloads, AI agents, and connected devices, our cost of revenue will increase due to higher bandwidth and data center expenses"
+    },
+    {
+     "theme": "sales and marketing expansion",
+     "quote": "intend to continue to invest significantly in sales and marketing to grow and train our sales force, broaden our brand awareness and expand and deepen our channel partner relationships"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-02-26",
+   "source": "SEC 10-Q MD&A",
+   "words": 7979,
+   "themes": [
+    {
+     "theme": "enterprise cloud platform expansion",
+     "quote": "we continue to develop and enhance the functionality of our cloud platform and integrate technologies acquired through our business acquisitions"
+    },
+    {
+     "theme": "land-and-expand customer strategy",
+     "quote": "We leverage our land-and-expand model with the goal of generating incremental revenue, often within the term of the initial subscription, by increasing sales to our existing customers"
+    },
+    {
+     "theme": "sales force and channel growth",
+     "quote": "we intend to continue to invest significantly in sales and marketing to grow and train our sales force, broaden our brand awareness and expand and deepen our channel partner relationships"
+    },
+    {
+     "theme": "ai-enabled security features",
+     "quote": "upgrading to more advanced capabilities, including AI-enabled features"
+    },
+    {
+     "theme": "business acquisitions and integration",
+     "quote": "We have and may in the future enter into arrangements to acquire or invest in complementary businesses, services and technologies, including intellectual property rights"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-25",
+   "source": "SEC 10-Q MD&A",
+   "words": 6999,
+   "themes": [
+    {
+     "theme": "cloud platform infrastructure expansion",
+     "quote": "we intend to continue to invest additional resources in our cloud platform and our customer support organizations as we grow our business"
+    },
+    {
+     "theme": "sales and marketing force growth",
+     "quote": "we intend to continue to make significant investments in our sales and marketing organization to drive additional revenue, further penetrate the market and expand our global customer base"
+    },
+    {
+     "theme": "research and development for new products",
+     "quote": "we continue to invest in research and development efforts to enhance the functionality of our cloud platform, improve the reliability, availability and scalability of our platform and access new customer markets"
+    },
+    {
+     "theme": "land and expand within existing customers",
+     "quote": "we leverage our land-and-expand model with the goal of generating incremental revenue, often within the term of the initial subscription, by increasing sales to our existing customers in one of three ways: expanding deployment of our cloud "
+    },
+    {
+     "theme": "ai-enabled security capabilities",
+     "quote": "the opportunity to use AI to counter cybersecurity threats and improve IT operations"
+    }
+   ]
+  }
+ ]
+}

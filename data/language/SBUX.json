@@ -1,0 +1,98 @@
+{
+ "name": "STARBUCKS CORP",
+ "sector": "Restaurants",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 7529,
+   "themes": [
+    {
+     "theme": "back to starbucks operational efficiency",
+     "quote": "Green Apron Service standard to improve operational consistency and the coffeehouse experience, engaging consumer marketing, disciplined menu innovation, a redesigned Starbucks Rewards program, and coffeehouse uplifts"
+    },
+    {
+     "theme": "china licensed joint venture model",
+     "quote": "we announced that the Company entered into an agreement to form a joint venture with Boyu Capital to operate Starbucks retail in China...Starbucks retained a 40% ownership interest and continues to own and license the brand and intellectual"
+    },
+    {
+     "theme": "store rationalization and profitability",
+     "quote": "we closed stores that did not demonstrate a viable path to profitability or meet our standards of delivering a warm, welcoming space for our customers and partners"
+    },
+    {
+     "theme": "support organization restructuring",
+     "quote": "management approved a restructuring plan to relocate certain functions of our support organization to an additional office in Nashville, Tennessee...establishing a more strategic presence in the Southeast region"
+    },
+    {
+     "theme": "digital customer engagement expansion",
+     "quote": "providing seamless digital experiences, strengthening our supply chain, and enabling technological efficiencies...deepening customer connection, brand loyalty and affinity through broad-based marketing, menu innovation, and Starbucks Reward"
+    },
+    {
+     "theme": "licensed business model shift",
+     "quote": "as our international business shifts toward a more predominantly licensed model, we will continue evolving how we support our licensed business partners...meaningful contributor to coffeehouse growth over time, supported by our licensed bus"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 6897,
+   "themes": [
+    {
+     "theme": "back to starbucks service initiative",
+     "quote": "investments included the Green Apron Service standard to improve the coffeehouse experience, engaging consumer marketing, disciplined menu innovation, and a redesigned Starbucks Rewards program"
+    },
+    {
+     "theme": "china joint venture transition",
+     "quote": "entered into an agreement to form a joint venture with Boyu Capital to operate Starbucks retail in China, marking a significant milestone in the Company's long-term strategy to unlock sustainable, disciplined growth"
+    },
+    {
+     "theme": "store base rationalization",
+     "quote": "continued to close stores that did not demonstrate a viable path to profitability or meet our standards of delivering a warm, welcoming space for our customers and partners"
+    },
+    {
+     "theme": "licensed model expansion internationally",
+     "quote": "as our international business shifts toward a more predominantly licensed model, we will look toward strengthening how we support our licensed business partners"
+    },
+    {
+     "theme": "supply chain strengthening",
+     "quote": "continued focus on refine and execute our Back to Starbucks initiatives to continue topline momentum and build sales leverage while investing in our cafes and customer experience, delivering seamless digital experiences, strengthening our s"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 5298,
+   "themes": [
+    {
+     "theme": "service standard implementation",
+     "quote": "implementing the Green Apron Service standard to improve the coffeehouse experience"
+    },
+    {
+     "theme": "unprofitable store closures",
+     "quote": "we continued to close stores that did not demonstrate a viable path to profitability, or meet our standards of delivering a warm, welcoming space"
+    },
+    {
+     "theme": "china joint venture restructuring",
+     "quote": "entered into an agreement to form a joint venture with Boyu Capital to operate Starbucks retail in China"
+    },
+    {
+     "theme": "labor cost investments",
+     "quote": "labor investments in support of 'Back to Starbucks,' (approximately 260 basis points)"
+    },
+    {
+     "theme": "supply chain efficiency",
+     "quote": "improving our supply chain, and enabling technological efficiencies"
+    },
+    {
+     "theme": "digital customer experience",
+     "quote": "delivering seamless digital experiences"
+    }
+   ]
+  }
+ ]
+}

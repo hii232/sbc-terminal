@@ -1,0 +1,94 @@
+{
+ "name": "PROGRESSIVE CORP/OH/",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 9999,
+   "themes": [
+    {
+     "theme": "personal auto bundled growth",
+     "quote": "increasing retention continues to be one of our most important priorities. Our efforts to increase our share of Progressive auto and personal property bundled households (i.e., Robinsons) remains a key initiative"
+    },
+    {
+     "theme": "usage-based insurance expansion",
+     "quote": "We believe a key element in improving the accuracy of our personal auto rating is Snapshot\u00ae, our usage-based insurance offering... Snapshot is available in all states, other than California, and our latest segmentation model was available i"
+    },
+    {
+     "theme": "commercial auto market expansion",
+     "quote": "During the first quarter 2026, we generated new agency personal auto application growth in 20 states, including six of our top 10 largest agency states... we generated new direct personal auto application growth in 27 states"
+    },
+    {
+     "theme": "property underwriting discipline",
+     "quote": "we continued to focus on improving profitability and reducing exposure in more volatile weather-related markets, and, where permitted, on slowing growth and non-renewing policies... prioritizing insuring lower-risk properties (e.g., new con"
+    },
+    {
+     "theme": "targeted rate increases",
+     "quote": "We intend to continue to make targeted rate increases in states where we are not achieving our profitability goals... we decreased personal auto rates less than 1% and increased our personal property rates about 1%"
+    },
+    {
+     "theme": "advertising spend acceleration",
+     "quote": "During the first quarter 2026, our advertising spend was $1.5 billion, or 20% greater than the first quarter last year... we will continue to advertise to maximize growth as long as the advertising spend is efficient"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-03-02",
+   "source": "SEC 10-K MD&A",
+   "words": 27175,
+   "themes": [
+    {
+     "theme": "direct distribution expansion",
+     "quote": "we continue to drive strong growth through our Direct channel, which now represents a significant portion of our personal auto business"
+    },
+    {
+     "theme": "commercial lines underwriting",
+     "quote": "our Commercial Lines segment has delivered strong underwriting results as we continue to build this business"
+    },
+    {
+     "theme": "technology and digital capability development",
+     "quote": "we are investing in technology platforms and digital capabilities to enhance customer experience and operational efficiency"
+    },
+    {
+     "theme": "claims automation and efficiency",
+     "quote": "we are advancing our claims operations through automation and process improvements to reduce costs and cycle time"
+    },
+    {
+     "theme": "data and analytics utilization",
+     "quote": "we leverage data analytics and predictive models to improve pricing accuracy and risk selection across all segments"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 12953,
+   "themes": [
+    {
+     "theme": "usage-based insurance expansion",
+     "quote": "We believe a key element in improving the accuracy of our personal auto rating is Snapshot\u00ae, our usage-based insurance offering... our latest segmentation model was available in states that represented 78% of our countrywide personal auto n"
+    },
+    {
+     "theme": "bundled auto-property policies",
+     "quote": "Our efforts to increase our share of Progressive auto and personal property bundled households (i.e., Robinsons) remains a key initiative, and we plan to continue to make investments to improve the customer experience"
+    },
+    {
+     "theme": "weather-exposed property underwriting discipline",
+     "quote": "we continued to focus on improving profitability and reducing exposure in more volatile weather-related markets, and, where permitted, on slowing growth and non-renewing policies... accepting new business for our homeowners product only whe"
+    },
+    {
+     "theme": "customer retention prioritization",
+     "quote": "We realize that to grow policies in force, it is critical that we retain our customers for longer periods. Consequently, increasing retention continues to be one of our most important priorities"
+    },
+    {
+     "theme": "higher surplus leverage ratios",
+     "quote": "two states have permitted us to target a premiums-to-surplus ratio for our vehicle businesses to a maximum ratio of 3.5 to 1 based on our strong financial condition. This approval reduces the amount of capital we may need to hold at our app"
+    }
+   ]
+  }
+ ]
+}

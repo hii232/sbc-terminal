@@ -1,0 +1,94 @@
+{
+ "name": "Medtronic plc",
+ "sector": "Medical Devices",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-18",
+   "source": "SEC 10-K MD&A",
+   "words": 62675,
+   "themes": [
+    {
+     "theme": "minimally invasive device expansion",
+     "quote": "continue to advance our portfolio of minimally invasive solutions across our therapeutic areas"
+    },
+    {
+     "theme": "acquired company integration",
+     "quote": "integration of our recent acquisitions including CathWorks to enhance our interventional cardiology capabilities"
+    },
+    {
+     "theme": "digital health and monitoring platforms",
+     "quote": "expanding remote monitoring and digital health capabilities to improve patient outcomes and operational efficiency"
+    },
+    {
+     "theme": "emerging market penetration",
+     "quote": "growing presence in high-growth emerging markets particularly in Asia-Pacific and Latin America regions"
+    },
+    {
+     "theme": "research and development productivity",
+     "quote": "focused investment in R&D to drive innovation across our core therapeutic areas and pipeline advancement"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-02-24",
+   "source": "SEC 10-Q MD&A",
+   "words": 9968,
+   "themes": [
+    {
+     "theme": "diabetes business separation",
+     "quote": "In May 2025, the Company announced its intent to separate the Diabetes business, with the intention to create a new independent, publicly traded company, MiniMed Group, Inc. (MiniMed). The separation is expected to be completed within 18 mo"
+    },
+    {
+     "theme": "minimally invasive surgery expansion",
+     "quote": "Acceptance and continued growth of Open-to-MIS (minimally invasive surgery) techniques and tools through our efforts to transition open surgery to MIS. Open-to-MIS initiative focuses on capturing the market opportunity that exists in transi"
+    },
+    {
+     "theme": "robotic surgical system adoption",
+     "quote": "Global adoption of robotic-assisted surgery and the safe and effective use of the Hugo robotic assisted surgery (RAS) system, including system reliability and acceptability, for urologic, bariatric, gynecologic, hernia, and general surgery "
+    },
+    {
+     "theme": "pulsed field ablation portfolio",
+     "quote": "Continued acceptance, adoption, and growth of our innovative portfolio of products in the electrophysiology (EP) segment, including the PulseSelect pulsed field ablation system and the Affera mapping and ablation system with Sphere-9 cathet"
+    },
+    {
+     "theme": "integrated spine navigation ecosystem",
+     "quote": "Continued adoption and growth of our integrated solutions through the AiBLE offering, which integrates spinal implants with enabling technologies (StealthStation, O-arm Imaging Systems, and Midas), Mazor robotics, and UNiD Adaptive Spine In"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-11-25",
+   "source": "SEC 10-Q MD&A",
+   "words": 8912,
+   "themes": [
+    {
+     "theme": "pulsed field ablation portfolio",
+     "quote": "Strong growth in PulseSelect and Affera Sphere-9 pulsed field ablation with partially offsetting declines in cryoablation"
+    },
+    {
+     "theme": "transcatheter aortic valve replacement expansion",
+     "quote": "Continued acceptance and growth of the self-expanding CoreValve Evolut transcatheter aortic valve replacement platform"
+    },
+    {
+     "theme": "robotic-assisted surgery commercialization",
+     "quote": "Global adoption of robotic-assisted surgery and the safe and effective use of the Hugo robotic assisted surgery (RAS) system"
+    },
+    {
+     "theme": "spine integrated technology ecosystem",
+     "quote": "Continued adoption and growth of our integrated solutions through the AiBLE offering, which integrates spinal implants with enabling technologies"
+    },
+    {
+     "theme": "diabetes business separation",
+     "quote": "The pending separation of the Diabetes business from the Company. In May 2025, the Company announced its intent to separate the Diabetes Operating Unit into a new standalone company"
+    },
+    {
+     "theme": "tariff mitigation and supply chain adaptation",
+     "quote": "Based on current rates as of November 18, 2025, we estimate the pre-tax net tariff impact to be $185 million in fiscal year 2026"
+    }
+   ]
+  }
+ ]
+}

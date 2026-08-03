@@ -1,0 +1,82 @@
+{
+ "name": "Elevance Health, Inc.",
+ "sector": "Managed Care",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-15",
+   "source": "SEC 10-Q MD&A",
+   "words": 21877,
+   "themes": [
+    {
+     "theme": "operating model transformation",
+     "quote": "A20262027OperatingModelTransformationMember"
+    },
+    {
+     "theme": "pharmacy services integration",
+     "quote": "we provide pharmacy services, stop loss insurance, dental, vision and supplemental health insurance benefits"
+    },
+    {
+     "theme": "carelon services expansion",
+     "quote": "Carelon represents our healthcare related services and capabilities, including our CarelonRx and Carelon Services businesses"
+    },
+    {
+     "theme": "value-based care delivery",
+     "quote": "we carry financial responsibility across medical claims costs through risk contracts with health plans in which we deliver, integrate, direct and control certain healthcare services"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-22",
+   "source": "SEC 10-Q MD&A",
+   "words": 20729,
+   "themes": [
+    {
+     "theme": "operating model simplification",
+     "quote": "streamline decision-making, simplify organizational structures, and enhance the use of advanced technologies, including artificial intelligence, across the enterprise"
+    },
+    {
+     "theme": "workforce optimization",
+     "quote": "targeted workforce reductions and role realignments"
+    },
+    {
+     "theme": "technology modernization",
+     "quote": "modernization of certain information technology platforms"
+    },
+    {
+     "theme": "ai capability integration",
+     "quote": "enhance the use of advanced technologies, including artificial intelligence, across the enterprise"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-06",
+   "source": "SEC 10-K MD&A",
+   "words": 73338,
+   "themes": [
+    {
+     "theme": "pharmacy benefits management expansion",
+     "quote": "Carelon Rx segment growth through pharmacy claims processing and network management"
+    },
+    {
+     "theme": "health benefits underwriting consolidation",
+     "quote": "Health Benefits segment managing medical insurance underwriting and claims administration across multiple insurance products"
+    },
+    {
+     "theme": "healthcare services platform development",
+     "quote": "Carelon Services segment providing technology infrastructure and related management and support services"
+    },
+    {
+     "theme": "investment portfolio optimization",
+     "quote": "investment holdings in fixed maturities, equities, and alternative investments to support insurance operations and generate returns"
+    },
+    {
+     "theme": "dental and health insurance acquisitions",
+     "quote": "Liberty Dental and Mosaic Health strategic holdings through equity investments and partnership structures"
+    }
+   ]
+  }
+ ]
+}

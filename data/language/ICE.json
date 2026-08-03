@@ -1,0 +1,34 @@
+{
+ "name": "Intercontinental Exchange, Inc.",
+ "sector": "Financial Data",
+ "periods": [
+  {
+   "period": "2025Q4",
+   "date": "2026-02-05",
+   "source": "SEC 10-K MD&A",
+   "words": 5701,
+   "themes": [
+    {
+     "theme": "recurring revenue expansion",
+     "quote": "we have increased our portion of recurring revenues from 34% in 2014 to 51% in 2025"
+    },
+    {
+     "theme": "data infrastructure capacity investment",
+     "quote": "our continued strategic investments in our data center infrastructure"
+    },
+    {
+     "theme": "mortgage workflow automation",
+     "quote": "comprehensive, digital workflow tools that aim to address inefficiencies and mitigate risks that exist in the U.S. residential mortgage market life cycle"
+    },
+    {
+     "theme": "derivatives clearing market share",
+     "quote": "CDS clearing revenues decreased 1% in 2025 from 2024... The notional value of CDS cleared, including index options, was $24.9 trillion and $19.8 trillion in 2025 and 2024, respectively"
+    },
+    {
+     "theme": "fixed income execution platform expansion",
+     "quote": "Our fixed income execution revenues increased 8% in 2025 from 2024 driven by market volatility related to geopolitical and macroeconomic uncertainty, network expansion and continued expansion of platform functionality"
+    }
+   ]
+  }
+ ]
+}

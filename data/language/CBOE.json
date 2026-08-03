@@ -1,0 +1,94 @@
+{
+ "name": "Cboe Global Markets, Inc.",
+ "sector": "Financial Data",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-31",
+   "source": "SEC 10-Q MD&A",
+   "words": 13044,
+   "themes": [
+    {
+     "theme": "prediction markets launch",
+     "quote": "On June 23, 2026, the Company announced the launch of the first products in its new prediction markets suite, Cboe Predicts. The offering includes binary option contracts based on the Mini-S&P 500 Index"
+    },
+    {
+     "theme": "strategic portfolio rationalization",
+     "quote": "In 2025, following a comprehensive strategic review of its global business operations, Cboe initiated the wind down of its Japanese equities business, initiated a sales process for its Cboe Australia and Cboe Canada businesses, discontinued"
+    },
+    {
+     "theme": "crypto derivatives consolidation",
+     "quote": "On June 9, 2025, Cboe successfully completed the migration of cash-settled Bitcoin and Ether futures contracts from Cboe Digital Exchange to CFE. CFE also subsequently launched continuous Bitcoin and Ether futures contracts on December 15, "
+    },
+    {
+     "theme": "data and access revenue expansion",
+     "quote": "Data Vantage revenue increased for the three and six months ended June 30, 2026 compared to the same periods in 2025 primarily due to increases in access and capacity fees and proprietary market data fees"
+    },
+    {
+     "theme": "index options volume growth",
+     "quote": "Transaction and clearing fees increased primarily due to a 32% increase in index options ADV and a 24% increase in multi-listed options ADV"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 10753,
+   "themes": [
+    {
+     "theme": "strategic portfolio rationalization",
+     "quote": "Cboe initiated the wind down of its Japanese equities business, initiated a sales process for its Cboe Australia and Cboe Canada businesses, discontinued its U.S. and European Corporate Listings efforts, and reduced costs associated with it"
+    },
+    {
+     "theme": "derivatives volume growth",
+     "quote": "trading volumes on our proprietary products such as VIX options and futures and SPX options"
+    },
+    {
+     "theme": "data and access monetization",
+     "quote": "Data Vantage revenue aggregated into Data Vantage includes access and capacity fees, proprietary market data fees, and associated other revenue across the Company's five segments"
+    },
+    {
+     "theme": "european equities market expansion",
+     "quote": "a 25% increase in Cboe European equities exchanges matched ADNV"
+    },
+    {
+     "theme": "crypto futures consolidation",
+     "quote": "Cboe successfully completed the migration of cash-settled Bitcoin and Ether futures contracts from Cboe Digital Exchange to CFE, and launched continuous Bitcoin and Ether futures contracts"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-20",
+   "source": "SEC 10-K MD&A",
+   "words": 78318,
+   "themes": [
+    {
+     "theme": "digital assets and crypto trading",
+     "quote": "launched bitcoin and ether futures products and expanded digital assets offerings"
+    },
+    {
+     "theme": "market data monetization",
+     "quote": "market data fees increased significantly as we enhanced our data and analytics offerings"
+    },
+    {
+     "theme": "options contract volume growth",
+     "quote": "options transaction volumes reached record levels driven by increased retail and institutional participation"
+    },
+    {
+     "theme": "european market consolidation",
+     "quote": "expanded our European equities and derivatives capabilities through our platform integrations"
+    },
+    {
+     "theme": "clearing and risk infrastructure",
+     "quote": "invested in clearing house technology and expanded our global clearing operations"
+    },
+    {
+     "theme": "cost optimization and efficiency",
+     "quote": "focused on operational efficiency and technology investments to improve margins"
+    }
+   ]
+  }
+ ]
+}

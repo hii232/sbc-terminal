@@ -1,0 +1,90 @@
+{
+ "name": "MOODYS CORP /DE/",
+ "sector": "Financial Data",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 19097,
+   "themes": [
+    {
+     "theme": "recurring revenue expansion",
+     "quote": "recurring revenues grew to $x% of total revenues"
+    },
+    {
+     "theme": "decision solutions platform development",
+     "quote": "our decision solutions segment is expanding across banking, insurance and know-your-customer products"
+    },
+    {
+     "theme": "analytics and data integration",
+     "quote": "we are integrating our data and analytics capabilities across our moody's analytics business"
+    },
+    {
+     "theme": "subscription-based pricing model",
+     "quote": "we continue to shift our revenue mix toward recurring subscription and recurring transaction-based models"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "we are expanding our presence in EMEA and Asia-Pacific regions through our analytics and ratings divisions"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 15385,
+   "themes": [
+    {
+     "theme": "recurring revenue growth",
+     "quote": "strong recurring revenue contributions across decision solutions and research and insights segments"
+    },
+    {
+     "theme": "ai-powered analytics platform",
+     "quote": "continued investment in artificial intelligence and machine learning capabilities to enhance our analytical offerings"
+    },
+    {
+     "theme": "esg and sustainability ratings",
+     "quote": "expanded esg ratings and data offerings to meet growing demand for sustainability-related assessments"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "growing international presence with particular focus on emea and asia-pacific regions"
+    },
+    {
+     "theme": "digital transformation services",
+     "quote": "advancing our decision solutions platform with enhanced digital capabilities and integrated workflows"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-18",
+   "source": "SEC 10-K MD&A",
+   "words": 9599,
+   "themes": [
+    {
+     "theme": "cloud-based solutions development",
+     "quote": "expansion of existing customer relationships into cloud-hosted subscription-based banking offerings, which enable customers' lending, risk management and finance workflows"
+    },
+    {
+     "theme": "recurring revenue transition",
+     "quote": "MA's continued strategic shift to cloud-hosted subscription-based solutions"
+    },
+    {
+     "theme": "acquisitions for capability expansion",
+     "quote": "revenue from Praedicat and CAPE Analytics, which the Company acquired in the third quarter of 2024 and first quarter of 2025, respectively"
+    },
+    {
+     "theme": "operational efficiency restructuring",
+     "quote": "Strategic and Operational Efficiency Restructuring Program"
+    },
+    {
+     "theme": "data and analytics consolidation",
+     "quote": "continued strong demand for ratings data feeds and company data applications"
+    }
+   ]
+  }
+ ]
+}

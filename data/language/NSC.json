@@ -1,0 +1,90 @@
+{
+ "name": "NORFOLK SOUTHERN CORP",
+ "sector": "Rails",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 11218,
+   "themes": [
+    {
+     "theme": "intermodal network expansion",
+     "quote": "We have the most extensive intermodal network in the eastern U.S. Our network serves a majority of the country's population and manufacturing base, with connections to every major container port on the Atlantic coast"
+    },
+    {
+     "theme": "transcontinental railroad merger integration",
+     "quote": "On July 28, 2025, we entered into a Merger Agreement with Union Pacific, marking a transformational step toward creating America's first transcontinental railroad"
+    },
+    {
+     "theme": "commodity diversification across segments",
+     "quote": "we deliver a wide variety of commodities annually for our customers, from agriculture to consumer products"
+    },
+    {
+     "theme": "carbon emissions reduction offerings",
+     "quote": "help them reduce carbon emissions by shipping via rail"
+    },
+    {
+     "theme": "safety and operational compliance",
+     "quote": "The FRA examined railroad equipment, track conditions, hazardous materials train placement and routing, and emergency response"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-24",
+   "source": "SEC 10-Q MD&A",
+   "words": 10502,
+   "themes": [
+    {
+     "theme": "transcontinental rail network integration",
+     "quote": "By integrating two complementary networks, we believe the merged company will be positioned to deliver more efficient, reliable, and sustainable freight service across the nation"
+    },
+    {
+     "theme": "fuel surcharge optimization",
+     "quote": "Approximately 95% of our revenue base is covered by contracts that include negotiated fuel surcharges"
+    },
+    {
+     "theme": "labor productivity improvement",
+     "quote": "we continued to drive improvements in labor productivity and fuel efficiency"
+    },
+    {
+     "theme": "operating ratio management",
+     "quote": "we achieved an operating ratio of 70.7%, and an adjusted operating ratio of 68.7%"
+    },
+    {
+     "theme": "intermodal network expansion",
+     "quote": "We have the most extensive intermodal network in the eastern U.S. Our network serves a majority of the country's population and manufacturing base, with connections to every major container port on the Atlantic coast"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-09",
+   "source": "SEC 10-K MD&A",
+   "words": 6609,
+   "themes": [
+    {
+     "theme": "transcontinental railroad merger",
+     "quote": "entered into a Merger Agreement with Union Pacific, marking a transformational step toward creating America's first transcontinental railroad"
+    },
+    {
+     "theme": "labor productivity improvements",
+     "quote": "emphasis on delivering high quality service while delivering notable improvements in labor productivity and fuel efficiency"
+    },
+    {
+     "theme": "fuel efficiency optimization",
+     "quote": "We consumed 366 million gallons of diesel fuel in 2025, compared with 373 million gallons in 2024 and 377 million gallons in 2023"
+    },
+    {
+     "theme": "automotive and chemicals traffic growth",
+     "quote": "growth in automotive and chemicals traffic, reflecting improved service and customer demand, drove merchandise revenues higher"
+    },
+    {
+     "theme": "incident recovery and resolution",
+     "quote": "insurance and other recoveries during 2025 exceeding incremental expenses"
+    }
+   ]
+  }
+ ]
+}

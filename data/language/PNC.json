@@ -1,0 +1,90 @@
+{
+ "name": "PNC FINANCIAL SERVICES GROUP, INC.",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 38782,
+   "themes": [
+    {
+     "theme": "first bank integration",
+     "quote": "continuing integration of First Bank, including operating system conversions and technology platforms"
+    },
+    {
+     "theme": "commercial real estate headwinds",
+     "quote": "elevated credit losses in commercial real estate portfolio reflecting property valuation pressures and refinancing challenges"
+    },
+    {
+     "theme": "net interest margin pressure",
+     "quote": "net interest margin compression reflecting deposit mix shift and competitive funding environment"
+    },
+    {
+     "theme": "consumer credit normalization",
+     "quote": "consumer portfolio credit quality challenges with increasing delinquencies as post-pandemic accommodations normalize"
+    },
+    {
+     "theme": "fee revenue diversification",
+     "quote": "building wealth management and advisory services to diversify revenue streams beyond traditional net interest income"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-20",
+   "source": "SEC 10-K MD&A",
+   "words": 102074,
+   "themes": [
+    {
+     "theme": "commercial real estate stress",
+     "quote": "criticized loans in the commercial real estate portfolio increased significantly during 2025"
+    },
+    {
+     "theme": "deposit competition and pricing",
+     "quote": "we continue to experience competitive pressure on deposit pricing and deposit balances"
+    },
+    {
+     "theme": "net interest margin compression",
+     "quote": "net interest margin continued to face pressure from the current interest rate environment"
+    },
+    {
+     "theme": "consumer credit quality deterioration",
+     "quote": "consumer portfolio credit quality metrics weakened during 2025 reflecting broader economic pressures"
+    },
+    {
+     "theme": "capital return to shareholders",
+     "quote": "we returned capital to shareholders through dividends and share repurchases"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 41766,
+   "themes": [
+    {
+     "theme": "commercial real estate portfolio stress",
+     "quote": "criticized loans in our commercial real estate portfolio increased"
+    },
+    {
+     "theme": "deposit competition and funding costs",
+     "quote": "we continue to experience deposit pressure as customers move deposits to higher-yielding investments"
+    },
+    {
+     "theme": "net interest margin compression",
+     "quote": "net interest margin declined due to lower yields on earning assets and higher deposit costs"
+    },
+    {
+     "theme": "loan growth moderation",
+     "quote": "loan growth has slowed as we maintain disciplined underwriting standards"
+    },
+    {
+     "theme": "credit quality deterioration",
+     "quote": "nonperforming loans increased reflecting current economic uncertainties"
+    }
+   ]
+  }
+ ]
+}

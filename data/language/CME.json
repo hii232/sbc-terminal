@@ -1,0 +1,90 @@
+{
+ "name": "CME GROUP INC.",
+ "sector": "Financial Data",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-24",
+   "source": "SEC 10-Q MD&A",
+   "words": 11788,
+   "themes": [
+    {
+     "theme": "google cloud migration",
+     "quote": "our ability to manage variable costs associated with CME Group's transition to the Google Cloud, and minimizing the duplicative costs of maintaining both on-premise and Google Cloud environments during the transition"
+    },
+    {
+     "theme": "market data revenue diversification",
+     "quote": "decreases in revenue from our market data as a result of decreased demand or changes to regulations in various jurisdictions"
+    },
+    {
+     "theme": "clearing services volume growth",
+     "quote": "our ability to accommodate increases in contract volume and market data and order transaction traffic across the entire trade cycle"
+    },
+    {
+     "theme": "tiered pricing structure optimization",
+     "quote": "changes in our rate per contract due to shifts in the mix of the products traded, the trading venue and the mix of customers (whether the customer receives member or non-member fees or participates in one of our various incentive programs) "
+    },
+    {
+     "theme": "product innovation and competitiveness",
+     "quote": "our ability to continue introducing innovative and competitive new products and services on a timely, cost-effective basis, including through our electronic trading capabilities"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-24",
+   "source": "SEC 10-Q MD&A",
+   "words": 11038,
+   "themes": [
+    {
+     "theme": "google cloud migration",
+     "quote": "our ability to manage variable costs associated with CME Group's transition to the Google Cloud, and minimizing the duplicative costs of maintaining both on-premise and Google Cloud environments during the transition"
+    },
+    {
+     "theme": "product innovation and competitiveness",
+     "quote": "our ability to continue introducing innovative and competitive new products and services on a timely, cost-effective basis, including through our electronic trading capabilities"
+    },
+    {
+     "theme": "clearing house risk management",
+     "quote": "the ability of our credit and liquidity risk management practices to adequately protect us from the credit risks of clearing firms and other counterparties, and to satisfy the margin and liquidity requirements"
+    },
+    {
+     "theme": "market data services expansion",
+     "quote": "our ability to expand and globally offer our products and services"
+    },
+    {
+     "theme": "platform resilience and cybersecurity",
+     "quote": "the resilience of our electronic platforms and the soundness of our business continuity and disaster recovery plans, including in the event of cyberattacks and cyberterrorism"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 4256,
+   "themes": [
+    {
+     "theme": "cryptocurrency product expansion",
+     "quote": "Our cryptocurrency contract volume was higher in 2025 when compared to 2024, as a result of the continued broader acceptance of cryptocurrency products."
+    },
+    {
+     "theme": "cloud infrastructure migration",
+     "quote": "The increase in expense related to technology support services was primarily driven by higher third party services license fees and software license fees to support the ongoing Google Cloud transformation project."
+    },
+    {
+     "theme": "cash markets business growth",
+     "quote": "Total clearing and transaction fees revenue in 2025 included $283.7 million of transaction fees attributable to the cash markets business, compared with $276.7 million in 2024."
+    },
+    {
+     "theme": "fee structure increases",
+     "quote": "The increase is primarily due to the increase in our fee structure, which went into effect on February 1, 2025."
+    },
+    {
+     "theme": "system capacity expansion",
+     "quote": "Future capital expenditures for technology are anticipated as we continue to support our growth through increased system capacity, performance improvements, integration of acquired platforms."
+    }
+   ]
+  }
+ ]
+}

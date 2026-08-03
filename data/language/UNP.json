@@ -1,0 +1,90 @@
+{
+ "name": "UNION PACIFIC CORP",
+ "sector": "Rails",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 5466,
+   "themes": [
+    {
+     "theme": "rail capacity expansion",
+     "quote": "investments to support our growth strategy, improve the safety, resiliency, and operational efficiency of the network, harden our infrastructure, and replace older assets"
+    },
+    {
+     "theme": "intermodal volume growth",
+     "quote": "domestic intermodal carloads up 19% in the quarter due to business development and reduced truck market capacity"
+    },
+    {
+     "theme": "fleet modernization",
+     "quote": "modernization of our locomotive fleet and acquiring freight cars to support replacement and growth opportunities"
+    },
+    {
+     "theme": "terminal and siding investments",
+     "quote": "terminal investments supporting our manifest network and intermodal ramps to efficiently handle new and existing customers, along with siding investments (extensions and new), and second mainline track projects"
+    },
+    {
+     "theme": "operational efficiency gains",
+     "quote": "freight car velocity increased 5% and terminal dwell improved 7%, train length increased 2% due to capacity improvements and network fluidity"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 4806,
+   "themes": [
+    {
+     "theme": "network fluidity optimization",
+     "quote": "our rail network remained fluid, while improving service levels and operational execution, to achieve best-ever first quarter key operating metric results"
+    },
+    {
+     "theme": "locomotive and freight car modernization",
+     "quote": "We plan to continue to make investments to support our growth strategy, improve the safety, resiliency, and operational efficiency of the network, harden our infrastructure, and replace older assets, including modernization of our locomotiv"
+    },
+    {
+     "theme": "mainline capacity expansion",
+     "quote": "train length increased 3% in the first quarter of 2026 compared to 2025 due to train length improvement initiatives, specifically driven by proprietary technology and mainline capacity investments"
+    },
+    {
+     "theme": "terminal and intermodal infrastructure",
+     "quote": "This includes terminal investments supporting our manifest network and intermodal ramps to efficiently handle new and existing customers, along with siding investments (extensions and new), and second mainline track projects"
+    },
+    {
+     "theme": "workforce productivity alignment",
+     "quote": "We continually align our active train, engine, and yard (TE&Y) workforce to meet customer demands in a dynamic economic environment, while maintaining operational fluidity"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-06",
+   "source": "SEC 10-K MD&A",
+   "words": 7181,
+   "themes": [
+    {
+     "theme": "network fluidity optimization",
+     "quote": "Network fluidity enables us to effectively utilize all our resources and provides the capacity to respond in an ever-changing environment. Terminal dwell and freight car velocity are key indicators of that fluidity."
+    },
+    {
+     "theme": "safety technology deployment",
+     "quote": "By Leveraging Technology, we seek to eliminate or automate activities with the most risk. Over 7,000 wayside detectors monitor freight cars and locomotives in real time, generating 72 million data points daily to proactively identify and mi"
+    },
+    {
+     "theme": "coal demand recovery",
+     "quote": "higher coal demand, from elevated natural gas prices and increased coal-fired electricity production, is expected to positively impact volumes"
+    },
+    {
+     "theme": "locomotive fleet modernization",
+     "quote": "investments in growth-related projects to drive more carloads to the network and enhance productivity. This includes terminal investments supporting our manifest network and intermodal ramps to efficiently handle new and existing customers,"
+    },
+    {
+     "theme": "norfolk southern integration",
+     "quote": "We also announced the pending acquisition of Norfolk Southern described in Note 20 to the Financial Statements and Supplementary Data, Item 8, and paused our share repurchase program."
+    }
+   ]
+  }
+ ]
+}

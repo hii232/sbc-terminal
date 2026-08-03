@@ -1,0 +1,82 @@
+{
+ "name": "Airbnb, Inc.",
+ "sector": "Travel",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 4076,
+   "themes": [
+    {
+     "theme": "international market expansion",
+     "quote": "we continue to focus on international expansion...strongest growth percentages in Latin America and Asia Pacific"
+    },
+    {
+     "theme": "deferred payment programs",
+     "quote": "we observed a lengthening of lead times across all regions, driven in part by the continued expansion of our deferred payment programs"
+    },
+    {
+     "theme": "experiences and services growth",
+     "quote": "increase in third-party service provider expenses incurred to support the expansion and optimization of Airbnb Experiences and Services supply"
+    },
+    {
+     "theme": "paid growth marketing initiatives",
+     "quote": "increase in marketing activities driven by paid growth initiatives in emerging markets and partnerships"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 4609,
+   "themes": [
+    {
+     "theme": "experiences and services expansion",
+     "quote": "Our offerings have expanded to include services and redesigned experiences, which launched in May 2025."
+    },
+    {
+     "theme": "international geographic diversification",
+     "quote": "strong growth across all regions"
+    },
+    {
+     "theme": "marketing spend increase",
+     "quote": "a $163 million increase in marketing activities"
+    },
+    {
+     "theme": "headcount and product development investment",
+     "quote": "$293 million increase in payroll-related expenses driven by an increase in headcount"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 4687,
+   "themes": [
+    {
+     "theme": "international expansion",
+     "quote": "we continue to focus on international expansion"
+    },
+    {
+     "theme": "product launch initiatives",
+     "quote": "increase in third-party service provider expenses related to our product launch and other initiatives"
+    },
+    {
+     "theme": "cloud infrastructure investment",
+     "quote": "we signed a new enterprise agreement with a web-hosting service company for cloud hosting and related services to spend or incur an aggregate of at least $1.9 billion, which extends through 2031"
+    },
+    {
+     "theme": "marketing activity increase",
+     "quote": "increase in marketing activities"
+    },
+    {
+     "theme": "research and development headcount",
+     "quote": "increase in average headcount"
+    }
+   ]
+  }
+ ]
+}

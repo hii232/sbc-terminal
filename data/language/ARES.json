@@ -1,0 +1,90 @@
+{
+ "name": "Ares Management Corp",
+ "sector": "Asset Mgmt",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 26870,
+   "themes": [
+    {
+     "theme": "perpetual capital buildout",
+     "quote": "perpetual capital vehicles that have an indefinite term, are not in liquidation, and for which there is no immediate requirement to return invested capital to investors upon the realization of investments"
+    },
+    {
+     "theme": "data center and digital infrastructure",
+     "quote": "an earnout arrangement related to the data center business based on the achievement of revenue targets of certain digital infrastructure funds"
+    },
+    {
+     "theme": "systematic fixed income strategies",
+     "quote": "BlueCove is a London-based systematic fixed income manager that leverages data and technology to deliver differentiated solutions to investors"
+    },
+    {
+     "theme": "international real estate expansion",
+     "quote": "an earnout arrangement related to the Japan business based on the achievement of fundraising targets of certain Japanese real estate funds"
+    },
+    {
+     "theme": "credit secondaries and loan portfolio optimization",
+     "quote": "Ares Credit Secondaries Fund, L.P. and collateralized loan obligations for which we are deemed to be the primary beneficiary"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 20411,
+   "themes": [
+    {
+     "theme": "perpetual capital vehicle expansion",
+     "quote": "our perpetual wealth vehicles contributed an increase in management fees of $172.8 million for the year ended December 31, 2025 compared to the prior year, primarily driven by increases in the average size of their portfolios"
+    },
+    {
+     "theme": "direct lending portfolio deployment",
+     "quote": "Capital deployment in private funds within our direct lending and alternative credit strategies led to a rise in FPAUM, contributing to an increase in management fees of $112.5 million for the year ended December 31, 2025"
+    },
+    {
+     "theme": "real asset platform acquisition integration",
+     "quote": "funds that we manage as a result of the GCP Acquisition generated $202.8 million in additional management fees for the year ended December 31, 2025"
+    },
+    {
+     "theme": "wealth distribution channel development",
+     "quote": "Supplemental distribution fees increased by $58.9 million for the year ended December 31, 2025 compared to the prior year... driven by higher sales volumes and NAVs of our perpetual wealth vehicles and by the ongoing development of our dist"
+    },
+    {
+     "theme": "infrastructure fund buildout",
+     "quote": "Digital infrastructure is newly established following the GCP Acquisition... Infrastructure includes digital infrastructure, infrastructure opportunities and infrastructure debt"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 31292,
+   "themes": [
+    {
+     "theme": "digital infrastructure expansion",
+     "quote": "The GCP Acquisition adds complementary real estate and digital infrastructure investment capabilities"
+    },
+    {
+     "theme": "geographic expansion in asia",
+     "quote": "an earnout arrangement related to the Japan business based on the achievement of fundraising targets of certain Japanese real estate funds"
+    },
+    {
+     "theme": "perpetual capital vehicles growth",
+     "quote": "perpetual capital vehicles, commingled funds and managed accounts that have an indefinite term, are not in liquidation, and for which there is no immediate requirement to return invested capital"
+    },
+    {
+     "theme": "real assets acquisition integration",
+     "quote": "The activities of GCP International are included within the Real Assets Group segment"
+    },
+    {
+     "theme": "alternative asset management scale",
+     "quote": "a leading global alternative investment manager operating integrated groups across Credit, Real Assets, Private Equity and Secondaries"
+    }
+   ]
+  }
+ ]
+}

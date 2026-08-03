@@ -1,0 +1,86 @@
+{
+ "name": "METLIFE INC",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 45802,
+   "themes": [
+    {
+     "theme": "fixed immediate annuity growth",
+     "quote": "Fixed Immediate Annuities segment continues to grow, with strong sales momentum driving increased premiums and policy count"
+    },
+    {
+     "theme": "variable annuity guarantees expansion",
+     "quote": "Annuities and Risk Solutions experiencing elevated demand for guaranteed minimum death benefit and annuitization benefit riders"
+    },
+    {
+     "theme": "group benefits policy retention",
+     "quote": "Group Policies segment maintaining stable policy holder account balances with strategic focus on crediting rate management"
+    },
+    {
+     "theme": "asia market expansion",
+     "quote": "Asia segment demonstrating growth across whole life, term life endowments and accident and health insurance product lines"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-19",
+   "source": "SEC 10-K MD&A",
+   "words": 135743,
+   "themes": [
+    {
+     "theme": "fixed annuity product expansion",
+     "quote": "growth in fixed annuities with strong sales momentum"
+    },
+    {
+     "theme": "group benefits premium growth",
+     "quote": "Group Benefits segment revenues increased driven by premium growth across our businesses"
+    },
+    {
+     "theme": "retirement income solutions focus",
+     "quote": "Retirement and Income Solutions segment generated strong results with continued demand for fixed immediate annuities"
+    },
+    {
+     "theme": "asia market expansion",
+     "quote": "Asia segment revenues grew reflecting strong performance in our protection and life insurance businesses"
+    },
+    {
+     "theme": "investment management scaling",
+     "quote": "MetLife Investment Management segment benefited from higher fee revenue on increased assets under management"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 52673,
+   "themes": [
+    {
+     "theme": "fixed annuity growth",
+     "quote": "We continue to benefit from higher interest rates in the fixed annuity market, which supports improved pricing and higher crediting rates"
+    },
+    {
+     "theme": "group benefits scale",
+     "quote": "Group Benefits segment delivered strong results driven by favorable claims experience and premium growth"
+    },
+    {
+     "theme": "asia market expansion",
+     "quote": "Asia segment benefited from strong variable annuity sales and growth in our accident and health insurance business"
+    },
+    {
+     "theme": "liability runoff optimization",
+     "quote": "Long-term care business continues to perform well with disciplined pricing and claims management"
+    },
+    {
+     "theme": "retirement income solutions",
+     "quote": "Retirement and Income Solutions segment revenue increased driven by strong fixed immediate annuity sales and capital markets investment products"
+    }
+   ]
+  }
+ ]
+}

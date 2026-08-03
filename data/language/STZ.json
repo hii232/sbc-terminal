@@ -1,0 +1,94 @@
+{
+ "name": "CONSTELLATION BRANDS, INC.",
+ "sector": "Beverages",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 12750,
+   "themes": [
+    {
+     "theme": "premiumization strategy execution",
+     "quote": "positioning our portfolio on higher-margin, higher-growth categories of the beverage alcohol industry to align with our strategy to address consumer-led premiumization, product, and purchasing trends"
+    },
+    {
+     "theme": "modular brewery capacity expansion",
+     "quote": "we intend to continue to increase distribution for key brands, optimize growth through differentiated brand positioning, price pack architecture, and market prioritization as well as invest in the next phase of modular capacity additions ne"
+    },
+    {
+     "theme": "digital acceleration initiatives",
+     "quote": "Our ongoing digital acceleration initiatives are aimed at driving results by enhancing our technology, data, and digital capabilities in key areas"
+    },
+    {
+     "theme": "higher-end wine portfolio repositioning",
+     "quote": "we have implemented a multi-year strategy that repositioned this business to a portfolio of exclusively higher-end brands that we believe is positioned for long-term growth, aligned to our focus on consumer-led premiumization trends"
+    },
+    {
+     "theme": "cost optimization restructuring",
+     "quote": "The 2025 Restructuring Initiative is an enterprise-wide cost savings and restructuring initiative designed to help optimize the performance of our business, including through enhanced organizational efficiency and optimized expenditures acr"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-22",
+   "source": "SEC 10-K MD&A",
+   "words": 7883,
+   "themes": [
+    {
+     "theme": "modular capacity expansion",
+     "quote": "Modular capacity addition activities continue under our Brewery Projects to align with our anticipated future growth"
+    },
+    {
+     "theme": "premium brand portfolio focus",
+     "quote": "our portfolio of exclusively higher-end brands and our continued focus on operational efficiencies"
+    },
+    {
+     "theme": "omnichannel distribution expansion",
+     "quote": "expand our brands across U.S. wholesale, international markets, and DTC channels (including hospitality) to maximize our total addressable market opportunity"
+    },
+    {
+     "theme": "structural cost reduction",
+     "quote": "2025 Restructuring Initiative which is expected to yield over $200 million in net annualized cost savings by Fiscal 2028"
+    },
+    {
+     "theme": "wine and spirits portfolio streamlining",
+     "quote": "2025 Wine Divestitures for the period June 2, 2024, through February 28, 2025"
+    },
+    {
+     "theme": "consumer-led premiumization",
+     "quote": "These Wine and Spirits segment activities support our strategic focus on consumer-led premiumization trends"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-01-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 16384,
+   "themes": [
+    {
+     "theme": "wine portfolio restructuring",
+     "quote": "On June 2, 2025, we sold and, in certain instances, exclusively licensed the trademarks of a portion of our wine and spirits business, primarily centered around our then-owned mainstream wine brands"
+    },
+    {
+     "theme": "cost optimization restructuring",
+     "quote": "The 2025 Restructuring Initiative is an enterprise-wide cost savings and restructuring initiative designed to help optimize the performance of our business, including through enhanced organizational efficiency and optimized expenditures"
+    },
+    {
+     "theme": "debt reduction",
+     "quote": "The net cash proceeds from the 2025 Wine Divestitures were used for repayment of debt"
+    },
+    {
+     "theme": "premium wine focus",
+     "quote": "declines in both the overall wine market and in our then-owned mainstream and premium wine brands"
+    },
+    {
+     "theme": "corporate venture capital",
+     "quote": "We have multiple investments through our corporate venture capital function in debt and equity securities"
+    }
+   ]
+  }
+ ]
+}

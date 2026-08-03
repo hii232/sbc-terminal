@@ -1,0 +1,94 @@
+{
+ "name": "CoreWeave, Inc.",
+ "sector": "Neocloud",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-08",
+   "source": "SEC 10-Q MD&A",
+   "words": 3366,
+   "themes": [
+    {
+     "theme": "data center footprint expansion",
+     "quote": "increased demand from both existing and new customer contracts and our fulfillment of that demand through our expanded data center footprint"
+    },
+    {
+     "theme": "gpu infrastructure deployment",
+     "quote": "investments in our platform and servers, switches, and other networking equipment fixed assets within our infrastructure that were placed in service"
+    },
+    {
+     "theme": "ai-optimized software platform",
+     "quote": "tightly integrated platform of advanced infrastructure and proprietary software that enables our customers to build and run AI systems continuously, reliably, and at scale"
+    },
+    {
+     "theme": "committed contract revenue growth",
+     "quote": "Our revenue primarily comes from committed contracts"
+    },
+    {
+     "theme": "power and cooling infrastructure",
+     "quote": "increase in rent expense of approximately $249 million, and an increase in data center utilities and power spend of approximately $85 million"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-03-02",
+   "source": "SEC 10-K MD&A",
+   "words": 6741,
+   "themes": [
+    {
+     "theme": "power capacity expansion",
+     "quote": "we had 43 data centers supported by over 850 MW of active power as of December 31, 2025...total contracted power of approximately 3.1 GW as of December 31, 2025, which we expect to roll out over the coming years"
+    },
+    {
+     "theme": "gpu supply chain relationships",
+     "quote": "Our future success depends in part on our access to the latest generation of high-performance chips and ancillary hardware, including GPUs...We have established close relationships with chipmakers and OEMs over time"
+    },
+    {
+     "theme": "customer contract expansion",
+     "quote": "Approximately 85% of the increase in revenue was attributable to expansion within our existing customer base...we had $60.7 billion of remaining performance obligations (RPO), reflecting an increase of 302%"
+    },
+    {
+     "theme": "proprietary software stack development",
+     "quote": "We have built a highly differentiated full stack solution for running AI training and inference workloads...CoreWeave Cloud Platform includes...Infrastructure Control...CoreWeave Mission Control...Runtime Acceleration...Model and Agent Deve"
+    },
+    {
+     "theme": "innovative debt financing structures",
+     "quote": "we have pioneered and scaled innovative financing structures that have enabled us to grow our business at a rapid pace through timely and flexible access to capital...delayed draw term loans that are collateralized by contractual cash flows"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-13",
+   "source": "SEC 10-Q MD&A",
+   "words": 6389,
+   "themes": [
+    {
+     "theme": "gpu infrastructure buildout",
+     "quote": "we continue to focus on growth and innovation"
+    },
+    {
+     "theme": "ai customer contracts",
+     "quote": "our platform is trusted by some of the world's leading AI labs and AI enterprises"
+    },
+    {
+     "theme": "data center capacity expansion",
+     "quote": "successful deployment of new and expanded data centers, which resulted in an increase in rent expense of approximately $341 million"
+    },
+    {
+     "theme": "weights and biases acquisition",
+     "quote": "we acquired all of the outstanding equity interests of Weights and Biases, Inc., an AI developer platform"
+    },
+    {
+     "theme": "committed contract model",
+     "quote": "Our revenue primarily comes from committed contracts"
+    },
+    {
+     "theme": "infrastructure financing strategy",
+     "quote": "delayed draw term loan facilities of up to $7.6 billion assuming the relevant collateralization requirements are met"
+    }
+   ]
+  }
+ ]
+}

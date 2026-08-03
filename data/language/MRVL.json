@@ -1,0 +1,90 @@
+{
+ "name": "Marvell Technology, Inc.",
+ "sector": "Semis",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 5127,
+   "themes": [
+    {
+     "theme": "ai infrastructure connectivity",
+     "quote": "custom XPUs and compatible scale-up networking with NVIDIA's AI infrastructure ecosystem"
+    },
+    {
+     "theme": "photonic fabric acquisition",
+     "quote": "acquisition of Celestial AI, Inc., a provider of a Photonic Fabric TM technology platform purpose-built for next-generation scale-up interconnect"
+    },
+    {
+     "theme": "switching silicon expansion",
+     "quote": "acquisition of XConn Technologies Holdings, Ltd., a provider of advanced PCIe and CXL switching silicon"
+    },
+    {
+     "theme": "data center product portfolio growth",
+     "quote": "strong AI-related demand for a broad range of our products, including electro-optics, custom, storage, and switching"
+    },
+    {
+     "theme": "long-term foundry capacity reservation",
+     "quote": "entered into capacity reservation arrangements with certain foundries and partners"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-11",
+   "source": "SEC 10-K MD&A",
+   "words": 7383,
+   "themes": [
+    {
+     "theme": "ai-related custom silicon",
+     "quote": "Strong revenue growth from our data center market was driven by AI-related demand for our custom products and electro-optics portfolio."
+    },
+    {
+     "theme": "photonic interconnect acquisition",
+     "quote": "The acquisition of Celestial is expected to accelerate our connectivity strategy for next-generation AI and cloud data centers."
+    },
+    {
+     "theme": "advanced switching portfolio expansion",
+     "quote": "XConn, a provider of advanced PCIe and CXL switching silicon, which expands our switching portfolio and augments our Ultra Accelerator Link (\"UAL\") scale-up switch team."
+    },
+    {
+     "theme": "foundry capacity reservations",
+     "quote": "To secure capacity over the long term, we have entered into capacity reservation arrangements with certain foundries and partners."
+    },
+    {
+     "theme": "data center electro-optics solutions",
+     "quote": "Strong revenue growth from our data center market was driven by AI-related demand for our custom products and electro-optics portfolio."
+    },
+    {
+     "theme": "geographic diversification away from china",
+     "quote": "concerns that U.S. companies may not be reliable suppliers as a result of these and other actions has caused, and may in the future cause, some of our customers in China to amass large inventories of our products well in advance of need or "
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 5409,
+   "themes": [
+    {
+     "theme": "ai-driven data center semiconductors",
+     "quote": "Strong revenue growth from our data center market driven by AI related demand for our custom products and electro-optics portfolio"
+    },
+    {
+     "theme": "photonic interconnect acquisition",
+     "quote": "announced our intent to acquire Celestial AI Inc., a provider of a photonic fabric platform purpose-built for next-generation scale-up interconnect"
+    },
+    {
+     "theme": "foundry capacity reservation",
+     "quote": "To secure capacity over the long term, we have entered into capacity reservation arrangements with certain foundries and partners"
+    },
+    {
+     "theme": "carrier infrastructure market recovery",
+     "quote": "carrier infrastructure end market...increased by 98%...continued to recover due to normalizing customer inventory levels and strong adoption of our products"
+    }
+   ]
+  }
+ ]
+}

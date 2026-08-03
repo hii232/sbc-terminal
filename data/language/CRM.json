@@ -1,0 +1,82 @@
+{
+ "name": "Salesforce, Inc.",
+ "sector": "Software",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 39184,
+   "themes": [
+    {
+     "theme": "generative ai agent deployment",
+     "quote": "Agentforce, a layer of the trusted Agentforce 360 Platform, that enables companies to build and deploy AI agents that can respond to inputs, make decisions and take action autonomously across business functions"
+    },
+    {
+     "theme": "unified cloud platform consolidation",
+     "quote": "the Company delivers a single source of truth, connecting customer data with integrated artificial intelligence across systems, apps and devices"
+    },
+    {
+     "theme": "strategic investments in enterprise ai",
+     "quote": "the Company primarily invests in enterprise technology and artificial intelligence companies, as well as system integrators"
+    },
+    {
+     "theme": "multi-tenant saas delivery model",
+     "quote": "Cloud Services allow customers to use the Company's multi-tenant software without taking possession of the software"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-02",
+   "source": "SEC 10-K MD&A",
+   "words": 7063,
+   "themes": [
+    {
+     "theme": "agentic ai product deployment",
+     "quote": "we introduced Agentforce, a new layer of our trusted platform that enables companies to build and deploy AI agents that can respond to inputs, make decisions and take action autonomously across business functions"
+    },
+    {
+     "theme": "data integration and management",
+     "quote": "we completed our acquisition of Informatica, an AI-powered enterprise cloud data management platform, for approximately $9.6 billion"
+    },
+    {
+     "theme": "multi-product adoption strategy",
+     "quote": "we continue to focus on several key growth levers, including driving multiple service offering adoption, increasing our penetration with enterprise and international customers"
+    },
+    {
+     "theme": "operating margin expansion",
+     "quote": "we are also focused on reducing our operating expenses to improve our operating margin...we have undertaken various restructuring initiatives to improve operating margins and continue advancing our ongoing commitment to profitable growth"
+    },
+    {
+     "theme": "slack integration and expansion",
+     "quote": "During fiscal 2026, we experienced strong momentum in Agentforce, Slack and Data 360, bolstered by the acquisition of Informatica"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 39903,
+   "themes": [
+    {
+     "theme": "agentforce platform expansion",
+     "quote": "During the third quarter of fiscal 2025, the Company introduced Agentforce, a new layer of the trusted Salesforce Platform that enables companies to build and deploy AI agents that can respond to inputs, make decisions and take action auton"
+    },
+    {
+     "theme": "ai integration across products",
+     "quote": "With the deeply unified Salesforce Platform, the Company delivers a single source of truth, connecting customer data with integrated artificial intelligence across systems, apps and devices"
+    },
+    {
+     "theme": "cloud services subscription growth",
+     "quote": "Subscription and support revenues primarily include subscription fees from customers accessing the Company's enterprise cloud computing services"
+    },
+    {
+     "theme": "strategic investment portfolio",
+     "quote": "The Company is also exposed to concentrations of risk in its strategic investment portfolio, including within specific industries, as the Company primarily invests in enterprise cloud companies, technology startups and system integrators."
+    }
+   ]
+  }
+ ]
+}

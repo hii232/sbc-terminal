@@ -1,0 +1,34 @@
+{
+ "name": "HARTFORD INSURANCE GROUP, INC.",
+ "sector": "Insurance",
+ "periods": [
+  {
+   "period": "2025Q4",
+   "date": "2026-02-20",
+   "source": "SEC 10-K MD&A",
+   "words": 35776,
+   "themes": [
+    {
+     "theme": "loss reserve adequacy estimation",
+     "quote": "the Company establishes reserves for unpaid losses and loss adjustment expenses to provide for the estimated costs of paying claims under insurance policies written by the Company"
+    },
+    {
+     "theme": "fixed maturity valuation models",
+     "quote": "Certain investments without readily determinable fair values were valued using significant unobservable inputs, such as credit spreads and interest rates beyond the observable curve, that involved considerable judgment by the Company"
+    },
+    {
+     "theme": "derivative hedging strategies",
+     "quote": "to hedge risk arising from interest rate, equity market, credit spread and issuer default, price or currency exchange rates or volatility; to manage liquidity; to control transaction costs"
+    },
+    {
+     "theme": "reinsurance recoverable management",
+     "quote": "The Company periodically evaluates the recoverability of its reinsurance recoverable assets and establishes an allowance for uncollectible reinsurance"
+    },
+    {
+     "theme": "internal control over financial reporting",
+     "quote": "The Hartford's management assessed its internal controls over financial reporting as of December 31, 2025 in relation to criteria for effective internal control over financial reporting"
+    }
+   ]
+  }
+ ]
+}

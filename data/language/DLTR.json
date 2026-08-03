@@ -1,0 +1,82 @@
+{
+ "name": "DOLLAR TREE, INC.",
+ "sector": "Retail",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 9884,
+   "themes": [
+    {
+     "theme": "multi-price product assortment expansion",
+     "quote": "expanding and refining our multi-price assortment to deliver a broader, more relevant offering while preserving our foundational value proposition"
+    },
+    {
+     "theme": "distribution center network buildout",
+     "quote": "modernizing our distribution network to improve flexibility, speed, and efficiency, including investments in expanded and optimized distribution center capacity"
+    },
+    {
+     "theme": "cost mitigation amid tariff volatility",
+     "quote": "implementing cost management strategies designed to mitigate cost pressures both in how we buy and distribute our products"
+    },
+    {
+     "theme": "store modernization and renovation",
+     "quote": "we continue to expand our store footprint while investing to modernize and optimize our fleet"
+    },
+    {
+     "theme": "data-driven customer marketing",
+     "quote": "strengthening our customer connection through data-driven marketing and other initiatives"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-16",
+   "source": "SEC 10-K MD&A",
+   "words": 721,
+   "themes": [
+    {
+     "theme": "family dollar divestiture",
+     "quote": "we initiated a formal review of strategic alternatives for the Family Dollar business...resulted in the decision to sell the Family Dollar business"
+    },
+    {
+     "theme": "core dollar tree focus",
+     "quote": "the ultimate disposal...represented a strategic shift that had a major effect on our operations and financial results"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 11252,
+   "themes": [
+    {
+     "theme": "multi-price assortment expansion",
+     "quote": "our merchandising plans and initiatives and related impacts, including those regarding our multi-price offerings and product assortment"
+    },
+    {
+     "theme": "distribution network modernization",
+     "quote": "investments in supply chain, distribution facilities, warehouse, inventory, transportation and human capital management systems, including new distribution centers, the expansion or conversion of existing distribution centers"
+    },
+    {
+     "theme": "store refresh and remodeling",
+     "quote": "our plans to add, refresh and renovate stores, improve store standards and operations, and optimize and modernize stores and shelf space"
+    },
+    {
+     "theme": "tariff mitigation strategy",
+     "quote": "the direct and indirect impacts of and challenges associated with the current and potential tariff environment; our plans to mitigate the impact of current and potential tariffs and related implementation costs"
+    },
+    {
+     "theme": "technology infrastructure investment",
+     "quote": "investments in our technology infrastructure and the design and implementation of key control activities around updated systems"
+    },
+    {
+     "theme": "dollar tree standalone operations",
+     "quote": "our operational strategy for Dollar Tree as a standalone business following the sale of Family Dollar"
+    }
+   ]
+  }
+ ]
+}

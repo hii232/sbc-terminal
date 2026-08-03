@@ -1,0 +1,86 @@
+{
+ "name": "PFIZER INC",
+ "sector": "Pharma",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 8115,
+   "themes": [
+    {
+     "theme": "patent cliff management",
+     "quote": "We anticipate a significant reduction of revenue from patent-based or regulatory exclusivity expiries in 2026 through 2030 as several of our in-line products experience these expirations"
+    },
+    {
+     "theme": "oncology pipeline expansion",
+     "quote": "Research and development expenses increased $287 million in the first quarter of 2026, driven primarily by an increase in spending of $180 million in certain oncology and obesity product candidates"
+    },
+    {
+     "theme": "manufacturing cost reduction",
+     "quote": "The first phase of this multi-phased program is on track to deliver approximately $1.5 billion in net cost savings by the end of 2027"
+    },
+    {
+     "theme": "government pricing regulation",
+     "quote": "Pricing and access pressures from governments globally, as well as private third-party payors in the U.S., continue to impact our global operations"
+    },
+    {
+     "theme": "strategic acquisitions and integration",
+     "quote": "In connection with our acquisition of Metsera, we are focusing our efforts on achieving an appropriate cost structure for the combined company. We expect to generate approximately $600 million of annual cost synergies"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-26",
+   "source": "SEC 10-K MD&A",
+   "words": 78961,
+   "themes": [
+    {
+     "theme": "oncology portfolio expansion",
+     "quote": "acquired Seagen to strengthen our oncology franchise"
+    },
+    {
+     "theme": "manufacturing optimization",
+     "quote": "manufacturing optimization program to improve efficiency and reduce costs"
+    },
+    {
+     "theme": "cost base realignment",
+     "quote": "realigning our cost base to support sustainable growth"
+    },
+    {
+     "theme": "mrna platform development",
+     "quote": "expanding our mRNA technology platform beyond COVID-19"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 11403,
+   "themes": [
+    {
+     "theme": "r&d productivity focus",
+     "quote": "Improve R&D productivity with sharpened focus"
+    },
+    {
+     "theme": "obesity and cardiometabolic pipeline",
+     "quote": "acquire Metsera, a clinical-stage biopharmaceutical company accelerating the next generation of medicines for obesity and cardiometabolic diseases"
+    },
+    {
+     "theme": "cost realignment and automation",
+     "quote": "enhanced digital enablement, including automation and AI, and simplification of business processes"
+    },
+    {
+     "theme": "manufacturing cost reduction",
+     "quote": "multi-year, multi-phased program to reduce our costs of goods sold, which is expected to include primarily operational efficiencies, network structure changes, and product portfolio enhancements"
+    },
+    {
+     "theme": "margin expansion",
+     "quote": "Expand margins and maximize operational efficiency"
+    }
+   ]
+  }
+ ]
+}

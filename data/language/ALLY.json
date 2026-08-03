@@ -1,0 +1,86 @@
+{
+ "name": "Ally Financial Inc.",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-23",
+   "source": "SEC 10-Q MD&A",
+   "words": 50770,
+   "themes": [
+    {
+     "theme": "auto lending portfolio growth",
+     "quote": "automotive finance operations segment remains our primary business"
+    },
+    {
+     "theme": "commercial real estate exposure",
+     "quote": "commercial portfolio segment includes real estate loans"
+    },
+    {
+     "theme": "deposit gathering and funding",
+     "quote": "we continue to manage our funding and liquidity needs"
+    },
+    {
+     "theme": "insurance operations integration",
+     "quote": "insurance operations segment contributes to diversified revenue streams"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 45671,
+   "themes": [
+    {
+     "theme": "automotive finance origination",
+     "quote": "Consumer automobile financing remains a core business"
+    },
+    {
+     "theme": "insurance products expansion",
+     "quote": "Insurance operations continue to grow through both organic and strategic initiatives"
+    },
+    {
+     "theme": "digital banking capabilities",
+     "quote": "Enhanced digital and mobile banking features to improve customer experience"
+    },
+    {
+     "theme": "commercial loan portfolio management",
+     "quote": "Commercial portfolio balances managed for credit quality and risk"
+    },
+    {
+     "theme": "securities portfolio optimization",
+     "quote": "Asset-backed securities and mortgage-backed securities holdings managed for yield and liquidity"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-25",
+   "source": "SEC 10-K MD&A",
+   "words": 118740,
+   "themes": [
+    {
+     "theme": "auto loan origination growth",
+     "quote": "We continued to grow our consumer auto origination while maintaining disciplined underwriting"
+    },
+    {
+     "theme": "insurance operations expansion",
+     "quote": "We are focused on growing our insurance operations to diversify revenue and enhance profitability"
+    },
+    {
+     "theme": "commercial portfolio management",
+     "quote": "We maintain a disciplined approach to our commercial portfolio with selective origination"
+    },
+    {
+     "theme": "deposit funding strategy",
+     "quote": "We continue to focus on growing our deposit base to support our lending operations and reduce funding costs"
+    },
+    {
+     "theme": "technology and digital capabilities",
+     "quote": "We are investing in technology and digital platforms to enhance customer experience and operational efficiency"
+    }
+   ]
+  }
+ ]
+}

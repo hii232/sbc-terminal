@@ -1,0 +1,78 @@
+{
+ "name": "DEERE & CO",
+ "sector": "Machinery",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-05-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 3313,
+   "themes": [
+    {
+     "theme": "equipment automation and autonomy",
+     "quote": "Deeper integration of technology into equipment to enable customers to do more with less remains a persistent market trend"
+    },
+    {
+     "theme": "saas and lifecycle solutions",
+     "quote": "automation, autonomy, digitalization, lifecycle solutions, and Solutions as a Service (SaaS)"
+    },
+    {
+     "theme": "tariff mitigation strategies",
+     "quote": "We are actively taking steps to mitigate potential impacts on our business, to the extent possible, including adjusting sourcing strategies, pursuing product exemptions, and identifying cost reduction opportunities"
+    },
+    {
+     "theme": "right to repair access restrictions",
+     "quote": "The lawsuit alleges monopolization and unfair competition in violation of the federal and state antitrust laws. Plaintiffs seek a permanent injunction and other equitable relief to allow owners of our equipment, as well as independent repai"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-02-26",
+   "source": "SEC 10-Q MD&A",
+   "words": 2850,
+   "themes": [
+    {
+     "theme": "automation and autonomy integration",
+     "quote": "Deeper integration of technology into equipment to enable customers to do more with less remains a persistent market trend"
+    },
+    {
+     "theme": "saas and digital solutions",
+     "quote": "our Leap Ambitions feature multi-year financial and operational goals, emphasizing the use of our differentiated equipment and service solutions, including automation, autonomy, digitalization, lifecycle solutions, and Solutions as a Servic"
+    },
+    {
+     "theme": "tariff cost mitigation",
+     "quote": "We are actively taking steps to mitigate potential impacts on our business, to the extent possible"
+    },
+    {
+     "theme": "right to repair compliance",
+     "quote": "Plaintiffs seek a permanent injunction and other equitable relief to allow owners of our equipment, as well as independent repair providers, access to our repair tools and any other repair resources"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-18",
+   "source": "SEC 10-K MD&A",
+   "words": 41238,
+   "themes": [
+    {
+     "theme": "precision agriculture technology",
+     "quote": "Production and Precision Agriculture segment"
+    },
+    {
+     "theme": "equipment financing services",
+     "quote": "Financial Services segment"
+    },
+    {
+     "theme": "construction equipment portfolio",
+     "quote": "Construction and Forestry segment"
+    },
+    {
+     "theme": "compact equipment expansion",
+     "quote": "Compact Construction Equipment"
+    }
+   ]
+  }
+ ]
+}

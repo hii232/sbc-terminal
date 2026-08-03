@@ -1,0 +1,90 @@
+{
+ "name": "YUM BRANDS INC",
+ "sector": "Restaurants",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 4131,
+   "themes": [
+    {
+     "theme": "pizza hut strategic repositioning",
+     "quote": "we began a review of strategic options for the Pizza Hut brand...to determine the optimal approach to best capitalize on Pizza Hut's structural advantages"
+    },
+    {
+     "theme": "franchisee unit economics optimization",
+     "quote": "Accelerate restaurant unit economics for our franchisees and maximize performance of every restaurant, serving as a catalyst for new unit development and keeping our franchise system healthy"
+    },
+    {
+     "theme": "byte by yum platform expansion",
+     "quote": "Reach the full potential of Byte by Yum! by effectively operating, innovating and expanding our connected platform built by restaurant operators for restaurant operators"
+    },
+    {
+     "theme": "company-operated restaurant acquisitions",
+     "quote": "Company sales...was driven by Company same-store sales growth of 5%, acquisitions of restaurants from franchisees and unit growth"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-20",
+   "source": "SEC 10-K MD&A",
+   "words": 52597,
+   "themes": [
+    {
+     "theme": "franchise-model expansion",
+     "quote": "we are a franchisor of the KFC, Taco Bell, Pizza Hut and The Habit Burger Grill brands"
+    },
+    {
+     "theme": "unit growth in key markets",
+     "quote": "our growth strategy focuses on expanding our restaurant base globally, particularly in high-growth markets"
+    },
+    {
+     "theme": "asset-light operating model",
+     "quote": "while YUM does not directly own or operate any restaurants, we franchise substantially all of our restaurants"
+    },
+    {
+     "theme": "digital and technology capabilities",
+     "quote": "we continue to invest in digital capabilities and technology to enhance our restaurant operations and customer experience"
+    },
+    {
+     "theme": "real estate portfolio optimization",
+     "quote": "we own or lease substantially all of the properties used by our restaurants, generating revenue from franchise agreements"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 5037,
+   "themes": [
+    {
+     "theme": "digital and technology acceleration",
+     "quote": "reallocate significant resources to accelerate our digital, technology and innovation capabilities to deliver a modern, world-class team member and customer experience"
+    },
+    {
+     "theme": "franchise unit expansion",
+     "quote": "Our commitment to bold restaurant development drives market and franchise unit expansion with strong economics"
+    },
+    {
+     "theme": "same-store sales growth",
+     "quote": "Company same-store sales growth of 6%"
+    },
+    {
+     "theme": "pizza hut strategic options review",
+     "quote": "We have begun a review of strategic options for the Pizza Hut brand"
+    },
+    {
+     "theme": "international market development",
+     "quote": "89% of which are located outside the U.S."
+    },
+    {
+     "theme": "resource optimization program",
+     "quote": "resource optimization program that has allowed us to reallocate significant resources to accelerate our digital, technology and innovation capabilities"
+    }
+   ]
+  }
+ ]
+}

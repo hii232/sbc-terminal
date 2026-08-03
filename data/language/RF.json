@@ -1,0 +1,90 @@
+{
+ "name": "REGIONS FINANCIAL CORP",
+ "sector": "Banks",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 25124,
+   "themes": [
+    {
+     "theme": "mortgage banking operations expansion",
+     "quote": "Mortgage banking contributed to non-interest income through origination, servicing and sales activities"
+    },
+    {
+     "theme": "capital markets client services",
+     "quote": "Capital Markets segment provides interest rate derivatives and other financial services to clients"
+    },
+    {
+     "theme": "investment securities portfolio management",
+     "quote": "We actively manage our investment securities portfolio to optimize yield while managing interest rate and credit risk"
+    },
+    {
+     "theme": "commercial real estate lending",
+     "quote": "Commercial real estate portfolios include owner-occupied and investor real estate mortgages and construction loans"
+    },
+    {
+     "theme": "consumer credit portfolio growth",
+     "quote": "Consumer portfolio includes residential first mortgages, home equity loans and lines of credit, and credit card receivables"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 86748,
+   "themes": [
+    {
+     "theme": "residential mortgage portfolio reduction",
+     "quote": "We continue to actively manage our investment portfolio, including reducing our residential mortgage-backed securities holdings"
+    },
+    {
+     "theme": "commercial real estate workout management",
+     "quote": "Our commercial real estate portfolio faces significant stress, requiring active management of nonperforming assets and restructured loans"
+    },
+    {
+     "theme": "deposit funding strategy",
+     "quote": "We are focused on maintaining stable deposit relationships and managing deposit costs in a competitive environment"
+    },
+    {
+     "theme": "capital and liquidity management",
+     "quote": "We maintain strong capital ratios and liquidity positions to support our business operations and meet regulatory requirements"
+    },
+    {
+     "theme": "credit quality monitoring",
+     "quote": "We continue to monitor asset quality closely, including increased provisions for loan losses reflecting macroeconomic conditions"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 29416,
+   "themes": [
+    {
+     "theme": "commercial real estate stress",
+     "quote": "owner-occupied CRE portfolio challenges reflected in increased nonaccrual loans and higher loan loss provisions"
+    },
+    {
+     "theme": "deposit competition and funding",
+     "quote": "continued pressure on deposit margins as we compete for core deposits in a challenging funding environment"
+    },
+    {
+     "theme": "securities portfolio repositioning",
+     "quote": "adjusted investment portfolio positioning in response to interest rate environment and liquidity management needs"
+    },
+    {
+     "theme": "consumer credit quality monitoring",
+     "quote": "increased delinquencies in credit card and home equity portfolios reflecting consumer stress and economic uncertainty"
+    },
+    {
+     "theme": "net interest margin compression",
+     "quote": "net interest margin continued to face headwinds from higher funding costs and lower reinvestment rates on maturing assets"
+    }
+   ]
+  }
+ ]
+}

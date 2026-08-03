@@ -1,0 +1,94 @@
+{
+ "name": "Zoetis Inc.",
+ "sector": "Pharma",
+ "periods": [
+  {
+   "period": "2026Q1",
+   "date": "2026-05-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 19398,
+   "themes": [
+    {
+     "theme": "animal genomics acquisition",
+     "quote": "we entered into a definitive agreement with Neogen Corporation to acquire Neogen's animal genomics business"
+    },
+    {
+     "theme": "diagnostic laboratory expansion",
+     "quote": "we acquired Veterinary Pathology Group (VPG), a leading veterinary diagnostic laboratory group with multiple locations across the U.K. and Ireland"
+    },
+    {
+     "theme": "convertible debt issuance",
+     "quote": "we completed a private offering of 0.250 % convertible senior notes with a maturity date of June 15, 2029, with an aggregate principal amount of $ 2.0 billion"
+    },
+    {
+     "theme": "share repurchase program",
+     "quote": "the remaining $ 1,535 million for additional repurchases of common stock following the date of the offering, which repurchases were completed as of March 31, 2026"
+    },
+    {
+     "theme": "organizational restructuring",
+     "quote": "Restructuring charges for the three months ended March 31, 2026 primarily related to employee termination costs due to organizational structure refinements"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 65576,
+   "themes": [
+    {
+     "theme": "monoclonal antibody therapeutics",
+     "quote": "Cytopoint, the first canine monoclonal antibody (mAb) to help reduce the clinical signs of atopic dermatitis; Librela (bedinvetmab), the first and only injectable mAb therapy for monthly alleviation of OA pain in dogs; Lenivia (izenivetmab)"
+    },
+    {
+     "theme": "artificial intelligence diagnostics integration",
+     "quote": "In 2023, the company enhanced its Vetscan Imagyst platform by adding artificial intelligence (AI) dermatology and AI fecal for equine; In 2024, the company added AI urine sediment analysis to the Vetscan Imagyst platform and launched Vetsca"
+    },
+    {
+     "theme": "product lifecycle innovation expansion",
+     "quote": "we actively work to broaden the value of existing products by developing new claims, extending to additional species, developing more convenient formulations; Simparica Trio received approval in key markets globally for a new label indicati"
+    },
+    {
+     "theme": "emerging infectious disease vaccines",
+     "quote": "the first SARS-CoV-2 (COVID-19) vaccine to help protect health and well-being of more than 300 mammalian species; the first conditionally licensed vaccine to help prevent the H3N2 type of canine influenza that emerged in the U.S.; the first"
+    },
+    {
+     "theme": "precision animal health advancement",
+     "quote": "In 2023, the company completed the acquisition of PetMedix Ltd, a privately held research and development stage animal health biopharmaceutical company; Basepaws, a petcare genetics company that provides pet owners with genetic tests, analy"
+    },
+    {
+     "theme": "livestock disease prevention solutions",
+     "quote": "Protivity, a modified-live bacterial vaccine that is effective in protecting healthy beef and dairy cattle against respiratory disease caused by Mycoplasma bovis (M. bovis), was approved in the U.S. and Canada in 2022; Dectomax-CA1 Injectab"
+    }
+   ]
+  },
+  {
+   "period": "2025Q3",
+   "date": "2025-11-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 21107,
+   "themes": [
+    {
+     "theme": "animal health diagnostics expansion",
+     "quote": "animal health diagnostics: testing and analysis of blood, urine and other animal samples and related products and services, including point-of-care diagnostic products, instruments and reagents"
+    },
+    {
+     "theme": "precision animal health development",
+     "quote": "focused on the discovery, development, manufacture and commercialization of medicines, vaccines, diagnostic products and services, biodevices, genetic tests and precision animal health"
+    },
+    {
+     "theme": "companion animal market penetration",
+     "quote": "Growth in the companion animal medicines, vaccines and diagnostics sector is driven by economic development, related increases in disposable income and increases in pet ownership and spending on pet care"
+    },
+    {
+     "theme": "livestock productivity solutions",
+     "quote": "Our livestock products primarily help prevent or treat diseases and conditions to allow veterinarians and producers to care for their animals and to enable the cost-effective production of safe, high-quality animal protein"
+    },
+    {
+     "theme": "manufacturing and supply chain optimization",
+     "quote": "restructuring from internal to external innovation and manufacturing of certain products and the closure of a related site"
+    }
+   ]
+  }
+ ]
+}

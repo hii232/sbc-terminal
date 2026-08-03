@@ -1,0 +1,82 @@
+{
+ "name": "ABBOTT LABORATORIES",
+ "sector": "Medical Devices",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 11144,
+   "themes": [
+    {
+     "theme": "cancer diagnostics expansion",
+     "quote": "Exact Sciences acquisition and other investment activity"
+    },
+    {
+     "theme": "remote monitoring services",
+     "quote": "remote monitoring services related to previously implanted devices"
+    },
+    {
+     "theme": "minimum purchase obligations contracts",
+     "quote": "contracts with minimum purchase obligations, extended warranty or service obligations"
+    },
+    {
+     "theme": "multi-period service arrangements",
+     "quote": "multi-period extended service arrangements"
+    },
+    {
+     "theme": "emerging markets growth",
+     "quote": "Key Emerging Markets and Other Emerging Markets segments"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-29",
+   "source": "SEC 10-Q MD&A",
+   "words": 9448,
+   "themes": [
+    {
+     "theme": "cancer diagnostics expansion",
+     "quote": "Abbott completed the acquisition of Exact Sciences for approximately $20.6 billion. The acquisition of Exact Sciences is expected to establish Abbott's position in the cancer diagnostics market and expands its portfolio to include products "
+    },
+    {
+     "theme": "debt-financed large acquisition",
+     "quote": "The acquisition was funded primarily through the issuance of $20.0 billion of long-term debt in March 2026, with the remainder funded by cash on hand."
+    },
+    {
+     "theme": "operational restructuring and efficiency",
+     "quote": "In 2025, Abbott management approved plans to streamline operations in order to reduce costs and improve efficiencies in its diagnostics and medical devices businesses."
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-20",
+   "source": "SEC 10-K MD&A",
+   "words": 9310,
+   "themes": [
+    {
+     "theme": "continuous glucose monitoring expansion",
+     "quote": "CGM sales totaled $7.6 billion in 2025, representing a 17.4 percent increase"
+    },
+    {
+     "theme": "transcatheter heart valve devices",
+     "quote": "FDA approval of the Tendyne transcatheter mitral valve replacement (TMVR) system to treat people with mitral valve disease"
+    },
+    {
+     "theme": "cancer diagnostics acquisition",
+     "quote": "Abbott entered into a definitive agreement to acquire Exact Sciences Corporation, which is expected to enable Abbott to enter the cancer diagnostics market"
+    },
+    {
+     "theme": "emerging markets pharmaceutical expansion",
+     "quote": "Abbott focuses on building country-specific portfolios made up of high-quality medicines that meet the needs of people in emerging markets"
+    },
+    {
+     "theme": "margin improvement initiatives",
+     "quote": "The increase in 2025 reflects the favorable impact of margin improvement initiatives, partially offset by higher costs"
+    }
+   ]
+  }
+ ]
+}

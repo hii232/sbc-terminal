@@ -1,0 +1,94 @@
+{
+ "name": "DEXCOM INC",
+ "sector": "Medical Devices",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 11479,
+   "themes": [
+    {
+     "theme": "continuous glucose monitoring market expansion",
+     "quote": "continuous glucose monitoring, or CGM, systems for the management of diabetes and metabolic health by patients, caregivers, and clinicians around the world"
+    },
+    {
+     "theme": "g6 manufacturing discontinuation",
+     "quote": "the planned discontinuation of G6 manufacturing, forecasted demand, analysis of risk exposure, and the continued improvement and innovation of our products"
+    },
+    {
+     "theme": "international commercial growth",
+     "quote": "International, based on the geographic location of delivery"
+    },
+    {
+     "theme": "direct-to-consumer sales channel",
+     "quote": "We sell our CGM systems direct and to distributors"
+    },
+    {
+     "theme": "next-generation product innovation",
+     "quote": "the continued improvement and innovation of our products"
+    },
+    {
+     "theme": "asset acquisition for technology",
+     "quote": "recorded $48.7 million in gross intangible assets, primarily related to acquired technology"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-30",
+   "source": "SEC 10-Q MD&A",
+   "words": 10440,
+   "themes": [
+    {
+     "theme": "continuous glucose monitoring expansion",
+     "quote": "primarily focused on the design, development and commercialization of continuous glucose monitoring, or CGM, systems for the management of diabetes and metabolic health by patients, caregivers, and clinicians around the world"
+    },
+    {
+     "theme": "international market penetration",
+     "quote": "As we continue to expand internationally, we will be subject to additional foreign exchange currency risk"
+    },
+    {
+     "theme": "product innovation and clinical advancement",
+     "quote": "research and development expenses primarily consist of engineering and research expenses related to our sensing technology, clinical trials, regulatory expenses, quality assurance programs"
+    },
+    {
+     "theme": "manufacturing scale and capacity",
+     "quote": "Factory overhead includes facilities, material procurement and control, manufacturing engineering, quality assurance, supervision and management"
+    },
+    {
+     "theme": "reusable hardware portfolio",
+     "quote": "we generate our revenue from the sale of disposable sensors and our reusable transmitter and receiver, collectively referred to as Reusable Hardware"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-12",
+   "source": "SEC 10-K MD&A",
+   "words": 73436,
+   "themes": [
+    {
+     "theme": "type 2 diabetes market expansion",
+     "quote": "seeking broader access to our CGM systems for people with Type 2 diabetes, including those who are not treated with intensive insulin therapy"
+    },
+    {
+     "theme": "over-the-counter glucose monitoring",
+     "quote": "Stelo, our biosensor designed for adults with prediabetes and Type 2 diabetes who do not use insulin, as the first over-the-counter glucose biosensor in the U.S."
+    },
+    {
+     "theme": "extended wear sensor systems",
+     "quote": "launched our latest generation systems, the Dexcom G7 Continuous Glucose Monitoring System, or G7, in 2023, and the Dexcom G7 15 Day Continuous Glucose Monitoring System, or G7 15 Day, in late 2025"
+    },
+    {
+     "theme": "integrated insulin delivery partnerships",
+     "quote": "collaboration agreements that leverage our technology platform to integrate our CGM products with insulin delivery systems"
+    },
+    {
+     "theme": "reimbursement coverage expansion",
+     "quote": "the G7 is covered by Medicare and Medicaid in the majority of states and by commercial insurers, subject to satisfaction of certain eligibility and coverage criteria for individuals with both Type 1 and Type 2 diabetes"
+    }
+   ]
+  }
+ ]
+}

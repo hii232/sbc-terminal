@@ -1,0 +1,78 @@
+{
+ "name": "DANAHER CORP /DE/",
+ "sector": "Life Sciences",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 21643,
+   "themes": [
+    {
+     "theme": "masimo acquisition integration",
+     "quote": "the Company acquired Masimo by acquiring all of the outstanding shares of Masimo's common stock for a cash purchase price of approximately $9.8 billion"
+    },
+    {
+     "theme": "diagnostics segment expansion",
+     "quote": "Masimo develops and produces monitoring technologies, which include innovative measurements, sensors and patient monitors, serving primarily healthcare customers and is now part of the Company's Diagnostics segment"
+    },
+    {
+     "theme": "product portfolio diversification",
+     "quote": "The acquisition of Masimo has provided, and is expected to provide, additional sales and earnings opportunities for the Company by expanding product line diversity, including new product offerings supporting acute care settings"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-04-21",
+   "source": "SEC 10-Q MD&A",
+   "words": 15816,
+   "themes": [
+    {
+     "theme": "masimo acquisition integration",
+     "quote": "The Company expects to include the Masimo business within its Diagnostics segment"
+    },
+    {
+     "theme": "recurring revenue expansion",
+     "quote": "Recurring revenue includes revenue from consumables (both used with Company equipment and used on a standalone basis), services and operating-type leases"
+    },
+    {
+     "theme": "international market growth",
+     "quote": "The Company defines high-growth markets as developing markets of the world experiencing accelerated growth, over extended periods, in gross domestic product and infrastructure"
+    },
+    {
+     "theme": "contract asset backlog",
+     "quote": "As of March 27, 2026, the aggregate amount of the transaction price allocated to remaining performance obligations was approximately $5.3 billion"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-24",
+   "source": "SEC 10-K MD&A",
+   "words": 22684,
+   "themes": [
+    {
+     "theme": "biopharmaceutical manufacturing capacity",
+     "quote": "The Biotechnology segment offers a broad range of equipment, consumables, software and services that are primarily used by customers to advance and accelerate the research, development, manufacture and delivery of biological medicines."
+    },
+    {
+     "theme": "proteomics platform expansion",
+     "quote": "The acquisition of Abcam has provided and is expected to provide the Company additional sales and earnings opportunities in the proteomics sector."
+    },
+    {
+     "theme": "diagnostic instrument acquisition",
+     "quote": "On February 16, 2026, the Company entered into a definitive agreement to acquire all of the outstanding shares of Masimo Corporation for an aggregate cash purchase price of approximately $9.9 billion. Masimo is a leading specialty diagnosti"
+    },
+    {
+     "theme": "recurring consumables revenue",
+     "quote": "Recurring revenue primarily includes revenue from consumables (both used with Company equipment and used on a standalone basis), services and OTLs."
+    },
+    {
+     "theme": "life sciences research instrumentation",
+     "quote": "The Life Sciences segment offers a broad range of instruments, consumables, services and software that are primarily used by customers to study the basic building blocks of life, including DNA and RNA, nucleic acid, proteins, metabolites an"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "name": "PayPal Holdings, Inc.",
+ "sector": "Payments",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-07-28",
+   "source": "SEC 10-Q MD&A",
+   "words": 6643,
+   "themes": [
+    {
+     "theme": "artificial intelligence and automation adoption",
+     "quote": "strategic reorganization and business simplification program, which will focus on realigning our operating structure and accelerating the adoption of artificial intelligence and automation across the company"
+    },
+    {
+     "theme": "braintree product growth",
+     "quote": "an increase of approximately $400 million in revenue from Braintree products and services, which was largely driven by growth in TPV and number of payment transactions"
+    },
+    {
+     "theme": "credit product expansion",
+     "quote": "we continue to evaluate partnerships and third-party sources of funding for our credit products"
+    },
+    {
+     "theme": "cloud infrastructure migration",
+     "quote": "exiting certain data centers to migrate to more efficient cloud-based solutions"
+    },
+    {
+     "theme": "merchant finance portfolio expansion",
+     "quote": "growth of approximately $140 million in our PayPal Business Loans product portfolio in the U.S. and growth in our PayPal Working Capital product portfolio of approximately $100 million"
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-05-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 5580,
+   "themes": [
+    {
+     "theme": "ai and automation adoption",
+     "quote": "strategic reorganization and business simplification program, which will focus on realigning our operating structure and accelerating the adoption of Artificial Intelligence and automation across the company"
+    },
+    {
+     "theme": "cloud infrastructure migration",
+     "quote": "transformative unified program designed to streamline operations and includes exiting certain data centers to migrate to more efficient cloud-based solutions"
+    },
+    {
+     "theme": "consumer credit product expansion",
+     "quote": "growth in our revolving credit product portfolio in the United Kingdom of approximately $270 million as well as an increase in our interest-bearing installment credit product portfolio in the U.S."
+    },
+    {
+     "theme": "merchant lending growth",
+     "quote": "growth of approximately $180 million in our PayPal Business Loans product portfolio in the U.S. and growth in our PayPal Working Capital product portfolio of approximately $100 million"
+    },
+    {
+     "theme": "third-party loan funding partnerships",
+     "quote": "entered into forward flow arrangements with third-party investors to sell certain loans receivable portfolios"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2026-02-03",
+   "source": "SEC 10-K MD&A",
+   "words": 9534,
+   "themes": [
+    {
+     "theme": "cloud infrastructure migration",
+     "quote": "reengineer our existing technology infrastructure to improve scalability, reduce network latency, decrease operational costs, and optimize our workforce... exiting certain data centers to migrate to more efficient cloud-based solutions"
+    },
+    {
+     "theme": "consumer lending portfolio expansion",
+     "quote": "growth of our revolving credit product in the United Kingdom (\"U.K.\") of approximately $370 million and our installment credit products in the U.S. and Japan of approximately $190 million and $110 million, respectively"
+    },
+    {
+     "theme": "merchant lending growth",
+     "quote": "Total merchant loans, advances, and fees receivable outstanding, net of participation interest sold, as of December 31, 2025 and 2024 was $1.8 billion and $1.5 billion, respectively, reflecting an increase of 23%"
+    },
+    {
+     "theme": "profitable merchant channel optimization",
+     "quote": "our strategic shift as we focus on profitable growth... favorable changes in merchant mix to lower cost merchants within our Braintree products and services"
+    },
+    {
+     "theme": "credit risk securitization",
+     "quote": "We have entered into forward flow arrangements with third-party investors to sell certain loans receivable portfolios... entered into an updated multi-year agreement with this third-party investment firm to extend the commitment period thro"
+    }
+   ]
+  }
+ ]
+}

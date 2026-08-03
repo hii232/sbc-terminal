@@ -1,0 +1,98 @@
+{
+ "name": "ROSS STORES, INC.",
+ "sector": "Retail",
+ "periods": [
+  {
+   "period": "2026Q2",
+   "date": "2026-06-02",
+   "source": "SEC 10-Q MD&A",
+   "words": 7955,
+   "themes": [
+    {
+     "theme": "packaway merchandise sourcing",
+     "quote": "Packaway merchandise is purchased with the intent that it will be stored in our warehouses until a later date...We expect to continue to take advantage of packaway inventory opportunities to maximize our ability to deliver bargains to our c"
+    },
+    {
+     "theme": "store expansion",
+     "quote": "We opened 17 new stores in the first quarter of fiscal 2026 and remain on track to open a total of approximately 110 new stores this year, comprised of about 85 Ross stores and 25 dd's DISCOUNTS stores."
+    },
+    {
+     "theme": "supply chain infrastructure investment",
+     "quote": "Our planned capital expenditures for fiscal 2026 include costs to open new stores and improve existing stores, investments in our supply chain to support long-term growth, including construction of our next distribution centers"
+    },
+    {
+     "theme": "merchandising and inventory management",
+     "quote": "Merchandising: Delivering broad-based assortments timely and offering more brands at compelling values for our customers...Our need to effectively manage our inventories, markdowns, and inventory shortage in order to achieve our planned gro"
+    },
+    {
+     "theme": "traffic and basket growth",
+     "quote": "The 17% increase in comp store sales was primarily driven by an approximately 11% increase in traffic and 6% increase in basket."
+    },
+    {
+     "theme": "in-store experience enhancement",
+     "quote": "Stores: Making meaningful improvements to the in-store shopping experience for our customers."
+    }
+   ]
+  },
+  {
+   "period": "2026Q1",
+   "date": "2026-03-31",
+   "source": "SEC 10-K MD&A",
+   "words": 3452,
+   "themes": [
+    {
+     "theme": "store expansion and real estate",
+     "quote": "fiscal 2025 expansion program added 90 new stores, and included entry into new geographic markets such as Puerto Rico and the New York Metro area. Looking forward to 2026, we expect to open approximately 110 new stores"
+    },
+    {
+     "theme": "distribution center network buildout",
+     "quote": "opening of our eighth distribution center in Buckeye, Arizona in May 2025"
+    },
+    {
+     "theme": "merchandising assortment and value delivery",
+     "quote": "Delivering broad-based assortments timely and offering more brands at compelling values for our customers"
+    },
+    {
+     "theme": "packaway inventory purchasing strategy",
+     "quote": "We continue to take advantage of packaway inventory opportunities to maximize our ability to deliver bargains to our customers"
+    },
+    {
+     "theme": "supply chain and freight cost management",
+     "quote": "lower domestic freight costs of 20 basis points"
+    },
+    {
+     "theme": "customer marketing and awareness",
+     "quote": "Advancing our marketing initiatives to further strengthen customer awareness and engagement"
+    }
+   ]
+  },
+  {
+   "period": "2025Q4",
+   "date": "2025-12-10",
+   "source": "SEC 10-Q MD&A",
+   "words": 10342,
+   "themes": [
+    {
+     "theme": "distribution center expansion",
+     "quote": "the deleveraging effect from the opening of our eighth distribution center in Buckeye, Arizona in May 2025"
+    },
+    {
+     "theme": "tariff cost management",
+     "quote": "Operating income as a percentage of sales for the three and nine month periods ended November 1, 2025 included negative impacts of approximately 35 basis points and 45 basis points, respectively, primarily due to tariff-related costs"
+    },
+    {
+     "theme": "store expansion strategy",
+     "quote": "We opened 40 new stores in the third quarter of fiscal 2025, consisting of 36 Ross and four dd's DISCOUNTS stores. These store openings completed our expansion program for fiscal 2025, which added a total of 90 new stores and growth into ne"
+    },
+    {
+     "theme": "off-price retail positioning",
+     "quote": "We continue to believe that customers' focus on value and convenience provides opportunities for us to gain market share"
+    },
+    {
+     "theme": "packaway inventory optimization",
+     "quote": "We expect to continue to take advantage of packaway inventory opportunities to maximize our ability to deliver bargains to our customers"
+    }
+   ]
+  }
+ ]
+}
