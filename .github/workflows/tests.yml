@@ -15,6 +15,8 @@ jobs:
         run: node tests/run_tests.js
       - name: Form 4 parser fixtures
         run: python tests/test_form4_parse.py
+      - name: Canonicalisation fixtures
+        run: python tests/test_canonicalise.py
       - name: Daily brief composes without error
         run: node scripts/daily_brief.js > /dev/null
       - name: Browser smoke tests
