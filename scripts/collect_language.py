@@ -20,8 +20,17 @@ SOURCES, in priority order per company:
 A company that yields neither is recorded as missing WITH THE REASON -- a
 silent gap quietly biases every convergence count computed afterwards.
 
+HOW THE TEXT BECOMES THEMES:
+  A model READS each MD&A and names 3-6 strategic priorities, then a single
+  pass canonicalises those themes across the whole corpus so two companies
+  pursuing the same strategy produce the same label (convergence counting is
+  string equality). Extracted themes are cached per company-period, so
+  steady-state cost is about one call per newly filed 10-Q. Without an
+  ANTHROPIC_API_KEY the corpus is collected but marked not-narrative-grade
+  and the UI stays dark -- an empty board beats a confident wrong one.
+
 WHAT IS STORED — and what deliberately is NOT:
-  Only DERIVED PHRASE COUNTS land in data/ and language.js. Raw transcript
+  Only DERIVED THEMES land in data/ and language.js. Raw transcript
   text is held in memory, used to count, and dropped. Transcript text from
   a commercial provider is licensed content that must not be republished in
   a public repo, and full text would bloat the bundle for no analytical
@@ -313,6 +322,155 @@ def sec_narrative_filings(cik10, want):
     return out, ""
 
 
+# ---------------------------------------------------- LLM theme extraction
+# Phrase-mining raw filing HTML was measured twice against the real universe
+# and does not produce business narratives (see the module docstring). What
+# does work is having a model READ the MD&A and name the strategy in it.
+#
+# Two stages, because convergence counting is string equality:
+#   1. Per company-period: extract 3-6 strategic themes as short phrases.
+#      High volume (one call per new filing), so this runs on Haiku.
+#   2. Once per run: canonicalise every theme across the whole corpus into
+#      shared labels, so "custom ASIC ramp" and "in-house accelerators"
+#      collapse to one theme instead of counting as two companies saying
+#      different things. This is the step that makes cross-company
+#      convergence measurable at all; it is a single call, so it runs on the
+#      stronger model.
+#
+# Cost control: extracted themes are CACHED per company-period in
+# data/language/<TK>.json. A period already extracted is never sent again,
+# so steady-state cost is one call per newly-filed 10-Q, not a full re-sweep.
+ANTHROPIC_KEY = __import__("os").environ.get("ANTHROPIC_API_KEY", "").strip()
+EXTRACT_MODEL = "claude-haiku-4-5"   # high volume, one call per new filing
+CANON_MODEL = "claude-opus-5"        # one call per run over the whole corpus
+MDNA_CHARS_FOR_LLM = 60_000          # ~15k tokens of MD&A is plenty of strategy
+
+THEME_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "themes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "theme": {"type": "string", "description": "2-5 word lowercase noun phrase naming ONE strategic priority, in standard industry terminology"},
+                    "quote": {"type": "string", "description": "short verbatim fragment from the filing that supports it"},
+                },
+                "required": ["theme", "quote"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["themes"],
+    "additionalProperties": False,
+}
+
+EXTRACT_SYSTEM = """You read Management's Discussion and Analysis sections from SEC filings and name the STRATEGIC PRIORITIES management describes.
+
+Return 3-6 themes. A theme is something the company is DOING or BETTING ON — where it is directing capital, capacity, or product effort.
+
+Good themes: "custom silicon", "inference capacity buildout", "sovereign ai contracts", "seat-based pricing pressure", "grid interconnect constraints".
+Not themes: accounting mechanics, revenue/margin movements, legal boilerplate, generic business words ("growth", "efficiency", "shareholder value"), or anything you could say about any company.
+
+Use standard industry terminology rather than the company's own branded phrasing, so that two companies pursuing the same strategy produce the same words. Lowercase. No company names. If the filing genuinely describes no distinct strategy, return fewer themes rather than padding."""
+
+CANON_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "clusters": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "canonical": {"type": "string", "description": "the clearest 2-4 word label for this theme"},
+                    "members": {"type": "array", "items": {"type": "string"}, "description": "every input phrase belonging to this theme, verbatim"},
+                },
+                "required": ["canonical", "members"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["clusters"],
+    "additionalProperties": False,
+}
+
+CANON_SYSTEM = """You are given strategic themes extracted from many companies' SEC filings. Different companies describe the same strategy in different words.
+
+Group phrases that describe THE SAME underlying strategy under one canonical label. "custom asic ramp", "in-house accelerators" and "bespoke silicon program" are one theme. "inference capacity" and "training capacity" are DIFFERENT themes — do not over-merge; a merge that blurs two distinct strategies destroys the signal this exists to measure.
+
+Every input phrase must appear in exactly one cluster. A phrase with no partner forms a cluster of one. Return only the clusters."""
+
+
+def _anthropic_client():
+    if not ANTHROPIC_KEY:
+        return None
+    try:
+        import anthropic
+    except ImportError:
+        print("  anthropic SDK not installed — skipping LLM extraction", flush=True)
+        return None
+    return anthropic.Anthropic(api_key=ANTHROPIC_KEY)
+
+
+def extract_themes(client, ticker, text):
+    """3-6 strategic themes for one company-period. Returns [] on any failure —
+    a company that fails extraction is simply absent from the corpus, which is
+    honest; a fabricated theme would not be."""
+    try:
+        resp = client.messages.create(
+            model=EXTRACT_MODEL,
+            max_tokens=2000,
+            system=EXTRACT_SYSTEM,
+            output_config={"format": {"type": "json_schema", "schema": THEME_SCHEMA}},
+            messages=[{"role": "user", "content":
+                       f"Company: {ticker}\n\nMD&A section:\n\n{text[:MDNA_CHARS_FOR_LLM]}"}],
+        )
+        if resp.stop_reason == "refusal":
+            return []
+        body = next((b.text for b in resp.content if b.type == "text"), "")
+        rows = json.loads(body).get("themes", [])
+    except Exception as e:
+        print(f"    {ticker}: theme extraction failed ({e})", flush=True)
+        return []
+    out = []
+    for r in rows:
+        t = (r.get("theme") or "").strip().lower()
+        if 2 <= len(t.split()) <= 6:
+            out.append({"theme": t, "quote": (r.get("quote") or "")[:240]})
+    return out
+
+
+def canonicalise(client, phrases):
+    """Map every raw theme to a shared label. Returns {raw: canonical}; an
+    empty map on failure means the caller keeps the raw phrases (degraded
+    convergence, not wrong convergence)."""
+    if not phrases:
+        return {}
+    try:
+        resp = client.messages.create(
+            model=CANON_MODEL,
+            max_tokens=8000,
+            system=CANON_SYSTEM,
+            output_config={"format": {"type": "json_schema", "schema": CANON_SCHEMA}},
+            messages=[{"role": "user", "content": "\n".join(sorted(phrases))}],
+        )
+        if resp.stop_reason == "refusal":
+            return {}
+        body = next((b.text for b in resp.content if b.type == "text"), "")
+        clusters = json.loads(body).get("clusters", [])
+    except Exception as e:
+        print(f"  canonicalisation failed ({e}) — keeping raw themes", flush=True)
+        return {}
+    mapping = {}
+    for c in clusters:
+        canon = (c.get("canonical") or "").strip().lower()
+        if not canon:
+            continue
+        for m in c.get("members", []):
+            mapping[(m or "").strip().lower()] = canon
+    return mapping
+
+
 def market_caps():
     """Rank by market cap straight from the terminal bundle — one source of
     truth, so the language sweep always covers the names the app ranks."""
@@ -334,15 +492,41 @@ def main():
 
     outdir = ROOT / "data" / "language"
     outdir.mkdir(parents=True, exist_ok=True)
+    client = _anthropic_client()
+    if not client:
+        print("No ANTHROPIC_API_KEY (or SDK) — corpus will be collected but NOT "
+              "narrative-grade, and the Narrative Radar will stay dark.", flush=True)
 
     bundle, src_counts, missing = {}, Counter(), []
-    for i, c in enumerate(companies):
+    extracted_calls, reused = 0, 0
+    for c in companies:
         tk = c["ticker"]
+        # Themes already extracted in a previous run are reused verbatim. This
+        # is what keeps steady-state cost at roughly one model call per newly
+        # filed 10-Q instead of a full re-sweep of the universe every run.
+        cached = {}
+        cache_path = outdir / f"{tk}.json"
+        if cache_path.exists():
+            try:
+                for prev in json.loads(cache_path.read_text(encoding="utf-8")).get("periods", []):
+                    if prev.get("themes"):
+                        cached[prev["period"]] = prev
+            except Exception:
+                pass
+
         docs = fmp_transcripts(tk, PERIODS_PER_COMPANY)
         reason = ""
         if not docs:
             docs, reason = sec_narrative_filings(c["cik10"], PERIODS_PER_COMPANY)
         if not docs:
+            # A cached company with no fresh fetch still belongs in the corpus.
+            if cached:
+                periods = sorted(cached.values(), key=lambda p: p["date"], reverse=True)
+                bundle[tk] = {"name": c["name"], "sector": c.get("sector"), "periods": periods}
+                src_counts[periods[0]["source"]] += 1
+                reused += len(periods)
+                print(f"  {tk}: {len(periods)} cached period(s), no new filing", flush=True)
+                continue
             missing.append({"ticker": tk, "reason": reason or "no source yielded text"})
             print(f"  {tk}: SKIPPED — {reason or 'no source yielded text'}", flush=True)
             time.sleep(0.15)
@@ -350,58 +534,78 @@ def main():
 
         periods = []
         for doc in docs:
-            counts = phrase_counts(doc["text"])
-            if not counts:
+            if doc["period"] in cached:
+                periods.append(cached[doc["period"]])
+                reused += 1
                 continue
+            themes = extract_themes(client, tk, doc["text"]) if client else []
+            if not themes:
+                continue
+            extracted_calls += 1
             periods.append({
                 "period": doc["period"],
                 "date": doc["date"],
                 "source": doc["source"],
                 "words": len(WORD_RE.findall(doc["text"].lower())),
-                # DERIVED COUNTS ONLY — doc["text"] is dropped here, never stored
-                "phrases": dict(counts.most_common(TOP_PHRASES)),
+                # DERIVED THEMES ONLY — doc["text"] is dropped here, never stored
+                "themes": themes,
             })
         if not periods:
-            missing.append({"ticker": tk, "reason": "text found but no phrases survived filtering"})
+            missing.append({"ticker": tk, "reason": "text found but no themes extracted"})
             continue
         periods.sort(key=lambda p: p["date"], reverse=True)
         src_counts[periods[0]["source"]] += 1
         bundle[tk] = {"name": c["name"], "sector": c.get("sector"), "periods": periods}
-        (outdir / f"{tk}.json").write_text(json.dumps(bundle[tk], indent=1), encoding="utf-8")
+        cache_path.write_text(json.dumps(bundle[tk], indent=1), encoding="utf-8")
         print(f"  {tk}: {len(periods)} period(s) via {periods[0]['source']}", flush=True)
         time.sleep(0.15)
 
+    # ---- canonicalise across the WHOLE corpus, then publish -------------
+    # Convergence counting is string equality, so this is the step that makes
+    # "six companies said the same thing" measurable rather than accidental.
+    raw = {t["theme"] for co in bundle.values() for p in co["periods"] for t in p["themes"]}
+    mapping = canonicalise(client, raw) if (client and raw) else {}
+    for co in bundle.values():
+        for p in co["periods"]:
+            labels = [mapping.get(t["theme"], t["theme"]) for t in p["themes"]]
+            # the engine consumes {phrase: weight}; one mention per theme per
+            # period, because breadth across companies is the signal, not
+            # how many times one company repeated itself
+            p["phrases"] = {lab: 1 for lab in labels}
+
+    graded = bool(client) and bool(mapping or raw)
     meta = {
         "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "companies": len(bundle),
         "requested": len(companies),
         "sources": dict(src_counts),
         "missing": missing,
-        "note": "Derived phrase counts only. Raw transcript/exhibit text is never stored or republished.",
-        # HONEST QUALITY FLAG. n-gram mining over raw SEC HTML has now been
-        # measured twice against the real universe and does NOT yield business
-        # narratives: 10-Q/10-K text is overwhelmingly legal and accounting
-        # machinery, and inline XBRL leaks tag names ("us-gaap") that look like
-        # words. The top "themes" it produces are "june", "form", "fair value".
-        # Only a corpus built from genuine narrative extraction -- earnings-call
-        # transcripts, or an LLM summarising each filing into themes -- earns
-        # this flag, and the Narrative Radar refuses to render without it.
-        # Better an empty board than a confident wrong one.
-        "narrativeGrade": bool(src_counts.get("FMP earnings-call transcript")) and not any(
-            k.startswith("SEC") for k in src_counts),
-        "extraction": "ngram-over-filing-html",
+        "note": "Derived themes only. Raw transcript/filing text is never stored or republished.",
+        # HONEST QUALITY FLAG. n-gram mining over raw filing HTML was measured
+        # twice against the real universe and does NOT yield business
+        # narratives, so it never earns this flag; the Narrative Radar refuses
+        # to render without it. Better an empty board than a confident wrong
+        # one. Only model-read themes qualify.
+        "narrativeGrade": graded,
+        "extraction": "llm-themes-from-mdna" if graded else "none",
+        "models": {"extract": EXTRACT_MODEL, "canonicalise": CANON_MODEL} if graded else {},
+        "themeCalls": extracted_calls,
+        "cachedPeriods": reused,
+        "canonicalThemes": len(set(mapping.values())) if mapping else None,
     }
-    js = ("/* MANAGEMENT LANGUAGE — derived phrase counts from earnings-call transcripts\n"
-          "   (FMP) and SEC 8-K EX-99.1 earnings releases. Generated by\n"
-          "   scripts/collect_language.py. NO raw transcript text is stored here:\n"
-          "   only counts, so nothing licensed is republished and the bundle stays small. */\n"
+    js = ("/* MANAGEMENT LANGUAGE — strategic themes read out of SEC MD&A sections\n"
+          "   (and earnings-call transcripts where available) by a model, then\n"
+          "   canonicalised across companies so shared strategy is countable.\n"
+          "   Generated by scripts/collect_language.py. NO raw filing or transcript\n"
+          "   text is stored here — only derived themes. */\n"
           "const LANGUAGE_META = " + json.dumps(meta) + ";\n"
           "const LANGUAGE = " + json.dumps(bundle) + ";\n"
           'if (typeof window !== "undefined") { window.LANGUAGE = LANGUAGE; window.LANGUAGE_META = LANGUAGE_META; }\n')
     (ROOT / "language.js").write_text(js, encoding="utf-8")
     size = (ROOT / "language.js").stat().st_size / 1024
     print(f"\nWROTE language.js — {len(bundle)}/{len(companies)} companies, "
-          f"{dict(src_counts)}, {size:.0f} KB", flush=True)
+          f"{extracted_calls} new extraction call(s), {reused} cached period(s), "
+          f"{meta['canonicalThemes']} canonical themes, narrativeGrade={graded}, {size:.0f} KB", flush=True)
 
 
 if __name__ == "__main__":

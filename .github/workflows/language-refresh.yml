@@ -25,9 +25,16 @@ jobs:
         with: { python-version: "3.12" }
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
+      - name: Install Anthropic SDK
+        run: pip install --quiet anthropic
       - name: Collect management language
+        # ANTHROPIC_API_KEY is what makes the corpus narrative-grade: a model
+        # reads each MD&A and names the strategy in it. Without the secret the
+        # collector still runs, the corpus is marked not-narrative-grade, and
+        # the Narrative Radar stays dark rather than showing junk.
         env:
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/collect_language.py --top ${{ github.event.inputs.top || '50' }}
       - name: Tests must pass before commit
         run: node tests/run_tests.js

@@ -36,7 +36,10 @@ jobs:
         # Falls back to SEC 8-K exhibits on its own when FMP is unavailable.
         env:
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
-        run: python scripts/collect_language.py || echo "language collection incomplete — keeping previous bundle"
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          pip install --quiet anthropic || true
+          python scripts/collect_language.py || echo "language collection incomplete — keeping previous bundle"
         continue-on-error: true
 
       - name: Record model track-record snapshot
