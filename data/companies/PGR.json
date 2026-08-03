@@ -2,7 +2,7 @@
  "ticker": "PGR",
  "cik": "0000080661",
  "entityName": "PROGRESSIVE CORP/OH/",
- "retrievedAt": "2026-08-01T18:51:00.306665Z",
+ "retrievedAt": "2026-08-03T13:41:15.584217Z",
  "fields": {
   "buyback": [
    {
@@ -1395,12 +1395,12 @@
     "confidence": 100
    },
    {
-    "value": 584336464,
+    "value": 581371770,
     "unit": "shares",
-    "periodEnd": "2026-04-02",
+    "periodEnd": "2026-07-02",
     "form": "10-Q",
-    "filedDate": "2026-05-04",
-    "accessionNumber": "0000080661-26-000177",
+    "filedDate": "2026-08-03",
+    "accessionNumber": "0000080661-26-000308",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

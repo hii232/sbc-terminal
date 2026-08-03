@@ -2,7 +2,7 @@
  "ticker": "MAR",
  "cik": "0001048286",
  "entityName": "MARRIOTT INTERNATIONAL INC /MD/",
- "retrievedAt": "2026-08-01T18:51:56.003658Z",
+ "retrievedAt": "2026-08-03T13:42:21.777562Z",
  "fields": {
   "buyback": [
    {
@@ -1978,12 +1978,12 @@
     "confidence": 100
    },
    {
-    "value": 263688623,
+    "value": 260766288,
     "unit": "shares",
-    "periodEnd": "2026-04-29",
+    "periodEnd": "2026-07-27",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001048286-26-000014",
+    "filedDate": "2026-08-03",
+    "accessionNumber": "0001048286-26-000035",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
