@@ -19,6 +19,9 @@ permissions:
 jobs:
   language:
     runs-on: ubuntu-latest
+    # A full 224-company sweep runs ~2h; the 6h default just wastes a runner
+    # if something wedges. Fail at 5h so the cache still gets committed.
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -36,9 +39,19 @@ jobs:
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/collect_language.py --top ${{ github.event.inputs.top || '50' }}
+        # A crash partway through must not throw away the work already paid
+        # for. The collector caches each company's themes to disk as it goes,
+        # but the runner is ephemeral -- without this, a failure at company 180
+        # destroys 180 extractions and the next run re-buys every one of them.
+        continue-on-error: true
       - name: Tests must pass before commit
         run: node tests/run_tests.js
       - name: Commit language bundle
+        # always(): commit the per-company cache even when collection failed,
+        # so a partial sweep is progress rather than a total loss. language.js
+        # is only rewritten on a clean finish, so a failed run leaves the
+        # published bundle untouched and simply banks the cache for next time.
+        if: always()
         run: |
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
