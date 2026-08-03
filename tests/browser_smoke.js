@@ -129,7 +129,7 @@ async function main() {
       ["#compareBtn", "COMPARE"],
       ["#screenBtn", "CUSTOM SCREENER"],
       ["#sectorBtn", "SECTOR FLOW"],
-      ["#setupsBtn", "BEST SETUPS"],
+      ["#setupsBtn", "ENTRY TIMING"],
       ["#blackrockBtn", "WHALE TRACKER"],
       ["#calBtn", "EARNINGS COMMAND CENTER"],  // keep last: the earnings checks below read this view
     ];
