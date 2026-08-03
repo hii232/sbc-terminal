@@ -2719,6 +2719,42 @@
      any phrase most of the corpus uses is universal language by definition
      ("strong execution", "our customers") and is dropped. That rule needs no
      maintenance and cannot go stale. */
+  /* FILING MECHANICS — words that describe the DOCUMENT rather than the
+     business. Two real collector runs proved these dominate anything mined
+     from raw SEC HTML: the first "emerging narratives" the engine produced
+     were "june", "form", "note", "respectively" and "us-gaap" (the last is
+     an inline-XBRL tag name, not language a human wrote). A phrase built
+     only from these is filing furniture and can never be a narrative, so it
+     is rejected at the ENGINE layer -- that way the bar can be tightened
+     without re-collecting the whole corpus.
+     This gate is deliberately strict. If it leaves nothing on the board, the
+     board says so; a radar showing "june" as a spreading narrative is worse
+     than a radar showing nothing. */
+  const LANG_FILING_NOISE = new Set(`january february march april may june july august september october november
+    december form forms item items part note notes see refer referred table tables page pages exhibit exhibits
+    respectively above below herein thereof hereto pursuant thereto section sections paragraph unaudited audited
+    gaap ifrs xbrl inline taxonomy fasb sec edgar filing filed files subject time times date dates ended ending
+    fair value carrying amount amounts aggregate approximately thereunder whereas accordingly further
+    tax taxes deferred accrued accrual amortization depreciation impairment goodwill intangible inventory
+    receivable payable lease leases obligations commitments contingencies securities stock shares outstanding
+    compensation dividend dividends repurchase treasury issuance proceeds maturities`.split(/\s+/).filter(Boolean));
+
+  /* A candidate must say something about the BUSINESS: at least one token
+     that is neither filing mechanics nor a bare number, and either more than
+     one word or a genuine domain acronym. */
+  const LANG_DOMAIN_ACRONYMS = new Set(["ai", "gpu", "cpu", "hbm", "asic", "api", "saas", "iot", "ev", "llm", "arm", "5g", "ml", "npu", "dpu", "cpo"]);
+  function isNarrativePhrase(phrase) {
+    const toks = String(phrase).split(" ").filter(Boolean);
+    if (!toks.length) return false;
+    if (toks.some(t => /^\d/.test(t) || t.length < 2)) return false;
+    const substantive = toks.filter(t => !LANG_FILING_NOISE.has(t));
+    if (!substantive.length) return false;
+    if (toks.length === 1) return LANG_DOMAIN_ACRONYMS.has(toks[0]) || (toks[0].length >= 6 && substantive.length === 1);
+    // a multi-word phrase must be MOSTLY substantive, not one real word
+    // carried by filing furniture ("report on form", "results of operations")
+    return substantive.length >= Math.ceil(toks.length * 0.6);
+  }
+
   const LANG_MIN_COMPANIES = 3;      // below this it is not yet a shared narrative
   const LANG_UNIVERSAL_SHARE = 0.55; // used by more than this share of the corpus = boilerplate
   const LANG_EMERGE_MIN = 2;         // net new companies adopting the phrase
@@ -2784,6 +2820,7 @@
     const rows = [];
     for (const [phrase, tks] of now) {
       const dfNow = tks.length;
+      if (!isNarrativePhrase(phrase)) continue;
       if (dfNow < LANG_MIN_COMPANIES) continue;
       if (dfNow / N > LANG_UNIVERSAL_SHARE) continue;
       const priorTks = prior.get(phrase) || [];
@@ -5408,12 +5445,20 @@
      is dressed up as the other. */
   function renderNarrativeRadar() {
     const meta = typeof LANGUAGE_META !== "undefined" ? LANGUAGE_META : null;
-    const emerging = emergingLanguage(8);
-    const shared = sharedLanguage(6);
+    // A corpus the collector did not mark narrative-grade is not shown at all.
+    // Two measured runs over raw SEC filing HTML produced "june", "form" and
+    // "fair value" as top themes; rendering that would put a confident wrong
+    // answer on the page, which is worse than an empty one.
+    const graded = meta && meta.narrativeGrade === true;
+    const emerging = graded ? emergingLanguage(8) : null;
+    const shared = graded ? sharedLanguage(6) : null;
     if (!emerging && !shared) {
       return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--purple)">
         <h3>📡 NARRATIVE RADAR <span class="unit">what management is saying, across companies</span></h3>
-        <div class="sub" style="padding:6px 0;line-height:1.7">Reads earnings-call transcripts and SEC 8-K earnings releases for the largest names, then looks for language <b>spreading between companies</b> — the tell that capital is being redirected before it shows up in any line item. ${meta && meta.generated ? `Collected ${escapeHtml(String(meta.generated).slice(0, 10))}, but not yet enough companies to call convergence.` : "Arms with the next data refresh — the collector has not run yet."} Nothing is shown until it can be measured.</div>
+        <div class="sub" style="padding:6px 0;line-height:1.7">Reads earnings-call transcripts and SEC 8-K earnings releases for the largest names, then looks for language <b>spreading between companies</b> — the tell that capital is being redirected before it shows up in any line item. ${meta && meta.generated && meta.narrativeGrade === false
+          ? `A corpus of ${meta.companies} companies was collected on ${escapeHtml(String(meta.generated).slice(0, 10))} from SEC filings, but it is <b>not narrative-grade</b> and is deliberately not shown. 10-Q/10-K text is overwhelmingly legal and accounting machinery, so phrase-mining it surfaces things like “june”, “form” and “fair value” rather than strategy — measured twice against the real universe. This board arms when the corpus comes from genuine narrative extraction (earnings-call transcripts, or an LLM reading each filing into themes).`
+          : meta && meta.generated ? `Collected ${escapeHtml(String(meta.generated).slice(0, 10))}, but not yet enough companies to call convergence.`
+          : "Arms with the next data refresh — the collector has not run yet."} A wrong narrative is worse than no narrative, so nothing is shown until it can be measured.</div>
       </div>`;
     }
     const tkChips = (tks, hl) => tks.map(t => `<button type="button" data-tk="${t}" class="sec-chip"${hl && hl.includes(t) ? ' style="border-color:var(--green)"' : ""}>${t}</button>`).join("");
@@ -7716,7 +7761,7 @@
     beatOddsOf, earnBeatStats, beatTrackRaw, beatTrackPopulation, earningsLedger, upcomingEarningsRows, peerReadThrough, earnIntelOf, seasonScorecard,
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf, punishedGrowthOf, punishedGrowthBoard,
     NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, clusterAdjustedVoteCounts, CONVICTION_CLUSTERS,
-    languageCorpus, languageThemes, emergingLanguage, sharedLanguage, companyLanguageOf, collapseNearDuplicates,
+    languageCorpus, languageThemes, emergingLanguage, sharedLanguage, companyLanguageOf, collapseNearDuplicates, isNarrativePhrase,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
