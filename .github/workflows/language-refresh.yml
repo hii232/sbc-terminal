@@ -1,0 +1,40 @@
+name: language-refresh
+# Narrative Radar corpus on its own schedule. Transcripts and 8-K earnings
+# releases land on EARNINGS DATES, not daily, so re-running the whole data
+# pipeline to pick them up wastes most of its work. This refreshes only the
+# management-language bundle — cheap enough to run through earnings season,
+# and dispatchable on any branch to verify collector changes against real
+# filings before they reach main.
+on:
+  schedule:
+    - cron: "40 12 * * 2,5"   # Tue + Fri, after the morning data refresh
+  workflow_dispatch:
+    inputs:
+      top:
+        description: "How many companies (by market cap) to sweep"
+        required: false
+        default: "50"
+permissions:
+  contents: write
+jobs:
+  language:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Collect management language
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python scripts/collect_language.py --top ${{ github.event.inputs.top || '50' }}
+      - name: Tests must pass before commit
+        run: node tests/run_tests.js
+      - name: Commit language bundle
+        run: |
+          git config user.name "sbc-terminal-bot"
+          git config user.email "actions@github.com"
+          git add language.js data/language/ || true
+          git diff --cached --quiet || git commit -m "data: management-language refresh $(date -u +%F)"
+          git push origin HEAD:${GITHUB_REF_NAME}

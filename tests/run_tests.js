@@ -19,7 +19,7 @@ const root = path.join(__dirname, "..");
 // edited in five places — but every layer must still agree with it exactly.
 const UNIVERSE_COUNT = JSON.parse(fs.readFileSync(path.join(root, "data", "universe.json"), "utf8")).count;
 const atLeast = (frac) => Math.floor(UNIVERSE_COUNT * frac);
-const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "track.js", "scores.js", "charts.js", "app.js"]
+const src = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "language.js", "track.js", "scores.js", "charts.js", "app.js"]
   .map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 vm.runInThisContext(src, { filename: "bundle.js" });
 const E = global.window.__engines;
@@ -1675,6 +1675,84 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   ok(excusedSomewhere.every(x => !boardTks.has(x.ticker)), "excused names never appear on the board", String(excusedSomewhere.length));
   const scores = board.map(x => x.pg.score);
   ok(scores.every((s, i) => i === 0 || s <= scores[i - 1]), "board is sorted by divergence score");
+}
+
+// =============== 37. Narrative Radar (management-language convergence) ===============
+{
+  // Synthetic corpus with a KNOWN answer, so every rule is checked against a
+  // phrase whose behaviour we chose on purpose:
+  //   "cpu inference"    1 company -> 6   = the emergence case (money moving)
+  //   "sovereign ai"     3 companies, flat = shared but NOT emerging
+  //   "strong execution" in 10 of 12      = universal boilerplate, must vanish
+  //   "our own thing"    1 company only    = a company's story, not a narrative
+  const mk = (latest, prior) => ({
+    periods: [{ period: "2026Q2", date: "2026-07-15", source: "test", words: 900, phrases: latest }]
+      .concat(prior ? [{ period: "2026Q1", date: "2026-04-15", source: "test", words: 900, phrases: prior }] : []),
+  });
+  const boiler = { "strong execution": 3 };
+  const B = {};
+  // 6 adopters of "cpu inference": only TK0 said it last quarter
+  for (let i = 0; i < 6; i++) {
+    B["TK" + i] = mk({ ...boiler, "cpu inference": 4, ...(i < 3 ? { "sovereign ai": 2 } : {}) },
+      { ...boiler, ...(i === 0 ? { "cpu inference": 1 } : {}), ...(i < 3 ? { "sovereign ai": 2 } : {}) });
+  }
+  for (let i = 6; i < 10; i++) B["TK" + i] = mk({ ...boiler, "edge compute": 2 }, { ...boiler });
+  B.TK10 = mk({ "our own thing": 9 }, {});
+  B.TK11 = mk({ "edge compute": 1 }, {});
+
+  const themes = E.languageThemes(B);
+  ok(Array.isArray(themes) && themes.length > 0, "synthetic corpus yields themes", String(themes && themes.length));
+  const find = (p) => themes.find(t => t.phrase === p);
+  const cpu = find("cpu inference");
+  ok(cpu && cpu.dfNow === 6 && cpu.dfPrior === 1 && cpu.emergence === 5,
+    "emergence counts COMPANIES adopting, not mentions", cpu && `${cpu.dfNow}/${cpu.dfPrior}`);
+  ok(cpu && cpu.adopters.length === 5 && !cpu.adopters.includes("TK0"),
+    "adopters lists only the companies that are NEW to the phrase", cpu && cpu.adopters.join(","));
+  const sov = find("sovereign ai");
+  ok(sov && sov.dfNow === 3 && sov.emergence === 0, "shared-but-flat language is a theme with zero emergence", sov && String(sov.emergence));
+  ok(!find("strong execution"), "language used by most of the corpus is suppressed as boilerplate — no blacklist needed");
+  ok(!find("our own thing"), "a phrase only one company uses is that company's story, never a narrative");
+
+  const emerging = E.emergingLanguage(10, B);
+  ok(emerging && emerging[0] && emerging[0].phrase === "cpu inference",
+    "the spreading phrase leads the emerging board", emerging && emerging[0] && emerging[0].phrase);
+  ok(emerging.every(t => t.emergence >= 2), "emerging board never contains flat language");
+  ok(!emerging.some(t => t.phrase === "sovereign ai"), "flat shared language is excluded from EMERGING but kept in SHARED");
+  const shared = E.sharedLanguage(10, B);
+  ok(shared.some(t => t.phrase === "sovereign ai"), "shared board keeps flat convergence");
+
+  // scores must be bounded and ordered
+  ok(emerging.every(t => t.score >= 0 && t.score <= 100), "emergence scores stay bounded 0..100");
+  ok(emerging.every((t, i) => i === 0 || t.score <= emerging[i - 1].score), "emerging board is sorted by score");
+
+  // near-duplicate collapse: same narrative counted twice fakes breadth
+  const dupIn = [
+    { phrase: "accelerated computing platform", companies: ["A", "B", "C", "D"], dfNow: 4 },
+    { phrase: "accelerated computing", companies: ["A", "B", "C", "D"], dfNow: 4 },
+    { phrase: "computing costs", companies: ["X", "Y", "Z"], dfNow: 3 },
+  ];
+  const dupOut = E.collapseNearDuplicates(dupIn);
+  ok(dupOut.length === 2, "substring phrases with the same supporters collapse to one", String(dupOut.length));
+  ok(dupOut.some(r => r.phrase === "computing costs"),
+    "a phrase sharing only a WORD with another (different supporters) is never merged away");
+
+  // small corpora must report nothing rather than a weak read
+  const tiny = {}; for (let i = 0; i < 5; i++) tiny["T" + i] = mk({ "shared idea": 2 }, {});
+  ok(E.languageThemes(tiny) === null, "a corpus too small for convergence returns null, never a guess");
+  ok(E.languageThemes({}) === null, "empty corpus -> null");
+
+  // the shipped bundle must at least be structurally valid
+  ok(typeof LANGUAGE === "object" && LANGUAGE !== null, "LANGUAGE bundle is present in the app bundle");
+  const live = E.languageCorpus();
+  if (live) {
+    for (const c of live) {
+      ok(c.latest && c.latest.phrases && c.latest.date, `${c.ticker} has a dated latest period`);
+      ok(!("text" in c.latest) && !("content" in c.latest),
+        `${c.ticker} stores derived counts only — no raw transcript text is republished`);
+    }
+  } else {
+    ok(typeof LANGUAGE_META === "object", "no corpus collected yet — bundle still declares its metadata");
+  }
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

@@ -29,6 +29,16 @@ jobs:
         # reach today resumes tomorrow. Never blocks the rest of the refresh.
         run: python scripts/collect_insiders.py || echo "insider collection incomplete — keeping previous bundle"
         continue-on-error: true
+      - name: Collect management language (transcripts + SEC earnings releases)
+        # Narrative Radar input. Never blocks the refresh: a transcript
+        # provider outage or plan change must not cost the day's data (the
+        # golden-audit incident froze every signal for three days that way).
+        # Falls back to SEC 8-K exhibits on its own when FMP is unavailable.
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python scripts/collect_language.py || echo "language collection incomplete — keeping previous bundle"
+        continue-on-error: true
+
       - name: Record model track-record snapshot
         run: node scripts/snapshot_scores.js
       - name: Build what-changed signals ledger (deltas + filing diffs)
@@ -45,6 +55,6 @@ jobs:
         run: |
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
-          git add data.js sec.js sectors.js track.js earnings.js signals.js whales.js insiders.js data/ || true
+          git add data.js sec.js sectors.js track.js earnings.js signals.js whales.js insiders.js language.js data/ || true
           git diff --cached --quiet || git commit -m "data: automated refresh $(date -u +%F)"
           git push
