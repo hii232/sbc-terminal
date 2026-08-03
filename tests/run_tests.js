@@ -1782,5 +1782,35 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   }
 }
 
+// =============== 38. One screen, one "best" ===============
+// The home hero once labelled the business-quality + market-reward leader
+// "BEST SETUP" while the Best Setups card ran a five-input model and the
+// Master Signal ran eleven -- three winners on one screen, with top billing
+// going to the weakest. TRV led the hero while ranking #29 on the full model,
+// and a user reasonably read the whole thing as the brain contradicting
+// itself. These pin the resolution: the headline is the Master Signal, and
+// the narrower boards never call themselves "best".
+{
+  const src = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
+  const hero = src.slice(src.indexOf('class="bz-best"'), src.indexOf('class="bz-best"') + 400);
+  ok(/masterTop/.test(hero), "the home hero badge is driven by the Master Signal, not a sub-score", hero.slice(0, 160));
+  ok(!/BEST SETUP/.test(hero), "the hero no longer publishes a second, narrower 'best'", hero.slice(0, 160));
+  ok(!/stockDay/.test(hero), "the hero does not render the BQ+MR leader as the headline pick");
+
+  // Whatever the hero shows must literally be the top of the Master Signal.
+  const top = E.masterBoardCached()[0];
+  ok(top && top.ticker === E.masterBoard()[0].ticker,
+    "the cached board the hero reads agrees with a fresh masterBoard()");
+
+  // The timing board is allowed to disagree -- that is its job -- but it must
+  // be labelled as timing so the disagreement reads as design, not as a bug.
+  ok(/Entry Timing/.test(src), "the RSI-weighted board is presented as entry timing, not a rival pick");
+
+  // One word, one meaning: the hero's 'ranked' count must be the Master
+  // Signal's, not one of the three other rankability definitions in the app.
+  ok(/masterBoardCached\(\)\.length\} ranked by the Master Signal/.test(src),
+    "the hero's ranked count names which model it belongs to");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
