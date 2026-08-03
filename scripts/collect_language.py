@@ -446,15 +446,30 @@ def canonicalise(client, phrases):
     convergence, not wrong convergence)."""
     if not phrases:
         return {}
+    # Every input phrase is echoed back inside the clusters, so the OUTPUT is
+    # larger than the input. The first run silently blew an 8k ceiling with
+    # 660 themes (~8.6k tokens needed), truncating the JSON mid-response and
+    # falling back to raw themes -- which quietly collapsed convergence to
+    # near zero because raw phrasing rarely matches across companies. Size the
+    # ceiling from the corpus, and stream: the SDK refuses large non-streaming
+    # requests that risk an HTTP timeout.
+    need = int(len("\n".join(phrases)) / 4 * 2.0) + 4000
+    budget = max(16000, min(need, 64000))
+    print(f"  canonicalising {len(phrases)} themes (max_tokens={budget})", flush=True)
     try:
-        resp = client.messages.create(
+        with client.messages.stream(
             model=CANON_MODEL,
-            max_tokens=8000,
+            max_tokens=budget,
             system=CANON_SYSTEM,
             output_config={"format": {"type": "json_schema", "schema": CANON_SCHEMA}},
             messages=[{"role": "user", "content": "\n".join(sorted(phrases))}],
-        )
+        ) as stream:
+            resp = stream.get_final_message()
         if resp.stop_reason == "refusal":
+            print("  canonicalisation refused — keeping raw themes", flush=True)
+            return {}
+        if resp.stop_reason == "max_tokens":
+            print(f"  canonicalisation TRUNCATED at {budget} tokens — keeping raw themes", flush=True)
             return {}
         body = next((b.text for b in resp.content if b.type == "text"), "")
         clusters = json.loads(body).get("clusters", [])
