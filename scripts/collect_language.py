@@ -342,7 +342,9 @@ def sec_narrative_filings(cik10, want):
 # so steady-state cost is one call per newly-filed 10-Q, not a full re-sweep.
 ANTHROPIC_KEY = __import__("os").environ.get("ANTHROPIC_API_KEY", "").strip()
 EXTRACT_MODEL = "claude-haiku-4-5"   # high volume, one call per new filing
-CANON_MODEL = "claude-opus-5"        # one call per run over the whole corpus
+CANON_MODEL = "claude-opus-5"        # one call per run: proposes the vocabulary
+ASSIGN_MODEL = "claude-haiku-4-5"    # mechanical matching against that vocabulary
+ASSIGN_BATCH = 200                   # phrases per assignment call
 MDNA_CHARS_FOR_LLM = 60_000          # ~15k tokens of MD&A is plenty of strategy
 
 THEME_SCHEMA = {
@@ -374,31 +376,59 @@ Not themes: accounting mechanics, revenue/margin movements, legal boilerplate, g
 
 Use standard industry terminology rather than the company's own branded phrasing, so that two companies pursuing the same strategy produce the same words. Lowercase. No company names. If the filing genuinely describes no distinct strategy, return fewer themes rather than padding."""
 
-CANON_SCHEMA = {
+# CANONICALISATION IN TWO STAGES. A single "cluster everything" call has to
+# echo every input phrase back inside its cluster, so its OUTPUT grows with
+# the corpus -- 2,779 themes needed more than 49k output tokens and truncated,
+# silently costing a whole 224-company sweep its convergence. Splitting the
+# work removes that ceiling entirely: stage 1 proposes a small VOCABULARY
+# (output is ~150 short labels no matter how big the corpus gets), stage 2
+# assigns phrases to it in fixed-size batches (output is bounded by the batch,
+# not the corpus). Neither stage's response size scales with the universe.
+LABEL_SCHEMA = {
     "type": "object",
     "properties": {
-        "clusters": {
+        "labels": {
+            "type": "array",
+            "items": {"type": "string", "description": "a 2-4 word lowercase canonical strategy label"},
+        }
+    },
+    "required": ["labels"],
+    "additionalProperties": False,
+}
+
+LABEL_SYSTEM = """You are given strategic themes extracted from many companies' SEC filings. Different companies describe the same strategy in different words.
+
+Propose a VOCABULARY of canonical strategy labels that this phrase list collapses onto. Each label is a 2-4 word lowercase noun phrase in standard industry terminology.
+
+A good vocabulary is one where "custom asic ramp", "in-house accelerators" and "bespoke silicon program" all have an obvious home, but "inference capacity" and "training capacity" have DIFFERENT homes — do not propose labels so broad that two distinct strategies land on the same one. A blurred merge destroys the signal this exists to measure.
+
+Aim for roughly one label per 12-20 input phrases. Cover the recurring strategies; do not invent labels for one-off phrases — those will simply keep their own wording. Return only the label list."""
+
+ASSIGN_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "assignments": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "canonical": {"type": "string", "description": "the clearest 2-4 word label for this theme"},
-                    "members": {"type": "array", "items": {"type": "string"}, "description": "every input phrase belonging to this theme, verbatim"},
+                    "phrase": {"type": "string", "description": "the input phrase, verbatim"},
+                    "label": {"type": "string", "description": "the chosen canonical label, verbatim from the vocabulary, or \"\" if none fits"},
                 },
-                "required": ["canonical", "members"],
+                "required": ["phrase", "label"],
                 "additionalProperties": False,
             },
         }
     },
-    "required": ["clusters"],
+    "required": ["assignments"],
     "additionalProperties": False,
 }
 
-CANON_SYSTEM = """You are given strategic themes extracted from many companies' SEC filings. Different companies describe the same strategy in different words.
+ASSIGN_SYSTEM = """You map strategic themes onto a fixed vocabulary of canonical labels.
 
-Group phrases that describe THE SAME underlying strategy under one canonical label. "custom asic ramp", "in-house accelerators" and "bespoke silicon program" are one theme. "inference capacity" and "training capacity" are DIFFERENT themes — do not over-merge; a merge that blurs two distinct strategies destroys the signal this exists to measure.
+For each input phrase, choose the ONE vocabulary label describing the same underlying strategy. If no label describes it, return "" — an unmapped phrase keeps its own wording, which is correct and much better than forcing it onto a label that means something else.
 
-Every input phrase must appear in exactly one cluster. A phrase with no partner forms a cluster of one. Return only the clusters."""
+Only ever return a label that appears verbatim in the vocabulary. Never invent one."""
 
 
 def _anthropic_client():
@@ -440,49 +470,105 @@ def extract_themes(client, ticker, text):
     return out
 
 
-def canonicalise(client, phrases):
-    """Map every raw theme to a shared label. Returns {raw: canonical}; an
-    empty map on failure means the caller keeps the raw phrases (degraded
-    convergence, not wrong convergence)."""
-    if not phrases:
-        return {}
-    # Every input phrase is echoed back inside the clusters, so the OUTPUT is
-    # larger than the input. The first run silently blew an 8k ceiling with
-    # 660 themes (~8.6k tokens needed), truncating the JSON mid-response and
-    # falling back to raw themes -- which quietly collapsed convergence to
-    # near zero because raw phrasing rarely matches across companies. Size the
-    # ceiling from the corpus, and stream: the SDK refuses large non-streaming
-    # requests that risk an HTTP timeout.
-    need = int(len("\n".join(phrases)) / 4 * 2.0) + 4000
-    budget = max(16000, min(need, 64000))
-    print(f"  canonicalising {len(phrases)} themes (max_tokens={budget})", flush=True)
+def propose_labels(client, phrases):
+    """Stage 1: the canonical vocabulary. Output is a few hundred short labels
+    however large the corpus is, so this call cannot outgrow its ceiling."""
+    target = max(40, min(len(phrases) // 15, 400))
+    budget = max(8000, min(target * 24 + 4000, 32000))
+    print(f"  proposing vocabulary from {len(phrases)} themes "
+          f"(~{target} labels, max_tokens={budget})", flush=True)
     try:
         with client.messages.stream(
             model=CANON_MODEL,
             max_tokens=budget,
-            system=CANON_SYSTEM,
-            output_config={"format": {"type": "json_schema", "schema": CANON_SCHEMA}},
-            messages=[{"role": "user", "content": "\n".join(sorted(phrases))}],
+            system=LABEL_SYSTEM,
+            output_config={"format": {"type": "json_schema", "schema": LABEL_SCHEMA}},
+            messages=[{"role": "user", "content":
+                       f"Propose about {target} canonical labels for these "
+                       f"{len(phrases)} themes:\n\n" + "\n".join(sorted(phrases))}],
         ) as stream:
             resp = stream.get_final_message()
-        if resp.stop_reason == "refusal":
-            print("  canonicalisation refused — keeping raw themes", flush=True)
-            return {}
-        if resp.stop_reason == "max_tokens":
-            print(f"  canonicalisation TRUNCATED at {budget} tokens — keeping raw themes", flush=True)
+        if resp.stop_reason in ("refusal", "max_tokens"):
+            print(f"  vocabulary stage stopped early ({resp.stop_reason})", flush=True)
+            return []
+        body = next((b.text for b in resp.content if b.type == "text"), "")
+        labels = json.loads(body).get("labels", [])
+    except Exception as e:
+        print(f"  vocabulary stage failed ({e})", flush=True)
+        return []
+    out, seen = [], set()
+    for l in labels:
+        l = (l or "").strip().lower()
+        if l and 1 <= len(l.split()) <= 6 and l not in seen:
+            seen.add(l)
+            out.append(l)
+    return out
+
+
+def assign_batch(client, labels, batch):
+    """Stage 2: map one bounded batch of phrases onto the vocabulary. Returns
+    {phrase: label} for confident assignments only."""
+    budget = max(4000, len(batch) * 60 + 2000)
+    try:
+        with client.messages.stream(
+            model=ASSIGN_MODEL,
+            max_tokens=budget,
+            system=ASSIGN_SYSTEM,
+            output_config={"format": {"type": "json_schema", "schema": ASSIGN_SCHEMA}},
+            messages=[{"role": "user", "content":
+                       "VOCABULARY:\n" + "\n".join(labels) +
+                       "\n\nPHRASES:\n" + "\n".join(batch)}],
+        ) as stream:
+            resp = stream.get_final_message()
+        if resp.stop_reason in ("refusal", "max_tokens"):
             return {}
         body = next((b.text for b in resp.content if b.type == "text"), "")
-        clusters = json.loads(body).get("clusters", [])
-    except Exception as e:
-        print(f"  canonicalisation failed ({e}) — keeping raw themes", flush=True)
+        rows = json.loads(body).get("assignments", [])
+    except Exception:
         return {}
-    mapping = {}
-    for c in clusters:
-        canon = (c.get("canonical") or "").strip().lower()
-        if not canon:
-            continue
-        for m in c.get("members", []):
-            mapping[(m or "").strip().lower()] = canon
+    allowed = set(labels)
+    out = {}
+    for r in rows:
+        p = (r.get("phrase") or "").strip().lower()
+        l = (r.get("label") or "").strip().lower()
+        # A label the model invented rather than picked would fragment the
+        # vocabulary again, which is the exact bug this rewrite exists to kill.
+        if p and l and l in allowed:
+            out[p] = l
+    return out
+
+
+def canonicalise(client, phrases):
+    """Map every raw theme to a shared label. Returns {raw: canonical}; an
+    empty map on failure means the caller keeps the raw phrases (degraded
+    convergence, not wrong convergence).
+
+    A batch that fails leaves ITS phrases raw and the rest mapped -- partial
+    canonicalisation is strictly better than none, and the caller reports the
+    coverage so a degraded run is visible in the bundle instead of silent."""
+    if not phrases:
+        return {}
+    ordered = sorted(phrases)
+    labels = propose_labels(client, ordered)
+    if not labels:
+        print("  no vocabulary — keeping raw themes", flush=True)
+        return {}
+    mapping, failed = {}, 0
+    batches = [ordered[i:i + ASSIGN_BATCH] for i in range(0, len(ordered), ASSIGN_BATCH)]
+    print(f"  assigning {len(ordered)} themes to {len(labels)} labels "
+          f"in {len(batches)} batch(es)", flush=True)
+    for i, batch in enumerate(batches, 1):
+        got = assign_batch(client, labels, batch)
+        if not got:
+            failed += 1
+            print(f"    batch {i}/{len(batches)} returned nothing — "
+                  f"{len(batch)} phrase(s) stay raw", flush=True)
+        mapping.update(got)
+        time.sleep(0.2)
+    pct = 100.0 * len(mapping) / len(ordered)
+    print(f"  canonicalised {len(mapping)}/{len(ordered)} themes ({pct:.0f}%) "
+          f"onto {len(set(mapping.values()))} labels"
+          + (f", {failed} batch(es) failed" if failed else ""), flush=True)
     return mapping
 
 
@@ -603,10 +689,18 @@ def main():
         # one. Only model-read themes qualify.
         "narrativeGrade": graded,
         "extraction": "llm-themes-from-mdna" if graded else "none",
-        "models": {"extract": EXTRACT_MODEL, "canonicalise": CANON_MODEL} if graded else {},
+        "models": {"extract": EXTRACT_MODEL, "vocabulary": CANON_MODEL,
+                   "assign": ASSIGN_MODEL} if graded else {},
         "themeCalls": extracted_calls,
         "cachedPeriods": reused,
         "canonicalThemes": len(set(mapping.values())) if mapping else None,
+        # Convergence counting is string equality, so an unmapped phrase can
+        # only ever match itself. This ratio IS the Radar's sensitivity: at
+        # 0.0 the board is raw phrasing and undercounts badly (the 224-company
+        # run shipped exactly that way, invisibly). Publish it so a degraded
+        # corpus is legible in the bundle instead of inferred from a null.
+        "rawThemes": len(raw),
+        "canonCoverage": round(len(mapping) / len(raw), 3) if raw else 0.0,
     }
     js = ("/* MANAGEMENT LANGUAGE — strategic themes read out of SEC MD&A sections\n"
           "   (and earnings-call transcripts where available) by a model, then\n"
