@@ -1812,5 +1812,57 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
     "the hero's ranked count names which model it belongs to");
 }
 
+// =============== 39. Narrative Screen ===============
+// Built because the terminal could show that N companies share a strategy and
+// could rank all 224 names, but nothing joined the two -- so "what is the best
+// AI name?" could only be answered by hand-picking a ticker list and sorting it
+// off-app. A hand-picked list is unfalsifiable. These pin the two properties
+// that make this view defensible: membership comes from the company's own
+// filing, and the ranking is the Master Signal itself rather than a new score.
+{
+  const screens = E.narrativeScreens();
+  if (!E.languageReady()) {
+    ok(true, "language corpus not armed — narrative screen tests skipped by design");
+  } else {
+    ok(Array.isArray(screens) && screens.length > 0, "screenable themes are enumerable", String(screens && screens.length));
+    const s = E.narrativeScreenOf(screens[0]);
+    ok(s && s.members.length >= 3, "a screen carries its member companies", s ? String(s.members.length) : "null");
+    ok(s.members.length === s.dfNow, "member count equals the convergence count the Radar advertises",
+      `${s.members.length} vs ${s.dfNow}`);
+
+    // MEMBERSHIP IS EVIDENCED, NOT ASSERTED: every member's own latest period
+    // must actually carry the phrase. This is the property that makes the
+    // screen reproducible instead of a curated list.
+    const corpus = E.languageCorpus();
+    ok(s.members.every(m => {
+      const c = corpus.find(x => x.ticker === m.ticker);
+      return c && c.latest.phrases && c.latest.phrases[s.phrase];
+    }), "every member's own latest filing states the phrase — membership is never curated");
+
+    // THE SCREEN INVENTS NO SCORE. A name must never look better here than on
+    // the main board; that divergence is exactly the bug this whole session
+    // has been removing from the home screen.
+    const board = E.masterBoard();
+    ok(s.members.filter(m => m.m).every(m => {
+      const row = board.find(r => r.ticker === m.ticker);
+      return row && row.score === m.m.score && board.indexOf(row) + 1 === m.rank;
+    }), "member scores and ranks are the Master Signal's own, unmodified");
+
+    // Sorted best-first, with unrankable names last rather than hidden.
+    const scores = s.members.map(m => (m.m ? m.m.score : -1));
+    ok(scores.every((v, i) => i === 0 || scores[i - 1] >= v), "members are ranked best-first", scores.join(","));
+    ok(s.best == null || s.best.m, "the headline pick is always a rankable name");
+    ok(s.ranked + s.unranked === s.members.length, "rankable and unrankable members are both accounted for");
+
+    // Evidence must never be borrowed from another theme.
+    ok(s.members.every(m => !m.saidAs || m.saidAs.length > 0), "stated-as evidence is either real or absent");
+    ok(s.members.every(m => m.evidencePending === !m.saidAs),
+      "a member with no attributed wording is flagged pending, not filled with its other themes");
+
+    ok(E.narrativeScreenOf("a phrase no company has ever uttered") === null,
+      "an unknown phrase yields no screen rather than an empty one");
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

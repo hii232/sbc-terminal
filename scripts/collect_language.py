@@ -669,6 +669,12 @@ def main():
     for co in bundle.values():
         for p in co["periods"]:
             labels = [mapping.get(t["theme"], t["theme"]) for t in p["themes"]]
+            # Record which canonical label each raw theme folded into. Without
+            # it the app can show that six companies share a strategy but not
+            # WHICH words each of them used, so the Narrative Screen would have
+            # to assert membership instead of evidencing it.
+            for t, lab in zip(p["themes"], labels):
+                t["label"] = lab
             # the engine consumes {phrase: weight}; one mention per theme per
             # period, because breadth across companies is the signal, not
             # how many times one company repeated itself
