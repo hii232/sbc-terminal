@@ -2,7 +2,7 @@
  "ticker": "ON",
  "cik": "0001097864",
  "entityName": "ON Semiconductor Corporation",
- "retrievedAt": "2026-08-03T13:41:20.783152Z",
+ "retrievedAt": "2026-08-04T04:56:06.092934Z",
  "fields": {
   "buyback": [
    {
@@ -1778,12 +1778,12 @@
     "confidence": 100
    },
    {
-    "value": 391903191,
+    "value": 389311721,
     "unit": "shares",
-    "periodEnd": "2026-04-29",
+    "periodEnd": "2026-07-29",
     "form": "10-Q",
-    "filedDate": "2026-05-04",
-    "accessionNumber": "0001097864-26-000014",
+    "filedDate": "2026-08-03",
+    "accessionNumber": "0001097864-26-000017",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

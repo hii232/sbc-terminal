@@ -2,7 +2,7 @@
  "ticker": "EA",
  "cik": "0000712515",
  "entityName": "ELECTRONIC ARTS INC.",
- "retrievedAt": "2026-08-03T13:41:30.684614Z",
+ "retrievedAt": "2026-08-04T04:56:14.282969Z",
  "fields": {
   "buyback": [
    {
@@ -743,19 +743,19 @@
     "unit": "USD",
     "periodStart": "2021-04-01",
     "periodEnd": "2022-03-31",
-    "fiscalYear": 2024,
+    "fiscalYear": 2026,
     "fiscalPeriod": "FY",
-    "form": "10-K",
-    "filedDate": "2024-05-22",
-    "accessionNumber": "0000712515-24-000023",
+    "form": "10-K/A",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0001308179-26-000382",
     "xbrlTag": "us-gaap:NetIncomeLoss",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": true,
     "supersedes": {
      "value": 789000000,
-     "filed": "2023-05-24",
-     "accn": "0000712515-23-000028"
+     "filed": "2024-05-22",
+     "accn": "0000712515-24-000023"
     },
     "confidence": 100
    },
@@ -764,19 +764,19 @@
     "unit": "USD",
     "periodStart": "2022-04-01",
     "periodEnd": "2023-03-31",
-    "fiscalYear": 2025,
+    "fiscalYear": 2026,
     "fiscalPeriod": "FY",
-    "form": "10-K",
-    "filedDate": "2025-05-13",
-    "accessionNumber": "0000712515-25-000022",
+    "form": "10-K/A",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0001308179-26-000382",
     "xbrlTag": "us-gaap:NetIncomeLoss",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": true,
     "supersedes": {
      "value": 802000000,
-     "filed": "2024-05-22",
-     "accn": "0000712515-24-000023"
+     "filed": "2025-05-13",
+     "accn": "0000712515-25-000022"
     },
     "confidence": 100
    },
@@ -787,17 +787,17 @@
     "periodEnd": "2024-03-31",
     "fiscalYear": 2026,
     "fiscalPeriod": "FY",
-    "form": "10-K",
-    "filedDate": "2026-05-11",
-    "accessionNumber": "0001628280-26-033617",
+    "form": "10-K/A",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0001308179-26-000382",
     "xbrlTag": "us-gaap:NetIncomeLoss",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": true,
     "supersedes": {
      "value": 1273000000,
-     "filed": "2025-05-13",
-     "accn": "0000712515-25-000022"
+     "filed": "2026-05-11",
+     "accn": "0001628280-26-033617"
     },
     "confidence": 100
    },
@@ -808,17 +808,17 @@
     "periodEnd": "2025-03-31",
     "fiscalYear": 2026,
     "fiscalPeriod": "FY",
-    "form": "10-K",
-    "filedDate": "2026-05-11",
-    "accessionNumber": "0001628280-26-033617",
+    "form": "10-K/A",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0001308179-26-000382",
     "xbrlTag": "us-gaap:NetIncomeLoss",
     "sourceType": "SEC",
     "sourceStatus": "reported",
     "restated": true,
     "supersedes": {
      "value": 1121000000,
-     "filed": "2025-05-13",
-     "accn": "0000712515-25-000022"
+     "filed": "2026-05-11",
+     "accn": "0001628280-26-033617"
     },
     "confidence": 100
    },
@@ -829,14 +829,18 @@
     "periodEnd": "2026-03-31",
     "fiscalYear": 2026,
     "fiscalPeriod": "FY",
-    "form": "10-K",
-    "filedDate": "2026-05-11",
-    "accessionNumber": "0001628280-26-033617",
+    "form": "10-K/A",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0001308179-26-000382",
     "xbrlTag": "us-gaap:NetIncomeLoss",
     "sourceType": "SEC",
     "sourceStatus": "reported",
-    "restated": false,
-    "supersedes": null,
+    "restated": true,
+    "supersedes": {
+     "value": 887000000,
+     "filed": "2026-05-11",
+     "accn": "0001628280-26-033617"
+    },
     "confidence": 100
    }
   ],
@@ -1774,12 +1778,12 @@
     "confidence": 100
    },
    {
-    "value": 250751484,
+    "value": 252387410,
     "unit": "shares",
-    "periodEnd": "2026-05-06",
-    "form": "10-K",
-    "filedDate": "2026-05-11",
-    "accessionNumber": "0001628280-26-033617",
+    "periodEnd": "2026-07-29",
+    "form": "10-Q",
+    "filedDate": "2026-08-03",
+    "accessionNumber": "0001628280-26-051829",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
@@ -1788,8 +1792,8 @@
   ]
  },
  "latestFiling": {
-  "filed": "2026-05-11",
-  "form": "10-K",
-  "accn": "0001628280-26-033617"
+  "filed": "2026-07-28",
+  "form": "10-K/A",
+  "accn": "0001308179-26-000382"
  }
 }

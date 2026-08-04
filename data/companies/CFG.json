@@ -2,7 +2,7 @@
  "ticker": "CFG",
  "cik": "0000759944",
  "entityName": "CITIZENS FINANCIAL GROUP INC/RI",
- "retrievedAt": "2026-08-03T13:41:48.266294Z",
+ "retrievedAt": "2026-08-04T04:56:25.313026Z",
  "fields": {
   "buyback": [
    {
@@ -1678,12 +1678,12 @@
     "confidence": 100
    },
    {
-    "value": 422881942,
+    "value": 421176788,
     "unit": "shares",
-    "periodEnd": "2026-04-24",
+    "periodEnd": "2026-07-24",
     "form": "10-Q",
-    "filedDate": "2026-05-04",
-    "accessionNumber": "0000759944-26-000101",
+    "filedDate": "2026-08-03",
+    "accessionNumber": "0000759944-26-000148",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
