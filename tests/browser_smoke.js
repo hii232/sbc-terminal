@@ -118,12 +118,13 @@ async function main() {
 
     const views = [
       ["#easyBtn", "TODAY'S GAME PLAN"],
-      ["#signalsBtn", "THE MASTER SIGNAL"],
+      ["#signalsBtn", "WHAT CHANGED"],
+      ["#masterBtn", "THE MASTER SIGNAL"],
       ["#narrBtn", "MARKET NARRATIVES"],
       ["#fpeBtn", "FORWARD P/E"],
       ["#dailyBtn", "DAILY REVIEW"],
       ["#edgeBtn", "DIRECTION EDGE"],
-      ["#rankBtn", "MASTER RANKINGS"],
+      ["#rankBtn", "BRAIN SCORE"],
       ["#trackBtn", "SIGNAL CALIBRATION"],
       ["#auditBtn", "DATA AUDIT"],
       ["#compareBtn", "COMPARE"],
@@ -154,7 +155,7 @@ async function main() {
     if (cal.upcoming > 0) ok(cal.text.includes("UP NEXT"), "upcoming reports table missing despite rows");
 
     // Master Signal board: the ranked table renders, and its rank/size controls work.
-    await page.evaluate(() => document.querySelector("#signalsBtn").click());
+    await page.evaluate(() => document.querySelector("#masterBtn").click());
     await page.waitForFunction(() => document.querySelector("#main")?.textContent.includes("THE MASTER SIGNAL"), { timeout: 3000 });
     const boardRows = await page.evaluate(() => document.querySelectorAll("#main table.rank tbody tr[data-tk]").length);
     ok(boardRows >= 20, "master signal board renders its ranked rows", String(boardRows));
@@ -176,7 +177,22 @@ async function main() {
       hasWatch: !!document.querySelector("#topnav #topWatch"),
     }));
     ok(topnav.groups >= 4 && topnav.groups <= 7, "top nav condensed into 4-7 groups", String(topnav.groups));
-    ok(topnav.tools === 18, "all 18 tools reachable from the top nav", String(topnav.tools));
+    // Derived from the app's own nav definition, not a magic number: a
+    // hardcoded count fails on every nav change and teaches nothing. What
+    // matters is that EVERY defined tool is reachable and none is orphaned.
+    const navExpect = await page.evaluate(() => {
+      const g = window.__engines.NAV_GROUPS || [];
+      const defined = g.flatMap((x) => x.tools.map((t) => t.id));
+      const rendered = [...document.querySelectorAll("#topnav .topnav-group [data-tool]")].map((b) => b.dataset.tool);
+      return { defined, rendered, missing: defined.filter((id) => !rendered.includes(id)),
+        orphaned: rendered.filter((id) => !document.getElementById(id)) };
+    });
+    ok(topnav.tools === navExpect.defined.length,
+      "every tool the nav defines is reachable from the top nav",
+      `${topnav.tools} rendered vs ${navExpect.defined.length} defined`);
+    ok(!navExpect.missing.length, "no defined tool is missing from the top nav", navExpect.missing.join(","));
+    ok(!navExpect.orphaned.length, "no nav item points at a button that does not exist", navExpect.orphaned.join(","));
+    ok(navExpect.defined.includes("masterBtn"), "the Master Signal has its own top-level nav entry");
     ok(topnav.hasWatch, "watchlist reachable from the top nav");
     await page.evaluate(() => {
       const g = [...document.querySelectorAll("#topnav .topnav-group")].find((x) => x.querySelector('[data-tool="screenBtn"]'));
@@ -206,8 +222,11 @@ async function main() {
     ok(mobile.topnavHidden, "the scrolling top nav is hidden on mobile in favour of the tab bar");
     ok(mobile.pinnedToBottom, "the tab bar is pinned to the bottom of the viewport");
     ok(!mobile.overflow, "mobile viewport has horizontal overflow");
-    // every one of the 18 tools is still reachable: 4 on the bar + the rest in More
-    ok(mobile.sheetTools + 4 === 18, "all 18 tools reachable (4 tabs + More sheet)", `${mobile.sheetTools}+4`);
+    // every defined tool is still reachable on mobile: 4 on the bar + the rest
+    // in the More sheet. Derived from the nav definition, never hardcoded.
+    ok(mobile.sheetTools + 4 === navExpect.defined.length,
+      "every tool is reachable on mobile (4 tabs + More sheet)",
+      `${mobile.sheetTools}+4 vs ${navExpect.defined.length} defined`);
     // the More sheet actually opens and routes
     await page.evaluate(() => document.querySelector('#tabbar [data-tab="__more"]').click());
     await page.waitForFunction(() => document.querySelector("#moreSheet")?.classList.contains("open"), { timeout: 3000 });
