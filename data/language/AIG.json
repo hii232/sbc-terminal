@@ -3,6 +3,18 @@
  "sector": "Insurance",
  "periods": [
   {
+   "period": "2026Q1",
+   "date": "2026-05-01",
+   "source": "SEC 10-Q MD&A",
+   "words": 575,
+   "themes": [
+    {
+     "theme": "capital return to shareholders",
+     "quote": "repurchased approximately 7 million shares of AIG common stock for an aggregate purchase price of $0.5 billion"
+    }
+   ]
+  },
+  {
    "period": "2025Q4",
    "date": "2026-02-12",
    "source": "SEC 10-K MD&A",

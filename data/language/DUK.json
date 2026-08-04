@@ -3,6 +3,38 @@
  "sector": "Utilities",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 8131,
+   "themes": [
+    {
+     "theme": "data center capacity expansion",
+     "quote": "Demand associated with data center development remains a significant contributor to projected load growth. We continue to expand our portfolio of data center electric service agreements, increasing contracted capacity while maintaining a di"
+    },
+    {
+     "theme": "nuclear capacity extensions",
+     "quote": "Our nuclear fleet continues to provide a significant source of reliable, carbon-free and cost-competitive generation. In February 2026, we announced that our nuclear fleet achieved a record systemwide capacity factor in 2025. In April 2026,"
+    },
+    {
+     "theme": "utility combination optimization",
+     "quote": "The FERC issued an order authorizing the proposed combination of our two electric utilities operating in the Carolinas, finding the transaction consistent with the public interest. The companies also reached comprehensive settlements with i"
+    },
+    {
+     "theme": "tax credit monetization",
+     "quote": "Duke Energy Carolinas, Duke Energy Progress and Duke Energy Florida are also monetizing tax credits in the transferability markets established by the IRA and are working with utility commissions on the appropriate regulatory process to pass"
+    },
+    {
+     "theme": "generation asset portfolio modernization",
+     "quote": "We received CECPCN approval from the PSCSC for a new combined-cycle generating unit in Anderson County, South Carolina, as well as out-of-state certificates for new combustion turbine facilities at Marshall Steam Station and new combined-cy"
+    },
+    {
+     "theme": "infrastructure investment financing",
+     "quote": "We completed two strategic transactions that generated approximately $5.3 billion of proceeds to support future infrastructure investments. On March 3, 2026, we completed the first closing of a minority investment in Florida Progress for ap"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -59,38 +91,6 @@
     {
      "theme": "natural gas pipeline capacity",
      "quote": "Duke Energy Ohio and Piedmont routinely enter into long-term natural gas supply commodity and capacity commitments and other agreements that commit future cash flows to acquire services needed in their businesses"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 9211,
-   "themes": [
-    {
-     "theme": "natural gas generation expansion",
-     "quote": "These advanced natural gas plants, along with our planned CTs, will provide critical generation as we continue to modernize our energy infrastructure in the coming years."
-    },
-    {
-     "theme": "nuclear license extension",
-     "quote": "In March 2025, the NRC issued a subsequent license renewal for Oconee that allows an additional 20 years of operation through 2054. Oconee is the first Duke Energy nuclear facility to reach this significant approval milestone to permit exte"
-    },
-    {
-     "theme": "utility consolidation and merger",
-     "quote": "In August 2025, Duke Energy filed applications...to combine our utilities that operate in the Carolinas, by which Duke Energy Progress will merge into Duke Energy Carolinas...expected to result in substantial cost savings to benefit custome"
-    },
-    {
-     "theme": "storm recovery securitization",
-     "quote": "In September 2025, we issued North Carolina storm recovery bonds and expect to securitize the related South Carolina storm costs by the end of 2025."
-    },
-    {
-     "theme": "large industrial customer acquisition",
-     "quote": "In June 2025, the governor of North Carolina announced Amazon is planning to invest an estimated $10 billion to launch a new high-tech cloud computing and artificial intelligence innovation campus in Richmond County, North Carolina...locate"
-    },
-    {
-     "theme": "pumped storage license renewal",
-     "quote": "In July 2025, Duke Energy Carolinas filed its final license application with the FERC to extend the operating license for the Bad Creek Pumped Storage Hydroelectric Station...extend plant operations for an additional 50 years through 2077."
     }
    ]
   }

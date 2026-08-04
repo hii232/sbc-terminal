@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 14618,
+   "themes": [
+    {
+     "theme": "mortgage servicing right fair value hedging",
+     "quote": "On December 31, 2025, the Company began economically hedging the risk of fair value changes in these assets through the use of various interest rate and other derivative contracts"
+    },
+    {
+     "theme": "sub-servicing portfolio expansion",
+     "quote": "In February 2025 and June 2026 the Company began sub-servicing $51.7 billion and $62.9 billion, respectively, of additional residential mortgage loans"
+    },
+    {
+     "theme": "commercial real estate concentration reduction",
+     "quote": "The Company executed various strategies to reduce the amount of criticized loans in this category throughout 2025"
+    },
+    {
+     "theme": "deposit cost management",
+     "quote": "a 6 basis-point expansion of the net interest margin as reductions in deposit and borrowing costs outpaced a decline in yields received on earning assets"
+    },
+    {
+     "theme": "technology infrastructure enhancement",
+     "quote": "outside data processing and software expense related to enhancements to the Company's technology infrastructure, cybersecurity and financial recordkeeping and reporting systems"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "risk management and credit quality",
      "quote": "Enhanced our credit risk management processes to address elevated credit exposures and monitor emerging risks in key portfolios"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-27",
-   "source": "SEC 10-Q MD&A",
-   "words": 14188,
-   "themes": [
-    {
-     "theme": "commercial real estate concentration reduction",
-     "quote": "The Company executed various strategies to lessen its relative concentration of investor-owned commercial real estate loans throughout 2024 and to reduce criticized loans in this category through 2025."
-    },
-    {
-     "theme": "net interest margin optimization",
-     "quote": "the net interest margin expanded 6 basis points...reflecting favorable earning assets and interest-bearing liabilities repricing"
-    },
-    {
-     "theme": "mortgage banking revenue expansion",
-     "quote": "higher residential mortgage banking revenues and a rise in other revenues from operations...The increase in residential mortgage banking revenues in the third quarter of 2025 as compared with the second quarter of 2025 reflects a rise in th"
-    },
-    {
-     "theme": "technology infrastructure enhancement",
-     "quote": "$45 million increase in outside data processing and software costs reflecting costs associated with enhancements to the Company's technology infrastructure, cybersecurity and financial recordkeeping and reporting systems"
-    },
-    {
-     "theme": "long-term debt requirements preparation",
-     "quote": "diversify its wholesale funding sources to provide long-term funding stabilization and prepare for proposed regulations enumerating certain long-term debt requirements"
     }
    ]
   }
