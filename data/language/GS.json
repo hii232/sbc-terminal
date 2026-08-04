@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 40754,
+   "themes": [
+    {
+     "theme": "wealth management growth",
+     "quote": "Net revenues in Asset & Wealth Management were significantly higher, reflecting significantly higher Management and other fees and significantly higher net revenues in Investments"
+    },
+    {
+     "theme": "investment banking fees expansion",
+     "quote": "Investment banking revenues in the consolidated statements of earnings were $3.40 billion for the second quarter of 2026, 55% higher than the second quarter of 2025, primarily due to significantly higher revenues in equity underwriting"
+    },
+    {
+     "theme": "market making intermediation",
+     "quote": "Market making revenues in the consolidated statements of earnings were $7.64 billion for the second quarter of 2026, 61% higher than the second quarter of 2025, reflecting significantly higher revenues from both intermediation and financing"
+    },
+    {
+     "theme": "capital return to shareholders",
+     "quote": "During the first half of 2026, we returned a total of $11.74 billion of capital to common shareholders, including $9.00 billion of common stock repurchases and $2.74 billion of common stock dividends"
+    },
+    {
+     "theme": "platform solutions portfolio reduction",
+     "quote": "Net revenues in Platform Solutions were significantly lower, primarily reflecting net markdowns related to the Apple Card loan portfolio, which was transferred to held for sale in the fourth quarter of 2025"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-01",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "wealth management client relationship deepening",
      "quote": "higher net revenues in Private banking and lending and, to a lesser extent, higher Incentive fees"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-31",
-   "source": "SEC 10-Q MD&A",
-   "words": 42220,
-   "themes": [
-    {
-     "theme": "private banking and lending expansion",
-     "quote": "significantly higher net revenues in Private banking and lending"
-    },
-    {
-     "theme": "investment banking fee growth",
-     "quote": "significantly higher Investment banking fees and higher net revenues in Fixed Income, Currency and Commodities (FICC) and Equities"
-    },
-    {
-     "theme": "credit card portfolio management",
-     "quote": "Provisions for the third quarter of 2025 primarily reflected net provisions related to the credit card portfolio (driven by net charge-offs)"
-    },
-    {
-     "theme": "operational efficiency improvement",
-     "quote": "we announced a multi-year initiative, OneGS 3.0, to transform our operating model. We expect that the new operating model will drive efficiencies and create capacity for future growth"
-    },
-    {
-     "theme": "consolidated investment entity rationalization",
-     "quote": "significantly lower expenses, including impairments, from consolidated investment entities (CIEs)"
     }
    ]
   }

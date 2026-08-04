@@ -3,6 +3,30 @@
  "sector": "Gaming",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 6488,
+   "themes": [
+    {
+     "theme": "live services monetization expansion",
+     "quote": "Our most popular live services are the extra content in the Ultimate Team mode associated with our sports franchises. Ultimate Team allows players to collect current and former players in order to build and compete as a personalized team. L"
+    },
+    {
+     "theme": "digital game distribution shift",
+     "quote": "In our industry, players increasingly purchase games digitally as opposed to purchasing physical discs. While this trend, as applied to our business, may not be linear due to a mix of products during a fiscal year, consumer buying patterns "
+    },
+    {
+     "theme": "franchise-based player engagement",
+     "quote": "We are focusing on building games and experiences that grow the global online communities around our key franchises; deepening engagement through connecting interactive storytelling to key intellectual property; and harnessing our communiti"
+    },
+    {
+     "theme": "sports ip portfolio concentration",
+     "quote": "a significant portion of our revenue has been derived from games based on a few popular titles, such as EA SPORTS FC, EA SPORTS College Football, EA SPORTS Madden NFL, Apex Legends, Battlefield, and The Sims. In particular, we have historic"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-11",
    "source": "SEC 10-K MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "online community engagement",
      "quote": "we are focusing on building games and experiences that grow the global online communities around our key franchises; deepening engagement through connecting interactive storytelling to key intellectual property; and harnessing our communiti"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-31",
-   "source": "SEC 10-Q MD&A",
-   "words": 7382,
-   "themes": [
-    {
-     "theme": "live services monetization",
-     "quote": "Live services and other net revenue was $1,221 million...we expect that live services net revenue will continue to be material to our business"
-    },
-    {
-     "theme": "digital game distribution",
-     "quote": "we expect players to continue to purchase a higher proportion of our games digitally...we estimate that 78 percent of our total units sold during fiscal years 2025 were sold digitally"
-    },
-    {
-     "theme": "sports franchise content expansion",
-     "quote": "a significant portion of our net revenue has been derived from games based on a few popular titles, such as EA SPORTS FC, EA SPORTS College Football, EA SPORTS Madden NFL"
-    },
-    {
-     "theme": "free-to-play game development",
-     "quote": "for sales beginning July 1, 2025, the revenue that we recognize for service-related performance obligation related to our mobile free-to-play and PC and console free-to-play games is recognized generally over an eleven-month period"
-    },
-    {
-     "theme": "new game franchise launches",
-     "quote": "net bookings decreased primarily due to a year-over-year decrease in sales from EA SPORTS College Football and our global football franchise, partially offset by an increase in sales from Split Fiction"
     }
    ]
   }

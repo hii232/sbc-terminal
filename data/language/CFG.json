@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 18662,
+   "themes": [
+    {
+     "theme": "private bank wealth expansion",
+     "quote": "continued expansion of Private Bank and Private Wealth, and our aim to position us as a more innovative, modern, and customer-centric bank"
+    },
+    {
+     "theme": "capital markets fee growth",
+     "quote": "Capital markets fees increased driven by higher M&A, loan syndication, and bond underwriting fees"
+    },
+    {
+     "theme": "technology modernization",
+     "quote": "costs to implement our Reimagine the Bank program, which leverages technology innovation to reshape how we serve customers and operate our business"
+    },
+    {
+     "theme": "net interest margin optimization",
+     "quote": "higher net interest margin, terminated swap impacts, and fixed-rate asset repricing benefits"
+    },
+    {
+     "theme": "deposit mix optimization",
+     "quote": "growth in the Private Bank and a decrease in insured Treasury brokered deposits as we continued to optimize our deposit mix"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-04",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "capital markets capabilities expansion",
      "quote": "strong capital markets fee performance and increased medical benefit costs, and outside services given investments across the enterprise"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 18886,
-   "themes": [
-    {
-     "theme": "private banking and wealth expansion",
-     "quote": "salaries and employee benefits reflecting hiring related to the Private Bank and Private Wealth build-out"
-    },
-    {
-     "theme": "non-core portfolio runoff",
-     "quote": "provision expense decreased reflecting runoff of the Non-Core portfolio and improving loan mix"
-    },
-    {
-     "theme": "net interest margin expansion",
-     "quote": "net interest margin on an FTE basis increased 23 basis points driven by lower funding costs, the time-based benefits of the Non-Core portfolio runoff, terminated swap impacts, and fixed-rate asset repricing benefits"
-    },
-    {
-     "theme": "capital markets fee growth",
-     "quote": "Capital markets fees increased driven by higher M&A, loan syndication, and equity underwriting fees"
-    },
-    {
-     "theme": "deposit stability and funding efficiency",
-     "quote": "organically generated deposits continue to be our primary source of funding, resulting in a consolidated period-end loan-to-deposit ratio of 78.3%"
     }
    ]
   }

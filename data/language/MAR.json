@@ -3,6 +3,30 @@
  "sector": "Travel",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 2957,
+   "themes": [
+    {
+     "theme": "residential branding expansion",
+     "quote": "higher residential branding fees ($32 million)"
+    },
+    {
+     "theme": "co-branded credit card program",
+     "quote": "executed new multi-year agreements in the U.S. with JPMorgan Chase and American Express in connection with our co-branded credit card program"
+    },
+    {
+     "theme": "technology systems transformation",
+     "quote": "higher than typical spending on our worldwide technology systems transformation, the overwhelming portion of which we expect to be reimbursed over time"
+    },
+    {
+     "theme": "global rooms pipeline growth",
+     "quote": "we had nearly 4,200 properties and approximately 629,000 rooms in our development pipeline"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "pipeline growth acceleration",
      "quote": "we also had approximately 4,100 properties (nearly 610,000 rooms) in our development pipeline"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 2949,
-   "themes": [
-    {
-     "theme": "global rooms pipeline expansion",
-     "quote": "we had approximately 3,900 properties and over 596,000 rooms in our development pipeline"
-    },
-    {
-     "theme": "technology systems transformation",
-     "quote": "higher than typical spending on our worldwide technology systems transformation, the overwhelming portion of which we expect to be reimbursed over time"
-    },
-    {
-     "theme": "luxury and upper-midscale positioning",
-     "quote": "strong demand at our luxury hotels, offset by weaker business transient demand at our select service hotels"
-    },
-    {
-     "theme": "international geographic diversification",
-     "quote": "Over half of the rooms in our quarter-end development pipeline are located outside U.S. & Canada"
-    },
-    {
-     "theme": "asset-light franchise model",
-     "quote": "Under our asset-light business model, we typically manage or franchise hotels and other lodging offerings, rather than own them"
     }
    ]
   }

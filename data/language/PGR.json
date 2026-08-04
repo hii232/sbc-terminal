@@ -3,6 +3,34 @@
  "sector": "Insurance",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 9851,
+   "themes": [
+    {
+     "theme": "customer retention initiatives",
+     "quote": "increasing retention continues to be one of our most important priorities"
+    },
+    {
+     "theme": "bundled household expansion",
+     "quote": "Increasing our share of Progressive auto and personal property bundled households (i.e., Robinsons) remains a key initiative"
+    },
+    {
+     "theme": "usage-based insurance adoption",
+     "quote": "We believe a key element in improving the accuracy of our personal auto rating is Snapshot\u00ae, our usage-based insurance offering"
+    },
+    {
+     "theme": "catastrophe reinsurance capacity",
+     "quote": "During the second quarter 2026, we entered into new reinsurance contracts under our per occurrence excess of loss program for our personal property business"
+    },
+    {
+     "theme": "targeted rate increases",
+     "quote": "We intend to continue to make targeted rate increases in states where we are not achieving our profitability goals"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-04",
    "source": "SEC 10-Q MD&A",
@@ -59,34 +87,6 @@
     {
      "theme": "data and analytics utilization",
      "quote": "we leverage data analytics and predictive models to improve pricing accuracy and risk selection across all segments"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 12953,
-   "themes": [
-    {
-     "theme": "usage-based insurance expansion",
-     "quote": "We believe a key element in improving the accuracy of our personal auto rating is Snapshot\u00ae, our usage-based insurance offering... our latest segmentation model was available in states that represented 78% of our countrywide personal auto n"
-    },
-    {
-     "theme": "bundled auto-property policies",
-     "quote": "Our efforts to increase our share of Progressive auto and personal property bundled households (i.e., Robinsons) remains a key initiative, and we plan to continue to make investments to improve the customer experience"
-    },
-    {
-     "theme": "weather-exposed property underwriting discipline",
-     "quote": "we continued to focus on improving profitability and reducing exposure in more volatile weather-related markets, and, where permitted, on slowing growth and non-renewing policies... accepting new business for our homeowners product only whe"
-    },
-    {
-     "theme": "customer retention prioritization",
-     "quote": "We realize that to grow policies in force, it is critical that we retain our customers for longer periods. Consequently, increasing retention continues to be one of our most important priorities"
-    },
-    {
-     "theme": "higher surplus leverage ratios",
-     "quote": "two states have permitted us to target a premiums-to-surplus ratio for our vehicle businesses to a maximum ratio of 3.5 to 1 based on our strong financial condition. This approval reduces the amount of capital we may need to hold at our app"
     }
    ]
   }

@@ -3,6 +3,34 @@
  "sector": "Energy",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 4053,
+   "themes": [
+    {
+     "theme": "guyana and permian production growth",
+     "quote": "Advantaged Volume Growth \u2013 Increased earnings by $1,140 million, mainly driven by Guyana and Permian growth"
+    },
+    {
+     "theme": "refining margin optimization",
+     "quote": "Volume / Mix Margin \u2013 Increased earnings by $3,180 million from stronger refining margins"
+    },
+    {
+     "theme": "structural cost reduction",
+     "quote": "estimated cumulative Structural Cost Savings totaled $16.3 billion, which included an additional $1.2 billion in the first six months of 2026"
+    },
+    {
+     "theme": "low-carbon investment portfolio",
+     "quote": "Capital investment guidance in lower-emission investments is based on our Corporate plan; however, actual investment levels will be subject to the availability of the opportunity set and public policy support"
+    },
+    {
+     "theme": "carbon capture and storage deployment",
+     "quote": "discussion of future plans related to carbon capture, transportation and storage, lower-emission fuels, hydrogen and ammonia, direct air capture"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-04",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "operational efficiency gains",
      "quote": "Focus on reducing unit costs and improving operational margins through capital discipline and efficiency initiatives"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 4038,
-   "themes": [
-    {
-     "theme": "guyana and permian production ramp",
-     "quote": "Increased earnings by $1,500 million, mainly driven by Permian and Guyana growth"
-    },
-    {
-     "theme": "structural cost savings program",
-     "quote": "estimated cumulative Structural Cost Savings totaled $14.3 billion, which included an additional $2.2 billion in the first nine months of 2025"
-    },
-    {
-     "theme": "high-value products development",
-     "quote": "Record high-value product sales increased earnings by $100 million"
-    },
-    {
-     "theme": "lng expansion",
-     "quote": "Advantaged Assets (Advantaged growth projects). Includes Permian, Guyana, and LNG"
-    },
-    {
-     "theme": "low-carbon technology investment",
-     "quote": "higher expenses, including spending on carbon materials market development and Proxxima TM systems, decreased earnings by $190 million"
     }
    ]
   }

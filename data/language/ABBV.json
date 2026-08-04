@@ -3,6 +3,34 @@
  "sector": "Pharma",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 3949,
+   "themes": [
+    {
+     "theme": "obesity indication expansion",
+     "quote": "continuing to invest in and expand its pipeline in support of opportunities in immunology, neuroscience, oncology and aesthetics as well as new sources of growth such as obesity"
+    },
+    {
+     "theme": "advanced manufacturing buildout",
+     "quote": "AbbVie announced an investment to build a pharmaceutical manufacturing campus in North Carolina. The campus will integrate advanced manufacturing and laboratory technologies with artificial intelligence to support the production of immunolo"
+    },
+    {
+     "theme": "pipeline advancement to late stage",
+     "quote": "AbbVie expects multiple mid-stage programs to transition into late-stage programs in the next 12 months"
+    },
+    {
+     "theme": "biosimilar competition mitigation",
+     "quote": "Net revenues for Humira decreased 36% for the three months and 38% for the six months ended June 30, 2026 primarily driven by continued impact of direct biosimilar competition following the loss of exclusivity"
+    },
+    {
+     "theme": "specialty immunology market share",
+     "quote": "Net revenues for Skyrizi increased 24% for the three months and 26% for the six months ended June 30, 2026 primarily driven by continued strong market share uptake as well as market growth across all indications"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "manufacturing footprint optimization",
      "quote": "optimizing our global manufacturing footprint to improve operational efficiency and supply chain resilience"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 4829,
-   "themes": [
-    {
-     "theme": "pipeline expansion immunology",
-     "quote": "continuing to invest in and expand its pipeline in support of opportunities in immunology, neuroscience, oncology, aesthetics and eye care"
-    },
-    {
-     "theme": "obesity therapeutic development",
-     "quote": "AbbVie's recently announced partnership with Gubra marks the company's entrance into the obesity field, a therapeutic area with significant unmet need"
-    },
-    {
-     "theme": "domestic manufacturing capacity",
-     "quote": "AbbVie announced the start of construction of a new active pharmaceutical ingredient facility in Illinois and an expansion of biologics manufacturing and research and development capacity in Massachusetts"
-    },
-    {
-     "theme": "intellectual property lifecycle extension",
-     "quote": "settlement of litigation with all generic manufacturers that filed abbreviated new drug applications with the U.S. Food and Drug Administration for generic versions of upadacitinib tablets, which AbbVie markets as Rinvoq. Given the settleme"
-    },
-    {
-     "theme": "next-generation neurotoxin development",
-     "quote": "TrenibotE is a first-in-class botulinum neurotoxin serotype E characterized by a rapid onset of action as early as 8 hours after administration and short duration of effect of 2-3 weeks"
     }
    ]
   }

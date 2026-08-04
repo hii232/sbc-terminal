@@ -3,6 +3,34 @@
  "sector": "Semis",
  "periods": [
   {
+   "period": "2026Q3",
+   "date": "2026-08-03",
+   "source": "SEC 10-Q MD&A",
+   "words": 4272,
+   "themes": [
+    {
+     "theme": "automotive electrification and advanced driver assistance",
+     "quote": "We believe the evolution of the automotive industry, with advancements in autonomous driving, ADAS, vehicle electrification, and increased electronics content across vehicle platforms, is reshaping the boundaries of transportation."
+    },
+    {
+     "theme": "ai data center energy efficiency",
+     "quote": "in our other end-market, which includes AI data center products, our intelligent power technologies enable energy efficiency in a market in which energy needs are growing at an exponential rate, and AI data center operators are focused on r"
+    },
+    {
+     "theme": "manufacturing capacity optimization",
+     "quote": "We continue to optimize and right-size our manufacturing footprint to align our capacity with our long-term outlook, while focusing on generating efficiencies that result in meaningful gross margin expansion"
+    },
+    {
+     "theme": "intelligent sensing technology portfolio",
+     "quote": "Our intelligent sensing technologies enable advanced safety applications in automotive through industry-leading performance and reliability. We believe the evolution of the automotive industry... is reshaping the boundaries of transportatio"
+    },
+    {
+     "theme": "synaptics acquisition integration",
+     "quote": "On June 25, 2026, we entered into an Agreement and Plan of Reorganization with Sonic Acquisition Corp. and Synaptics Incorporated, pursuant to which Synaptics will become a wholly owned subsidiary of onsemi"
+    }
+   ]
+  },
+  {
    "period": "2026Q2",
    "date": "2026-05-04",
    "source": "SEC 10-Q MD&A",
@@ -23,34 +51,6 @@
     {
      "theme": "gross margin expansion",
      "quote": "focusing on generating efficiencies that result in meaningful gross margin expansion and operating cash flows"
-    }
-   ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 3695,
-   "themes": [
-    {
-     "theme": "automotive electrification and power solutions",
-     "quote": "Our intelligent power technologies enable the electrification of the automotive industry that allows for lighter and longer-range electric vehicles"
-    },
-    {
-     "theme": "industrial sensing and automation",
-     "quote": "Our intelligent sensing technologies support the next generation industry, allowing for smarter factories and buildings"
-    },
-    {
-     "theme": "manufacturing footprint optimization",
-     "quote": "we continue to optimize and right-size our manufacturing footprint to align our capacity with anticipated long-term growth"
-    },
-    {
-     "theme": "high-margin product development",
-     "quote": "invest in research and development initiatives to accelerate growth in high-margin products"
-    },
-    {
-     "theme": "capital returns to shareholders",
-     "quote": "We are focused on generating operating cash and returning capital to our shareholders through our Share Repurchase Program"
     }
    ]
   },
