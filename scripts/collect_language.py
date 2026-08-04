@@ -55,7 +55,13 @@ ROOT = Path(__file__).resolve().parent.parent
 UA = {"User-Agent": "SBC-Terminal research hamza@nouman.ca"}
 FMP_KEY = __import__("os").environ.get("FMP_API_KEY", "").strip()
 
-DEFAULT_TOP = 50          # companies, ranked by market cap
+# 0 = the WHOLE universe. This collector REBUILDS the published bundle from
+# whatever it sweeps, so any smaller default is destructive: the daily
+# data-refresh ran it bare and silently shrank a 224-company corpus to 50,
+# which disarmed languageReady() and pulled the language vote out of every
+# name's conviction until the next full dispatch noticed. A partial sweep is
+# for explicit --top testing only; the default must always be everyone.
+DEFAULT_TOP = 0
 PERIODS_PER_COMPANY = 3   # latest + 2 prior; enough for an adoption delta.
                           # 10-Qs are megabytes each, so every extra period is
                           # ~50 large fetches -- 3 keeps the sweep inside a
@@ -589,7 +595,8 @@ def main():
 
     uni = json.loads((ROOT / "data" / "universe.json").read_text(encoding="utf-8"))
     caps = market_caps()
-    companies = sorted(uni["companies"], key=lambda c: -caps.get(c["ticker"], 0))[:top_n]
+    ranked = sorted(uni["companies"], key=lambda c: -caps.get(c["ticker"], 0))
+    companies = ranked[:top_n] if top_n and top_n > 0 else ranked
 
     outdir = ROOT / "data" / "language"
     outdir.mkdir(parents=True, exist_ok=True)

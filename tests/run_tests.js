@@ -1653,7 +1653,7 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
 
   // model version: the proxy change moves ownerEps -> truePE -> ranks, so the
   // proof clock must know this is a different model
-  ok(E.MASTER_MODEL_VERSION === 4, "MASTER_MODEL_VERSION bumped to 4 for the management-language vote", String(E.MASTER_MODEL_VERSION));
+  ok(E.MASTER_MODEL_VERSION >= 4, "MASTER_MODEL_VERSION was bumped for the management-language vote (v4) and may move beyond it", String(E.MASTER_MODEL_VERSION));
 }
 
 // =============== 36. Punished Growth divergence detector ===============
@@ -1862,6 +1862,120 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
     ok(E.narrativeScreenOf("a phrase no company has ever uttered") === null,
       "an unknown phrase yields no screen rather than an empty one");
   }
+}
+
+// =============== 40. Model v5 — the wall-street audit ===============
+// Cycle-peak guard, sell-side de-dup, language crowding, sector/factor
+// visibility, the risk read, and the frozen-model benchmark clock. Each was
+// a named failure mode: cheap-on-peak-earnings value traps led the board,
+// an upgrade and the revisions behind it counted as two confirmations, late
+// adoption of crowded AI language earned a bull vote, three insurers read as
+// three ideas, and four model versions in weeks meant nothing was ever
+// validated against forward returns.
+{
+  ok(E.MASTER_MODEL_VERSION === 5, "model bumped to v5 for the audit changes", String(E.MASTER_MODEL_VERSION));
+  const F = E.MASTER_MODEL_FREEZE;
+  ok(F && F.version === E.MASTER_MODEL_VERSION && F.until > F.since,
+    "the freeze names the current model and a verdict date after its start", JSON.stringify(F));
+
+  // --- cycle-peak guard: pure function, synthetic companies ---
+  const mk = (margins) => ({ revenue: margins.map(() => 100), ni: margins.map(m => m * 100) });
+  const peaky = E.cyclePeakOf(mk([0.05, 0.06, 0.05, 0.06, 0.05, 0.06, 0.05, 0.06, 0.07, 0.12]));
+  ok(peaky && peaky.peak === true, "a 10y-high margin at 1.3x its median is flagged as peak-cycle", JSON.stringify(peaky));
+  const steady = E.cyclePeakOf(mk([0.10, 0.11, 0.10, 0.11, 0.10, 0.11, 0.10, 0.11, 0.10, 0.11]));
+  ok(steady && steady.peak === false, "a steady margin is never flagged", JSON.stringify(steady));
+  ok(E.cyclePeakOf(mk([0.05, 0.20])) === null, "too little history yields null, not a guess");
+  // the flag on the live board must agree with the pure function, and the
+  // haircut must be visible in the why-text, never silent
+  const board5 = E.masterBoard();
+  ok(board5.filter(r => r.parts.price && r.parts.price.cyclePeak)
+    .every(r => /peak-cycle/.test(r.parts.price.why) && (E.cyclePeakOf(r.d) || {}).peak === true),
+    "every peak-flagged name says so in its Price why-text and matches cyclePeakOf");
+
+  // --- sell-side de-dup: an upgrade and its revisions are one fact ---
+  const CC = E.CONVICTION_CLUSTERS;
+  ok(CC["earnings-estimate"].includes("tier1"), "tier-1 rating actions joined the estimate cluster");
+  const votes = (arr) => arr.map(([key, dir]) => ({ key, dir }));
+  ok(E.clusterAdjustedVoteCounts(votes([["revisions", 1], ["tier1", 1]]), CC).bulls === 1,
+    "revisions + an upgrade de-duplicate to ONE bull");
+  ok(E.clusterAdjustedVoteCounts(votes([["edge", 1], ["revisions", 1], ["tier1", 1]]), CC).bulls === 2,
+    "direction edge stays a separate (price-behaviour) confirmation");
+
+  // --- language crowding: early adoption votes, crowd-following does not ---
+  {
+    const per = (phrases, prior) => ({ name: "x", sector: "T", periods: [
+      { period: "2026Q2", date: "2026-06-01", source: "t", phrases: Object.fromEntries(phrases.map(p => [p, 1])) },
+      { period: "2026Q1", date: "2026-03-01", source: "t", phrases: Object.fromEntries((prior || []).map(p => [p, 1])) }] });
+    const B = {};
+    // fillers carry a unique phrase each: a company with NO phrases is dropped
+    // from the corpus entirely, which would shrink the denominator crowding
+    // is judged against
+    for (let i = 1; i <= 100; i++) B["C" + i] = per(["unique filler theme " + i], []);
+    const CROWD = "crowded strategy narrative", RARE = "rare strategy narrative";
+    for (let i = 1; i <= 20; i++) B["C" + i] = per([CROWD], [CROWD]);            // 20 already said it
+    B.C21 = per([CROWD], []); B.C22 = per([CROWD], []);                          // late joiners
+    B.C30 = per([RARE], [RARE]); B.C31 = per([RARE], [RARE]);                    // 2 already said it
+    B.C32 = per([RARE], []); B.C33 = per([RARE], []);
+    B.TLATE = per([CROWD], []);   // adopted the crowded theme
+    B.TEARLY = per([RARE], []);   // adopted the rare theme
+    const late = E.languageSignalOf("TLATE", B), early = E.languageSignalOf("TEARLY", B);
+    ok(early && early.earlyAdopting >= 1 && early.topEarly && early.topEarly.phrase === RARE,
+      "adopting a theme few had stated counts as EARLY", JSON.stringify(early));
+    ok(late && late.adopting >= 1 && late.earlyAdopting === 0,
+      "adopting a theme a large share of the corpus already states is recorded but earns no bull vote", JSON.stringify(late));
+  }
+  // live invariant: no positive language vote without early adoption
+  ok(DATA.every(d => {
+    const c = E.convictionOf(d); const v = c && c.votes.find(x => x.key === "language");
+    if (!v || v.dir !== 1) return true;
+    const lg = E.languageSignalOf(d.ticker);
+    return lg && lg.earlyAdopting > 0;
+  }), "on the live corpus, every positive language vote is an early adoption");
+
+  // --- sector visibility + factor-bet detection ---
+  ok(board5.every(r => r.sectorRank >= 1 && r.sectorOf >= r.sectorRank),
+    "every ranked name carries its within-sector rank");
+  const fake = (sec, i) => ({ ticker: "F" + i, d: { sector: sec }, score: 90 - i });
+  const conc = E.boardConcentrationOf([fake("Insurance", 1), fake("Insurance", 2), fake("Insurance", 3),
+    fake("Semis", 4), fake("Energy", 5)], 5);
+  ok(conc.concentrated && conc.clusters[0].sector === "Insurance" && conc.clusters[0].n === 3,
+    "three of one sector in the top N is called out as one factor bet", JSON.stringify(conc.clusters));
+  ok(!E.boardConcentrationOf([fake("A", 1), fake("B", 2), fake("A", 3), fake("C", 4)], 4).concentrated,
+    "two of a sector is not flagged");
+
+  // --- the risk read ---
+  const risk = E.boardRiskOf(board5);
+  ok(risk && risk.topN === 10, "risk read covers the top 10");
+  ok(risk.rate.up.length + risk.rate.down.length + risk.rate.mixed.length === 10,
+    "every top-10 name lands in exactly one rate bucket");
+  ok(risk.avgCorr == null || (risk.avgCorr >= -1 && risk.avgCorr <= 1), "avg correlation is a correlation");
+  ok(risk.effectiveBets == null || risk.effectiveBets <= risk.topN,
+    "correlation can only ever REDUCE the effective bet count", String(risk.effectiveBets));
+
+  // --- benchmark clock: v5-only, SPY-graded, honest about exclusions ---
+  {
+    const entries = (p) => Array.from({ length: 12 }, (_, i) => ({ t: "T" + i, p, mk: i + 1, mo: 224 }));
+    const hist = [
+      { date: "2026-07-01", model: 4, spy: 90, entries: entries(90) },     // old model: excluded
+      { date: "2026-08-04", model: 5, spy: 100, entries: entries(100) },
+      { date: "2026-09-04", model: 5, spy: 105, entries: entries(110) },
+    ];
+    const b = E.benchmarkVsSpy(hist, 28);
+    ok(b.since === "2026-08-04", "history from older model versions is never pooled in", b.since);
+    ok(b.n === 1 && Math.abs(b.windows[0].excess - 5) < 0.01,
+      "top-10 +10% vs SPY +5% grades as +5% excess", JSON.stringify(b.windows));
+    ok(b.cumulative && Math.abs(b.cumulative.excess - 5) < 0.01, "cumulative-since-freeze agrees");
+    const empty = E.benchmarkVsSpy([{ date: "2026-08-04", model: 5, entries: entries(100) }], 28);
+    ok(empty.snapshots === 0 && empty.n === 0, "a snapshot without a SPY level cannot enter the benchmark");
+  }
+  // wiring: the snapshot script records SPY, and the UI renders the commitments
+  const snapSrc = require("fs").readFileSync(require("path").join(root, "scripts", "snapshot_scores.js"), "utf8");
+  ok(/spy/.test(snapSrc) && /SPY/.test(snapSrc), "the daily snapshot records the SPY level");
+  const appSrc = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
+  ok(/IS FROZEN/.test(appSrc), "the Proof Scoreboard renders the freeze commitment");
+  ok(/FACTOR BET, NOT/.test(appSrc), "the board warns when its top is one sector wearing several tickers");
+  ok(/STALE TAPE/.test(appSrc), "a stale pipeline announces itself instead of looking alive");
+  ok(/45-day legal lag/.test(appSrc), "the data-lag ledger discloses how stale every input is");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

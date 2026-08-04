@@ -91,10 +91,19 @@ const histFile = path.join(trackDir, "history.json");
 let hist = [];
 if (fs.existsSync(histFile)) hist = JSON.parse(fs.readFileSync(histFile, "utf8"));
 hist = hist.filter(s => s.date !== today);           // one per day
+// SPY level, same day, so the benchmark clock can grade the top-10 against
+// simply owning the index. A board that cannot beat SPY after costs is
+// decoration, and without this field that question is unanswerable forever.
+let spy = null;
+try {
+  const s = (SECTORS.series || []).find(x => x.t === "SPY");
+  const closes = (s && s.closes || []).filter(Number.isFinite);
+  if (closes.length) spy = closes[closes.length - 1];
+} catch (err) { console.error("SPY level unavailable for snapshot:", err.message); }
 // `model` stamps which version of the scoring model produced these numbers.
 // Without it, a formula change silently pools two different models' forward
 // returns into one "track record" -- the exact way a track record lies.
-hist.push({ date: today, universe: DATA.length, model: E.MASTER_MODEL_VERSION ?? 1, entries, narrs });
+hist.push({ date: today, universe: DATA.length, model: E.MASTER_MODEL_VERSION ?? 1, spy, entries, narrs });
 hist.sort((a, b) => a.date.localeCompare(b.date));
 fs.writeFileSync(histFile, JSON.stringify(hist), "utf8");
 

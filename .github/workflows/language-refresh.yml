@@ -11,9 +11,9 @@ on:
   workflow_dispatch:
     inputs:
       top:
-        description: "How many companies (by market cap) to sweep"
+        description: "How many companies (by market cap) to sweep — 0 = whole universe. Anything smaller REBUILDS the bundle from a partial sweep; use only for testing on a branch."
         required: false
-        default: "50"
+        default: "0"
 permissions:
   contents: write
 jobs:
@@ -38,7 +38,7 @@ jobs:
         env:
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python scripts/collect_language.py --top ${{ github.event.inputs.top || '50' }}
+        run: python scripts/collect_language.py --top ${{ github.event.inputs.top || '0' }}
         # A crash partway through must not throw away the work already paid
         # for. The collector caches each company's themes to disk as it goes,
         # but the runner is ephemeral -- without this, a failure at company 180

@@ -2853,19 +2853,29 @@
      converging with peers, and is it early to language that is spreading?
      Reuses the same themes the radar shows, so the board and the vote can
      never disagree. */
-  function languageSignalOf(tk) {
-    const themes = languageThemes();
+  /* CROWDING LINE (v5). Managements adopt words because the market rewards
+     words — reflexivity, not signal. Joining a theme a large share of the
+     corpus already states is following a crowd; only EARLY adoption (the
+     theme still small when this company picked it up) earns a positive vote.
+     Late adoption is recorded and shown, it just stops counting as bullish. */
+  const LANG_CROWDED_SHARE = 0.04;   // >4% of the corpus already says it = crowded
+  function languageSignalOf(tk, bundle) {
+    const themes = languageThemes(bundle);
     if (!themes) return null;
-    const corpus = languageCorpus() || [];
+    const corpus = languageCorpus(bundle) || [];
     if (!corpus.some(c => c.ticker === tk)) return null;   // not in the corpus
     const mine = themes.filter(t => t.companies.includes(tk));
     const emerging = mine.filter(t => t.emergence >= LANG_EMERGE_MIN);
     const adopting = emerging.filter(t => t.adopters.includes(tk));
+    // "early" is judged on how many companies said it BEFORE this one joined
+    const early = adopting.filter(t => t.dfPrior / Math.max(t.corpusSize, 1) <= LANG_CROWDED_SHARE);
     return {
       ticker: tk, shared: mine.length, emerging: emerging.length,
-      adopting: adopting.length, crossSector: mine.filter(t => t.crossSector).length,
+      adopting: adopting.length, earlyAdopting: early.length,
+      crossSector: mine.filter(t => t.crossSector).length,
       topShared: mine.slice().sort((a, b) => b.dfNow - a.dfNow)[0] || null,
       topEmerging: adopting.slice().sort((a, b) => b.emergence - a.emergence)[0] || null,
+      topEarly: early.slice().sort((a, b) => b.emergence - a.emergence)[0] || null,
     };
   }
 
@@ -3103,7 +3113,12 @@
      uncorrected here -- it is smaller anyway (weight 10/100 of beat, 3/110
      of edge) than the revisions overlap this cluster targets.) */
   const CONVICTION_CLUSTERS = {
-    "earnings-estimate": ["revisions", "beat", "drift", "narrative"],
+    // v5 added "tier1": a Morgan Stanley upgrade arrives WITH the estimate
+    // raises it is based on -- same sell-side apparatus, one underlying fact.
+    // Counting an upgrade and the revisions behind it separately manufactured
+    // confluence: PGR's "4 signals agree" was really 3. Direction Edge stays
+    // outside the cluster because it is price-behaviour, not sell-side.
+    "earnings-estimate": ["revisions", "beat", "drift", "narrative", "tier1"],
   };
   /* De-duplicated BULL and BEAR counts (not just their net): each cluster
      resolves to at most one bull OR one bear OR neither (when its members
@@ -3181,11 +3196,17 @@
     // be differentiation), so absence of shared language never penalises a name.
     if (langReady) {
       const lg = languageSignalOf(d.ticker);
+      // v5: positive only for EARLY adoption. Joining language that a large
+      // share of the corpus already uses is following a crowd — managements
+      // adopt words because the market rewards words, and rewarding that here
+      // made this a hype-follower wired as a bull vote.
       if (lg && lg.shared)
-        vote("language", "Stated strategy", lg.adopting ? 1 : 0,
-          lg.adopting && lg.topEmerging
-            ? `just adopted "${lg.topEmerging.phrase}" — ${lg.topEmerging.dfPrior}→${lg.topEmerging.dfNow} companies now say it`
-            : `shares "${lg.topShared.phrase}" with ${lg.topShared.dfNow - 1} peer${lg.topShared.dfNow === 2 ? "" : "s"}, nothing newly adopted`);
+        vote("language", "Stated strategy", lg.earlyAdopting ? 1 : 0,
+          lg.earlyAdopting && lg.topEarly
+            ? `early adopter of "${lg.topEarly.phrase}" — ${lg.topEarly.dfPrior}→${lg.topEarly.dfNow} companies now say it`
+            : lg.adopting && lg.topEmerging
+              ? `adopted "${lg.topEmerging.phrase}" late — ${lg.topEmerging.dfPrior} companies already said it; joining a crowd is not a signal`
+              : `shares "${lg.topShared.phrase}" with ${lg.topShared.dfNow - 1} peer${lg.topShared.dfNow === 2 ? "" : "s"}, nothing newly adopted`);
     }
     const cut14 = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
     const filing = signalsEvents().find(e => e.tk === d.ticker && e.type === "filing" && e.d >= cut14 && /(ACCELERATED|DECELERATED)/.test(e.detail || ""));
@@ -3473,7 +3494,45 @@
      10 to 11, which moves every name's evidence-completeness figure and
      therefore the coverage the Master Signal reports. Both effects reshuffle
      ranks, so verdicts recorded before this point are not comparable. */
-  const MASTER_MODEL_VERSION = 4;
+  /* v4 -> v5: the "wall street audit" release — three changes, shipped
+     together so the proof clock resets ONCE, after which the model is
+     FROZEN (see MASTER_MODEL_FREEZE below).
+     (1) CYCLE-PEAK GUARD: a low P/E capitalising peak-cycle earnings is the
+     oldest value trap there is (P&C insurers at a hard-market underwriting
+     peak led the board on exactly this). When a name's latest net margin is
+     a 10-year high AND >=1.3x its own history's median, the Price pillar is
+     haircut 18% and says so. (2) tier-1 rating actions joined the
+     earnings-estimate conviction cluster: an upgrade is the same sell-side
+     apparatus as the estimate revisions it arrives with, and counting them
+     separately manufactured confluence out of one fact. (3) the language
+     vote is positive only for EARLY adoption: adopting a phrase that a large
+     share of the corpus already uses is following a crowd, and managements
+     adopt words because the market rewards words — reflexivity, not signal.
+     All three move scores and ranks, so verdicts recorded under v4 are not
+     comparable. */
+  const MASTER_MODEL_VERSION = 5;
+  /* THE FREEZE. Four model versions shipped in weeks, and every bump reset
+     the proof clock — so no ranking was ever validated against forward
+     returns. That stops here: v5 is frozen until the benchmark clock below
+     delivers a verdict. Changing weights, pillar math, or vote wiring before
+     freezeUntil means bumping to v6 and CONSCIOUSLY throwing this clock away
+     — the Proof Scoreboard renders this box so the temptation has a face. */
+  const MASTER_MODEL_FREEZE = { version: 5, since: "2026-08-04", days: 90, until: "2026-11-02" };
+  /* Peak-cycle earnings detector. Pure function over the 10y revenue/ni
+     arrays so it is unit-testable on synthetic companies. */
+  function cyclePeakOf(d) {
+    const rev = Array.isArray(d && d.revenue) ? d.revenue : null;
+    const ni = Array.isArray(d && d.ni) ? d.ni : null;
+    if (!rev || !ni || rev.length < 6 || ni.length !== rev.length) return null;
+    const margins = rev.map((r, i) => (Number.isFinite(r) && r > 0 && Number.isFinite(ni[i])) ? ni[i] / r : null);
+    const m = margins.filter(Number.isFinite);
+    const latest = margins[margins.length - 1];
+    if (!Number.isFinite(latest) || latest <= 0 || m.length < 6) return null;
+    const others = m.slice(0, -1).slice().sort((a, b) => a - b);
+    const med = others[Math.floor(others.length / 2)];
+    const peak = latest >= Math.max(...m) && med > 0 && latest >= med * 1.3;
+    return { peak, latest: +(latest * 100).toFixed(1), median: +(med * 100).toFixed(1) };
+  }
   function masterSignalOf(d, ctx) {
     if (!d) return null;
     const ms = marketScoreOf(d);
@@ -3503,9 +3562,21 @@
         prox = clamp(100 - disc * 1.2, 0, 100);
         proxWhy = disc <= 0 ? `${Math.abs(disc).toFixed(0)}% BELOW the IV15 buy price` : `${disc.toFixed(0)}% above the IV15 buy price`;
       }
-      const v = avg([val, prox]);
+      let v = avg([val, prox]);
       const bits = [hasNum(val) ? `valuation ${Math.round(val)}` : null, proxWhy || null].filter(Boolean);
+      // CYCLE-PEAK GUARD (v5). "Cheap" measured against earnings at a 10-year
+      // peak margin is how value traps look cheap: capitalising the top of a
+      // cycle as if it were permanent. The haircut is deliberately a discount,
+      // not a veto -- peak earnings sometimes ARE the new normal, and the flag
+      // travels with the why-text so the user sees the disagreement instead of
+      // a silently smaller number.
+      const cyc = cyclePeakOf(d);
+      if (v != null && cyc && cyc.peak) {
+        v = v * 0.82;
+        bits.push(`peak-cycle haircut −18% (net margin ${cyc.latest}% is a 10y high vs ${cyc.median}% median — cheap on peak earnings is how value traps look)`);
+      }
       add("price", v, bits.join(" · "), bits.length);
+      if (parts.price && cyc && cyc.peak) parts.price.cyclePeak = true;
     }
     // 3 · TAPE — trend, how the market is rewarding it, and extension.
     //     RSI enters as mean reversion: washed-out is opportunity, hot is risk.
@@ -3585,7 +3656,71 @@
     const rows = DATA.map(d => masterSignalOf(d, ctx)).filter(x => x && x.rankable)
       .sort((a, b) => b.score - a.score || b.coverage - a.coverage || a.ticker.localeCompare(b.ticker));
     rows.forEach((r, i) => { r.rank = i + 1; r.of = rows.length; });
+    // WITHIN-SECTOR RANK (v5 audit). The absolute board can be led by one
+    // cheap sector wearing three tickers; the sector rank makes that visible:
+    // "#1 of 10 in Insurance" says sector bet, "#1 of 224" alone hides it.
+    const bySector = {};
+    for (const r of rows) (bySector[r.d.sector || "—"] = bySector[r.d.sector || "—"] || []).push(r);
+    for (const list of Object.values(bySector))
+      list.forEach((r, i) => { r.sectorRank = i + 1; r.sectorOf = list.length; });
     return limit ? rows.slice(0, limit) : rows;
+  }
+  /* One sector holding 3+ of the top N is ONE idea wearing several tickers —
+     a factor/sector bet, not stock selection. Returned as data so both the
+     board banner and the tests read the same computation. */
+  function boardConcentrationOf(rows, topN = 10) {
+    const top = (rows || masterBoardCached()).slice(0, topN);
+    const counts = {};
+    for (const r of top) counts[r.d.sector || "—"] = (counts[r.d.sector || "—"] || 0) + 1;
+    const clusters = Object.entries(counts).filter(([, n]) => n >= 3)
+      .map(([sector, n]) => ({ sector, n, tickers: top.filter(r => (r.d.sector || "—") === sector).map(r => r.ticker) }))
+      .sort((a, b) => b.n - a.n);
+    return { topN: top.length, counts, clusters, concentrated: clusters.length > 0 };
+  }
+  /* RISK READ on a set of names — the portfolio-level view a per-name
+     playbook cannot give. Correlation from the same weekly closes the charts
+     use; a pair with under 30 overlapping weekly returns is skipped rather
+     than guessed. Rate sensitivity is a sector-bucket heuristic and says so. */
+  const RATE_SENSITIVITY = {
+    up: ["Insurance", "Banks", "Asset Mgmt", "Fintech Brokerage", "Payments", "Financial Data", "Crypto Exchange"],
+    down: ["Utilities", "Software", "Software/AI", "Biotech", "Neocloud", "AI Infrastructure", "EDA Software", "Cybersecurity"],
+  };
+  function boardRiskOf(rows, topN = 10) {
+    const top = (rows || masterBoardCached()).slice(0, topN);
+    if (!top.length) return null;
+    const weekly = (d) => {
+      const v = pxVals(d); if (!v || v.length < 31) return null;
+      const s = v.slice(-53), out = [];
+      for (let i = 1; i < s.length; i++)
+        out.push(Number.isFinite(s[i]) && Number.isFinite(s[i - 1]) && s[i - 1] > 0 ? s[i] / s[i - 1] - 1 : null);
+      return out;
+    };
+    const series = top.map(r => ({ tk: r.ticker, w: weekly(r.d) }));
+    const pearson = (a, b) => {
+      const xs = [], ys = [];
+      for (let i = 0; i < Math.min(a.length, b.length); i++)
+        if (Number.isFinite(a[i]) && Number.isFinite(b[i])) { xs.push(a[i]); ys.push(b[i]); }
+      if (xs.length < 30) return null;
+      const mx = xs.reduce((s, v) => s + v, 0) / xs.length, my = ys.reduce((s, v) => s + v, 0) / ys.length;
+      let num = 0, dx = 0, dy = 0;
+      for (let i = 0; i < xs.length; i++) { const a1 = xs[i] - mx, b1 = ys[i] - my; num += a1 * b1; dx += a1 * a1; dy += b1 * b1; }
+      return dx > 0 && dy > 0 ? num / Math.sqrt(dx * dy) : null;
+    };
+    const pairs = [];
+    for (let i = 0; i < series.length; i++) for (let j = i + 1; j < series.length; j++) {
+      if (!series[i].w || !series[j].w) continue;
+      const c = pearson(series[i].w, series[j].w);
+      if (c != null) pairs.push({ a: series[i].tk, b: series[j].tk, corr: +c.toFixed(2) });
+    }
+    const avgCorr = pairs.length ? +(pairs.reduce((s, p) => s + p.corr, 0) / pairs.length).toFixed(2) : null;
+    const maxPair = pairs.length ? pairs.slice().sort((a, b) => b.corr - a.corr)[0] : null;
+    const bucket = (sec) => RATE_SENSITIVITY.up.includes(sec) ? "up" : RATE_SENSITIVITY.down.includes(sec) ? "down" : "mixed";
+    const rate = { up: [], down: [], mixed: [] };
+    for (const r of top) rate[bucket(r.d.sector || "")].push(r.ticker);
+    return { topN: top.length, concentration: boardConcentrationOf(rows, topN),
+      avgCorr, maxPair, pairsMeasured: pairs.length, rate,
+      // effective independent bets, correlation-adjusted: N / (1 + (N-1)*avgρ)
+      effectiveBets: avgCorr != null ? +(top.length / (1 + (top.length - 1) * Math.max(avgCorr, 0))).toFixed(1) : null };
   }
   // Ranking the whole universe touches every engine (~150ms), so the board is
   // memoized briefly — long enough for one render pass, short enough that a
@@ -3694,6 +3829,52 @@
       return { days, label, unlockDate, daysLeft, ready: daysLeft === 0 };
     });
     return { snapshots: H.length, since, latest, spanDays, signals, horizons: hzSummary, minObs, universeSpan: universeSpanOf(H), modelSpan: modelSpanOf(H) };
+  }
+
+  /* THE BENCHMARK CLOCK (v5). The one question every feature above dodges:
+     does the top of this board beat just buying SPY? Computed only over
+     snapshots stamped with the CURRENT frozen model version and carrying a
+     recorded SPY level — history from older models is not silently pooled in,
+     which is the lie the whole freeze exists to prevent. Equal-weight top-10
+     vs SPY, no costs (stated in the UI; costs make it worse, never better). */
+  function benchmarkVsSpy(history, horizonDays = 28) {
+    const H = (Array.isArray(history) ? history : [])
+      .filter(s => s.model === MASTER_MODEL_FREEZE.version && Number.isFinite(s.spy) && s.spy > 0);
+    const top10Ret = (base, target) => {
+      const nowP = {};
+      target.entries.forEach(e => { if (e.p > 0) nowP[e.t] = e.p; });
+      const rets = base.entries.filter(e => e.mk != null && e.mk <= 10 && e.p > 0 && nowP[e.t] > 0)
+        .map(e => nowP[e.t] / e.p - 1);
+      return rets.length >= 8 ? rets.reduce((a, v) => a + v, 0) / rets.length : null;
+    };
+    const windows = [];
+    for (const base of H) {
+      const target = H.find(sn => (Date.parse(sn.date) - Date.parse(base.date)) / 864e5 >= horizonDays);
+      if (!target) continue;
+      const port = top10Ret(base, target);
+      if (port == null) continue;
+      windows.push({ from: base.date, to: target.date, port: +(port * 100).toFixed(2),
+        spy: +((target.spy / base.spy - 1) * 100).toFixed(2),
+        excess: +((port - (target.spy / base.spy - 1)) * 100).toFixed(2) });
+    }
+    // cumulative since the freeze started: one window, first→latest
+    let cumulative = null;
+    if (H.length >= 2) {
+      const port = top10Ret(H[0], H[H.length - 1]);
+      if (port != null) cumulative = { from: H[0].date, to: H[H.length - 1].date,
+        port: +(port * 100).toFixed(2), spy: +((H[H.length - 1].spy / H[0].spy - 1) * 100).toFixed(2),
+        excess: +((port - (H[H.length - 1].spy / H[0].spy - 1)) * 100).toFixed(2) };
+    }
+    const verdictDate = MASTER_MODEL_FREEZE.until;
+    const latest = H.length ? H[H.length - 1].date : null;
+    return { freeze: MASTER_MODEL_FREEZE, snapshots: H.length,
+      since: H.length ? H[0].date : null, latest,
+      horizonDays, windows, n: windows.length,
+      avgExcess: windows.length ? +(windows.reduce((a, w) => a + w.excess, 0) / windows.length).toFixed(2) : null,
+      winRate: windows.length ? +(windows.filter(w => w.excess > 0).length / windows.length).toFixed(2) : null,
+      cumulative, verdictDate,
+      daysToVerdict: latest ? Math.max(0, Math.ceil((Date.parse(verdictDate) - Date.parse(latest)) / 864e5))
+        : MASTER_MODEL_FREEZE.days };
   }
 
   function calibrationOf(history, horizonDays) {
@@ -5291,6 +5472,26 @@
     /* PROOF SCOREBOARD — what has actually been proven, and exactly when
        each answer arrives. Shown FIRST because it is the honest frame for
        every number on every other page. */
+    /* THE FREEZE + BENCHMARK CLOCK (v5). Four model versions shipped in
+       weeks; every bump reset the proof clock, so no ranking was ever
+       validated. This card is the commitment device: the model stays frozen
+       until the verdict date, and the only question it answers is the only
+       one that matters — does the top-10 beat just buying SPY? */
+    let freezeHtml = "";
+    {
+      const b = benchmarkVsSpy(H);
+      const f = b.freeze;
+      const line = (w) => w ? `top-10 ${w.port >= 0 ? "+" : ""}${w.port}% vs SPY ${w.spy >= 0 ? "+" : ""}${w.spy}% → <b style="color:${w.excess >= 0 ? "var(--green)" : "var(--red)"}">${w.excess >= 0 ? "+" : ""}${w.excess}% excess</b> (${w.from} → ${w.to})` : null;
+      freezeHtml = `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--purple)">
+        <h3>🧊 MODEL v${f.version} IS FROZEN <span class="unit">since ${f.since} · verdict ${f.until} · the benchmark every other page must answer to</span></h3>
+        <div class="note" style="margin:6px 0 10px"><b>The commitment:</b> no weight changes, no new signals, no pillar rewires until <b>${f.until}</b> (${b.daysToVerdict} days away). Four model versions shipped in the weeks before this freeze, and every bump reset the proof clock — so nothing was ever actually validated. Changing the model before the verdict date means bumping to v${f.version + 1} and consciously throwing this clock away; this box exists so that temptation has a face. <b>The test:</b> each day's top-10, equal-weight, against simply owning SPY — before costs, and costs only ever make it worse. If this board cannot beat the index, everything else in this terminal is decoration.</div>
+        ${b.snapshots ? `
+          <div class="kv"><span class="k">SINCE FREEZE</span><span class="v">${line(b.cumulative) || `<span class="sub">first window forming — ${b.snapshots} snapshot${b.snapshots === 1 ? "" : "s"} recorded under v${f.version}</span>`}</span></div>
+          <div class="kv"><span class="k">${b.horizonDays}-DAY WINDOWS</span><span class="v">${b.n ? `${b.n} window${b.n === 1 ? "" : "s"} · avg excess <b style="color:${b.avgExcess >= 0 ? "var(--green)" : "var(--red)"}">${b.avgExcess >= 0 ? "+" : ""}${b.avgExcess}%</b> · beat SPY in ${Math.round(b.winRate * 100)}%` : `<span class="sub">none complete yet — the first needs ${b.horizonDays} days of frozen-model history</span>`}</span></div>`
+        : `<div class="kv"><span class="k">STATUS</span><span class="v"><span class="sub">clock starts with the first v${f.version} snapshot (next data refresh) — SPY is now recorded alongside every snapshot precisely so this comparison can never be dodged again</span></span></div>`}
+        <div class="sub" style="margin-top:6px;line-height:1.6">Scored only over snapshots stamped v${f.version} with a recorded SPY level — older models' history is never pooled in, because grading a changed model on an old model's record is how track records lie.</div>
+      </div>`;
+    }
     let proofHtml = "";
     {
       const ps = proofStatusOf(H);
@@ -5386,7 +5587,7 @@
     el("main").innerHTML = toolHeader("📈", "MODEL TRACK RECORD", "the terminal grading itself — do high scores actually earn their returns?",
       `<div style="text-align:right"><div class="sub">SNAPSHOTS</div><div class="stat sm">${H.length}</div></div>`)
       + `<div class="note" style="margin-bottom:12px">Every data refresh records each name's Master Signal and rank, brain score, call, Direction Edge, Beat Odds, confluence, RSI zone and insider buying against the price of the day (scripts/snapshot_scores.js). This page compares those past signals against what prices did next — the ONLY honest way a model earns trust. No backtest, no cherry-picks: the record starts ${first ? first.date : "today"} and cannot be rewritten.</div>`
-      + proofHtml + calHtml + fwdHtml + cohortHtml;
+      + freezeHtml + proofHtml + calHtml + fwdHtml + cohortHtml;
   }
   const showTrack = () => showView("track", renderTrack, "trackBtn");
 
@@ -5972,6 +6173,43 @@
   /* THE MASTER SIGNAL BOARD — every name the terminal can rank, ordered by
      one score built from every engine. Each row shows the five pillars that
      produced it, so the number is never a black box. */
+  /* Risk + honesty header for the board (v5 audit). Three cards the alpha
+     features never earned: what the top-10 is concentrated in, how correlated
+     it is (effective independent bets), and exactly how lagged every input
+     is. Rendered ABOVE the ranking because risk before picks is the order a
+     professional reads in. */
+  function boardRiskHtml(all) {
+    const risk = boardRiskOf(all);
+    if (!risk) return "";
+    const con = risk.concentration;
+    const banner = con.concentrated ? `<div class="note" style="border-left:3px solid var(--orange);margin:0 0 10px">
+      <b>⚠ FACTOR BET, NOT ${con.clusters[0].n} PICKS:</b> ${con.clusters.map(c =>
+        `<b>${c.sector}</b> holds ${c.n} of the top ${con.topN} (${c.tickers.join(", ")})`).join(" · ")}.
+      One sector re-pricing wearing several tickers is <b>one idea</b> — size it as one position, not ${con.clusters[0].n}. The within-sector rank column exists so a sector's cheapness stops reading as ${con.clusters[0].n} independent finds.</div>` : "";
+    const rateBits = [
+      risk.rate.up.length ? `<b>rates-up beneficiaries:</b> ${risk.rate.up.join(", ")}` : null,
+      risk.rate.down.length ? `<b>rates-down beneficiaries:</b> ${risk.rate.down.join(", ")}` : null,
+      risk.rate.mixed.length ? `<b>mixed/other:</b> ${risk.rate.mixed.join(", ")}` : null].filter(Boolean).join(" · ");
+    return `${banner}<div class="card" style="margin-bottom:12px;border-left:3px solid var(--red)">
+      <h3>⚖ RISK READ — TOP ${risk.topN} AS A BOOK <span class="unit">concentration · correlation · rate exposure — the page that exists because risk is the only edge retail can own</span></h3>
+      <div class="kv"><span class="k">EFFECTIVE BETS</span><span class="v">${risk.effectiveBets ?? "—"} <span class="sub">of ${risk.topN} names — correlation-adjusted (avg pairwise ρ ${risk.avgCorr ?? "n/a"} over 52 weekly returns${risk.maxPair ? `; most correlated pair ${risk.maxPair.a}/${risk.maxPair.b} at ${risk.maxPair.corr}` : ""}). Ten tickers moving together are not ten bets.</span></span></div>
+      <div class="kv"><span class="k">RATE EXPOSURE</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.6">${rateBits || "—"} — sector-bucket heuristic, not a measured beta. If the top of this board leans one way, a rate cycle turn is a thesis risk for the whole list at once.</span></span></div>
+      <div class="kv"><span class="k">COSTS &amp; TURNOVER</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.6">Signals re-vote every refresh; that is information, <b>not an instruction to trade daily</b>. Assume ~10–40bp round-trip plus taxes per trade — every benchmark figure this terminal shows is BEFORE costs, and costs only ever make it worse.</span></span></div>
+      <details style="margin-top:8px"><summary class="sub" style="cursor:pointer"><b>WHERE THIS DATA COMES FROM — the honest part.</b> Every input is public and lagged; expand for exactly how much.</summary>
+        <div style="overflow-x:auto;margin-top:8px"><table class="rank">
+          <thead><tr><th style="text-align:left">INPUT</th><th style="text-align:left">SOURCE</th><th style="text-align:left">LAG</th></tr></thead>
+          <tbody>
+            <tr><td style="text-align:left">Whale 13Fs</td><td style="text-align:left">SEC EDGAR</td><td style="text-align:left">quarterly + 45-day legal lag — the whale may already be out</td></tr>
+            <tr><td style="text-align:left">Insider Form 4s</td><td style="text-align:left">SEC EDGAR</td><td style="text-align:left">≤2 business days</td></tr>
+            <tr><td style="text-align:left">Management language</td><td style="text-align:left">10-Q/10-K MD&amp;A</td><td style="text-align:left">weeks after quarter end, public the moment it files</td></tr>
+            <tr><td style="text-align:left">Analyst revisions / ratings</td><td style="text-align:left">published consensus</td><td style="text-align:left">public by definition — it IS the consensus</td></tr>
+            <tr><td style="text-align:left">Prices / RSI / drift</td><td style="text-align:left">daily pipeline closes</td><td style="text-align:left">end-of-day, not intraday</td></tr>
+            <tr><td style="text-align:left">Fundamentals</td><td style="text-align:left">one free provider + SEC facts</td><td style="text-align:left">single spine — a silent outage froze every signal for 3 days once</td></tr>
+          </tbody></table></div>
+        <div class="sub" style="margin-top:8px;line-height:1.7">Nothing above is faster than the market, and the universe is 224 of the most heavily covered names on Earth — where mispricing is structurally smallest. No short-interest, borrow, or positioning data (paid feeds). What this terminal can genuinely own is <b>discipline</b>: honest coverage, de-duplicated evidence, risk shown before picks, and a frozen model graded against SPY on the Proof Scoreboard. It cannot own an information advantage, and any tool that claims otherwise on free public data is lying to you.</div>
+      </details>
+    </div>`;
+  }
   function masterBoardHtml() {
     const all = masterBoardCached();
     if (!all.length) return "";
@@ -5985,7 +6223,7 @@
     };
     const row = (r) => `<tr data-tk="${r.ticker}" title="${escapeHtml(r.pillars.map(p => p.label + " " + p.score + ": " + p.why).join(" | "))}">
       <td style="text-align:center"><b style="color:${r.rank <= 3 ? "var(--gold)" : "var(--muted)"}">${r.rank}</b></td>
-      <td style="text-align:left"><span class="rk-tk">${r.ticker}</span> <span class="sub">${r.d.sector}</span></td>
+      <td style="text-align:left"><span class="rk-tk">${r.ticker}</span> <span class="sub">${r.d.sector}${r.sectorRank ? ` · #${r.sectorRank}/${r.sectorOf}` : ""}</span>${r.parts.price && r.parts.price.cyclePeak ? ` <span class="impact-chip" style="background:var(--orange);color:#071018" title="latest net margin is a 10-year high — the Price pillar carries an 18% peak-cycle haircut">PEAK</span>` : ""}</td>
       <td><span class="rk-pill" style="background:${r.color};color:#071018">${r.score}</span></td>
       <td><b style="color:${r.color};font-size:10px">${r.label}</b></td>
       ${pillarCell(r, "business")}${pillarCell(r, "price")}${pillarCell(r, "tape")}${pillarCell(r, "confluence")}${pillarCell(r, "trust")}
@@ -5998,8 +6236,8 @@
       style="${sigState.boardSort === k ? "background:var(--cyan);color:#071018" : ""}">${lbl}</button>`;
     const dist = {};
     all.forEach(r => dist[r.label] = (dist[r.label] || 0) + 1);
-    return `<div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
-      <h3>🏆 THE MASTER SIGNAL <span class="unit">one score per company, built from every engine in this terminal — all ${all.length} names ranked</span></h3>
+    return `${boardRiskHtml(all)}<div class="card" style="margin-bottom:12px;border-left:3px solid var(--gold)">
+      <h3>🏆 THE MASTER SIGNAL <span class="unit">one score per company, built from every engine in this terminal — all ${all.length} names ranked · model v${MASTER_MODEL_VERSION} FROZEN until ${MASTER_MODEL_FREEZE.until}</span></h3>
       <div class="note" style="margin:6px 0 10px"><b>What this is:</b> the single number this whole terminal adds up to. Five independent pillars, weighted: <b>Business ${MASTER_PILLARS[0].weight}%</b> (quality, long-term view, shareholder economics, growth) · <b>Price ${MASTER_PILLARS[1].weight}%</b> (valuation score + distance to the IV15 buy price) · <b>Tape ${MASTER_PILLARS[2].weight}%</b> (direction edge, market reward, RSI extension) · <b>Confluence ${MASTER_PILLARS[3].weight}%</b> (the conviction vote, which already folds in insider buying, whale 13Fs, revisions, drift, beat odds, narrative heat, filing diffs and tier-1 ratings) · <b>Data trust ${MASTER_PILLARS[4].weight}%</b> (SEC reconciliation). Nothing is counted twice — Confluence enters once as a pillar instead of its members being re-added. A pillar that cannot be computed is <b>dropped from the average, never scored as a neutral 50</b>, and coverage travels with the score; below 55% a name is not ranked at all. Research signal, not advice.</div>
       <div class="sec-chips" style="margin-bottom:8px">
         ${sizeChip(25, "TOP 25")}${sizeChip(50, "TOP 50")}${sizeChip(0, `ALL ${all.length}`)}
@@ -6970,6 +7208,16 @@
           </button>
         </section>
         <div class="bz-index-strip">${marketTiles.map(marketTile).join("")}</div>
+        ${(() => {
+          // STALE-TAPE SENTINEL. The pipeline once died silently for three
+          // days and every signal froze while looking alive. One free data
+          // spine has no redundancy, so the honest substitute is loudness:
+          // if the tape is old, every visit says so before any number.
+          const asof = typeof SECTORS !== "undefined" && SECTORS.asof;
+          const age = asof ? Math.floor((Date.now() - Date.parse(asof)) / 864e5) : null;
+          return age != null && age > 4 ? `<div class="note" style="border-left:3px solid var(--red);margin-bottom:10px">
+            <b>⚠ STALE TAPE:</b> the data pipeline last refreshed <b>${age} days ago</b> (${asof}). Every score, rank and signal below is computed on that old tape. This terminal runs on a single free data spine with no redundant feed — when it breaks, the honest move is this banner, not numbers that look alive.</div>` : "";
+        })()}
         <section class="bz-panel">
           <div class="bz-section-head"><h2>⭐ Entry Timing</h2><button id="openSetups" type="button">Full Board</button></div>
           <div class="note" style="margin:0 0 10px">WHEN to buy, not WHAT to buy — RSI is 30% of this score, so it ranks the same names differently from the Master Signal on purpose. A name near a wash-out outranks a better company that is not. Only ${bestSetupsOf().length} of ${DATA.length} names clear the quality gate to appear here at all.</div>
@@ -7955,6 +8203,7 @@
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
+    MASTER_MODEL_FREEZE, cyclePeakOf, boardConcentrationOf, boardRiskOf, benchmarkVsSpy, LANG_CROWDED_SHARE,
     fetchYahooSparkBatch, applySparkResult,
     forwardPeCurveOf, forwardPeUniverse, annualEstOf,
     TRACKED_SIGNALS, proofStatusOf, universeSpanOf, modelSpanOf, MASTER_MODEL_VERSION,
