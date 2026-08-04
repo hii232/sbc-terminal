@@ -1,8 +1,8 @@
 {
  "ticker": "IREN",
  "cik": "0001878848",
- "entityName": "IREN LIMITED",
- "retrievedAt": "2026-08-04T04:55:13.657528Z",
+ "entityName": "IREN Limited",
+ "retrievedAt": "2026-08-04T12:59:45.386089Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",

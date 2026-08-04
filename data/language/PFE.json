@@ -3,6 +3,34 @@
  "sector": "Pharma",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 9765,
+   "themes": [
+    {
+     "theme": "oncology and obesity pipeline acceleration",
+     "quote": "increases in spending of $240 million and $420 million, respectively, in certain oncology and obesity product candidates, which was anticipated"
+    },
+    {
+     "theme": "manufacturing network optimization",
+     "quote": "the next phase of our multi-year program designed to reduce our cost of goods sold focused on network structure changes, product portfolio enhancements and additional operational efficiencies which is expected to deliver additional anticipa"
+    },
+    {
+     "theme": "cost base realignment",
+     "quote": "$1.0 billion of additional anticipated net cost savings associated with this program driven by further productivity enhancements from technology and simplification efforts across our commercial, R&D and enabling functions"
+    },
+    {
+     "theme": "antibody-drug conjugate licensing",
+     "quote": "strategic global licensing and collaboration agreement with Innovent, a Chinese biopharmaceutical company, for the research and development of 12 early-stage and de novo cancer medicines. The partnership includes licensing, co-development, "
+    },
+    {
+     "theme": "patent exclusivity cliff mitigation",
+     "quote": "we anticipate a significant reduction of revenue from patent-based or regulatory exclusivity expiries in 2026 through 2030 as several of our in-line products experience these expirations"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "mrna platform development",
      "quote": "expanding our mRNA technology platform beyond COVID-19"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 11403,
-   "themes": [
-    {
-     "theme": "r&d productivity focus",
-     "quote": "Improve R&D productivity with sharpened focus"
-    },
-    {
-     "theme": "obesity and cardiometabolic pipeline",
-     "quote": "acquire Metsera, a clinical-stage biopharmaceutical company accelerating the next generation of medicines for obesity and cardiometabolic diseases"
-    },
-    {
-     "theme": "cost realignment and automation",
-     "quote": "enhanced digital enablement, including automation and AI, and simplification of business processes"
-    },
-    {
-     "theme": "manufacturing cost reduction",
-     "quote": "multi-year, multi-phased program to reduce our costs of goods sold, which is expected to include primarily operational efficiencies, network structure changes, and product portfolio enhancements"
-    },
-    {
-     "theme": "margin expansion",
-     "quote": "Expand margins and maximize operational efficiency"
     }
    ]
   }

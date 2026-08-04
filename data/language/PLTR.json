@@ -3,6 +3,34 @@
  "sector": "Software/AI",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 26812,
+   "themes": [
+    {
+     "theme": "ai features platform development",
+     "quote": "AI features of our platforms, customer relationship management activities, billing and order management, cybersecurity program, and financial accounting services"
+    },
+    {
+     "theme": "cloud infrastructure scaling",
+     "quote": "The provisioning of additional cloud hosting capacity or upgrading technology, infrastructure, and software applications each require lead time and resources"
+    },
+    {
+     "theme": "international regulatory compliance",
+     "quote": "compliance with local employment laws and other applicable laws and regulations"
+    },
+    {
+     "theme": "data sovereignty commitments",
+     "quote": "we do not provide information about our customers to third parties without legal process"
+    },
+    {
+     "theme": "service reliability slas",
+     "quote": "our platforms are in many cases important or essential to our customers' operations, including in some cases, their cybersecurity or oversight and compliance programs, and subject to service level agreements"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "government contract expansion",
      "quote": "As of December 31, 2025, the total remaining deal value of the contracts that we had been awarded by government agencies in the United States and allied countries around the world, including existing contractual obligations and contractual "
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 27002,
-   "themes": [
-    {
-     "theme": "government compliance complexity",
-     "quote": "We are subject to a variety of local, state, national, and international laws, directives, and regulations in the United States and abroad that involve matters central to our business, including privacy and data protection, data security, d"
-    },
-    {
-     "theme": "data privacy regulation adaptation",
-     "quote": "developments regarding these and other privacy and data protection laws and regulations around the world may require us to modify our data processing practices and policies and to incur substantial costs and expenses in an effort to maintai"
-    },
-    {
-     "theme": "international market expansion",
-     "quote": "we have entered, and may continue to enter, new and emerging markets in non-U.S. countries, including with customers in law enforcement, national security, and other government agencies, as part of our growth strategy"
-    },
-    {
-     "theme": "cloud infrastructure dependencies",
-     "quote": "If AWS, Microsoft Azure, or other third parties increase pricing terms, terminate or seek to terminate our contractual relationship, establish more favorable relationships with our competitors, change or interpret their terms of service or "
-    },
-    {
-     "theme": "platform reliability and stability",
-     "quote": "Because we offer very complex technology platforms, various errors, defects, failures, or bugs have occurred, and may in the future occur, especially when platforms, products, or capabilities are introduced, configured, or reconfigured, or "
     }
    ]
   }

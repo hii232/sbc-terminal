@@ -1,8 +1,8 @@
 {
  "ticker": "PFE",
  "cik": "0000078003",
- "entityName": "Pfizer Inc.",
- "retrievedAt": "2026-08-04T04:55:31.662389Z",
+ "entityName": "PFIZER INC",
+ "retrievedAt": "2026-08-04T13:00:02.210563Z",
  "fields": {
   "buyback": [
    {
@@ -1566,12 +1566,12 @@
     "confidence": 100
    },
    {
-    "value": 5699444169,
+    "value": 5699673589,
     "unit": "shares",
-    "periodEnd": "2026-04-29",
+    "periodEnd": "2026-07-29",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000078003-26-000054",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0000078003-26-000095",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
