@@ -94,6 +94,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "DOCU"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 0.24441,
+      "currentYearRevenue": 965427660.0,
+      "date": "2026-08-04",
+      "nextYearEps": 0.73971,
+      "nextYearRevenue": 1430236789.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "DOCU"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",
