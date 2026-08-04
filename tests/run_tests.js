@@ -1978,5 +1978,61 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   ok(/45-day legal lag/.test(appSrc), "the data-lag ledger discloses how stale every input is");
 }
 
+// =============== 41. Momentum board (12–1, risk-adjusted) ===============
+// A separate factor that disagrees with the Master Signal by construction.
+// The property that matters most is the SKIP: most retail momentum screens
+// use a plain 12-month return, which includes the most recent month — the
+// window that exhibits short-term reversal and measurably degrades the
+// factor. These pin the skip, the risk adjustment, and the refusal to rank
+// a name on a short history.
+{
+  const synth = (vals) => ({ ticker: "SYN", px: { v: vals } });
+  // 60 weeks: rises steadily for 56, then collapses in the last 4
+  const rising = Array.from({ length: 57 }, (_, i) => 100 + i * 2);   // ends at 212
+  const crashed = rising.concat([190, 175, 160, 150]);                 // rolls over hard
+  const mRise = E.momentumOf(synth(rising.concat([214, 216, 218, 220])));
+  const mCrash = E.momentumOf(synth(crashed));
+  ok(mRise && mCrash, "momentum computes on a full weekly history");
+  ok(Math.abs(mRise.ret121 - mCrash.ret121) < 0.01,
+    "THE SKIP: the most recent month cannot change the 12–1 return",
+    `${mRise.ret121} vs ${mCrash.ret121}`);
+  ok(mCrash.skipRet < -20 && mRise.skipRet > 0,
+    "the excluded month is still reported, so a name rolling over is visible",
+    `${mCrash.skipRet} vs ${mRise.skipRet}`);
+
+  // risk adjustment: same return, more volatility -> lower risk-adjusted score
+  const smooth = Array.from({ length: 61 }, (_, i) => 100 * Math.pow(1.01, i));
+  const jagged = smooth.map((v, i) => v * (i % 2 ? 1.12 : 0.89));
+  const a = E.momentumOf(synth(smooth)), b = E.momentumOf(synth(jagged));
+  ok(a && b && b.volA > a.volA, "a jagged path measures higher volatility", `${b.volA} vs ${a.volA}`);
+  ok(b.riskAdj < a.riskAdj, "for similar returns, more volatility means a LOWER risk-adjusted score",
+    `${b.riskAdj} vs ${a.riskAdj}`);
+  ok(a.consistency > b.consistency, "consistency separates a steady climb from a lurching one",
+    `${a.consistency} vs ${b.consistency}`);
+
+  // short history is refused, never ranked on a partial window
+  ok(E.momentumOf(synth(Array.from({ length: 20 }, (_, i) => 100 + i))) === null,
+    "a name without a full 12-month history is not ranked at all");
+  ok(E.momentumOf({ ticker: "X" }) === null, "no price tape yields null, never a guess");
+
+  // the live board
+  const mom = E.momentumBoard();
+  ok(mom.length > 100, "the momentum board ranks most of the universe", String(mom.length));
+  const scores = mom.map(r => r.score);
+  ok(scores.every((v, i) => i === 0 || scores[i - 1] >= v), "board is sorted best-first");
+  ok(mom.every(r => r.score >= 0 && r.score <= 100), "percentile scores stay in range");
+  ok(mom[0].rank === 1 && mom[mom.length - 1].rank === mom.length, "ranks are dense and 1-based");
+  // it must NOT quietly become the Master Signal: these are different questions
+  const mb = E.masterBoard();
+  const overlap = mom.slice(0, 10).filter(r => mb.slice(0, 10).some(x => x.ticker === r.d.ticker)).length;
+  ok(overlap < 10, "the momentum top-10 is not simply the Master Signal top-10", String(overlap));
+  // the freeze is untouched — momentum is a separate board, not a pillar
+  ok(E.MASTER_MODEL_VERSION === E.MASTER_MODEL_FREEZE.version,
+    "adding the momentum board did not bump or fork the frozen Master Signal model");
+  const appSrc2 = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
+  ok(/How this factor fails/.test(appSrc2), "the page discloses momentum crash risk and turnover cost");
+  ok(/SKIPPED MO/.test(appSrc2), "the excluded month is surfaced as a column, not hidden");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

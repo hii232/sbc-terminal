@@ -987,7 +987,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "fpeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "masterBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "fpeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "masterBtn", "momBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -1020,6 +1020,7 @@
       // after something else.
       { id: "masterBtn", label: "Master Signal — the ranking", ic: "🏆" },
       { id: "setupsBtn", label: "Entry Timing", ic: "⭐" },
+      { id: "momBtn", label: "Momentum — the 12–1 factor", ic: "🚀" },
       { id: "rankBtn", label: "Brain Score (legacy model)", ic: "⚡" },
       { id: "screenBtn", label: "Screener", ic: "📊" },
       { id: "compareBtn", label: "Compare", ic: "⚖" },
@@ -1244,7 +1245,7 @@
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
         const map = { home: showHome, easy: showEasy, signals: showSignals, forwardpe: showForwardPE, narratives: showNarratives, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
-          master: showMasterSignal, rankings: showRankings, screener: showScreener, compare: showCompare,
+          master: showMasterSignal, momentum: showMomentum, rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
@@ -3739,6 +3740,79 @@
     return _mbCache;
   }
   const masterRankOf = (tk) => masterBoardCached().find(r => r.ticker === tk) || null;
+
+  /* ================= MOMENTUM BOARD =================
+     A SEPARATE ranking, deliberately, and one that DISAGREES with the rest
+     of this terminal by construction. The Master Signal is value-tilted
+     (Price is 22% and rewards cheapness); Entry Timing is mean-reverting
+     (RSI 30%, rewards wash-outs). Momentum rewards the opposite of both:
+     things that have already gone up. Cross-referenced on-screen so the
+     disagreement reads as two honest answers to two different questions
+     rather than the terminal contradicting itself.
+
+     Built to the academic standard, not "what went up lately":
+       12-1 RETURN — the last 12 months SKIPPING the most recent month.
+       That skip is not a detail: the most recent month exhibits SHORT-TERM
+       REVERSAL, and including it measurably degrades the factor. Most
+       retail momentum screens get this wrong.
+       RISK-ADJUSTED — divided by realised volatility. Raw momentum loads on
+       whatever is most volatile; the risk-adjusted version is the more
+       robust form and stops the board becoming a list of lottery tickets.
+       CONSISTENCY — share of positive weeks. A move delivered in one gap is
+       news, not trend.
+     Scored by PERCENTILE within the universe, because momentum is inherently
+     a relative-ranking factor: "high momentum" only means anything against
+     the cross-section on the same day. */
+  const MOM_LOOKBACK_W = 52, MOM_SKIP_W = 4, MOM_MIN_W = 45;
+  function momentumOf(d) {
+    const v = pxVals(d);
+    if (!v || v.length < MOM_MIN_W + MOM_SKIP_W + 1) return null;
+    const last = v.length - 1;
+    const iStart = Math.max(0, last - MOM_LOOKBACK_W), iEnd = last - MOM_SKIP_W;
+    const a = v[iStart], b = v[iEnd];
+    if (!Number.isFinite(a) || !Number.isFinite(b) || a <= 0) return null;
+    const ret121 = (b / a - 1) * 100;
+    // weekly returns across the SAME window that momentum is measured over
+    const rets = [];
+    for (let i = iStart + 1; i <= iEnd; i++)
+      if (Number.isFinite(v[i]) && Number.isFinite(v[i - 1]) && v[i - 1] > 0) rets.push(v[i] / v[i - 1] - 1);
+    if (rets.length < MOM_MIN_W * 0.8) return null;
+    const mean = rets.reduce((s, x) => s + x, 0) / rets.length;
+    const varr = rets.reduce((s, x) => s + (x - mean) ** 2, 0) / Math.max(rets.length - 1, 1);
+    const volA = Math.sqrt(varr) * Math.sqrt(52) * 100;        // annualised %
+    const riskAdj = volA > 0 ? ret121 / volA : null;
+    const consistency = (rets.filter(x => x > 0).length / rets.length) * 100;
+    // the month deliberately excluded — shown, never scored, so the user can
+    // see whether a name is rolling over right as the factor says to buy it
+    const skipRet = Number.isFinite(v[last]) && b > 0 ? (v[last] / b - 1) * 100 : null;
+    return { ticker: d.ticker, ret121: +ret121.toFixed(1), volA: +volA.toFixed(1),
+      riskAdj: riskAdj == null ? null : +riskAdj.toFixed(2),
+      consistency: +consistency.toFixed(0), skipRet: skipRet == null ? null : +skipRet.toFixed(1),
+      weeks: rets.length };
+  }
+  function momentumBoard(limit) {
+    const raw = DATA.map(d => { const m = momentumOf(d); return m ? { d, m } : null; }).filter(Boolean);
+    if (!raw.length) return [];
+    // percentile rank within the universe — momentum is a relative factor, so
+    // an absolute cutoff would mean something different in every tape
+    const pct = (vals, x) => {
+      const s = vals.filter(Number.isFinite).slice().sort((p, q) => p - q);
+      if (!s.length) return null;
+      let lo = 0; while (lo < s.length && s[lo] < x) lo++;
+      return (lo / Math.max(s.length - 1, 1)) * 100;
+    };
+    const rets = raw.map(r => r.m.ret121), ras = raw.map(r => r.m.riskAdj), cons = raw.map(r => r.m.consistency);
+    for (const r of raw) {
+      const pR = pct(rets, r.m.ret121), pA = r.m.riskAdj == null ? null : pct(ras, r.m.riskAdj), pC = pct(cons, r.m.consistency);
+      const parts = [[pR, 0.45], [pA, 0.35], [pC, 0.20]].filter(x => Number.isFinite(x[0]));
+      const w = parts.reduce((s, x) => s + x[1], 0);
+      r.score = w ? Math.round(clamp(parts.reduce((s, x) => s + x[0] * x[1], 0) / w, 0, 100)) : null;
+      r.pctiles = { ret: pR == null ? null : Math.round(pR), risk: pA == null ? null : Math.round(pA), cons: pC == null ? null : Math.round(pC) };
+    }
+    const rows = raw.filter(r => r.score != null).sort((a, b) => b.score - a.score || b.m.ret121 - a.m.ret121);
+    rows.forEach((r, i) => { r.rank = i + 1; r.of = rows.length; });
+    return limit ? rows.slice(0, limit) : rows;
+  }
 
   /* ------------------- SIGNAL CALIBRATION -------------------
      Grades every recorded signal against what prices actually did next.
@@ -6293,6 +6367,45 @@
   }
   const showMasterSignal = () => showView("master", renderMasterSignal, "masterBtn");
 
+  function renderMomentum() {
+    const rows = momentumBoard();
+    const shown = rows.slice(0, 40);
+    const mb = masterBoardCached();
+    const mRank = (tk) => { const i = mb.findIndex(r => r.ticker === tk); return i < 0 ? null : i + 1; };
+    // How far apart the two boards are: momentum's top 10 versus where the
+    // Master Signal puts those same names. A large gap is the honest headline
+    // of this page, not a footnote.
+    const top = rows.slice(0, 10).map(r => ({ tk: r.d.ticker, m: mRank(r.d.ticker) })).filter(x => x.m);
+    const medianMaster = top.length ? top.map(x => x.m).sort((a, b) => a - b)[Math.floor((top.length - 1) / 2)] : null;
+    const row = (r) => `<tr data-tk="${r.d.ticker}">
+      <td style="text-align:center"><b style="color:${r.rank <= 3 ? "var(--gold)" : "var(--muted)"}">${r.rank}</b></td>
+      <td style="text-align:left"><span class="rk-tk">${r.d.ticker}</span> <span class="sub">${escapeHtml(r.d.sector || "")}</span></td>
+      <td><span class="rk-pill" style="background:${scoreColorOf(r.score)};color:#071018">${r.score}</span></td>
+      <td style="color:${r.m.ret121 >= 0 ? "var(--green)" : "var(--red)"}"><b>${r.m.ret121 >= 0 ? "+" : ""}${r.m.ret121}%</b></td>
+      <td>${r.m.riskAdj == null ? "–" : r.m.riskAdj}</td>
+      <td>${r.m.volA}%</td>
+      <td>${r.m.consistency}%</td>
+      <td class="sub" style="color:${r.m.skipRet == null ? "var(--dim)" : r.m.skipRet >= 0 ? "var(--muted)" : "var(--orange)"}">${r.m.skipRet == null ? "–" : (r.m.skipRet >= 0 ? "+" : "") + r.m.skipRet + "%"}</td>
+      <td class="sub">${mRank(r.d.ticker) ? "#" + mRank(r.d.ticker) : "–"}</td></tr>`;
+    el("main").innerHTML = toolHeader("🚀", "MOMENTUM", "the 12–1 factor, risk-adjusted — a different question from the Master Signal, and often a different answer",
+      `<div style="text-align:right"><div class="sub">RANKED</div><div class="stat sm">${rows.length}/${DATA.length}</div></div>`)
+      + `<div class="note" style="margin-bottom:12px"><b>This board disagrees with the rest of the terminal on purpose.</b> The Master Signal is value-tilted (Price is 22% of it and rewards cheapness); Entry Timing is mean-reverting (RSI 30%, rewards wash-outs). Momentum rewards what has <b>already gone up</b>. Both can be right — they answer different questions — but do not read a name being high here and low there as an error.${medianMaster ? ` Right now the median Master Signal rank of this board's top 10 is <b>#${medianMaster} of ${mb.length}</b>, which is the size of the disagreement today.` : ""}</div>`
+      + `<div class="note" style="margin-bottom:12px"><b>How it is measured, and why it differs from most momentum screens:</b> the <b>12–1 return</b> is the last 12 months <b>skipping the most recent month</b> — that month shows short-term <i>reversal</i>, and including it measurably degrades the factor. It is then <b>risk-adjusted</b> (divided by realised volatility) so the list does not simply become whatever is most volatile, and blended with <b>consistency</b> (share of positive weeks), because a move delivered in one gap is news rather than trend. Scored by <b>percentile within the universe</b>: momentum is inherently relative, so "high" only means anything against the cross-section on the same day. Weights: return 45% · risk-adjusted 35% · consistency 20%.</div>`
+      + `<div class="note" style="margin-bottom:12px;border-left:3px solid var(--orange)"><b>⚠ How this factor fails.</b> Momentum is one of the most documented anomalies in finance <b>and</b> it crashes — hard and fast — when a falling market snaps back, because the losers it implicitly avoids rebound the most (2009 and 2020 were both brutal). It also has <b>high turnover</b>, so costs bite more than anywhere else in this terminal. The <b>SKIPPED MONTH</b> column exists as your early warning: a name with strong 12–1 momentum that is already rolling over in the excluded month is exactly the shape of a late entry. Nothing on this page is frozen or benchmarked — unlike the Master Signal, it carries no track record yet.</div>`
+      + `<div style="overflow-x:auto"><table class="rank">
+          <thead><tr><th>#</th><th style="text-align:left">TICKER</th><th>SCORE</th>
+            <th title="12-month return skipping the most recent month">12–1 RET</th>
+            <th title="12-1 return divided by annualised volatility">RISK-ADJ</th>
+            <th title="annualised weekly volatility">VOL</th>
+            <th title="share of positive weeks in the window">CONSIST</th>
+            <th title="the excluded most-recent month — shown, never scored">SKIPPED MO</th>
+            <th title="where the Master Signal ranks this name">MASTER</th></tr></thead>
+          <tbody>${shown.map(row).join("")}</tbody></table></div>`
+      + `<div class="note" style="margin-top:12px">Showing the top ${shown.length} of ${rows.length} ranked. ${DATA.length - rows.length} name${DATA.length - rows.length === 1 ? "" : "s"} could not be scored — a full 12-month weekly history is required, so recent listings are excluded rather than ranked on a short window.</div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(b => b.onclick = () => selectTicker(b.dataset.tk));
+  }
+  const showMomentum = () => showView("momentum", renderMomentum, "momBtn");
+
   function renderSignals() {
     const all = signalsEvents();
     const rows = sigState.filter === "all" ? all : all.filter(e => e.type === sigState.filter);
@@ -8063,6 +8176,9 @@
     if (["RANK", "RANKINGS", "RANKING", "LEADERBOARD", "SCORE", "BEST", "TOP", "MASTER", "MASTER SIGNAL"].includes(q)) {
       showMasterSignal(); flash("Master Signal — the ranking", "ok"); return;
     }
+    if (["MOM", "MOMENTUM", "TRENDING", "MOVERS 12M", "WINNERS"].includes(q)) {
+      showMomentum(); flash("Momentum — the 12–1 factor", "ok"); return;
+    }
     if (["BRAIN", "BRAIN SCORE", "LEGACY", "VERDICT"].includes(q)) {
       showRankings(); flash("Brain Score (legacy model)", "ok"); return;
     }
@@ -8182,6 +8298,7 @@
     el("navRank").onclick = showRankings;
     el("rankBtn").onclick = showRankings;
     el("masterBtn").onclick = showMasterSignal;
+    el("momBtn").onclick = showMomentum;
     el("screenBtn").onclick = showScreener;
     el("compareBtn").onclick = showCompare;
     el("portBtn").onclick = showPortfolio;
@@ -8234,7 +8351,7 @@
     narrativeScreenOf, narrativeScreens,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
-    NAV_GROUPS,
+    NAV_GROUPS, momentumOf, momentumBoard,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     MASTER_MODEL_FREEZE, cyclePeakOf, boardConcentrationOf, boardRiskOf, benchmarkVsSpy, LANG_CROWDED_SHARE,
     fetchYahooSparkBatch, applySparkResult,

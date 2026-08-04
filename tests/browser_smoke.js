@@ -131,6 +131,7 @@ async function main() {
       ["#screenBtn", "CUSTOM SCREENER"],
       ["#sectorBtn", "SECTOR FLOW"],
       ["#setupsBtn", "ENTRY TIMING"],
+      ["#momBtn", "MOMENTUM"],
       ["#blackrockBtn", "WHALE TRACKER"],
       ["#calBtn", "EARNINGS COMMAND CENTER"],  // keep last: the earnings checks below read this view
     ];
