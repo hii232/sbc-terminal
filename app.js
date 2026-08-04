@@ -987,7 +987,7 @@
 
   /* ------------------------ tabs state ------------------------ */
   let currentTab = "overview";
-  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "fpeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
+  const VIEW_BTNS = ["homeBtn", "easyBtn", "signalsBtn", "narrBtn", "fpeBtn", "dailyBtn", "edgeBtn", "sectorBtn", "masterBtn", "rankBtn", "screenBtn", "compareBtn", "portBtn", "calBtn", "setupsBtn", "blackrockBtn", "auditBtn", "trackBtn", "journalBtn"];
 
   // Condensed top navigation: the tool views grouped into a few labelled
   // menus. Each item delegates to its existing hidden drawer button, so all the
@@ -1012,8 +1012,15 @@
       { id: "blackrockBtn", label: "Whale Tracker", ic: "🐋" },
     ] },
     { name: "Stocks", icon: "🔍", tools: [
-      { id: "setupsBtn", label: "Best Setups", ic: "⭐" },
-      { id: "rankBtn", label: "Rankings", ic: "⚡" },
+      // The Master Signal is the terminal's headline ranking, so it is the
+      // first thing in the group a user opens looking for one. It used to
+      // live inside "What Changed" while a nav item literally called
+      // "Rankings" opened the LEGACY brain score -- so the page named
+      // Rankings was the one not to use, and the ranking was on a page named
+      // after something else.
+      { id: "masterBtn", label: "Master Signal — the ranking", ic: "🏆" },
+      { id: "setupsBtn", label: "Entry Timing", ic: "⭐" },
+      { id: "rankBtn", label: "Brain Score (legacy model)", ic: "⚡" },
       { id: "screenBtn", label: "Screener", ic: "📊" },
       { id: "compareBtn", label: "Compare", ic: "⚖" },
     ] },
@@ -1237,7 +1244,7 @@
         selectTicker((st && st.tk) || state.active || "NVDA");
       } else {
         const map = { home: showHome, easy: showEasy, signals: showSignals, forwardpe: showForwardPE, narratives: showNarratives, blackrock: showBlackrock, setups: showSetups, dailyReview: showDailyReview, directionEdge: showDirectionEdge, sectors: showSectors,
-          rankings: showRankings, screener: showScreener, compare: showCompare,
+          master: showMasterSignal, rankings: showRankings, screener: showScreener, compare: showCompare,
           portfolio: showPortfolio, calendar: showCalendar, audit: showAudit, track: showTrack, journal: showJournal };
         (map[st.view] || (() => selectTicker(state.active || "NVDA")))();
       }
@@ -4690,8 +4697,8 @@
     el("main").innerHTML = `
       <div class="hdr">
         <div>
-          <div class="tick" style="color:var(--purple)">⚛ THE BRAIN — MASTER RANKINGS</div>
-          <div class="co">every engine votes — SBC x-ray · IV15 DCF · Graham · quality &amp; cash · buyback truth · sector flow → ONE score, ONE call per stock</div>
+          <div class="tick" style="color:var(--purple)">⚛ BRAIN SCORE <span class="unit">legacy model — kept for reference</span></div>
+          <div class="co">every engine votes — SBC x-ray · IV15 DCF · Graham · quality &amp; cash · buyback truth · sector flow → ONE score, ONE call per stock. <b>This is NOT the Master Signal:</b> it is an older, separate model on its own 0–100 scale, not frozen and not benchmarked against SPY. Where the two disagree, <b>Stocks → 🏆 Master Signal</b> is the terminal's answer.</div>
         </div>
         <div class="spacer"></div>
         <div style="text-align:right">
@@ -6268,6 +6275,24 @@
       <div class="sub" style="white-space:nowrap">${d ? d.sector : ""}</div>
     </div>`;
   }
+  /* THE MASTER SIGNAL, on its own page. It used to render inside "What
+     Changed" — so the terminal's headline ranking lived on a page named
+     after something else, while a nav item called "Rankings" opened the
+     legacy brain score. Asked "what page do I look at for rankings?", the
+     honest answer took three sentences; now it is the page called Master
+     Signal. Risk read first, ranking second — deliberate ordering. */
+  function renderMasterSignal() {
+    const all = masterBoardCached();
+    el("main").innerHTML = toolHeader("🏆", "MASTER SIGNAL", "the terminal's one ranking — every engine, coverage-weighted, model v" + MASTER_MODEL_VERSION + " frozen until " + MASTER_MODEL_FREEZE.until,
+      `<div style="text-align:right"><div class="sub">RANKED</div><div class="stat sm">${all.length}/${DATA.length}</div></div>`)
+      + masterBoardHtml()
+      + `<div class="note" style="margin-top:12px">Looking for <b>when</b> to buy rather than <b>what</b>? That is <b>Entry Timing</b> (Stocks → Entry Timing) — it weights RSI at 30% and therefore ranks the same names differently on purpose. The <b>Brain Score</b> page is an older, separate model kept for reference; it is not frozen and not benchmarked, so where the two disagree, this page is the terminal's answer.</div>`;
+    el("main").querySelectorAll("[data-tk]").forEach(b => b.onclick = () => selectTicker(b.dataset.tk));
+    el("main").querySelectorAll("[data-bsize]").forEach(b => b.onclick = () => { sigState.boardSize = +b.dataset.bsize; renderMasterSignal(); });
+    el("main").querySelectorAll("[data-bsort]").forEach(b => b.onclick = () => { sigState.boardSort = b.dataset.bsort; renderMasterSignal(); });
+  }
+  const showMasterSignal = () => showView("master", renderMasterSignal, "masterBtn");
+
   function renderSignals() {
     const all = signalsEvents();
     const rows = sigState.filter === "all" ? all : all.filter(e => e.type === sigState.filter);
@@ -6286,7 +6311,7 @@
         <div class="spacer"></div>
         <div style="text-align:right"><div class="sub">LEDGER</div><div class="stat sm">${signalsAsOf() ? "diffed " + signalsAsOf() : "arming"}</div></div>
       </div>
-      ${masterBoardHtml()}
+      <div class="note" style="margin-bottom:12px">Looking for the ranking? It moved to its own page — <b>Stocks → 🏆 Master Signal</b>. This page is the daily <i>diff</i>; that one is the standing order of the universe.</div>
       <div class="sec-chips" style="margin-bottom:12px">
         ${chip("all", `ALL ${all.length}`)}
         ${Object.entries(SIG_TYPES).map(([k, t]) => chip(k, `${t.label} ${counts[k] || 0}`)).join("")}
@@ -8032,8 +8057,14 @@
   function runCommand(q) {
     q = (q || "").trim().toUpperCase();
     if (!q) return;
-    if (["RANK", "RANKINGS", "RANKING", "LEADERBOARD", "SCORE", "BEST", "TOP"].includes(q)) {
-      showRankings(); flash("Master rankings", "ok"); return;
+    // "rank"/"best"/"top" go to the MASTER SIGNAL -- the terminal's actual
+    // ranking. They used to open the legacy brain score, so the search box
+    // disagreed with the headline model.
+    if (["RANK", "RANKINGS", "RANKING", "LEADERBOARD", "SCORE", "BEST", "TOP", "MASTER", "MASTER SIGNAL"].includes(q)) {
+      showMasterSignal(); flash("Master Signal — the ranking", "ok"); return;
+    }
+    if (["BRAIN", "BRAIN SCORE", "LEGACY", "VERDICT"].includes(q)) {
+      showRankings(); flash("Brain Score (legacy model)", "ok"); return;
     }
     if (["DAILY", "RECAP", "REVIEW", "DAILY REVIEW", "MARKET REVIEW", "MARKET RECAP", "TODAY"].includes(q)) {
       showDailyReview(); flash("Daily review", "ok"); return;
@@ -8150,6 +8181,7 @@
     el("navPE").onclick = showScreener;
     el("navRank").onclick = showRankings;
     el("rankBtn").onclick = showRankings;
+    el("masterBtn").onclick = showMasterSignal;
     el("screenBtn").onclick = showScreener;
     el("compareBtn").onclick = showCompare;
     el("portBtn").onclick = showPortfolio;
@@ -8202,6 +8234,7 @@
     narrativeScreenOf, narrativeScreens,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
+    NAV_GROUPS,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     MASTER_MODEL_FREEZE, cyclePeakOf, boardConcentrationOf, boardRiskOf, benchmarkVsSpy, LANG_CROWDED_SHARE,
     fetchYahooSparkBatch, applySparkResult,
