@@ -1,5 +1,20 @@
 # SBC Model Changelog
 
+## 5.0.0 — The wall-street audit: fix the model, then freeze it - 2026-08-04
+
+A professional review of the whole terminal produced a 17-point critique. The buildable items ship here as ONE version bump (MASTER_MODEL_VERSION 4 → 5), after which the model is **frozen until 2026-11-02** — four versions had shipped in weeks, each bump resetting the proof clock, so no ranking was ever actually validated against forward returns.
+
+- **Cycle-peak guard** (`cyclePeakOf`): when a name's latest net margin is a 10-year high and ≥1.3× its own median, the Price pillar takes an −18% haircut that names itself in the why-text. Cheap-on-peak-earnings is the classic value trap, and P&C insurers at a hard-market underwriting peak were leading the board on exactly that shape. A `PEAK` chip renders on the board row.
+- **Sell-side de-dup**: `tier1` joined the `earnings-estimate` conviction cluster. A Morgan Stanley upgrade arrives *with* the estimate revisions it is based on — one fact, previously counted as two confirmations (PGR's "4 agree" was really 3). Direction Edge stays outside the cluster: price behaviour, not sell-side.
+- **Language crowding line** (`LANG_CROWDED_SHARE = 0.04`): a positive Stated-strategy vote now requires EARLY adoption — joining a theme >4% of the corpus already states is crowd-following, recorded and shown but worth zero. Managements adopt words because the market rewards words; reflexivity is not signal.
+- **Within-sector ranks + factor-bet banner**: every board row carries `#n/N in sector`; when one sector holds 3+ of the top 10, the board says "FACTOR BET, NOT n PICKS" and names the tickers as one idea.
+- **Risk read on the top-10** (`boardRiskOf`): correlation-adjusted effective bet count (N / (1+(N−1)ρ) over 52 weekly returns), rate-sensitivity buckets (labelled as a heuristic), and a costs/turnover disclosure. Rendered ABOVE the ranking — risk before picks.
+- **The benchmark clock** (`benchmarkVsSpy` + `MASTER_MODEL_FREEZE`): daily snapshots now record the SPY level; the Proof Scoreboard grades the equal-weight top-10 against simply owning SPY, computed ONLY over snapshots stamped v5 — older models' history is never pooled in. Verdict date 2026-11-02; changing the model earlier means bumping to v6 and consciously discarding the clock.
+- **Edge honesty**: a data-lag ledger on the board (13Fs = 45-day legal lag, MD&A = weeks, consensus = public by definition, single free data spine) plus a stale-tape banner on Home when the pipeline is >4 days old. What this terminal owns is discipline, not information advantage — and it now says so on the page.
+- **Pipeline fix**: `collect_language.py` default sweep is now the whole universe (was top-50). The daily data-refresh ran it bare and destructively rebuilt the 224-company corpus down to 50, silently disarming the language vote until the next full dispatch.
+- Tests: +28 assertions (1158 total), covering every item above including a synthetic benchmark history proving old-model snapshots are excluded.
+- Explicitly NOT fixable in code, and now disclosed instead of implied: information edge from public data, universe breadth (224 mega-caps = maximum market efficiency), primary research, short-interest/borrow/positioning data, redundant data feeds.
+
 ## 4.5.0 — Fairness gate: a ranking must compare like with like - 2026-07-26
 
 - The insider vote can be NEGATIVE, so while the Form 4 sweep was partial (106/224) only scanned names could receive its penalty — an unearned advantage for whichever half of the universe the sweep had not reached. Measured exposure: 10 names carried a penalty and 4 a bonus that 119 unscanned peers could not receive. `convictionOf` now withholds the insider vote from EVERY name until the sweep is complete, then switches it on for all of them at once. Using a real signal unevenly is worse than briefly not using it.
