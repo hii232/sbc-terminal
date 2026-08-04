@@ -2922,6 +2922,80 @@
     };
   }
 
+  /* ------------------- NARRATIVE SCREEN -------------------
+     Turns a convergent theme into a RANKED, DEFENSIBLE list.
+
+     This exists because of a question the terminal could not answer: "what is
+     the best AI name?" The Radar could show that 18 companies say
+     "generative ai product integration", and the Master Signal could rank all
+     224 names, but nothing joined the two -- so answering meant hand-picking a
+     ticker list and sorting it off-app. A hand-picked list is unfalsifiable:
+     change the list, change the answer, and the reasoning lives nowhere the
+     user can inspect.
+
+     Membership here is never a judgement call. A company is in a screen
+     because ITS OWN latest MD&A names that strategy, and the phrase is shown
+     as the evidence. The ranking is the ordinary Master Signal -- this view
+     invents no score of its own, so a name cannot look good here and bad on
+     the main board. */
+  function narrativeScreenOf(phrase, bundle) {
+    const themes = languageThemes(bundle);
+    if (!themes) return null;
+    const t = themes.find(x => x.phrase === phrase);
+    if (!t) return null;
+    const corpus = languageCorpus(bundle) || [];
+    const members = [];
+    for (const tk of t.companies) {
+      const d = DATA.find(x => x.ticker === tk);
+      if (!d) continue;
+      const m = masterRankOf(tk);
+      const c = corpus.find(x => x.ticker === tk);
+      // The verbatim theme+quote the model pulled out of the filing, when the
+      // collector recorded which canonical label it was folded into. Older
+      // bundles have no label field; the screen still works, it just shows the
+      // company's stated themes instead of the one supporting sentence.
+      let quote = null, saidAs = null;
+      const raw = c && c.latest && Array.isArray(c.latest.themes) ? c.latest.themes : [];
+      const hit = raw.find(r => (r.label || r.theme) === phrase) || null;
+      if (hit) { quote = hit.quote || null; saidAs = hit.theme || null; }
+      members.push({
+        ticker: tk, d, m,
+        rank: m ? masterBoardCached().findIndex(r => r.ticker === tk) + 1 : null,
+        adopted: t.adopters.includes(tk),
+        stated: c && c.latest ? Object.keys(c.latest.phrases || {}) : [],
+        saidAs, quote,
+        // Bundles collected before the label field existed cannot attribute a
+        // sentence to a theme. Say so, rather than filling the column with the
+        // company's OTHER themes -- under a heading of "stated as" that reads
+        // as evidence for this row and is not.
+        evidencePending: !saidAs,
+      });
+    }
+    // Unrankable names stay visible but sort last: they are in the narrative,
+    // the terminal just cannot score them, and hiding them would overstate how
+    // complete the screen is.
+    members.sort((a, b) => (b.m ? b.m.score : -1) - (a.m ? a.m.score : -1));
+    const scored = members.filter(x => x.m);
+    return {
+      phrase: t.phrase, dfNow: t.dfNow, dfPrior: t.dfPrior, emergence: t.emergence,
+      adopters: t.adopters, sectors: t.sectors || [], crossSector: !!t.crossSector,
+      narrative: t.narrative || null, corpusSize: t.corpusSize,
+      members, ranked: scored.length, unranked: members.length - scored.length,
+      best: scored[0] || null,
+      medianScore: scored.length ? scored[Math.floor((scored.length - 1) / 2)].m.score : null,
+    };
+  }
+
+  /* Every theme that can be screened, most-convergent first. */
+  function narrativeScreens(limit, bundle) {
+    const themes = languageThemes(bundle);
+    if (!themes) return null;
+    const rows = themes.slice()
+      .sort((a, b) => b.dfNow - a.dfNow || b.emergence - a.emergence)
+      .map(t => t.phrase);
+    return limit ? rows.slice(0, limit) : rows;
+  }
+
   /* ------------------- INSIDER SIGNAL (SEC FORM 4) -------------------
      The only input in this terminal that comes from the people running
      the business, spending their own money. The asymmetry is real and
@@ -5500,6 +5574,41 @@
      measures how the market is TRADING each story; the radar measures what
      management is SAYING, which tends to move first. Both are shown; neither
      is dressed up as the other. */
+  /* The screen itself: who states this strategy, ranked by the ordinary
+     Master Signal. No score is invented here — every number is the one the
+     main board already shows, so the two can never disagree. */
+  function narrativeScreenHtml(phrase) {
+    const s = narrativeScreenOf(phrase);
+    if (!s) return `<div class="note">No screen for that phrase — it may have fallen below the convergence floor on the latest refresh.</div>`;
+    const memberRow = (x) => `<tr data-tk="${x.ticker}" style="cursor:pointer">
+      <td style="text-align:left"><b>${x.ticker}</b> <span class="sub">${escapeHtml(x.d.sector || "")}</span>${x.adopted ? ` <span class="impact-chip hot">JUST ADOPTED</span>` : ""}</td>
+      <td>${x.m ? `<b style="color:${scoreColorOf(x.m.score)}">${x.m.score}</b>` : `<span class="sub">not ranked</span>`}</td>
+      <td>${x.rank ? "#" + x.rank : "—"}</td>
+      <td>${x.m && x.m.parts.business ? x.m.parts.business.score : "—"}</td>
+      <td>${x.m && x.m.parts.price ? x.m.parts.price.score : "—"}</td>
+      <td>${x.m && x.m.parts.tape ? x.m.parts.tape.score : "—"}</td>
+      <td class="sub" style="text-align:left;white-space:normal;max-width:280px;line-height:1.5">${x.saidAs
+        ? `“${escapeHtml(x.saidAs)}”${x.quote ? `<br><span style="opacity:.75">${escapeHtml(x.quote.slice(0, 120))}…</span>` : ""}`
+        : `<span style="opacity:.6">arms next refresh</span>`}</td></tr>`;
+    return `<div class="card" style="margin-top:12px;border-left:3px solid var(--cyan)">
+      <h3>🔎 NARRATIVE SCREEN — “${escapeHtml(s.phrase)}”
+        <span class="unit">${s.dfNow} companies state this${s.crossSector ? ` across ${s.sectors.length} sectors` : ""}</span></h3>
+      <div class="sub" style="line-height:1.7;margin:4px 0 10px">
+        <b>Membership is not a judgement call.</b> A company is on this list because its own latest MD&amp;A names this strategy — the phrase it used is shown in the last column. Ranking is the ordinary Master Signal, unchanged; this view invents no score, so nothing can look good here and bad on the main board.
+        ${s.unranked ? ` ${s.unranked} member${s.unranked > 1 ? "s are" : " is"} in the narrative but <b>not rankable</b> — shown last rather than hidden, so the screen does not overstate its own coverage.` : ""}
+        ${s.emergence > 0 ? ` <b style="color:var(--green)">Net +${s.emergence} companies</b> since their prior reports.`
+          : s.emergence < 0 ? ` <b style="color:var(--orange)">Net ${s.emergence} companies</b> — more dropped this language than picked it up, which is a cooling story even though ${s.dfNow} still state it.` : ""}
+        ${s.members.every(x => x.evidencePending) ? ` <b>Per-company evidence arms on the next language refresh</b> — this corpus predates the field that records which words each company used, and showing its other themes here would read as evidence for this row when it is not.` : ""}
+      </div>
+      <div class="kv"><span class="k">BEST BY MASTER SIGNAL</span><span class="v">${s.best ? `<b>${s.best.ticker}</b> — ${s.best.m.score} (#${s.best.rank} of ${masterBoardCached().length})` : "none rankable"}</span></div>
+      <div class="kv"><span class="k">MEDIAN MEMBER</span><span class="v">${s.medianScore == null ? "—" : s.medianScore}<span class="sub"> — a high best against a low median is one good name in a crowded story, not a strong group</span></span></div>
+      <div style="overflow-x:auto;margin-top:8px"><table class="rank">
+        <thead><tr><th style="text-align:left">COMPANY</th><th>MASTER</th><th>RANK</th><th>BIZ</th><th>PRICE</th><th>TAPE</th><th style="text-align:left">STATED AS</th></tr></thead>
+        <tbody>${s.members.map(memberRow).join("")}</tbody></table></div>
+      <div class="sub" style="margin-top:8px;line-height:1.6">Language is <b>intent, not results</b> — it says where capital is being pointed, not that it will work. A member ranking poorly is the terminal saying the story is real but the price or the business is not.</div>
+    </div>`;
+  }
+
   function renderNarrativeRadar() {
     const meta = typeof LANGUAGE_META !== "undefined" ? LANGUAGE_META : null;
     // A corpus the collector did not mark narrative-grade is not shown at all.
@@ -5528,7 +5637,7 @@
       <div class="kv"><span class="k">NEWLY SAYING IT</span><span class="v"><span class="sec-chips">${tkChips(t.adopters)}</span></span></div>
       ${t.dfPrior ? `<div class="kv"><span class="k">ALREADY SAID IT</span><span class="v"><span class="sub">${t.companies.filter(c => !t.adopters.includes(c)).join(" · ")}</span></span></div>` : ""}
     </div>`;
-    const sharedRow = (t) => `<tr><td style="text-align:left"><b>“${escapeHtml(t.phrase)}”</b></td>
+    const sharedRow = (t) => `<tr><td style="text-align:left"><button type="button" class="nsc-open" data-phrase="${escapeHtml(t.phrase)}" style="background:none;border:0;color:var(--cyan);cursor:pointer;text-align:left;padding:0;font:inherit"><b>“${escapeHtml(t.phrase)}”</b> ▸</button></td>
       <td>${t.dfNow}</td>
       <td class="sub" style="text-align:left">${t.companies.slice(0, 10).join(" · ")}${t.companies.length > 10 ? ` +${t.companies.length - 10}` : ""}</td></tr>`;
     const srcNote = meta && meta.sources ? Object.entries(meta.sources).map(([k, v]) => `${v} via ${escapeHtml(k)}`).join(" · ") : "";
@@ -5538,8 +5647,9 @@
       ${emerging && emerging.length ? `<div class="grid g2">${emerging.map(row).join("")}</div>`
         : `<div class="sub" style="padding:4px 0;line-height:1.6">No language is spreading between companies right now — every shared phrase is one the same names were already using. That is a settled narrative, not a rotating one.</div>`}
       ${shared && shared.length ? `<div style="overflow-x:auto;margin-top:10px"><table class="rank">
-        <thead><tr><th style="text-align:left">SHARED LANGUAGE — COMPANIES STATING SIMILAR GOALS</th><th>FIRMS</th><th style="text-align:left">WHO</th></tr></thead>
+        <thead><tr><th style="text-align:left">SHARED LANGUAGE — COMPANIES STATING SIMILAR GOALS <span class="sub">(tap a phrase to rank its members)</span></th><th>FIRMS</th><th style="text-align:left">WHO</th></tr></thead>
         <tbody>${shared.map(sharedRow).join("")}</tbody></table></div>` : ""}
+      <div id="nsc"></div>
     </div>`;
   }
 
@@ -5580,8 +5690,19 @@
       ${silent.length ? `<div class="note" style="margin-top:4px"><b>Not enough data today:</b> ${silent.map(n => `${n.icon} ${n.name}`).join(" · ")} — fewer than 2 tracked members or fewer than 2 live inputs. Silence beats a made-up number.</div>` : ""}
       <div class="card" style="margin-top:12px"><h3>HOW TO USE THIS PAGE</h3>
         <div class="sub" style="line-height:1.7">1 · Before buying anything, find its story here — you're not just buying a company, you're buying its narrative's flow. 2 · A <b>WARMING</b> story with improving revisions is the classic early entry; <b>HOT</b> means you're no longer early. 3 · <b>COOLING</b> on a name you own is a signal to re-check the thesis, not an order to sell. 4 · The strongest single pattern this terminal can show you: a quality name (Best Setups gate) at a washed-out RSI inside a story that is turning back up. 5 · <b style="color:var(--purple)">🌱 FORMING</b> is earlier than WARMING and less certain — treat it as "watch this," not "act on this," until it either confirms into WARMING/HOT or fades back down.</div></div>`;
-    el("main").querySelectorAll("[data-tk]").forEach(b => b.onclick = () => selectTicker(b.dataset.tk));
+    const bindTickers = () => el("main").querySelectorAll("[data-tk]").forEach(b => b.onclick = () => selectTicker(b.dataset.tk));
+    bindTickers();
     el("main").querySelectorAll("[data-nk]").forEach(b => b.onclick = () => { const c = el("narr-" + b.dataset.nk); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); });
+    // Opening a screen re-renders one container, so the ticker rows inside it
+    // need binding again — the page-level pass above ran before they existed.
+    el("main").querySelectorAll(".nsc-open").forEach(b => b.onclick = () => {
+      const host = el("nsc");
+      if (!host) return;
+      const open = host.dataset.phrase === b.dataset.phrase;
+      host.dataset.phrase = open ? "" : b.dataset.phrase;
+      host.innerHTML = open ? "" : narrativeScreenHtml(b.dataset.phrase);
+      if (!open) { bindTickers(); host.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+    });
   }
   const showNarratives = () => showView("narratives", renderNarratives, "narrBtn");
 
@@ -7830,6 +7951,7 @@
     driftScoreOf, calibrationOf, signalsEvents, ratingReasonFrom, gradeOf, easySentence, easyEventWords, blkIntel, whalesIntel, rsiOf, bestSetupsOf, punishedGrowthOf, punishedGrowthBoard,
     NARRATIVES, narrativeStats, narrativeHeatAll, narrativeHeatDelta, whaleActionMap, convictionOf, convictionBoard, clusterAdjustedNet, clusterAdjustedVoteCounts, CONVICTION_CLUSTERS,
     languageCorpus, languageThemes, emergingLanguage, sharedLanguage, companyLanguageOf, collapseNearDuplicates, isNarrativePhrase, languageSignalOf, languageReady,
+    narrativeScreenOf, narrativeScreens,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
