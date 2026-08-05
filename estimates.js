@@ -1,7 +1,7 @@
 const ESTIMATE_HISTORY = {
   "A": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AGILENT TECHNOLOGIES, INC.",
@@ -167,6 +167,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.60786,
         "currentYearRevenue": 366419852406.0,
         "date": "2026-08-04",
+        "nextYearEps": 6.09835,
+        "nextYearRevenue": 392776831583.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "AAPL"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.60786,
+        "currentYearRevenue": 366419852406.0,
+        "date": "2026-08-05",
         "nextYearEps": 6.09835,
         "nextYearRevenue": 392776831583.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -339,6 +352,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "ABBV"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 12.67965,
+        "currentYearRevenue": 56234025565.0,
+        "date": "2026-08-05",
+        "nextYearEps": 13.7644,
+        "nextYearRevenue": 58271874634.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "ABBV"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -346,7 +372,7 @@ const ESTIMATE_HISTORY = {
   },
   "ABNB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Airbnb, Inc.",
@@ -359,7 +385,7 @@ const ESTIMATE_HISTORY = {
   },
   "ABT": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ABBOTT LABORATORIES",
@@ -372,7 +398,7 @@ const ESTIMATE_HISTORY = {
   },
   "ACGL": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ARCH CAPITAL GROUP LTD.",
@@ -385,7 +411,7 @@ const ESTIMATE_HISTORY = {
   },
   "ACN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Accenture plc",
@@ -557,6 +583,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "ADBE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 12.47427,
+        "currentYearRevenue": 15752629874.0,
+        "date": "2026-08-05",
+        "nextYearEps": 13.62558,
+        "nextYearRevenue": 17609757239.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "ADBE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -564,7 +603,7 @@ const ESTIMATE_HISTORY = {
   },
   "ADI": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ANALOG DEVICES INC",
@@ -577,7 +616,7 @@ const ESTIMATE_HISTORY = {
   },
   "ADP": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AUTOMATIC DATA PROCESSING INC",
@@ -590,7 +629,7 @@ const ESTIMATE_HISTORY = {
   },
   "ADSK": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Autodesk, Inc.",
@@ -603,7 +642,7 @@ const ESTIMATE_HISTORY = {
   },
   "AFL": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AFLAC INC",
@@ -616,7 +655,7 @@ const ESTIMATE_HISTORY = {
   },
   "AIG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AMERICAN INTERNATIONAL GROUP, INC.",
@@ -629,7 +668,7 @@ const ESTIMATE_HISTORY = {
   },
   "ALL": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ALLSTATE CORP",
@@ -642,7 +681,7 @@ const ESTIMATE_HISTORY = {
   },
   "ALLY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Ally Financial Inc.",
@@ -655,7 +694,7 @@ const ESTIMATE_HISTORY = {
   },
   "AMAT": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "APPLIED MATERIALS INC /DE",
@@ -827,6 +866,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "AMD"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.64582,
+        "currentYearRevenue": 16129371055.0,
+        "date": "2026-08-05",
+        "nextYearEps": 3.49889,
+        "nextYearRevenue": 23520416326.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "AMD"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -834,7 +886,7 @@ const ESTIMATE_HISTORY = {
   },
   "AMGN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AMGEN INC",
@@ -1006,6 +1058,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "AMZN"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.04996,
+        "currentYearRevenue": 470298361760.0,
+        "date": "2026-08-05",
+        "nextYearEps": -0.10658,
+        "nextYearRevenue": 510346366449.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "AMZN"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -1013,7 +1078,7 @@ const ESTIMATE_HISTORY = {
   },
   "ANET": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Arista Networks, Inc.",
@@ -1026,7 +1091,7 @@ const ESTIMATE_HISTORY = {
   },
   "APO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Apollo Global Management, Inc.",
@@ -1039,7 +1104,7 @@ const ESTIMATE_HISTORY = {
   },
   "APP": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AppLovin Corp",
@@ -1052,7 +1117,7 @@ const ESTIMATE_HISTORY = {
   },
   "ARES": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Ares Management Corp",
@@ -1065,7 +1130,7 @@ const ESTIMATE_HISTORY = {
   },
   "ARM": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ARM HOLDINGS PLC /UK",
@@ -1078,7 +1143,7 @@ const ESTIMATE_HISTORY = {
   },
   "ASML": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ASML HOLDING NV",
@@ -1091,7 +1156,7 @@ const ESTIMATE_HISTORY = {
   },
   "AVGO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Broadcom Inc.",
@@ -1104,7 +1169,7 @@ const ESTIMATE_HISTORY = {
   },
   "AXON": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AXON ENTERPRISE, INC.",
@@ -1117,7 +1182,7 @@ const ESTIMATE_HISTORY = {
   },
   "AXP": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AMERICAN EXPRESS CO",
@@ -1130,7 +1195,7 @@ const ESTIMATE_HISTORY = {
   },
   "AZO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "AUTOZONE INC",
@@ -1296,6 +1361,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": -2.04938,
         "currentYearRevenue": 64170247469.0,
         "date": "2026-08-04",
+        "nextYearEps": -8.95304,
+        "nextYearRevenue": 66762368464.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "BA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -2.04938,
+        "currentYearRevenue": 64170247469.0,
+        "date": "2026-08-05",
         "nextYearEps": -8.95304,
         "nextYearRevenue": 66762368464.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -1468,6 +1546,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "BAC"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 1.81211,
+        "currentYearRevenue": 86056210203.0,
+        "date": "2026-08-05",
+        "nextYearEps": 3.49696,
+        "nextYearRevenue": 89402399391.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "BAC"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -1475,7 +1566,7 @@ const ESTIMATE_HISTORY = {
   },
   "BIIB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "BIOGEN INC.",
@@ -1488,7 +1579,7 @@ const ESTIMATE_HISTORY = {
   },
   "BKNG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Booking Holdings Inc.",
@@ -1501,7 +1592,7 @@ const ESTIMATE_HISTORY = {
   },
   "BLK": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "BlackRock, Inc.",
@@ -1514,7 +1605,7 @@ const ESTIMATE_HISTORY = {
   },
   "BMY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "BRISTOL MYERS SQUIBB CO",
@@ -1527,7 +1618,7 @@ const ESTIMATE_HISTORY = {
   },
   "BSX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "BOSTON SCIENTIFIC CORP",
@@ -1540,7 +1631,7 @@ const ESTIMATE_HISTORY = {
   },
   "BX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Blackstone Inc.",
@@ -1712,6 +1803,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "C"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 10.12168,
+        "currentYearRevenue": 70926928816.0,
+        "date": "2026-08-05",
+        "nextYearEps": 6.98658,
+        "nextYearRevenue": 75151298828.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "C"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -1719,7 +1823,7 @@ const ESTIMATE_HISTORY = {
   },
   "CAT": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CATERPILLAR INC",
@@ -1732,7 +1836,7 @@ const ESTIMATE_HISTORY = {
   },
   "CB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Chubb Ltd",
@@ -1745,7 +1849,7 @@ const ESTIMATE_HISTORY = {
   },
   "CBOE": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Cboe Global Markets, Inc.",
@@ -1758,7 +1862,7 @@ const ESTIMATE_HISTORY = {
   },
   "CDNS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CADENCE DESIGN SYSTEMS INC",
@@ -1771,7 +1875,7 @@ const ESTIMATE_HISTORY = {
   },
   "CEG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Constellation Energy Corp",
@@ -1784,7 +1888,7 @@ const ESTIMATE_HISTORY = {
   },
   "CFG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CITIZENS FINANCIAL GROUP INC/RI",
@@ -1797,7 +1901,7 @@ const ESTIMATE_HISTORY = {
   },
   "CI": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Cigna Group",
@@ -1810,7 +1914,7 @@ const ESTIMATE_HISTORY = {
   },
   "CL": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "COLGATE PALMOLIVE CO",
@@ -1823,7 +1927,7 @@ const ESTIMATE_HISTORY = {
   },
   "CME": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CME GROUP INC.",
@@ -1836,7 +1940,7 @@ const ESTIMATE_HISTORY = {
   },
   "CMG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CHIPOTLE MEXICAN GRILL INC",
@@ -1849,7 +1953,7 @@ const ESTIMATE_HISTORY = {
   },
   "COF": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CAPITAL ONE FINANCIAL CORP",
@@ -2021,6 +2125,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "COIN"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 13.29597,
+        "currentYearRevenue": 7322750923.0,
+        "date": "2026-08-05",
+        "nextYearEps": -11.9055,
+        "nextYearRevenue": 3139866588.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "COIN"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -2028,7 +2145,7 @@ const ESTIMATE_HISTORY = {
   },
   "COP": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CONOCOPHILLIPS",
@@ -2041,7 +2158,7 @@ const ESTIMATE_HISTORY = {
   },
   "COR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Cencora, Inc.",
@@ -2213,6 +2330,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "COST"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 10.83061,
+        "currentYearRevenue": 194529922877.0,
+        "date": "2026-08-05",
+        "nextYearEps": 13.14838,
+        "nextYearRevenue": 222700000000.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "COST"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -2220,7 +2350,7 @@ const ESTIMATE_HISTORY = {
   },
   "CRM": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Salesforce, Inc.",
@@ -2233,7 +2363,7 @@ const ESTIMATE_HISTORY = {
   },
   "CRWD": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CrowdStrike Holdings, Inc.",
@@ -2246,7 +2376,7 @@ const ESTIMATE_HISTORY = {
   },
   "CRWV": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CoreWeave, Inc.",
@@ -2418,6 +2548,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "CSCO"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 3.14814,
+        "currentYearRevenue": 49234831843.0,
+        "date": "2026-08-05",
+        "nextYearEps": 3.20535,
+        "nextYearRevenue": 49722469376.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "CSCO"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -2425,7 +2568,7 @@ const ESTIMATE_HISTORY = {
   },
   "CSX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CSX CORP",
@@ -2438,7 +2581,7 @@ const ESTIMATE_HISTORY = {
   },
   "CTSH": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "COGNIZANT TECHNOLOGY SOLUTIONS CORP",
@@ -2610,6 +2753,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "CVX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 8.5646,
+        "currentYearRevenue": 157502878115.0,
+        "date": "2026-08-05",
+        "nextYearEps": 19.11635,
+        "nextYearRevenue": 239852294360.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "CVX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -2617,7 +2773,7 @@ const ESTIMATE_HISTORY = {
   },
   "DASH": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "DoorDash, Inc.",
@@ -2630,7 +2786,7 @@ const ESTIMATE_HISTORY = {
   },
   "DDOG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Datadog, Inc.",
@@ -2643,7 +2799,7 @@ const ESTIMATE_HISTORY = {
   },
   "DE": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "DEERE & CO",
@@ -2656,7 +2812,7 @@ const ESTIMATE_HISTORY = {
   },
   "DECK": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "DECKERS OUTDOOR CORP",
@@ -2669,7 +2825,7 @@ const ESTIMATE_HISTORY = {
   },
   "DG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "DOLLAR GENERAL CORP",
@@ -2682,7 +2838,7 @@ const ESTIMATE_HISTORY = {
   },
   "DHR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "DANAHER CORP /DE/",
@@ -2854,6 +3010,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "DIS"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.46115,
+        "currentYearRevenue": 67653169580.0,
+        "date": "2026-08-05",
+        "nextYearEps": 3.78352,
+        "nextYearRevenue": 84416514199.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "DIS"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -2861,7 +3030,7 @@ const ESTIMATE_HISTORY = {
   },
   "DLTR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "DOLLAR TREE, INC.",
@@ -2981,6 +3150,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "DOCU"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.24441,
+        "currentYearRevenue": 965427660.0,
+        "date": "2026-08-05",
+        "nextYearEps": 0.73971,
+        "nextYearRevenue": 1430236789.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "DOCU"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -2988,7 +3170,7 @@ const ESTIMATE_HISTORY = {
   },
   "DUK": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Duke Energy CORP",
@@ -3001,7 +3183,7 @@ const ESTIMATE_HISTORY = {
   },
   "DXCM": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "DEXCOM INC",
@@ -3014,7 +3196,7 @@ const ESTIMATE_HISTORY = {
   },
   "EA": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ELECTRONIC ARTS INC.",
@@ -3027,7 +3209,7 @@ const ESTIMATE_HISTORY = {
   },
   "ELV": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Elevance Health, Inc.",
@@ -3040,7 +3222,7 @@ const ESTIMATE_HISTORY = {
   },
   "ENTG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ENTEGRIS INC",
@@ -3053,7 +3235,7 @@ const ESTIMATE_HISTORY = {
   },
   "EOG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "EOG RESOURCES INC",
@@ -3066,7 +3248,7 @@ const ESTIMATE_HISTORY = {
   },
   "ETN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Eaton Corp plc",
@@ -3079,7 +3261,7 @@ const ESTIMATE_HISTORY = {
   },
   "EW": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Edwards Lifesciences Corp",
@@ -3092,7 +3274,7 @@ const ESTIMATE_HISTORY = {
   },
   "FCX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "FREEPORT-MCMORAN INC",
@@ -3264,6 +3446,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "FDX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 20.52097,
+        "currentYearRevenue": 93541595402.0,
+        "date": "2026-08-05",
+        "nextYearEps": 14.80205,
+        "nextYearRevenue": 90884469411.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "FDX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -3271,7 +3466,7 @@ const ESTIMATE_HISTORY = {
   },
   "FICO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "FAIR ISAAC CORP",
@@ -3284,7 +3479,7 @@ const ESTIMATE_HISTORY = {
   },
   "FIS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Fidelity National Information Services, Inc.",
@@ -3297,7 +3492,7 @@ const ESTIMATE_HISTORY = {
   },
   "FITB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "FIFTH THIRD BANCORP",
@@ -3310,7 +3505,7 @@ const ESTIMATE_HISTORY = {
   },
   "FTNT": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Fortinet, Inc.",
@@ -3323,7 +3518,7 @@ const ESTIMATE_HISTORY = {
   },
   "GD": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "GENERAL DYNAMICS CORP",
@@ -3495,6 +3690,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "GE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 1.26808,
+        "currentYearRevenue": 74824743052.0,
+        "date": "2026-08-05",
+        "nextYearEps": 2.03496,
+        "nextYearRevenue": 74168626100.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "GE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -3502,7 +3710,7 @@ const ESTIMATE_HISTORY = {
   },
   "GEV": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "GE Vernova Inc.",
@@ -3515,7 +3723,7 @@ const ESTIMATE_HISTORY = {
   },
   "GILD": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "GILEAD SCIENCES, INC.",
@@ -3528,7 +3736,7 @@ const ESTIMATE_HISTORY = {
   },
   "GIS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "GENERAL MILLS INC",
@@ -3541,7 +3749,7 @@ const ESTIMATE_HISTORY = {
   },
   "GLW": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CORNING INC /NY",
@@ -3713,6 +3921,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "GOOGL"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.42868,
+        "currentYearRevenue": 253189995257.0,
+        "date": "2026-08-05",
+        "nextYearEps": 4.71713,
+        "nextYearRevenue": 283349214836.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "GOOGL"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -3720,7 +3941,7 @@ const ESTIMATE_HISTORY = {
   },
   "GPN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "GLOBAL PAYMENTS INC",
@@ -3892,6 +4113,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "GS"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 20.16086,
+        "currentYearRevenue": 42670163814.0,
+        "date": "2026-08-05",
+        "nextYearEps": 59.88138,
+        "nextYearRevenue": 58531089561.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "GS"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -4006,6 +4240,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "HCA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 17.84606,
+        "currentYearRevenue": 59022544284.0,
+        "date": "2026-08-05",
+        "nextYearEps": 17.01464,
+        "nextYearRevenue": 60350575502.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "HCA"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -4013,7 +4260,7 @@ const ESTIMATE_HISTORY = {
   },
   "HD": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "HOME DEPOT, INC.",
@@ -4026,7 +4273,7 @@ const ESTIMATE_HISTORY = {
   },
   "HIG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "HARTFORD INSURANCE GROUP, INC.",
@@ -4039,7 +4286,7 @@ const ESTIMATE_HISTORY = {
   },
   "HLT": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Hilton Worldwide Holdings Inc.",
@@ -4052,7 +4299,7 @@ const ESTIMATE_HISTORY = {
   },
   "HON": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "HONEYWELL INTERNATIONAL INC",
@@ -4224,6 +4471,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "HOOD"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -5.51281,
+        "currentYearRevenue": 1830054805.0,
+        "date": "2026-08-05",
+        "nextYearEps": -1.12089,
+        "nextYearRevenue": 1371085229.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "HOOD"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -4231,7 +4491,7 @@ const ESTIMATE_HISTORY = {
   },
   "HSY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "HERSHEY CO",
@@ -4244,7 +4504,7 @@ const ESTIMATE_HISTORY = {
   },
   "HUBS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "HUBSPOT INC",
@@ -4257,7 +4517,7 @@ const ESTIMATE_HISTORY = {
   },
   "IBKR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Interactive Brokers Group, Inc.",
@@ -4270,7 +4530,7 @@ const ESTIMATE_HISTORY = {
   },
   "IBM": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "INTERNATIONAL BUSINESS MACHINES CORP",
@@ -4283,7 +4543,7 @@ const ESTIMATE_HISTORY = {
   },
   "ICE": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Intercontinental Exchange, Inc.",
@@ -4296,7 +4556,7 @@ const ESTIMATE_HISTORY = {
   },
   "IDXX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "IDEXX LABORATORIES INC /DE",
@@ -4468,6 +4728,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "INTC"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.29037,
+        "currentYearRevenue": 73561257363.0,
+        "date": "2026-08-05",
+        "nextYearEps": 1.95919,
+        "nextYearRevenue": 63500298309.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "INTC"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -4475,7 +4748,7 @@ const ESTIMATE_HISTORY = {
   },
   "INTU": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "INTUIT INC.",
@@ -4488,7 +4761,7 @@ const ESTIMATE_HISTORY = {
   },
   "IQV": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "IQVIA HOLDINGS INC.",
@@ -4501,7 +4774,7 @@ const ESTIMATE_HISTORY = {
   },
   "IREN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "IREN Ltd",
@@ -4514,7 +4787,7 @@ const ESTIMATE_HISTORY = {
   },
   "ISRG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "INTUITIVE SURGICAL INC",
@@ -4680,6 +4953,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 9.83192,
         "currentYearRevenue": 94449186951.0,
         "date": "2026-08-04",
+        "nextYearEps": 10.04625,
+        "nextYearRevenue": 95018825749.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "JNJ"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 9.83192,
+        "currentYearRevenue": 94449186951.0,
+        "date": "2026-08-05",
         "nextYearEps": 10.04625,
         "nextYearRevenue": 95018825749.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -4852,6 +5138,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "JPM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 10.49653,
+        "currentYearRevenue": 115939818336.0,
+        "date": "2026-08-05",
+        "nextYearEps": 7.73157,
+        "nextYearRevenue": 120271998401.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "JPM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -4859,7 +5158,7 @@ const ESTIMATE_HISTORY = {
   },
   "KEY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "KEYCORP /NEW/",
@@ -4872,7 +5171,7 @@ const ESTIMATE_HISTORY = {
   },
   "KHC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Kraft Heinz Co",
@@ -4885,7 +5184,7 @@ const ESTIMATE_HISTORY = {
   },
   "KKR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "KKR & Co. Inc.",
@@ -4898,7 +5197,7 @@ const ESTIMATE_HISTORY = {
   },
   "KLAC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "KLA CORP",
@@ -4911,7 +5210,7 @@ const ESTIMATE_HISTORY = {
   },
   "KMB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "KIMBERLY CLARK CORP",
@@ -5031,6 +5330,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "KO"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.29107,
+        "currentYearRevenue": 38125940355.0,
+        "date": "2026-08-05",
+        "nextYearEps": 2.49032,
+        "nextYearRevenue": 42833977378.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "KO"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -5038,7 +5350,7 @@ const ESTIMATE_HISTORY = {
   },
   "LHX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "L3HARRIS TECHNOLOGIES, INC. /DE/",
@@ -5051,7 +5363,7 @@ const ESTIMATE_HISTORY = {
   },
   "LIN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "LINDE PLC",
@@ -5064,7 +5376,7 @@ const ESTIMATE_HISTORY = {
   },
   "LLY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ELI LILLY & Co",
@@ -5236,6 +5548,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "LMT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 22.46229,
+        "currentYearRevenue": 67029633451.0,
+        "date": "2026-08-05",
+        "nextYearEps": 23.18174,
+        "nextYearRevenue": 65263787929.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "LMT"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -5243,7 +5568,7 @@ const ESTIMATE_HISTORY = {
   },
   "LNG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Cheniere Energy, Inc.",
@@ -5256,7 +5581,7 @@ const ESTIMATE_HISTORY = {
   },
   "LOW": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "LOWES COMPANIES INC",
@@ -5269,7 +5594,7 @@ const ESTIMATE_HISTORY = {
   },
   "LRCX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "LAM RESEARCH CORP",
@@ -5282,7 +5607,7 @@ const ESTIMATE_HISTORY = {
   },
   "LULU": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "lululemon athletica inc.",
@@ -5295,7 +5620,7 @@ const ESTIMATE_HISTORY = {
   },
   "MA": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Mastercard Inc",
@@ -5308,7 +5633,7 @@ const ESTIMATE_HISTORY = {
   },
   "MAR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MARRIOTT INTERNATIONAL INC /MD/",
@@ -5321,7 +5646,7 @@ const ESTIMATE_HISTORY = {
   },
   "MCD": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MCDONALDS CORP",
@@ -5334,7 +5659,7 @@ const ESTIMATE_HISTORY = {
   },
   "MCHP": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MICROCHIP TECHNOLOGY INC",
@@ -5347,7 +5672,7 @@ const ESTIMATE_HISTORY = {
   },
   "MCK": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MCKESSON CORP",
@@ -5360,7 +5685,7 @@ const ESTIMATE_HISTORY = {
   },
   "MCO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MOODYS CORP /DE/",
@@ -5373,7 +5698,7 @@ const ESTIMATE_HISTORY = {
   },
   "MDB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MongoDB, Inc.",
@@ -5386,7 +5711,7 @@ const ESTIMATE_HISTORY = {
   },
   "MDLZ": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Mondelez International, Inc.",
@@ -5399,7 +5724,7 @@ const ESTIMATE_HISTORY = {
   },
   "MDT": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Medtronic plc",
@@ -5412,7 +5737,7 @@ const ESTIMATE_HISTORY = {
   },
   "MELI": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MERCADOLIBRE INC",
@@ -5425,7 +5750,7 @@ const ESTIMATE_HISTORY = {
   },
   "MET": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "METLIFE INC",
@@ -5597,6 +5922,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "META"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 13.97264,
+        "currentYearRevenue": 117555515208.0,
+        "date": "2026-08-05",
+        "nextYearEps": 9.08271,
+        "nextYearRevenue": 116053692499.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "META"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -5604,7 +5942,7 @@ const ESTIMATE_HISTORY = {
   },
   "MPC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Marathon Petroleum Corp",
@@ -5617,7 +5955,7 @@ const ESTIMATE_HISTORY = {
   },
   "MPWR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MONOLITHIC POWER SYSTEMS INC",
@@ -5630,7 +5968,7 @@ const ESTIMATE_HISTORY = {
   },
   "MRK": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Merck & Co., Inc.",
@@ -5643,7 +5981,7 @@ const ESTIMATE_HISTORY = {
   },
   "MRVL": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Marvell Technology, Inc.",
@@ -5656,7 +5994,7 @@ const ESTIMATE_HISTORY = {
   },
   "MS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MORGAN STANLEY",
@@ -5669,7 +6007,7 @@ const ESTIMATE_HISTORY = {
   },
   "MSCI": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MSCI Inc.",
@@ -5841,6 +6179,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "MSFT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 9.27199,
+        "currentYearRevenue": 198704709367.0,
+        "date": "2026-08-05",
+        "nextYearEps": 9.61733,
+        "nextYearRevenue": 211548397686.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "MSFT"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -5848,7 +6199,7 @@ const ESTIMATE_HISTORY = {
   },
   "MTB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "M&T BANK CORP",
@@ -5861,7 +6212,7 @@ const ESTIMATE_HISTORY = {
   },
   "MU": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "MICRON TECHNOLOGY INC",
@@ -5874,7 +6225,7 @@ const ESTIMATE_HISTORY = {
   },
   "NBIS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Nebius Group N.V.",
@@ -5887,7 +6238,7 @@ const ESTIMATE_HISTORY = {
   },
   "NDAQ": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "NASDAQ, INC.",
@@ -5900,7 +6251,7 @@ const ESTIMATE_HISTORY = {
   },
   "NEE": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "NEXTERA ENERGY INC",
@@ -5913,7 +6264,7 @@ const ESTIMATE_HISTORY = {
   },
   "NET": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Cloudflare, Inc.",
@@ -6079,6 +6430,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 1.07243,
         "currentYearRevenue": 29689570953.0,
         "date": "2026-08-04",
+        "nextYearEps": 1.0263,
+        "nextYearRevenue": 31617640344.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "NFLX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 1.07243,
+        "currentYearRevenue": 29689570953.0,
+        "date": "2026-08-05",
         "nextYearEps": 1.0263,
         "nextYearRevenue": 31617640344.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -6251,6 +6615,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "NKE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 3.1427,
+        "currentYearRevenue": 43240329104.0,
+        "date": "2026-08-05",
+        "nextYearEps": 3.66787,
+        "nextYearRevenue": 46559561711.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "NKE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -6258,7 +6635,7 @@ const ESTIMATE_HISTORY = {
   },
   "NOC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "NORTHROP GRUMMAN CORP /DE/",
@@ -6271,7 +6648,7 @@ const ESTIMATE_HISTORY = {
   },
   "NOW": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ServiceNow, Inc.",
@@ -6284,7 +6661,7 @@ const ESTIMATE_HISTORY = {
   },
   "NRG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "NRG ENERGY, INC.",
@@ -6297,7 +6674,7 @@ const ESTIMATE_HISTORY = {
   },
   "NSC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "NORFOLK SOUTHERN CORP",
@@ -6310,7 +6687,7 @@ const ESTIMATE_HISTORY = {
   },
   "NUE": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "NUCOR CORP",
@@ -6482,6 +6859,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "NVDA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.43252,
+        "currentYearRevenue": 26662163796.0,
+        "date": "2026-08-05",
+        "nextYearEps": 0.32685,
+        "nextYearRevenue": 26952415189.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "NVDA"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -6489,7 +6879,7 @@ const ESTIMATE_HISTORY = {
   },
   "NXPI": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "NXP Semiconductors N.V.",
@@ -6502,7 +6892,7 @@ const ESTIMATE_HISTORY = {
   },
   "ODFL": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "OLD DOMINION FREIGHT LINE, INC.",
@@ -6515,7 +6905,7 @@ const ESTIMATE_HISTORY = {
   },
   "OKTA": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Okta, Inc.",
@@ -6528,7 +6918,7 @@ const ESTIMATE_HISTORY = {
   },
   "ON": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ON SEMICONDUCTOR CORP",
@@ -6541,7 +6931,7 @@ const ESTIMATE_HISTORY = {
   },
   "ORCL": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ORACLE CORP",
@@ -6554,7 +6944,7 @@ const ESTIMATE_HISTORY = {
   },
   "ORLY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "O REILLY AUTOMOTIVE INC",
@@ -6567,7 +6957,7 @@ const ESTIMATE_HISTORY = {
   },
   "OXY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "OCCIDENTAL PETROLEUM CORP /DE/",
@@ -6580,7 +6970,7 @@ const ESTIMATE_HISTORY = {
   },
   "PANW": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Palo Alto Networks Inc",
@@ -6694,6 +7084,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 6.244,
         "currentYearRevenue": 78377390124.0,
         "date": "2026-08-04",
+        "nextYearEps": 6.77634,
+        "nextYearRevenue": 85308733208.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PEP"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 6.244,
+        "currentYearRevenue": 78377390124.0,
+        "date": "2026-08-05",
         "nextYearEps": 6.77634,
         "nextYearRevenue": 85308733208.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -6866,6 +7269,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "PFE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 4.20822,
+        "currentYearRevenue": 81764526021.0,
+        "date": "2026-08-05",
+        "nextYearEps": 6.50281,
+        "nextYearRevenue": 100342363631.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PFE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -6873,7 +7289,7 @@ const ESTIMATE_HISTORY = {
   },
   "PG": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "PROCTER & GAMBLE Co",
@@ -6886,7 +7302,7 @@ const ESTIMATE_HISTORY = {
   },
   "PGR": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "PROGRESSIVE CORP/OH/",
@@ -7058,6 +7474,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "PLTR"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.15149,
+        "currentYearRevenue": 1527008699.0,
+        "date": "2026-08-05",
+        "nextYearEps": 0.0456,
+        "nextYearRevenue": 1902491600.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PLTR"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -7065,7 +7494,7 @@ const ESTIMATE_HISTORY = {
   },
   "PNC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "PNC FINANCIAL SERVICES GROUP, INC.",
@@ -7078,7 +7507,7 @@ const ESTIMATE_HISTORY = {
   },
   "PRU": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "PRUDENTIAL FINANCIAL INC",
@@ -7250,6 +7679,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "PYPL"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 4.60064,
+        "currentYearRevenue": 25338532839.0,
+        "date": "2026-08-05",
+        "nextYearEps": 4.0847,
+        "nextYearRevenue": 27520186777.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PYPL"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -7257,7 +7699,7 @@ const ESTIMATE_HISTORY = {
   },
   "QCOM": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "QUALCOMM INC/DE",
@@ -7429,6 +7871,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "RBLX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -0.81155,
+        "currentYearRevenue": 2723714917.0,
+        "date": "2026-08-05",
+        "nextYearEps": -1.56091,
+        "nextYearRevenue": 2802129621.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "RBLX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -7436,7 +7891,7 @@ const ESTIMATE_HISTORY = {
   },
   "REGN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "REGENERON PHARMACEUTICALS, INC.",
@@ -7449,7 +7904,7 @@ const ESTIMATE_HISTORY = {
   },
   "RF": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "REGIONS FINANCIAL CORP",
@@ -7462,7 +7917,7 @@ const ESTIMATE_HISTORY = {
   },
   "ROST": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "ROSS STORES, INC.",
@@ -7475,7 +7930,7 @@ const ESTIMATE_HISTORY = {
   },
   "RTX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "RTX Corp",
@@ -7647,6 +8102,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "SBUX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 3.22903,
+        "currentYearRevenue": 29130007152.0,
+        "date": "2026-08-05",
+        "nextYearEps": 2.87032,
+        "nextYearRevenue": 32157917831.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "SBUX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -7654,7 +8122,7 @@ const ESTIMATE_HISTORY = {
   },
   "SCCO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "SOUTHERN COPPER CORP/",
@@ -7667,7 +8135,7 @@ const ESTIMATE_HISTORY = {
   },
   "SCHW": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "SCHWAB CHARLES CORP",
@@ -7839,6 +8307,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "SHOP"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.63229,
+        "currentYearRevenue": 4543419337.0,
+        "date": "2026-08-05",
+        "nextYearEps": -0.03547083,
+        "nextYearRevenue": 5468386377.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "SHOP"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -7846,7 +8327,7 @@ const ESTIMATE_HISTORY = {
   },
   "SLB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "SLB LIMITED/NV",
@@ -7859,7 +8340,7 @@ const ESTIMATE_HISTORY = {
   },
   "SMCI": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Super Micro Computer, Inc.",
@@ -7872,7 +8353,7 @@ const ESTIMATE_HISTORY = {
   },
   "SNOW": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Snowflake Inc.",
@@ -7885,7 +8366,7 @@ const ESTIMATE_HISTORY = {
   },
   "SNPS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "SYNOPSYS INC",
@@ -7898,7 +8379,7 @@ const ESTIMATE_HISTORY = {
   },
   "SO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "SOUTHERN CO",
@@ -7911,7 +8392,7 @@ const ESTIMATE_HISTORY = {
   },
   "SPGI": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "S&P Global Inc.",
@@ -7924,7 +8405,7 @@ const ESTIMATE_HISTORY = {
   },
   "STZ": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "CONSTELLATION BRANDS, INC.",
@@ -7937,7 +8418,7 @@ const ESTIMATE_HISTORY = {
   },
   "SYF": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Synchrony Financial",
@@ -7950,7 +8431,7 @@ const ESTIMATE_HISTORY = {
   },
   "SYK": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "STRYKER CORP",
@@ -7963,7 +8444,7 @@ const ESTIMATE_HISTORY = {
   },
   "TEAM": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Atlassian Corp",
@@ -7976,7 +8457,7 @@ const ESTIMATE_HISTORY = {
   },
   "TER": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "TERADYNE, INC",
@@ -7989,7 +8470,7 @@ const ESTIMATE_HISTORY = {
   },
   "TFC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "TRUIST FINANCIAL CORP",
@@ -8161,6 +8642,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "TGT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 13.21994,
+        "currentYearRevenue": 106212551786.0,
+        "date": "2026-08-05",
+        "nextYearEps": 5.52332,
+        "nextYearRevenue": 108297392881.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "TGT"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -8168,7 +8662,7 @@ const ESTIMATE_HISTORY = {
   },
   "TJX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "TJX COMPANIES INC /DE/",
@@ -8181,7 +8675,7 @@ const ESTIMATE_HISTORY = {
   },
   "TMO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "THERMO FISHER SCIENTIFIC INC.",
@@ -8194,7 +8688,7 @@ const ESTIMATE_HISTORY = {
   },
   "TRV": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "TRAVELERS COMPANIES, INC.",
@@ -8360,6 +8854,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 2.14522,
         "currentYearRevenue": 53009897638.0,
         "date": "2026-08-04",
+        "nextYearEps": 3.95584,
+        "nextYearRevenue": 82141808957.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "TSLA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.14522,
+        "currentYearRevenue": 53009897638.0,
+        "date": "2026-08-05",
         "nextYearEps": 3.95584,
         "nextYearRevenue": 82141808957.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -8532,6 +9039,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "TSM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 98.43071,
+        "currentYearRevenue": 1332962912763.0,
+        "date": "2026-08-05",
+        "nextYearEps": 113.63484,
+        "nextYearRevenue": 1576725481576.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "TSM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -8539,7 +9059,7 @@ const ESTIMATE_HISTORY = {
   },
   "TTD": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Trade Desk, Inc.",
@@ -8552,7 +9072,7 @@ const ESTIMATE_HISTORY = {
   },
   "TTWO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "TAKE TWO INTERACTIVE SOFTWARE INC",
@@ -8565,7 +9085,7 @@ const ESTIMATE_HISTORY = {
   },
   "TXN": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "TEXAS INSTRUMENTS INC",
@@ -8731,6 +9251,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": -1.03594,
         "currentYearRevenue": 17128494134.0,
         "date": "2026-08-04",
+        "nextYearEps": -5.08039,
+        "nextYearRevenue": 31776721092.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "UBER"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -1.03594,
+        "currentYearRevenue": 17128494134.0,
+        "date": "2026-08-05",
         "nextYearEps": -5.08039,
         "nextYearRevenue": 31776721092.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -8903,6 +9436,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "UNH"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 18.84129,
+        "currentYearRevenue": 286743784850.0,
+        "date": "2026-08-05",
+        "nextYearEps": 22.02389,
+        "nextYearRevenue": 323882736766.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "UNH"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -8910,7 +9456,7 @@ const ESTIMATE_HISTORY = {
   },
   "UNP": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "UNION PACIFIC CORP",
@@ -8923,7 +9469,7 @@ const ESTIMATE_HISTORY = {
   },
   "UPS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "UNITED PARCEL SERVICE INC",
@@ -8936,7 +9482,7 @@ const ESTIMATE_HISTORY = {
   },
   "USB": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "US BANCORP DE",
@@ -9108,6 +9654,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "V"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.80312,
+        "currentYearRevenue": 24060299531.0,
+        "date": "2026-08-05",
+        "nextYearEps": 7.43247,
+        "nextYearRevenue": 29077529887.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "V"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -9115,7 +9674,7 @@ const ESTIMATE_HISTORY = {
   },
   "VEEV": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "VEEVA SYSTEMS INC",
@@ -9128,7 +9687,7 @@ const ESTIMATE_HISTORY = {
   },
   "VLO": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "VALERO ENERGY CORP/TX",
@@ -9141,7 +9700,7 @@ const ESTIMATE_HISTORY = {
   },
   "VRTX": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "VERTEX PHARMACEUTICALS INC / MA",
@@ -9154,7 +9713,7 @@ const ESTIMATE_HISTORY = {
   },
   "VST": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Vistra Corp.",
@@ -9167,7 +9726,7 @@ const ESTIMATE_HISTORY = {
   },
   "WDAY": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Workday, Inc.",
@@ -9180,7 +9739,7 @@ const ESTIMATE_HISTORY = {
   },
   "WDC": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "WESTERN DIGITAL CORP",
@@ -9346,6 +9905,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 0.37093,
         "currentYearRevenue": 72612245262.0,
         "date": "2026-08-04",
+        "nextYearEps": 4.63074,
+        "nextYearRevenue": 75926675025.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "WFC"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.37093,
+        "currentYearRevenue": 72612245262.0,
+        "date": "2026-08-05",
         "nextYearEps": 4.63074,
         "nextYearRevenue": 75926675025.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -9518,6 +10090,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "WMT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.13819,
+        "currentYearRevenue": 571613501334.0,
+        "date": "2026-08-05",
+        "nextYearEps": 2.0287,
+        "nextYearRevenue": 606594020169.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "WMT"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -9684,6 +10269,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "XOM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.23946,
+        "currentYearRevenue": 292093171448.0,
+        "date": "2026-08-05",
+        "nextYearEps": 13.91563,
+        "nextYearRevenue": 425943490403.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "XOM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -9691,7 +10289,7 @@ const ESTIMATE_HISTORY = {
   },
   "YUM": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "YUM BRANDS INC",
@@ -9811,6 +10409,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "ZM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 4.85034,
+        "currentYearRevenue": 4081094088.0,
+        "date": "2026-08-05",
+        "nextYearEps": 3.97673,
+        "nextYearRevenue": 4375179717.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "ZM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -9818,7 +10429,7 @@ const ESTIMATE_HISTORY = {
   },
   "ZS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Zscaler, Inc.",
@@ -9831,7 +10442,7 @@ const ESTIMATE_HISTORY = {
   },
   "ZTS": {
     "lastError": {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "message": "HTTP Error 403: Forbidden"
     },
     "name": "Zoetis Inc.",
