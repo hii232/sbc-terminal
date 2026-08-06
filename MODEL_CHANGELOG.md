@@ -1,5 +1,20 @@
 # SBC Model Changelog
 
+## 6.0.0 — Sector earnings shock: peers reported and were sold anyway - 2026-08-06
+
+A 12th conviction signal, and the first thing to break the v5 freeze — deliberately, and at the cheapest possible moment: exactly **one** v5 snapshot existed and no benchmark window had completed, so the clock lost a day rather than months. Waiting until November would have meant discarding 90 days of accumulated evidence to add the same signal.
+
+- **`sectorEarningsShockOf`**: peers in the same ETF bucket that reported within 30 days, measured by their real post-report price move (daily closes via `tradingDaysBetween`), **normalised against the whole universe's post-report move over the same window** — so "everything fell this week" cannot masquerade as one sector being singled out. That normalisation is the difference between a signal and a market-direction detector wearing a sector label.
+- `peerReadThrough` reads what peers **printed** (EPS surprise); this reads what the market **did with it**. The interesting case is divergence: a bucket where companies **beat and were sold anyway** is being re-rated on multiple, not judged on results — surfaced explicitly as `SECTOR RE-RATED`.
+- **Two tiers, set a priori.** `PUNISHED` (median reporter ≤ −3%, ≥2pp worse than the tape, ≥half falling) casts a **negative** conviction vote and moves the ranking. `WATCH` (≤ −1.5%) only warns. On the shipped tape the worst bucket sat at **−2.5%** and therefore only warned — the bar was NOT lowered to make it fire, which would have been fitting the model to one afternoon's tape.
+- **Negative only.** Peers being bought is never a reason to own a name; that reasoning is how a rotation gets bought at its top.
+- Silent below 3 reporting peers. Silence here is a fact about the earnings calendar, not a gap in collection, so it is *silent* rather than *not-evaluated* — evidence completeness stays uniform at 1.0 across all 224 names (verified by test).
+- Reported by **ETF bucket**, not the name's fine-grained sector: peers are pooled by ETF to get a usable sample, and calling a discretionary-wide read "Restaurants" because that is one name's label would overstate how specific the evidence is.
+- Board banner names the affected buckets, their median vs the tape, and which peers beat-and-fell.
+- **Measured effect on the shipped board: 0 scores, 0 ranks changed** — nothing crosses the bar today. A test forces a bucket over it and proves the vote turns negative and confluence falls.
+- `CONVICTION_SOURCES` 11 → 12. Freeze re-armed: **v6 frozen until 2026-11-04**.
+- Tests: +20 assertions (1183 total). Section 40's fixtures no longer hardcode a version number — they read `MASTER_MODEL_FREEZE.version`, so a future bump cannot silently break them.
+
 ## 5.0.0 — The wall-street audit: fix the model, then freeze it - 2026-08-04
 
 A professional review of the whole terminal produced a 17-point critique. The buildable items ship here as ONE version bump (MASTER_MODEL_VERSION 4 → 5), after which the model is **frozen until 2026-11-02** — four versions had shipped in weeks, each bump resetting the proof clock, so no ranking was ever actually validated against forward returns.

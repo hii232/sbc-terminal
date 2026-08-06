@@ -1873,7 +1873,7 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
 // three ideas, and four model versions in weeks meant nothing was ever
 // validated against forward returns.
 {
-  ok(E.MASTER_MODEL_VERSION === 5, "model bumped to v5 for the audit changes", String(E.MASTER_MODEL_VERSION));
+  ok(E.MASTER_MODEL_VERSION >= 5, "the audit changes shipped as a model bump (v5 or later)", String(E.MASTER_MODEL_VERSION));
   const F = E.MASTER_MODEL_FREEZE;
   ok(F && F.version === E.MASTER_MODEL_VERSION && F.until > F.since,
     "the freeze names the current model and a verdict date after its start", JSON.stringify(F));
@@ -1955,17 +1955,18 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   // --- benchmark clock: v5-only, SPY-graded, honest about exclusions ---
   {
     const entries = (p) => Array.from({ length: 12 }, (_, i) => ({ t: "T" + i, p, mk: i + 1, mo: 224 }));
+    const V = E.MASTER_MODEL_FREEZE.version;   // never hardcode: this bumps
     const hist = [
-      { date: "2026-07-01", model: 4, spy: 90, entries: entries(90) },     // old model: excluded
-      { date: "2026-08-04", model: 5, spy: 100, entries: entries(100) },
-      { date: "2026-09-04", model: 5, spy: 105, entries: entries(110) },
+      { date: "2026-07-01", model: V - 1, spy: 90, entries: entries(90) },  // old model: excluded
+      { date: "2026-08-04", model: V, spy: 100, entries: entries(100) },
+      { date: "2026-09-04", model: V, spy: 105, entries: entries(110) },
     ];
     const b = E.benchmarkVsSpy(hist, 28);
     ok(b.since === "2026-08-04", "history from older model versions is never pooled in", b.since);
     ok(b.n === 1 && Math.abs(b.windows[0].excess - 5) < 0.01,
       "top-10 +10% vs SPY +5% grades as +5% excess", JSON.stringify(b.windows));
     ok(b.cumulative && Math.abs(b.cumulative.excess - 5) < 0.01, "cumulative-since-freeze agrees");
-    const empty = E.benchmarkVsSpy([{ date: "2026-08-04", model: 5, entries: entries(100) }], 28);
+    const empty = E.benchmarkVsSpy([{ date: "2026-08-04", model: V, entries: entries(100) }], 28);
     ok(empty.snapshots === 0 && empty.n === 0, "a snapshot without a SPY level cannot enter the benchmark");
   }
   // wiring: the snapshot script records SPY, and the UI renders the commitments
@@ -2081,6 +2082,84 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   // restore so later runs/sections see the pipeline state
   delete E.__state?.live?.[TK];
   d.price = base; d.headlinePE = basePE; d.truePE = baseTruePE; delete d.marketScores;
+}
+
+// =============== 43. Sector earnings shock (model v6) ===============
+// "Peers reported and the market sold them anyway" — the group being
+// re-rated, not one company being judged. peerReadThrough reads what peers
+// PRINTED; this reads what the market DID with it, and the interesting case
+// is when they diverge (beat, sold anyway = multiple compression).
+{
+  ok(E.MASTER_MODEL_VERSION === 6, "model bumped to v6 for the sector-shock vote", String(E.MASTER_MODEL_VERSION));
+  ok(E.MASTER_MODEL_FREEZE.version === 6 && E.MASTER_MODEL_FREEZE.until > E.MASTER_MODEL_FREEZE.since,
+    "the freeze re-armed on v6 with a fresh verdict date", JSON.stringify(E.MASTER_MODEL_FREEZE));
+
+  // pick a real ETF bucket with enough members to fake a reporting cluster
+  // Peers are pooled by ETF BUCKET, so the fixture must group the same way —
+  // grouping by the fine-grained sector let arbitrary context names leak into
+  // the peer set and drown the synthetic move in real prices.
+  const byEtf = {};
+  for (const d of DATA) (byEtf[E.sectorETF(d.sector)] = byEtf[E.sectorETF(d.sector)] || []).push(d);
+  const etf = Object.keys(byEtf).find(k => k !== "SPY" && byEtf[k].length >= 5);
+  const members = byEtf[etf];
+  const target = members[0], peers = members.slice(1, 5);
+  const saved = peers.map(p => ({ d: p, pd: p.pd }));
+  const today = new Date().toISOString().slice(0, 10);
+  const day = (n) => new Date(Date.now() - n * 864e5).toISOString().slice(0, 10);
+
+  // The engine looks back tradingDaysBetween(reportDate, pd.to), so the move
+  // must straddle exactly that many bars — a flat tail would read as 0%.
+  const reportDate = day(5);
+  const lookback = E.ScoreEngine.tradingDaysBetween(reportDate, today);
+  // universe context: enough reporters so the "market median" is computable
+  // context from OTHER buckets only: these set the market median, and must
+  // not become peers of the target
+  const ctxRows = DATA.filter(d => E.sectorETF(d.sector) !== etf).slice(0, 25)
+    .map(d => ({ symbol: d.ticker, date: reportDate, surprisePct: 2 }));
+  const mkPd = (movePct) => {
+    const v = []; for (let i = 0; i < 40; i++) v.push(100);
+    for (let i = 0; i < Math.max(lookback, 1); i++) v.push(100 * (1 + movePct / 100));
+    return { to: today, v };
+  };
+  // peers BEAT and were sold hard — the exact case the feature exists for
+  peers.forEach(p => { p.pd = mkPd(-8); });
+  const ledger = ctxRows.concat(peers.map(p => ({ symbol: p.ticker, date: reportDate, surprisePct: 6 })));
+  const shock = E.sectorEarningsShockOf(target, ledger);
+  ok(shock && shock.punished === true, "a bucket whose reporters were sold 8% is flagged PUNISHED", JSON.stringify(shock && { m: shock.sectorMedian, e: shock.excess }));
+  ok(shock.mostlyBeat && /BEAT and were sold anyway/i.test(shock.verdict),
+    "beat-and-sold is called out as a re-rating, not an earnings miss", shock.verdict);
+  ok(shock.n >= E.SHOCK_MIN_PEERS, "the read requires a real peer sample", String(shock.n));
+  ok(!shock.peers.some(p => p.ticker === target.ticker), "a name is never graded on its own report");
+
+  // it must actually BITE: the vote is negative and confluence falls
+  const before = E.convictionOf(target, { ledger: [] });
+  const after = E.convictionOf(target, { ledger });
+  const v = after.votes.find(x => x.key === "sectorshock");
+  ok(v && v.dir === -1, "a punished bucket casts a NEGATIVE conviction vote", v && String(v.dir));
+  ok(after.dedupScore < before.dedupScore, "and that vote lowers the confluence score",
+    `${before.dedupScore} -> ${after.dedupScore}`);
+  ok(/beat and still fell/i.test(v.why), "the why-text names the peers that beat and fell anyway", v.why);
+
+  // NEGATIVE ONLY: peers being bought is not a reason to own this name
+  peers.forEach(p => { p.pd = mkPd(+9); });
+  const up = E.convictionOf(target, { ledger }).votes.find(x => x.key === "sectorshock");
+  ok(up && up.dir === 0, "a bucket whose reporters RALLIED never casts a bull vote", up && String(up.dir));
+
+  // below the peer floor it stays silent rather than guessing
+  const thin = ctxRows.concat([{ symbol: peers[0].ticker, date: reportDate, surprisePct: 5 }]);
+  ok(E.sectorEarningsShockOf(target, thin) === null, "fewer than the minimum peers yields no read at all");
+
+  saved.forEach(s => { s.d.pd = s.pd; });
+
+  // thresholds are a priori, not tuned until something fired: on the shipped
+  // tape the worst bucket was -2.5% and therefore only WARNED
+  const live = DATA.map(d => E.sectorEarningsShockOf(d)).filter(Boolean);
+  ok(live.every(s => !s.punished || (s.sectorMedian <= -3 && s.excess <= -2 && s.fellShare >= 0.5)),
+    "PUNISHED is never asserted below its stated bar");
+  ok(live.every(s => !(s.punished && s.watch)), "a bucket is never both punished and merely watched");
+  // fairness: the vote is silent, never 'not evaluated', so evidence stays uniform
+  const evs = new Set(DATA.map(d => E.convictionOf(d).evidence));
+  ok(evs.size === 1, "adding a 12th source keeps evidence completeness uniform across the universe", [...evs].join(","));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
