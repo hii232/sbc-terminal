@@ -2,7 +2,7 @@
  "ticker": "KHC",
  "cik": "0001637459",
  "entityName": "Kraft Heinz Co",
- "retrievedAt": "2026-08-04T13:01:29.837233Z",
+ "retrievedAt": "2026-08-06T13:43:21.660413Z",
  "fields": {
   "buyback": [
    {
@@ -1465,12 +1465,12 @@
     "confidence": 100
    },
    {
-    "value": 1185777638,
+    "value": 1185823758,
     "unit": "shares",
-    "periodEnd": "2026-05-02",
+    "periodEnd": "2026-08-01",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001637459-26-000022",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001637459-26-000054",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

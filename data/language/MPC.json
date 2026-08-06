@@ -3,6 +3,34 @@
  "sector": "Energy",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 6966,
+   "themes": [
+    {
+     "theme": "renewable diesel capacity expansion",
+     "quote": "Our Renewable Diesel segment processes renewable feedstocks into renewable diesel, markets and distributes renewable diesel and includes joint ventures that produce renewable diesel and renewable feedstocks"
+    },
+    {
+     "theme": "midstream strategic optimizations",
+     "quote": "the Midstream business is well positioned to meet growing global demand for U.S. energy through the advancement of MPLX's wellhead-to-water strategy and support the development plans of its producer customers"
+    },
+    {
+     "theme": "refining margin capture",
+     "quote": "higher realized refining margins supported by stable demand and higher product prices driven by global crude oil supply disruptions"
+    },
+    {
+     "theme": "capital returns to shareholders",
+     "quote": "On May 5, 2026, we announced that our board of directors approved an additional $5.0 billion share repurchase authorization"
+    },
+    {
+     "theme": "regulatory credit monetization",
+     "quote": "Renewable Diesel segment adjusted EBITDA increased $277 million, primarily due to an increase in Renewable Diesel margin from $321 million for the second quarter of 2026 compared to $49 million for the second quarter of 2025, driven by impr"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -55,26 +83,6 @@
     {
      "theme": "crude supply diversification",
      "quote": "we are diversifying our crude supply sources to optimize our refining operations"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 7610,
-   "themes": [
-    {
-     "theme": "long-haul pipeline growth projects",
-     "quote": "Midstream segment contributed strong results and continued growth in the third quarter of 2025, benefitting from the expansion of its Permian to Gulf Coast natural gas and NGL value chains with the acquisition of Northwind Delaware Holdings"
-    },
-    {
-     "theme": "portfolio optimization and divestitures",
-     "quote": "MPLX entered into a definitive agreement to divest its Rockies operations to a subsidiary of Harvest Midstream for $1.0 billion in cash"
-    },
-    {
-     "theme": "renewable diesel production capacity",
-     "quote": "Renewable Diesel segment adjusted EBITDA increased primarily due to increased Renewable Diesel margins with higher environmental credits associated with increased production volume"
     }
    ]
   }

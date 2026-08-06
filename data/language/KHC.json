@@ -3,6 +3,38 @@
  "sector": "Staples",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 9732,
+   "themes": [
+    {
+     "theme": "pricing actions amid inflation",
+     "quote": "we continue to take measures to mitigate the impact of this inflation through efficiency initiatives, pricing actions, alternative sourcing, and hedging strategies"
+    },
+    {
+     "theme": "supply chain cost management",
+     "quote": "inflationary pressures in manufacturing and logistics costs that outpaced our efficiency initiatives"
+    },
+    {
+     "theme": "organizational restructuring for efficiency",
+     "quote": "we plan to combine our WEEM and AEM operating segments to form the Emerging Markets operating segment in order to increase efficiencies and drive sustainable growth"
+    },
+    {
+     "theme": "advertising and brand investment",
+     "quote": "increased advertising expenses"
+    },
+    {
+     "theme": "debt refinancing and reduction",
+     "quote": "we used the net proceeds from the 2026 Notes to fund the Tender Offer"
+    },
+    {
+     "theme": "emerging markets growth focus",
+     "quote": "Favorable volume/mix was primarily driven by Brazil, Venezuela, and China"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -59,34 +91,6 @@
     {
      "theme": "working capital optimization",
      "quote": "favorable changes in working capital, predominantly within inventory as a result of our efforts to optimize inventory levels"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-29",
-   "source": "SEC 10-Q MD&A",
-   "words": 9256,
-   "themes": [
-    {
-     "theme": "fdc color removal commitment",
-     "quote": "we announced our commitment to remove Food, Drug & Cosmetic (\"FD&C\") colors from our U.S. portfolio of products before the end of 2027"
-    },
-    {
-     "theme": "tariff mitigation and pricing actions",
-     "quote": "we have taken measures to mitigate the impact of this inflation through pricing actions, efficiency gains, and alternative sourcing"
-    },
-    {
-     "theme": "operational separation into two companies",
-     "quote": "we announced our plan to separate the Company into two independent, publicly traded companies through a tax-free spin-off. The Separation is expected to allow each company to have greater strategic and operational focus"
-    },
-    {
-     "theme": "emerging markets growth focus",
-     "quote": "Favorable volume/mix was primarily driven by Taste Elevation within our LATAM region"
-    },
-    {
-     "theme": "efficiency initiatives and cost reduction",
-     "quote": "reduced manufacturing costs primarily as a result of our efficiency initiatives"
     }
    ]
   }

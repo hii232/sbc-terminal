@@ -2,7 +2,7 @@
  "ticker": "YUM",
  "cik": "0001041061",
  "entityName": "YUM! BRANDS, INC.",
- "retrievedAt": "2026-08-04T13:01:36.549957Z",
+ "retrievedAt": "2026-08-06T13:43:25.304855Z",
  "fields": {
   "buyback": [
    {
@@ -1542,12 +1542,12 @@
     "confidence": 100
    },
    {
-    "value": 275621202,
+    "value": 272901085,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-30",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001041061-26-000119",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001041061-26-000160",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -3,6 +3,34 @@
  "sector": "Industrials",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 5114,
+   "themes": [
+    {
+     "theme": "yield management pricing discipline",
+     "quote": "Our consistent, cost-based approach to pricing focuses on offsetting our cost inflation while also supporting additional investments into our business to expand capacity and enhance our technology."
+    },
+    {
+     "theme": "network density and asset utilization",
+     "quote": "Our primary revenue focus is to increase density, which is shipment and tonnage growth within our existing infrastructure. Increases in density allow us to maximize our asset utilization and labor productivity"
+    },
+    {
+     "theme": "operating ratio improvement",
+     "quote": "We believe the continued execution of this yield-management philosophy, continued increases in density, and ongoing improvements in operating efficiencies are the key components of our ability to further improve our operating ratio and long"
+    },
+    {
+     "theme": "technology infrastructure investment",
+     "quote": "We regularly upgrade our technological capabilities to improve our customer service and lower our operating costs. Our technology provides our customers with visibility of their shipments throughout our network, increases the productivity o"
+    },
+    {
+     "theme": "service center capacity expansion",
+     "quote": "Approximately $180 million is allocated for the purchase of service center facilities, construction of new service center facilities or expansion of existing service center facilities, subject to the availability of suitable real estate"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -55,38 +83,6 @@
     {
      "theme": "fleet modernization",
      "quote": "our planned tractor and trailer replacement cycle, and forecasted tonnage and shipment growth. Expenditures for land and structures can be dependent upon the availability of land in the geographic areas where we are looking to expand."
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 5301,
-   "themes": [
-    {
-     "theme": "yield management strategy",
-     "quote": "ongoing execution of our long-term yield management strategy. Our consistent, cost-based approach to pricing focuses on offsetting our cost inflation while also supporting additional investments into our business"
-    },
-    {
-     "theme": "network density optimization",
-     "quote": "Our primary revenue focus is to increase density, which is shipment and tonnage growth within our existing infrastructure. Increases in density allow us to maximize our asset utilization and labor productivity"
-    },
-    {
-     "theme": "service center capacity expansion",
-     "quote": "Approximately $210 million is allocated for the purchase of service center facilities, construction of new service center facilities or expansion of existing service center facilities"
-    },
-    {
-     "theme": "technology infrastructure investment",
-     "quote": "We regularly upgrade our technological capabilities to improve our customer service and lower our operating costs. Our technology provides our customers with visibility of their shipments throughout our network"
-    },
-    {
-     "theme": "tractor and trailer fleet modernization",
-     "quote": "approximately $190 million is allocated for the purchase of tractors and trailers"
-    },
-    {
-     "theme": "operating ratio improvement",
-     "quote": "We believe the continued execution of this yield-management philosophy, continued increases in density, and ongoing improvements in operating efficiencies are the key components of our ability to further improve our operating ratio and long"
     }
    ]
   }

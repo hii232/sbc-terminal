@@ -2,7 +2,7 @@
  "ticker": "NRG",
  "cik": "0001013871",
  "entityName": "NRG Energy, Inc",
- "retrievedAt": "2026-08-04T13:00:31.161272Z",
+ "retrievedAt": "2026-08-06T13:42:44.896852Z",
  "fields": {
   "buyback": [
    {
@@ -1986,12 +1986,12 @@
     "confidence": 100
    },
    {
-    "value": 210986470,
+    "value": 210210483,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001013871-26-000012",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001013871-26-000020",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

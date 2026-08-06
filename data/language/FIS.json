@@ -3,6 +3,34 @@
  "sector": "Payments",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 5902,
+   "themes": [
+    {
+     "theme": "issuer solutions integration",
+     "quote": "acquired on January 9, 2026... FIS entered into definitive agreements to buy the Issuer Solutions business from Global Payments Inc."
+    },
+    {
+     "theme": "artificial intelligence embedding",
+     "quote": "As we advance our transformation into a platform company, we are embedding artificial intelligence (\"AI\") across our solutions and operations."
+    },
+    {
+     "theme": "digital-first banking platform",
+     "quote": "Our Digital One platform helps our clients... provide a set of modern digital solutions to support all customer types... through any channel, including desktop, tablet, smartphone, and branch."
+    },
+    {
+     "theme": "core modernization",
+     "quote": "Our internal development activities have related primarily to the modernization of our proprietary core systems in each of our segments... development of next-generation digital and innovative solutions"
+    },
+    {
+     "theme": "fraud and security solutions",
+     "quote": "we have developed and we offer fraud, security, risk management and compliance solutions to target this growth opportunity in the financial services industry."
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -59,34 +87,6 @@
     {
      "theme": "managed services and dedicated personnel resourcing",
      "quote": "Other recurring revenue is comprised primarily of services provided by dedicated personnel resources who work full time at client sites"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 6582,
-   "themes": [
-    {
-     "theme": "digital banking modernization",
-     "quote": "Digital One platform helps our clients provide a set of modern digital solutions to support all customer types through any channel, including desktop, tablet, smartphone, and branch"
-    },
-    {
-     "theme": "payments market expansion",
-     "quote": "we believe that payment processors will need to enhance their technology platforms so they can deliver these capabilities and differentiate their offerings from other providers"
-    },
-    {
-     "theme": "issuer solutions acquisition",
-     "quote": "FIS has agreed to buy the Issuer Solutions business from Global Payments Inc. for an enterprise value of $13.5 billion"
-    },
-    {
-     "theme": "core banking system modernization",
-     "quote": "Our internal development activities have related primarily to the modernization of our proprietary core systems in each of our segments"
-    },
-    {
-     "theme": "fraud and cybersecurity solutions",
-     "quote": "we have developed and we offer fraud, security, risk management and compliance solutions to target this growth opportunity in the financial services industry"
     }
    ]
   }

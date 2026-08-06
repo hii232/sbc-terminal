@@ -1,8 +1,8 @@
 {
  "ticker": "COP",
  "cik": "0001163165",
- "entityName": "CONOCOPHILLIPS",
- "retrievedAt": "2026-08-04T13:00:22.695321Z",
+ "entityName": "ConocoPhillips",
+ "retrievedAt": "2026-08-06T13:42:36.980217Z",
  "fields": {
   "buyback": [
    {
@@ -1778,12 +1778,12 @@
     "confidence": 100
    },
    {
-    "value": 1218294007,
+    "value": 1201337479,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001163165-26-000018",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001163165-26-000032",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

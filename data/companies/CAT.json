@@ -2,7 +2,7 @@
  "ticker": "CAT",
  "cik": "0000018230",
  "entityName": "CATERPILLAR INC",
- "retrievedAt": "2026-08-04T13:00:15.106366Z",
+ "retrievedAt": "2026-08-06T13:42:29.488042Z",
  "fields": {
   "buyback": [
    {
@@ -1436,12 +1436,12 @@
     "confidence": 100
    },
    {
-    "value": 460637026,
+    "value": 459674889,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0000018230-26-000021",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0000018230-26-000046",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

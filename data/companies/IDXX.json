@@ -2,7 +2,7 @@
  "ticker": "IDXX",
  "cik": "0000874716",
  "entityName": "IDEXX LABORATORIES INC /DE",
- "retrievedAt": "2026-08-04T13:01:26.071960Z",
+ "retrievedAt": "2026-08-06T13:43:19.991401Z",
  "fields": {
   "buyback": [
    {
@@ -1978,12 +1978,12 @@
     "confidence": 100
    },
    {
-    "value": 78882997,
+    "value": 78781116,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000874716-26-000076",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0000874716-26-000123",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

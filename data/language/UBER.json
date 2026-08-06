@@ -3,6 +3,34 @@
  "sector": "Ride-Hailing",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 6742,
+   "themes": [
+    {
+     "theme": "delivery consolidation m&a",
+     "quote": "completed the acquisition of Getir's delivery business...entered into a business combination agreement with Delivery Hero...Uber will offer Delivery Hero shareholders cash consideration of \u20ac41.50 per share, representing an equity value of $"
+    },
+    {
+     "theme": "freight scaling",
+     "quote": "Freight Gross Bookings grew 25% year-over-year, on a constant currency basis, primarily driven by an increase in Freight Trip volumes"
+    },
+    {
+     "theme": "regulatory driver classification defense",
+     "quote": "The classification of Drivers is currently being challenged in courts, by legislators and by government agencies...we are involved in numerous legal proceedings globally...that claim that Drivers should be treated as our employees"
+    },
+    {
+     "theme": "advertising revenue expansion",
+     "quote": "Delivery revenue increased primarily attributable to an increase in Delivery Gross Bookings of 26%, driven by an increase in Trip volumes, and a $182 million increase in advertising revenue"
+    },
+    {
+     "theme": "uk business model restructuring",
+     "quote": "Effective January 2, 2026, we implemented a business model change in certain UK markets, primarily driven by regulatory and tax considerations...we are no longer responsible for the Mobility services in these markets"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -55,30 +83,6 @@
     {
      "theme": "autonomous vehicle deployment",
      "quote": "In July 2025, we agreed to purchase, or have our designated fleet operators purchase, a minimum of 20,000 Lucid vehicles equipped with Nuro's Level 4 autonomous driving systems over a six-year period following the start of production"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 7737,
-   "themes": [
-    {
-     "theme": "autonomous vehicle deployment",
-     "quote": "agreed to purchase, or have our designated fleet operators purchase, a minimum of 20,000 Lucid vehicles equipped with Nuro's Level 4 autonomous driving systems over a six-year period"
-    },
-    {
-     "theme": "delivery advertising expansion",
-     "quote": "Delivery revenue increased primarily attributable to an increase in Delivery Gross Bookings of 25%, driven by an increase in Trip volumes, and a $146 million increase in advertising revenue"
-    },
-    {
-     "theme": "platform trip volume growth",
-     "quote": "Mobility Gross Bookings grew 19% year-over-year, on a constant currency basis primarily due to an increase in Mobility Trip volumes. Delivery Gross Bookings grew 24% year-over-year, on a constant currency basis, primarily driven by an incre"
-    },
-    {
-     "theme": "freight market navigation",
-     "quote": "Freight revenue was flat, primarily attributable to a challenging freight market cycle, keeping Freight Gross Bookings relatively flat due to lower revenue per load"
     }
    ]
   }

@@ -2,7 +2,7 @@
  "ticker": "KMB",
  "cik": "0000055785",
  "entityName": "KIMBERLY-CLARK CORPORATION",
- "retrievedAt": "2026-08-04T13:01:32.096422Z",
+ "retrievedAt": "2026-08-06T13:43:23.171911Z",
  "fields": {
   "buyback": [
    {
@@ -1574,12 +1574,12 @@
     "confidence": 100
    },
    {
-    "value": 331940357,
+    "value": 332579038,
     "unit": "shares",
-    "periodEnd": "2026-04-21",
+    "periodEnd": "2026-07-28",
     "form": "10-Q",
-    "filedDate": "2026-04-28",
-    "accessionNumber": "0001628280-26-027800",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001628280-26-052348",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

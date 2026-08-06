@@ -2,7 +2,7 @@
  "ticker": "ENTG",
  "cik": "0001101302",
  "entityName": "Entegris, Inc.",
- "retrievedAt": "2026-08-04T13:00:41.308964Z",
+ "retrievedAt": "2026-08-06T13:42:53.647571Z",
  "fields": {
   "buyback": [
    {
@@ -1982,12 +1982,12 @@
     "confidence": 100
    },
    {
-    "value": 152500000,
+    "value": 152800000,
     "unit": "shares",
-    "periodEnd": "2026-04-27",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0001101302-26-000102",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001101302-26-000150",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

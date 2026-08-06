@@ -2,7 +2,7 @@
  "ticker": "AMGN",
  "cik": "0000318154",
  "entityName": "Amgen Inc.",
- "retrievedAt": "2026-08-04T13:01:15.193467Z",
+ "retrievedAt": "2026-08-06T13:43:12.449790Z",
  "fields": {
   "buyback": [
    {
@@ -1890,12 +1890,12 @@
     "confidence": 100
    },
    {
-    "value": 539708274,
+    "value": 540632005,
     "unit": "shares",
-    "periodEnd": "2026-04-27",
+    "periodEnd": "2026-07-30",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0000318154-26-000057",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0000318154-26-000126",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

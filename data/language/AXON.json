@@ -3,6 +3,34 @@
  "sector": "Public Safety Tech",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 4234,
+   "themes": [
+    {
+     "theme": "ai-enhanced operational software",
+     "quote": "all enhanced by artificial intelligence"
+    },
+    {
+     "theme": "counter-drone equipment expansion",
+     "quote": "higher volume for counter-drone equipment"
+    },
+    {
+     "theme": "professional services scaling",
+     "quote": "higher mix of professional services revenue and scaling new product offerings"
+    },
+    {
+     "theme": "taser 10 adoption",
+     "quote": "The increase of $82.4 million in TASER is primarily driven by higher TASER 10 handle and cartridge volume"
+    },
+    {
+     "theme": "premium software add-on features",
+     "quote": "growing adoption of our premium add-on features by existing customers"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -59,34 +87,6 @@
     {
      "theme": "product innovation investment",
      "quote": "Our research & development (\"R&D\") investments support continuous innovation on behalf of our customers"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 4452,
-   "themes": [
-    {
-     "theme": "cloud software platform expansion",
-     "quote": "growing adoption of our premium add-on features by existing customers drove the majority of the increase"
-    },
-    {
-     "theme": "body camera market penetration",
-     "quote": "continued adoption of our newest body camera, AB4, and higher warranty revenue from more devices in the field"
-    },
-    {
-     "theme": "counter-drone and robotics deployment",
-     "quote": "higher volume for counter-drone equipment, virtual reality training, and fleet systems"
-    },
-    {
-     "theme": "international market growth",
-     "quote": "International revenue increased compared to the prior year September 30, 2024 comparative period, primarily driven by increased sales in our EMEA region"
-    },
-    {
-     "theme": "taser 10 proliferation",
-     "quote": "increase of $99.9 million in TASER is primarily driven by higher TASER 10 handle and cartridge volume"
     }
    ]
   }

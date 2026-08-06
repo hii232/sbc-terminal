@@ -3,6 +3,30 @@
  "sector": "Staples",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 12580,
+   "themes": [
+    {
+     "theme": "kenvue consumer health acquisition",
+     "quote": "On November 2, 2025, we entered into an Agreement and Plan of Merger to acquire the outstanding equity interests of Kenvue, Inc., a global consumer health leader"
+    },
+    {
+     "theme": "ifp joint venture exit",
+     "quote": "On June 5, 2025, we announced that the Company will form a joint venture with Suzano comprised of substantially all the operations of the Company's former International Family Care and Professional segment"
+    },
+    {
+     "theme": "structural cost base reduction",
+     "quote": "the 2024 Transformation Initiative intended to improve our focus on growth and reduce our structural cost base by realigning our internal operating and management structure to streamline our global supply chain"
+    },
+    {
+     "theme": "portfolio simplification",
+     "quote": "the IFP Transaction represents a strategic shift that will have a major effect on our operations and financial results with assets and liabilities classified as discontinued operations"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-04-28",
    "source": "SEC 10-Q MD&A",
@@ -55,30 +79,6 @@
     {
      "theme": "organizational agility transformation",
      "quote": "Wiring our organization for growth to drive agility, speed, and focused execution that extends our competitive advantages further into the future"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-30",
-   "source": "SEC 10-Q MD&A",
-   "words": 11934,
-   "themes": [
-    {
-     "theme": "supply chain optimization",
-     "quote": "realigning our internal operating and management structure to streamline our global supply chain and improve the efficiency of our corporate and regional overhead cost structures"
-    },
-    {
-     "theme": "portfolio transformation",
-     "quote": "International Family Care and Professional (IFP) Business are reported as discontinued operations... Buyer will acquire a 51% interest in the Joint Venture for a purchase price of approximately $1.7 billion"
-    },
-    {
-     "theme": "cost structure reduction",
-     "quote": "2024 Transformation Initiative intended to improve our focus on growth and reduce our structural cost base... workforce reductions are expected to be in the range of 4% to 5%"
-    },
-    {
-     "theme": "market exit and rationalization",
-     "quote": "incremental depreciation and asset write-offs, including losses associated with the expected exit of certain markets"
     }
    ]
   }

@@ -3,6 +3,34 @@
  "sector": "E-commerce",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 11787,
+   "themes": [
+    {
+     "theme": "credit card portfolio expansion",
+     "quote": "an increase of $1,127 million in our Credit revenues and an increase of $460 million in our revenues from Financial services and income"
+    },
+    {
+     "theme": "first-party commerce growth",
+     "quote": "an increase of $1,160 million and $650 million in our revenues from Commerce product sales for the six and three-month periods"
+    },
+    {
+     "theme": "logistics network buildout",
+     "quote": "building up our logistics network"
+    },
+    {
+     "theme": "off-platform payment volume",
+     "quote": "an increase of $977 million and $503 million in our revenues from Financial services and income for the six and three-month periods ended June 30, 2026, respectively, mainly related to our off-platform transactional fees"
+    },
+    {
+     "theme": "artificial intelligence capabilities",
+     "quote": "we intend to continue to invest in technology and AI capabilities to meet the increasingly sophisticated product expectations of our customer base"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -59,42 +87,6 @@
     {
      "theme": "digital assets and stablecoin offerings",
      "quote": "launched a digital assets feature as part of the Mercado Pago account in Brazil, Mexico and Chile, in 2021, 2022 and 2023, respectively. This service allows our millions of users to purchase, hold and sell selected digital assets"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-30",
-   "source": "SEC 10-Q MD&A",
-   "words": 11838,
-   "themes": [
-    {
-     "theme": "credit origination expansion",
-     "quote": "an increase of $1,452 million and $625 million in our Credit revenues for the nine and three-month periods ended September 30, 2025, respectively, mainly as a consequence of higher originations"
-    },
-    {
-     "theme": "off-platform payment volume growth",
-     "quote": "an increase of $1,245 million and $434 million in our revenues from Financial services and income for the nine and three-month periods ended September 30, 2025, respectively, mainly related to our off-platform transactional fees and financi"
-    },
-    {
-     "theme": "logistics network buildout",
-     "quote": "we require cash for capital expenditures related to technology infrastructure, software applications, office space, business acquisitions, to build out our logistics capacity"
-    },
-    {
-     "theme": "first-party merchandise sales",
-     "quote": "an increase of $955 million and $378 million in our revenues from Commerce product sales for the nine and three-month periods ended September 30, 2025, respectively, as compared to the same periods in 2024, mainly in Brazil, Mexico and Arge"
-    },
-    {
-     "theme": "free shipping threshold reduction",
-     "quote": "the reduction of our free shipping threshold in Brazil, together with an increase in our cost of sales of goods, funding costs related to our fintech business and shipping carrier costs"
-    },
-    {
-     "theme": "seller marketing investments",
-     "quote": "a $359 million increase in online and offline marketing expenses across all of our main segments"
-    },
-    {
-     "theme": "credit card portfolio expansion",
-     "quote": "during August 2025 we launched the Mercado Pago credit card in Argentina"
     }
    ]
   }

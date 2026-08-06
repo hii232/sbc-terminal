@@ -3,6 +3,26 @@
  "sector": "Machinery",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 1949,
+   "themes": [
+    {
+     "theme": "order backlog expansion",
+     "quote": "the dollar amount of backlog believed to be firm was approximately $72.1 billion, about $9.4 billion higher than the first quarter of 2026"
+    },
+    {
+     "theme": "power and energy segment growth",
+     "quote": "The order backlog increased across the three primary segments, with the largest increase in Power & Energy"
+    },
+    {
+     "theme": "non-us entity divestiture",
+     "quote": "restructuring costs related to the divestiture of certain non-U.S. entities in 2026"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -47,26 +67,6 @@
     {
      "theme": "capital expenditure growth",
      "quote": "We expect MP&E's capital expenditures in 2026 to be about $3.5 billion"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 2038,
-   "themes": [
-    {
-     "theme": "order backlog expansion",
-     "quote": "the dollar amount of backlog believed to be firm was approximately $39.8 billion, about $2.4 billion higher than the second quarter of 2025 due to increases in the Energy & Transportation segment"
-    },
-    {
-     "theme": "energy and transportation segment growth",
-     "quote": "increases in the Energy & Transportation segment"
-    },
-    {
-     "theme": "financial services financing",
-     "quote": "Financial Products' information relates to the financing to customers and dealers for the purchase and lease of Caterpillar and other equipment"
     }
    ]
   }

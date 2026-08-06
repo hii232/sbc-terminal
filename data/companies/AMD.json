@@ -1,8 +1,8 @@
 {
  "ticker": "AMD",
  "cik": "0000002488",
- "entityName": "ADVANCED MICRO DEVICES INC",
- "retrievedAt": "2026-08-04T12:59:17.234076Z",
+ "entityName": "ADVANCED MICRO DEVICES, INC",
+ "retrievedAt": "2026-08-06T13:41:22.809849Z",
  "fields": {
   "buyback": [
    {
@@ -1869,12 +1869,12 @@
     "confidence": 100
    },
    {
-    "value": 1630600639,
+    "value": 1632475042,
     "unit": "shares",
-    "periodEnd": "2026-04-29",
+    "periodEnd": "2026-07-29",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0000002488-26-000076",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0000002488-26-000123",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

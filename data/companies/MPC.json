@@ -1,8 +1,8 @@
 {
  "ticker": "MPC",
  "cik": "0001510295",
- "entityName": "MARATHON PETROLEUM CORPORATION",
- "retrievedAt": "2026-08-04T13:00:25.843769Z",
+ "entityName": "Marathon Petroleum Corporation",
+ "retrievedAt": "2026-08-06T13:42:39.905332Z",
  "fields": {
   "buyback": [
    {
@@ -1778,12 +1778,12 @@
     "confidence": 100
    },
    {
-    "value": 291936635,
+    "value": 280824763,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-30",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0001510295-26-000042",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001510295-26-000061",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

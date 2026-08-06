@@ -2,7 +2,7 @@
  "ticker": "UBER",
  "cik": "0001543151",
  "entityName": "UBER TECHNOLOGIES, INC.",
- "retrievedAt": "2026-08-04T12:59:37.346386Z",
+ "retrievedAt": "2026-08-06T13:42:02.473674Z",
  "fields": {
   "buyback": [
    {
@@ -1369,12 +1369,12 @@
     "confidence": 100
    },
    {
-    "value": 2035599013,
+    "value": 2042560121,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001543151-26-000022",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001543151-26-000032",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -2,7 +2,7 @@
  "ticker": "ALL",
  "cik": "0000899051",
  "entityName": "ALLSTATE CORP",
- "retrievedAt": "2026-08-04T13:00:35.462314Z",
+ "retrievedAt": "2026-08-06T13:42:47.355840Z",
  "fields": {
   "buyback": [
    {
@@ -1782,12 +1782,12 @@
     "confidence": 100
    },
    {
-    "value": 257420930,
+    "value": 252857950,
     "unit": "shares",
-    "periodEnd": "2026-04-13",
+    "periodEnd": "2026-07-16",
     "form": "10-Q",
-    "filedDate": "2026-04-29",
-    "accessionNumber": "0000899051-26-000075",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0000899051-26-000118",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

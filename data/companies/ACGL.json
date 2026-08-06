@@ -1,8 +1,8 @@
 {
  "ticker": "ACGL",
  "cik": "0000947484",
- "entityName": "Arch Capital Group Ltd.",
- "retrievedAt": "2026-08-04T13:01:14.661699Z",
+ "entityName": "ARCH CAPITAL GROUP LTD.",
+ "retrievedAt": "2026-08-06T13:43:12.196295Z",
  "fields": {
   "buyback": [
    {
@@ -1745,12 +1745,12 @@
     "confidence": 100
    },
    {
-    "value": 349389588,
+    "value": 341229126,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-30",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000947484-26-000058",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0000947484-26-000124",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

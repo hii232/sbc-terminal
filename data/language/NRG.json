@@ -3,6 +3,30 @@
  "sector": "Utilities",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 32566,
+   "themes": [
+    {
+     "theme": "retail energy customer acquisition",
+     "quote": "Home Customer revenues increased in the first half of 2026 driven by customer growth"
+    },
+    {
+     "theme": "capacity market revenues",
+     "quote": "Capacity Revenue increased driven by strong capacity market prices and our portfolio optimization"
+    },
+    {
+     "theme": "distributed generation portfolio optimization",
+     "quote": "Lightning Power portfolio continued to perform strongly with contributions from our renewable and efficient generation assets"
+    },
+    {
+     "theme": "consumer financing program growth",
+     "quote": "Consumer Financing Program expanded in the period supporting customer acquisition and retention strategies"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -59,30 +83,6 @@
     {
      "theme": "business customer solutions",
      "quote": "providing comprehensive energy and power solutions to commercial and industrial customers"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 33072,
-   "themes": [
-    {
-     "theme": "retail customer acquisition and retention",
-     "quote": "Home customer count increased 4% year-over-year, with strong customer acquisition in Texas and East regions"
-    },
-    {
-     "theme": "capacity market monetization",
-     "quote": "Capacity revenue reflects strong performance in capacity markets with higher prices across our generation portfolio"
-    },
-    {
-     "theme": "renewable energy certificates trading",
-     "quote": "We manage renewable energy certificate positions to optimize financial returns across our merchant generation portfolio"
-    },
-    {
-     "theme": "smart home services expansion",
-     "quote": "Vivint Smart Home segment contributed to products and services revenue growth through customer additions and service upsell"
     }
    ]
   }

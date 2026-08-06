@@ -1,8 +1,8 @@
 {
  "ticker": "HUBS",
  "cik": "0001404655",
- "entityName": "HUBSPOT INC",
- "retrievedAt": "2026-08-04T13:00:44.913227Z",
+ "entityName": "HubSpot, Inc.",
+ "retrievedAt": "2026-08-06T13:42:55.835308Z",
  "fields": {
   "buyback": [
    {
@@ -1785,12 +1785,12 @@
     "confidence": 100
    },
    {
-    "value": 51217740,
+    "value": 49866201,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0001193125-26-212122",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001193125-26-335232",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

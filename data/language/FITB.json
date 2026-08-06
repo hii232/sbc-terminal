@@ -3,6 +3,30 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 45998,
+   "themes": [
+    {
+     "theme": "wealth and asset management expansion",
+     "quote": "we continue to invest in our wealth and asset management business to support long-term growth"
+    },
+    {
+     "theme": "consumer lending portfolio optimization",
+     "quote": "we are actively managing our consumer loan portfolio, including solar energy installation loans and indirect secured consumer loans"
+    },
+    {
+     "theme": "commercial real estate exposure management",
+     "quote": "we continue to monitor and manage our commercial mortgage and construction loan portfolios given market conditions"
+    },
+    {
+     "theme": "deposit relationship deepening",
+     "quote": "we focus on building stronger customer relationships and growing core deposits across our customer base"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "indirect auto lending",
      "quote": "indirect secured consumer loans"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 50106,
-   "themes": [
-    {
-     "theme": "commercial real estate exposure",
-     "quote": "Commercial portfolio includes commercial and industrial loans, commercial mortgage loans, and construction loans across owner-occupied and non-owner-occupied segments"
-    },
-    {
-     "theme": "residential mortgage servicing",
-     "quote": "Residential portfolio segment includes residential mortgage loans and home equity products with significant servicing activities"
-    },
-    {
-     "theme": "consumer lending diversification",
-     "quote": "Consumer portfolio includes indirect auto loans, solar installation financing, credit cards, and other consumer loans and leases"
-    },
-    {
-     "theme": "asset quality management",
-     "quote": "Monitoring of loan modifications including extended maturity, payment deferrals, and other restructuring modifications across commercial portfolio"
-    },
-    {
-     "theme": "government-backed loan origination",
-     "quote": "Portfolio includes loans insured or guaranteed by US government authorities and Federal Housing Administration loans"
     }
    ]
   }

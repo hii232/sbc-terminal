@@ -3,6 +3,30 @@
  "sector": "Energy",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 1122,
+   "themes": [
+    {
+     "theme": "liquefaction capacity expansion",
+     "quote": "capital expenditures for the Corpus Christi Stage 3 Project and the CCL Midscale Trains 8 & 9 Project as construction progresses on these projects"
+    },
+    {
+     "theme": "lng production volume growth",
+     "quote": "increased cash receipts from the sale of LNG cargoes due to higher revenue from higher production volume"
+    },
+    {
+     "theme": "downstream expansion projects",
+     "quote": "early engineering and procurement for the SPL Expansion Project under the LNTP issued in May 2026"
+    },
+    {
+     "theme": "shareholder capital returns",
+     "quote": "paid $1.1 billion and $656 million to repurchase approximately 4.9 million and 3.0 million shares of our common stock, respectively"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "derivative hedging programs",
      "quote": "our net income for the years ended December 31, 2025 and 2024 included $3.6 billion and $1.3 billion of gains, respectively, resulting from changes in the fair values of our derivatives (before tax and the impact of non-controlling interest"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-30",
-   "source": "SEC 10-Q MD&A",
-   "words": 1166,
-   "themes": [
-    {
-     "theme": "midscale liquefaction capacity expansion",
-     "quote": "substantial completions of the first two of seven midscale Trains of the Corpus Christi Stage 3 Project were achieved"
-    },
-    {
-     "theme": "lng terminal stage development",
-     "quote": "our Board made a positive FID with respect to the CCL Midscale Trains 8 & 9 Project and issued a full notice to proceed with construction to Bechtel"
-    },
-    {
-     "theme": "tax optimization and cash deferral",
-     "quote": "reinstating 100% accelerated tax bonus depreciation on qualifying assets acquired after January 19, 2025, which is expected to defer our income tax liability, ultimately reducing our income tax payable to a nominal amount in 2025"
-    },
-    {
-     "theme": "shareholder capital returns",
-     "quote": "we paid $1.7 billion and $2.0 billion to repurchase approximately 7.4 million and 12.2 million shares of our common stock"
-    },
-    {
-     "theme": "subsidiary capital structure management",
-     "quote": "SPL, CQP, CCH and Cheniere operate with independent capital structures"
     }
    ]
   }

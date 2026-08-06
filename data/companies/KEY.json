@@ -1,8 +1,8 @@
 {
  "ticker": "KEY",
  "cik": "0000091576",
- "entityName": "KEYCORP /NEW/",
- "retrievedAt": "2026-08-04T13:01:06.063828Z",
+ "entityName": "KeyCorp",
+ "retrievedAt": "2026-08-06T13:43:05.530988Z",
  "fields": {
   "buyback": [
    {
@@ -1774,12 +1774,12 @@
     "confidence": 100
    },
    {
-    "value": 1084225688,
+    "value": 1067128554,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0001628280-26-030507",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001628280-26-052671",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

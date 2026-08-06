@@ -2,7 +2,7 @@
  "ticker": "OXY",
  "cik": "0000797468",
  "entityName": "OCCIDENTAL PETROLEUM CORPORATION",
- "retrievedAt": "2026-08-04T13:00:25.042764Z",
+ "retrievedAt": "2026-08-06T13:42:39.610566Z",
  "fields": {
   "buyback": [
    {
@@ -1770,12 +1770,12 @@
     "confidence": 100
    },
    {
-    "value": 994634701,
+    "value": 999637371,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0001628280-26-030584",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001628280-26-053388",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

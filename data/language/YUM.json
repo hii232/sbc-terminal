@@ -3,6 +3,34 @@
  "sector": "Restaurants",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 5235,
+   "themes": [
+    {
+     "theme": "pizza hut divestiture",
+     "quote": "In June 2026, we entered into two definitive agreements to sell the Pizza Hut brand thereby completing this review"
+    },
+    {
+     "theme": "franchisee unit economics",
+     "quote": "Accelerate restaurant unit economics for our franchisees and maximize performance of every restaurant, serving as a catalyst for new unit development and keeping our franchise system healthy"
+    },
+    {
+     "theme": "byte platform expansion",
+     "quote": "Reach the full potential of Byte by Yum! by effectively operating, innovating and expanding our connected platform built by restaurant operators for restaurant operators to unlock its full potential"
+    },
+    {
+     "theme": "same-store sales growth",
+     "quote": "We intend to drive long-term growth and shareholder returns primarily through consistent same-store sales growth and new unit development across all of our Concepts"
+    },
+    {
+     "theme": "new unit development",
+     "quote": "Gross unit openings for the year to date were 2,083 units resulting in 881 net new units"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -51,38 +79,6 @@
     {
      "theme": "real estate portfolio optimization",
      "quote": "we own or lease substantially all of the properties used by our restaurants, generating revenue from franchise agreements"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 5037,
-   "themes": [
-    {
-     "theme": "digital and technology acceleration",
-     "quote": "reallocate significant resources to accelerate our digital, technology and innovation capabilities to deliver a modern, world-class team member and customer experience"
-    },
-    {
-     "theme": "franchise unit expansion",
-     "quote": "Our commitment to bold restaurant development drives market and franchise unit expansion with strong economics"
-    },
-    {
-     "theme": "same-store sales growth",
-     "quote": "Company same-store sales growth of 6%"
-    },
-    {
-     "theme": "pizza hut strategic options review",
-     "quote": "We have begun a review of strategic options for the Pizza Hut brand"
-    },
-    {
-     "theme": "international market development",
-     "quote": "89% of which are located outside the U.S."
-    },
-    {
-     "theme": "resource optimization program",
-     "quote": "resource optimization program that has allowed us to reallocate significant resources to accelerate our digital, technology and innovation capabilities"
     }
    ]
   }

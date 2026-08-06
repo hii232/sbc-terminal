@@ -1,8 +1,8 @@
 {
  "ticker": "LLY",
  "cik": "0000059478",
- "entityName": "ELI LILLY & Co",
- "retrievedAt": "2026-08-04T12:59:57.210731Z",
+ "entityName": "ELI LILLY AND COMPANY",
+ "retrievedAt": "2026-08-06T13:42:19.928473Z",
  "fields": {
   "buyback": [
    {
@@ -1374,12 +1374,12 @@
     "confidence": 100
    },
    {
-    "value": 941741406,
+    "value": 941357065,
     "unit": "shares",
-    "periodEnd": "2026-04-27",
+    "periodEnd": "2026-08-03",
     "form": "10-Q",
-    "filedDate": "2026-04-30",
-    "accessionNumber": "0000059478-26-000045",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0000059478-26-000081",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -3,6 +3,34 @@
  "sector": "Semis",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 9951,
+   "themes": [
+    {
+     "theme": "ai server power solutions",
+     "quote": "higher sales of power management solutions for artificial intelligence (\"AI\") and server applications"
+    },
+    {
+     "theme": "manufacturing capacity expansion",
+     "quote": "the Company secures manufacturing capacity that can support a specified level of annual revenue at the end of the three-year performance period"
+    },
+    {
+     "theme": "power module product mix",
+     "quote": "a higher product mix of power solutions, which generally carry higher average selling prices than discrete ICs, also contributed to the increase in year over year revenue"
+    },
+    {
+     "theme": "supply chain diversification",
+     "quote": "our diverse, agile and resilient supply chain is structured in a way to minimize the impact of tariffs"
+    },
+    {
+     "theme": "research and development investment",
+     "quote": "our expectation to continue devoting significant resources to research and development including related increased expenses"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-04",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "integrated power solution development",
      "quote": "This increase was broad-based and primarily driven by increased sales of our highly integrated applications supporting advanced driver assistance systems and infotainment"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 3152,
-   "themes": [
-    {
-     "theme": "storage and computing power solutions",
-     "quote": "revenue from the storage and computing market increased $205.3 million, or 56.2%, from the same period in 2024. This increase was primarily due to higher sales of power solutions for storage applications, notebooks and graphics cards"
-    },
-    {
-     "theme": "automotive electrification and adas",
-     "quote": "Revenue from the automotive market increased $155.9 million, or 54.6%, from the same period in 2024. This increase was primarily due to higher sales of applications supporting advanced driver assistance systems and infotainment"
-    },
-    {
-     "theme": "manufacturing capacity securing",
-     "quote": "we believe our ability to achieve revenue growth will depend, in part, on our ability to develop new products, enter new markets, gain market share, manage litigation risk, diversify our customer base and continue to secure manufacturing ca"
-    },
-    {
-     "theme": "data center optical networking",
-     "quote": "Revenue from the communications market increased $63.2 million, or 39.0%, from the same period in 2024. This increase was primarily driven by higher sales of power solutions for optical modules and routers"
-    },
-    {
-     "theme": "monolithic ic design integration",
-     "quote": "we have three core strengths: deep system-level knowledge, strong semiconductor design expertise, and innovative proprietary technologies in the areas of semiconductor processes, system integration, and packaging"
     }
    ]
   }

@@ -3,6 +3,34 @@
  "sector": "Staples",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-K MD&A",
+   "words": 37786,
+   "themes": [
+    {
+     "theme": "product superiority innovation",
+     "quote": "We invest in research and development and consumer insights to invent new categories or products and innovate our existing products, ensuring they meet evolving consumer needs and preferences"
+    },
+    {
+     "theme": "sustainability and net zero ambition",
+     "quote": "In 2021, the Company announced a 2040 net zero ambition. Our Climate Transition Action Plan outlines the Company's ongoing efforts toward reducing greenhouse gas emissions across scopes 1 and 2"
+    },
+    {
+     "theme": "digital and direct-to-consumer expansion",
+     "quote": "The Company utilizes various distribution channels, including retail stores, digital commerce platforms and direct-to-consumer platforms to deliver our products"
+    },
+    {
+     "theme": "supply chain cost management",
+     "quote": "The prices we pay for materials and other commodities are subject to fluctuation including new or increased tariffs. When prices for these items change, we may or may not pass the change to our customers"
+    },
+    {
+     "theme": "organizational restructuring",
+     "quote": "the Company had approximately 104,000 employees, a decrease of 4% versus the prior year due to the ongoing restructuring program"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-04-24",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "brand and market exits",
      "quote": "brand and market exits as well as the optimization of the supply chain"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-24",
-   "source": "SEC 10-Q MD&A",
-   "words": 11767,
-   "themes": [
-    {
-     "theme": "portfolio streamlining and productivity",
-     "quote": "portfolio and productivity plan to streamline its portfolio and organization to improve its cost structure and competitiveness"
-    },
-    {
-     "theme": "supply chain optimization",
-     "quote": "optimization of the supply chain and other manufacturing processes"
-    },
-    {
-     "theme": "overhead workforce reduction",
-     "quote": "plan for a reduction of up to 7,000 non-manufacturing overhead personnel by the end of fiscal 2027"
-    },
-    {
-     "theme": "market exit strategy",
-     "quote": "plan includes brand and market exits as well as the optimization of the supply chain"
-    },
-    {
-     "theme": "organic sales growth",
-     "quote": "Organic sales, which exclude the impacts of acquisitions and divestitures and foreign exchange, increased 2%"
     }
    ]
   }

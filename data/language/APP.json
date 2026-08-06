@@ -3,6 +3,34 @@
  "sector": "AdTech",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 34879,
+   "themes": [
+    {
+     "theme": "axon ai recommendation system",
+     "quote": "we expect to continue to invest in our technology and to incur related costs, including costs to attract and retain critical engineering talent, such as stock-based compensation, as well as datacenter costs as we continue to launch enhancem"
+    },
+    {
+     "theme": "non-gaming vertical expansion",
+     "quote": "Our investments will also allow us to continue to enter into and expand into new verticals outside of gaming, such as e-commerce and CTV"
+    },
+    {
+     "theme": "datacenter capacity investment",
+     "quote": "we expect to continue to invest in our technology and to incur related costs, including costs to attract and retain critical engineering talent, such as stock-based compensation, as well as datacenter costs as we continue to launch enhancem"
+    },
+    {
+     "theme": "existing client spend growth",
+     "quote": "As we improve our advertising solutions, we can attract additional spend from these clients. Our clients include indie studio developers and some of the largest advertising platforms in the world. We believe there is significant room for us"
+    },
+    {
+     "theme": "apps business divestiture",
+     "quote": "the Company completed the sale of certain wholly-owned subsidiaries that operate the Company's Apps business (the \"Apps Business\"), as part of its strategic effort to divest non-core assets and dedicate its resources to advancing its advert"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -55,30 +83,6 @@
     {
      "theme": "mobile ecosystem platform dependency",
      "quote": "Any changes made to the policies of these third party platforms can drive rapid change across the mobile app and advertising ecosystems...we must continue to innovate and stay ahead of developments in the advertising and mobile app ecosyste"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 39650,
-   "themes": [
-    {
-     "theme": "ai-powered advertising recommendation engine",
-     "quote": "our ability to successfully expand our AI capabilities to support the further development of our advertising solutions, including Axon AI, our advertising recommendation engine"
-    },
-    {
-     "theme": "cloud infrastructure spending commitment",
-     "quote": "In August 2024, the Company amended its agreement with the provider, committing to spending a minimum of $1.3 billion over a three-year period"
-    },
-    {
-     "theme": "apps business divestiture",
-     "quote": "the Company and its subsidiaries Morocco, Inc. and AppLovin GmbH entered into a purchase agreement with Tripledot and its subsidiaries Eton Games Inc. and Tripledot Group Holdings Limited to sell the equity interests of certain wholly-owned"
-    },
-    {
-     "theme": "axon platform consolidation",
-     "quote": "The Company's single segment provides end-to-end advertising solutions including Axon Advertising, MAX, Adjust, and Wurl, that allow businesses to reach, monetize and grow their global audiences"
     }
    ]
   }

@@ -3,6 +3,34 @@
  "sector": "Semis",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 3603,
+   "themes": [
+    {
+     "theme": "data center gpu deployment",
+     "quote": "multi-year agreements with OpenAI OpCo, LLC (OpenAI) and Meta Platforms, Inc. (Meta), respectively, under which each customer intends to deploy up to 6 gigawatts of AMD data center GPUs"
+    },
+    {
+     "theme": "ai accelerator product roadmap",
+     "quote": "strong demand for our AMD EPYC processors and AMD Instinct MI350 Series GPUs"
+    },
+    {
+     "theme": "r&d headcount expansion",
+     "quote": "higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy and long-term growth opportunities"
+    },
+    {
+     "theme": "go-to-market investment acceleration",
+     "quote": "increase in go-to-market activities to support our revenue growth"
+    },
+    {
+     "theme": "data center infrastructure buildout",
+     "quote": "investment commitments of up to $5.0 billion, subject to certain conditions, which are expected to be made through fiscal year 2028 and long-term data center leases with aggregate future payments of $9.5 billion"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -59,34 +87,6 @@
     {
      "theme": "hyperscale customer partnerships",
      "quote": "In October 2025, we entered into a product purchase agreement with OpenAI OpCo, LLC, (OpenAI) to deploy 6 gigawatts of AMD GPUs, with the deployment of the first gigawatt of capacity powered by our AMD Instinct MI450 series products."
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 3904,
-   "themes": [
-    {
-     "theme": "data center gpu scaling",
-     "quote": "strong demand for our 5th generation AMD EPYC processors and AMD Instinct MI350 Series GPUs"
-    },
-    {
-     "theme": "ryzen processor market share",
-     "quote": "strong demand for our AMD Ryzen processors"
-    },
-    {
-     "theme": "end-to-end ai infrastructure",
-     "quote": "enable AMD to deliver end-to-end AI solutions and accelerate the design and deployment of AMD-powered AI infrastructure at scale"
-    },
-    {
-     "theme": "r&d headcount expansion",
-     "quote": "higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy"
-    },
-    {
-     "theme": "export control inventory writedown",
-     "quote": "approximately $800 million of inventory and related charges associated with the U.S. government export control on AMD Instinct MI308 GPU product"
     }
    ]
   }

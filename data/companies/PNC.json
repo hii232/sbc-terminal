@@ -1,8 +1,8 @@
 {
  "ticker": "PNC",
  "cik": "0000713676",
- "entityName": "PNC FINANCIAL SERVICES GROUP, INC.",
- "retrievedAt": "2026-08-04T13:01:00.500745Z",
+ "entityName": "PNC Financial Services Group, Inc.",
+ "retrievedAt": "2026-08-06T13:43:03.425590Z",
  "fields": {
   "buyback": [
    {
@@ -1154,12 +1154,12 @@
     "confidence": 100
    },
    {
-    "value": 401564632,
+    "value": 398943667,
     "unit": "shares",
-    "periodEnd": "2026-04-14",
+    "periodEnd": "2026-07-20",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000713676-26-000038",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001628280-26-053170",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

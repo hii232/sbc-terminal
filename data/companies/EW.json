@@ -1,8 +1,8 @@
 {
  "ticker": "EW",
  "cik": "0001099800",
- "entityName": "EDWARDS LIFESCIENCES CORPORATION",
- "retrievedAt": "2026-08-04T13:01:23.629788Z",
+ "entityName": "Edwards Lifesciences Corporation",
+ "retrievedAt": "2026-08-06T13:43:18.697268Z",
  "fields": {
   "buyback": [
    {
@@ -1669,12 +1669,12 @@
     "confidence": 100
    },
    {
-    "value": 575800000,
+    "value": 576400000,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001099800-26-000026",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001099800-26-000043",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 19804,
+   "themes": [
+    {
+     "theme": "share repurchase expansion",
+     "quote": "In May, 2026, the Board of Directors authorized a new share repurchase program pursuant to which KeyCorp may purchase up to $3.0 billion of KeyCorp common shares. The new repurchase authorization replaces KeyCorp's existing $1.0 billion sha"
+    },
+    {
+     "theme": "interest rate risk hedging",
+     "quote": "Interest rate swaps and options are predominantly used, which modify the interest rate characteristics of certain assets and liabilities. Figure 23 shows all swap positions held for A/LM purposes."
+    },
+    {
+     "theme": "deposit funding reliance",
+     "quote": "Our primary source of funding for KeyBank are customer deposits resulting in a consolidated loan-to-deposit ratio of 73% as of June 30, 2026."
+    },
+    {
+     "theme": "liquidity stress testing",
+     "quote": "In the normal course of business, we perform a monthly internal liquidity stress test at the consolidated KeyCorp level. From time to time, we may conduct internal liquidity stress tests more frequently, and use assumptions to reflect the c"
+    },
+    {
+     "theme": "credit loss provisioning",
+     "quote": "The increase in the ALSS from continuing operations primarily reflects the addition of qualitative reserves to account for elevated economic uncertainty driven by geopolitical tensions and potential downside risks from energy price volatili"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -47,34 +75,6 @@
     {
      "theme": "capital adequacy maintenance",
      "quote": "Our capital management objective is to maintain capital levels consistent with our risk appetite and of a sufficient amount to operate and support our clients under a wide range of economic conditions"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 21127,
-   "themes": [
-    {
-     "theme": "deposit funding stability",
-     "quote": "Our primary source of funding for KeyBank are customer deposits resulting in a consolidated loan-to-deposit ratio of 71% as of September 30, 2025"
-    },
-    {
-     "theme": "interest rate risk management",
-     "quote": "We are actively managing the balance sheet to maintain desired IRR positioning in the current environment"
-    },
-    {
-     "theme": "capital adequacy maintenance",
-     "quote": "Our current capital levels position us well to execute against our capital priorities including supporting organic growth and paying dividends"
-    },
-    {
-     "theme": "liquidity stress testing",
-     "quote": "In the normal course of business, we perform a monthly internal liquidity stress test at the consolidated KeyCorp level"
-    },
-    {
-     "theme": "credit loss estimation",
-     "quote": "We estimate the appropriate level of the ALLL on at least a quarterly basis using various models and estimation techniques based on our historical loss experience, current borrower characteristics, current economic conditions, reasonable an"
     }
    ]
   }

@@ -3,6 +3,30 @@
  "sector": "Payments",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 18065,
+   "themes": [
+    {
+     "theme": "worldpay integration and consolidation",
+     "quote": "we acquired 100% of Worldpay from FIS and affiliates of GTCR and divested our Issuer Solutions business to FIS"
+    },
+    {
+     "theme": "pure-play commerce solutions positioning",
+     "quote": "simplify our business model and position Global Payments as a leading pure play commerce solutions provider for merchants of all sizes with extensive global scale"
+    },
+    {
+     "theme": "three-segment organizational realignment",
+     "quote": "we realigned into three reportable segments: Enterprise, Platforms and Small and Medium-Sized Businesses"
+    },
+    {
+     "theme": "synergy realization from acquisition",
+     "quote": "Goodwill was attributable to expected growth opportunities, an assembled workforce and potential synergies from combining the acquired business into our existing business"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "portfolio optimization via divestitures",
      "quote": "We also continue to assess our business portfolio to evaluate potential assets for disposition to further streamline our business and create value for shareholders"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 16939,
-   "themes": [
-    {
-     "theme": "worldpay acquisition integration",
-     "quote": "acquire 100% of Worldpay Holdco, LLC from Fidelity National Information Services, Inc. and divest our Issuer Solutions business to FIS"
-    },
-    {
-     "theme": "issuer solutions divestiture",
-     "quote": "divestiture of our Issuer Solutions business consists of approximately $7.5 billion in cash and FIS' ownership interest in Worldpay"
-    },
-    {
-     "theme": "merchant software consolidation",
-     "quote": "we wrote off capitalized software assets of $27.3 million and capitalized cloud implementation cost assets of $28.5 million that will no longer be utilized under a revised development strategy"
-    },
-    {
-     "theme": "cloud infrastructure expansion",
-     "quote": "capitalized cloud implementation cost assets that will no longer be utilized under a revised development strategy"
-    },
-    {
-     "theme": "convertible debt issuance",
-     "quote": "$2.0 billion in aggregate principal amount of 1.500% convertible unsecured senior notes due March 2031"
     }
    ]
   }

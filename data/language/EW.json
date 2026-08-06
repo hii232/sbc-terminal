@@ -3,6 +3,30 @@
  "sector": "Medical Devices",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 16652,
+   "themes": [
+    {
+     "theme": "transcatheter heart valve innovation",
+     "quote": "structural heart diseases"
+    },
+    {
+     "theme": "advanced heart failure therapies",
+     "quote": "developing therapies for patients with advanced heart failure"
+    },
+    {
+     "theme": "emerging market expansion",
+     "quote": "Rest of World segment"
+    },
+    {
+     "theme": "strategic acquisitions and consolidations",
+     "quote": "the Company determined it has become the primary beneficiary of this VIE, and it has been consolidated"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "acquired technology integration",
      "quote": "Unsuccessful clinical trials or procedures; manufacturing, logistics or quality issues; competition; dependence on key physicians, research institutions and hospital systems; public health crises; reliance on vendors, suppliers, and other t"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 17312,
-   "themes": [
-    {
-     "theme": "structural heart disease focus",
-     "quote": "exit businesses that are not focused on implantable medical innovations for structural heart disease"
-    },
-    {
-     "theme": "transcatheter valve expansion",
-     "quote": "Transcatheter Aortic Valve Replacement"
-    },
-    {
-     "theme": "acquisitions and product portfolio",
-     "quote": "risks or challenges related to integrating acquired businesses"
-    },
-    {
-     "theme": "manufacturing and quality control",
-     "quote": "ability to develop new products and avoid manufacturing and quality issues"
-    },
-    {
-     "theme": "critical care divestiture",
-     "quote": "On September 3, 2024, the Company sold its Critical Care product group"
     }
    ]
   }

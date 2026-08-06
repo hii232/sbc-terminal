@@ -2,7 +2,7 @@
  "ticker": "VRTX",
  "cik": "0000875320",
  "entityName": "VERTEX PHARMACEUTICALS INC / MA",
- "retrievedAt": "2026-08-04T13:01:16.326105Z",
+ "retrievedAt": "2026-08-06T13:43:12.986032Z",
  "fields": {
   "buyback": [
    {
@@ -1932,12 +1932,12 @@
     "confidence": 100
    },
    {
-    "value": 253805417,
+    "value": 253460924,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000875320-26-000173",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0000875320-26-000259",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

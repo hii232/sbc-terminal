@@ -1,8 +1,8 @@
 {
  "ticker": "MPWR",
  "cik": "0001280452",
- "entityName": "MONOLITHIC POWER SYSTEMS INC",
- "retrievedAt": "2026-08-04T12:59:23.465243Z",
+ "entityName": "Monolithic Power Systems, Inc.",
+ "retrievedAt": "2026-08-06T13:41:29.903750Z",
  "fields": {
   "buyback": [
    {
@@ -1774,12 +1774,12 @@
     "confidence": 100
    },
    {
-    "value": 49130000,
+    "value": 49143000,
     "unit": "shares",
-    "periodEnd": "2026-04-27",
+    "periodEnd": "2026-07-29",
     "form": "10-Q",
-    "filedDate": "2026-05-04",
-    "accessionNumber": "0001437749-26-014647",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001628280-26-053275",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -3,6 +3,34 @@
  "sector": "Industrials",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 7240,
+   "themes": [
+    {
+     "theme": "network automation and consolidation",
+     "quote": "Network of the Future initiative, which is intended to enhance the efficiency of our U.S. Domestic network through automation and operational sort consolidation"
+    },
+    {
+     "theme": "healthcare logistics expansion",
+     "quote": "integration of Andlauer Healthcare Group (AHG), which expanded our healthcare logistics network and capabilities, and investments in temperature-controlled cross-dock facilities"
+    },
+    {
+     "theme": "small business customer growth",
+     "quote": "continued growth from SMBs who leveraged our Digital Access Program (DAP)"
+    },
+    {
+     "theme": "high-yield customer mix optimization",
+     "quote": "our focus on revenue quality and made progress on previously announced initiatives related to workforce optimization, network capacity actions"
+    },
+    {
+     "theme": "last-mile outsourcing to usps",
+     "quote": "outsourcing of last-mile delivery of a portion of our Ground Saver product to the United States Postal Service (USPS)"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -59,34 +87,6 @@
     {
      "theme": "international gateway expansion",
      "quote": "our new air hub in the Philippines is slated to open towards the end of 2026 and our expansion in Hong Kong is planned to open in 2028...expected to give us broader access and faster time in transit on the trade lanes that are growing in As"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 8948,
-   "themes": [
-    {
-     "theme": "healthcare logistics expansion",
-     "quote": "The acquisition has increased our complex cold-chain logistics capabilities"
-    },
-    {
-     "theme": "network automation and consolidation",
-     "quote": "Our Network of the Future initiative is intended to enhance the efficiency of our network through automation and operational sort consolidation in our U.S. Domestic network"
-    },
-    {
-     "theme": "high-yield volume mix shift",
-     "quote": "we took several steps in furtherance of this strategy, including continuing our deliberate shift in our business to increase our focus on higher yielding volume"
-    },
-    {
-     "theme": "workforce reduction and facility closures",
-     "quote": "we have reduced our U.S. operational workforce by approximately 34,000 positions and closed daily operations at 93 leased and owned buildings"
-    },
-    {
-     "theme": "usps air cargo contract",
-     "quote": "Revenue in our global small package operations during the third quarter and year-to-date periods of 2025 also benefited from growth in air cargo revenue as we fully onboarded volume under our contract with USPS"
     }
    ]
   }

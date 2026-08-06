@@ -3,6 +3,34 @@
  "sector": "Insurance",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 8128,
+   "themes": [
+    {
+     "theme": "market share growth in personal lines",
+     "quote": "increase personal property-liability market share and expand protection offerings by leveraging the Allstate brand, customer base and capabilities"
+    },
+    {
+     "theme": "direct distribution channel expansion",
+     "quote": "Expanding customer access"
+    },
+    {
+     "theme": "catastrophe reinsurance optimization",
+     "quote": "continually review our aggregate risk appetite and the cost and availability of reinsurance to optimize the risk and return profile"
+    },
+    {
+     "theme": "private credit and alternative investments",
+     "quote": "private equity, including infrastructure investments, and real estate with a majority being limited partnerships"
+    },
+    {
+     "theme": "technology ecosystem deployment",
+     "quote": "Deploying new technology ecosystems"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-04-29",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "omnichannel distribution expansion",
      "quote": "expanding customer access, increasing sophistication and investment in customer acquisition, deploying a new technology ecosystem"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 9001,
-   "themes": [
-    {
-     "theme": "personal property-liability market share expansion",
-     "quote": "increase personal property-liability market share and expand protection offerings by leveraging the Allstate brand, customer base and capabilities"
-    },
-    {
-     "theme": "multi-channel distribution transformation",
-     "quote": "providing affordable, simple and connected protection through multiple distribution methods"
-    },
-    {
-     "theme": "customer acquisition technology investment",
-     "quote": "Increasing sophistication and investment in customer acquisition"
-    },
-    {
-     "theme": "protection services international expansion",
-     "quote": "We are expanding Protection Services businesses internationally and by leveraging the Allstate brand, customer base and capabilities"
-    },
-    {
-     "theme": "catastrophe reinsurance optimization",
-     "quote": "continually review our aggregate risk appetite and the cost and availability of reinsurance to optimize the risk and return profile"
     }
    ]
   }

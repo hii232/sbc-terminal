@@ -2,7 +2,7 @@
  "ticker": "MELI",
  "cik": "0001099590",
  "entityName": "MercadoLibre, Inc.",
- "retrievedAt": "2026-08-04T12:59:41.177605Z",
+ "retrievedAt": "2026-08-06T13:42:04.999909Z",
  "fields": {
   "buyback": [
    {
@@ -1661,12 +1661,12 @@
     "confidence": 100
    },
    {
-    "value": 50697182,
+    "value": 50696802,
     "unit": "shares",
-    "periodEnd": "2026-05-07",
+    "periodEnd": "2026-08-05",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0001099590-26-000017",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001099590-26-000023",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

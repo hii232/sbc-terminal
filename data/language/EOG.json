@@ -3,6 +3,26 @@
  "sector": "Energy",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 15000,
+   "themes": [
+    {
+     "theme": "utica shale acquisition integration",
+     "quote": "On August 1, 2025, EOG acquired all of the outstanding equity interest in Encino, an independent oil and gas exploration and production company with operations in the Utica play"
+    },
+    {
+     "theme": "share repurchase expansion",
+     "quote": "Effective May 20, 2026, the Board again increased such share repurchase authorization, from $10 billion to $20 billion"
+    },
+    {
+     "theme": "commodity price hedging",
+     "quote": "EOG engages in price risk management activities from time to time. These activities are intended to manage EOG's exposure to fluctuations in commodity prices for crude oil and condensate, NGLs and natural gas"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -55,26 +75,6 @@
     {
      "theme": "cost structure optimization",
      "quote": "Maintaining the lowest possible operating cost structure, coupled with efficient and safe operations and robust environmental stewardship practices and performance, is integral in the implementation of EOG's strategy"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 16062,
-   "themes": [
-    {
-     "theme": "unconventional shale production growth",
-     "quote": "EOG's operations are all crude oil, natural gas liquids (NGLs) and natural gas exploration and production-related"
-    },
-    {
-     "theme": "capital allocation and share buybacks",
-     "quote": "During the nine months ended September 30, 2025, EOG repurchased 15.4 million shares of common stock for approximately $ 1.8 billion"
-    },
-    {
-     "theme": "debt refinancing and capital markets access",
-     "quote": "On July 1, 2025, EOG closed on its offering of $ 500 million aggregate principal amount of its 4.400 % Senior Notes due 2028, $ 1.25 billion aggregate principal amount of its 5.000 % Senior Notes due 2032, $ 1.25 billion aggregate principal"
     }
    ]
   }

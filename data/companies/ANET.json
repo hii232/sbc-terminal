@@ -2,7 +2,7 @@
  "ticker": "ANET",
  "cik": "0001596532",
  "entityName": "Arista Networks,\u00a0Inc.",
- "retrievedAt": "2026-08-04T12:59:23.988912Z",
+ "retrievedAt": "2026-08-06T13:41:30.328423Z",
  "fields": {
   "buyback": [
    {
@@ -1953,12 +1953,12 @@
     "confidence": 100
    },
    {
-    "value": 1259202593,
+    "value": 1261224648,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-30",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001596532-26-000078",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001596532-26-000175",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

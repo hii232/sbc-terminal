@@ -3,6 +3,34 @@
  "sector": "Networking",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4478,
+   "themes": [
+    {
+     "theme": "ai ethernet switching expansion",
+     "quote": "remain in a period of new product introductions and expanded use cases, particularly in the AI Ethernet market"
+    },
+    {
+     "theme": "cloud networking platform development",
+     "quote": "continue to invest in research and development in order to expand the capabilities of our cloud networking platform, introduce new products and features"
+    },
+    {
+     "theme": "global sales force expansion",
+     "quote": "must continue to expand our global sales force and deepen our channel partnerships to reach new customers more effectively"
+    },
+    {
+     "theme": "supply chain capacity buildout",
+     "quote": "we have increased our purchase commitments to respond to the rapid deployment of AI networks, and to navigate the tightening supply within the memory and silicon markets"
+    },
+    {
+     "theme": "network-as-a-service consolidation",
+     "quote": "network-as-a-service platform delivers a seamless, consolidated networking experience regardless of data location"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -59,38 +87,6 @@
     {
      "theme": "global sales force expansion",
      "quote": "we must continue to expand our global sales force and deepen our channel partnerships to reach new customers more effectively and increase sales to existing customers"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 4845,
-   "themes": [
-    {
-     "theme": "ai networking infrastructure",
-     "quote": "deliver network switching products intended to provide a robust interconnect that seamlessly links GPUs, compute and storage to deliver fast job completion time for training and generative AI workloads"
-    },
-    {
-     "theme": "software platform expansion",
-     "quote": "continue to invest in software development in order to expand the capabilities of our cloud networking platform, introduce new products and features"
-    },
-    {
-     "theme": "wan consolidation",
-     "quote": "VeloCloud's secure, AI-optimized cloud WAN portfolio provides seamless connectivity to customer sites of any type, complementing Arista's leading data center and campus wired/wireless portfolio"
-    },
-    {
-     "theme": "merchant silicon optimization",
-     "quote": "Ethernet switching and routing platforms using best of breed merchant silicon, provides customers with a highly competitive and diversified portfolio of products"
-    },
-    {
-     "theme": "global sales expansion",
-     "quote": "continue expanding our sales force and marketing activities in key geographies, as well as our relationships with channel, technology and system-level partners"
-    },
-    {
-     "theme": "ai-assisted network operations",
-     "quote": "offer customers the Arista Autonomous Virtual Assist which uses natural processing language to provide AI-assisted outcomes for network operations, security and observability"
     }
    ]
   }

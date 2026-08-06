@@ -3,6 +3,38 @@
  "sector": "Insurance",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 24364,
+   "themes": [
+    {
+     "theme": "catastrophe exposure management",
+     "quote": "availability to us of reinsurance to manage our net exposure and the cost of such reinsurance"
+    },
+    {
+     "theme": "organic underwriting growth",
+     "quote": "our ability to successfully implement our business strategy during soft as well as hard markets"
+    },
+    {
+     "theme": "acquisition integration capability",
+     "quote": "our ability to consummate acquisitions and integrate the business we have acquired or may acquire into our existing operations"
+    },
+    {
+     "theme": "investment portfolio optimization",
+     "quote": "our investment performance, including legislative or regulatory developments that may adversely affect the fair value of our investments"
+    },
+    {
+     "theme": "loss reserve adequacy",
+     "quote": "greater than expected loss ratios on business written by us and adverse development on claim and/or claim expense liabilities"
+    },
+    {
+     "theme": "operational technology enhancement",
+     "quote": "our ability to successfully enhance, integrate and maintain operating procedures including information technology to effectively support our current and new business"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +83,6 @@
     {
      "theme": "mortgage portfolio optimization",
      "quote": "Our team remains focused on underwriting discipline, expense management and enhancing our data and analytical platforms to further optimize the business."
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 24792,
-   "themes": [
-    {
-     "theme": "underwriting discipline and rate adequacy",
-     "quote": "we continue to see strong momentum in our underwriting discipline with improved loss ratios across our short-tailed business"
-    },
-    {
-     "theme": "mid-market business growth",
-     "quote": "we completed the acquisition of US Mid Corp and Entertainment which expanded our distribution capabilities"
-    },
-    {
-     "theme": "premium volume expansion",
-     "quote": "gross written premiums increased significantly driven by strong premium growth across both insurance and reinsurance segments"
-    },
-    {
-     "theme": "investment yield optimization",
-     "quote": "we have been focusing on maintaining a well-positioned investment portfolio with appropriate duration management"
-    },
-    {
-     "theme": "catastrophe reinsurance positioning",
-     "quote": "our property catastrophe reinsurance business remains a key focus with strategic underwriting of high-quality cat risks"
     }
    ]
   }

@@ -2,7 +2,7 @@
  "ticker": "MCK",
  "cik": "0000927653",
  "entityName": "McKESSON CORPORATION",
- "retrievedAt": "2026-08-04T13:01:21.024142Z",
+ "retrievedAt": "2026-08-06T13:43:16.181493Z",
  "fields": {
   "buyback": [
    {
@@ -1774,12 +1774,12 @@
     "confidence": 100
    },
    {
-    "value": 120204051,
+    "value": 116590363,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
-    "form": "10-K",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0000927653-26-000069",
+    "periodEnd": "2026-07-31",
+    "form": "10-Q",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0000927653-26-000234",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 37194,
+   "themes": [
+    {
+     "theme": "wealth management expansion",
+     "quote": "We continue to strengthen our position in wealth management, focusing on growing client assets and deepening client relationships across our global footprint."
+    },
+    {
+     "theme": "investment banking market share",
+     "quote": "We are focused on maintaining our competitive position in investment banking through advisory services, capital raising, and trading capabilities."
+    },
+    {
+     "theme": "institutional equities trading",
+     "quote": "Our institutional equities business continues to be a key driver of revenue through our trading and execution services."
+    },
+    {
+     "theme": "commercial real estate exposure management",
+     "quote": "We are actively managing our commercial real estate portfolio given current market conditions and valuation dynamics."
+    },
+    {
+     "theme": "capital efficiency optimization",
+     "quote": "We remain focused on optimizing our capital levels and return on equity through disciplined capital allocation."
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -47,34 +75,6 @@
     {
      "theme": "cost discipline",
      "quote": "we maintain disciplined expense management while investing in strategic growth initiatives"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 36092,
-   "themes": [
-    {
-     "theme": "wealth management growth",
-     "quote": "Wealth Management pre-tax income increased due to higher client asset balances and trading activity"
-    },
-    {
-     "theme": "investment banking market share",
-     "quote": "Investment Banking revenues grew as we gained market share in advisory and capital markets transactions"
-    },
-    {
-     "theme": "trading revenue optimization",
-     "quote": "Trading revenues benefited from increased client engagement and favorable market conditions across fixed income and equities"
-    },
-    {
-     "theme": "cost management discipline",
-     "quote": "We continued to focus on expense discipline while investing in strategic areas"
-    },
-    {
-     "theme": "capital return to shareholders",
-     "quote": "We increased our common stock dividend and repurchased shares as part of our capital management strategy"
     }
    ]
   }

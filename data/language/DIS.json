@@ -3,6 +3,30 @@
  "sector": "Media",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 19749,
+   "themes": [
+    {
+     "theme": "streaming service profitability",
+     "quote": "we will report under the new structure commencing with our fiscal 2027 reporting"
+    },
+    {
+     "theme": "content acquisition and production",
+     "quote": "competition to create or acquire content, competition for talent and competition for advertising revenue"
+    },
+    {
+     "theme": "theme park expansion",
+     "quote": "the development of business strategies that we believe most significantly impact the economic performance of the Asia Theme Parks"
+    },
+    {
+     "theme": "direct-to-consumer streaming bundling",
+     "quote": "pricing and bundling of our streaming services and impact on churn and subscriber additions"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "international theme park expansion",
      "quote": "Asia Theme Parks together with Disneyland Paris are collectively referred to as the International Theme Parks"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-13",
-   "source": "SEC 10-K MD&A",
-   "words": 9392,
-   "themes": [
-    {
-     "theme": "direct-to-consumer streaming profitability",
-     "quote": "Operating income from Direct-to-Consumer increased $1,184 million, to $1,327 million from $143 million due to increases at Disney+ and Hulu"
-    },
-    {
-     "theme": "sports rights cost management",
-     "quote": "Domestic ESPN programming and production costs increased primarily due to expanded college football programming rights and contractual rate increases"
-    },
-    {
-     "theme": "theme park capacity expansion",
-     "quote": "Capital expenditures at Experiences are principally for theme park and resort expansion, new attractions, cruise ships, capital improvements and systems infrastructure"
-    },
-    {
-     "theme": "linear network subscriber decline",
-     "quote": "Lower domestic affiliate revenue was due to a decline of 9% from fewer subscribers, partially offset by an increase of 7% from higher effective rates"
-    },
-    {
-     "theme": "pricing increases across streaming services",
-     "quote": "Growth in subscription fees was due to increases of 8% attributable to higher effective rates reflecting increases in pricing and 4% from more subscribers"
     }
    ]
   }

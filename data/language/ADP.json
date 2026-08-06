@@ -3,6 +3,34 @@
  "sector": "HR Tech",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-K MD&A",
+   "words": 14902,
+   "themes": [
+    {
+     "theme": "hcm platform modernization",
+     "quote": "Several of these assumptions, including projected revenue growth rates and profitability projections are dependent on our ability to upgrade, enhance, and expand our technology and services to meet client needs and preferences."
+    },
+    {
+     "theme": "workforce management solutions",
+     "quote": "In October 2024, the Company acquired WorkForce Software, a premier workforce management solutions provider that specializes in supporting large, global enterprises"
+    },
+    {
+     "theme": "peo service expansion",
+     "quote": "PEO, a component of the HR Outsourcing (HRO) business, provides a comprehensive human resources outsourcing solution, including offering benefits, providing workers' compensation insurance, and administering state unemployment insurance"
+    },
+    {
+     "theme": "cloud-based service delivery",
+     "quote": "The Company is a provider of cloud-based Human Capital Management (HCM) solutions."
+    },
+    {
+     "theme": "client funds investment strategy",
+     "quote": "The Company's U.S. short-term funding requirements related to client funds are sometimes obtained on an unsecured basis through the issuance of commercial paper, rather than liquidating previously-collected client funds that have already be"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-04-30",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "sales organization investment",
      "quote": "increases in selling and marketing expenses...as a result of investments in our sales organization"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-31",
-   "source": "SEC 10-Q MD&A",
-   "words": 2999,
-   "themes": [
-    {
-     "theme": "next-generation hcm platform",
-     "quote": "accelerated the deployment of Workforce Now Next-Gen to a growing percentage of new mid-market clients"
-    },
-    {
-     "theme": "embedded payroll for small business",
-     "quote": "continued to scale ADP Embedded Payroll to reach additional small business clients"
-    },
-    {
-     "theme": "enterprise hcm sales",
-     "quote": "experienced ongoing strong enterprise sales momentum for ADP Lyric HCM"
-    },
-    {
-     "theme": "ai-powered employee tools",
-     "quote": "continued to empower our associates to leverage their HR domain expertise by providing them with AI tools"
-    },
-    {
-     "theme": "global service expansion",
-     "quote": "continued to build on our global scale by enhancing the services offered within our existing footprint of more than 140 countries and territories"
     }
    ]
   }

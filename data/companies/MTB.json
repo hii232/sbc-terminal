@@ -1,8 +1,8 @@
 {
  "ticker": "MTB",
  "cik": "0000036270",
- "entityName": "M&T BANK CORP",
- "retrievedAt": "2026-08-04T13:01:02.586592Z",
+ "entityName": "M&T BANK CORPORATION",
+ "retrievedAt": "2026-08-06T13:43:04.942198Z",
  "fields": {
   "buyback": [
    {
@@ -1566,12 +1566,12 @@
     "confidence": 100
    },
    {
-    "value": 146445060,
+    "value": 144416262,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000036270-26-000034",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0000036270-26-000050",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

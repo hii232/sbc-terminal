@@ -2,7 +2,7 @@
  "ticker": "ODFL",
  "cik": "0000878927",
  "entityName": "OLD DOMINION FREIGHT LINE, INC.",
- "retrievedAt": "2026-08-04T13:01:41.350506Z",
+ "retrievedAt": "2026-08-06T13:43:27.526460Z",
  "fields": {
   "buyback": [
    {
@@ -1661,12 +1661,12 @@
     "confidence": 100
    },
    {
-    "value": 207968283,
+    "value": 207356622,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0000878927-26-000011",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0000878927-26-000023",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

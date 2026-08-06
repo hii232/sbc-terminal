@@ -2,7 +2,7 @@
  "ticker": "FITB",
  "cik": "0000035527",
  "entityName": "Fifth Third Bancorp",
- "retrievedAt": "2026-08-04T13:01:01.960351Z",
+ "retrievedAt": "2026-08-06T13:43:04.299287Z",
  "fields": {
   "buyback": [
    {
@@ -1598,12 +1598,12 @@
     "confidence": 100
    },
    {
-    "value": 906311548,
+    "value": 906892564,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000035527-26-000182",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0000035527-26-000202",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

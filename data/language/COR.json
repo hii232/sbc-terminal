@@ -3,6 +3,30 @@
  "sector": "Managed Care",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 17217,
+   "themes": [
+    {
+     "theme": "specialty pharmaceutical distribution expansion",
+     "quote": "broadens its relationships with community oncology providers and to build on its leadership in specialty pharmaceuticals"
+    },
+    {
+     "theme": "physician-led healthcare platform consolidation",
+     "quote": "physician-led national platform empowering independent medical specialty practices rooted in oncology"
+    },
+    {
+     "theme": "strategic business portfolio optimization",
+     "quote": "undertook a strategic review of its business to ensure alignment with its growth priorities and strategic drivers"
+    },
+    {
+     "theme": "divestitures of non-core assets",
+     "quote": "businesses for which the Company has begun to explore strategic alternatives includes MWI Animal Health, Profarma, U.S. Consulting Services"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "debt refinancing and capital structure",
      "quote": "Multi-Year Term Loan Facility and 364-Day Term Loan Facility to finance a portion of the acquisition of OneOncology"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-25",
-   "source": "SEC 10-K MD&A",
-   "words": 49298,
-   "themes": [
-    {
-     "theme": "specialty pharmaceutical distribution",
-     "quote": "We are a leader in distribution and services to health systems, community oncologists, and retina specialists and have leading positions in other physician-administered products"
-    },
-    {
-     "theme": "retail pharmacy network development",
-     "quote": "our Good Neighbor Pharmacy\u00ae program, which enables independent community pharmacies to compete more effectively through pharmaceutical benefit and merchandising programs; Elevate Provider Network\u00ae, our managed care network"
-    },
-    {
-     "theme": "generic sourcing and private label",
-     "quote": "We have introduced strategies to enhance our position in the generic marketplace, including our generic product private label program based in Ireland. We source generics globally"
-    },
-    {
-     "theme": "healthcare provider acquisitions",
-     "quote": "On January 2, 2025, we acquired an 85% interest in Retina Consultants of America (\"RCA\") for $4,042.0 million in cash"
-    },
-    {
-     "theme": "international healthcare logistics expansion",
-     "quote": "It is a leading global specialty transportation and logistics provider for the biopharmaceutical industry. It also is a provider of specialized services, including regulatory affairs, market access, pharmacovigilance"
     }
    ]
   }

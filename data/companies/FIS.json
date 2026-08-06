@@ -2,7 +2,7 @@
  "ticker": "FIS",
  "cik": "0001136893",
  "entityName": "Fidelity National Information Services, Inc.",
- "retrievedAt": "2026-08-04T13:00:51.415445Z",
+ "retrievedAt": "2026-08-06T13:42:59.714091Z",
  "fields": {
   "buyback": [
    {
@@ -1570,12 +1570,12 @@
     "confidence": 100
    },
    {
-    "value": 516879151,
+    "value": 515705917,
     "unit": "shares",
-    "periodEnd": "2026-05-06",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0001136893-26-000040",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001136893-26-000050",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -2,7 +2,7 @@
  "ticker": "MS",
  "cik": "0000895421",
  "entityName": "MORGAN STANLEY",
- "retrievedAt": "2026-08-04T12:59:53.583999Z",
+ "retrievedAt": "2026-08-06T13:42:18.233555Z",
  "fields": {
   "buyback": [
    {
@@ -1341,12 +1341,12 @@
     "confidence": 100
    },
    {
-    "value": 1577284817,
+    "value": 1570566292,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000895421-26-000121",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0000895421-26-000212",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

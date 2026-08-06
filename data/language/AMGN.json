@@ -3,6 +3,34 @@
  "sector": "Biotech",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 10720,
+   "themes": [
+    {
+     "theme": "medicare price setting exposure",
+     "quote": "our medicines may also be subject to selection by CMS in the next, or in a future, cycle of mandatory Medicare price setting"
+    },
+    {
+     "theme": "state pricing regulation fragmentation",
+     "quote": "Seven states (Colorado, Maine, New Jersey, Maryland, Minnesota, Oregon and Washington) currently use PDABs to identify drugs that pose affordability challenges, and four such states include authority for the state PDABs to set upper payment"
+    },
+    {
+     "theme": "most-favored-nation pricing commitments",
+     "quote": "in December 2025, we announced that we are taking actions that satisfy the components outlined in the July MFN Letter, including the Administration's MFN pricing requests"
+    },
+    {
+     "theme": "commercial payer consolidation pressure",
+     "quote": "significant consolidation in the health insurance industry has resulted in a few large insurers and PBMs, which places greater pressure on pricing and usage negotiations with biopharmaceutical manufacturers"
+    },
+    {
+     "theme": "regulatory risk management programs",
+     "quote": "For our products with approved Risk Evaluation and Mitigation Strategies (REMS), we are required to submit periodic assessment reports to the FDA to demonstrate that the goals of the REMS are being met"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-01",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "contingent consideration valuation",
      "quote": "Significant estimates and assumptions required for these valuations included but were not limited to the timing and probability of achieving regulatory milestones, product sales projections under various scenarios and discount rates"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 4937,
-   "themes": [
-    {
-     "theme": "government price negotiation exposure",
-     "quote": "CMS announced the next 15 drugs for Medicare price setting that will be applicable beginning on January 1, 2027, which includes Otezla"
-    },
-    {
-     "theme": "state-level pricing regulations",
-     "quote": "Eight states have enacted laws that establish PDABs to identify drugs that pose affordability challenges, and four such states include authority for the state PDABs to set upper payment limits on certain drugs"
-    },
-    {
-     "theme": "340b program channel pressure",
-     "quote": "inappropriate expanded utilization of the 340B Program from broadened application of the 340B discounts has had, and is expected to continue to have, a negative impact on the Company's product sales"
-    },
-    {
-     "theme": "payer consolidation and rebate demands",
-     "quote": "significant consolidation in the health insurance industry has resulted in a few large insurers and PBMs, which places greater pressure on pricing and usage negotiations"
-    },
-    {
-     "theme": "international reference pricing constraints",
-     "quote": "International reference pricing policies can change quickly and frequently and may not reflect differences in the burden of disease, indications, market structures or affordability across countries or regions"
     }
    ]
   }

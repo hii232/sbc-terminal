@@ -3,6 +3,30 @@
  "sector": "Managed Care",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 4218,
+   "themes": [
+    {
+     "theme": "medical-surgical solutions separation",
+     "quote": "our planned separation of the Medical-Surgical Solutions business"
+    },
+    {
+     "theme": "specialty pharmaceutical expansion",
+     "quote": "higher specialty pharmaceutical sales in provider solutions"
+    },
+    {
+     "theme": "technology modernization and automation",
+     "quote": "process enhancements, and the implementation of automation solutions designed to improve efficiency and productivity"
+    },
+    {
+     "theme": "operational efficiency restructuring",
+     "quote": "multi-year initiatives within Corporate to further optimize its operating model and align certain enterprise support functions with our long-term strategic priorities"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-K MD&A",
@@ -55,34 +79,6 @@
     {
      "theme": "third-party logistics and technology services",
      "quote": "RxTS revenues for the nine months ended December 31, 2025 increased $433 million or 11% compared to the same prior year period due to increased volumes from our third-party logistics and higher technology services revenues"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 5232,
-   "themes": [
-    {
-     "theme": "oncology and specialty care consolidation",
-     "quote": "Oncology & Multispecialty revenues for the six months ended September 30, 2025 increased $4.8 billion or 27% compared to the same prior year period primarily driven by growth in provider solutions due to the addition of providers within pra"
-    },
-    {
-     "theme": "technology service modernization",
-     "quote": "we approved enterprise-wide initiatives to modernize and accelerate our technology service operating model, which were intended to improve business continuity, compliance, operating efficiency and advance investments to streamline the organ"
-    },
-    {
-     "theme": "pharmaceutical distribution volume expansion",
-     "quote": "sales to U.S. pharmacies and healthcare providers increased $22.8 billion primarily due to higher volumes from retail national account customers"
-    },
-    {
-     "theme": "third-party logistics scaling",
-     "quote": "RxTS revenues for the six months ended September 30, 2025 increased $304 million or 12% compared to the same prior year period due to increased volumes from our third-party logistics and higher technology services revenues"
-    },
-    {
-     "theme": "specialty pharmaceutical growth",
-     "quote": "Operating profit for this segment increased for the six months ended September 30, 2025 compared to the same prior year period primarily due to growth in specialty pharmaceuticals"
     }
    ]
   }

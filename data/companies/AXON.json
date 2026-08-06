@@ -2,7 +2,7 @@
  "ticker": "AXON",
  "cik": "0001069183",
  "entityName": "Axon Enterprise, Inc.",
- "retrievedAt": "2026-08-04T12:59:35.025177Z",
+ "retrievedAt": "2026-08-06T13:41:51.886904Z",
  "fields": {
   "buyback": [
    {
@@ -1848,12 +1848,12 @@
     "confidence": 100
    },
    {
-    "value": 80602077,
+    "value": 81237415,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0001628280-26-031542",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001628280-26-053646",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

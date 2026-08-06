@@ -3,6 +3,30 @@
  "sector": "Insurance",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 65770,
+   "themes": [
+    {
+     "theme": "life insurance transformation",
+     "quote": "We are transforming Prudential into a leading focused, pure-play international life insurance and investment management company"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "We have the unique ability to grow organically through Empower and leverage our presence in growth markets, particularly Asia"
+    },
+    {
+     "theme": "retirement and workplace benefits",
+     "quote": "Empower has become a leading provider of retirement and workplace financial benefits solutions in the U.S."
+    },
+    {
+     "theme": "investment management scale",
+     "quote": "We continue to invest in our investment management capabilities to serve our growing customer base globally"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +75,6 @@
     {
      "theme": "japan interest rate optimization",
      "quote": "beginning in 2024, the Bank of Japan began raising its key short-term interest rates... a continued level of higher interest rates will benefit our results over time"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-30",
-   "source": "SEC 10-Q MD&A",
-   "words": 66778,
-   "themes": [
-    {
-     "theme": "pension risk transfer",
-     "quote": "Pension Risk Transfer Member"
-    },
-    {
-     "theme": "reinsurance operations",
-     "quote": "Somerset Re Member and Prismic Re International Member"
-    },
-    {
-     "theme": "real estate investment portfolio",
-     "quote": "Real Estate Investment Member and commercial mortgage and agricultural loans"
-    },
-    {
-     "theme": "alternative assets expansion",
-     "quote": "Private equity funds, hedge funds, and real estate partnership interests"
-    },
-    {
-     "theme": "fixed maturity securities management",
-     "quote": "fixed maturities available for sale and trading portfolios across diverse geographies"
     }
    ]
   }

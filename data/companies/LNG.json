@@ -2,7 +2,7 @@
  "ticker": "LNG",
  "cik": "0000003570",
  "entityName": "CHENIERE ENERGY, INC.",
- "retrievedAt": "2026-08-04T13:00:23.927431Z",
+ "retrievedAt": "2026-08-06T13:42:38.583775Z",
  "fields": {
   "buyback": [
    {
@@ -1924,12 +1924,12 @@
     "confidence": 100
    },
    {
-    "value": 209551868,
+    "value": 206534158,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0000003570-26-000014",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0000003570-26-000028",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

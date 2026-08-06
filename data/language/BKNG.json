@@ -3,6 +3,34 @@
  "sector": "Travel",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 13079,
+   "themes": [
+    {
+     "theme": "merchant commission expansion",
+     "quote": "Approximately 90% and 89% of the Company's revenues for the three and six months ended June 30, 2026, respectively, relate to online accommodation reservation services"
+    },
+    {
+     "theme": "alternative accommodation growth",
+     "quote": "Booking.com facilitates the provision of partner liability insurance underwritten by third-party insurance providers, to protect certain alternative accommodation partners against liability claims"
+    },
+    {
+     "theme": "advertising revenue acceleration",
+     "quote": "Revenues from all other sources of online travel reservation services and advertising and other revenues each individually represent less than 10% of the Company's total revenues"
+    },
+    {
+     "theme": "international tax optimization",
+     "quote": "According to Dutch corporate income tax law, income generated from qualifying innovative activities is taxed at a rate of 9% ('Innovation Box Tax') rather than the Dutch statutory rate of 25.8%"
+    },
+    {
+     "theme": "debt issuance and capital structure",
+     "quote": "At June 30, 2026, the Company had outstanding senior notes with varying maturities for an aggregate principal amount of $20.3 billion and $18.9 billion, respectively, with senior notes issued in May 2026"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-04-28",
    "source": "SEC 10-Q MD&A",
@@ -43,30 +71,6 @@
     {
      "theme": "online travel reservation automation",
      "quote": "majority of the processes to calculate and record revenue are highly automated, rely on a number of custom systems, and involve interfacing significant volumes of data across multiple systems"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-28",
-   "source": "SEC 10-Q MD&A",
-   "words": 16177,
-   "themes": [
-    {
-     "theme": "advertising revenue expansion",
-     "quote": "Revenues from all other sources of online travel reservation services and advertising and other revenues"
-    },
-    {
-     "theme": "metasearch customer acquisition pressure",
-     "quote": "impairments were primarily driven by a reduction in the forecasted cash flows for KAYAK, reflecting its meta-search business being impacted by expected increases in customer acquisition costs"
-    },
-    {
-     "theme": "convertible debt refinancing",
-     "quote": "In May 2025, upon the maturity of the May 2025 Notes, the Company paid $1.9 billion in cash in the aggregate to repay the principal amount and settle the conversion premium"
-    },
-    {
-     "theme": "share repurchase capital allocation",
-     "quote": "In the first quarter of 2025, the Company's Board of Directors authorized a program to repurchase up to $20 billion of the Company's common stock"
     }
    ]
   }

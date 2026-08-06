@@ -3,6 +3,34 @@
  "sector": "Life Sciences",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-04",
+   "source": "SEC 10-Q MD&A",
+   "words": 5360,
+   "themes": [
+    {
+     "theme": "recurring diagnostic revenue expansion",
+     "quote": "growth in CAG Diagnostics recurring revenue, including benefits from higher volumes and higher realized prices"
+    },
+    {
+     "theme": "saas software subscription growth",
+     "quote": "higher subscription and integrated services volumes from our expanded SaaS installed base and from higher realized prices"
+    },
+    {
+     "theme": "installed base instrument placement",
+     "quote": "11% growth in our installed base of premium instruments"
+    },
+    {
+     "theme": "expanded diagnostic test menu",
+     "quote": "increased testing by existing customers, including sales of our expanded menu of available tests"
+    },
+    {
+     "theme": "manufacturing capacity and facilities investment",
+     "quote": "capital investments in manufacturing and operations facilities to support growth"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -59,30 +87,6 @@
     {
      "theme": "practice management software",
      "quote": "Practice management systems, software and diagnostic imaging systems and services used by veterinarians"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 5896,
-   "themes": [
-    {
-     "theme": "recurring diagnostic consumables expansion",
-     "quote": "higher volumes in IDEXX VetLab consumables and reference laboratory testing...higher test volumes...10% growth in our active installed base of premium instruments"
-    },
-    {
-     "theme": "veterinary saas installed base growth",
-     "quote": "higher subscription and support services volume from our expanded SaaS installed base and from higher realized prices"
-    },
-    {
-     "theme": "new instrument platform deployment",
-     "quote": "instrument revenue gains were primarily due to the placements of our new IDEXX inVue Dx Analyzer"
-    },
-    {
-     "theme": "pricing realization across segments",
-     "quote": "benefits from higher realized prices...pricing benefits...higher realized prices and volumes"
     }
    ]
   }

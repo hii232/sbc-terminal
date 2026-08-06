@@ -3,6 +3,38 @@
  "sector": "Pharma",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 12451,
+   "themes": [
+    {
+     "theme": "obesity and metabolic disease focus",
+     "quote": "Mounjaro and Zepbound revenues grew significantly, with Mounjaro net product revenue of $3,449 million and $6,395 million for the three and six months ended June 30, 2026"
+    },
+    {
+     "theme": "infectious disease portfolio expansion",
+     "quote": "In July 2026, we acquired three companies to build an infectious disease portfolio for up to $3.9 billion in aggregate, inclusive of upfront payments and additional potential payments based upon the achievement of certain clinical, regulato"
+    },
+    {
+     "theme": "oncology pipeline investment",
+     "quote": "Oncology net product revenue was $2,819 million and $5,355 million for the three and six months ended June 30, 2026, respectively"
+    },
+    {
+     "theme": "strategic acquisitions and business combinations",
+     "quote": "For the six months ended June 30, 2026 and 2025, our significant acquisitions that were accounted for as business combinations were Kelonia Therapeutics, Inc. (Kelonia), Centessa Pharmaceuticals plc (Centessa), and Ventyx Biosciences, Inc. "
+    },
+    {
+     "theme": "drug pricing and patient access obligations",
+     "quote": "implementation of our voluntary agreement with the U.S. government related to drug pricing and access"
+    },
+    {
+     "theme": "supply chain and manufacturing scale",
+     "quote": "dependence on relatively few products or product classes for a significant percentage of our total revenue and a consolidated supply chain"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-04-30",
    "source": "SEC 10-Q MD&A",
@@ -63,38 +95,6 @@
     {
      "theme": "contract manufacturing and supply chain",
      "quote": "As we expand our manufacturing capacity in order to meet existing and expected demand of our medicines, we have entered, and expect to continue to enter, into various agreements for contract manufacturing and for supply of materials."
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-30",
-   "source": "SEC 10-Q MD&A",
-   "words": 16470,
-   "themes": [
-    {
-     "theme": "obesity and diabetes treatment expansion",
-     "quote": "Mounjaro and Zepbound continue to show strong demand and market opportunity"
-    },
-    {
-     "theme": "oncology pipeline advancement",
-     "quote": "we continue to advance our oncology portfolio with multiple late-stage programs"
-    },
-    {
-     "theme": "targeted acquisitions and business development",
-     "quote": "the impact and uncertain outcome of acquisitions and business development transactions and related costs"
-    },
-    {
-     "theme": "manufacturing and supply chain resilience",
-     "quote": "issues with product supply and regulatory approvals stemming from manufacturing difficulties, disruptions, or shortages"
-    },
-    {
-     "theme": "intellectual property protection",
-     "quote": "our ability to protect and enforce patents and other intellectual property and changes in patent law or regulations related to data package exclusivity"
-    },
-    {
-     "theme": "pricing and reimbursement defense",
-     "quote": "continued pricing pressures and the impact of actions of governmental and private actors affecting pricing of, reimbursement for, and patient access to pharmaceuticals"
     }
    ]
   }

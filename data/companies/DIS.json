@@ -2,7 +2,7 @@
  "ticker": "DIS",
  "cik": "0001744489",
  "entityName": "WALT DISNEY CO/",
- "retrievedAt": "2026-08-04T13:00:13.364324Z",
+ "retrievedAt": "2026-08-06T13:42:28.078307Z",
  "fields": {
   "buyback": [
    {
@@ -1342,12 +1342,12 @@
     "confidence": 100
    },
    {
-    "value": 1736511424,
+    "value": 1726686902,
     "unit": "shares",
-    "periodEnd": "2026-04-29",
+    "periodEnd": "2026-07-29",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001744489-26-000037",
+    "filedDate": "2026-08-05",
+    "accessionNumber": "0001744489-26-000057",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

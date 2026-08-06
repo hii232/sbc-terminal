@@ -3,6 +3,34 @@
  "sector": "Energy",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 3993,
+   "themes": [
+    {
+     "theme": "carbon management and sequestration",
+     "quote": "ongoing development of carbon management and sequestration solutions and GHG emissions reduction efforts"
+    },
+    {
+     "theme": "permian production growth",
+     "quote": "development activity and new wells coming online in the Permian"
+    },
+    {
+     "theme": "debt reduction from asset sales",
+     "quote": "used after-tax proceeds from the OxyChem Transaction and cash from operations to repay approximately $8.6 billion of debt"
+    },
+    {
+     "theme": "midstream transportation optimization",
+     "quote": "higher gas margins from transportation capacity optimization"
+    },
+    {
+     "theme": "dividend sustainability",
+     "quote": "Deliver a sustainable and growing dividend"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "gulf of america secondary recovery",
      "quote": "As part of its Gulf of America 2.0 program (GOA 2.0), the Company successfully implemented several state-of-the-art artificial lift projects, including down-hole gas-lift and caisson electric submersible pumps at its Horn Mountain platform "
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-10",
-   "source": "SEC 10-Q MD&A",
-   "words": 4221,
-   "themes": [
-    {
-     "theme": "deleveraging via asset monetization",
-     "quote": "Prioritize excess cash flow and proceeds from divestitures, including the announced OxyChem Transaction, for deleveraging to reduce principal debt to below $15 billion"
-    },
-    {
-     "theme": "carbon capture and sequestration",
-     "quote": "Advance integrated technologies in CO2, power and midstream to enable differentiated resource recovery and value"
-    },
-    {
-     "theme": "low-carbon ventures development",
-     "quote": "Occidental's low-carbon ventures businesses seek to leverage Occidental's legacy of carbon management experience to develop carbon capture, utilization and sequestration projects, including the commercialization of direct air capture techno"
-    },
-    {
-     "theme": "production base maintenance",
-     "quote": "Maintain production base to preserve asset base integrity and longevity"
-    },
-    {
-     "theme": "oil and gas asset enhancement",
-     "quote": "Enhance its asset base with investments in its cash-generative oil and gas business"
     }
    ]
   }

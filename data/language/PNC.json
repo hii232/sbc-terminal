@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 40358,
+   "themes": [
+    {
+     "theme": "commercial real estate stress",
+     "quote": "Commercial Real Estate exposure remains a key focus area given market conditions and valuation pressures"
+    },
+    {
+     "theme": "digital banking expansion",
+     "quote": "we continue to invest in digital capabilities and platform modernization to enhance customer experience"
+    },
+    {
+     "theme": "deposit gathering and retention",
+     "quote": "maintaining our strong and stable deposit base remains a key priority in the current competitive environment"
+    },
+    {
+     "theme": "cost management and efficiency",
+     "quote": "we are focused on managing expenses and improving operational efficiency across the organization"
+    },
+    {
+     "theme": "capital deployment optimization",
+     "quote": "we are evaluating optimal uses of capital including shareholder returns while maintaining prudent capital levels"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-05",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "capital return to shareholders",
      "quote": "we returned capital to shareholders through dividends and share repurchases"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 41766,
-   "themes": [
-    {
-     "theme": "commercial real estate portfolio stress",
-     "quote": "criticized loans in our commercial real estate portfolio increased"
-    },
-    {
-     "theme": "deposit competition and funding costs",
-     "quote": "we continue to experience deposit pressure as customers move deposits to higher-yielding investments"
-    },
-    {
-     "theme": "net interest margin compression",
-     "quote": "net interest margin declined due to lower yields on earning assets and higher deposit costs"
-    },
-    {
-     "theme": "loan growth moderation",
-     "quote": "loan growth has slowed as we maintain disciplined underwriting standards"
-    },
-    {
-     "theme": "credit quality deterioration",
-     "quote": "nonperforming loans increased reflecting current economic uncertainties"
     }
    ]
   }

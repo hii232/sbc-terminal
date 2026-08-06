@@ -3,6 +3,30 @@
  "sector": "E-commerce",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 6667,
+   "themes": [
+    {
+     "theme": "marketplace acquisition and integration",
+     "quote": "our recent and continued investment in our non-U.S. operations, in our global technology platform, and to increase system capacity for Dashers and in support of longer distance and higher effort deliveries"
+    },
+    {
+     "theme": "advertising revenue expansion",
+     "quote": "We also offer advertising as a value-added service through our Marketplaces to help merchants and consumer packaged goods companies increase consumer engagement and drive incremental revenue"
+    },
+    {
+     "theme": "white-label fulfillment services",
+     "quote": "Within our Commerce Platform, we offer white-label delivery fulfillment services (\"Drive\") as well as services that help merchants establish online ordering, build branded mobile apps, manage reservations and in-store dining"
+    },
+    {
+     "theme": "merchant services platform",
+     "quote": "our Commerce Platform, which is a suite of services that help empower merchants to build, operate, and grow their businesses on their own channels"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +79,6 @@
     {
      "theme": "consumer membership programs",
      "quote": "Our Marketplaces also offer our consumer membership programs, DashPass, Wolt+, and Deliveroo Plus, which aim to lower transactional friction by reducing the delivery and service fees we charge"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 6996,
-   "themes": [
-    {
-     "theme": "international marketplace consolidation",
-     "quote": "completed our acquisition of Deliveroo plc to strengthen our position as a leading global platform in local commerce"
-    },
-    {
-     "theme": "advertising revenue expansion",
-     "quote": "increasing contribution from advertising revenue, a reduction in credits and refunds as a percentage of Marketplace GOV"
-    },
-    {
-     "theme": "merchant enablement software",
-     "quote": "Commerce Platform, which is a suite of services that help merchants grow, run, and operate their businesses on their own channels"
-    },
-    {
-     "theme": "dasher logistics optimization",
-     "quote": "improved logistics efficiency, increasing contribution from advertising revenue, and a reduction in Dasher costs as a percentage of Marketplace GOV"
-    },
-    {
-     "theme": "white-label delivery fulfillment",
-     "quote": "Drive are white-label delivery fulfillment services that generate the majority of revenue within our Commerce Platform"
     }
    ]
   }

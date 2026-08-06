@@ -2,7 +2,7 @@
  "ticker": "BKNG",
  "cik": "0001075531",
  "entityName": "Booking Holdings Inc.",
- "retrievedAt": "2026-08-04T12:59:44.069458Z",
+ "retrievedAt": "2026-08-06T13:42:07.801541Z",
  "fields": {
   "buyback": [
    {
@@ -1611,12 +1611,12 @@
     "confidence": 100
    },
    {
-    "value": 774878436,
+    "value": 751380500,
     "unit": "shares",
-    "periodEnd": "2026-04-20",
+    "periodEnd": "2026-07-27",
     "form": "10-Q",
-    "filedDate": "2026-04-28",
-    "accessionNumber": "0001075531-26-000025",
+    "filedDate": "2026-08-04",
+    "accessionNumber": "0001075531-26-000037",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

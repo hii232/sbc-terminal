@@ -3,6 +3,34 @@
  "sector": "Software",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-05",
+   "source": "SEC 10-Q MD&A",
+   "words": 6225,
+   "themes": [
+    {
+     "theme": "agentic ai platform development",
+     "quote": "agentic customer platform that helps marketing, sales, and customer service teams drive business growth with AI-powered agents and engagement Hubs"
+    },
+    {
+     "theme": "ai inferencing cost management",
+     "quote": "continued investments in AI-enabled tools to expand AI functionality"
+    },
+    {
+     "theme": "mid-market customer acquisition",
+     "quote": "focus on selling to mid-market business-to-business companies, which we define as companies that have between 2 and 2,000 employees"
+    },
+    {
+     "theme": "platform ecosystem and integrations",
+     "quote": "connected ecosystem supporting the customer platform with a marketplace of integrations, templates, expert partners, a community network, and an academy of educational content"
+    },
+    {
+     "theme": "payments and revenue hub expansion",
+     "quote": "our Stripe payment processing integration, both built within Revenue Hub"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "machine learning and ai automation",
      "quote": "We plan to continue to invest in research and development as we continue to introduce new products and applications to extend the functionality of our customer platform, including machine learning capabilities intended to accelerate innovat"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 6550,
-   "themes": [
-    {
-     "theme": "ai-powered engagement hubs expansion",
-     "quote": "Breeze is our AI that powers the customer platform, including our Smart CRM, engagement Hubs, and the connected ecosystem"
-    },
-    {
-     "theme": "mid-market b2b customer acquisition",
-     "quote": "We focus on selling to mid-market business-to-business, or B2B, companies, which we define as companies that have between two and 2,000 employees"
-    },
-    {
-     "theme": "data enrichment and enrichment capabilities",
-     "quote": "As data is becoming more important to our customers' success and a differentiator for our business, there is a need to move quickly on data enrichment"
-    },
-    {
-     "theme": "ai-guided selling and automation",
-     "quote": "Included in these investments are AI-enabled tools for guided selling and content generation to drive efficiencies and improve conversion rates, as well as machine learning capabilities to accelerate innovation, increase productivity, and s"
-    },
-    {
-     "theme": "marketplace ecosystem expansion",
-     "quote": "Over 2,000 integrations and applications are available for our users, across a wide range of categories, including integrations with leading social media, email, sales, video, analytics, content and webinar tools"
     }
    ]
   }
