@@ -2034,5 +2034,54 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   ok(/SKIPPED MO/.test(appSrc2), "the excluded month is surfaced as a column, not hidden");
 }
 
+// =============== 42. Live price re-ranks, and the cache admits it ===============
+// A live quote feeds the Price pillar (valuation + IV15 proximity), so it
+// genuinely changes rank. The board is cached separately from the per-name
+// scores, and that cache was NOT invalidated on a quote — so the price tile
+// updated instantly while the ranking beside it stayed up to 45 SECONDS
+// stale, i.e. the page could show a price its own rank disagreed with.
+{
+  const TK = "PGR";
+  const d = E.companyOf(TK);
+  const base = d.price, basePE = d.headlinePE, baseTruePE = d.truePE;
+  const rankOf = (board) => { const i = board.findIndex(r => r.ticker === TK); return i < 0 ? null : i + 1; };
+  const before = E.masterBoard();
+  const r0 = rankOf(before), s0 = before.find(r => r.ticker === TK).score;
+
+  // a big up-move must make the name LESS attractive on price, not more
+  E.applyLiveQuote(TK, +(base * 1.6).toFixed(2), 60, "TEST");
+  const spiked = E.masterBoard();
+  const s1 = spiked.find(r => r.ticker === TK).score;
+  ok(s1 < s0, "a live price spike lowers the Master Signal score (Price pillar is live)", `${s0} -> ${s1}`);
+  ok(rankOf(spiked) >= r0, "and it cannot improve the name's rank", `#${r0} -> #${rankOf(spiked)}`);
+
+  // the ranking cache must be invalidated by a quote, not just the per-name score
+  const src = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
+  const applyBody = src.slice(src.indexOf("function applyLiveQuote"), src.indexOf("function applyFmpRows"));
+  ok(/invalidateMasterBoard\(\)/.test(applyBody),
+    "every live-quote path invalidates the cached ranking, not only the per-name scores");
+  ok(/MB_DIRTY_MIN/.test(src) && /MB_IDLE_TTL/.test(src),
+    "the cache distinguishes an idle refresh from a quote-driven one");
+  const dirtyMin = +(src.match(/MB_DIRTY_MIN\s*=\s*(\d+)/) || [])[1];
+  const idleTtl = +(src.match(/MB_IDLE_TTL\s*=\s*(\d+)/) || [])[1];
+  ok(dirtyMin > 0 && dirtyMin < idleTtl,
+    "a quote refreshes the ranking sooner than the idle timeout, but still coalesces a sweep",
+    `${dirtyMin}ms vs ${idleTtl}ms`);
+  // coalescing is the reason this is safe: the free-tier sweep is one quote
+  // per second for 224 names, and ranking the universe is not free
+  ok(dirtyMin >= 1000, "coalescing window is long enough that a 1/sec sweep cannot rebuild per quote", `${dirtyMin}ms`);
+
+  // sentiment is NOT live: confluence reads last night's pipeline only
+  const convBefore = E.convictionOf(d).dedupScore;
+  E.applyLiveQuote(TK, +(base * 0.5).toFixed(2), -50, "TEST");
+  ok(E.convictionOf(d).dedupScore === convBefore,
+    "a live price move does not change the conviction vote — sentiment inputs are pipeline-dated",
+    `${convBefore} vs ${E.convictionOf(d).dedupScore}`);
+
+  // restore so later runs/sections see the pipeline state
+  delete E.__state?.live?.[TK];
+  d.price = base; d.headlinePE = basePE; d.truePE = baseTruePE; delete d.marketScores;
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
