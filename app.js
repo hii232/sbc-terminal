@@ -2143,6 +2143,94 @@
     return { n: rows.length, beatShare: beats / rows.length, avgSurprise: avg, symbols: rows.map(r => r.symbol) };
   }
 
+  /* ------------------- SECTOR EARNINGS SHOCK -------------------
+     Peers reported, and the market SOLD them anyway.
+
+     peerReadThrough above reads what peers PRINTED (EPS surprise). This
+     reads what the market DID with it. They are different facts, and the
+     interesting case is precisely when they diverge: a sector where
+     companies BEAT and the stock fell anyway is a sector being re-rated
+     regardless of results — multiple compression, not an earnings problem.
+     A name that has not reported yet is walking into that same tape.
+
+     Normalised against the whole universe's post-report reaction over the
+     same window, so "everything fell this week" does not read as a sector
+     being singled out. That normalisation is the difference between a
+     signal and a market-direction detector wearing a sector label. */
+  const SHOCK_WINDOW_D = 30;      // how recent a peer report must be
+  const SHOCK_MIN_PEERS = 3;      // below this it is anecdote, not a read
+  function postReportMoveOf(row, d) {
+    const co = d || companyOf(row.symbol);
+    if (!co || !co.pd || !co.pd.to || !Array.isArray(co.pd.v)) return null;
+    if (!window.ScoreEngine || !window.ScoreEngine.tradingDaysBetween) return null;
+    const days = window.ScoreEngine.tradingDaysBetween(row.date, co.pd.to);
+    if (!Number.isFinite(days) || days < 1 || days > 45) return null;
+    return pctMoveFrom(co.pd.v || [], days);
+  }
+  function sectorEarningsShockOf(d, ledger) {
+    if (!d) return null;
+    const L = ledger || earningsLedger();
+    const cutoff = new Date(Date.now() - SHOCK_WINDOW_D * 864e5).toISOString().slice(0, 10);
+    const recent = L.filter(r => r.date && r.date >= cutoff);
+    // the market's own post-report reaction over the SAME window, so a broad
+    // selloff is not mistaken for one sector being punished
+    const universe = [];
+    const byTicker = new Map();
+    for (const r of recent) {
+      const mv = postReportMoveOf(r);
+      if (mv == null) continue;
+      byTicker.set(r.symbol, { row: r, mv });
+      universe.push(mv);
+    }
+    if (universe.length < 8) return null;      // too little of the tape has reported
+    const med = (arr) => { const s = arr.slice().sort((a, b) => a - b); return s.length ? s[Math.floor((s.length - 1) / 2)] : null; };
+    const universeMed = med(universe);
+    const myETF = sectorETF(d.sector);
+    const peers = [];
+    for (const [tk, v] of byTicker) {
+      if (tk === d.ticker) continue;           // peers only — never grade a name on itself
+      const co = companyOf(tk);
+      if (co && sectorETF(co.sector) === myETF) peers.push({ ticker: tk, move: +v.mv.toFixed(1), surprise: v.row.surprisePct, date: v.row.date });
+    }
+    if (peers.length < SHOCK_MIN_PEERS) return null;
+    const moves = peers.map(p => p.move);
+    const sectorMed = med(moves);
+    const excess = sectorMed - universeMed;    // sector vs the tape
+    const fell = peers.filter(p => p.move < 0);
+    // the tell the user asked about: beat the number, sold anyway
+    const beatAndFell = peers.filter(p => p.surprise != null && p.surprise > 0 && p.move < 0);
+    /* TWO TIERS, and the split is deliberate. PUNISHED is the bar that moves
+       the ranking; WATCH only warns. Thresholds are set a priori on what
+       "the market is punishing this group" should mean -- a median reporter
+       down 3%+ while the tape is flat -- NOT tuned until something fires.
+       When this shipped, the worst bucket on the board sat at -2.5% and
+       therefore triggered only the warning, which is the honest outcome:
+       moving the bar to capture it would have been fitting the model to one
+       afternoon's tape, the exact failure the v5 audit called out. */
+    const punished = sectorMed <= -3 && excess <= -2 && fell.length / peers.length >= 0.5;
+    const watch = !punished && sectorMed <= -1.5 && excess <= -1 && fell.length / peers.length >= 0.5;
+    const mostlyBeat = beatAndFell.length >= Math.ceil(peers.length / 2);
+    let severity = 0;
+    if (punished) severity = Math.min(3, 1 + (sectorMed <= -6 ? 1 : 0) + (mostlyBeat ? 1 : 0));
+    else if (watch) severity = 0;
+    return {
+      // `group` is the ETF BUCKET, not d.sector: peers are pooled by ETF to
+      // get a usable sample, so calling a discretionary-wide read
+      // "Restaurants" because that is this one name's label would overstate
+      // how specific the evidence is.
+      ticker: d.ticker, sector: d.sector, etf: myETF, group: myETF, n: peers.length,
+      sectorMedian: +sectorMed.toFixed(1), universeMedian: +universeMed.toFixed(1), excess: +excess.toFixed(1),
+      fellShare: +(fell.length / peers.length).toFixed(2),
+      beatAndFell: beatAndFell.map(p => p.ticker), punished, watch, mostlyBeat, severity,
+      peers: peers.sort((a, b) => a.move - b.move),
+      verdict: punished
+        ? (mostlyBeat ? "SECTOR RE-RATED — peers BEAT and were sold anyway" : "SECTOR PUNISHED on earnings")
+        : watch
+          ? (mostlyBeat ? "watch — peers beat and still slipped" : "watch — peers drifting lower after reporting")
+          : "no sector-wide earnings punishment",
+    };
+  }
+
   /* ------------------- BEAT ODDS MODEL -------------------
      A transparent, weighted composite answering one question: how loaded is
      the setup for this company to clear the Street's EPS bar next report?
@@ -3097,7 +3185,7 @@
   // every independent source convictionOf consults: edge, beat odds, drift,
   // RSI, revisions, tier-1 ratings, whale 13Fs, insider buying, filing diffs,
   // narrative heat. Fixed, so completeness means the same thing for every name.
-  const CONVICTION_SOURCES = 11;   // +1: management language (stated strategy)
+  const CONVICTION_SOURCES = 12;   // +1: sector earnings shock (peers sold after reporting)
   /* An audit found several of the 10 votes are not actually independent --
      they read the same underlying fact and vote on it more than once. The
      clearest, most heavily-weighted case: 'revisions' (direct
@@ -3215,6 +3303,21 @@
             : lg.adopting && lg.topEmerging
               ? `adopted "${lg.topEmerging.phrase}" late — ${lg.topEmerging.dfPrior} companies already said it; joining a crowd is not a signal`
               : `shares "${lg.topShared.phrase}" with ${lg.topShared.dfNow - 1} peer${lg.topShared.dfNow === 2 ? "" : "s"}, nothing newly adopted`);
+    }
+    /* SECTOR EARNINGS SHOCK — NEGATIVE ONLY, deliberately. Peers being sold
+       after reporting is a risk flag for a name that has not been repriced
+       yet; peers being BOUGHT is not a reason to own this one, because that
+       reasoning is how a rotation gets bought at its top. Silent when the
+       sector is not in earnings season — that is a fact about the calendar,
+       not a gap in our data, so it is silence rather than not-evaluated
+       (same treatment as a fresh filing or a whale move nobody made). */
+    {
+      const shock = sectorEarningsShockOf(d, ledger);
+      if (shock)
+        vote("sectorshock", "Sector earnings shock", shock.punished ? -1 : 0,
+          shock.punished
+            ? `${shock.verdict.toLowerCase()} — ${shock.n} ${shock.group} peers reported, median ${shock.sectorMedian}% vs ${shock.universeMedian}% for the tape${shock.beatAndFell.length ? `; ${shock.beatAndFell.join(", ")} beat and still fell` : ""}`
+            : `${shock.n} ${shock.group} peers reported, median ${shock.sectorMedian}% vs ${shock.universeMedian}% for the tape — ${shock.watch ? shock.verdict : "no sector-wide punishment"}`);
     }
     const cut14 = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
     const filing = signalsEvents().find(e => e.tk === d.ticker && e.type === "filing" && e.d >= cut14 && /(ACCELERATED|DECELERATED)/.test(e.detail || ""));
@@ -3518,14 +3621,14 @@
      adopt words because the market rewards words — reflexivity, not signal.
      All three move scores and ranks, so verdicts recorded under v4 are not
      comparable. */
-  const MASTER_MODEL_VERSION = 5;
+  const MASTER_MODEL_VERSION = 6;
   /* THE FREEZE. Four model versions shipped in weeks, and every bump reset
      the proof clock — so no ranking was ever validated against forward
      returns. That stops here: v5 is frozen until the benchmark clock below
      delivers a verdict. Changing weights, pillar math, or vote wiring before
      freezeUntil means bumping to v6 and CONSCIOUSLY throwing this clock away
      — the Proof Scoreboard renders this box so the temptation has a face. */
-  const MASTER_MODEL_FREEZE = { version: 5, since: "2026-08-04", days: 90, until: "2026-11-02" };
+  const MASTER_MODEL_FREEZE = { version: 6, since: "2026-08-06", days: 90, until: "2026-11-04" };
   /* Peak-cycle earnings detector. Pure function over the 10y revenue/ni
      arrays so it is unit-testable on synthetic companies. */
   function cyclePeakOf(d) {
@@ -6284,11 +6387,27 @@
       <b>⚠ FACTOR BET, NOT ${con.clusters[0].n} PICKS:</b> ${con.clusters.map(c =>
         `<b>${c.sector}</b> holds ${c.n} of the top ${con.topN} (${c.tickers.join(", ")})`).join(" · ")}.
       One sector re-pricing wearing several tickers is <b>one idea</b> — size it as one position, not ${con.clusters[0].n}. The within-sector rank column exists so a sector's cheapness stops reading as ${con.clusters[0].n} independent finds.</div>` : "";
+    /* SECTOR EARNINGS SHOCK banner. One row per ETF bucket that is being
+       sold after reporting — deduplicated, because peers are pooled by ETF
+       and 8 fine-grained sectors can share one read. */
+    const shockRows = (() => {
+      const seen = new Map();
+      for (const r of (all || masterBoardCached())) {
+        const s = sectorEarningsShockOf(r.d);
+        if (!s || (!s.punished && !s.watch)) continue;
+        if (!seen.has(s.group)) seen.set(s.group, s);
+      }
+      return [...seen.values()].sort((a, b) => a.sectorMedian - b.sectorMedian);
+    })();
+    const shockHtml = shockRows.length ? `<div class="note" style="border-left:3px solid ${shockRows.some(s => s.punished) ? "var(--red)" : "var(--orange)"};margin:0 0 10px">
+      <b>${shockRows.some(s => s.punished) ? "⚠ SECTOR PUNISHED ON EARNINGS" : "⚠ EARNINGS READ-THROUGH — WATCH"}:</b>
+      ${shockRows.map(s => `<b>${s.group}</b> — ${s.n} peers reported, median <b>${s.sectorMedian}%</b> vs ${s.universeMedian}% for the tape${s.beatAndFell.length ? `; <b>${s.beatAndFell.join(", ")} beat and were sold anyway</b>` : ""}`).join(" · ")}.
+      Peers being sold after reporting is the market re-rating the whole group, not judging one company — a name in that bucket which has not reported yet is walking into the same tape. ${shockRows.some(s => s.punished) ? "Names in a PUNISHED bucket carry a negative conviction vote." : "At this size it only warns; it does not move the ranking."}</div>` : "";
     const rateBits = [
       risk.rate.up.length ? `<b>rates-up beneficiaries:</b> ${risk.rate.up.join(", ")}` : null,
       risk.rate.down.length ? `<b>rates-down beneficiaries:</b> ${risk.rate.down.join(", ")}` : null,
       risk.rate.mixed.length ? `<b>mixed/other:</b> ${risk.rate.mixed.join(", ")}` : null].filter(Boolean).join(" · ");
-    return `${banner}<div class="card" style="margin-bottom:12px;border-left:3px solid var(--red)">
+    return `${banner}${shockHtml}<div class="card" style="margin-bottom:12px;border-left:3px solid var(--red)">
       <h3>⚖ RISK READ — TOP ${risk.topN} AS A BOOK <span class="unit">concentration · correlation · rate exposure — the page that exists because risk is the only edge retail can own</span></h3>
       <div class="kv"><span class="k">EFFECTIVE BETS</span><span class="v">${risk.effectiveBets ?? "—"} <span class="sub">of ${risk.topN} names — correlation-adjusted (avg pairwise ρ ${risk.avgCorr ?? "n/a"} over 52 weekly returns${risk.maxPair ? `; most correlated pair ${risk.maxPair.a}/${risk.maxPair.b} at ${risk.maxPair.corr}` : ""}). Ten tickers moving together are not ten bets.</span></span></div>
       <div class="kv"><span class="k">RATE EXPOSURE</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.6">${rateBits || "—"} — sector-bucket heuristic, not a measured beta. If the top of this board leans one way, a rate cycle turn is a thesis risk for the whole list at once.</span></span></div>
@@ -8374,6 +8493,7 @@
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
     NAV_GROUPS, momentumOf, momentumBoard, invalidateMasterBoard,
+    sectorEarningsShockOf, postReportMoveOf, SHOCK_MIN_PEERS, sectorETF,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     MASTER_MODEL_FREEZE, cyclePeakOf, boardConcentrationOf, boardRiskOf, benchmarkVsSpy, LANG_CROWDED_SHARE,
     fetchYahooSparkBatch, applySparkResult,
