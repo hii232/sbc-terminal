@@ -3733,10 +3733,27 @@
   // Ranking the whole universe touches every engine (~150ms), so the board is
   // memoized briefly — long enough for one render pass, short enough that a
   // live quote refresh re-ranks.
-  let _mbCache = null, _mbAt = 0;
+  let _mbCache = null, _mbAt = 0, _mbDirty = false;
+  const MB_IDLE_TTL = 45000;   // nothing moved: a lazy refresh is enough
+  const MB_DIRTY_MIN = 3000;   // a quote moved: refresh soon, but coalesce
+  /* A live quote feeds the Price pillar (valuation + IV15 proximity), so it
+     genuinely re-ranks. Before this, it did not invalidate the board: the
+     price tile updated instantly while the ranking under it stayed up to 45
+     SECONDS stale, so the page could show a name at a price its own rank
+     disagreed with. Measured: a simulated +60% quote moved PGR #4 -> #5 on a
+     fresh board while the cached board still said #4.
+     Why coalesce rather than invalidate outright: the free-tier sweep fetches
+     ONE quote per second for up to 224 names, and ranking the universe costs
+     ~150ms. Invalidating per quote would rebuild the whole board every second
+     for four minutes on a phone. Marking dirty and rebuilding at most every
+     MB_DIRTY_MIN keeps the ranking within ~3s of the tape at ~1/30th the
+     work. */
+  function invalidateMasterBoard() { _mbDirty = true; }
   function masterBoardCached() {
-    if (_mbCache && Date.now() - _mbAt < 45000) return _mbCache;
-    _mbCache = masterBoard(); _mbAt = Date.now();
+    const age = Date.now() - _mbAt;
+    const fresh = _mbCache && age < MB_IDLE_TTL && !(_mbDirty && age >= MB_DIRTY_MIN);
+    if (fresh) return _mbCache;
+    _mbCache = masterBoard(); _mbAt = Date.now(); _mbDirty = false;
     return _mbCache;
   }
   const masterRankOf = (tk) => masterBoardCached().find(r => r.ticker === tk) || null;
@@ -7790,6 +7807,11 @@
     if (d.gaapEPS > 0) d.headlinePE = +(price / d.gaapEPS).toFixed(1);
     if (d.ownerEps > 0) d.truePE = +(price / d.ownerEps).toFixed(1);
     delete d.marketScores;
+    // The per-name score cache above is not enough: the RANKING is cached
+    // separately, and a stale ranking beside a live price is the page
+    // contradicting itself. Every quote path (FMP batch, Finnhub rotation,
+    // Yahoo spark) funnels through here, so this one hook covers them all.
+    invalidateMasterBoard();
     return true;
   }
 
@@ -8351,7 +8373,7 @@
     narrativeScreenOf, narrativeScreens,
     insidersBundle, insiderOf, insiderSignalOf, insiderClusters,
     dailyVolOf, playbookOf, exitSignalsOf, portfolioRiskOf,
-    NAV_GROUPS, momentumOf, momentumBoard,
+    NAV_GROUPS, momentumOf, momentumBoard, invalidateMasterBoard,
     MASTER_PILLARS, masterSignalOf, masterBoard, masterBoardCached, masterRankOf,
     MASTER_MODEL_FREEZE, cyclePeakOf, boardConcentrationOf, boardRiskOf, benchmarkVsSpy, LANG_CROWDED_SHARE,
     fetchYahooSparkBatch, applySparkResult,
