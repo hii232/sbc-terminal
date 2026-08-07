@@ -229,9 +229,17 @@
   }
 
   function estimateRevision(history, field, days) {
-    const snaps = history && Array.isArray(history.snapshots)
+    let snaps = history && Array.isArray(history.snapshots)
       ? history.snapshots.filter(s => s && s.date && n(s[field]) != null).sort((a, b) => a.date.localeCompare(b.date))
       : [];
+    // A revision is a change in ONE provider's consensus over time. Comparing
+    // a Yahoo-sourced snapshot against an FMP-sourced one measures the
+    // definitional gap between providers, not a revision — so only snapshots
+    // sharing the latest snapshot's source are comparable.
+    if (snaps.length && snaps[snaps.length - 1].source) {
+      const src = snaps[snaps.length - 1].source;
+      snaps = snaps.filter(s => (s.source || src) === src);
+    }
     if (snaps.length < 2) return null;
     const latest = snaps[snaps.length - 1];
     const latestTime = Date.parse(latest.date);
