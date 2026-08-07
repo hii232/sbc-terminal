@@ -1,43 +1,43 @@
-## 📈 Morning Brief — 2026-07-26
+## 📈 Morning Brief — 2026-08-07
 
-**Market regime: NEUTRAL** (58/100) — SPY 1M -0.6% / 3M +3.3% · 50% of sectors positive over 3M
-**224 names ranked.** Top signal: **ALL (80)** — valuation 100 · 38% BELOW the IV15 buy price
+**Market regime: NEUTRAL** (49/100) — SPY 1M +3.0% / 3M +1.8% · 58% of sectors positive over 3M
+**224 names ranked.** Top signal: **PGR (79)** — valuation 99 · 34% BELOW the IV15 buy price
 
 ### 💡 What changed
-- **GEV** · Direction Edge flipped: NO EDGE → DOWN BIAS — edge score 44 → 43
-- **EA** · Consensus EPS drift inflected UP — 30d drift -13.1% → +2.6%
-- **BIIB** · Consensus EPS drift inflected DOWN — 30d drift +1.1% → -0.8%
+Nothing new in the ledger today. A quiet tape is a real answer, not a missing one.
 
 ### 🎯 Signal confluence
-- **SCHW** — 5 agree / 0 object: Direction Edge, Post-earnings drift, BlackRock 13F
-- **AAPL** — 4 agree / 0 object: Beat Odds, Analyst revisions, Tier-1 rating action
-- **FTNT** — 4 agree / 0 object: Direction Edge, Beat Odds, Analyst revisions
-- **USB** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Tier-1 rating action
-- **MU** — 3 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
+- **SCHW** — 6 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
+- **CRM** — 4 agree / 0 object: Direction Edge, Beat Odds, Analyst revisions
+- **NDAQ** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
+- **CFG** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
+- **COR** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Insider buying
 
 ### 👤 Insiders buying
-- **SPGI** — 3 buyers incl. CEO/CFO · $2.6M (CLUSTER BUYING)
-- **SCHW** — 1 buyer incl. CEO/CFO · $1.8M (SENIOR INSIDER BUYING)
-- **MELI** — 2 buyers · $1.2M (INSIDER BUYING)
-- **ABT** — 2 buyers · $1.1M (INSIDER BUYING)
-- **HOOD** — 1 buyer · $35.3M (SINGLE INSIDER BUY)
+- **BSX** — 4 buyers incl. CEO/CFO · $9.8M (CLUSTER BUYING)
+- **HUBS** — 3 buyers incl. CEO/CFO · $2.6M (CLUSTER BUYING)
+- **ADSK** — 4 buyers incl. CEO/CFO · $2.2M (CLUSTER BUYING)
+- **ELV** — 2 buyers incl. CEO/CFO · $1.4M (INSIDER BUYING)
+- **ZTS** — 3 buyers · $886K (CLUSTER BUYING)
 
 ### 🎯 Reporting this week
-- **CDNS** 2026-07-27 · beat odds 80 (STRONG BEAT SETUP)
-- **NUE** 2026-07-27 · beat odds 85 (STRONG BEAT SETUP)
-- **SCCO** 2026-07-27 · beat odds 77 (STRONG BEAT SETUP)
-- **ACGL** 2026-07-28 · beat odds 75 (STRONG BEAT SETUP)
-- **BA** 2026-07-28 · beat odds 58 (LEAN BEAT)
-- **EA** 2026-07-28 · beat odds 49 (COIN FLIP)
+- **TTWO** 2026-08-07 · beat odds 50 (COIN FLIP)
+- **VST** 2026-08-07 · beat odds 38 (AT RISK)
+- **CRWV** 2026-08-11 · beat odds 42 (AT RISK)
+- **SMCI** 2026-08-11 · beat odds 60 (LEAN BEAT)
+- **CSCO** 2026-08-12 · beat odds 59 (LEAN BEAT)
+- **NBIS** 2026-08-12 · beat odds 57 (LEAN BEAT)
 
 ### 🚪 Thesis breaks
-- **CRWV** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
-- **NBIS** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
-- **TTD** — THESIS BREAKING: Direction Edge turned down; Signals now object
+- **BA** — THESIS BREAKING: Business quality broke down; Missed earnings and drifting down
+- **TXN** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
+- **MCHP** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
+- **FIS** — THESIS BREAKING: Business quality broke down; Analysts cutting estimates
+- **TFC** — THESIS BREAKING: Business quality broke down; Analysts cutting estimates
 
 ---
 ### 🔬 Is any of this proven yet?
-**Not yet.** Recording since 2026-07-19 (8 snapshots). The first 4 weeks verdict unlocks **2026-08-16** — 21 days away. Until then every score here is an untested hypothesis, and should be sized like one.
+**Not yet.** Recording since 2026-07-19 (15 snapshots). The first 4 weeks verdict unlocks **2026-08-16** — 10 days away. Until then every score here is an untested hypothesis, and should be sized like one.
 
 [Open the terminal →](https://hii232.github.io/sbc-terminal/index.html)
 

@@ -46,7 +46,16 @@ async function main() {
   try {
     browser = await chromium.launch();
   } catch (err) {
-    browser = await chromium.launch({ channel: "chrome" });
+    try {
+      browser = await chromium.launch({ channel: "chrome" });
+    } catch (err2) {
+      // Sandboxes that pre-install a version-mismatched Chromium expose it via
+      // PLAYWRIGHT_BROWSERS_PATH; fall through to that executable directly.
+      const fs2 = require("fs");
+      const preinstalled = `${process.env.PLAYWRIGHT_BROWSERS_PATH || "/opt/pw-browsers"}/chromium`;
+      if (!fs2.existsSync(preinstalled)) throw err2;
+      browser = await chromium.launch({ executablePath: preinstalled });
+    }
   }
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -80,7 +89,7 @@ async function main() {
     ok(globals.universeLen === OFFICIAL_COUNT, `UNIVERSE length ${globals.universeLen}`);
     ok(globals.secCount === OFFICIAL_COUNT && globals.secMetaCompanies === OFFICIAL_COUNT, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0", "SEC pipeline version missing"); // sec_ingest.py's own stamp
-    ok(globals.model === "4.5.0", "app model version missing");
+    ok(globals.model === "4.5.1", "app model version missing");
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");

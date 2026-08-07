@@ -2113,9 +2113,9 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
 // PRINTED; this reads what the market DID with it, and the interesting case
 // is when they diverge (beat, sold anyway = multiple compression).
 {
-  ok(E.MASTER_MODEL_VERSION === 6, "model bumped to v6 for the sector-shock vote", String(E.MASTER_MODEL_VERSION));
-  ok(E.MASTER_MODEL_FREEZE.version === 6 && E.MASTER_MODEL_FREEZE.until > E.MASTER_MODEL_FREEZE.since,
-    "the freeze re-armed on v6 with a fresh verdict date", JSON.stringify(E.MASTER_MODEL_FREEZE));
+  ok(E.MASTER_MODEL_VERSION >= 6, "model bumped to v6 (or later) for the sector-shock vote", String(E.MASTER_MODEL_VERSION));
+  ok(E.MASTER_MODEL_FREEZE.version >= 6 && E.MASTER_MODEL_FREEZE.until > E.MASTER_MODEL_FREEZE.since,
+    "the freeze re-armed with a fresh verdict date", JSON.stringify(E.MASTER_MODEL_FREEZE));
 
   // pick a real ETF bucket with enough members to fake a reporting cluster
   // Peers are pooled by ETF BUCKET, so the fixture must group the same way —
@@ -2183,6 +2183,95 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   // fairness: the vote is silent, never 'not evaluated', so evidence stays uniform
   const evs = new Set(DATA.map(d => E.convictionOf(d).evidence));
   ok(evs.size === 1, "adding a 12th source keeps evidence completeness uniform across the universe", [...evs].join(","));
+}
+
+// =============== 44. SEC rebuild keeps every annual array on ONE fy axis ===============
+{
+  // Production-wide invariant: after rebuildSecAlignedAnnuals, every per-year
+  // array must share d.fy's length. A field the SEC could not replace used to
+  // keep its original short aggregator array, index-misaligned against the
+  // rebuilt axis — values silently paired with the wrong fiscal years.
+  let misaligned = 0;
+  for (const d of DATA) {
+    if (!d.annualPeriods || !d.annualPeriods.length) continue;
+    const n = d.fy.length;
+    for (const f of ["revenue", "ni", "sbc", "buyback", "shares"]) {
+      if (Array.isArray(d[f]) && d[f].length !== n) misaligned++;
+    }
+    for (const f of ["ocf", "capex", "fcf", "gross", "opinc"]) {
+      const a = d.qm && d.qm[f];
+      if (Array.isArray(a) && a.length !== n) misaligned++;
+    }
+  }
+  ok(misaligned === 0, "no annual array is index-misaligned against the rebuilt fy axis", String(misaligned));
+
+  // Synthetic: SEC has revenue facts only. The aggregator's buyback/margin
+  // arrays must be re-indexed by fiscal-year LABEL onto the new axis — values
+  // land on the years they belong to, uncovered years stay null (never zero).
+  const tk = "__ALIGNTEST";
+  SEC[tk] = { f: { revenue: { hist: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025].map(y => ({
+    periodEnd: `${y}-12-31`, periodStart: `${y}-01-01`, value: y * 1e9, unit: "USD", form: "10-K", filed: `${y + 1}-02-01`, accn: `accn-${y}`,
+  })) } } };
+  const d = { ticker: tk, fy: ["2022", "2023", "2024", "2025"], revenue: [1, 2, 3, 4],
+    buyback: [1.5, 2.5, 3.5, 4.5], qm: { gross: [10, 20, 30, 40] } };
+  E.rebuildSecAlignedAnnuals(d);
+  ok(d.fy.length === 8 && d.fy[0] === "2018" && d.fy[7] === "2025", "synthetic axis rebuilt from SEC period ends", d.fy.join(","));
+  ok(d.revenue.length === 8 && d.revenue[7] === 2025 && d.revenue[0] === 2018, "SEC-backed field replaced on the new axis");
+  ok(d.buyback.length === 8, "no-SEC-fact field re-indexed to the new axis length", String(d.buyback.length));
+  ok(d.buyback[4] === 1.5 && d.buyback[7] === 4.5, "re-indexed values land on their own fiscal years", JSON.stringify(d.buyback));
+  ok(d.buyback.slice(0, 4).every(v => v === null), "years the aggregator never covered stay null, never zero", JSON.stringify(d.buyback));
+  ok(d.qm.gross.length === 8 && d.qm.gross[4] === 10 && d.qm.gross[7] === 40 && d.qm.gross[0] === null,
+    "margin history is re-indexed too (it never has an SEC replacement)", JSON.stringify(d.qm.gross));
+  delete SEC[tk];
+}
+
+// =============== 45. TTM requires four real quarters ===============
+{
+  ok(E.ttm([1, 2, 3, 4]) === 10, "four real quarters sum normally");
+  ok(E.ttm([9, 1, 2, 3, 4]) === 10, "only the trailing four quarters count");
+  ok(E.ttm([null, 2, 3, 4]) === null, "a missing quarter makes TTM missing, not understated", String(E.ttm([null, 2, 3, 4])));
+  ok(E.ttm([2, 3, 4]) === null, "fewer than four quarters is not a TTM");
+  ok(E.ttm(null) === null, "no quarterly data -> null");
+  ok(E.ttm([0, 0, 0, 0]) === 0, "four real zeros are a real zero, not missing");
+}
+
+// =============== 46. Missing day-change stays missing ===============
+{
+  const noTape = { ticker: "__NOTAPE", change: undefined };
+  ok(E.quoteChangeOf(noTape) === null, "no live quote + no bundled change -> null, never 0.00%", String(E.quoteChangeOf(noTape)));
+  const withTape = { ticker: "__TAPE", change: -1.25 };
+  ok(E.quoteChangeOf(withTape) === -1.25, "bundled day-change still reads through");
+  const zeroTape = { ticker: "__ZERO", change: 0 };
+  ok(E.quoteChangeOf(zeroTape) === 0, "a real 0.00% day is preserved, not treated as missing");
+}
+
+// =============== 47. Revisions never compare across providers ===============
+{
+  const SE = global.window.ScoreEngine;
+  const mk = (date, eps, source) => ({ date, nextYearEps: eps, source });
+  // 40 days of FMP history, then the provider switches to Yahoo with a
+  // definitionally different (higher) figure. The jump is a source gap, not
+  // an estimate revision — one Yahoo snapshot alone must yield NO revision.
+  const mixed = { snapshots: [mk("2026-06-01", 5.0, "FMP"), mk("2026-07-01", 5.0, "FMP"), mk("2026-08-06", 6.0, "Yahoo")] };
+  const r = SE.revisionScore(mixed, "nextYearEps");
+  ok(r.score == null, "a provider switch is not scored as a revision", JSON.stringify(r.revisions));
+  // Same-source history still measures normally.
+  const pure = { snapshots: [mk("2026-06-01", 5.0, "Yahoo"), mk("2026-07-01", 5.2, "Yahoo"), mk("2026-08-06", 5.5, "Yahoo")] };
+  const p = SE.revisionScore(pure, "nextYearEps");
+  ok(p.score != null && p.score > 50, "same-source upward revisions still score positive", String(p.score));
+}
+
+// =============== 48. All-null charts say NO DATA instead of a blank grid ===============
+{
+  const Chart = global.window.Chart;
+  const nl = Chart.line([{ points: [null, null, null] }], ["a", "b", "c"]);
+  ok(/NO DATA/.test(nl), "all-null line series renders an explicit NO DATA state");
+  const nb = Chart.bars([{ name: "x", values: [null, null] }], ["a", "b"]);
+  ok(/NO DATA/.test(nb), "all-null bar series renders an explicit NO DATA state");
+  const real = Chart.line([{ points: [1, 2, 3] }], ["a", "b", "c"]);
+  ok(!/NO DATA/.test(real) && /path/.test(real), "a real series still draws normally");
+  const partial = Chart.line([{ points: [null, 2, null] }], ["a", "b", "c"]);
+  ok(!/NO DATA/.test(partial), "one real point is data, not NO DATA");
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

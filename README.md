@@ -36,8 +36,9 @@ Finnhub and FMP are optional browser keys. Finnhub is used for quotes, news, ana
 
 ## Market / Business Model
 
-Current SBC model version: `SBC_MODEL_VERSION = "4.0.0"`.
+Current SBC model version: `SBC_MODEL_VERSION = "4.5.1"`.
 Current market/business model version: `MARKET_TERMINAL_VERSION = "4.1.0"`.
+Current master ranking model: `MASTER_MODEL_VERSION = 7`, frozen until 2026-11-05 (see MODEL_CHANGELOG.md).
 
 The main company view no longer uses Clean/Middle/High/Tragic as the whole-stock opinion. Those labels remain inside the SBC X-Ray only. The top-level dashboard answers six separate questions:
 
@@ -64,7 +65,7 @@ The terminal includes two main combined views:
 - Long-Term Investment View: quality, growth, valuation, shareholder economics, and market reward.
 - Market Reward View: estimate revisions, relative strength, acceleration, surprise/guidance placeholders, sector strength, and post-earnings reaction when point-in-time history exists.
 
-Analyst estimate history lives under `data/estimates/history/*.json` and is generated into `estimates.js`. The GitHub Action `.github/workflows/estimate-history.yml` runs daily on weekdays. Without an `FMP_API_KEY` secret, histories remain explicitly empty and revision fields stay unavailable rather than being invented.
+Analyst estimate history lives under `data/estimates/history/*.json` and is generated into `estimates.js`. The GitHub Action `.github/workflows/estimate-history.yml` runs daily on weekdays. FMP is tried first when an `FMP_API_KEY` secret is set; any ticker FMP cannot serve falls back to Yahoo's keyless earningsTrend fiscal-year consensus, so the whole universe accumulates point-in-time history. Every snapshot records its source, and revisions are only measured between same-source snapshots — a provider switch never counts as a revision. Tickers neither provider can serve keep explicitly empty histories rather than invented ones.
 
 Legacy SBC ranking requires data confidence of at least 80. Below 80, the app shows:
 

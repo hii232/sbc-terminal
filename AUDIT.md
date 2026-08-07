@@ -67,20 +67,26 @@ The machine-readable output is in `data/audits/golden-company-audit.json`.
 
 Fixed in this review: null retention rendered as "keeps 0¢/$" in verdicts/options/overview; insurers missing from both SECTOR_MAP tables (scored on ROIC/FCF branch); DATA AUDIT tier counters keyed on legacy labels (always showed 0 verified); TTM buyback null-as-zero; estimate-revision sign flip on negative priors; score-engine null-coercion set (empty growth history, net debt, growth-adjusted valuation, expectations gap, final label, sector strength); revision horizons no longer reuse one short baseline; service-worker precache version mismatch (offline was dead on first install); TRV mktCap 0 and 100x shares typo; stale score snapshot.
 
+Fixed 2026-08-07 (model v7, "the alignment repair" — see MODEL_CHANGELOG 7.0.0):
+
+- Finding #1 `rebuildSecAlignedAnnuals` misalignment: fields with zero SEC facts (and margin history, which never has an SEC replacement) are now re-indexed onto the rebuilt fy axis by fiscal-year label; production-wide length agreement asserted by test. This was silently corrupting margin levels/trends/stability for every rebuilt company — fixing it moved 70/224 six-score dashboards and 206/224 master ranks, hence the v7 bump and freeze re-arm.
+- Finding #3 `ttm()`: now requires four real quarters or returns missing; TTM strip renders "–" and no longer fabricates "0.0x" BUYBACK/SBC when buybacks are missing.
+- Finding #4 `quoteChangeOf`: missing day-change stays null; sector tape/breadth/market-move aggregate only over real tapes; rows render "–"; a real 0.00% day is preserved.
+- Finding #7 charts: all-null `line()`/`bars()` series render an explicit NO DATA state.
+- Finding #9 icon: `apple-touch-icon.png` (180×180 PNG) shipped and linked.
+- Estimate histories: `collect_estimates.py` gained a keyless Yahoo earningsTrend fallback for the 177 tickers FMP's free tier 403s; snapshots record their source and revisions are only measured between same-source snapshots (`tests/test_estimates_fallback.py` pins the contract in CI).
+
 Still open, in priority order:
 
-1. `rebuildSecAlignedAnnuals` keeps stale short aggregator arrays for fields with zero SEC facts, index-misaligned against the rebuilt `fy` axis (31 names affected, e.g. TSLA/SHOP buyback len 4 vs fy len 10, V shares len 4). Fields need re-indexing by fiscal-year label, and `trueOwnerEarnings`' per-field `lastVal` can still pair values from different fiscal years.
-2. `CRWD` share basis: Yahoo reports ~1.0B shares (annual + quarterly + mktCap) while every SEC filing through the FY2026 10-K (filed 2026-03-05) reports ~0.251B diluted. Annual arrays now hold the SEC basis per the SEC-primary rule (enforced mechanically by `update_data.py`'s SEC override pass), but `qd.shares`/`mktCap` remain on Yahoo's basis. If CrowdStrike executed a ~4:1 split after 2026-03-05, Yahoo is split-adjusted and the SEC annual basis must be adjusted (see `ADS_SHARE_DIVISOR` mechanism in `scripts/sec_ingest.py` for the pattern); verify against the latest 10-Q/8-K before touching.
-3. `ttm()` sums whatever quarters exist (1-3 nulls silently understate "TTM" revenue/NI/SBC); should require 4 or label the shortfall.
-4. `quoteChangeOf` coerces missing day-change to 0 ("0.00%" instead of missing) and feeds it as neutral momentum.
-5. Market Reward has no minimum-coverage gate (currently ~35% coverage while estimate histories are empty) and Growth acceleration double-counts into both views.
-6. Clean/Middle/High/Tragic bucket still drives watchlist/screener filters, AVOID calls, portfolio allocation and calendar columns despite being spec'd as SBC-X-Ray-only.
-7. charts.js: all-null series render a blank SVG (no "no data" state); `donut(null)` clamps to 0 (call sites now guarded).
-8. tabSBC "Wall St adj" bar duplicates headline P/E (no non-GAAP P/E computed); `sbcPctOCF` never recomputed from SEC arrays.
-9. iOS `apple-touch-icon` is SVG (unsupported) — needs PNG 180/192/512 incl. maskable; no CSP meta.
-10. Dead code to delete: first `renderCalendar`/`refreshAllLive`/`updateLiveDot` declarations (shadowed), `legacyDataQualityOf`, `SEC_FIELD_TO_LOCAL`, `secValueForDisplay`, `RANK_COLS` + dead first body build in `renderRankings`, legacy `renderHome`, no-op ternaries in `scoreVal`/`fmtPct`, unused `gm` in scores.js `whatChanged`.
+1. `CRWD` share basis: Yahoo reports ~1.0B shares (annual + quarterly + mktCap) while every SEC filing through the FY2026 10-K (filed 2026-03-05) reports ~0.251B diluted. Annual arrays now hold the SEC basis per the SEC-primary rule (enforced mechanically by `update_data.py`'s SEC override pass), but `qd.shares`/`mktCap` remain on Yahoo's basis. If CrowdStrike executed a ~4:1 split after 2026-03-05, Yahoo is split-adjusted and the SEC annual basis must be adjusted (see `ADS_SHARE_DIVISOR` mechanism in `scripts/sec_ingest.py` for the pattern); verify against the latest 10-Q/8-K before touching.
+2. Market Reward has no minimum-coverage gate (coverage improves as the Yahoo-fallback estimate histories accumulate) and Growth acceleration double-counts into both views. Deliberately NOT fixed in v7: it is a model-design change, not a data repair, and belongs to its own version bump after the v7 freeze.
+3. Clean/Middle/High/Tragic bucket still drives watchlist/screener filters, AVOID calls, portfolio allocation and calendar columns despite being spec'd as SBC-X-Ray-only. Same deferral reason as #2.
+4. tabSBC "Wall St adj" bar duplicates headline P/E (no non-GAAP P/E computed); `sbcPctOCF` never recomputed from SEC arrays.
+5. `trueOwnerEarnings`' per-field `lastVal` can still pair values from different fiscal years when one field is missing its latest year (arrays now share one axis, so this is "latest available per field", no longer a wrong-index pairing).
+6. Dead code to delete: first `renderCalendar`/`refreshAllLive`/`updateLiveDot` declarations (shadowed), `legacyDataQualityOf`, `SEC_FIELD_TO_LOCAL`, `secValueForDisplay`, `RANK_COLS` + dead first body build in `renderRankings`, legacy `renderHome`, no-op ternaries in `scoreVal`/`fmtPct`, unused `gm` in scores.js `whatChanged`.
+7. No CSP meta tag; maskable 192/512 icons still missing.
 
-Needs owner action: set the `FMP_API_KEY` repo secret so estimate histories start accumulating (workflow runs green but writes empty snapshots); merge to main so the repaired data-refresh workflow can push again.
+Needs owner action: an `FMP_API_KEY` repo secret still upgrades the 47 FMP-covered names to FMP-quality estimates, but is no longer blocking — the Yahoo fallback accumulates history for the whole universe keylessly.
 
 ## Deployment Rule
 

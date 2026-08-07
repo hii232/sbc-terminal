@@ -17,6 +17,8 @@ jobs:
         run: python tests/test_form4_parse.py
       - name: Canonicalisation fixtures
         run: python tests/test_canonicalise.py
+      - name: Estimate-collector fallback fixtures
+        run: python tests/test_estimates_fallback.py
       - name: Daily brief composes without error
         run: node scripts/daily_brief.js > /dev/null
       - name: Browser smoke tests

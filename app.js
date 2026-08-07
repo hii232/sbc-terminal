@@ -503,12 +503,26 @@
     d.annualPeriods = rows;
     if (!rows.length) return;
     d.secPrimary = {};
+    // The aggregator arrays were aligned to the ORIGINAL (short) fy axis. Any
+    // field the SEC rebuild cannot replace must be re-indexed onto the rebuilt
+    // axis by fiscal-year label — keeping it as-is silently pairs values with
+    // the wrong fiscal years everywhere the two axes differ.
+    const prevFy = Array.isArray(d.fy) ? d.fy.map(String) : [];
     d.fy = rows.map(r => r.periodEnd.slice(0, 4));
+    const reindex = (arr) => {
+      if (!Array.isArray(arr) || !prevFy.length) return arr;
+      return d.fy.map(y => {
+        const i = prevFy.indexOf(y);
+        return i >= 0 && hasNum(arr[i]) ? +arr[i] : null;
+      });
+    };
     const setSeries = (secKey, localKey, scale, digits) => {
       const vals = rows.map(r => r[secKey] ? +(r[secKey].value / scale).toFixed(digits) : null);
       if (vals.some(v => v != null)) {
         d[localKey] = vals;
         d.secPrimary[localKey] = rows.map(r => r[secKey] || null);
+      } else if (d[localKey] != null) {
+        d[localKey] = reindex(d[localKey]);
       }
     };
     setSeries("revenue", "revenue", 1e9, 2);
@@ -520,11 +534,16 @@
     const ocf = rows.map(r => r.ocf ? +(r.ocf.value / 1e9).toFixed(2) : null);
     const capex = rows.map(r => r.capex ? +(r.capex.value / 1e9).toFixed(2) : null);
     if (ocf.some(v => v != null)) { d.qm.ocf = ocf; d.secPrimary.ocf = rows.map(r => r.ocf || null); }
+    else if (d.qm.ocf != null) d.qm.ocf = reindex(d.qm.ocf);
     if (capex.some(v => v != null)) { d.qm.capex = capex; d.secPrimary.capex = rows.map(r => r.capex || null); }
+    else if (d.qm.capex != null) d.qm.capex = reindex(d.qm.capex);
     if (ocf.some(v => v != null) || capex.some(v => v != null)) {
       d.qm.fcf = rows.map((r, i) => ocf[i] != null && capex[i] != null ? +(ocf[i] - capex[i]).toFixed(2) : null);
       d.secPrimary.fcf = rows.map((r, i) => r.ocf && r.capex ? { value: r.ocf.value - r.capex.value, periodEnd: r.periodEnd, source: "SEC ocf minus SEC capex" } : null);
-    }
+    } else if (d.qm.fcf != null) d.qm.fcf = reindex(d.qm.fcf);
+    // Margin history has no SEC replacement; it always rides the old axis.
+    if (d.qm.gross != null) d.qm.gross = reindex(d.qm.gross);
+    if (d.qm.opinc != null) d.qm.opinc = reindex(d.qm.opinc);
     d.buybackStatus = rows.map(r => r.buyback ? "reported-value" : "parser-missing");
     const rev = lastVal(d.revenue), sbc = lastVal(d.sbc), ni = lastVal(d.ni);
     d.sbcPctRev = rev && sbc != null ? +((sbc / rev) * 100).toFixed(1) : null;
@@ -890,7 +909,10 @@
     const p = state.live[d.ticker]?.quote?.price ?? d.price;
     return p != null && Number.isFinite(+p) && +p > 0 ? +p : null;
   };
-  const quoteChangeOf = (d) => state.live[d.ticker]?.quote?.changePct ?? (Number.isFinite(+d.change) ? +d.change : 0);
+  // Missing day-change stays MISSING (null) — coercing it to 0 rendered
+  // "0.00%" for names with no tape and fed a fake flat day into every
+  // aggregate as if it were real. Consumers skip null, never neutral-fill.
+  const quoteChangeOf = (d) => state.live[d.ticker]?.quote?.changePct ?? (Number.isFinite(+d.change) ? +d.change : null);
   const priceTextOf = (d) => {
     const p = quotePriceOf(d);
     return p == null ? "--" : p.toFixed(2);
@@ -976,7 +998,7 @@
         <div class="spark-wrap">${miniSpark(d)}</div>
         <div>
           <div class="px">${priceTextOf(d)}</div>
-          <div class="ch ${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</div>
+          <div class="ch ${ch == null ? "" : signCls(ch)}">${ch == null ? "–" : arrow(ch) + Math.abs(ch).toFixed(2) + "%"}</div>
           <div class="mr-chip ${de.score >= 50 ? "up" : "down"}">DE ${de.score}</div>
         </div>
       </div>`;
@@ -1806,9 +1828,11 @@
   /* --- quarterly helpers --- */
   let finMode = "qtr"; // 'qtr' | 'fy'
   const ttm = (arr) => {
+    // A trailing-12-month figure needs four real quarters. Summing whatever
+    // 1-3 exist silently understates "TTM" — worse than saying missing.
     if (!arr) return null;
     const t = arr.slice(-4).filter(v => v != null);
-    return t.length ? t.reduce((a, v) => a + v, 0) : null;
+    return t.length === 4 ? t.reduce((a, v) => a + v, 0) : null;
   };
   const yoyPct = (arr) => { // latest quarter vs same quarter last year (5-point series)
     if (!arr || arr.length < 5) return null;
@@ -1872,11 +1896,11 @@
         <div style="display:flex;flex-wrap:wrap;align-items:center">
           <div style="min-width:90px;text-align:center"><div class="sub" style="color:var(--amber);font-weight:700;letter-spacing:1.5px">TTM</div><div class="sub">trailing 12M</div></div>
           ${cell("REVENUE", money(tRev), "var(--cyan)")}
-          ${cell("GAAP NET INCOME", money(tNi), tNi >= 0 ? "var(--green)" : "var(--red)")}
+          ${cell("GAAP NET INCOME", money(tNi), tNi == null ? null : tNi >= 0 ? "var(--green)" : "var(--red)")}
           ${cell("SBC", money(tSbc), "var(--red)")}
           ${cell("BUYBACKS", money(tBb), "var(--amber)")}
           ${cell("SBC / REVENUE", tRev && tSbc != null ? (tSbc / tRev * 100).toFixed(1) + "%" : "–", sbcSeverity(tRev && tSbc != null ? tSbc / tRev * 100 : null).c)}
-          ${cell("BUYBACK / SBC", tSbc ? (tBb / tSbc).toFixed(1) + "x" : "–", tBb > tSbc ? "var(--green)" : "var(--orange)")}
+          ${cell("BUYBACK / SBC", tSbc && tBb != null ? (tBb / tSbc).toFixed(1) + "x" : "–", tSbc && tBb != null ? (tBb > tSbc ? "var(--green)" : "var(--orange)") : null)}
         </div>
       </div>`;
     }
@@ -3621,14 +3645,21 @@
      adopt words because the market rewards words — reflexivity, not signal.
      All three move scores and ranks, so verdicts recorded under v4 are not
      comparable. */
-  const MASTER_MODEL_VERSION = 6;
+  /* v7: no formula changed — the INPUTS were repaired. rebuildSecAlignedAnnuals
+     left every array the SEC could not replace (margin history for all names,
+     buybacks/shares for 31) index-misaligned against the rebuilt 10-year fy
+     axis, so margins() divided one year's gross profit by another year's
+     revenue. Fixing the pairing moved scores on 70 of 224 names, which makes
+     pre-fix snapshots incomparable with post-fix boards — so the version bumps
+     and the clock restarts, costing exactly ONE v6 snapshot day. */
+  const MASTER_MODEL_VERSION = 7;
   /* THE FREEZE. Four model versions shipped in weeks, and every bump reset
      the proof clock — so no ranking was ever validated against forward
      returns. That stops here: v5 is frozen until the benchmark clock below
      delivers a verdict. Changing weights, pillar math, or vote wiring before
      freezeUntil means bumping to v6 and CONSCIOUSLY throwing this clock away
      — the Proof Scoreboard renders this box so the temptation has a face. */
-  const MASTER_MODEL_FREEZE = { version: 6, since: "2026-08-06", days: 90, until: "2026-11-04" };
+  const MASTER_MODEL_FREEZE = { version: 7, since: "2026-08-07", days: 90, until: "2026-11-05" };
   /* Peak-cycle earnings detector. Pure function over the 10y revenue/ni
      arrays so it is unit-testable on synthetic companies. */
   function cyclePeakOf(d) {
@@ -5044,7 +5075,7 @@
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
   const FORMULA_VERSION = "v4.5 (2026-07)";
-  const SBC_MODEL_VERSION = "4.5.0"; // bump when any engine formula changes
+  const SBC_MODEL_VERSION = "4.5.1"; // bump when any engine formula changes
   // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
   // line-by-line audit. Retention/owner-earnings remain model estimates.
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts
@@ -7013,17 +7044,20 @@
       groups[etf].members.push({ d, ch: quoteChangeOf(d), weight: Math.max(1, d.mktCap || 1) });
     });
     return Object.values(groups).map(g => {
-      const totalW = g.members.reduce((a, x) => a + x.weight, 0) || g.members.length || 1;
-      const avg = g.members.reduce((a, x) => a + x.ch, 0) / (g.members.length || 1);
-      const weighted = g.members.reduce((a, x) => a + x.ch * x.weight, 0) / totalW;
-      const up = g.members.filter(x => x.ch >= 0).length;
-      const sorted = [...g.members].sort((a, b) => Math.abs(b.ch) - Math.abs(a.ch));
+      // Aggregate only over members with a REAL day-change; a missing tape is
+      // not a 0.00% day and must not flatten the sector average or breadth.
+      const withCh = g.members.filter(x => x.ch != null);
+      const totalW = withCh.reduce((a, x) => a + x.weight, 0) || withCh.length || 1;
+      const avg = withCh.length ? withCh.reduce((a, x) => a + x.ch, 0) / withCh.length : 0;
+      const weighted = withCh.length ? withCh.reduce((a, x) => a + x.ch * x.weight, 0) / totalW : 0;
+      const up = withCh.filter(x => x.ch >= 0).length;
+      const sorted = [...withCh].sort((a, b) => Math.abs(b.ch) - Math.abs(a.ch));
       return {
         ...g,
         avg: +avg.toFixed(2),
         weighted: +weighted.toFixed(2),
         move: +weighted.toFixed(2),
-        breadth: Math.round((up / (g.members.length || 1)) * 100),
+        breadth: Math.round((up / (withCh.length || 1)) * 100),
         top: sorted.slice(0, 5),
         sectors: new Set(g.members.map(x => x.d.sector)),
       };
@@ -7063,7 +7097,7 @@
       s.top.slice(0, 4).forEach(x => add(x.d.ticker));
       (DAILY_SECTOR_LENS[s.etf]?.tickers || []).slice(0, 3).forEach(add);
     });
-    [...DATA].sort((a, b) => Math.abs(quoteChangeOf(b)) - Math.abs(quoteChangeOf(a))).slice(0, 8).forEach(d => add(d.ticker));
+    [...DATA].sort((a, b) => Math.abs(quoteChangeOf(b) ?? 0) - Math.abs(quoteChangeOf(a) ?? 0)).slice(0, 8).forEach(d => add(d.ticker));
     return out.slice(0, 12);
   }
 
@@ -7080,8 +7114,9 @@
         ? state.dailyReviewLoading ? "while headline scan is still running" : "with no scored headline driver loaded yet"
         : "from price tape only; connect Finnhub for headline drivers";
     const headline = focus ? `${focus.name} ${moveWord} ${focus.move >= 0 ? "+" : ""}${focus.move.toFixed(2)}% ${why}.` : "Market tape is unavailable.";
-    const marketMove = DATA.reduce((a, d) => a + quoteChangeOf(d) * Math.max(1, d.mktCap || 1), 0) /
-      (DATA.reduce((a, d) => a + Math.max(1, d.mktCap || 1), 0) || 1);
+    const tapeNames = DATA.filter(d => quoteChangeOf(d) != null);
+    const marketMove = tapeNames.reduce((a, d) => a + quoteChangeOf(d) * Math.max(1, d.mktCap || 1), 0) /
+      (tapeNames.reduce((a, d) => a + Math.max(1, d.mktCap || 1), 0) || 1);
     return {
       sectors, worst, best, focus, driver, headline,
       marketMove: +marketMove.toFixed(2),
@@ -7397,7 +7432,7 @@
       return `<div class="home-row" data-tk="${d.ticker}">
         <div><b>${d.ticker}</b><span>${d.sector}</span></div>
         <div class="sub">${escapeHtml(d.name)}</div>
-        <strong class="${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</strong>
+        <strong class="${ch == null ? "" : signCls(ch)}">${ch == null ? "–" : arrow(ch) + Math.abs(ch).toFixed(2) + "%"}</strong>
       </div>`;
     };
     const moverCompact = (d) => {
@@ -7467,7 +7502,7 @@
       <div><b>${x.d.ticker}</b><span>${x.d.sector}</span></div>
       <div><span>FWD P/E</span><b>${x.f.pe.toFixed(1)}x</b></div>
       <div><span>BQ + MR</span><b>${combo(x)}</b></div>
-      <strong class="${signCls(quoteChangeOf(x.d))}">${pct(quoteChangeOf(x.d))}</strong>
+      <strong class="${quoteChangeOf(x.d) == null ? "" : signCls(quoteChangeOf(x.d))}">${pct(quoteChangeOf(x.d))}</strong>
     </div>`;
     el("main").innerHTML = `
       <div class="bz-home">
@@ -8501,7 +8536,7 @@
     TRACKED_SIGNALS, proofStatusOf, universeSpanOf, modelSpanOf, MASTER_MODEL_VERSION,
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
-    allCompanies, companyOf, tickerDrawdown,
+    allCompanies, companyOf, tickerDrawdown, rebuildSecAlignedAnnuals, ttm, quoteChangeOf,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();

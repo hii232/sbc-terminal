@@ -21,6 +21,13 @@
     if (a >= 1) return n.toFixed(1);
     return n.toFixed(2);
   };
+  // An all-null series must SAY so — a silently blank grid reads as "chart
+  // broke", and an empty plot area reads as "value is zero-ish". Neither is true.
+  const noData = (W, H) => `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="No data">
+      <rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="6" fill="none" stroke="${C.grid}" stroke-dasharray="4 4"/>
+      <text x="${W / 2}" y="${H / 2 - 2}" fill="${C.text}" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1.5">NO DATA</text>
+      <text x="${W / 2}" y="${H / 2 + 14}" fill="${C.axis}" font-size="8.5" text-anchor="middle">nothing reported for this series — missing is not zero</text>
+    </svg>`;
   function niceScale(min, max, ticks = 4) {
     if (min === max) { max = max || 1; min = 0; }
     const range = max - min;
@@ -45,6 +52,7 @@
     if (opts.zero) lo = Math.min(lo, 0);
     if (opts.min != null) lo = Math.min(lo, opts.min);
     if (opts.max != null) hi = Math.max(hi, opts.max);
+    if (!series.some(s => s.points.some(v => v != null))) return noData(W, H);
     if (!isFinite(lo) || !isFinite(hi)) { lo = 0; hi = 1; }
     const sc = niceScale(lo, hi, 4);
     const x = i => P.l + (xlabels.length === 1 ? iw / 2 : (i / (xlabels.length - 1)) * iw);
@@ -124,6 +132,7 @@
     const iw = W - P.l - P.r, ih = H - P.t - P.b;
     let lo = 0, hi = -Infinity;
     groups.forEach(s => s.values.forEach(v => { if (v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); } }));
+    if (!isFinite(hi)) return noData(W, H);
     const sc = niceScale(lo, hi, 4);
     const y = v => P.t + ih - ((v - sc.min) / (sc.max - sc.min)) * ih;
     const zeroY = y(0);
