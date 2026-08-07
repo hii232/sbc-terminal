@@ -1,13 +1,23 @@
 {
-  "lastError": {
-    "date": "2026-08-07",
-    "message": "HTTP Error 403: Forbidden"
-  },
   "name": "TRAVELERS COMPANIES, INC.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": 27.0,
+      "analystCountRevenue": 12.0,
+      "currentYearEps": 34.05444,
+      "currentYearRevenue": 43430603900.0,
+      "date": "2026-08-07",
+      "nextYearEps": 30.20864,
+      "nextYearRevenue": 44697285080.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "TRV"
+    }
+  ],
+  "source": "Yahoo Finance earningsTrend fiscal-year consensus",
   "ticker": "TRV"
 }

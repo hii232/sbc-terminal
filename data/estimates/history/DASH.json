@@ -1,13 +1,23 @@
 {
-  "lastError": {
-    "date": "2026-08-07",
-    "message": "HTTP Error 403: Forbidden"
-  },
   "name": "DoorDash, Inc.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": 37.0,
+      "analystCountRevenue": 43.0,
+      "currentYearEps": 2.54808,
+      "currentYearRevenue": 17718821210.0,
+      "date": "2026-08-07",
+      "nextYearEps": 4.41011,
+      "nextYearRevenue": 21356823730.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "DASH"
+    }
+  ],
+  "source": "Yahoo Finance earningsTrend fiscal-year consensus",
   "ticker": "DASH"
 }

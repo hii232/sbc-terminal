@@ -1,13 +1,23 @@
 {
-  "lastError": {
-    "date": "2026-08-07",
-    "message": "HTTP Error 403: Forbidden"
-  },
   "name": "SLB LIMITED/NV",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": 26.0,
+      "analystCountRevenue": 25.0,
+      "currentYearEps": 2.50818,
+      "currentYearRevenue": 36942501480.0,
+      "date": "2026-08-07",
+      "nextYearEps": 3.25904,
+      "nextYearRevenue": 39736419560.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "SLB"
+    }
+  ],
+  "source": "Yahoo Finance earningsTrend fiscal-year consensus",
   "ticker": "SLB"
 }

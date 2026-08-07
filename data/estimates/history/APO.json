@@ -1,13 +1,23 @@
 {
-  "lastError": {
-    "date": "2026-08-07",
-    "message": "HTTP Error 403: Forbidden"
-  },
   "name": "Apollo Global Management, Inc.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": 21.0,
+      "analystCountRevenue": 7.0,
+      "currentYearEps": 8.80094,
+      "currentYearRevenue": 5412450000.0,
+      "date": "2026-08-07",
+      "nextYearEps": 10.71271,
+      "nextYearRevenue": 6335114290.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "APO"
+    }
+  ],
+  "source": "Yahoo Finance earningsTrend fiscal-year consensus",
   "ticker": "APO"
 }

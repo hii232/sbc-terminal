@@ -1,13 +1,23 @@
 {
-  "lastError": {
-    "date": "2026-08-07",
-    "message": "HTTP Error 403: Forbidden"
-  },
   "name": "Booking Holdings Inc.",
   "notes": [
-    "No estimate snapshots collected yet."
+    "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
   ],
-  "snapshots": [],
-  "source": "not collected yet",
+  "snapshots": [
+    {
+      "analystCountEps": 32.0,
+      "analystCountRevenue": 36.0,
+      "currentYearEps": 10.45142,
+      "currentYearRevenue": 29268901180.0,
+      "date": "2026-08-07",
+      "nextYearEps": 12.38045,
+      "nextYearRevenue": 32027613030.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "BKNG"
+    }
+  ],
+  "source": "Yahoo Finance earningsTrend fiscal-year consensus",
   "ticker": "BKNG"
 }
