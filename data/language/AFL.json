@@ -3,6 +3,34 @@
  "sector": "Insurance",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 9856,
+   "themes": [
+    {
+     "theme": "foreign currency hedging strategies",
+     "quote": "Aflac Japan purchases Japanese yen-denominated assets and U.S. dollar-denominated assets, which may be hedged to Japanese yen, to support Japanese yen-denominated policy liabilities"
+    },
+    {
+     "theme": "us dollar denominated asset growth",
+     "quote": "Aflac Japan's U.S. dollar-denominated investments include fixed maturity investments, loan receivables, and growth assets, including alternative investments in limited partnerships or similar investment vehicles"
+    },
+    {
+     "theme": "third sector product expansion",
+     "quote": "The foundation of Aflac Japan's product portfolio has been, and continues to be, third sector products, which include cancer, medical and other products"
+    },
+    {
+     "theme": "group products sales growth",
+     "quote": "The increase in new annualized premium sales for Aflac U.S. in the second quarter and first six months of 2026 was primarily driven by sales of group products"
+    },
+    {
+     "theme": "cybersecurity infrastructure investment",
+     "quote": "As a result of the June 2025 U.S. Cyber Incident, the Company has incurred certain costs and may, depending on future developments, incur additional costs, including but not limited to costs to provide credit monitoring, identity theft prot"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -47,34 +75,6 @@
     {
      "theme": "deferred tax asset realization",
      "quote": "In evaluating the ability to recover deferred tax assets, the Company's management considers all available evidence, including taxable income in open carry back years, the existence of cumulative losses in the most recent years, forecasted "
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 10453,
-   "themes": [
-    {
-     "theme": "cybersecurity incident response",
-     "quote": "The Company identified an incident involving unauthorized access to its network in the U.S. on June 12, 2025...the Company has incurred certain costs and may, depending on future developments, incur additional costs, including but not limit"
-    },
-    {
-     "theme": "product innovation and sales growth",
-     "quote": "The increase in new annualized premium sales on a yen basis in the third quarter and first nine months of 2025 was driven primarily by continued strong sales of the new cancer insurance product, Miraito, that was launched in certain sales c"
-    },
-    {
-     "theme": "technology infrastructure investment",
-     "quote": "Aflac Japan continues to promote digital and web-based sales to groups and use of its system that enables smart device-based insurance application...Further, Aflac Japan continues to utilize its virtual sales tool that enables online consul"
-    },
-    {
-     "theme": "internal reinsurance optimization",
-     "quote": "the internal cancer reinsurance transaction with Aflac Re established in the fourth quarter of 2024...Net earned premiums decreased primarily due to approximately \u00a57 billion related to the internal cancer reinsurance transaction"
-    },
-    {
-     "theme": "assumption updates and reserves",
-     "quote": "Total benefits and claims decreased primarily due to approximately \u00a568 billion of reserve remeasurement gains related to assumption updates in the third quarter of 2025, compared to reserve remeasurement gains of approximately \u00a550 billion i"
     }
    ]
   }
