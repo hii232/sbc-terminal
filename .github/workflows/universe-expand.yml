@@ -56,8 +56,19 @@ jobs:
           git config user.name "sbc-terminal-bot"
           git config user.email "actions@github.com"
           git add universe.js data.js sec.js earnings.js whales.js data/ || true
-          git diff --cached --quiet || git commit -m "universe: expansion run $(date -u +%F)"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "universe: expansion run $(date -u +%F)"
+          # Rebase-and-retry, same as every other data workflow. This job runs
+          # 20+ minutes — the longest window in the repo for a merge to land on
+          # main mid-run — and a bare push that loses that race throws away the
+          # whole expensive rebuild.
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            git push origin HEAD:"${GITHUB_REF_NAME}" && exit 0
+            echo "push attempt $attempt rejected — refetching and retrying"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1
 
       - name: Rebuild derived layers (snapshot + signals)
         continue-on-error: true
@@ -72,4 +83,12 @@ jobs:
       - name: Commit derived layers if they rebuilt
         run: |
           git add track.js signals.js data/ || true
-          git diff --cached --quiet || (git commit -m "universe: derived layers $(date -u +%F)" && git push)
+          git diff --cached --quiet && exit 0
+          git commit -m "universe: derived layers $(date -u +%F)"
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            git push origin HEAD:"${GITHUB_REF_NAME}" && exit 0
+            echo "push attempt $attempt rejected — refetching and retrying"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1

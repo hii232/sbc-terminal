@@ -20,6 +20,13 @@ jobs:
         env:
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
         run: python scripts/collect_estimates.py
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Tests must pass before commit
+        # estimates.js feeds the revision engine and Beat Odds; data-refresh
+        # and language-refresh both gate their commits on the suite, and this
+        # was the one generated bundle that could land untested.
+        run: node tests/run_tests.js
       - name: Commit changed histories
         run: |
           git config user.name "sbc-terminal-bot"
@@ -27,7 +34,16 @@ jobs:
           git add data/estimates/history estimates.js
           if git diff --cached --quiet; then
             echo "No estimate changes"
-          else
-            git commit -m "Update analyst estimate history"
-            git push
+            exit 0
           fi
+          git commit -m "Update analyst estimate history"
+          # Same rebase-and-retry as data-refresh and language-refresh: a bare
+          # push here raced any merge that landed on main during the run and
+          # silently cost the day's snapshot when it lost.
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            git push origin HEAD:"${GITHUB_REF_NAME}" && exit 0
+            echo "push attempt $attempt rejected — refetching and retrying"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1

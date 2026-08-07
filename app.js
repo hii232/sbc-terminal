@@ -14,7 +14,7 @@
   // they are kept in this browser's localStorage (convenient, NOT secure storage —
   // anyone with access to this device/profile can read them).
   const DEFAULT_FINNHUB = "";
-  const SHELL_BUILD = "81"; // visible build tag — must match index.html ?v= and sw.js V
+  const SHELL_BUILD = "82"; // visible build tag — must match index.html ?v= and sw.js V
   const state = {
     active: null,
     view: "home", // 'home' | 'stock' | 'sectors' | 'narratives'
@@ -963,7 +963,7 @@
         <div class="bucketbar" style="background:${bcol[d.bucket] || "var(--cyan)"}"></div>
         <div style="min-width:0">
           <div class="tk"><span class="star ${state.favs.has(d.ticker) ? "on" : ""}" data-fav="${d.ticker}">${state.favs.has(d.ticker) ? "★" : "☆"}</span> ${d.ticker} <span style="font-size:9px;color:var(--dim)">${d.grade}</span></div>
-          <div class="nm">${d.name}</div>
+          <div class="nm">${escapeHtml(d.name)}</div>
           <div class="mini-scores">
             <span class="mini-score">LT <b>${watchScoreText(ms?.longTermView?.score)}</b></span>
                  <span class="mini-score">MR <b>${watchScoreText(ms?.marketReward?.score)}</b></span>
@@ -1282,7 +1282,7 @@
       <div class="hdr">
         <div>
           <div class="tick"><span class="star hdr-star ${state.favs.has(d.ticker) ? "on" : ""}" id="hdrStar" title="Star this name">${state.favs.has(d.ticker) ? "★" : "☆"}</span> <span class="star" id="hdrThesis" title="Write/read your thesis — the terminal is a reading list until you do">✎</span> ${d.ticker}${d.derived ? ' <span class="derived-tag" title="Framework fields auto-derived from aggregator data">◐ auto</span>' : ""} <span class="derived-tag" style="color:${dataQualityOf(d).color};border-color:${dataQualityOf(d).color}" title="${dataQualityOf(d).tip}">${dataQualityOf(d).label}</span>${conflictBadge}</div>
-          <div class="co">${d.name} · ${d.sector}</div>
+          <div class="co">${escapeHtml(d.name)} · ${escapeHtml(d.sector)}</div>
         </div>
         <div>
           <div class="pxbig">$${price.toFixed(2)}</div>
@@ -4912,7 +4912,7 @@
           <div class="sub" style="margin-top:4px">highest IV15 implied 15-year compounded return</div></div>
         <div class="card"><h3>CHEAPEST EST P/E — ${byCheap[0]?.d.ticker || "–"}</h3>
           <div class="stat" style="color:var(--amber)">${byCheap[0] ? byCheap[0].r.truePE.toFixed(1) + "x" : "–"}</div>
-          <div class="sub" style="margin-top:4px">${byCheap[0] ? byCheap[0].d.name : ""} — lowest SBC-adjusted multiple</div></div>
+          <div class="sub" style="margin-top:4px">${byCheap[0] ? escapeHtml(byCheap[0].d.name) : ""} — lowest SBC-adjusted multiple</div></div>
       </div>
 
       <div class="note" style="margin-bottom:12px">
@@ -7212,7 +7212,7 @@
     const gapTxt = gap == null ? "buy zone n/a" : `${gap >= 0 ? "+" : ""}${gap.toFixed(0)}% to IV15`;
     return `<div class="edge-row" data-tk="${x.d.ticker}" style="border-left-color:${x.e.color}">
       <div>
-        <b>${x.d.ticker}</b><span>${x.d.sector} - ${x.d.name}</span>
+        <b>${x.d.ticker}</b><span>${escapeHtml(x.d.sector)} - ${escapeHtml(x.d.name)}</span>
         <small>${escapeHtml(x.e.action)} - ${gapTxt}</small>
       </div>
       <div class="edge-row-mid">
@@ -7396,7 +7396,7 @@
       const ch = quoteChangeOf(d);
       return `<div class="home-row" data-tk="${d.ticker}">
         <div><b>${d.ticker}</b><span>${d.sector}</span></div>
-        <div class="sub">${d.name}</div>
+        <div class="sub">${escapeHtml(d.name)}</div>
         <strong class="${signCls(ch)}">${arrow(ch)}${Math.abs(ch).toFixed(2)}%</strong>
       </div>`;
     };
@@ -7576,7 +7576,7 @@
         </section>
         <section class="bz-feature" ${stockDay ? `data-tk="${stockDay.d.ticker}"` : ""}>
           <div class="bz-feature-pill">${stockDay?.d.ticker || "--"}</div>
-          <div><h2>Stock Of The Day</h2><p>${stockDay ? `${stockDay.d.name}: highest business quality + market reward combined${masterTop && stockDay.d.ticker !== masterTop.ticker ? ` — two of the eleven inputs behind the Master Signal, which ranks it #${masterBoardCached().findIndex(r => r.ticker === stockDay.d.ticker) + 1 || "—"}` : ""}.` : "No ranked name loaded."}</p></div>
+          <div><h2>Stock Of The Day</h2><p>${stockDay ? `${escapeHtml(stockDay.d.name)}: highest business quality + market reward combined${masterTop && stockDay.d.ticker !== masterTop.ticker ? ` — two of the eleven inputs behind the Master Signal, which ranks it #${masterBoardCached().findIndex(r => r.ticker === stockDay.d.ticker) + 1 || "—"}` : ""}.` : "No ranked name loaded."}</p></div>
           <button type="button">Open</button>
         </section>
         <section class="bz-panel bz-why">
