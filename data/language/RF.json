@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 26380,
+   "themes": [
+    {
+     "theme": "deposit gathering and funding strategy",
+     "quote": "focus on deposit composition and funding mix to optimize net interest margin"
+    },
+    {
+     "theme": "credit quality management",
+     "quote": "monitoring asset quality across commercial and consumer portfolios with emphasis on loan modifications and delinquency trends"
+    },
+    {
+     "theme": "interest rate risk hedging",
+     "quote": "utilizing interest rate swaps and derivative instruments to manage exposure to interest rate fluctuations"
+    },
+    {
+     "theme": "mortgage banking operations",
+     "quote": "maintaining mortgage origination and servicing capabilities across residential lending segments"
+    },
+    {
+     "theme": "asset-liability management",
+     "quote": "balancing held-to-maturity securities portfolio with available-for-sale securities to optimize yield and manage duration risk"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "credit quality monitoring",
      "quote": "We continue to monitor asset quality closely, including increased provisions for loan losses reflecting macroeconomic conditions"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 29416,
-   "themes": [
-    {
-     "theme": "commercial real estate stress",
-     "quote": "owner-occupied CRE portfolio challenges reflected in increased nonaccrual loans and higher loan loss provisions"
-    },
-    {
-     "theme": "deposit competition and funding",
-     "quote": "continued pressure on deposit margins as we compete for core deposits in a challenging funding environment"
-    },
-    {
-     "theme": "securities portfolio repositioning",
-     "quote": "adjusted investment portfolio positioning in response to interest rate environment and liquidity management needs"
-    },
-    {
-     "theme": "consumer credit quality monitoring",
-     "quote": "increased delinquencies in credit card and home equity portfolios reflecting consumer stress and economic uncertainty"
-    },
-    {
-     "theme": "net interest margin compression",
-     "quote": "net interest margin continued to face headwinds from higher funding costs and lower reinvestment rates on maturing assets"
     }
    ]
   }

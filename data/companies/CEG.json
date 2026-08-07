@@ -2,7 +2,7 @@
  "ticker": "CEG",
  "cik": "0001868275",
  "entityName": "CONSTELLATION ENERGY CORPORATION",
- "retrievedAt": "2026-08-06T13:42:33.485083Z",
+ "retrievedAt": "2026-08-07T11:45:59.159293Z",
  "fields": {
   "buyback": [
    {
@@ -877,12 +877,12 @@
     "confidence": 100
    },
    {
-    "value": 361190063,
+    "value": 354307379,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-11",
-    "accessionNumber": "0001868275-26-000067",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001868275-26-000104",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

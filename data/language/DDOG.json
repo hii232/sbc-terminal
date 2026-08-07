@@ -3,6 +3,34 @@
  "sector": "Software",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 4758,
+   "themes": [
+    {
+     "theme": "multi-product platform expansion",
+     "quote": "approximately 85% of our customers were using two or more products as of June 30, 2026, up from approximately 83% a year earlier"
+    },
+    {
+     "theme": "land-and-expand sales motion",
+     "quote": "our land-and-expand business model centered around offering products that are easy to adopt and have a very short time to value"
+    },
+    {
+     "theme": "international geographic expansion",
+     "quote": "we have made and plan to continue to make significant investments to expand geographically, particularly in EMEA and APAC"
+    },
+    {
+     "theme": "cloud infrastructure investment",
+     "quote": "increase of $64.1 million in third-party cloud infrastructure hosting and software costs and an increase of $28.2 million in cloud infrastructure and software-related investments"
+    },
+    {
+     "theme": "new customer acquisition",
+     "quote": "We intend to drive new customer acquisition by continuing to invest significantly in sales and marketing to engage our prospective customers"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "sales and marketing headcount growth",
      "quote": "Sales and marketing expense increased by $199.8 million, or 26%, for the year ended December 31, 2025 compared to the year ended December 31, 2024. This increase was primarily due to an increase of $165.4 million in personnel costs includin"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 5203,
-   "themes": [
-    {
-     "theme": "multi-product platform expansion",
-     "quote": "approximately 54% of our customers were using four or more products, up from approximately 49% a year earlier, approximately 31% of our customers were using six or more products, up from 26% a year earlier, and approximately 16% of our cust"
-    },
-    {
-     "theme": "international market expansion",
-     "quote": "we have made and plan to continue to make significant investments to expand geographically, particularly in EMEA and APAC"
-    },
-    {
-     "theme": "cloud infrastructure scaling",
-     "quote": "We intend to continue to invest additional resources in our platform infrastructure and our customer support and success organizations to expand the capability of our platform"
-    },
-    {
-     "theme": "product innovation investment",
-     "quote": "We intend to continue to invest in building additional products, features and functionality that expand our capabilities and facilitate the extension of our platform to new use cases"
-    },
-    {
-     "theme": "sales force expansion",
-     "quote": "We expect that our sales and marketing expense will increase in absolute dollars as we expand our sales and marketing efforts"
     }
    ]
   }

@@ -1,8 +1,8 @@
 {
  "ticker": "MCHP",
  "cik": "0000827054",
- "entityName": "Microchip Technology Incorporated",
- "retrievedAt": "2026-08-06T13:42:51.020694Z",
+ "entityName": "MICROCHIP TECHNOLOGY INCORPORATED",
+ "retrievedAt": "2026-08-07T11:46:16.065072Z",
  "fields": {
   "buyback": [
    {
@@ -1962,12 +1962,12 @@
     "confidence": 100
    },
    {
-    "value": 542079281,
+    "value": 543008691,
     "unit": "shares",
-    "periodEnd": "2026-05-14",
-    "form": "10-K",
-    "filedDate": "2026-05-21",
-    "accessionNumber": "0000827054-26-000016",
+    "periodEnd": "2026-07-28",
+    "form": "10-Q",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0000827054-26-000038",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

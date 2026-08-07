@@ -2,7 +2,7 @@
  "ticker": "RF",
  "cik": "0001281761",
  "entityName": "Regions Financial Corporation",
- "retrievedAt": "2026-08-06T13:43:05.257140Z",
+ "retrievedAt": "2026-08-07T11:46:34.122941Z",
  "fields": {
   "buyback": [
    {
@@ -1612,12 +1612,12 @@
     "confidence": 100
    },
    {
-    "value": 853379538,
+    "value": 851929506,
     "unit": "shares",
-    "periodEnd": "2026-05-06",
+    "periodEnd": "2026-08-05",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0001281761-26-000037",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001281761-26-000055",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

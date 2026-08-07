@@ -3,6 +3,34 @@
  "sector": "Asset Mgmt",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-07",
+   "source": "SEC 10-Q MD&A",
+   "words": 27948,
+   "themes": [
+    {
+     "theme": "wealth distribution platform expansion",
+     "quote": "Ares Wealth Management Solutions (\"AWMS\") facilitates the product development, distribution, marketing and client management activities for investment offerings in the global wealth management channel"
+    },
+    {
+     "theme": "perpetual capital growth",
+     "quote": "perpetual capital refers to the AUM of publicly-traded funds, perpetual wealth funds, commingled funds and managed accounts that have an indefinite term, are not in liquidation"
+    },
+    {
+     "theme": "data center infrastructure investing",
+     "quote": "an earnout arrangement related to the data center business (\"DC Earnout\") based on the achievement of revenue targets of certain digital infrastructure funds"
+    },
+    {
+     "theme": "systematic fixed income management",
+     "quote": "BlueCove is a London-based systematic fixed income manager that leverages data and technology to deliver differentiated solutions to investors"
+    },
+    {
+     "theme": "multi-strategy fund consolidation",
+     "quote": "a leading global alternative investment manager operating integrated groups across Credit, Real Assets, Secondaries and Private Equity"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "infrastructure fund buildout",
      "quote": "Digital infrastructure is newly established following the GCP Acquisition... Infrastructure includes digital infrastructure, infrastructure opportunities and infrastructure debt"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 31292,
-   "themes": [
-    {
-     "theme": "digital infrastructure expansion",
-     "quote": "The GCP Acquisition adds complementary real estate and digital infrastructure investment capabilities"
-    },
-    {
-     "theme": "geographic expansion in asia",
-     "quote": "an earnout arrangement related to the Japan business based on the achievement of fundraising targets of certain Japanese real estate funds"
-    },
-    {
-     "theme": "perpetual capital vehicles growth",
-     "quote": "perpetual capital vehicles, commingled funds and managed accounts that have an indefinite term, are not in liquidation, and for which there is no immediate requirement to return invested capital"
-    },
-    {
-     "theme": "real assets acquisition integration",
-     "quote": "The activities of GCP International are included within the Real Assets Group segment"
-    },
-    {
-     "theme": "alternative asset management scale",
-     "quote": "a leading global alternative investment manager operating integrated groups across Credit, Real Assets, Private Equity and Secondaries"
     }
    ]
   }

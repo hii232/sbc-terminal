@@ -2,7 +2,7 @@
  "ticker": "FCX",
  "cik": "0000831259",
  "entityName": "Freeport-McMoRan Inc.",
- "retrievedAt": "2026-08-06T13:42:42.497027Z",
+ "retrievedAt": "2026-08-07T11:46:05.989753Z",
  "fields": {
   "buyback": [
    {
@@ -1695,12 +1695,12 @@
     "confidence": 100
    },
    {
-    "value": 1437559865,
+    "value": 1436017523,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0000831259-26-000025",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0000831259-26-000036",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

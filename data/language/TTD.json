@@ -3,6 +3,34 @@
  "sector": "AdTech",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 7397,
+   "themes": [
+    {
+     "theme": "ai and machine learning platform capabilities",
+     "quote": "investment in new data centers to support the continued growth of our platform; and increased use of features by our technical teams in support of our platform while leveraging the AI and machine learning capabilities of our platform"
+    },
+    {
+     "theme": "omnichannel inventory expansion",
+     "quote": "continuing development of our omnichannel ad inventory (including in channels such as CTV and other video, mobile, audio and others, including potentially in any new inventory sources that may arise with the advent of AI)"
+    },
+    {
+     "theme": "value-added services and data monetization",
+     "quote": "continuing development, optimization and adoption of the data usage, measurement and targeting capabilities provided by our platform, which create a natural flywheel in our business"
+    },
+    {
+     "theme": "international market expansion",
+     "quote": "our ongoing global expansion... We believe that these markets outside of the United States, and in particular across Europe and Asia in markets such as the U.K., Germany, France, China, Japan, India and Australia, offer opportunities for gr"
+    },
+    {
+     "theme": "hosting infrastructure investment",
+     "quote": "investment in new data centers to support the continued growth of our platform; and increased use of features by our technical teams in support of our platform"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -63,34 +91,6 @@
     {
      "theme": "identity solutions development",
      "quote": "We continue to develop and enhance Unified ID 2.0, an open-source identity framework that operates by transforming email addresses or phone numbers into an advertising identifier"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 5519,
-   "themes": [
-    {
-     "theme": "ai platform integration",
-     "quote": "the continuing development and incorporation of AI in our platform and related offerings"
-    },
-    {
-     "theme": "omnichannel inventory expansion",
-     "quote": "continuing development of our omnichannel ad inventory (including in channels such as CTV and other video, mobile, audio and others)"
-    },
-    {
-     "theme": "international market expansion",
-     "quote": "We believe the markets outside of the United States, and in particular across Europe and Asia in markets such as the U.K, Germany, France, China, Japan, India and Australia, offer opportunities for growth"
-    },
-    {
-     "theme": "data and measurement capabilities",
-     "quote": "continuing development, optimization and adoption of the data usage, measurement and targeting capabilities provided by our platform"
-    },
-    {
-     "theme": "hosting infrastructure buildout",
-     "quote": "investment in new data centers to support the continued growth of our platform"
     }
    ]
   }

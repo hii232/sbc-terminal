@@ -3,6 +3,34 @@
  "sector": "Materials",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 16248,
+   "themes": [
+    {
+     "theme": "underground mine ramp-up",
+     "quote": "continued phased ramp-up of the Grasberg Block Cave underground mine following the September 2025 external mud rush incident"
+    },
+    {
+     "theme": "leaching technology innovation",
+     "quote": "advancing testing of innovative technologies to target significant increases in incremental production from leaching initiatives. We are targeting reaching an annual run rate of 300 million pounds of copper from these initiatives by the end"
+    },
+    {
+     "theme": "concentrator capacity expansion",
+     "quote": "We have finalized cost estimates for an opportunity to more than double the concentrator capacity of the Bagdad operation in northwest Arizona and have advanced technical and economic studies in preparation for a potential investment decisi"
+    },
+    {
+     "theme": "downstream processing facilities",
+     "quote": "With the completion of its downstream processing facilities, PTFI is a fully integrated producer of refined copper, gold and silver"
+    },
+    {
+     "theme": "major mill expansion",
+     "quote": "At the El Abra operations in Chile, we have an attractive opportunity to expand the operation to include a major mill facility similar to the large-scale concentrator at Cerro Verde. The project could result in the addition of over 700 mill"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "debt refinancing management",
      "quote": "senior notes and credit facilities with varying maturity dates requiring ongoing refinancing strategy"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 16145,
-   "themes": [
-    {
-     "theme": "leaching and technology innovation",
-     "quote": "We are continuing to incorporate new applications, technologies and data analytics into our leaching processes across our U.S. and South America operations...targeting annual production of 300 million pounds of copper in 2026 from these ini"
-    },
-    {
-     "theme": "downstream processing facilities expansion",
-     "quote": "With the completion of PTFI's newly constructed downstream processing facilities, PTFI became a fully integrated producer of refined copper and gold"
-    },
-    {
-     "theme": "brownfield mine expansion projects",
-     "quote": "We have a potential expansion project to more than double the concentrator capacity of the Bagdad operation...opportunity to construct new concentrating facilities to increase copper production by 200 to 250 million pounds per year"
-    },
-    {
-     "theme": "autonomous fleet deployment",
-     "quote": "In October 2025, the conversion of Bagdad's haul truck fleet to autonomous haulage was substantially complete, making Bagdad the first major mine in the U.S. to operate a fully autonomous haulage fleet"
-    },
-    {
-     "theme": "large-scale sulfide development",
-     "quote": "At the El Abra operations in Chile, we have completed substantial drilling...to define a large sulfide resource...could result in the addition of 750 million pounds of copper production per year"
     }
    ]
   }

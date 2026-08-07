@@ -3,6 +3,34 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 35970,
+   "themes": [
+    {
+     "theme": "wealth and investment management expansion",
+     "quote": "We continue to grow our wealth and investment management business, with strong momentum in assets under management and advisory services"
+    },
+    {
+     "theme": "commercial real estate portfolio optimization",
+     "quote": "We are actively managing our commercial real estate exposure through disciplined underwriting and portfolio management"
+    },
+    {
+     "theme": "deposit gathering and relationship deepening",
+     "quote": "We remain focused on growing customer relationships and deepening engagement across our consumer and commercial segments"
+    },
+    {
+     "theme": "digital banking capabilities",
+     "quote": "We are investing in digital and technology capabilities to enhance customer experience and operational efficiency"
+    },
+    {
+     "theme": "credit quality monitoring",
+     "quote": "We continue to monitor credit quality across all segments with disciplined risk management practices"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-04",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +83,6 @@
     {
      "theme": "credit quality normalization",
      "quote": "Credit quality is normalizing from historically low levels as economic conditions moderate, with increases in nonperforming assets and charge-offs"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 36017,
-   "themes": [
-    {
-     "theme": "commercial real estate credit stress",
-     "quote": "Commercial real estate continues to face headwinds from higher interest rates and slower economic growth"
-    },
-    {
-     "theme": "deposit competition and pricing pressure",
-     "quote": "Deposit competition remains intense, with customers continuing to seek higher rates"
-    },
-    {
-     "theme": "net interest margin compression",
-     "quote": "Net interest margin decreased due to the competitive deposit environment and the impact of lower interest rates"
-    },
-    {
-     "theme": "credit card loan growth",
-     "quote": "We are focused on growing our credit card portfolios through strategic initiatives"
-    },
-    {
-     "theme": "mortgage servicing portfolio optimization",
-     "quote": "We continue to optimize our mortgage servicing portfolio"
     }
    ]
   }

@@ -3,6 +3,34 @@
  "sector": "Asset Mgmt",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 26731,
+   "themes": [
+    {
+     "theme": "alternative assets expansion",
+     "quote": "alternatives revenue increased significantly with growth in liquid alternatives and private markets"
+    },
+    {
+     "theme": "etf product proliferation",
+     "quote": "launched digital assets, commodities and multi-asset ETFs to capture emerging demand"
+    },
+    {
+     "theme": "technology services monetization",
+     "quote": "technology services and subscription revenue grew as clients adopted our digital platforms"
+    },
+    {
+     "theme": "wealth management growth",
+     "quote": "expanded wealth management capabilities and advisory services for institutional and retail clients"
+    },
+    {
+     "theme": "private markets buildout",
+     "quote": "increased investments in private equity, real estate and infrastructure funds with seed capital deployment"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-06",
    "source": "SEC 10-Q MD&A",
@@ -51,38 +79,6 @@
     {
      "theme": "systematic active strategies",
      "quote": "The Company is optimistic about the potential of its systematic platform to deliver continued double-digit organic base fee growth and positive inflows, despite outflows in the broader active equity fund industry."
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 31383,
-   "themes": [
-    {
-     "theme": "alternative assets expansion",
-     "quote": "private markets and alternative investment products continue to grow in importance as we expand our capabilities in private equity, real estate, infrastructure and credit"
-    },
-    {
-     "theme": "etf product proliferation",
-     "quote": "we have launched new ETF products including digital assets, commodities and multi-asset ETFs to capture evolving client demand"
-    },
-    {
-     "theme": "technology services monetization",
-     "quote": "technology services and subscription revenue represents a growing revenue stream as we expand digital advisory platforms and data solutions"
-    },
-    {
-     "theme": "preqin acquisition integration",
-     "quote": "the integration of Preqin enhances our capabilities in alternative investment data, analytics and research for institutional clients"
-    },
-    {
-     "theme": "institutional advisory expansion",
-     "quote": "institutional advisory revenue grew as we expanded relationships with large asset owners and institutional clients globally"
-    },
-    {
-     "theme": "index and passive product scaling",
-     "quote": "index and non-ETF index revenue remains a significant and stable component of our business as client demand for low-cost passive solutions continues"
     }
    ]
   }

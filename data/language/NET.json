@@ -3,6 +3,38 @@
  "sector": "Software",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 40087,
+   "themes": [
+    {
+     "theme": "enterprise sales force expansion",
+     "quote": "our financial condition and results of operations are dependent to a significant degree on our ability to effectively attract, train, and retain qualified sales personnel, including senior sales leaders"
+    },
+    {
+     "theme": "large customer acquisition and retention",
+     "quote": "Attracting, expanding, and retaining sales to large customers involve risks that may not be present, or that are present to a lesser extent, with sales to smaller customers"
+    },
+    {
+     "theme": "network infrastructure buildout",
+     "quote": "the amount and timing of operating expenses related to the maintenance and expansion of our business, operations, and infrastructure, as well as entry into operating and capital leases and co-location, interconnection, and similar agreement"
+    },
+    {
+     "theme": "product bundle pricing strategy",
+     "quote": "we have limited experience with respect to determining the optimal prices and pricing models for some of our newer subscription plans and products, as well as our bundled sales of products and solutions"
+    },
+    {
+     "theme": "government sector expansion",
+     "quote": "we derive a portion of our revenue from contracts with government organizations, and we believe the success and growth of our business will in part depend on adding additional public sector customers"
+    },
+    {
+     "theme": "channel partner ecosystem growth",
+     "quote": "our growth depends, in part, on the success of our strategic relationships with third parties, such as value-added channel partners, referral partners, systems integrators, global platform providers, telecommunications companies, and manage"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -55,34 +87,6 @@
     {
      "theme": "platform consolidation and upsell",
      "quote": "As we add more products and functionality to our network, we see opportunities to drive upsell as customers seek to consolidate onto one infrastructure platform to meet all of their security, performance, and reliability network requirement"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-30",
-   "source": "SEC 10-Q MD&A",
-   "words": 37813,
-   "themes": [
-    {
-     "theme": "enterprise sales expansion",
-     "quote": "Attracting, expanding, and retaining sales to large customers involve risks...longer evaluation periods, more detailed evaluations, and more cumbersome contract negotiation and approval processes"
-    },
-    {
-     "theme": "sales force productivity",
-     "quote": "since late 2022, we periodically have experienced a reduction in average productivity among our sales personnel, which we believe was due in part to new sales hires not becoming as productive as we expected"
-    },
-    {
-     "theme": "network infrastructure expansion",
-     "quote": "increased usage of our global network that may require us to incur greater network infrastructure expenditures"
-    },
-    {
-     "theme": "zero trust and developer platform products",
-     "quote": "as we continue to develop and sell newer types of products and product features, such as our suite of Zero Trust and network services solutions and our Cloudflare Developer Platform products"
-    },
-    {
-     "theme": "large customer retention and expansion",
-     "quote": "our ability to retain and upgrade paying customers and expand the number of products sold to paying customers, especially our large customers"
     }
    ]
   }

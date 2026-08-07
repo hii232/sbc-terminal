@@ -3,6 +3,34 @@
  "sector": "Asset Mgmt",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 24384,
+   "themes": [
+    {
+     "theme": "alternative asset class diversification",
+     "quote": "expanded our investment strategies and product offerings from traditional private equity to other alternative asset classes such as leveraged credit, alternative credit, infrastructure, real estate, energy, growth equity, and core private e"
+    },
+    {
+     "theme": "global expansion beyond us",
+     "quote": "scaled from being a U.S.-focused firm to a global operation with 36 offices around the world as of June 30, 2026"
+    },
+    {
+     "theme": "insurance earnings integration",
+     "quote": "business further expanded with the acquisition of Global Atlantic in 2021, which today conducts our insurance business providing retirement and life insurance solutions"
+    },
+    {
+     "theme": "perpetual capital vehicle growth",
+     "quote": "K-Series vehicles that operate or invest in private equity companies, infrastructure assets, credit investments, and real estate. As of June 30, 2026, total K-Series AUM was $42 billion, which has grown significantly over the past three yea"
+    },
+    {
+     "theme": "long-term principal investments",
+     "quote": "Strategic Holdings segment, which we started reporting in the first quarter of 2024, acquires and manages interests in operating companies that are owned by the firm. We intend to hold the companies in our Strategic Holdings segment over a "
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-08",
    "source": "SEC 10-Q MD&A",
@@ -47,34 +75,6 @@
     {
      "theme": "variable annuity risk management",
      "quote": "For Global Atlantic's variable annuity policies, Global Atlantic generally seeks to dynamically hedge its exposure to changes in the value of the guarantee Global Atlantic provides to policyholders"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 43623,
-   "themes": [
-    {
-     "theme": "alternative asset management expansion",
-     "quote": "we have expanded our investment strategies and product offerings from traditional private equity to areas such as leveraged credit, alternative credit, infrastructure, energy, real estate, growth equity (including technology, health care, a"
-    },
-    {
-     "theme": "insurance business integration",
-     "quote": "Our insurance business is operated by our wholly-owned subsidiary Global Atlantic, which is a leading retirement and life insurance company that provides a broad suite of protection, legacy and savings products, and reinsurance solutions to"
-    },
-    {
-     "theme": "private credit strategy growth",
-     "quote": "Our private credit strategies focus on privately or directly originated and negotiated transactions. These strategies include direct lending typically in the senior part of a company's capital structure, junior mezzanine debt, and asset-bas"
-    },
-    {
-     "theme": "balance sheet deployment for capital solutions",
-     "quote": "We also use our balance sheet to bridge investment activity during fundraising and, for example, by funding investments for new funds. We also use our own capital to bridge capital selectively for our funds' investments or finance strategic"
-    },
-    {
-     "theme": "core private equity long-term holdings",
-     "quote": "In our core private equity strategy, our objective is to acquire and manage controlling interests in operating companies, which we intend to hold over a longer period of time and that we believe have a lower anticipated risk profile than ou"
     }
    ]
   }

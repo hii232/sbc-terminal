@@ -2,7 +2,7 @@
  "ticker": "JPM",
  "cik": "0000019617",
  "entityName": "JPMORGAN CHASE & CO",
- "retrievedAt": "2026-08-06T13:42:16.597204Z",
+ "retrievedAt": "2026-08-07T11:45:35.934309Z",
  "fields": {
   "buyback": [
    {
@@ -1461,12 +1461,12 @@
     "confidence": 100
    },
    {
-    "value": 2679511418,
+    "value": 2658186195,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0001628280-26-029344",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001628280-26-054343",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

@@ -3,6 +3,22 @@
  "sector": "Utilities",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 817,
+   "themes": [
+    {
+     "theme": "calpine acquisition integration",
+     "quote": "risks related to the Calpine acquisition and its operations"
+    },
+    {
+     "theme": "share repurchase program",
+     "quote": "Board of Directors approved a $4.4 billion increase relative to the remaining $0.6 billion authorization under our share repurchase program"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-11",
    "source": "SEC 10-Q MD&A",
@@ -39,18 +55,6 @@
     {
      "theme": "joint nuclear ownership strategy",
      "quote": "we completed the acquisition of NRG South Texas LP (renamed and converted as Constellation South Texas, LLC), which owns a 44% undivided ownership interest in the jointly-owned STP, a 2,645 MW, dual-unit nuclear plant"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 857,
-   "themes": [
-    {
-     "theme": "share repurchase program",
-     "quote": "In June 2025, we entered into an ASR agreement with a financial institution to initiate share repurchases of our common stock for $404 million"
     }
    ]
   }

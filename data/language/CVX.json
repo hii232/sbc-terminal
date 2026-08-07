@@ -3,6 +3,34 @@
  "sector": "Energy",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 6930,
+   "themes": [
+    {
+     "theme": "permian basin production growth",
+     "quote": "growth in the Permian Basin and the Gulf of America"
+    },
+    {
+     "theme": "hess acquisition integration",
+     "quote": "The increase was primarily due to the acquisition of Hess and growth in the Permian Basin and the Gulf of America"
+    },
+    {
+     "theme": "structural cost reduction",
+     "quote": "the company achieved its structural cost reduction target six months early by capturing $3 billion in annual run-rate savings"
+    },
+    {
+     "theme": "low carbon energy expansion",
+     "quote": "Chevron aims to grow its oil and gas business, lower the carbon intensity of operations and grow new energies businesses"
+    },
+    {
+     "theme": "downstream asset optimization",
+     "quote": "Signed an agreement to sell the company's 50 percent interest in Singapore Refining Company and other downstream assets in Singapore, Australia, Indonesia, Malaysia, the Philippines and Vietnam"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -59,42 +87,6 @@
     {
      "theme": "deepwater exploration",
      "quote": "continuing exploration and development activities in deepwater areas"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 6774,
-   "themes": [
-    {
-     "theme": "guyana offshore development",
-     "quote": "Achieved first oil at Yellowtail, the fourth development in the offshore Stabroek Block. Guyana - Sanctioned the Hammerhead project, the seventh Stabroek Block development."
-    },
-    {
-     "theme": "structural cost reduction program",
-     "quote": "The company has announced plans to achieve $2-3 billion in structural cost reductions by the end of 2026. These cost savings will largely come from optimizing the portfolio, leveraging technology to enhance productivity, and changing how an"
-    },
-    {
-     "theme": "lng export contracts expansion",
-     "quote": "Announced second long-term agreement to sell liquefied natural gas (LNG) to ENN Global Trading Pte. Ltd. in China, further strengthening the company's LNG value chain."
-    },
-    {
-     "theme": "permian basin production growth",
-     "quote": "The increase was primarily due to the acquisition of Hess and higher production in the Permian Basin and Gulf of America."
-    },
-    {
-     "theme": "portfolio asset sales program",
-     "quote": "The company is targeting $10-15 billion of asset sales over the five-year period ending in 2028."
-    },
-    {
-     "theme": "carbon capture investments",
-     "quote": "From September 2021 through September 30, 2025, Chevron has spent approximately $8.2 billion on these efforts"
-    },
-    {
-     "theme": "refinery capacity optimization",
-     "quote": "Refinery crude unit inputs were up 118,000 barrels per day, or 13 percent, primarily due to improved operational availability at the El Segundo, California refinery and increased capacity at the Pasadena, Texas refinery upon completion of t"
     }
    ]
   }
