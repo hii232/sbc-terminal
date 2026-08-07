@@ -1,0 +1,82 @@
+name: pages
+# Publishing owned by us instead of by GitHub's auto-generated workflow.
+#
+# WHY THIS EXISTS. With Pages sourced from a branch, GitHub generates its own
+# deploy workflow whose timeout is hardcoded at 10 minutes and cannot be
+# changed. On 2026-08-06 four consecutive deploys died on exactly that
+# boundary -- build and artifact upload succeeded in ~10 seconds every time,
+# then the deploy step ran to 10:00 and was killed mid-flight:
+#     Current status: deployment_in_progress
+#     ##[error]Timeout reached, aborting!
+# Re-running never helps: Pages keys a deployment by commit SHA and the
+# timeout handler CANCELS it, so a re-run re-creates an already-cancelled ID
+# and dies in six seconds. Only a new commit mints a new deployment, which
+# made every failure cost a full merge cycle.
+#
+# Two changes, either of which would have prevented it:
+#   1. we set the timeout ourselves (30 min, below)
+#   2. we publish 11MB instead of 78MB
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+# Never cancel a deployment in flight -- a cancelled Pages deployment poisons
+# its commit SHA, and that SHA cannot be redeployed without a new commit.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage only what a browser actually loads
+        # EVERY runtime asset lives at the repo root: index.html, the .js
+        # bundles it script-tags, the manifest and the icons. Verified before
+        # writing this -- no shipped bundle fetches anything under data/ (the
+        # only "data/" strings in app.js are external sec.gov URLs), and
+        # sw.js precaches root files exclusively.
+        #
+        # data/ is 66MB across 914 files of pipeline cache -- per-company raw
+        # filings, estimate snapshots, the insider cache, the language corpus.
+        # The pipeline reads them on the runner; the browser never requests
+        # one. Publishing them was 85% of a 78MB upload and left no margin
+        # when Pages ran slow. Excluding them takes the artifact to ~11MB.
+        run: |
+          mkdir -p _site
+          find . -maxdepth 1 -type f -exec cp {} _site/ \;
+          # .nojekyll must survive the copy: without it Pages runs the site
+          # through Jekyll, which silently drops files beginning with _ .
+          touch _site/.nojekyll
+          echo "staged $(ls -A _site | wc -l) files, $(du -sh _site | cut -f1)"
+          # Fail loudly rather than publish a broken site: these are the files
+          # index.html cannot render without.
+          for f in index.html app.js data.js universe.js sw.js manifest.json; do
+            test -s "_site/$f" || { echo "FATAL: _site/$f missing or empty"; exit 1; }
+          done
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # 30 minutes. The default is 600000 (10 min) and that is precisely
+          # what killed four deploys in a row while the deployment was still
+          # reported as in_progress -- GitHub was working, the action simply
+          # would not wait.
+          timeout: 1800000
+          # tolerate transient polling errors instead of failing the whole
+          # deployment on one bad API response
+          error_count: 10
