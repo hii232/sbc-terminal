@@ -116,6 +116,7 @@ async function main() {
     ok((await page.textContent("#main")).includes("EXPECTATIONS GAP"), "expectations gap card missing");
     ok((await page.textContent("#main")).includes("DIRECTION EDGE"), "direction edge card missing");
     ok((await page.textContent("#main")).includes("POSITION PLAYBOOK"), "position playbook card missing");
+    ok((await page.textContent("#main")).includes("TECHNICALS"), "display-only technicals card missing");
     ok((await page.textContent("#main")).includes("WHAT WOULD PROVE THIS WRONG"), "playbook invalidation section missing");
     const pb = await page.evaluate(() => window.__engines.playbookOf(window.__engines.companyOf("AAPL")));
     ok(pb && pb.sizePct > 0 && pb.sizePct <= pb.maxPosition, "playbook sizes within the cap on a live page", String(pb && pb.sizePct));

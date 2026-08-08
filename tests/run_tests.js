@@ -2274,5 +2274,53 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   ok(!/NO DATA/.test(partial), "one real point is data, not NO DATA");
 }
 
+// =============== 49. Display-only technicals: right math, zero score impact ===============
+{
+  // primitives
+  ok(E.smaAt([1, 2, 3, 4, 5], 3) === 4, "SMA over the trailing window", String(E.smaAt([1, 2, 3, 4, 5], 3)));
+  ok(E.smaAt([1, 2], 3) === null, "SMA with insufficient history is missing, not partial");
+  ok(E.smaAt([1, null, 3, 4], 3) === null, "a null inside the window kills the window, never zero-fills");
+  const flatE = E.emaSeries(Array(30).fill(50), 10);
+  ok(flatE[29] === 50 && flatE[8] === null, "EMA of a constant is the constant; pre-seed values are null");
+
+  // MACD: constant -> zero line/signal/hist; a turn flips the histogram
+  const mFlat = E.macdOf(Array(60).fill(100));
+  ok(mFlat && Math.abs(mFlat.line) < 1e-9 && Math.abs(mFlat.hist) < 1e-9, "MACD of a flat tape is zero, not noise");
+  ok(E.macdOf(Array(20).fill(100)) === null, "MACD needs 35 closes or it is missing");
+
+  // 50/200 crossovers on synthetic tapes
+  const vol = Array(400).fill(0).map((_, i) => 10 + (i % 5));
+  const up = { pt: { v: [...Array(300).fill(100), ...Array.from({ length: 100 }, (_, i) => 100 + i * 0.5)], vol, to: "2026-08-06" } };
+  const dn = { pt: { v: [...Array(300).fill(100), ...Array.from({ length: 100 }, (_, i) => 100 - i * 0.4)], vol, to: "2026-08-06" } };
+  const tu = E.techOf(up), td = E.techOf(dn);
+  ok(tu.cross && tu.cross.type === "golden" && tu.stack === "UPTREND", "a real 50>200 upcross reads GOLDEN + UPTREND", JSON.stringify(tu.cross));
+  ok(td.cross && td.cross.type === "death" && td.stack === "DOWNTREND", "a real 50<200 downcross reads DEATH + DOWNTREND", JSON.stringify(td.cross));
+  ok(tu.yr && tu.yr.hi === 149.5 && tu.yr.lo === 100, "52-week range from real closes", JSON.stringify(tu.yr));
+
+  // volume honesty: a missing latest print stays missing, never zero
+  const noVolToday = { pt: { v: up.pt.v, vol: vol.map((x, i) => i === 399 ? null : x), to: "x" } };
+  const tv = E.techOf(noVolToday);
+  ok(tv.volume && tv.volume.latest === null && tv.volume.ratio === null, "missing latest volume -> null, not 0×");
+
+  // no pt / short pt -> null, and the card copy for that state exists in the app
+  ok(E.techOf({ ticker: "X" }) === null, "no pt block -> no technicals, no guess");
+  ok(E.techOf({ pt: { v: Array(30).fill(10), vol: [], to: "x" } }) === null, "sub-60-day history -> null");
+
+  // ZERO SCORE IMPACT — the freeze contract. Attaching a pt block to a real
+  // ranked name must not move its master score, direction edge, or RSI.
+  const d = E.companyOf("AAPL");
+  const msBefore = E.masterSignalOf(d)?.score, deBefore = E.directionEdgeOf(d)?.score, rsiBefore = E.rsiOf(d)?.value;
+  d.pt = up.pt;
+  if (E.invalidateMasterBoard) E.invalidateMasterBoard();
+  delete d.marketScores;
+  const msAfter = E.masterSignalOf(d)?.score, deAfter = E.directionEdgeOf(d)?.score, rsiAfter = E.rsiOf(d)?.value;
+  ok(msAfter === msBefore, "master signal is identical with and without pt", `${msBefore} vs ${msAfter}`);
+  ok(deAfter === deBefore, "direction edge is identical with and without pt", `${deBefore} vs ${deAfter}`);
+  ok(rsiAfter === rsiBefore, "RSI still reads pd only — pt never feeds it", `${rsiBefore} vs ${rsiAfter}`);
+  delete d.pt;
+  if (E.invalidateMasterBoard) E.invalidateMasterBoard();
+  delete d.marketScores;
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

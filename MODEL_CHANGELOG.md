@@ -1,5 +1,14 @@
 # SBC Model Changelog
 
+## Display-only technicals: DMA, MACD, volume, levels - 2026-08-07
+
+NOT a model version — nothing here feeds a score, rank, or signal, and a test pins that contract (master signal, direction edge, and RSI are asserted identical with and without the new data). The v7 freeze is untouched.
+
+- **New `pt:{}` price bundle** (`gen_prices.py`): ~2 years of daily closes + volume per ticker, keyless Yahoo, volume in millions with missing prints kept null. Deliberately SEPARATE from `pd:{}` — pd feeds scored engines (RSI, the volatility stop) whose inputs must stay byte-identical under the freeze. Populates on the next daily data-refresh run; until then the card says so instead of drawing anything synthetic.
+- **New TECHNICALS card** on every ticker overview, filling the terminal's thinnest layer: price vs **50/200-DMA** with a real golden/death-cross scan over the bundled window, MA-stack read (UPTREND / MIXED / DOWNTREND), **MACD(12·26·9)** with last signal-cross, **volume** vs its own 20-day average plus the share of volume landing on up-days (the first volume data in the terminal — closes-only history could never confirm a move), and **52-week / 3-month ranges** with distance from high.
+- Honesty rules carried over: SMA windows containing a null yield null (never zero-filled), missing volume stays missing, sub-60-day history renders as unavailable, and the card states on-screen that it is a description of the recent tape, not a prediction, and that the frozen model never sees it.
+- `techOf` / `macdOf` / `smaAt` / `emaSeries` are pure and exported; +15 assertions (1215 total) pin the SMA/EMA/MACD math, both cross directions on synthetic tapes, volume null-handling, and the zero-score-impact contract. Browser smoke pins the card on the ticker page. App shell v84.
+
 ## 7.0.0 — The alignment repair: every annual array on one fiscal axis - 2026-08-07
 
 No formula changed in this version. The INPUTS were repaired, and the repair moved scores on 70 of 224 names and re-ordered 206 of 224 master ranks — which is exactly why it ships as a version bump with the freeze re-armed rather than a silent fix: pre-repair snapshots are not comparable with post-repair boards, and pooling them would corrupt the benchmark verdict. The clock lost ONE v6 snapshot day (v6 shipped yesterday), the cheapest this will ever be.
