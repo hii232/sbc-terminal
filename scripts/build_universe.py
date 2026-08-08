@@ -57,8 +57,17 @@ GROUPS = [
      ["ICE", "CME", "NDAQ", "CBOE", "MCO", "MSCI", "FICO"]),
     ("Regional and diversified banks",
      ["USB", "PNC", "TFC", "FITB", "MTB", "RF", "KEY", "CFG", "ALLY"]),
+    # PS added 2026-08-08 by request. NOTE for whoever reads the ranking: this
+    # is an investment-management holding company, so its reported net income
+    # is driven largely by MARKS on its own portfolio rather than by operating
+    # earning power. Owner earnings (net income + SBC − true SBC cost) will
+    # therefore capitalise those marks as if they recurred — Graham's ch. 31
+    # investment-trust warning, already logged as a v9 candidate in AUDIT.md.
+    # It is admitted like any other candidate and, like any other, is dropped
+    # by reconcile_universe.py if it cannot be fully backed by SEC facts and a
+    # real data row. A short filing history will simply leave it unranked.
     ("Alternative asset managers and brokers",
-     ["BX", "KKR", "APO", "ARES", "IBKR"]),
+     ["BX", "KKR", "APO", "ARES", "IBKR", "PS"]),
     ("Insurance and risk intermediaries",
      ["AIG", "MET", "PRU", "AFL", "ACGL", "MMC"]),
     ("Biotechnology and large-molecule pharma",
@@ -120,6 +129,7 @@ SECTOR_OVERRIDE = {
     "USB": "Banks", "PNC": "Banks", "TFC": "Banks", "FITB": "Banks", "MTB": "Banks",
     "RF": "Banks", "KEY": "Banks", "CFG": "Banks", "ALLY": "Banks",
     "BX": "Asset Mgmt", "KKR": "Asset Mgmt", "APO": "Asset Mgmt", "ARES": "Asset Mgmt",
+    "PS": "Asset Mgmt",
     "IBKR": "Fintech Brokerage",
     "AIG": "Insurance", "MET": "Insurance", "PRU": "Insurance", "AFL": "Insurance",
     "ACGL": "Insurance", "MMC": "Insurance",
