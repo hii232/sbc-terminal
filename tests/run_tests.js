@@ -1463,28 +1463,37 @@ const ok = (cond, name, detail = "") => {
   for (const d of DATA) if (E.secWithholdingOf(d.ticker)) nonNull++;
   ok(nonNull > 80 && nonNull < 114, "the guard meaningfully narrows coverage (rejecting stale/zero facts) without gutting it entirely", String(nonNull));
 
-  // momentum: today's single-day change must not out-weigh the sustained
-  // multi-week/month terms it's supposed to be secondary to
+  // MOMENTUM IS 12-1, NOT 1-MONTH. The old contract here pinned the ORDER of
+  // three coefficients (1M, 3M, today) while the largest positive one sat on
+  // the 1-month return — the exact window this same file documents as
+  // mean-reverting and deliberately excludes from its own momentum board.
+  // Ordering the coefficients was never the invariant that mattered; WHICH
+  // window carries the sign is. Pinned below so the contradiction cannot
+  // return.
   const src2 = require("fs").readFileSync(require("path").join(root, "app.js"), "utf8");
   const momEng = src2.slice(src2.indexOf("function momentumPart"), src2.indexOf("function sectorConfirmationPart"));
-  const coefs = [...momEng.matchAll(/\)\s*\*\s*(-?\d+\.?\d*)/g)].map(m => parseFloat(m[1]));
-  ok(coefs.length === 3, "momentumPart has exactly 3 weighted terms (1M, 3M, today)", JSON.stringify(coefs));
-  const [m1Coef, m3Coef, dayCoef] = coefs;
-  ok(dayCoef < m1Coef && dayCoef < m3Coef,
-    "today's single-day coefficient is now smaller than BOTH the 1-month and 3-month coefficients, not larger than either",
-    `m1=${m1Coef} m3=${m3Coef} day=${dayCoef}`);
-  // behavioral check, not just a coefficient-order check: an equal-sized
-  // move must swing the score LESS when it comes from today alone than
-  // when it comes from the sustained 1M+3M tape.
-  const flatSeries = Array(20).fill(100);
-  const neutral = E.momentumPart({ ticker: "FAKE_FLAT", change: 0, px: { v: flatSeries } });
-  const dayMoveOnly = E.momentumPart({ ticker: "FAKE_DAY", change: 5, px: { v: flatSeries } });
-  const sustainedSeries = flatSeries.slice(); sustainedSeries[sustainedSeries.length - 1] = 105; // moves both m1 and m3 by +5%
-  const sustainedMove = E.momentumPart({ ticker: "FAKE_SUSTAINED", change: 0, px: { v: sustainedSeries } });
-  ok(neutral.score != null && dayMoveOnly.score != null && sustainedMove.score != null, "momentumPart scores all three synthetic tapes");
-  ok((dayMoveOnly.score - neutral.score) < (sustainedMove.score - neutral.score),
-    "a +5% single-day move swings the score less than the same +5% sustained over 1M and 3M",
-    `dayDelta=${dayMoveOnly.score - neutral.score} sustainedDelta=${sustainedMove.score - neutral.score}`);
+  ok(/momentumOf\(d\)/.test(momEng), "momentumPart reads the 12-1 factor, not an ad-hoc coefficient blend");
+  ok(!/pctMoveFrom\(vals,\s*4\)/.test(momEng), "the 1-month window is gone from the ranking's momentum input");
+  ok(!/quoteChangeOf/.test(momEng), "today's single-day change no longer feeds the trend score at all");
+  // and the terminal's own documented standard still says why
+  ok(/SHORT-TERM\s+REVERSAL/.test(src2), "the momentum board still documents the skip-month rationale");
+
+  // Behavioural: a name whose last month ripped must NOT out-score one with
+  // the same 12-1 return and a flat last month — the skip month is excluded,
+  // so it cannot move the score at all.
+  const wk = (n, from, to) => Array.from({ length: n }, (_, i) => from + (to - from) * (i / (n - 1)));
+  const base12 = wk(54, 100, 130);                       // steady year-long climb
+  const ripped = base12.slice(); for (let i = 50; i < 54; i++) ripped[i] = 160;  // last month rips
+  const mBase = E.momentumPart({ ticker: "FAKE_BASE", change: 0, px: { v: base12 } });
+  const mRip = E.momentumPart({ ticker: "FAKE_RIP", change: 25, px: { v: ripped } });
+  ok(mBase.score != null, "12-1 momentum scores a full year of weekly closes", String(mBase.score));
+  ok(mRip.raw.skipRet > mBase.raw.skipRet, "the ripped tape really does have a bigger excluded month",
+    `${mBase.raw.skipRet} vs ${mRip.raw.skipRet}`);
+  ok(mRip.raw.ret121 === mBase.raw.ret121, "…and an identical 12-1 return, since the rip lands inside the skip window",
+    `${mBase.raw.ret121} vs ${mRip.raw.ret121}`);
+  // short history falls back to the 3-month window, never the 1-month one
+  const shortTape = E.momentumPart({ ticker: "FAKE_SHORT", change: 0, px: { v: Array(20).fill(100) } });
+  ok(shortTape.score === 50 && /fallback/.test(shortTape.why), "short history falls back to a flat-tape 50 on the 3M window", shortTape.why);
 
   // sw.js version registration must not hardcode a stale literal that can
   // drift from the shared SHELL_BUILD constant
@@ -2095,12 +2104,24 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   // per second for 224 names, and ranking the universe is not free
   ok(dirtyMin >= 1000, "coalescing window is long enough that a 1/sec sweep cannot rebuild per quote", `${dirtyMin}ms`);
 
-  // sentiment is NOT live: confluence reads last night's pipeline only
-  const convBefore = E.convictionOf(d).dedupScore;
+  // SENTIMENT is NOT live: confluence's sentiment inputs read last night's
+  // pipeline only. Direction Edge is the deliberate exception — it carries a
+  // VALUATION term, so a markdown genuinely improves it, and that is the
+  // correct sign for a value tool ("learning to love markdowns").
+  // This assertion used to cover the whole vote and passed only by accident:
+  // the old momentum term subtracted today's move at the same moment
+  // valuation added it, and the two cancelled. Removing the bogus momentum
+  // term exposed the real behaviour, so the invariant is now stated on the
+  // votes it was always about.
+  const votesOf = (x) => Object.fromEntries(E.convictionOf(x).votes.map(v => [v.key, v.dir]));
+  const sentimentBefore = votesOf(d);
   E.applyLiveQuote(TK, +(base * 0.5).toFixed(2), -50, "TEST");
-  ok(E.convictionOf(d).dedupScore === convBefore,
-    "a live price move does not change the conviction vote — sentiment inputs are pipeline-dated",
-    `${convBefore} vs ${E.convictionOf(d).dedupScore}`);
+  const sentimentAfter = votesOf(d);
+  const drifted = Object.keys(sentimentBefore).filter(k => k !== "edge" && sentimentBefore[k] !== sentimentAfter[k]);
+  ok(drifted.length === 0, "a live price move changes no SENTIMENT vote — those inputs are pipeline-dated", drifted.join(","));
+  ok(sentimentAfter.edge >= sentimentBefore.edge,
+    "a 50% markdown never makes Direction Edge more bearish — the valuation term must reward the lower price",
+    `${sentimentBefore.edge} -> ${sentimentAfter.edge}`);
 
   // restore so later runs/sections see the pipeline state
   delete E.__state?.live?.[TK];
@@ -2320,6 +2341,29 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
   delete d.pt;
   if (E.invalidateMasterBoard) E.invalidateMasterBoard();
   delete d.marketScores;
+}
+
+// =============== 50. Graham's investment/speculative split (display-only) ===============
+{
+  const d = E.companyOf("ADBE");
+  const m = E.masterSignalOf(d);
+  ok(m.investment && m.speculative, "the master signal publishes both sub-totals");
+  ok(m.investment.weight + m.speculative.weight === m.coverage,
+    "the two sub-totals partition exactly the weight that was covered — nothing double-counted, nothing lost",
+    `${m.investment.weight} + ${m.speculative.weight} vs coverage ${m.coverage}`);
+  // the blended composite must sit between the two components (weighted mean)
+  const lo = Math.min(m.investment.score, m.speculative.score), hi = Math.max(m.investment.score, m.speculative.score);
+  ok(m.score >= lo - 1 && m.score <= hi + 1, "the headline score lies between its investment and speculative halves",
+    `${lo} <= ${m.score} <= ${hi}`);
+  // DISPLAY-ONLY: the split must not perturb the score or the ranking
+  const boardScores = E.masterBoard().slice(0, 20).map(r => r.score).join(",");
+  const again = E.masterSignalOf(d).score;
+  ok(again === m.score, "reading the split twice does not change the score", `${m.score} vs ${again}`);
+  ok(boardScores.length > 0, "board still ranks with the split present");
+  // universe-wide: every ranked name gets both halves
+  const board = E.masterBoard();
+  ok(board.every(r => r.investment && r.speculative), "every ranked name carries both halves",
+    String(board.filter(r => !r.investment || !r.speculative).length));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

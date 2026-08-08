@@ -1,17 +1,17 @@
-## 📈 Morning Brief — 2026-08-07
+## 📈 Morning Brief — 2026-08-08
 
-**Market regime: NEUTRAL** (49/100) — SPY 1M +3.0% / 3M +1.8% · 58% of sectors positive over 3M
-**224 names ranked.** Top signal: **PGR (79)** — valuation 99 · 34% BELOW the IV15 buy price
+**Market regime: NEUTRAL** (49/100) — SPY 1M +2.9% / 3M +1.6% · 58% of sectors positive over 3M
+**224 names ranked.** Top signal: **PGR (78)** — valuation 99 · 34% BELOW the IV15 buy price
 
 ### 💡 What changed
 Nothing new in the ledger today. A quiet tape is a real answer, not a missing one.
 
 ### 🎯 Signal confluence
 - **SCHW** — 6 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
-- **CRM** — 4 agree / 0 object: Direction Edge, Beat Odds, Analyst revisions
-- **NDAQ** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
-- **CFG** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
-- **COR** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Insider buying
+- **ASML** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
+- **LRCX** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
+- **VLO** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
+- **IBKR** — 4 agree / 0 object: Direction Edge, Post-earnings drift, Analyst revisions
 
 ### 👤 Insiders buying
 - **BSX** — 4 buyers incl. CEO/CFO · $9.8M (CLUSTER BUYING)
@@ -21,23 +21,22 @@ Nothing new in the ledger today. A quiet tape is a real answer, not a missing on
 - **ZTS** — 3 buyers · $886K (CLUSTER BUYING)
 
 ### 🎯 Reporting this week
-- **TTWO** 2026-08-07 · beat odds 50 (COIN FLIP)
-- **VST** 2026-08-07 · beat odds 38 (AT RISK)
-- **CRWV** 2026-08-11 · beat odds 42 (AT RISK)
-- **SMCI** 2026-08-11 · beat odds 60 (LEAN BEAT)
+- **CRWV** 2026-08-11 · beat odds 38 (AT RISK)
+- **SMCI** 2026-08-11 · beat odds 62 (LEAN BEAT)
 - **CSCO** 2026-08-12 · beat odds 59 (LEAN BEAT)
-- **NBIS** 2026-08-12 · beat odds 57 (LEAN BEAT)
+- **NBIS** 2026-08-12 · beat odds 51 (COIN FLIP)
+- **AMAT** 2026-08-13 · beat odds 62 (LEAN BEAT)
 
 ### 🚪 Thesis breaks
-- **BA** — THESIS BREAKING: Business quality broke down; Missed earnings and drifting down
-- **TXN** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
-- **MCHP** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
-- **FIS** — THESIS BREAKING: Business quality broke down; Analysts cutting estimates
-- **TFC** — THESIS BREAKING: Business quality broke down; Analysts cutting estimates
+- **BA** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
+- **TSLA** — THESIS BREAKING: Direction Edge turned down; Signals now object
+- **COIN** — THESIS BREAKING: Direction Edge turned down; Signals now object
+- **TTD** — THESIS BREAKING: Direction Edge turned down; Signals now object
+- **NRG** — THESIS BREAKING: Business quality broke down; Direction Edge turned down
 
 ---
 ### 🔬 Is any of this proven yet?
-**Not yet.** Recording since 2026-07-19 (15 snapshots). The first 4 weeks verdict unlocks **2026-08-16** — 10 days away. Until then every score here is an untested hypothesis, and should be sized like one.
+**Not yet.** Recording since 2026-07-19 (16 snapshots). The first 4 weeks verdict unlocks **2026-08-16** — 9 days away. Until then every score here is an untested hypothesis, and should be sized like one.
 
 [Open the terminal →](https://hii232.github.io/sbc-terminal/index.html)
 

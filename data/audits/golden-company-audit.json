@@ -1,12 +1,12 @@
 {
- "asOf": "2026-08-07",
+ "asOf": "2026-08-08",
  "modelVersion": "4.0.0",
  "method": "expanded SEC-XBRL vs terminal reconciliation",
  "reviewer": "automated SEC audit gate",
  "companies": {
   "AAPL": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -223,7 +223,7 @@
   },
   "MSFT": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -440,7 +440,7 @@
   },
   "GOOGL": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -631,7 +631,7 @@
   },
   "META": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -835,7 +835,7 @@
   },
   "NVDA": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1052,7 +1052,7 @@
   },
   "PLTR": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1256,7 +1256,7 @@
   },
   "CRM": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1473,7 +1473,7 @@
   },
   "CRWD": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1676,7 +1676,7 @@
   },
   "SNOW": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -1893,7 +1893,7 @@
   },
   "UBER": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -2110,7 +2110,7 @@
   },
   "COIN": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
@@ -2314,7 +2314,7 @@
   },
   "CRWV": {
    "reviewer": "automated SEC audit gate",
-   "reviewDate": "2026-08-07",
+   "reviewDate": "2026-08-08",
    "pass": true,
    "latestAnnualReport": {
     "status": "reported",
