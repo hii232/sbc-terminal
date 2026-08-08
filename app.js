@@ -1642,6 +1642,63 @@
     };
   }
 
+  function technicalsCard(d) {
+    const t = techOf(d);
+    const head = `<h3>TECHNICALS <span class="unit">display-only — feeds no score, rank, or signal</span></h3>`;
+    if (!t) return `<div class="card" style="grid-column:span 3">${head}
+      <div class="sub" style="padding:24px 10px;text-align:center">Daily price + volume history (~2 years) is not bundled for this name yet.<br>
+      The daily data-refresh workflow fetches it on its next run (<b>scripts/gen_prices.py</b>) — this terminal does not draw synthetic charts.</div>
+    </div>`;
+    const kv = (k, vHtml) => `<div class="kv"><span class="k">${k}</span><span class="v">${vHtml}</span></div>`;
+    const pm = (x, dgt = 1) => x == null ? "–" : (x >= 0 ? "+" : "") + x.toFixed(dgt) + "%";
+    const px2 = (x) => x == null ? "–" : "$" + x.toFixed(2);
+    const maRow = (label, ma, pct) => ma == null
+      ? kv(label, `<span style="color:var(--dim)">needs ${label === "200-DMA" ? 200 : 50} daily closes — have ${t.days}</span>`)
+      : kv(label, `${px2(ma)} · price <b style="color:${pct >= 0 ? "var(--green)" : "var(--red)"}">${pm(pct)}</b> ${pct >= 0 ? "above" : "below"}`);
+    const stackCol = { UPTREND: "var(--green)", DOWNTREND: "var(--red)", MIXED: "var(--amber)" }[t.stack] || "var(--dim)";
+    const crossHtml = t.cross
+      ? `<b style="color:${t.cross.type === "golden" ? "var(--green)" : "var(--red)"}">${t.cross.type === "golden" ? "GOLDEN CROSS" : "DEATH CROSS"}</b> — ${t.cross.daysAgo === 0 ? "today" : t.cross.daysAgo + " trading days ago"}`
+      : t.ma200 == null ? `<span style="color:var(--dim)">not computable yet</span>` : `none inside the bundled window`;
+    const m = t.macd;
+    const macdHtml = m == null ? `<span style="color:var(--dim)">not computable</span>`
+      : `${m.hist >= 0 ? `<b style="color:var(--green)">bullish side</b>` : `<b style="color:var(--red)">bearish side</b>`} · line ${m.line.toFixed(2)} vs signal ${m.signal.toFixed(2)}` +
+        (m.cross ? ` · last ${m.cross.type} cross ${m.cross.daysAgo === 0 ? "today" : m.cross.daysAgo + "d ago"}` : "");
+    const vo = t.volume;
+    const volHtml = vo == null ? `<span style="color:var(--dim)">no volume prints bundled</span>`
+      : (vo.latest == null ? `latest n/a` : `latest <b>${vo.latest.toFixed(1)}M</b>`) +
+        ` vs 20d avg ${vo.avg20.toFixed(1)}M` +
+        (vo.ratio != null ? ` (<b style="color:${vo.ratio >= 1.5 ? "var(--amber)" : "var(--muted)"}">${vo.ratio.toFixed(1)}×</b>)` : "") +
+        (vo.upShare != null ? ` · <b style="color:${vo.upShare >= 0.5 ? "var(--green)" : "var(--red)"}">${(vo.upShare * 100).toFixed(0)}%</b> of volume on up days` : "");
+    const rangeHtml = (r, label) => r == null ? "" :
+      kv(label, `${px2(r.lo)} — ${px2(r.hi)} · now <b style="color:${t.price >= r.hi * 0.98 ? "var(--amber)" : "var(--muted)"}">${pm((t.price / r.hi - 1) * 100)}</b> from high`);
+    const N = Math.min(126, t.days);
+    const closes = d.pt.v.slice(-N), s50 = t.ma50Series.slice(-N), s200 = t.ma200Series.slice(-N);
+    const labels = closes.map((_, i) => i === 0 ? "≈6M AGO" : i === closes.length - 1 ? (t.asOf || "LATEST") : "");
+    return `<div class="card" style="grid-column:span 3">${head}
+      <div class="grid g2" style="align-items:start">
+        <div>
+          ${Chart.line([
+            { points: closes, color: "var(--cyan)" },
+            { points: s50, color: "var(--amber)" },
+            { points: s200, color: "var(--purple)" },
+          ], labels, { h: 210 })}
+          <div class="sub" style="text-align:center"><b style="color:var(--cyan)">price</b> · <b style="color:var(--amber)">50-DMA</b> · <b style="color:var(--purple)">200-DMA</b> — last ~6 months of the 2-year daily bundle</div>
+        </div>
+        <div>
+          ${maRow("50-DMA", t.ma50, t.pctVs50)}
+          ${maRow("200-DMA", t.ma200, t.pctVs200)}
+          ${kv("MA STACK", `<b style="color:${stackCol}">${t.stack || "n/a"}</b>`)}
+          ${kv("LAST 50/200 CROSS", crossHtml)}
+          ${kv("MACD (12·26·9)", macdHtml)}
+          ${kv("VOLUME (20D)", volHtml)}
+          ${rangeHtml(t.yr, "52-WEEK RANGE")}
+          ${rangeHtml(t.qtr, "3-MONTH RANGE")}
+        </div>
+      </div>
+      <div class="note" style="margin-top:8px">Display-only read of bundled daily closes + volume as of ${t.asOf || "n/a"}. Nothing here feeds a score, rank, or signal — the frozen master model never sees it. Classic caveat applies: these are descriptions of the recent tape, not predictions.</div>
+    </div>`;
+  }
+
   function tabOverview(d) {
     const px = d.px && d.px.v && d.px.v.length >= 10 ? d.px : null;
     const dd = tickerDrawdown(d);
@@ -1689,6 +1746,8 @@
           <div class="sub drawdown-note">Drawdown measures the decline from each date's highest prior price. A new high resets the line to 0%.</div>`
           : `<div class="sub" style="padding:28px 10px;text-align:center">No verified 12-month price history is available for this ticker, so no drawdown is calculated.</div>`}
       </div>
+
+      ${technicalsCard(d)}
 
       <div class="card"><h3>GAAP EPS</h3><div class="stat">$${d.gaapEPS?.toFixed(2) ?? "–"}</div><div class="sub">what's actually reported</div></div>
       <div class="card"><h3>WALL ST ADJ EPS</h3><div class="stat" style="color:var(--orange)">$${d.nonGaapEPS?.toFixed(2) ?? "–"}</div>
@@ -2430,6 +2489,111 @@
     : v <= 55 ? { label: "neutral", color: "var(--muted)" }
     : v <= 70 ? { label: "warm", color: "var(--amber)" }
     : { label: "OVERBOUGHT — chasing", color: "var(--red)" };
+
+  /* ---------------- DISPLAY-ONLY TECHNICALS (feeds NO score) ----------------
+     Computed from d.pt — ~2 years of daily closes + volume bundled by
+     gen_prices.py, deliberately SEPARATE from the scored tape inputs (pd/px)
+     so the frozen master model's inputs stay byte-identical. Everything below
+     renders on the ticker page and nowhere else. Missing data stays missing:
+     short history yields nulls, a null inside an MA window kills that window's
+     value, and absent volume never becomes zero. */
+  const smaAt = (arr, n, i) => {
+    if (i == null) i = arr.length - 1;
+    if (i + 1 < n) return null;
+    let s = 0;
+    for (let k = i - n + 1; k <= i; k++) { const x = arr[k]; if (!hasNum(x)) return null; s += x; }
+    return s / n;
+  };
+  const emaSeries = (arr, n) => {
+    // standard convention: seed with the SMA of the first n values
+    const out = new Array(arr.length).fill(null);
+    if (arr.length < n) return out;
+    let s = 0;
+    for (let i = 0; i < n; i++) { if (!hasNum(arr[i])) return out; s += arr[i]; }
+    out[n - 1] = s / n;
+    const k = 2 / (n + 1);
+    for (let i = n; i < arr.length; i++) {
+      if (!hasNum(arr[i]) || out[i - 1] == null) break;
+      out[i] = arr[i] * k + out[i - 1] * (1 - k);
+    }
+    return out;
+  };
+  function macdOf(closes) {
+    if (!Array.isArray(closes) || closes.length < 26 + 9) return null;
+    const e12 = emaSeries(closes, 12), e26 = emaSeries(closes, 26);
+    const line = closes.map((_, i) => e12[i] != null && e26[i] != null ? e12[i] - e26[i] : null);
+    const firstIdx = line.findIndex(x => x != null);
+    if (firstIdx < 0) return null;
+    const sig = emaSeries(line.slice(firstIdx), 9);
+    const signal = new Array(closes.length).fill(null);
+    sig.forEach((x, i) => { if (x != null) signal[i + firstIdx] = x; });
+    const hist = line.map((x, i) => x != null && signal[i] != null ? x - signal[i] : null);
+    const n = closes.length - 1;
+    if (hist[n] == null) return null;
+    // last histogram sign flip = the most recent MACD/signal cross
+    let cross = null;
+    for (let i = n; i >= 1; i--) {
+      if (hist[i] == null || hist[i - 1] == null) break;
+      if ((hist[i] >= 0) !== (hist[i - 1] >= 0)) { cross = { type: hist[i] >= 0 ? "bullish" : "bearish", daysAgo: n - i }; break; }
+    }
+    return { line: line[n], signal: signal[n], hist: hist[n], cross };
+  }
+  function techOf(d) {
+    const t = d && d.pt;
+    const v = t && Array.isArray(t.v) ? t.v : null;
+    if (!v || v.filter(x => hasNum(x) && x > 0).length < 60) return null;
+    const n = v.length - 1, price = v[n];
+    if (!hasNum(price)) return null;
+    const ma50 = smaAt(v, 50), ma200 = smaAt(v, 200);
+    // most recent 50/200 crossover inside the bundled window (~1 year of
+    // computable 200-DMA on a 2-year bundle); none found = none claimed
+    let cross = null;
+    if (v.length >= 201) {
+      for (let i = n; i >= 200; i--) {
+        const a = smaAt(v, 50, i), b = smaAt(v, 200, i), pa = smaAt(v, 50, i - 1), pb = smaAt(v, 200, i - 1);
+        if (a == null || b == null || pa == null || pb == null) break;
+        if (pa <= pb && a > b) { cross = { type: "golden", daysAgo: n - i }; break; }
+        if (pa >= pb && a < b) { cross = { type: "death", daysAgo: n - i }; break; }
+      }
+    }
+    const macd = macdOf(v);
+    // volume vs its own 20-day average + where the volume is landing (up vs
+    // down days). Days with no volume print are skipped, never zero-filled.
+    let volume = null;
+    const vol = Array.isArray(t.vol) ? t.vol : [];
+    const w = [];
+    for (let i = Math.max(1, v.length - 20); i < v.length; i++) {
+      if (hasNum(vol[i]) && hasNum(v[i]) && hasNum(v[i - 1])) w.push({ vol: +vol[i], up: v[i] >= v[i - 1] });
+    }
+    if (w.length >= 10) {
+      const total = w.reduce((a, x) => a + x.vol, 0);
+      const avg20 = total / w.length;
+      const latest = hasNum(vol[n]) ? +vol[n] : null;
+      volume = {
+        avg20, latest,
+        ratio: latest != null && avg20 > 0 ? latest / avg20 : null,
+        upShare: total > 0 ? w.filter(x => x.up).reduce((a, x) => a + x.vol, 0) / total : null,
+        days: w.length,
+      };
+    }
+    const win = (k) => {
+      const s = v.slice(-k).filter(x => hasNum(x) && x > 0);
+      return s.length >= Math.min(k, 40) ? { hi: Math.max(...s), lo: Math.min(...s) } : null;
+    };
+    const yr = win(252), qtr = win(63);
+    const stack = ma50 != null && ma200 != null
+      ? (price > ma50 && ma50 > ma200 ? "UPTREND" : price < ma50 && ma50 < ma200 ? "DOWNTREND" : "MIXED")
+      : null;
+    return {
+      asOf: t.to || null, days: v.length, price,
+      ma50, ma200,
+      pctVs50: ma50 ? (price / ma50 - 1) * 100 : null,
+      pctVs200: ma200 ? (price / ma200 - 1) * 100 : null,
+      stack, cross, macd, volume, yr, qtr,
+      ma50Series: v.map((_, i) => smaAt(v, 50, i)),
+      ma200Series: v.map((_, i) => smaAt(v, 200, i)),
+    };
+  }
   function bestSetupsOf() {
     const rows = [];
     for (const d of DATA) {
@@ -8537,6 +8701,7 @@
     pxReturn, pxNormalized, pxWindowSlice, tmDateLabels,
     applyLiveQuote, fetchFmpQuoteBatch, fetchYahooQuote, fetchYahooQuoteBatch, refreshAllLive, startLiveTape, isMarketHours,
     allCompanies, companyOf, tickerDrawdown, rebuildSecAlignedAnnuals, ttm, quoteChangeOf,
+    techOf, macdOf, smaAt, emaSeries,
     SBC_MODEL_VERSION, FORMULA_VERSION };
   document.addEventListener("DOMContentLoaded", init);
 })();
