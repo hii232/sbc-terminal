@@ -88,7 +88,39 @@ Still open, in priority order:
 
 Needs owner action: an `FMP_API_KEY` repo secret still upgrades the 47 FMP-covered names to FMP-quality estimates, but is no longer blocking — the Yahoo fallback accumulates history for the whole universe keylessly.
 
-## v8 candidates — findings from the 2026-08-07 process review (deferred: model frozen until 2026-11-05)
+## Security Analysis (Graham & Dodd, 7th ed. / Klarman) review — 2026-08-08
+
+A full read of the book against every scored engine. Chapters covering the income account (31-34, 37-38), P/E and capitalization (39-40), balance sheet (42-45), comparative analysis (49), price-vs-value (50-51), market vs security analysis (52), common-stock theory and dividends (1-4, 27-29), plus the modern commentary (Klarman, Combs, Romick, Zimmerman, Stein/Sternberg).
+
+**Shipped in v8** (both are self-contradictions, not preferences — see MODEL_CHANGELOG 8.0.0): the momentum input's positive 1-month coefficient against this file's own documented skip-month rationale (ch. 52); and missing cash coerced to zero in EV / invested capital, breaking the app's founding invariant inside its own score engine. Plus the display-only investment/speculative split (ch. 4).
+
+**Corrections made to the review itself during verification** — recorded because the audit trail is only worth what its accuracy is worth:
+- "The Price pillar is droppable, so a name with no valuation can still rank" — true in code, but **0 of 224** names are actually missing it. Theoretical; a guard is cheap and belongs in v9, but nothing is currently mis-ranked by it.
+- "`(g.debt || 0)` flatters scores" — wrong direction and wrong field. Debt is never null in the current bundle; **cash** is null for 22 names, which *overstates* EV and *penalises* them. 19 are banks where the affected ratios do not score anyway; the live victims were DXCM and LULU on ROIC.
+
+### v9 candidates — deferred, model frozen until 2026-11-06
+
+Ranked by expected value. None are shipped: each changes scores, and changing the model mid-window is what the freeze exists to prevent.
+
+1. **No dividend term anywhere in the score engine.** `divPaid` / `divRate` / `divYield` are bundled for all 224 companies; `scores.js` references them zero times. "Shareholder Economics" is therefore *dilution* economics: two identical businesses returning the same cash score differently purely by channel, and the buyback-minus-SBC term plus owner-EPS CAGR **both** penalise the dividend payer. The engine cannot distinguish returning capital from hoarding it — the exact question ch. 29 exists to answer. Fix: total shareholder yield `(dividends + net buybacks)`, and a payout ratio. Data already in hand.
+2. **Buybacks scored on volume with no price test.** Retiring stock at 45× owner earnings scores identically to retiring it at 11×; value destruction currently reads as a positive. The terminal already computes a fair value (IV ladder) and never joins the two. Fix: derive average repurchase price from cash paid ÷ shares retired and **sign** the term against the app's own fair-value estimate for those quarters.
+3. **Valuation anchors on TTM, not normalised earning power** (ch. 37, the most-emphasised rule in Part V; modern commentary softens it to 5-7 years, not to one). Best single fix, resolves several findings at once: median owner-earnings **margin** over ~7 years applied to **current** revenue — normalises the cycle without penalising real growth — published as `normalizedOwnerPE` beside `truePE`, ranking on the more conservative of the two. Would also make the ad-hoc 18% peak haircut largely redundant.
+4. **Depreciation is not ingested at all.** No D&A tag in `sec_ingest.py`, so the terminal cannot see a useful-life extension — which at the hyperscalers in its own universe has added billions to net income with zero cash change, in some cases moving earnings more than the SBC adjustment the whole app is built on. Fix: ingest `DepreciationDepletionAndAmortization` + `PropertyPlantAndEquipmentGross`, compute implied depreciation rate per year, flag material drops and quantify the EPS effect. The ingest is tag-driven, so this is cheap.
+5. **Growth is never joined to incremental ROIC.** 15% growth needing no incremental capital is worth far more than the same 15% consuming all of it; the terminal cannot tell them apart. Fix: incremental ROIC (ΔNOPAT / ΔInvested capital) and a reinvestment rate; make the growth-adjusted valuation term a function of `growth × incremental ROIC`.
+6. **Share count is GAAP diluted**, which by rule *excludes* anti-dilutive convertibles and underwater options. An app whose thesis is that GAAP understates dilution accepts GAAP's own understatement of the share base. Fix: a second Graham-diluted count via `AntidilutiveSecuritiesExcludedFromComputationOfEarningsPerShareAmount`; where the two diverge materially, that is a finding.
+7. **No non-recurring / one-timer handling.** Net income is taken as filed. Combined with a TTM base this is the worst pairing: an impairment or divestiture gain lands wholly inside the window and is capitalised at the full multiple. (Note: the GAAP "extraordinary item" category was eliminated by ASU 2015-01, so this must be reconstructed from component tags — restructuring, impairment, gain-on-sale — not read from one line.)
+8. **No interest coverage and no maturity wall.** Leverage is net-debt/FCF only — a stock-vs-flow ratio that says nothing about whether the coupon is covered or when the debt comes due.
+9. **The 28/84-day grading horizon is a ratchet.** A 4-week scorecard can validate a tape signal and essentially cannot validate a valuation signal; paired with the written "delete non-predictive signals" rule it will systematically prune the fundamental pillars and preserve the price pillars. Fix (governance, not code): bind the delete rule by pillar — Tape/Confluence may be judged at ≤84d, Business/Price may not be deleted on evidence shorter than 12 months.
+10. **No absolute valuation gate.** The board always emits a #1 even if every name is expensive; rank is a statement about the other 223, not about the security. Fix: carry absolute discount/premium to IV15 with equal weight to rank, and let the board say "nothing clears the bar".
+11. **Momentum is effectively counted more than once** — Tape and several Confluence votes are all functions of recent price/estimate direction. The correlation adjustment runs *across names* (top-10 effective bets), never *within* a name's score.
+12. **Peer buckets are sector-wide and homogeneity is never tested** (ch. 49); and the peer-median owner P/E is not conditioned on leverage, which ch. 49 names explicitly as unsafe without a total-capitalisation check.
+13. Balance sheet feeding the score is a single-year vendor snapshot (not SEC), so ch. 45's over-time comparisons — the part the modern commentary says still works — are structurally impossible. Preferred stock and NCI are not deducted from book value or NCAV.
+
+**Explicitly NOT to be adopted** (era-bound, and the modern editors agree): net-net / NCAV screening, P/B as a ranking input, the Graham Number, and Graham's dividend-payout pricing coefficients. In a mega-cap universe these select for impaired businesses rather than bargains — keeping them display-only is correct and should stay that way.
+
+**What the book validates**: owner earnings restating the true economic cost of equity comp is orthodox Graham (the "critical function" of ch. 1); missing-stays-missing; dropping uncomputable pillars rather than scoring them neutral; the frozen model with version-stamped snapshots and no pooling across versions; de-duplicating correlated votes; long-only and unlevered; and display-only technicals.
+
+## v8 candidates — findings from the 2026-08-07 process review (shipped or superseded; retained for history)
 
 Found while tracing a ticker end-to-end through the ranking. All three change scores or rank order, so they wait for the freeze verdict; the display layer was made honest about them now instead.
 

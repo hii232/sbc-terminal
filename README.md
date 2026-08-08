@@ -36,9 +36,9 @@ Finnhub and FMP are optional browser keys. Finnhub is used for quotes, news, ana
 
 ## Market / Business Model
 
-Current SBC model version: `SBC_MODEL_VERSION = "4.5.1"`.
+Current SBC model version: `SBC_MODEL_VERSION = "4.6.0"`.
 Current market/business model version: `MARKET_TERMINAL_VERSION = "4.1.0"`.
-Current master ranking model: `MASTER_MODEL_VERSION = 7`, frozen until 2026-11-05 (see MODEL_CHANGELOG.md).
+Current master ranking model: `MASTER_MODEL_VERSION = 8`, frozen until 2026-11-06 (see MODEL_CHANGELOG.md).
 
 The main company view no longer uses Clean/Middle/High/Tragic as the whole-stock opinion. Those labels remain inside the SBC X-Ray only. The top-level dashboard answers six separate questions:
 

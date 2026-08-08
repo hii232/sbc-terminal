@@ -729,22 +729,61 @@
     const txt = `Street asks for ${fyRevGrowthNeed.toFixed(1)}% FY revenue growth vs ${trend.toFixed(1)}% trailing YoY trend (${accel >= 0 ? "ask exceeds trend by " : "ask is below trend by "}${Math.abs(accel).toFixed(1)}pp)`;
     return { score, txt, accel };
   }
+  /* Universe percentile of the 12-1 momentum factor. Momentum is a RELATIVE
+     factor — the momentum board's own header says an absolute cutoff "would
+     mean something different in every tape" — so the ranking input is the
+     percentile, not a raw return run through invented coefficients.
+     Memoized: momentumPart runs per name inside directionEdgeOf, and
+     momentumOf touches a year of weekly closes. */
+  let _momDistCache = null, _momDistAt = 0;
+  function momentumDistribution() {
+    if (_momDistCache && Date.now() - _momDistAt < 45000) return _momDistCache;
+    const ras = [];
+    for (const c of DATA) { const m = momentumOf(c); if (m && m.riskAdj != null) ras.push(m.riskAdj); }
+    _momDistCache = ras.sort((a, b) => a - b); _momDistAt = Date.now();
+    return _momDistCache;
+  }
+  /* Percentile of a VALUE against the universe distribution — deliberately
+     not a ticker lookup: keyed by ticker, any name absent from the map (a
+     synthetic row, a name added mid-session) silently fell through to the
+     weaker fallback instead of being ranked. */
+  function momentumPercentileOf(riskAdj) {
+    if (!Number.isFinite(riskAdj)) return null;
+    const s = momentumDistribution();
+    if (s.length < 2) return null;
+    let lo = 0; while (lo < s.length && s[lo] < riskAdj) lo++;
+    return (lo / (s.length - 1)) * 100;
+  }
+  /* PRICE MOMENTUM — the 12-1 standard, matching this terminal's own
+     momentum board.
+     The previous version scored `50 + m1*1.25 + m3*0.55 + day*0.4`, giving
+     the ONE-MONTH return the largest positive coefficient — while the
+     momentum board twenty pages down states, in this same file, that "the
+     most recent month exhibits SHORT-TERM REVERSAL, and including it
+     measurably degrades the factor. Most retail momentum screens get this
+     wrong." The terminal documented the error and then committed it on the
+     surface that sets the ranking. A Graham & Dodd review (ch. 52, market
+     analysis vs security analysis) surfaced it.
+     Today's single-day change is dropped entirely: it is not trend, and a
+     live quote already re-ranks correctly through the PRICE pillar, where a
+     spike makes a name less attractive rather than more. Keeping a positive
+     same-day term here meant momentum was quietly fighting valuation on
+     every tick.
+     Fallback is the 3-month window (medium horizon, previously-audited
+     coefficient) — never the 1-month window this terminal calls reverting. */
   function momentumPart(d) {
     const vals = d.px && d.px.v ? d.px.v : [];
-    const m1 = pctMoveFrom(vals, 4);
+    const mom = momentumOf(d);
+    const pctile = mom && mom.riskAdj != null ? momentumPercentileOf(mom.riskAdj) : null;
+    if (pctile != null) {
+      const txt = `12-1 momentum ${mom.ret121 >= 0 ? "+" : ""}${mom.ret121}% (risk-adj ${mom.riskAdj}) — universe percentile ${Math.round(pctile)}; last month (${mom.skipRet == null ? "n/a" : (mom.skipRet >= 0 ? "+" : "") + mom.skipRet + "%"}) deliberately excluded`;
+      return scorePart("momentum", "Price momentum", pctile, 18, txt, "12-1 weekly price history (skip-month)", { ret121: mom.ret121, riskAdj: mom.riskAdj, skipRet: mom.skipRet, pctile });
+    }
     const m3 = pctMoveFrom(vals, 13);
-    const day = quoteChangeOf(d);
-    if (m1 == null && m3 == null && day == null) return scorePart("momentum", "Price momentum", null, 18, "no price tape", "missing");
-    // An audit found today's single-day change carried the LARGEST
-    // coefficient of the three (1.7, above even the 1-month term's 1.25) in
-    // a part meant to read SUSTAINED trend -- one noisy/news-driven day
-    // could dominate the whole momentum score. Today's move is the least
-    // reliable of the three (mostly noise/one-off news, not trend), so its
-    // coefficient must sit BELOW both the 1-month and 3-month terms, not
-    // above them.
-    const s = 50 + (m1 || 0) * 1.25 + (m3 || 0) * 0.55 + (day || 0) * 0.4;
-    const txt = `price tape: 1M ${m1 == null ? "n/a" : m1.toFixed(1) + "%"}, 3M ${m3 == null ? "n/a" : m3.toFixed(1) + "%"}, today ${day >= 0 ? "+" : ""}${(day || 0).toFixed(1)}%`;
-    return scorePart("momentum", "Price momentum", s, 18, txt, vals.length >= 14 ? "weekly price history + live quote" : "limited price history", { m1, m3, day });
+    if (m3 == null) return scorePart("momentum", "Price momentum", null, 18, "no usable price tape", "missing");
+    return scorePart("momentum", "Price momentum", 50 + m3 * 0.55, 18,
+      `3M ${m3.toFixed(1)}% — 12-1 not computable (needs ~1y of weekly closes), medium-horizon fallback`,
+      "limited price history", { m3 });
   }
   function sectorConfirmationPart(d) {
     const etf = sectorETF(d.sector);
@@ -1453,6 +1492,7 @@
         })() : ""}
         <div style="flex:1;min-width:260px;display:flex;gap:12px;flex-wrap:wrap">${m.pillars.map(bar).join("")}</div>
       </div>
+      ${m.investment && m.speculative ? `<div class="kv"><span class="k">WHAT YOU ARE PAYING FOR</span><span class="v"><span class="sub" style="white-space:normal;line-height:1.6"><b style="color:var(--cyan)">INVESTMENT ${m.investment.score}</b> (business · price · data trust — ${m.investment.weight} of the weight) &nbsp;·&nbsp; <b style="color:var(--amber)">SPECULATIVE ${m.speculative.score}</b> (tape · confluence — ${m.speculative.weight} of the weight). ${m.speculative.score - m.investment.score >= 12 ? `<b style="color:var(--orange)">The market's enthusiasm is running ahead of the business-and-price case.</b>` : m.investment.score - m.speculative.score >= 12 ? `<b style="color:var(--green)">The business-and-price case is stronger than the tape — the unloved-quality shape.</b>` : "Both readings broadly agree."} Graham's split (ch. 4): the speculative part is not to be discarded, it is to be <i>labelled</i>. Display only — the ${m.score} above is unchanged, and confluence mixes real evidence (insider buys, filing diffs) with market expectation.</span></span></div>` : ""}
       ${m.worst && m.best && m.worst.key !== m.best.key ? `<div class="kv"><span class="k">CARRIED BY / HELD BACK BY</span><span class="v"><span class="sub" style="white-space:normal"><b style="color:var(--green)">${m.best.label}</b> ${escapeHtml(m.best.why)} — held back by <b style="color:var(--orange)">${m.worst.label.toLowerCase()}</b> (${m.worst.score}): ${escapeHtml(m.worst.why)}</span></span></div>` : ""}
       ${missing.length ? `<div class="sub" style="margin-top:6px">Not computable for this name: ${missing.map(p => p.label.toLowerCase()).join(", ")} — dropped from the average rather than scored as a neutral 50, which is why coverage reads ${m.coverage}%.</div>` : ""}
     </div>`;
@@ -3821,14 +3861,24 @@
      revenue. Fixing the pairing moved scores on 70 of 224 names, which makes
      pre-fix snapshots incomparable with post-fix boards — so the version bumps
      and the clock restarts, costing exactly ONE v6 snapshot day. */
-  const MASTER_MODEL_VERSION = 7;
+  /* v8: a Graham & Dodd (7th ed.) review of the whole terminal. Two SCORING
+     defects found and fixed — the ranking's momentum input carried its
+     largest POSITIVE coefficient on the 1-month return, the exact window
+     this file documents as mean-reverting and excludes from its own momentum
+     board (ch. 52, market analysis vs security analysis); and EV / invested
+     capital coerced a missing cash balance to zero, breaking this app's own
+     "missing is never zero" rule inside its own score engine. 153 of 224
+     scores and 216 ranks move, so v7 snapshots are not comparable and the
+     clock restarts. Everything else the review surfaced is recorded in
+     AUDIT.md as v9 candidates rather than shipped mid-flight. */
+  const MASTER_MODEL_VERSION = 8;
   /* THE FREEZE. Four model versions shipped in weeks, and every bump reset
      the proof clock — so no ranking was ever validated against forward
      returns. That stops here: v5 is frozen until the benchmark clock below
      delivers a verdict. Changing weights, pillar math, or vote wiring before
      freezeUntil means bumping to v6 and CONSCIOUSLY throwing this clock away
      — the Proof Scoreboard renders this box so the temptation has a face. */
-  const MASTER_MODEL_FREEZE = { version: 7, since: "2026-08-07", days: 90, until: "2026-11-05" };
+  const MASTER_MODEL_FREEZE = { version: 8, since: "2026-08-08", days: 90, until: "2026-11-06" };
   /* Peak-cycle earnings detector. Pure function over the 10y revenue/ni
      arrays so it is unit-testable on synthetic companies. */
   function cyclePeakOf(d) {
@@ -3958,7 +4008,32 @@
     // what is carrying it, and what is holding it back
     const ranked = MASTER_PILLARS.filter(p => parts[p.key])
       .map(p => ({ ...p, ...parts[p.key] })).sort((a, b) => b.score - a.score);
+    /* THE GRAHAM SPLIT (ch. 4). Graham divides a price into an INVESTMENT
+       component (what analysis of the business and the price supports) and a
+       SPECULATIVE component (what the market is currently expecting), and his
+       instruction is not to discard the second — it is to LABEL it, so the
+       buyer knows what he is paying for. This terminal blended both into one
+       integer, so a 78 could be a cheap durable business or an expensive one
+       with a hot tape and the reader could not tell which.
+       Display-only: the composite above is unchanged, and neither sub-total
+       feeds any rank. Confluence sits on the speculative side because most of
+       its votes read market expectation (drift, revisions, ratings, RSI,
+       narrative heat) — but it also carries genuine evidence (insider buys,
+       filing diffs, language change), so the split is stated on-screen as a
+       reading aid, not a clean partition. */
+    const subTotal = (keys) => {
+      let n = 0, dsum = 0;
+      for (const p of MASTER_PILLARS) {
+        if (!keys.includes(p.key) || !parts[p.key]) continue;
+        const ev = p.key === "confluence" && conv && Number.isFinite(conv.evidence) ? conv.evidence : 1;
+        n += parts[p.key].score * p.weight * ev; dsum += p.weight * ev;
+      }
+      return dsum ? { score: Math.round(n / dsum), weight: Math.round(dsum) } : null;
+    };
+    const investment = subTotal(["business", "price", "trust"]);
+    const speculative = subTotal(["tape", "confluence"]);
     return { d, ticker: d.ticker, score, label, color, coverage, rankable, parts, pillars: ranked,
+      investment, speculative,
       best: ranked[0] || null, worst: ranked.length > 1 ? ranked[ranked.length - 1] : null, conv,
       evidenceGap: (conv && conv.notEvaluated) || [] };
   }
@@ -5244,7 +5319,7 @@
   const fmtPct = (v, d = 1) => v == null || isNaN(v) ? "–" : (v >= 0 ? "" : "") + v.toFixed(d) + "%";
   const cls = (v, good, bad) => v == null ? "" : v >= good ? "up" : v <= bad ? "down" : "";
   const FORMULA_VERSION = "v4.5 (2026-07)";
-  const SBC_MODEL_VERSION = "4.5.1"; // bump when any engine formula changes
+  const SBC_MODEL_VERSION = "4.6.0"; // bump when any engine formula changes
   // Data-quality per spec: SEC XBRL reconciliation is automated, not a manual
   // line-by-line audit. Retention/owner-earnings remain model estimates.
   //  FILING VERIFIED*    — 5+ core fields match SEC XBRL and no open conflicts

@@ -268,7 +268,11 @@
     const g = d.gd || {}, m = margins(d), rev = last(d.revenue), ni = last(d.ni);
     const fcf = last(d.qm && d.qm.fcf), ocf = last(d.qm && d.qm.ocf), op = last(d.qm && d.qm.opinc);
     const base = SECTOR_BASELINES[sectorETF(d)] || SECTOR_BASELINES.SPY;
-    const invested = n(g.debt) != null && n(g.eq) != null ? (g.debt || 0) + (g.eq || 0) - (g.cash || 0) : null;
+    // Every leg must be PRESENT. `(g.cash || 0)` treated a missing cash
+    // balance as zero cash, overstating invested capital and understating
+    // ROIC — the app's own "missing is never zero" rule, broken in its own
+    // score engine (22 names carry a null cash balance).
+    const invested = n(g.debt) != null && n(g.eq) != null && n(g.cash) != null ? g.debt + g.eq - g.cash : null;
     const roic = invested && invested > 0 && op != null ? (op * 0.79 / invested) * 100 : null;
     const roe = g.eq > 0 && ni != null ? (ni / g.eq) * 100 : null;
     const returnScore = sectorETF(d) === "XLF" || sectorETF(d) === "XLRE" ? scoreRange(roe, 5, 18) : scoreRange(roic, 5, 30);
@@ -413,7 +417,11 @@
 
   function valuation(d, ctx) {
     const fcf = last(d.qm && d.qm.fcf), sbc = last(d.sbc), mcap = d.mktCap, price = d.price;
-    const g = d.gd || {}, ev = mcap != null ? mcap + (g.debt || 0) - (g.cash || 0) : null;
+    // Same rule as invested capital above: an enterprise value is only an
+    // enterprise value when debt AND cash are known. Coercing either to zero
+    // silently mis-stated EV/FCF and EV/adjusted FCF (24 of this score's
+    // weight) rather than dropping the components as uncomputable.
+    const g = d.gd || {}, ev = mcap != null && n(g.debt) != null && n(g.cash) != null ? mcap + g.debt - g.cash : null;
     const gaapYield = d.gaapEPS && price ? (d.gaapEPS / price) * 100 : null;
     const fcfYield = fcf != null && mcap ? (fcf / mcap) * 100 : null;
     const adjFcf = fcf != null && sbc != null ? fcf - sbc : null;

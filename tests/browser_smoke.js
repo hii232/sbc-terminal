@@ -89,7 +89,7 @@ async function main() {
     ok(globals.universeLen === OFFICIAL_COUNT, `UNIVERSE length ${globals.universeLen}`);
     ok(globals.secCount === OFFICIAL_COUNT && globals.secMetaCompanies === OFFICIAL_COUNT, "SEC company count mismatch");
     ok(globals.secMetaModel === "4.0.0", "SEC pipeline version missing"); // sec_ingest.py's own stamp
-    ok(globals.model === "4.5.1", "app model version missing");
+    ok(globals.model === "4.6.0", "app model version missing");
     ok(globals.marketModel === "4.1.0", "market/business score model missing");
     ok(!globals.hasFlut, "FLUT must not be bundled");
     ok(!globals.oldPhrase, "old true-P/E shortcut copy is still visible");
