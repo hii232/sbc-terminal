@@ -2,7 +2,7 @@
  "ticker": "MCD",
  "cik": "0000063908",
  "entityName": "McDONALD\u2019S CORPORATION",
- "retrievedAt": "2026-08-07T11:45:51.161124Z",
+ "retrievedAt": "2026-08-08T22:28:06.151594Z",
  "fields": {
   "buyback": [
    {
@@ -1578,12 +1578,12 @@
     "confidence": 100
    },
    {
-    "value": 710505859,
+    "value": 707641531,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0000063908-26-000051",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0000063908-26-000073",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

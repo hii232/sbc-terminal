@@ -1,8 +1,8 @@
 {
  "ticker": "MRK",
  "cik": "0000310158",
- "entityName": "Merck & Co., Inc.",
- "retrievedAt": "2026-08-07T11:45:45.181994Z",
+ "entityName": "Merck\u00a0& Co., Inc.",
+ "retrievedAt": "2026-08-08T22:27:58.859574Z",
  "fields": {
   "buyback": [
    {
@@ -1562,12 +1562,12 @@
     "confidence": 100
    },
    {
-    "value": 2469824415,
+    "value": 2467171638,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-04",
-    "accessionNumber": "0001628280-26-029802",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0000310158-26-000212",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

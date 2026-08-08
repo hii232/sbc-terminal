@@ -1,0 +1,63 @@
+{
+ "ticker": "PS",
+ "cik": "0002026053",
+ "entityName": "Pershing Square Inc.",
+ "retrievedAt": "2026-08-08T22:26:29.141832Z",
+ "fields": {
+  "buyback": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "capex": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "dilShares": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "esppProceeds": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "netIncome": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "ocf": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "revenue": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "sbc": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "taxWithholding": {
+   "sourceStatus": "missing",
+   "note": "no annual fact found under known tags \u2014 missing, NOT zero"
+  },
+  "periodEndShares": [
+   {
+    "value": 400000000,
+    "unit": "shares",
+    "periodEnd": "2026-05-31",
+    "form": "10-Q",
+    "filedDate": "2026-06-04",
+    "accessionNumber": "0001193125-26-257665",
+    "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
+    "sourceType": "SEC",
+    "sourceStatus": "reported",
+    "confidence": 100
+   }
+  ]
+ },
+ "latestFiling": {
+  "filed": "",
+  "form": "",
+  "accn": ""
+ }
+}

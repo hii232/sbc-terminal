@@ -2,7 +2,7 @@
  "ticker": "AIG",
  "cik": "0000005272",
  "entityName": "American International Group, Inc.",
- "retrievedAt": "2026-08-07T11:46:39.242610Z",
+ "retrievedAt": "2026-08-08T22:29:20.945623Z",
  "fields": {
   "buyback": [
    {
@@ -1618,12 +1618,12 @@
     "confidence": 100
    },
    {
-    "value": 530206221,
+    "value": 522893169,
     "unit": "shares",
-    "periodEnd": "2026-04-24",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-01",
-    "accessionNumber": "0000005272-26-000052",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0000005272-26-000076",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

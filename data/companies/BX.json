@@ -2,7 +2,7 @@
  "ticker": "BX",
  "cik": "0001393818",
  "entityName": "Blackstone Inc.",
- "retrievedAt": "2026-08-07T11:46:36.609580Z",
+ "retrievedAt": "2026-08-08T22:29:17.676457Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",
@@ -1370,12 +1370,12 @@
     "confidence": 100
    },
    {
-    "value": 742879807,
+    "value": 750625114,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0001193125-26-214609",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0001193125-26-340208",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

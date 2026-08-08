@@ -2,7 +2,7 @@
  "ticker": "SCHW",
  "cik": "0000316709",
  "entityName": "SCHWAB CHARLES CORP",
- "retrievedAt": "2026-08-07T11:45:40.776597Z",
+ "retrievedAt": "2026-08-08T22:27:54.006950Z",
  "fields": {
   "buyback": [
    {
@@ -1585,12 +1585,12 @@
     "confidence": 100
    },
    {
-    "value": 1739135507,
+    "value": 1729335714,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0000316709-26-000019",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0000316709-26-000031",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

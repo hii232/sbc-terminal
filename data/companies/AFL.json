@@ -1,8 +1,8 @@
 {
  "ticker": "AFL",
  "cik": "0000004977",
- "entityName": "AFLAC INC",
- "retrievedAt": "2026-08-07T11:46:41.736188Z",
+ "entityName": "Aflac Incorporated",
+ "retrievedAt": "2026-08-08T22:29:23.892858Z",
  "fields": {
   "buyback": [
    {
@@ -1170,12 +1170,12 @@
     "confidence": 100
    },
    {
-    "value": 508984904,
+    "value": 501343298,
     "unit": "shares",
-    "periodEnd": "2026-04-28",
+    "periodEnd": "2026-07-28",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0001628280-26-030923",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0001628280-26-054618",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

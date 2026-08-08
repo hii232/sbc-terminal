@@ -1,8 +1,8 @@
 {
  "ticker": "FI",
  "cik": "0000798354",
- "entityName": "FISERV INC",
- "retrievedAt": "2026-07-24T18:39:10.456552Z",
+ "entityName": "FISERV, INC.",
+ "retrievedAt": "2026-08-08T22:26:12.706731Z",
  "fields": {
   "buyback": [
    {
@@ -1566,12 +1566,12 @@
     "confidence": 100
    },
    {
-    "value": 533253986,
+    "value": 531766721,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-06",
-    "accessionNumber": "0000798354-26-000018",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0000798354-26-000031",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

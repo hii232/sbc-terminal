@@ -1,8 +1,8 @@
 {
  "ticker": "TTWO",
  "cik": "0000946581",
- "entityName": "Take-Two Interactive Software, Inc.",
- "retrievedAt": "2026-08-07T11:46:24.536932Z",
+ "entityName": "TAKE-TWO INTERACTIVE SOFTWARE,\u00a0INC.",
+ "retrievedAt": "2026-08-08T22:28:51.388346Z",
  "fields": {
   "buyback": [
    {
@@ -1949,12 +1949,12 @@
     "confidence": 100
    },
    {
-    "value": 185666663,
+    "value": 186980443,
     "unit": "shares",
-    "periodEnd": "2026-05-11",
-    "form": "10-K",
-    "filedDate": "2026-05-22",
-    "accessionNumber": "0001628280-26-037434",
+    "periodEnd": "2026-07-27",
+    "form": "10-Q",
+    "filedDate": "2026-08-07",
+    "accessionNumber": "0001628280-26-054870",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

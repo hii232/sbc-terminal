@@ -2,7 +2,7 @@
  "ticker": "SLB",
  "cik": "0000087347",
  "entityName": "SLB LIMITED/NV",
- "retrievedAt": "2026-08-07T11:46:01.415473Z",
+ "retrievedAt": "2026-08-08T22:28:22.618607Z",
  "fields": {
   "buyback": {
    "sourceStatus": "missing",
@@ -1686,12 +1686,12 @@
     "confidence": 100
    },
    {
-    "value": 1495057661,
+    "value": 1484143231,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-04-29",
-    "accessionNumber": "0001193125-26-190101",
+    "filedDate": "2026-07-29",
+    "accessionNumber": "0001193125-26-322595",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
