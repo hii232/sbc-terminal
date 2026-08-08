@@ -88,6 +88,14 @@ Still open, in priority order:
 
 Needs owner action: an `FMP_API_KEY` repo secret still upgrades the 47 FMP-covered names to FMP-quality estimates, but is no longer blocking — the Yahoo fallback accumulates history for the whole universe keylessly.
 
+## v8 candidates — findings from the 2026-08-07 process review (deferred: model frozen until 2026-11-05)
+
+Found while tracing a ticker end-to-end through the ranking. All three change scores or rank order, so they wait for the freeze verdict; the display layer was made honest about them now instead.
+
+1. **Integer-score ties decide the podium alphabetically.** Board sort is `score desc, coverage desc, ticker asc` on integer scores — at the top of the shipped board #1 vs #2 is a literal tie broken by the alphabet. Fixed at the DISPLAY level (ranks render "1=" with the tie named on board rows and ticker cards); a real fix — carrying sub-integer precision into the sort, or presenting tied names as one rank band — reorders recorded ranks and therefore waits for v8.
+2. **Narrative heat votes bullish regardless of the story's own direction.** "Software Under AI Pressure" running HOT casts a + conviction vote for its members. Mechanically heat measures members' own tape/breadth/revisions (so hot = members being bought), but an adverse-framed cluster being hot is at best ambiguous evidence for a member. v8 should decide whether narrative direction (adverse vs favorable framing) modulates the vote, or whether the vote should be renamed to what it measures (cluster tape strength).
+3. **The Tape pillar is the thinnest scored input** (weight 18): market reward ran for weeks on empty revision histories (now healing — fallback live since 2026-08-07, horizons fill over 7/30/90 days), and its price inputs are weekly closes + a 70-day RSI. The new `pt` daily OHLCV bundle (display-only today) is the natural v8 upgrade path for measured trend/volume inputs — IF the display layer's readings prove worth scoring, which the calibration clock exists to answer.
+
 ## Deployment Rule
 
 Do not deploy unless:

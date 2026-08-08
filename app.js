@@ -1444,8 +1444,13 @@
           <div class="stat" style="font-size:34px;color:${m.color}">${m.score}</div>
           <div class="sub"><b style="color:${m.color}">${m.label}</b> · ${m.coverage}% coverage</div>
         </div>
-        ${m.rank ? `<div style="min-width:130px"><div class="stat sm">#${m.rank}<span class="unit"> of ${m.of}</span></div>
-          <div class="sub">rank across the full universe${m.rank <= 10 ? " — top 10" : m.rank <= 25 ? " — top 25" : ""}</div></div>` : ""}
+        ${m.rank ? (() => {
+          // Same tie honesty as the board: an integer score shared with other
+          // names means the rank number alone overstates precision.
+          const peers = masterBoardCached().filter(r => r.score === m.score && r.coverage === m.coverage && r.ticker !== d.ticker).length;
+          return `<div style="min-width:130px"><div class="stat sm">#${m.rank}${peers ? "=" : ""}<span class="unit"> of ${m.of}</span></div>
+          <div class="sub">rank across the full universe${m.rank <= 10 ? " — top 10" : m.rank <= 25 ? " — top 25" : ""}${peers ? ` · tied with ${peers} other name${peers > 1 ? "s" : ""} at ${m.score}` : ""}</div></div>`;
+        })() : ""}
         <div style="flex:1;min-width:260px;display:flex;gap:12px;flex-wrap:wrap">${m.pillars.map(bar).join("")}</div>
       </div>
       ${m.worst && m.best && m.worst.key !== m.best.key ? `<div class="kv"><span class="k">CARRIED BY / HELD BACK BY</span><span class="v"><span class="sub" style="white-space:normal"><b style="color:var(--green)">${m.best.label}</b> ${escapeHtml(m.best.why)} — held back by <b style="color:var(--orange)">${m.worst.label.toLowerCase()}</b> (${m.worst.score}): ${escapeHtml(m.worst.why)}</span></span></div>` : ""}
@@ -6628,13 +6633,22 @@
     const sorted = sigState.boardSort === "score" ? all
       : [...all].sort((a, b) => (b.parts[sigState.boardSort]?.score ?? -1) - (a.parts[sigState.boardSort]?.score ?? -1));
     const shown = sigState.boardSize === 0 ? sorted : sorted.slice(0, sigState.boardSize);
+    // Integer scores tie often, and within a tie the row order is ALPHABETICAL
+    // — "#1 ADBE" over an equal-scored PGR is not a ranking claim. Mark ties
+    // so the board never manufactures precision the composite doesn't have.
+    const tied = new Set();
+    for (let i = 0; i < all.length; i++) {
+      const a = all[i], nx = all[i + 1], pv = all[i - 1];
+      if ((nx && nx.score === a.score && nx.coverage === a.coverage) ||
+          (pv && pv.score === a.score && pv.coverage === a.coverage)) tied.add(a.ticker);
+    }
     const pillarCell = (r, key) => {
       const p = r.parts[key];
       if (!p) return `<td class="sub" style="text-align:center" title="not computable — dropped from the average, not scored as 50">–</td>`;
       return `<td style="text-align:center"><span style="display:inline-block;min-width:26px;font-weight:700;color:${scoreColorOf(p.score)}">${p.score}</span></td>`;
     };
     const row = (r) => `<tr data-tk="${r.ticker}" title="${escapeHtml(r.pillars.map(p => p.label + " " + p.score + ": " + p.why).join(" | "))}">
-      <td style="text-align:center"><b style="color:${r.rank <= 3 ? "var(--gold)" : "var(--muted)"}">${r.rank}</b></td>
+      <td style="text-align:center"${tied.has(r.ticker) ? ` title="tied — equal score and coverage with the adjacent rank; order inside a tie is alphabetical, not a ranking claim"` : ""}><b style="color:${r.rank <= 3 ? "var(--gold)" : "var(--muted)"}">${r.rank}${tied.has(r.ticker) ? "=" : ""}</b></td>
       <td style="text-align:left"><span class="rk-tk">${r.ticker}</span> <span class="sub">${r.d.sector}${r.sectorRank ? ` · #${r.sectorRank}/${r.sectorOf}` : ""}</span>${r.parts.price && r.parts.price.cyclePeak ? ` <span class="impact-chip" style="background:var(--orange);color:#071018" title="latest net margin is a 10-year high — the Price pillar carries an 18% peak-cycle haircut">PEAK</span>` : ""}</td>
       <td><span class="rk-pill" style="background:${r.color};color:#071018">${r.score}</span></td>
       <td><b style="color:${r.color};font-size:10px">${r.label}</b></td>
