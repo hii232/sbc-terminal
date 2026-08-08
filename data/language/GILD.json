@@ -3,6 +3,34 @@
  "sector": "Biotech",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 11136,
+   "themes": [
+    {
+     "theme": "cell therapy acquisitions",
+     "quote": "Completed the acquisition of Arcellx, Inc., which builds on an existing collaboration agreement with Arcellx for the development of anitocabtagene autoleucel"
+    },
+    {
+     "theme": "antibody-drug conjugate platform",
+     "quote": "Completed the acquisition of Tubulis GmbH, which brings Gilead next-generation antibody-drug conjugate assets, including TUB-040, and a platform to develop novel ADCs"
+    },
+    {
+     "theme": "t cell engager development",
+     "quote": "Completed the acquisition of Ouro Medicines, which adds gamgertamig, a clinical stage BCMAxCD3 T cell engager for autoimmune diseases"
+    },
+    {
+     "theme": "oncology portfolio expansion",
+     "quote": "Received FDA approval of Trodelvy for the first-line treatment of adult patients with locally advanced or metastatic triple-negative breast cancer"
+    },
+    {
+     "theme": "hdv treatment approval",
+     "quote": "Received FDA accelerated approval for Hepcludex for the treatment chronic hepatitis delta virus infection in adults, which is now the first and only FDA-approved treatment for HDV in the U.S"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -59,34 +87,6 @@
     {
      "theme": "in vivo gene therapy development",
      "quote": "Entered into a collaboration with Shenzhen Pregene Biopharma Co., Ltd. to develop next-generation in vivo therapies; Announced the acquisition of Interius BioTherapeutics, Inc., a privately held biotechnology company developing in vivo chim"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 12167,
-   "themes": [
-    {
-     "theme": "lenacapavir hiv prep expansion",
-     "quote": "Received a strong recommendation for the use of twice-yearly injectable Yeztugo (lenacapavir) for HIV pre-exposure prophylaxis (PrEP) in the new U.S. Centers for Disease Control and Prevention guidelines. Announced a partnership with the U."
-    },
-    {
-     "theme": "seladelpar liver disease commercialization",
-     "quote": "In August 2024, FDA granted accelerated approval for Livdelzi (seladelpar) for the treatment of primary biliary cholangitis in combination with ursodeoxycholic acid (UDCA) in adults who have had an inadequate response to UDCA, or as monothe"
-    },
-    {
-     "theme": "in vivo car-t cell therapy",
-     "quote": "Announced the acquisition of Interius BioTherapeutics, Inc., a privately held biotechnology company developing in vivo chimeric antigen receptor therapeutics, for approximately $350 million. Entered into a collaboration with Shenzhen Pregen"
-    },
-    {
-     "theme": "oral stat6 inflammatory disease",
-     "quote": "we entered into a strategic partnership with LEO Pharma A/S (LEO Pharma) to accelerate the development and commercialization of LEO Pharma's small molecule oral signal transducer and activator of transcription 6 (STAT6) programs for the pot"
-    },
-    {
-     "theme": "biktarvy patent protection extension",
-     "quote": "Announced settlement agreements to resolve Biktarvy patent litigation with generic manufacturers Lupin Ltd., Cipla Ltd. and Laurus Labs Ltd. Under the agreements, the earliest date the three generic manufacturers can market a generic versio"
     }
    ]
   }

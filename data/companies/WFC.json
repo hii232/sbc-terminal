@@ -2,7 +2,7 @@
  "ticker": "WFC",
  "cik": "0000072971",
  "entityName": "WELLS        FARGO & COMPANY/MN",
- "retrievedAt": "2026-08-06T13:42:17.271464Z",
+ "retrievedAt": "2026-08-07T11:45:37.832505Z",
  "fields": {
   "buyback": [
    {
@@ -1560,12 +1560,12 @@
     "confidence": 100
    },
    {
-    "value": 3060189494,
+    "value": 3023999336,
     "unit": "shares",
-    "periodEnd": "2026-04-17",
+    "periodEnd": "2026-07-17",
     "form": "10-Q",
-    "filedDate": "2026-04-29",
-    "accessionNumber": "0000072971-26-000217",
+    "filedDate": "2026-07-28",
+    "accessionNumber": "0000072971-26-000302",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

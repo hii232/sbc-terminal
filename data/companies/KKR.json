@@ -1,8 +1,8 @@
 {
  "ticker": "KKR",
  "cik": "0001404912",
- "entityName": "KKR & Co. Inc.",
- "retrievedAt": "2026-08-06T13:43:07.130954Z",
+ "entityName": "KKR\u00a0&\u00a0CO.\u00a0INC.",
+ "retrievedAt": "2026-08-07T11:46:37.022236Z",
  "fields": {
   "buyback": [
    {
@@ -1453,12 +1453,12 @@
     "confidence": 100
    },
    {
-    "value": 897872941,
+    "value": 897635601,
     "unit": "shares",
-    "periodEnd": "2026-05-07",
+    "periodEnd": "2026-08-05",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0001404912-26-000017",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001404912-26-000027",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

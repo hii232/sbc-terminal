@@ -3,6 +3,34 @@
  "sector": "Semi Equip",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-K MD&A",
+   "words": 6503,
+   "themes": [
+    {
+     "theme": "advanced packaging inspection expansion",
+     "quote": "Increasing complexity and value of semiconductor packages, particularly for AI and HPC applications, is also driving significant growth in our advanced packaging business"
+    },
+    {
+     "theme": "leading-edge node process control",
+     "quote": "Demand for advanced semiconductor technologies, particularly at leading-edge nodes such as 2-nanometer, is increasing process complexity and process control intensity, which in turn is driving incremental demand for our solutions"
+    },
+    {
+     "theme": "ai infrastructure buildout support",
+     "quote": "AI represents a key technology inflection point driving innovation and demand at the leading edge, and our portfolio of products is well positioned to support leading-edge demand and the ongoing AI infrastructure buildout"
+    },
+    {
+     "theme": "euv adoption process control",
+     "quote": "Long-term demand drivers include continued adoption of EUV in HVM for logic and DRAM (including high-bandwidth memory), which are increasing process control requirements and expanding our served market"
+    },
+    {
+     "theme": "services revenue growth",
+     "quote": "our services business has grown consistently year over year and accounted for approximately 23% of our total revenues in fiscal 2026. Our services revenue, which is generated largely from recurring \"subscription-like\" contracts"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-04-30",
    "source": "SEC 10-Q MD&A",
@@ -51,30 +79,6 @@
     {
      "theme": "long-term customer contracts",
      "quote": "klac:LongTermContractWithCustomerTwelveToTwentyFourMonthsMember and klac:LongTermContractWithCustomerTwentyFourMonthsOrGreaterMember"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-31",
-   "source": "SEC 10-Q MD&A",
-   "words": 19002,
-   "themes": [
-    {
-     "theme": "process control system upgrades",
-     "quote": "directed capital, capacity, or product effort toward semiconductor process control inspection technology"
-    },
-    {
-     "theme": "specialty semiconductor expansion",
-     "quote": "Specialty Semiconductor Process segment growth as a key market opportunity"
-    },
-    {
-     "theme": "artificial intelligence infrastructure",
-     "quote": "semiconductor equipment demand driven by AI infrastructure buildout and data center expansion"
-    },
-    {
-     "theme": "long-term customer contracts",
-     "quote": "contract liabilities increased due to advance customer billings for products and services not yet transferred, indicating multi-year customer commitments"
     }
    ]
   }

@@ -57,34 +57,6 @@
      "quote": "we maintain a focus on our deposit base and liquidity management to support our lending and investment activities"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 67898,
-   "themes": [
-    {
-     "theme": "digital banking platform expansion",
-     "quote": "investing in digital platforms and mobile capabilities to enhance customer experience and operational efficiency"
-    },
-    {
-     "theme": "generative ai integration",
-     "quote": "deploying AI and machine learning technologies across business lines to improve decision-making and automate processes"
-    },
-    {
-     "theme": "wealth management scale",
-     "quote": "growing asset management and advisory services to increase recurring fee income from high-net-worth clients"
-    },
-    {
-     "theme": "commercial real estate portfolio management",
-     "quote": "actively managing exposures to office and retail real estate amid market stress and valuation pressures"
-    },
-    {
-     "theme": "capital optimization and returns",
-     "quote": "returning capital to shareholders through dividends and share buybacks while maintaining strong regulatory capital ratios"
-    }
-   ]
   }
  ]
 }

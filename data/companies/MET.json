@@ -2,7 +2,7 @@
  "ticker": "MET",
  "cik": "0001099219",
  "entityName": "MetLife, Inc.",
- "retrievedAt": "2026-08-06T13:43:09.547895Z",
+ "retrievedAt": "2026-08-07T11:46:40.169244Z",
  "fields": {
   "buyback": [
    {
@@ -1541,12 +1541,12 @@
     "confidence": 100
    },
    {
-    "value": 643436779,
+    "value": 635476927,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0001099219-26-000035",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001099219-26-000050",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

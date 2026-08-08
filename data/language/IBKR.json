@@ -3,6 +3,34 @@
  "sector": "Fintech Brokerage",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 1713,
+   "themes": [
+    {
+     "theme": "proprietary order routing technology",
+     "quote": "the ever-growing complexity of multiple market centers across diverse geographies provides us with ongoing opportunities to build and continuously adapt our order routing software to secure excellent execution prices"
+    },
+    {
+     "theme": "cryptocurrency trading expansion",
+     "quote": "our customers can use our trading platform to trade certain cryptocurrencies through third-party cryptocurrency service providers that execute, clear and custody the cryptocurrencies"
+    },
+    {
+     "theme": "prediction market development",
+     "quote": "we also offer trading in prediction markets, which are event-based contracts traded on ForecastEx, a CFTC-registered exchange and clearinghouse we established"
+    },
+    {
+     "theme": "institutional prime brokerage services",
+     "quote": "we offer prime brokerage services, including financing and securities lending, to hedge funds"
+    },
+    {
+     "theme": "financial advisor platform tools",
+     "quote": "our model portfolio technology and automated share allocation and rebalancing tools are particularly attractive to financial advisors"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "financial advisory and wealth management tools",
      "quote": "PortfolioAnalyst includes Allocation Goals, Retirement Planning, Tax Planning and Budgeting tools, and provides U.S.-based advisors with an AI Commentary Generator"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 1826,
-   "themes": [
-    {
-     "theme": "proprietary order routing software",
-     "quote": "The ever-growing complexity of multiple market centers across diverse geographies provides us with ongoing opportunities to build and continuously adapt our order routing software to secure excellent execution prices."
-    },
-    {
-     "theme": "global multi-asset platform expansion",
-     "quote": "We specialize in routing orders and executing and processing trades in stocks, options, futures, forex, bonds, mutual funds, ETFs and precious metals on more than 160 electronic exchanges and market centers in 37 countries and 28 currencies"
-    },
-    {
-     "theme": "institutional prime brokerage services",
-     "quote": "Specialized products and services that we have developed successfully attract institutional accounts. For example, we offer prime brokerage services, including financing and securities lending, to hedge funds"
-    },
-    {
-     "theme": "cryptocurrency trading integration",
-     "quote": "our customers can use our trading platform to trade certain cryptocurrencies through third-party cryptocurrency service providers that execute, clear and custody the cryptocurrencies"
-    },
-    {
-     "theme": "customer cash balance growth",
-     "quote": "a 33% increase in segregated cash and securities balances driven by our growing customer base"
     }
    ]
   }

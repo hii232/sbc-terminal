@@ -3,6 +3,34 @@
  "sector": "Insurance",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 48762,
+   "themes": [
+    {
+     "theme": "investment management assets growth",
+     "quote": "MetLife Investment Management continues to expand its assets under management and client base"
+    },
+    {
+     "theme": "retirement income solutions expansion",
+     "quote": "We are focused on growing our retirement and income solutions business, including annuities and pension risk transfer"
+    },
+    {
+     "theme": "group benefits customer acquisition",
+     "quote": "Group Benefits segment is pursuing growth through new customer wins and expanded relationships"
+    },
+    {
+     "theme": "emerging market expansion",
+     "quote": "We continue to invest in Asia, Latin America and EMEA segments to capture growth in developing economies"
+    },
+    {
+     "theme": "digital distribution transformation",
+     "quote": "We are enhancing our digital capabilities and distribution channels to reach customers more effectively"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "investment management scaling",
      "quote": "MetLife Investment Management segment benefited from higher fee revenue on increased assets under management"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 52673,
-   "themes": [
-    {
-     "theme": "fixed annuity growth",
-     "quote": "We continue to benefit from higher interest rates in the fixed annuity market, which supports improved pricing and higher crediting rates"
-    },
-    {
-     "theme": "group benefits scale",
-     "quote": "Group Benefits segment delivered strong results driven by favorable claims experience and premium growth"
-    },
-    {
-     "theme": "asia market expansion",
-     "quote": "Asia segment benefited from strong variable annuity sales and growth in our accident and health insurance business"
-    },
-    {
-     "theme": "liability runoff optimization",
-     "quote": "Long-term care business continues to perform well with disciplined pricing and claims management"
-    },
-    {
-     "theme": "retirement income solutions",
-     "quote": "Retirement and Income Solutions segment revenue increased driven by strong fixed immediate annuity sales and capital markets investment products"
     }
    ]
   }

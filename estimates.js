@@ -1,15 +1,25 @@
 const ESTIMATE_HISTORY = {
   "A": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AGILENT TECHNOLOGIES, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 6.05947,
+        "currentYearRevenue": 7448410470.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.6108,
+        "nextYearRevenue": 7899468890.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "A"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "A"
   },
   "AAPL": {
@@ -397,55 +407,95 @@ const ESTIMATE_HISTORY = {
     "ticker": "ABBV"
   },
   "ABNB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Airbnb, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 38.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 5.2845,
+        "currentYearRevenue": 14078864760.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.07225,
+        "nextYearRevenue": 15526618080.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ABNB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ABNB"
   },
   "ABT": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ABBOTT LABORATORIES",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 5.51721,
+        "currentYearRevenue": 50304326630.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.06259,
+        "nextYearRevenue": 54648552080.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ABT"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ABT"
   },
   "ACGL": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ARCH CAPITAL GROUP LTD.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 9.38622,
+        "currentYearRevenue": 15724134400.0,
+        "date": "2026-08-07",
+        "nextYearEps": 9.76363,
+        "nextYearRevenue": 15858943000.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ACGL"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ACGL"
   },
   "ACN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Accenture plc",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 13.87236,
+        "currentYearRevenue": 73563940950.0,
+        "date": "2026-08-07",
+        "nextYearEps": 14.68338,
+        "nextYearRevenue": 76614923730.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ACN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ACN"
   },
   "ADBE": {
@@ -641,107 +691,187 @@ const ESTIMATE_HISTORY = {
     "ticker": "ADBE"
   },
   "ADI": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ANALOG DEVICES INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 28.0,
+        "currentYearEps": 12.43447,
+        "currentYearRevenue": 14810172430.0,
+        "date": "2026-08-07",
+        "nextYearEps": 15.06237,
+        "nextYearRevenue": 17156773239.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ADI"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ADI"
   },
   "ADP": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AUTOMATIC DATA PROCESSING INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 12.25699,
+        "currentYearRevenue": 23224513380.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.39835,
+        "nextYearRevenue": 24555456310.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ADP"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ADP"
   },
   "ADSK": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Autodesk, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 12.59977,
+        "currentYearRevenue": 8200657080.0,
+        "date": "2026-08-07",
+        "nextYearEps": 14.23992,
+        "nextYearRevenue": 9061916910.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ADSK"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ADSK"
   },
   "AFL": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AFLAC INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 14.0,
+        "analystCountRevenue": 4.0,
+        "currentYearEps": 7.0472,
+        "currentYearRevenue": 17240000000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.55735,
+        "nextYearRevenue": 17276185840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AFL"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AFL"
   },
   "AIG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AMERICAN INTERNATIONAL GROUP, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 5.0,
+        "currentYearEps": 7.99714,
+        "currentYearRevenue": 28860000000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 8.84432,
+        "nextYearRevenue": 31325895970.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AIG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AIG"
   },
   "ALL": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ALLSTATE CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 7.0,
+        "currentYearEps": 33.09274,
+        "currentYearRevenue": 67991179820.0,
+        "date": "2026-08-07",
+        "nextYearEps": 26.97652,
+        "nextYearRevenue": 71053709660.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ALL"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ALL"
   },
   "ALLY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Ally Financial Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 5.2518,
+        "currentYearRevenue": 9049173240.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.43349,
+        "nextYearRevenue": 9616530810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ALLY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ALLY"
   },
   "AMAT": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "APPLIED MATERIALS INC /DE",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 12.29481,
+        "currentYearRevenue": 33490068370.0,
+        "date": "2026-08-07",
+        "nextYearEps": 17.05104,
+        "nextYearRevenue": 43260856980.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AMAT"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AMAT"
   },
   "AMD": {
@@ -937,16 +1067,26 @@ const ESTIMATE_HISTORY = {
     "ticker": "AMD"
   },
   "AMGN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AMGEN INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 32.0,
+        "analystCountRevenue": 30.0,
+        "currentYearEps": 22.86773,
+        "currentYearRevenue": 38827882720.0,
+        "date": "2026-08-07",
+        "nextYearEps": 24.00818,
+        "nextYearRevenue": 39610042210.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AMGN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AMGN"
   },
   "AMZN": {
@@ -1142,133 +1282,233 @@ const ESTIMATE_HISTORY = {
     "ticker": "AMZN"
   },
   "ANET": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Arista Networks, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 4.11376,
+        "currentYearRevenue": 12667427020.0,
+        "date": "2026-08-07",
+        "nextYearEps": 5.10645,
+        "nextYearRevenue": 16014237450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ANET"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ANET"
   },
   "APO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Apollo Global Management, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 7.0,
+        "currentYearEps": 8.80094,
+        "currentYearRevenue": 5412450000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.71271,
+        "nextYearRevenue": 6335114290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "APO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "APO"
   },
   "APP": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AppLovin Corp",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 15.75228,
+        "currentYearRevenue": 8153326370.0,
+        "date": "2026-08-07",
+        "nextYearEps": 20.69605,
+        "nextYearRevenue": 10485857100.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "APP"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "APP"
   },
   "ARES": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Ares Management Corp",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 5.0,
+        "currentYearEps": 5.84972,
+        "currentYearRevenue": 4954291600.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.18647,
+        "nextYearRevenue": 5811965400.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ARES"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ARES"
   },
   "ARM": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ARM HOLDINGS PLC /UK",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 37.0,
+        "analystCountRevenue": 37.0,
+        "currentYearEps": 2.22995,
+        "currentYearRevenue": 6050952610.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.06926,
+        "nextYearRevenue": 8206594050.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ARM"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ARM"
   },
   "ASML": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ASML HOLDING NV",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 39.0,
+        "currentYearEps": 38.02898,
+        "currentYearRevenue": 43214036100.0,
+        "date": "2026-08-07",
+        "nextYearEps": 51.42462,
+        "nextYearRevenue": 54331121810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ASML"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ASML"
   },
   "AVGO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Broadcom Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 46.0,
+        "analystCountRevenue": 48.0,
+        "currentYearEps": 11.62543,
+        "currentYearRevenue": 106039607190.0,
+        "date": "2026-08-07",
+        "nextYearEps": 19.49196,
+        "nextYearRevenue": 173211633120.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AVGO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AVGO"
   },
   "AXON": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AXON ENTERPRISE, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 19.0,
+        "currentYearEps": 7.71759,
+        "currentYearRevenue": 3704358820.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.57487,
+        "nextYearRevenue": 4784844050.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AXON"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AXON"
   },
   "AXP": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AMERICAN EXPRESS CO",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 17.67567,
+        "currentYearRevenue": 79495801080.0,
+        "date": "2026-08-07",
+        "nextYearEps": 20.10926,
+        "nextYearRevenue": 86751029230.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AXP"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AXP"
   },
   "AZO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "AUTOZONE INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 151.04103,
+        "currentYearRevenue": 20470507360.0,
+        "date": "2026-08-07",
+        "nextYearEps": 175.21555,
+        "nextYearRevenue": 22019029210.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AZO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "AZO"
   },
   "BA": {
@@ -1656,81 +1896,141 @@ const ESTIMATE_HISTORY = {
     "ticker": "BAC"
   },
   "BIIB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "BIOGEN INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 32.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 12.45155,
+        "currentYearRevenue": 10421928970.0,
+        "date": "2026-08-07",
+        "nextYearEps": 16.59044,
+        "nextYearRevenue": 10624910590.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BIIB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "BIIB"
   },
   "BKNG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Booking Holdings Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 32.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 10.45142,
+        "currentYearRevenue": 29268901180.0,
+        "date": "2026-08-07",
+        "nextYearEps": 12.38045,
+        "nextYearRevenue": 32027613030.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BKNG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "BKNG"
   },
   "BLK": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "BlackRock, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 56.2339,
+        "currentYearRevenue": 29264374000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 64.11224,
+        "nextYearRevenue": 32649843470.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BLK"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "BLK"
   },
   "BMY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "BRISTOL MYERS SQUIBB CO",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 6.94672,
+        "currentYearRevenue": 49847448120.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.55007,
+        "nextYearRevenue": 48129756200.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BMY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "BMY"
   },
   "BSX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "BOSTON SCIENTIFIC CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 3.30364,
+        "currentYearRevenue": 21366113090.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.43849,
+        "nextYearRevenue": 22336808840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BSX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "BSX"
   },
   "BX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Blackstone Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 6.0234,
+        "currentYearRevenue": 15029765280.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.48803,
+        "nextYearRevenue": 18622128970.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "BX"
   },
   "C": {
@@ -1926,146 +2226,256 @@ const ESTIMATE_HISTORY = {
     "ticker": "C"
   },
   "CAT": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CATERPILLAR INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 26.85022,
+        "currentYearRevenue": 78874211110.0,
+        "date": "2026-08-07",
+        "nextYearEps": 31.96753,
+        "nextYearRevenue": 87025373200.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CAT"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CAT"
   },
   "CB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Chubb Ltd",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 7.0,
+        "currentYearEps": 27.69626,
+        "currentYearRevenue": 49499200970.0,
+        "date": "2026-08-07",
+        "nextYearEps": 29.10528,
+        "nextYearRevenue": 51442619450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CB"
   },
   "CBOE": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Cboe Global Markets, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 14.22519,
+        "currentYearRevenue": 2868893500.0,
+        "date": "2026-08-07",
+        "nextYearEps": 15.24862,
+        "nextYearRevenue": 2975332450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CBOE"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CBOE"
   },
   "CDNS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CADENCE DESIGN SYSTEMS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 4.80115,
+        "currentYearRevenue": 6317878700.0,
+        "date": "2026-08-07",
+        "nextYearEps": 9.53712,
+        "nextYearRevenue": 7160962510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CDNS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CDNS"
   },
   "CEG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Constellation Energy Corp",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 13.0,
+        "currentYearEps": 11.72365,
+        "currentYearRevenue": 34841290860.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.30685,
+        "nextYearRevenue": 35170160970.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CEG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CEG"
   },
   "CFG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CITIZENS FINANCIAL GROUP INC/RI",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 5.30312,
+        "currentYearRevenue": 9181690220.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.51428,
+        "nextYearRevenue": 9980308480.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CFG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CFG"
   },
   "CI": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Cigna Group",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 30.4919,
+        "currentYearRevenue": 286635301410.0,
+        "date": "2026-08-07",
+        "nextYearEps": 33.47243,
+        "nextYearRevenue": 298715556510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CI"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CI"
   },
   "CL": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "COLGATE PALMOLIVE CO",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 18.0,
+        "currentYearEps": 3.87377,
+        "currentYearRevenue": 21400585430.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.10002,
+        "nextYearRevenue": 22059555180.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CL"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CL"
   },
   "CME": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CME GROUP INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 13.0,
+        "currentYearEps": 12.26536,
+        "currentYearRevenue": 7036706160.0,
+        "date": "2026-08-07",
+        "nextYearEps": 12.93033,
+        "nextYearRevenue": 7360916150.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CME"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CME"
   },
   "CMG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CHIPOTLE MEXICAN GRILL INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 1.14951,
+        "currentYearRevenue": 13019437160.0,
+        "date": "2026-08-07",
+        "nextYearEps": 1.36838,
+        "nextYearRevenue": 14418956730.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CMG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CMG"
   },
   "COF": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CAPITAL ONE FINANCIAL CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 20.3998,
+        "currentYearRevenue": 64020587260.0,
+        "date": "2026-08-07",
+        "nextYearEps": 24.05119,
+        "nextYearRevenue": 67737069229.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "COF"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "COF"
   },
   "COIN": {
@@ -2261,29 +2671,49 @@ const ESTIMATE_HISTORY = {
     "ticker": "COIN"
   },
   "COP": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CONOCOPHILLIPS",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 10.45381,
+        "currentYearRevenue": 67967467810.0,
+        "date": "2026-08-07",
+        "nextYearEps": 8.98609,
+        "nextYearRevenue": 65821652700.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "COP"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "COP"
   },
   "COR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Cencora, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 14.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 17.84738,
+        "currentYearRevenue": 337010861670.0,
+        "date": "2026-08-07",
+        "nextYearEps": 19.83068,
+        "nextYearRevenue": 356148994240.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "COR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "COR"
   },
   "COST": {
@@ -2479,42 +2909,72 @@ const ESTIMATE_HISTORY = {
     "ticker": "COST"
   },
   "CRM": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Salesforce, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 53.0,
+        "analystCountRevenue": 51.0,
+        "currentYearEps": 14.13332,
+        "currentYearRevenue": 46106759680.0,
+        "date": "2026-08-07",
+        "nextYearEps": 15.51229,
+        "nextYearRevenue": 50513597610.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CRM"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CRM"
   },
   "CRWD": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CrowdStrike Holdings, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 51.0,
+        "analystCountRevenue": 52.0,
+        "currentYearEps": 1.23187,
+        "currentYearRevenue": 5945445590.0,
+        "date": "2026-08-07",
+        "nextYearEps": 1.56266,
+        "nextYearRevenue": 7235384510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CRWD"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CRWD"
   },
   "CRWV": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CoreWeave, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": -5.02364,
+        "currentYearRevenue": 12627718540.0,
+        "date": "2026-08-07",
+        "nextYearEps": -3.6838,
+        "nextYearRevenue": 25144546660.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CRWV"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CRWV"
   },
   "CSCO": {
@@ -2710,29 +3170,49 @@ const ESTIMATE_HISTORY = {
     "ticker": "CSCO"
   },
   "CSX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CSX CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 2.00572,
+        "currentYearRevenue": 15187769660.0,
+        "date": "2026-08-07",
+        "nextYearEps": 2.27151,
+        "nextYearRevenue": 15941620330.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CSX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CSX"
   },
   "CTSH": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "COGNIZANT TECHNOLOGY SOLUTIONS CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 5.73621,
+        "currentYearRevenue": 22194192070.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.31409,
+        "nextYearRevenue": 23258724810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CTSH"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "CTSH"
   },
   "CVX": {
@@ -2928,81 +3408,141 @@ const ESTIMATE_HISTORY = {
     "ticker": "CVX"
   },
   "DASH": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "DoorDash, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 37.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 2.54808,
+        "currentYearRevenue": 17718821210.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.41011,
+        "nextYearRevenue": 21356823730.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DASH"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DASH"
   },
   "DDOG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Datadog, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 46.0,
+        "analystCountRevenue": 45.0,
+        "currentYearEps": 2.52691,
+        "currentYearRevenue": 4471450530.0,
+        "date": "2026-08-07",
+        "nextYearEps": 2.94888,
+        "nextYearRevenue": 5426538070.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DDOG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DDOG"
   },
   "DE": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "DEERE & CO",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 18.1045,
+        "currentYearRevenue": 41418802070.0,
+        "date": "2026-08-07",
+        "nextYearEps": 22.82973,
+        "nextYearRevenue": 44677914000.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DE"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DE"
   },
   "DECK": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "DECKERS OUTDOOR CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 7.5284,
+        "currentYearRevenue": 5884491870.0,
+        "date": "2026-08-07",
+        "nextYearEps": 8.39655,
+        "nextYearRevenue": 6316407700.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DECK"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DECK"
   },
   "DG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "DOLLAR GENERAL CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 7.38309,
+        "currentYearRevenue": 44418317220.0,
+        "date": "2026-08-07",
+        "nextYearEps": 8.00686,
+        "nextYearRevenue": 46296181130.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DG"
   },
   "DHR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "DANAHER CORP /DE/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 8.50914,
+        "currentYearRevenue": 26343018500.0,
+        "date": "2026-08-07",
+        "nextYearEps": 9.29878,
+        "nextYearRevenue": 28464160010.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DHR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DHR"
   },
   "DIS": {
@@ -3198,16 +3738,26 @@ const ESTIMATE_HISTORY = {
     "ticker": "DIS"
   },
   "DLTR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "DOLLAR TREE, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 6.97663,
+        "currentYearRevenue": 20669391850.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.68251,
+        "nextYearRevenue": 21896882610.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DLTR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DLTR"
   },
   "DOCU": {
@@ -3351,120 +3901,210 @@ const ESTIMATE_HISTORY = {
     "ticker": "DOCU"
   },
   "DUK": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Duke Energy CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 6.706,
+        "currentYearRevenue": 33735224660.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.167,
+        "nextYearRevenue": 35271043990.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DUK"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DUK"
   },
   "DXCM": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "DEXCOM INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 27.0,
+        "currentYearEps": 2.663,
+        "currentYearRevenue": 5230202040.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.12589,
+        "nextYearRevenue": 5800688650.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DXCM"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "DXCM"
   },
   "EA": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ELECTRONIC ARTS INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 5.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 4.82,
+        "currentYearRevenue": 8108000000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.16464,
+        "nextYearRevenue": 8758883910.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "EA"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "EA"
   },
   "ELV": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Elevance Health, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 27.15838,
+        "currentYearRevenue": 196237836900.0,
+        "date": "2026-08-07",
+        "nextYearEps": 29.63423,
+        "nextYearRevenue": 200388921110.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ELV"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ELV"
   },
   "ENTG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ENTEGRIS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 3.91892,
+        "currentYearRevenue": 3570553360.0,
+        "date": "2026-08-07",
+        "nextYearEps": 5.01562,
+        "nextYearRevenue": 4022822810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ENTG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ENTG"
   },
   "EOG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "EOG RESOURCES INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 16.6041,
+        "currentYearRevenue": 29480827010.0,
+        "date": "2026-08-07",
+        "nextYearEps": 14.67591,
+        "nextYearRevenue": 26749294090.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "EOG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "EOG"
   },
   "ETN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Eaton Corp plc",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 13.50587,
+        "currentYearRevenue": 32743662970.0,
+        "date": "2026-08-07",
+        "nextYearEps": 16.02188,
+        "nextYearRevenue": 36521104810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ETN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ETN"
   },
   "EW": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Edwards Lifesciences Corp",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 28.0,
+        "currentYearEps": 2.99841,
+        "currentYearRevenue": 6759249810.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.3755,
+        "nextYearRevenue": 7429113950.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "EW"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "EW"
   },
   "FCX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "FREEPORT-MCMORAN INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 2.99819,
+        "currentYearRevenue": 29521137350.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.08774,
+        "nextYearRevenue": 35536266490.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FCX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "FCX"
   },
   "FDX": {
@@ -3660,68 +4300,118 @@ const ESTIMATE_HISTORY = {
     "ticker": "FDX"
   },
   "FICO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "FAIR ISAAC CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 43.09823,
+        "currentYearRevenue": 2547691010.0,
+        "date": "2026-08-07",
+        "nextYearEps": 53.13032,
+        "nextYearRevenue": 2896782180.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FICO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "FICO"
   },
   "FIS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Fidelity National Information Services, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 23.0,
+        "currentYearEps": 6.19296,
+        "currentYearRevenue": 13663672830.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.70827,
+        "nextYearRevenue": 14283826250.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FIS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "FIS"
   },
   "FITB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "FIFTH THIRD BANCORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 3.06788,
+        "currentYearRevenue": 12857768340.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.89276,
+        "nextYearRevenue": 13954570710.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FITB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "FITB"
   },
   "FTNT": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Fortinet, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 43.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 3.45061,
+        "currentYearRevenue": 8119113280.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.75956,
+        "nextYearRevenue": 9009378200.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FTNT"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "FTNT"
   },
   "GD": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "GENERAL DYNAMICS CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 23.0,
+        "currentYearEps": 16.96007,
+        "currentYearRevenue": 55882884730.0,
+        "date": "2026-08-07",
+        "nextYearEps": 18.54404,
+        "nextYearRevenue": 58437301860.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GD"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "GD"
   },
   "GE": {
@@ -3917,55 +4607,95 @@ const ESTIMATE_HISTORY = {
     "ticker": "GE"
   },
   "GEV": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "GE Vernova Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 30.84764,
+        "currentYearRevenue": 46210725310.0,
+        "date": "2026-08-07",
+        "nextYearEps": 24.88998,
+        "nextYearRevenue": 52507072500.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GEV"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "GEV"
   },
   "GILD": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "GILEAD SCIENCES, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": -0.48192,
+        "currentYearRevenue": 30666636000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 9.87424,
+        "nextYearRevenue": 32675647360.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GILD"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "GILD"
   },
   "GIS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "GENERAL MILLS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 3.07912,
+        "currentYearRevenue": 17789953720.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.21155,
+        "nextYearRevenue": 17931708920.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GIS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "GIS"
   },
   "GLW": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CORNING INC /NY",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 3.26986,
+        "currentYearRevenue": 19217109460.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.32048,
+        "nextYearRevenue": 22876459370.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GLW"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "GLW"
   },
   "GOOGL": {
@@ -4161,16 +4891,26 @@ const ESTIMATE_HISTORY = {
     "ticker": "GOOGL"
   },
   "GPN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "GLOBAL PAYMENTS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 13.71499,
+        "currentYearRevenue": 12359996000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 15.94495,
+        "nextYearRevenue": 13024347680.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GPN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "GPN"
   },
   "GS": {
@@ -4506,55 +5246,95 @@ const ESTIMATE_HISTORY = {
     "ticker": "HCA"
   },
   "HD": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "HOME DEPOT, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 14.96413,
+        "currentYearRevenue": 170936033840.0,
+        "date": "2026-08-07",
+        "nextYearEps": 16.11542,
+        "nextYearRevenue": 177325891090.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HD"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "HD"
   },
   "HIG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "HARTFORD INSURANCE GROUP, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 12.74902,
+        "currentYearRevenue": 28857413530.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.6976,
+        "nextYearRevenue": 29833035840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HIG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "HIG"
   },
   "HLT": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Hilton Worldwide Holdings Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 9.04052,
+        "currentYearRevenue": 13039678440.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.44703,
+        "nextYearRevenue": 14159926120.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HLT"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "HLT"
   },
   "HON": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "HONEYWELL INTERNATIONAL INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 18.0,
+        "currentYearEps": 8.29651,
+        "currentYearRevenue": 20182544710.0,
+        "date": "2026-08-07",
+        "nextYearEps": 9.98128,
+        "nextYearRevenue": 20555440020.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HON"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "HON"
   },
   "HOOD": {
@@ -4750,81 +5530,141 @@ const ESTIMATE_HISTORY = {
     "ticker": "HOOD"
   },
   "HSY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "HERSHEY CO",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 8.48707,
+        "currentYearRevenue": 12293547390.0,
+        "date": "2026-08-07",
+        "nextYearEps": 9.87535,
+        "nextYearRevenue": 12606638770.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HSY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "HSY"
   },
   "HUBS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "HUBSPOT INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 32.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 13.27047,
+        "currentYearRevenue": 3685306910.0,
+        "date": "2026-08-07",
+        "nextYearEps": 16.47828,
+        "nextYearRevenue": 4212037760.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HUBS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "HUBS"
   },
   "IBKR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Interactive Brokers Group, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 7.0,
+        "currentYearEps": 2.71359,
+        "currentYearRevenue": 7484386290.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.18348,
+        "nextYearRevenue": 8672296510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IBKR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "IBKR"
   },
   "IBM": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "INTERNATIONAL BUSINESS MACHINES CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 23.0,
+        "currentYearEps": 12.3266,
+        "currentYearRevenue": 70375241150.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.17491,
+        "nextYearRevenue": 73259816370.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IBM"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "IBM"
   },
   "ICE": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Intercontinental Exchange, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 8.15784,
+        "currentYearRevenue": 11021931050.0,
+        "date": "2026-08-07",
+        "nextYearEps": 8.81395,
+        "nextYearRevenue": 11600291980.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ICE"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ICE"
   },
   "IDXX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "IDEXX LABORATORIES INC /DE",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 13.0,
+        "currentYearEps": 14.79224,
+        "currentYearRevenue": 4723565160.0,
+        "date": "2026-08-07",
+        "nextYearEps": 16.69012,
+        "nextYearRevenue": 5140055800.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IDXX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "IDXX"
   },
   "INTC": {
@@ -5020,55 +5860,95 @@ const ESTIMATE_HISTORY = {
     "ticker": "INTC"
   },
   "INTU": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "INTUIT INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 23.83135,
+        "currentYearRevenue": 21366233010.0,
+        "date": "2026-08-07",
+        "nextYearEps": 27.36035,
+        "nextYearRevenue": 23792004300.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "INTU"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "INTU"
   },
   "IQV": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "IQVIA HOLDINGS INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 18.0,
+        "currentYearEps": 12.96246,
+        "currentYearRevenue": 17414202790.0,
+        "date": "2026-08-07",
+        "nextYearEps": 14.44116,
+        "nextYearRevenue": 18468826650.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IQV"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "IQV"
   },
   "IREN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "IREN Ltd",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 9.0,
+        "analystCountRevenue": 14.0,
+        "currentYearEps": -2.05,
+        "currentYearRevenue": 722822710.0,
+        "date": "2026-08-07",
+        "nextYearEps": -0.83006,
+        "nextYearRevenue": 2997635050.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IREN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "IREN"
   },
   "ISRG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "INTUITIVE SURGICAL INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 10.79366,
+        "currentYearRevenue": 11772669820.0,
+        "date": "2026-08-07",
+        "nextYearEps": 12.07083,
+        "nextYearRevenue": 13249549360.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ISRG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ISRG"
   },
   "JNJ": {
@@ -5456,68 +6336,118 @@ const ESTIMATE_HISTORY = {
     "ticker": "JPM"
   },
   "KEY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "KEYCORP /NEW/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 1.82727,
+        "currentYearRevenue": 8067602160.0,
+        "date": "2026-08-07",
+        "nextYearEps": 2.13802,
+        "nextYearRevenue": 8602649460.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KEY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "KEY"
   },
   "KHC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Kraft Heinz Co",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 2.05245,
+        "currentYearRevenue": 24612085410.0,
+        "date": "2026-08-07",
+        "nextYearEps": 2.09218,
+        "nextYearRevenue": 24634186870.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KHC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "KHC"
   },
   "KKR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "KKR & Co. Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 6.3137,
+        "currentYearRevenue": 10535257070.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.38895,
+        "nextYearRevenue": 12385773780.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KKR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "KKR"
   },
   "KLAC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "KLA CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 5.4484,
+        "currentYearRevenue": 18099531930.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.54928,
+        "nextYearRevenue": 20994008900.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KLAC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "KLAC"
   },
   "KMB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "KIMBERLY CLARK CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 7.45322,
+        "currentYearRevenue": 16656677500.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.47195,
+        "nextYearRevenue": 17132070049.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KMB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "KMB"
   },
   "KO": {
@@ -5661,42 +6591,72 @@ const ESTIMATE_HISTORY = {
     "ticker": "KO"
   },
   "LHX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "L3HARRIS TECHNOLOGIES, INC. /DE/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 8.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 11.99302,
+        "currentYearRevenue": 23634295670.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.42416,
+        "nextYearRevenue": 25212880990.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LHX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "LHX"
   },
   "LIN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "LINDE PLC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 17.87863,
+        "currentYearRevenue": 36252045430.0,
+        "date": "2026-08-07",
+        "nextYearEps": 18.32107,
+        "nextYearRevenue": 37982970010.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LIN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "LIN"
   },
   "LLY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ELI LILLY & Co",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 36.21019,
+        "currentYearRevenue": 87487126360.0,
+        "date": "2026-08-07",
+        "nextYearEps": 46.17648,
+        "nextYearRevenue": 100151811390.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LLY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "LLY"
   },
   "LMT": {
@@ -5892,198 +6852,348 @@ const ESTIMATE_HISTORY = {
     "ticker": "LMT"
   },
   "LNG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Cheniere Energy, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 4.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 19.14,
+        "currentYearRevenue": 22088795330.0,
+        "date": "2026-08-07",
+        "nextYearEps": 19.12808,
+        "nextYearRevenue": 23523159120.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LNG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "LNG"
   },
   "LOW": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "LOWES COMPANIES INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 12.48699,
+        "currentYearRevenue": 93076550460.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.45897,
+        "nextYearRevenue": 95956528280.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LOW"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "LOW"
   },
   "LRCX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "LAM RESEARCH CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 9.45797,
+        "currentYearRevenue": 34754341950.0,
+        "date": "2026-08-07",
+        "nextYearEps": 11.52522,
+        "nextYearRevenue": 40134577810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LRCX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "LRCX"
   },
   "LULU": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "lululemon athletica inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 11.03879,
+        "currentYearRevenue": 11041436710.0,
+        "date": "2026-08-07",
+        "nextYearEps": 11.46461,
+        "nextYearRevenue": 11342777350.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LULU"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "LULU"
   },
   "MA": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Mastercard Inc",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 39.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 19.90758,
+        "currentYearRevenue": 37239588980.0,
+        "date": "2026-08-07",
+        "nextYearEps": 23.00449,
+        "nextYearRevenue": 41943316510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MA"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MA"
   },
   "MAR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MARRIOTT INTERNATIONAL INC /MD/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 11.66733,
+        "currentYearRevenue": 27804268040.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.14182,
+        "nextYearRevenue": 29498915590.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MAR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MAR"
   },
   "MCD": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MCDONALDS CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 31.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 12.91579,
+        "currentYearRevenue": 28199499920.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.99057,
+        "nextYearRevenue": 29649008760.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCD"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MCD"
   },
   "MCHP": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MICROCHIP TECHNOLOGY INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 3.64691,
+        "currentYearRevenue": 6315345840.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.42047,
+        "nextYearRevenue": 7374614620.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCHP"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MCHP"
   },
   "MCK": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MCKESSON CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 44.59632,
+        "currentYearRevenue": 431601963030.0,
+        "date": "2026-08-07",
+        "nextYearEps": 50.50068,
+        "nextYearRevenue": 462801882040.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCK"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MCK"
   },
   "MCO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MOODYS CORP /DE/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 16.97255,
+        "currentYearRevenue": 8288029950.0,
+        "date": "2026-08-07",
+        "nextYearEps": 18.91331,
+        "nextYearRevenue": 8889014590.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MCO"
   },
   "MDB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MongoDB, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 38.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 6.13317,
+        "currentYearRevenue": 2961292230.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.33829,
+        "nextYearRevenue": 3483761080.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MDB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MDB"
   },
   "MDLZ": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Mondelez International, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 3.0459,
+        "currentYearRevenue": 40118214830.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.36055,
+        "nextYearRevenue": 41294297230.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MDLZ"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MDLZ"
   },
   "MDT": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Medtronic plc",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 29.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 5.94894,
+        "currentYearRevenue": 38831345050.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.41248,
+        "nextYearRevenue": 40230925930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MDT"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MDT"
   },
   "MELI": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MERCADOLIBRE INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 39.05931,
+        "currentYearRevenue": 40970815970.0,
+        "date": "2026-08-07",
+        "nextYearEps": 56.65797,
+        "nextYearRevenue": 52221962020.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MELI"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MELI"
   },
   "MET": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "METLIFE INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 9.79768,
+        "currentYearRevenue": 80206714180.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.89925,
+        "nextYearRevenue": 83575014460.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MET"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MET"
   },
   "META": {
@@ -6279,81 +7389,141 @@ const ESTIMATE_HISTORY = {
     "ticker": "META"
   },
   "MPC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Marathon Petroleum Corp",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 49.80384,
+        "currentYearRevenue": 163826780670.0,
+        "date": "2026-08-07",
+        "nextYearEps": 29.69693,
+        "nextYearRevenue": 143595546690.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MPC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MPC"
   },
   "MPWR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MONOLITHIC POWER SYSTEMS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 14.0,
+        "analystCountRevenue": 14.0,
+        "currentYearEps": 27.38798,
+        "currentYearRevenue": 4116369530.0,
+        "date": "2026-08-07",
+        "nextYearEps": 34.79503,
+        "nextYearRevenue": 5177637880.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MPWR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MPWR"
   },
   "MRK": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Merck & Co., Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 2.74311,
+        "currentYearRevenue": 67097703620.0,
+        "date": "2026-08-07",
+        "nextYearEps": 9.60052,
+        "nextYearRevenue": 70340655560.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MRK"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MRK"
   },
   "MRVL": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Marvell Technology, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 39.0,
+        "analystCountRevenue": 38.0,
+        "currentYearEps": 4.04907,
+        "currentYearRevenue": 11529799650.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.24094,
+        "nextYearRevenue": 16732272130.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MRVL"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MRVL"
   },
   "MS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MORGAN STANLEY",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 12.97822,
+        "currentYearRevenue": 82655698650.0,
+        "date": "2026-08-07",
+        "nextYearEps": 13.64926,
+        "nextYearRevenue": 86501620030.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MS"
   },
   "MSCI": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MSCI Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 19.66069,
+        "currentYearRevenue": 3512918190.0,
+        "date": "2026-08-07",
+        "nextYearEps": 22.4968,
+        "nextYearRevenue": 3821661920.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MSCI"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MSCI"
   },
   "MSFT": {
@@ -6549,81 +7719,141 @@ const ESTIMATE_HISTORY = {
     "ticker": "MSFT"
   },
   "MTB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "M&T BANK CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 19.29888,
+        "currentYearRevenue": 10045258410.0,
+        "date": "2026-08-07",
+        "nextYearEps": 21.06782,
+        "nextYearRevenue": 10399711320.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MTB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MTB"
   },
   "MU": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "MICRON TECHNOLOGY INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 37.0,
+        "analystCountRevenue": 42.0,
+        "currentYearEps": 73.43364,
+        "currentYearRevenue": 129758113130.0,
+        "date": "2026-08-07",
+        "nextYearEps": 155.56306,
+        "nextYearRevenue": 240106235120.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MU"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "MU"
   },
   "NBIS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Nebius Group N.V.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 7.0,
+        "analystCountRevenue": 19.0,
+        "currentYearEps": -2.13667,
+        "currentYearRevenue": 3381588990.0,
+        "date": "2026-08-07",
+        "nextYearEps": -4.86714,
+        "nextYearRevenue": 11456538240.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NBIS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NBIS"
   },
   "NDAQ": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "NASDAQ, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 13.0,
+        "currentYearEps": 4.1383,
+        "currentYearRevenue": 5911604570.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.67209,
+        "nextYearRevenue": 6396111370.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NDAQ"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NDAQ"
   },
   "NEE": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "NEXTERA ENERGY INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 4.05111,
+        "currentYearRevenue": 31047837330.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.41818,
+        "nextYearRevenue": 34589089550.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NEE"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NEE"
   },
   "NET": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Cloudflare, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 1.264,
+        "currentYearRevenue": 2869300000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 1.60227,
+        "nextYearRevenue": 3606601930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NET"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NET"
   },
   "NFLX": {
@@ -7011,68 +8241,118 @@ const ESTIMATE_HISTORY = {
     "ticker": "NKE"
   },
   "NOC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "NORTHROP GRUMMAN CORP /DE/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 29.01474,
+        "currentYearRevenue": 44046717090.0,
+        "date": "2026-08-07",
+        "nextYearEps": 30.43133,
+        "nextYearRevenue": 47003847290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NOC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NOC"
   },
   "NOW": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ServiceNow, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 44.0,
+        "analystCountRevenue": 46.0,
+        "currentYearEps": 4.06764,
+        "currentYearRevenue": 16219289110.0,
+        "date": "2026-08-07",
+        "nextYearEps": 5.00619,
+        "nextYearRevenue": 19262432930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NOW"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NOW"
   },
   "NRG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "NRG ENERGY, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 11.0,
+        "analystCountRevenue": 8.0,
+        "currentYearEps": 8.8207,
+        "currentYearRevenue": 36644301240.0,
+        "date": "2026-08-07",
+        "nextYearEps": 11.15779,
+        "nextYearRevenue": 38524736200.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NRG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NRG"
   },
   "NSC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "NORFOLK SOUTHERN CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 19.0,
+        "currentYearEps": 12.98229,
+        "currentYearRevenue": 13220404820.0,
+        "date": "2026-08-07",
+        "nextYearEps": 14.29703,
+        "nextYearRevenue": 13788341840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NSC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NSC"
   },
   "NUE": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "NUCOR CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 14.0,
+        "currentYearEps": 18.79691,
+        "currentYearRevenue": 40166724850.0,
+        "date": "2026-08-07",
+        "nextYearEps": 18.82598,
+        "nextYearRevenue": 40518824630.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NUE"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NUE"
   },
   "NVDA": {
@@ -7268,107 +8548,187 @@ const ESTIMATE_HISTORY = {
     "ticker": "NVDA"
   },
   "NXPI": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "NXP Semiconductors N.V.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 28.0,
+        "currentYearEps": 15.0591,
+        "currentYearRevenue": 14244726800.0,
+        "date": "2026-08-07",
+        "nextYearEps": 18.09511,
+        "nextYearRevenue": 15857452420.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NXPI"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "NXPI"
   },
   "ODFL": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "OLD DOMINION FREIGHT LINE, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 5.80532,
+        "currentYearRevenue": 5911927590.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.58603,
+        "nextYearRevenue": 6353549700.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ODFL"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ODFL"
   },
   "OKTA": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Okta, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 44.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 3.84412,
+        "currentYearRevenue": 3199895790.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.28251,
+        "nextYearRevenue": 3504869110.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "OKTA"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "OKTA"
   },
   "ON": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ON SEMICONDUCTOR CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 30.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 3.19882,
+        "currentYearRevenue": 6556287330.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.51843,
+        "nextYearRevenue": 7394684520.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ON"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ON"
   },
   "ORCL": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ORACLE CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 40.0,
+        "analystCountRevenue": 39.0,
+        "currentYearEps": 8.05139,
+        "currentYearRevenue": 89316900850.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.89015,
+        "nextYearRevenue": 130558530150.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ORCL"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ORCL"
   },
   "ORLY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "O REILLY AUTOMOTIVE INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 3.27953,
+        "currentYearRevenue": 19112324990.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.64938,
+        "nextYearRevenue": 20276374930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ORLY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ORLY"
   },
   "OXY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "OCCIDENTAL PETROLEUM CORP /DE/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 5.50523,
+        "currentYearRevenue": 26298355020.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.92867,
+        "nextYearRevenue": 23860401650.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "OXY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "OXY"
   },
   "PANW": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Palo Alto Networks Inc",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 51.0,
+        "currentYearEps": 3.77344,
+        "currentYearRevenue": 11422923430.0,
+        "date": "2026-08-07",
+        "nextYearEps": 1.95095,
+        "nextYearRevenue": 13810227820.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PANW"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "PANW"
   },
   "PEP": {
@@ -7704,29 +9064,49 @@ const ESTIMATE_HISTORY = {
     "ticker": "PFE"
   },
   "PG": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "PROCTER & GAMBLE Co",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 7.00905,
+        "currentYearRevenue": 88748485610.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.40978,
+        "nextYearRevenue": 91483655250.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PG"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "PG"
   },
   "PGR": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "PROGRESSIVE CORP/OH/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 8.0,
+        "currentYearEps": 17.6096,
+        "currentYearRevenue": 87192575000.0,
+        "date": "2026-08-07",
+        "nextYearEps": 16.26888,
+        "nextYearRevenue": 92341225000.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PGR"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "PGR"
   },
   "PLTR": {
@@ -7922,29 +9302,49 @@ const ESTIMATE_HISTORY = {
     "ticker": "PLTR"
   },
   "PNC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "PNC FINANCIAL SERVICES GROUP, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 8.0,
+        "currentYearEps": 18.90073,
+        "currentYearRevenue": 26309055160.0,
+        "date": "2026-08-07",
+        "nextYearEps": 21.51594,
+        "nextYearRevenue": 27687604290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PNC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "PNC"
   },
   "PRU": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "PRUDENTIAL FINANCIAL INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 8.0,
+        "currentYearEps": 13.90376,
+        "currentYearRevenue": 59585160200.0,
+        "date": "2026-08-07",
+        "nextYearEps": 14.64459,
+        "nextYearRevenue": 59998138560.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PRU"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "PRU"
   },
   "PYPL": {
@@ -8140,16 +9540,26 @@ const ESTIMATE_HISTORY = {
     "ticker": "PYPL"
   },
   "QCOM": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "QUALCOMM INC/DE",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 10.53313,
+        "currentYearRevenue": 42922777300.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.28783,
+        "nextYearRevenue": 44701786180.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "QCOM"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "QCOM"
   },
   "RBLX": {
@@ -8345,55 +9755,95 @@ const ESTIMATE_HISTORY = {
     "ticker": "RBLX"
   },
   "REGN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "REGENERON PHARMACEUTICALS, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 10.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 53.00495,
+        "currentYearRevenue": 16888638570.0,
+        "date": "2026-08-07",
+        "nextYearEps": 50.40074,
+        "nextYearRevenue": 18340113910.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "REGN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "REGN"
   },
   "RF": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "REGIONS FINANCIAL CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 2.62923,
+        "currentYearRevenue": 7841594480.0,
+        "date": "2026-08-07",
+        "nextYearEps": 2.84262,
+        "nextYearRevenue": 8220339169.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "RF"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "RF"
   },
   "ROST": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "ROSS STORES, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 18.0,
+        "currentYearEps": 7.81893,
+        "currentYearRevenue": 25164585430.0,
+        "date": "2026-08-07",
+        "nextYearEps": 8.59288,
+        "nextYearRevenue": 26769940790.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ROST"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ROST"
   },
   "RTX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "RTX Corp",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 7.24243,
+        "currentYearRevenue": 96233678600.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.85325,
+        "nextYearRevenue": 103136202870.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "RTX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "RTX"
   },
   "SBUX": {
@@ -8589,29 +10039,49 @@ const ESTIMATE_HISTORY = {
     "ticker": "SBUX"
   },
   "SCCO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "SOUTHERN COPPER CORP/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 13.0,
+        "currentYearEps": 7.74464,
+        "currentYearRevenue": 16887014230.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.21649,
+        "nextYearRevenue": 16038619740.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SCCO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SCCO"
   },
   "SCHW": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "SCHWAB CHARLES CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 6.48941,
+        "currentYearRevenue": 28262770450.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.80276,
+        "nextYearRevenue": 31555912500.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SCHW"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SCHW"
   },
   "SHOP": {
@@ -8807,159 +10277,279 @@ const ESTIMATE_HISTORY = {
     "ticker": "SHOP"
   },
   "SLB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "SLB LIMITED/NV",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 2.50818,
+        "currentYearRevenue": 36942501480.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.25904,
+        "nextYearRevenue": 39736419560.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SLB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SLB"
   },
   "SMCI": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Super Micro Computer, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 2.8369,
+        "currentYearRevenue": 39506334870.0,
+        "date": "2026-08-07",
+        "nextYearEps": 3.31159,
+        "nextYearRevenue": 53291700140.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SMCI"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SMCI"
   },
   "SNOW": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Snowflake Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 50.0,
+        "analystCountRevenue": 49.0,
+        "currentYearEps": 1.93559,
+        "currentYearRevenue": 6084084880.0,
+        "date": "2026-08-07",
+        "nextYearEps": 2.69885,
+        "nextYearRevenue": 7648531310.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SNOW"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SNOW"
   },
   "SNPS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "SYNOPSYS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 14.78942,
+        "currentYearRevenue": 9680096260.0,
+        "date": "2026-08-07",
+        "nextYearEps": 17.28051,
+        "nextYearRevenue": 10731265170.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SNPS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SNPS"
   },
   "SO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "SOUTHERN CO",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 4.58314,
+        "currentYearRevenue": 31034540720.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.92395,
+        "nextYearRevenue": 32799165289.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SO"
   },
   "SPGI": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "S&P Global Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 17.83392,
+        "currentYearRevenue": 14637057840.0,
+        "date": "2026-08-07",
+        "nextYearEps": 20.21967,
+        "nextYearRevenue": 15641621170.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SPGI"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SPGI"
   },
   "STZ": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "CONSTELLATION BRANDS, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 11.80013,
+        "currentYearRevenue": 9100917330.0,
+        "date": "2026-08-07",
+        "nextYearEps": 12.39194,
+        "nextYearRevenue": 9271042810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "STZ"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "STZ"
   },
   "SYF": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Synchrony Financial",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 9.36805,
+        "currentYearRevenue": 15183368480.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.47233,
+        "nextYearRevenue": 15983288740.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SYF"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SYF"
   },
   "SYK": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "STRYKER CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 27.0,
+        "currentYearEps": 15.01108,
+        "currentYearRevenue": 27292125910.0,
+        "date": "2026-08-07",
+        "nextYearEps": 16.75938,
+        "nextYearRevenue": 29681085670.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SYK"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "SYK"
   },
   "TEAM": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Atlassian Corp",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 5.42785,
+        "currentYearRevenue": 7423887230.0,
+        "date": "2026-08-07",
+        "nextYearEps": 6.86874,
+        "nextYearRevenue": 8560814440.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TEAM"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TEAM"
   },
   "TER": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "TERADYNE, INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 9.09271,
+        "currentYearRevenue": 5143439780.0,
+        "date": "2026-08-07",
+        "nextYearEps": 11.55303,
+        "nextYearRevenue": 6221303320.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TER"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TER"
   },
   "TFC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "TRUIST FINANCIAL CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 4.61572,
+        "currentYearRevenue": 21286506990.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.99407,
+        "nextYearRevenue": 22007603930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TFC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TFC"
   },
   "TGT": {
@@ -9155,42 +10745,72 @@ const ESTIMATE_HISTORY = {
     "ticker": "TGT"
   },
   "TJX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "TJX COMPANIES INC /DE/",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 5.21555,
+        "currentYearRevenue": 64130242190.0,
+        "date": "2026-08-07",
+        "nextYearEps": 5.71892,
+        "nextYearRevenue": 67875209359.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TJX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TJX"
   },
   "TMO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "THERMO FISHER SCIENTIFIC INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 25.11905,
+        "currentYearRevenue": 47861328950.0,
+        "date": "2026-08-07",
+        "nextYearEps": 27.51077,
+        "nextYearRevenue": 50323327540.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TMO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TMO"
   },
   "TRV": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "TRAVELERS COMPANIES, INC.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 34.05444,
+        "currentYearRevenue": 43430603900.0,
+        "date": "2026-08-07",
+        "nextYearEps": 30.20864,
+        "nextYearRevenue": 44697285080.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TRV"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TRV"
   },
   "TSLA": {
@@ -9578,42 +11198,72 @@ const ESTIMATE_HISTORY = {
     "ticker": "TSM"
   },
   "TTD": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Trade Desk, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 1.84673,
+        "currentYearRevenue": 2726495800.0,
+        "date": "2026-08-07",
+        "nextYearEps": 2.16867,
+        "nextYearRevenue": 3352365680.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TTD"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TTD"
   },
   "TTWO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "TAKE TWO INTERACTIVE SOFTWARE INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 2.05205,
+        "currentYearRevenue": 8611933740.0,
+        "date": "2026-08-07",
+        "nextYearEps": 5.43306,
+        "nextYearRevenue": 9213822290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TTWO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TTWO"
   },
   "TXN": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "TEXAS INSTRUMENTS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 8.50003,
+        "currentYearRevenue": 21902801980.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.03407,
+        "nextYearRevenue": 24824395450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TXN"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "TXN"
   },
   "UBER": {
@@ -10001,42 +11651,72 @@ const ESTIMATE_HISTORY = {
     "ticker": "UNH"
   },
   "UNP": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "UNION PACIFIC CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 13.05443,
+        "currentYearRevenue": 26753650030.0,
+        "date": "2026-08-07",
+        "nextYearEps": 14.15039,
+        "nextYearRevenue": 27923827240.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "UNP"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "UNP"
   },
   "UPS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "UNITED PARCEL SERVICE INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 7.20671,
+        "currentYearRevenue": 91451330980.0,
+        "date": "2026-08-07",
+        "nextYearEps": 8.06776,
+        "nextYearRevenue": 94985704930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "UPS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "UPS"
   },
   "USB": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "US BANCORP DE",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 5.23763,
+        "currentYearRevenue": 31088125710.0,
+        "date": "2026-08-07",
+        "nextYearEps": 5.79057,
+        "nextYearRevenue": 33241535350.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "USB"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "USB"
   },
   "V": {
@@ -10232,81 +11912,141 @@ const ESTIMATE_HISTORY = {
     "ticker": "V"
   },
   "VEEV": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "VEEVA SYSTEMS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 9.06196,
+        "currentYearRevenue": 3641298420.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.03399,
+        "nextYearRevenue": 4081184020.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VEEV"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "VEEV"
   },
   "VLO": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "VALERO ENERGY CORP/TX",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 41.65926,
+        "currentYearRevenue": 147103327530.0,
+        "date": "2026-08-07",
+        "nextYearEps": 27.71585,
+        "nextYearRevenue": 126273174160.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VLO"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "VLO"
   },
   "VRTX": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "VERTEX PHARMACEUTICALS INC / MA",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 18.87516,
+        "currentYearRevenue": 13184334330.0,
+        "date": "2026-08-07",
+        "nextYearEps": 21.62224,
+        "nextYearRevenue": 14563140140.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VRTX"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "VRTX"
   },
   "VST": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Vistra Corp.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 9.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 9.90946,
+        "currentYearRevenue": 22734030780.0,
+        "date": "2026-08-07",
+        "nextYearEps": 10.98518,
+        "nextYearRevenue": 24918079550.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VST"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "VST"
   },
   "WDAY": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Workday, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 41.0,
+        "analystCountRevenue": 40.0,
+        "currentYearEps": 10.7671,
+        "currentYearRevenue": 10669395960.0,
+        "date": "2026-08-07",
+        "nextYearEps": 12.64386,
+        "nextYearRevenue": 11840360750.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "WDAY"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "WDAY"
   },
   "WDC": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "WESTERN DIGITAL CORP",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 20.31564,
+        "currentYearRevenue": 19129848990.0,
+        "date": "2026-08-07",
+        "nextYearEps": 31.83239,
+        "nextYearRevenue": 25958122330.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "WDC"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "WDC"
   },
   "WFC": {
@@ -10886,16 +12626,26 @@ const ESTIMATE_HISTORY = {
     "ticker": "XOM"
   },
   "YUM": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "YUM BRANDS INC",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 6.64587,
+        "currentYearRevenue": 9085962160.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.46147,
+        "nextYearRevenue": 9658412740.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "YUM"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "YUM"
   },
   "ZM": {
@@ -11039,29 +12789,49 @@ const ESTIMATE_HISTORY = {
     "ticker": "ZM"
   },
   "ZS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Zscaler, Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 45.0,
+        "analystCountRevenue": 45.0,
+        "currentYearEps": 4.12789,
+        "currentYearRevenue": 3331819150.0,
+        "date": "2026-08-07",
+        "nextYearEps": 4.59716,
+        "nextYearRevenue": 3898748380.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ZS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ZS"
   },
   "ZTS": {
-    "lastError": {
-      "date": "2026-08-07",
-      "message": "HTTP Error 403: Forbidden"
-    },
     "name": "Zoetis Inc.",
     "notes": [
-      "No estimate snapshots collected yet."
+      "Daily point-in-time snapshots. Missing fields remain null and are not scored as zero."
     ],
-    "snapshots": [],
-    "source": "not collected yet",
+    "snapshots": [
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 6.461,
+        "currentYearRevenue": 9533354070.0,
+        "date": "2026-08-07",
+        "nextYearEps": 7.06636,
+        "nextYearRevenue": 9883025870.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ZTS"
+      }
+    ],
+    "source": "Yahoo Finance earningsTrend fiscal-year consensus",
     "ticker": "ZTS"
   }
 };

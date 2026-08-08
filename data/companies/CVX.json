@@ -2,7 +2,7 @@
  "ticker": "CVX",
  "cik": "0000093410",
  "entityName": "Chevron Corp",
- "retrievedAt": "2026-08-06T13:42:36.719778Z",
+ "retrievedAt": "2026-08-07T11:46:00.225293Z",
  "fields": {
   "buyback": [
    {
@@ -1627,12 +1627,12 @@
     "confidence": 100
    },
    {
-    "value": 1991597732,
+    "value": 1975771274,
     "unit": "shares",
-    "periodEnd": "2026-03-31",
+    "periodEnd": "2026-06-30",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0000093410-26-000113",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0000093410-26-000167",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

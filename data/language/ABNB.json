@@ -3,6 +3,34 @@
  "sector": "Travel",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 4888,
+   "themes": [
+    {
+     "theme": "international market expansion",
+     "quote": "During the three and six months ended June 30, 2026, the increase in Nights and Seats Booked, compared to the same period in the prior year, was driven by growth across all regions, led by Latin America and Asia Pacific, as we continue to f"
+    },
+    {
+     "theme": "flexible payment options rollout",
+     "quote": "In 2025, we launched RNPL and expanded it internationally in 2026. To date, RNPL bookings, which require no payment at the time of booking, have experienced higher cancellation rates than historic bookings in which some or all of the cash w"
+    },
+    {
+     "theme": "ai-powered customer support",
+     "quote": "a $17 million decrease in third-party service provider costs due to lower agent contact volume resulting from increased use of artificial intelligence (\"AI\") in community support"
+    },
+    {
+     "theme": "experiences and services expansion",
+     "quote": "a decrease in third-party service provider expenses incurred to support the expansion and optimization of Airbnb Experiences and Services supply"
+    },
+    {
+     "theme": "emerging markets growth marketing",
+     "quote": "a $132 million increase in marketing spend, driven by higher paid growth marketing initiatives in emerging markets and partnerships"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -47,34 +75,6 @@
     {
      "theme": "headcount and product development investment",
      "quote": "$293 million increase in payroll-related expenses driven by an increase in headcount"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 4687,
-   "themes": [
-    {
-     "theme": "international expansion",
-     "quote": "we continue to focus on international expansion"
-    },
-    {
-     "theme": "product launch initiatives",
-     "quote": "increase in third-party service provider expenses related to our product launch and other initiatives"
-    },
-    {
-     "theme": "cloud infrastructure investment",
-     "quote": "we signed a new enterprise agreement with a web-hosting service company for cloud hosting and related services to spend or incur an aggregate of at least $1.9 billion, which extends through 2031"
-    },
-    {
-     "theme": "marketing activity increase",
-     "quote": "increase in marketing activities"
-    },
-    {
-     "theme": "research and development headcount",
-     "quote": "increase in average headcount"
     }
    ]
   }

@@ -3,6 +3,26 @@
  "sector": "Banks",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 57199,
+   "themes": [
+    {
+     "theme": "portfolio optimization through divestitures",
+     "quote": "disposal of Mexico consumer, small business and middle market banking businesses, Poland consumer banking business, and Grupo Financeiro Banamex"
+    },
+    {
+     "theme": "wealth management expansion",
+     "quote": "focus on wealth management business as core strategic priority across segments"
+    },
+    {
+     "theme": "capital efficiency improvements",
+     "quote": "optimization of capital allocation and return on equity through business repositioning"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-07",
    "source": "SEC 10-Q MD&A",
@@ -47,34 +67,6 @@
     {
      "theme": "banking market exit",
      "quote": "discontinued operations and held for sale designations reflect strategic decision to exit certain geographic markets and consumer banking businesses"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 65911,
-   "themes": [
-    {
-     "theme": "portfolio management and strategic exits",
-     "quote": "we are executing a strategic plan to exit certain markets, including Poland and Mexico"
-    },
-    {
-     "theme": "wealth management growth",
-     "quote": "Wealth segment revenues increased driven by higher fiduciary fees and improved investment performance"
-    },
-    {
-     "theme": "capital return to shareholders",
-     "quote": "we increased our quarterly dividend and repurchased shares during the period"
-    },
-    {
-     "theme": "credit quality management",
-     "quote": "credit metrics remain solid with adequate allowances for credit losses"
-    },
-    {
-     "theme": "markets division performance",
-     "quote": "Markets segment benefited from strong client activity and improved market conditions"
     }
    ]
   }

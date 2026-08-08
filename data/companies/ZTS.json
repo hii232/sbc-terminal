@@ -2,7 +2,7 @@
  "ticker": "ZTS",
  "cik": "0001555280",
  "entityName": "Zoetis Inc.",
- "retrievedAt": "2026-08-06T13:43:15.060815Z",
+ "retrievedAt": "2026-08-07T11:46:45.917936Z",
  "fields": {
   "buyback": [
    {
@@ -1570,12 +1570,12 @@
     "confidence": 100
    },
    {
-    "value": 419228118,
+    "value": 413223602,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0001555280-26-000024",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0001555280-26-000040",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

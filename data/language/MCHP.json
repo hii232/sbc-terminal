@@ -3,6 +3,34 @@
  "sector": "Semis",
  "periods": [
   {
+   "period": "2026Q2",
+   "date": "2026-08-06",
+   "source": "SEC 10-Q MD&A",
+   "words": 8112,
+   "themes": [
+    {
+     "theme": "in-house assembly and test insourcing",
+     "quote": "we plan to continue to selectively invest in assembly and test equipment to increase our internal capacity capabilities and transition certain outsourced assembly and test capacity to our internal facilities"
+    },
+    {
+     "theme": "fab consolidation and capacity optimization",
+     "quote": "we announced our decision to close the manufacturing operations of our Fab 2 wafer fabrication facility in Tempe, Arizona and the closure was completed in May 2025. All of the process technologies that were running in Fab 2 will be transfer"
+    },
+    {
+     "theme": "64-bit microprocessor market expansion",
+     "quote": "In July 2024, we entered the 64-bit mixed-signal microprocessor market, furthering our expansion beyond our 32-bit architecture"
+    },
+    {
+     "theme": "advanced process technology migration",
+     "quote": "We continue to transition products to more advanced process technologies to reduce future manufacturing costs"
+    },
+    {
+     "theme": "total system solution platform",
+     "quote": "TSS is a combination of hardware, software and services which help our customers increase their revenue, reduce their costs and manage their risks compared to other solutions"
+    }
+   ]
+  },
+  {
    "period": "2026Q1",
    "date": "2026-05-21",
    "source": "SEC 10-K MD&A",
@@ -51,34 +79,6 @@
     {
      "theme": "fab consolidation and closure",
      "quote": "on December 2, 2024, we announced our decision to close our Tempe, Arizona wafer fabrication facility that we refer to as Fab 2 and the closure of Fab 2 was completed in May 2025"
-    }
-   ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 8958,
-   "themes": [
-    {
-     "theme": "inventory normalization",
-     "quote": "we continued to reduce inventory in the September 2025 quarter compared to the June 2025 quarter"
-    },
-    {
-     "theme": "internal manufacturing insourcing",
-     "quote": "we plan to continue to selectively invest in assembly and test equipment to increase our internal capacity capabilities and transition certain outsourced assembly and test capacity to our internal facilities"
-    },
-    {
-     "theme": "process technology advancement",
-     "quote": "We continue to transition products to more advanced process technologies to reduce future manufacturing costs"
-    },
-    {
-     "theme": "product portfolio expansion",
-     "quote": "our synergistic product portfolio empowers disruptive growth trends, including AI/ML, data centers, edge computing and Internet of Things (IoT), E-mobility, networking and connectivity, and sustainability"
-    },
-    {
-     "theme": "facility footprint optimization",
-     "quote": "we announced our decision to close our Tempe, Arizona wafer fabrication facility that we refer to as Fab 2 and the closure of Fab 2 was completed in May 2025"
     }
    ]
   }

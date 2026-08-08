@@ -2,7 +2,7 @@
  "ticker": "USB",
  "cik": "0000036104",
  "entityName": "US BANCORP \\DE\\",
- "retrievedAt": "2026-08-06T13:43:03.145815Z",
+ "retrievedAt": "2026-08-07T11:46:30.446727Z",
  "fields": {
   "buyback": [
    {
@@ -1570,12 +1570,12 @@
     "confidence": 100
    },
    {
-    "value": 1552299745,
+    "value": 1558051446,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-04",
-    "accessionNumber": "0000036104-26-000024",
+    "filedDate": "2026-08-06",
+    "accessionNumber": "0000036104-26-000044",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",
