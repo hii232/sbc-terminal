@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MCK"
+    },
+    {
+      "analystCountEps": 16.0,
+      "analystCountRevenue": 15.0,
+      "currentYearEps": 44.59655,
+      "currentYearRevenue": 431787556030.0,
+      "date": "2026-08-10",
+      "nextYearEps": 50.54372,
+      "nextYearRevenue": 462527248570.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MCK"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

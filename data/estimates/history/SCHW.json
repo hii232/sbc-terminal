@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "SCHW"
+    },
+    {
+      "analystCountEps": 22.0,
+      "analystCountRevenue": 16.0,
+      "currentYearEps": 6.48941,
+      "currentYearRevenue": 28262770450.0,
+      "date": "2026-08-10",
+      "nextYearEps": 7.80276,
+      "nextYearRevenue": 31555912500.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "SCHW"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

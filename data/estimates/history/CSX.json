@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CSX"
+    },
+    {
+      "analystCountEps": 25.0,
+      "analystCountRevenue": 21.0,
+      "currentYearEps": 2.00572,
+      "currentYearRevenue": 15187769660.0,
+      "date": "2026-08-10",
+      "nextYearEps": 2.27151,
+      "nextYearRevenue": 15941620330.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CSX"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

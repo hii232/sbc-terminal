@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ETN"
+    },
+    {
+      "analystCountEps": 22.0,
+      "analystCountRevenue": 22.0,
+      "currentYearEps": 13.50587,
+      "currentYearRevenue": 32743662970.0,
+      "date": "2026-08-10",
+      "nextYearEps": 16.02188,
+      "nextYearRevenue": 36521104810.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ETN"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "DXCM"
+    },
+    {
+      "analystCountEps": 25.0,
+      "analystCountRevenue": 27.0,
+      "currentYearEps": 2.66234,
+      "currentYearRevenue": 5230035220.0,
+      "date": "2026-08-10",
+      "nextYearEps": 3.12446,
+      "nextYearRevenue": 5799775560.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "DXCM"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

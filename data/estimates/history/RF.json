@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "RF"
+    },
+    {
+      "analystCountEps": 16.0,
+      "analystCountRevenue": 6.0,
+      "currentYearEps": 2.62923,
+      "currentYearRevenue": 7841594480.0,
+      "date": "2026-08-10",
+      "nextYearEps": 2.84262,
+      "nextYearRevenue": 8220339169.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "RF"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

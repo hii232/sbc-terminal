@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ASML"
+    },
+    {
+      "analystCountEps": 34.0,
+      "analystCountRevenue": 39.0,
+      "currentYearEps": 38.02898,
+      "currentYearRevenue": 43214036100.0,
+      "date": "2026-08-10",
+      "nextYearEps": 51.42462,
+      "nextYearRevenue": 54331121810.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ASML"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

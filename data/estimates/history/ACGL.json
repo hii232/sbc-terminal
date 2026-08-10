@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ACGL"
+    },
+    {
+      "analystCountEps": 20.0,
+      "analystCountRevenue": 6.0,
+      "currentYearEps": 9.3634,
+      "currentYearRevenue": 15724134400.0,
+      "date": "2026-08-10",
+      "nextYearEps": 9.76513,
+      "nextYearRevenue": 15858943000.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ACGL"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

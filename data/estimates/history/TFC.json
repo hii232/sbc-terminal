@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "TFC"
+    },
+    {
+      "analystCountEps": 18.0,
+      "analystCountRevenue": 11.0,
+      "currentYearEps": 4.61572,
+      "currentYearRevenue": 21286506990.0,
+      "date": "2026-08-10",
+      "nextYearEps": 4.99407,
+      "nextYearRevenue": 22007603930.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "TFC"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

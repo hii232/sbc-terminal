@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CFG"
+    },
+    {
+      "analystCountEps": 12.0,
+      "analystCountRevenue": 9.0,
+      "currentYearEps": 5.30312,
+      "currentYearRevenue": 9181690220.0,
+      "date": "2026-08-10",
+      "nextYearEps": 6.51428,
+      "nextYearRevenue": 9980308480.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CFG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "SPGI"
+    },
+    {
+      "analystCountEps": 23.0,
+      "analystCountRevenue": 20.0,
+      "currentYearEps": 17.87075,
+      "currentYearRevenue": 14637057840.0,
+      "date": "2026-08-10",
+      "nextYearEps": 20.23968,
+      "nextYearRevenue": 15641621170.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "SPGI"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

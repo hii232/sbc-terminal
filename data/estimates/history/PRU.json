@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "PRU"
+    },
+    {
+      "analystCountEps": 16.0,
+      "analystCountRevenue": 8.0,
+      "currentYearEps": 13.98018,
+      "currentYearRevenue": 59603993530.0,
+      "date": "2026-08-10",
+      "nextYearEps": 14.66334,
+      "nextYearRevenue": 60020138560.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "PRU"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

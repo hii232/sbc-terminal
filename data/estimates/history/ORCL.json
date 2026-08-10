@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ORCL"
+    },
+    {
+      "analystCountEps": 40.0,
+      "analystCountRevenue": 39.0,
+      "currentYearEps": 8.05139,
+      "currentYearRevenue": 89316900850.0,
+      "date": "2026-08-10",
+      "nextYearEps": 10.89015,
+      "nextYearRevenue": 130558530150.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ORCL"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

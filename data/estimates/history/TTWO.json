@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "TTWO"
+    },
+    {
+      "analystCountEps": 14.0,
+      "analystCountRevenue": 19.0,
+      "currentYearEps": 2.17049,
+      "currentYearRevenue": 8471782190.0,
+      "date": "2026-08-10",
+      "nextYearEps": 5.35219,
+      "nextYearRevenue": 9183687940.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "TTWO"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

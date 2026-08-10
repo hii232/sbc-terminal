@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "UNP"
+    },
+    {
+      "analystCountEps": 24.0,
+      "analystCountRevenue": 22.0,
+      "currentYearEps": 13.05443,
+      "currentYearRevenue": 26753650030.0,
+      "date": "2026-08-10",
+      "nextYearEps": 14.15039,
+      "nextYearRevenue": 27923827240.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "UNP"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

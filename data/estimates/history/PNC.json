@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "PNC"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 8.0,
+      "currentYearEps": 18.90073,
+      "currentYearRevenue": 26309055160.0,
+      "date": "2026-08-10",
+      "nextYearEps": 21.51594,
+      "nextYearRevenue": 27687604290.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "PNC"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

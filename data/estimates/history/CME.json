@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CME"
+    },
+    {
+      "analystCountEps": 15.0,
+      "analystCountRevenue": 13.0,
+      "currentYearEps": 12.26536,
+      "currentYearRevenue": 7036706160.0,
+      "date": "2026-08-10",
+      "nextYearEps": 12.93033,
+      "nextYearRevenue": 7360916150.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CME"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

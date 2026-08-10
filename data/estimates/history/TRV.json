@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "TRV"
+    },
+    {
+      "analystCountEps": 27.0,
+      "analystCountRevenue": 12.0,
+      "currentYearEps": 34.05444,
+      "currentYearRevenue": 43430603900.0,
+      "date": "2026-08-10",
+      "nextYearEps": 30.20864,
+      "nextYearRevenue": 44697285080.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "TRV"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

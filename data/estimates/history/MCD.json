@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MCD"
+    },
+    {
+      "analystCountEps": 32.0,
+      "analystCountRevenue": 32.0,
+      "currentYearEps": 12.9284,
+      "currentYearRevenue": 28199555090.0,
+      "date": "2026-08-10",
+      "nextYearEps": 13.9943,
+      "nextYearRevenue": 29649152510.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MCD"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

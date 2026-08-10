@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "TER"
+    },
+    {
+      "analystCountEps": 18.0,
+      "analystCountRevenue": 17.0,
+      "currentYearEps": 9.09271,
+      "currentYearRevenue": 5143439780.0,
+      "date": "2026-08-10",
+      "nextYearEps": 11.55303,
+      "nextYearRevenue": 6221303320.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "TER"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

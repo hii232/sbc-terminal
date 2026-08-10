@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CMG"
+    },
+    {
+      "analystCountEps": 34.0,
+      "analystCountRevenue": 32.0,
+      "currentYearEps": 1.14951,
+      "currentYearRevenue": 13019437160.0,
+      "date": "2026-08-10",
+      "nextYearEps": 1.36838,
+      "nextYearRevenue": 14418956730.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CMG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

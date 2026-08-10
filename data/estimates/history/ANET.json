@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ANET"
+    },
+    {
+      "analystCountEps": 27.0,
+      "analystCountRevenue": 26.0,
+      "currentYearEps": 4.11346,
+      "currentYearRevenue": 12669534290.0,
+      "date": "2026-08-10",
+      "nextYearEps": 5.14253,
+      "nextYearRevenue": 16116931370.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ANET"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

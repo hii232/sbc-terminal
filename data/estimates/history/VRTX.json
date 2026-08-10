@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "VRTX"
+    },
+    {
+      "analystCountEps": 16.0,
+      "analystCountRevenue": 17.0,
+      "currentYearEps": 18.9446,
+      "currentYearRevenue": 13184918960.0,
+      "date": "2026-08-10",
+      "nextYearEps": 21.60724,
+      "nextYearRevenue": 14563516030.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "VRTX"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

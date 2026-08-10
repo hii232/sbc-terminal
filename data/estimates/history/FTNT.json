@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "FTNT"
+    },
+    {
+      "analystCountEps": 43.0,
+      "analystCountRevenue": 43.0,
+      "currentYearEps": 3.45061,
+      "currentYearRevenue": 8119113280.0,
+      "date": "2026-08-10",
+      "nextYearEps": 3.75956,
+      "nextYearRevenue": 9009378200.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "FTNT"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

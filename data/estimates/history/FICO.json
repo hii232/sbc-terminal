@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "FICO"
+    },
+    {
+      "analystCountEps": 21.0,
+      "analystCountRevenue": 20.0,
+      "currentYearEps": 43.09823,
+      "currentYearRevenue": 2547691010.0,
+      "date": "2026-08-10",
+      "nextYearEps": 53.13032,
+      "nextYearRevenue": 2896782180.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "FICO"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

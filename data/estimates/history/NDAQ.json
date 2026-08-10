@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "NDAQ"
+    },
+    {
+      "analystCountEps": 16.0,
+      "analystCountRevenue": 13.0,
+      "currentYearEps": 4.1383,
+      "currentYearRevenue": 5911604570.0,
+      "date": "2026-08-10",
+      "nextYearEps": 4.67209,
+      "nextYearRevenue": 6396111370.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "NDAQ"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

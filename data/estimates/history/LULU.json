@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "LULU"
+    },
+    {
+      "analystCountEps": 22.0,
+      "analystCountRevenue": 31.0,
+      "currentYearEps": 11.03879,
+      "currentYearRevenue": 11041436710.0,
+      "date": "2026-08-10",
+      "nextYearEps": 11.46461,
+      "nextYearRevenue": 11342777350.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "LULU"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

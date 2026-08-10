@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "BKNG"
+    },
+    {
+      "analystCountEps": 32.0,
+      "analystCountRevenue": 36.0,
+      "currentYearEps": 10.44798,
+      "currentYearRevenue": 29257928330.0,
+      "date": "2026-08-10",
+      "nextYearEps": 12.37639,
+      "nextYearRevenue": 32009077190.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "BKNG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

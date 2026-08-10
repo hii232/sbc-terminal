@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "SNPS"
+    },
+    {
+      "analystCountEps": 24.0,
+      "analystCountRevenue": 24.0,
+      "currentYearEps": 14.78942,
+      "currentYearRevenue": 9680096260.0,
+      "date": "2026-08-10",
+      "nextYearEps": 17.28051,
+      "nextYearRevenue": 10731265170.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "SNPS"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

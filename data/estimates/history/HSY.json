@@ -16,6 +16,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "HSY"
+    },
+    {
+      "analystCountEps": 22.0,
+      "analystCountRevenue": 21.0,
+      "currentYearEps": 8.48707,
+      "currentYearRevenue": 12293547390.0,
+      "date": "2026-08-10",
+      "nextYearEps": 9.87535,
+      "nextYearRevenue": 12606638770.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "HSY"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",
