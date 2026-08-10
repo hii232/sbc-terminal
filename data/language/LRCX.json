@@ -61,34 +61,6 @@
      "quote": "our focus on delivering our multi-product solutions with a goal to enhance the value of Lam's solutions to our customers"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-24",
-   "source": "SEC 10-Q MD&A",
-   "words": 20132,
-   "themes": [
-    {
-     "theme": "foundry market investments",
-     "quote": "The increase in the foundry market segment for the September 2025 quarter compared to the June 2025 quarter was driven by mature node investments."
-    },
-    {
-     "theme": "advanced packaging chip integration",
-     "quote": "3D device scaling, multiple patterning, process flow, and advanced packaging chip integration, will drive sustainable growth"
-    },
-    {
-     "theme": "multi-product solutions delivery",
-     "quote": "our focus on delivering our multi-product solutions with a goal to enhance the value of Lam's solutions to our customers"
-    },
-    {
-     "theme": "deposition etch clean markets",
-     "quote": "we are in a strong position with our leadership and expertise in deposition, etch, and clean markets to facilitate some of the most significant innovations in semiconductor device manufacturing"
-    },
-    {
-     "theme": "tariff cost mitigation",
-     "quote": "reduced factory efficiencies, higher tariff-related spend, and increased material costs"
-    }
-   ]
   }
  ]
 }

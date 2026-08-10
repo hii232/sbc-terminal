@@ -2,7 +2,7 @@
  "ticker": "APO",
  "cik": "0001858681",
  "entityName": "APOLLO GLOBAL MANAGEMENT, INC.",
- "retrievedAt": "2026-08-08T22:29:18.863777Z",
+ "retrievedAt": "2026-08-10T11:47:54.752009Z",
  "fields": {
   "buyback": [
    {
@@ -902,12 +902,12 @@
     "confidence": 100
    },
    {
-    "value": 576517513,
+    "value": 590543159,
     "unit": "shares",
-    "periodEnd": "2026-05-05",
+    "periodEnd": "2026-08-05",
     "form": "10-Q",
-    "filedDate": "2026-05-07",
-    "accessionNumber": "0001858681-26-000026",
+    "filedDate": "2026-08-10",
+    "accessionNumber": "0001858681-26-000040",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

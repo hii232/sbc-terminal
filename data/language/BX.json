@@ -49,30 +49,6 @@
      "quote": "We have pursued attractive investments in companies and assets that are part of the global energy transition. Our approach includes efforts to help select portfolio companies measure emissions and capture cost savings through energy managem"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 37806,
-   "themes": [
-    {
-     "theme": "assets under management growth",
-     "quote": "a requirement to keep a minimum amount of fee-earning assets under management, each tested quarterly"
-    },
-    {
-     "theme": "credit facility optimization",
-     "quote": "The Revolving Credit Facility contains customary representations, covenants and events of default. Financial covenants consist of a maximum net leverage ratio"
-    },
-    {
-     "theme": "clo vehicle consolidation reduction",
-     "quote": "As of September 30, 2025, the CLO Notes Payable were fully deconsolidated, and there are no outstanding borrowings for the current period"
-    },
-    {
-     "theme": "multi-asset fund deployment",
-     "quote": "Blackstone Fund Facilities represent borrowing facilities for the various consolidated Blackstone Funds that are used to meet liquidity and investing needs"
-    }
-   ]
   }
  ]
 }

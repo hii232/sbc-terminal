@@ -2,7 +2,7 @@
  "ticker": "VST",
  "cik": "0001692819",
  "entityName": "Vistra Corp.",
- "retrievedAt": "2026-08-08T22:28:30.453310Z",
+ "retrievedAt": "2026-08-10T11:47:30.842404Z",
  "fields": {
   "buyback": [
    {
@@ -1415,12 +1415,12 @@
     "confidence": 100
    },
    {
-    "value": 337182468,
+    "value": 335635195,
     "unit": "shares",
-    "periodEnd": "2026-05-01",
+    "periodEnd": "2026-08-03",
     "form": "10-Q",
-    "filedDate": "2026-05-08",
-    "accessionNumber": "0001692819-26-000014",
+    "filedDate": "2026-08-10",
+    "accessionNumber": "0001692819-26-000019",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

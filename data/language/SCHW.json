@@ -57,38 +57,6 @@
      "quote": "We maintain a residential mortgage portfolio and continue to originate mortgages to serve our clients' home financing needs"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 12485,
-   "themes": [
-    {
-     "theme": "private markets platform expansion",
-     "quote": "Schwab announced that it has entered into a definitive agreement to acquire Forge Global Holdings, Inc. (Forge), operator of a leading private market platform and trading marketplace, in a transaction valued at approximately $660 million. T"
-    },
-    {
-     "theme": "bank lending portfolio growth",
-     "quote": "Client demand for margin and bank lending continued to be strong in the first nine months of 2025, reflecting positive equity market performance and client engagement, as margin loan balances rebounded following market volatility in late Ma"
-    },
-    {
-     "theme": "bank supplemental funding reduction",
-     "quote": "In the first nine months of 2025, Schwab reduced the outstanding balance of total bank supplemental funding by $35.1 billion, or 70%, including a reduction of $12.9 billion during the third quarter. As of September 30, 2025, remaining balan"
-    },
-    {
-     "theme": "managed investing solutions growth",
-     "quote": "Asset management and administration fees increased by $197 million, or 13%, and $566 million, or 13%, in the third quarter and first nine months of 2025, respectively, compared to the same periods in 2024. These increases were primarily a r"
-    },
-    {
-     "theme": "client asset gathering acceleration",
-     "quote": "Core net new assets totaled $137.5 billion and $355.5 billion in the third quarter and first nine months of the year, respectively, increasing 44% and 41% from the comparative prior-year periods. Clients opened 1.1 million and 3.4 million n"
-    },
-    {
-     "theme": "net interest margin improvement",
-     "quote": "Net interest margin increased to 2.86% and 2.68% in the third quarter and first nine months of 2025, respectively, compared to 2.08% and 2.04% during the same periods in 2024, as reduced balances of bank supplemental funding and lower rates"
-    }
-   ]
   }
  ]
 }

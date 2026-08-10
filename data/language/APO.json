@@ -41,22 +41,6 @@
      "quote": "On September 2, 2025 (the 'Acquisition Date'), Apollo completed the previously announced acquisition of Bridge in an all-stock transaction. As a result, Bridge became a consolidated subsidiary of AAM"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-10",
-   "source": "SEC 10-Q MD&A",
-   "words": 1053,
-   "themes": [
-    {
-     "theme": "interest rate risk management",
-     "quote": "actively manages its assets and liabilities, the net exposure to interest rates can vary over time"
-    },
-    {
-     "theme": "fixed income investment positioning",
-     "quote": "any such decreases in the fair value of fixed maturity securities, unless related to credit concerns of the issuer requiring recognition of credit losses, would generally be realized only if Athene were required to sell such securities at l"
-    }
-   ]
   }
  ]
 }

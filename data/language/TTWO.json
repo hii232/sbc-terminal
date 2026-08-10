@@ -57,30 +57,6 @@
      "quote": "On April 14, 2025, we repaid our 2025 Notes with a principal amount of $600.0, with proceeds from the New Notes"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 17722,
-   "themes": [
-    {
-     "theme": "live service game engagement",
-     "quote": "ongoing consumer engagement and includes revenue from virtual currency, add-on content, in-game purchases, and in-game advertising"
-    },
-    {
-     "theme": "recurrent consumer spending monetization",
-     "quote": "Recurrent consumer spending (\"RCS\") is generated from ongoing consumer engagement and includes revenue from virtual currency, add-on content, in-game purchases, and in-game advertising"
-    },
-    {
-     "theme": "digital distribution channel expansion",
-     "quote": "products are delivered through digital online services (digital download, online platforms, and cloud streaming) and physical retail and other"
-    },
-    {
-     "theme": "accounts receivable monetization",
-     "quote": "entered into an arrangement to sell designated pools of high credit quality accounts receivable under an uncommitted accounts receivables purchase facility"
-    }
-   ]
   }
  ]
 }

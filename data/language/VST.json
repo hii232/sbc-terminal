@@ -61,34 +61,6 @@
      "quote": "our integrated power generation and retail electricity business provides flexibility to hedge our generation position by utilizing retail markets as an effective sales channel"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-07",
-   "source": "SEC 10-Q MD&A",
-   "words": 7555,
-   "themes": [
-    {
-     "theme": "nuclear long-term power contracts",
-     "quote": "Vistra entered into a 20-year power purchase agreement with a large, investment grade company pursuant to which Vistra has agreed to supply to the Customer 1,200 MW of carbon-free power from the Comanche Peak Nuclear Power Plant"
-    },
-    {
-     "theme": "natural gas capacity expansion",
-     "quote": "we announced we will move forward with construction of the 860 MW peaking plants discussed above. Early development work is underway, and we anticipate the units will be online in 2028"
-    },
-    {
-     "theme": "nuclear fleet acquisition and geographic diversification",
-     "quote": "Vistra Operations acquired 100% of the membership interests of subsidiaries of Lotus resulting in the addition of seven natural gas generation facilities totaling 2,600 MW in Delaware and Pennsylvania (PJM), Rhode Island (ISO-NE), New York "
-    },
-    {
-     "theme": "nuclear license renewal",
-     "quote": "our application for license renewal at our Perry Nuclear Plant was approved by the NRC. The license now extends through 2046"
-    },
-    {
-     "theme": "nuclear ptc revenue capture",
-     "quote": "the section 45U nuclear PTC is available to existing nuclear facilities from 2024 through 2032 and provides a federal tax credit of up to $15 per MWh"
-    }
-   ]
   }
  ]
 }

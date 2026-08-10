@@ -61,34 +61,6 @@
      "quote": "plans to continue to implement 'Best Burger'; a series of operational and formulation changes"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 16350,
-   "themes": [
-    {
-     "theme": "loyalty program expansion",
-     "quote": "The Company plans to increase its 90-day active users to 250 million by the end of 2027. Further, the Company plans to grow its annual Systemwide sales to loyalty members to $45.0 billion by the end of 2027."
-    },
-    {
-     "theme": "restaurant unit growth acceleration",
-     "quote": "the Company plans to continue to accelerate the pace of restaurant openings and technology innovation...progressing toward the targeted expansion to 50,000 restaurants by the end of 2027, which would make it the fastest period of restaurant"
-    },
-    {
-     "theme": "digital and delivery platform buildout",
-     "quote": "The Company is building one of the world's largest consumer platforms to fuel engagement...The Company plans to deploy this initiative in its top six markets by the end of 2025...expects to increase the percentage of Systemwide delivery sal"
-    },
-    {
-     "theme": "modernized burger and chicken innovation",
-     "quote": "Building on its foundational strength with burgers, the Company will continue to evolve and innovate...plans to continue to implement 'Best Burger'...Further, the Company is focused on continuing to gain share in the rapidly growing chicken"
-    },
-    {
-     "theme": "cloud-based restaurant operating system",
-     "quote": "The Company intends to deploy new, universal software that all McDonald's restaurants will run on, enabling restaurants to roll out innovation even faster, with less complexity and more reliability"
-    }
-   ]
   }
  ]
 }
