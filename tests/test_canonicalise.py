@@ -23,6 +23,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import collect_language as CL  # noqa: E402
 
+# The disk cache is its own fixture section at the bottom; everything above it
+# pins the API contract, so it runs cache-off to stay hermetic.
+CL.CANON_CACHE = None
+
 FAILED = []
 
 
@@ -131,6 +135,43 @@ c = FakeClient(["Ai Buildout", "ai buildout", "  ", "a much too long label that 
 CL.canonicalise(c, {"one theme"})
 labels = CL.propose_labels(FakeClient(["Ai Buildout", "ai buildout", " "]), {"x"})
 ok(labels == ["ai buildout"], "vocabulary is lowercased, de-duplicated and blank-stripped", str(labels))
+
+# --- THE COST GUARD: an unchanged corpus never re-buys its mapping ---
+# Canonicalisation runs on every scheduled refresh but the corpus only changes
+# when a filing lands; without this cache the pipeline paid for the identical
+# mapping seven times a week.
+import tempfile  # noqa: E402
+
+CL.ASSIGN_BATCH = 5
+CL.CANON_CACHE = Path(tempfile.mkdtemp()) / "_canon.json"
+
+c = FakeClient(["label one"])
+first = CL.canonicalise(c, SMALL)
+ok(c.calls > 0 and len(first) == 13, "first run over a corpus computes and caches", str(c.calls))
+c = FakeClient(["label one"])
+again = CL.canonicalise(c, SMALL)
+ok(c.calls == 0 and again == first,
+   "an unchanged corpus reuses the cached mapping at zero model calls", str(c.calls))
+
+c = FakeClient(["label one"])
+CL.canonicalise(c, SMALL | {"a brand new theme"})
+ok(c.calls > 0, "a changed corpus recomputes instead of serving stale mappings", str(c.calls))
+
+# a degraded run must not freeze its degradation into the cache
+CL.CANON_CACHE.unlink(missing_ok=True)
+c = FakeClient(["label one"], fail_batches={2})
+CL.canonicalise(c, SMALL)
+c = FakeClient(["label one"])
+CL.canonicalise(c, SMALL)
+ok(c.calls > 0, "a partially-failed run is never cached — the next run retries", str(c.calls))
+
+# the models are part of the cache key: switching models re-canonicalises
+prev_model = CL.CANON_MODEL
+CL.CANON_MODEL = "some-other-model"
+c = FakeClient(["label one"])
+CL.canonicalise(c, SMALL)
+ok(c.calls > 0, "a model change invalidates the cache", str(c.calls))
+CL.CANON_MODEL = prev_model
 
 if FAILED:
     print("\n".join("  x FAIL: " + f for f in FAILED))

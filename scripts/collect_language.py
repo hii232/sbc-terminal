@@ -40,6 +40,7 @@ WHAT IS STORED — and what deliberately is NOT:
   python scripts/collect_language.py            # default company count
   python scripts/collect_language.py --top 30   # narrower sweep
 """
+import hashlib
 import json
 import re
 import sys
@@ -344,11 +345,17 @@ def sec_narrative_filings(cik10, want):
 #      stronger model.
 #
 # Cost control: extracted themes are CACHED per company-period in
-# data/language/<TK>.json. A period already extracted is never sent again,
-# so steady-state cost is one call per newly-filed 10-Q, not a full re-sweep.
+# data/language/<TK>.json, and the cross-corpus canonicalisation is cached in
+# data/language/_canon.json keyed by the exact phrase set. A period already
+# extracted is never sent again, and an unchanged corpus never re-buys its
+# canonicalisation — so a refresh with no new filings makes ZERO model calls.
 ANTHROPIC_KEY = __import__("os").environ.get("ANTHROPIC_API_KEY", "").strip()
+# Model choices are a COST decision as much as a quality one: this runs on a
+# metered API key seven times a week. Extraction and assignment stay on Haiku
+# because it is a third of Sonnet's price and both tasks are mechanical;
+# vocabulary proposal is the one judgment call per run and runs on Sonnet.
 EXTRACT_MODEL = "claude-haiku-4-5"   # high volume, one call per new filing
-CANON_MODEL = "claude-opus-5"        # one call per run: proposes the vocabulary
+CANON_MODEL = "claude-sonnet-5"      # one call per run: proposes the vocabulary
 ASSIGN_MODEL = "claude-haiku-4-5"    # mechanical matching against that vocabulary
 ASSIGN_BATCH = 200                   # phrases per assignment call
 MDNA_CHARS_FOR_LLM = 60_000          # ~15k tokens of MD&A is plenty of strategy
@@ -544,6 +551,9 @@ def assign_batch(client, labels, batch):
     return out
 
 
+CANON_CACHE = ROOT / "data" / "language" / "_canon.json"
+
+
 def canonicalise(client, phrases):
     """Map every raw theme to a shared label. Returns {raw: canonical}; an
     empty map on failure means the caller keeps the raw phrases (degraded
@@ -551,10 +561,30 @@ def canonicalise(client, phrases):
 
     A batch that fails leaves ITS phrases raw and the rest mapped -- partial
     canonicalisation is strictly better than none, and the caller reports the
-    coverage so a degraded run is visible in the bundle instead of silent."""
+    coverage so a degraded run is visible in the bundle instead of silent.
+
+    COST GUARD: this runs on every scheduled refresh (weekday data-refresh
+    plus twice-weekly language-refresh), but the phrase set only changes when
+    a new filing lands. Re-running an identical corpus re-buys the identical
+    mapping — that was most of the pipeline's steady-state API spend. So a
+    fully-successful mapping is cached to disk keyed by (models, phrase set);
+    an unchanged corpus costs zero model calls. A degraded run (any failed
+    batch) is never cached, so the next run retries at full strength."""
     if not phrases:
         return {}
     ordered = sorted(phrases)
+    key = hashlib.sha256(json.dumps([CANON_MODEL, ASSIGN_MODEL, ordered],
+                                    ensure_ascii=False).encode("utf-8")).hexdigest()
+    if CANON_CACHE is not None and CANON_CACHE.exists():
+        try:
+            prev = json.loads(CANON_CACHE.read_text(encoding="utf-8"))
+            if prev.get("key") == key and prev.get("mapping"):
+                print(f"  corpus unchanged since last run — reusing cached "
+                      f"canonicalisation ({len(prev['mapping'])} mappings, "
+                      f"zero model calls)", flush=True)
+                return prev["mapping"]
+        except Exception:
+            pass
     labels = propose_labels(client, ordered)
     if not labels:
         print("  no vocabulary — keeping raw themes", flush=True)
@@ -575,6 +605,16 @@ def canonicalise(client, phrases):
     print(f"  canonicalised {len(mapping)}/{len(ordered)} themes ({pct:.0f}%) "
           f"onto {len(set(mapping.values()))} labels"
           + (f", {failed} batch(es) failed" if failed else ""), flush=True)
+    if CANON_CACHE is not None and mapping and not failed:
+        try:
+            CANON_CACHE.parent.mkdir(parents=True, exist_ok=True)
+            CANON_CACHE.write_text(json.dumps(
+                {"key": key,
+                 "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+                 "models": [CANON_MODEL, ASSIGN_MODEL],
+                 "mapping": mapping}, indent=1, ensure_ascii=False), encoding="utf-8")
+        except Exception:
+            pass
     return mapping
 
 
