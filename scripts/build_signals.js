@@ -33,8 +33,10 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network"));
 
 const root = path.join(__dirname, "..");
-const files = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "charts.js",
-  "scores.js", "estimates.js", "earnings.js", "whales.js", "insiders.js", "app.js"].filter(f => fs.existsSync(path.join(root, f)));
+// Must load every data bundle index.html loads — a signals ledger built on a
+// thinner bundle than the app reports deltas the app never showed.
+const files = ["universe.js", "data.js", "sec.js", "track.js", "segments.js", "sectors.js", "charts.js",
+  "scores.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "language.js", "app.js"].filter(f => fs.existsSync(path.join(root, f)));
 vm.runInThisContext(files.map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n"));
 const E = global.window.__engines;
 if (!E || !E.directionEdgeOf) { console.error("engines unavailable"); process.exit(1); }

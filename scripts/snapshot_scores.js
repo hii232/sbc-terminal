@@ -16,8 +16,15 @@ global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network"));
 
 const root = path.join(__dirname, "..");
-const files = ["universe.js", "data.js", "sec.js", "segments.js", "sectors.js", "charts.js",
-  "scores.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "news.js", "app.js"]
+// EVERY data bundle index.html loads must be loaded here too. language.js was
+// missing for the life of this script, so the conviction engine's language
+// vote could never be cast in the snapshot while the browser cast it freely --
+// the recorded track record was grading a different board than the one on
+// screen (measured 2026-08-10: 161 of 224 ranks differed, top-10 included).
+// A harness that scores on less data than the app does not record the model,
+// it records the harness.
+const files = ["universe.js", "data.js", "sec.js", "track.js", "segments.js", "sectors.js", "charts.js",
+  "scores.js", "estimates.js", "earnings.js", "signals.js", "whales.js", "insiders.js", "language.js", "news.js", "app.js"]
   .filter(f => fs.existsSync(path.join(root, f)));
 vm.runInThisContext(files.map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n"));
 global.Chart = global.window.Chart;

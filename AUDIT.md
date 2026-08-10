@@ -88,6 +88,20 @@ Still open, in priority order:
 
 Needs owner action: an `FMP_API_KEY` repo secret still upgrades the 47 FMP-covered names to FMP-quality estimates, but is no longer blocking — the Yahoo fallback accumulates history for the whole universe keylessly.
 
+## Pipeline health check — 2026-08-10
+
+Prompted by a simple question: is the Claude API actually connected and refreshing the terminal? It is connected — and two silent defects were sitting behind it, neither of which had ever surfaced as a failure.
+
+**Verified healthy.** Every non-LLM layer is current: `data.js`, `sec.js`, `earnings.js`, `insiders.js`, `whales.js`, `signals.js`, `sectors.js` all refreshed 2026-08-10, 217/224 scored, golden audit 83 verified / 0 conflicts, 66 new signal events. Theme extraction reached 224/224 companies (655 cached periods). The 2026-08-05 and 2026-08-06 scheduled runs failed outright on a test regression (`no reportedOn stamp -> null`) and the gate correctly refused to commit data behind a red test — the workflow behaving exactly as designed.
+
+**Cadence, for the record:** `data-refresh` is `0 11 * * 1-5` — **weekdays only, not every 24 hours**; `language-refresh` is Tue + Fri 12:40 UTC. Weekend gaps are by design (no new prints), but "daily" is the wrong word for it.
+
+**Defect 1 — the recorder scored a different board than the screen.** No node harness loaded `language.js`, so the language conviction vote could never be cast in the recorded track record while the browser cast it: 161 of 224 ranks differed, top-10 included. Fixed and pinned by test §51; see MODEL_CHANGELOG 2026-08-10. This is the more serious of the two — a track record is only worth what its agreement with the live board is worth.
+
+**Defect 2 — a corpus with zero canonicalisation was still stamped narrative-grade.** The vocabulary call failed on `400 … 'Your credit balance is too low'`; coverage was 0.0 and the Radar rendered anyway, undercounting every narrative on it. Three compounding reasons it stayed invisible: the flag only asked whether *any* raw theme existed; `canonCoverage` was published but read by no code; and the step is `continue-on-error`, so CI reported success. All three closed — tested floor, on-screen reason, and a guard that stops a degraded run from overwriting a healthy bundle. The 2026-08-07 corpus (coverage 0.756) was restored as the published bundle.
+
+**Standing risk:** the Narrative Radar is the only layer with a hard dependency on a metered external API. It now fails *dark and loud* rather than *bright and wrong*, and the canonicalisation cache means a healthy mapping survives a later billing outage — but a prolonged one still freezes the corpus at its last good date, visible as a stale `generated` stamp on the card.
+
 ## Security Analysis (Graham & Dodd, 7th ed. / Klarman) review — 2026-08-08
 
 A full read of the book against every scored engine. Chapters covering the income account (31-34, 37-38), P/E and capitalization (39-40), balance sheet (42-45), comparative analysis (49), price-vs-value (50-51), market vs security analysis (52), common-stock theory and dividends (1-4, 27-29), plus the modern commentary (Klarman, Combs, Romick, Zimmerman, Stein/Sternberg).

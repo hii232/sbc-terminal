@@ -173,6 +173,50 @@ CL.canonicalise(c, SMALL)
 ok(c.calls > 0, "a model change invalidates the cache", str(c.calls))
 CL.CANON_MODEL = prev_model
 
+# --- THE HONESTY RULE: a corpus that cannot be counted is never graded ---
+# The old flag was `bool(client) and bool(mapping or raw)`, so a run whose
+# canonicalisation failed outright still earned narrative-grade. Convergence is
+# exact string match, so that board undercounts every narrative on it while
+# looking perfectly healthy — which is exactly what shipped on 2026-08-10 after
+# the vocabulary call returned 400 "credit balance is too low".
+g, cov, why = CL.grade_corpus(True, 2712, 0)
+ok(g is False and cov == 0.0 and "canonicalisation degraded" in why,
+   "a corpus with zero canonicalisation is NOT narrative-grade", f"{g} {cov} {why}")
+
+g, cov, why = CL.grade_corpus(True, 2745, 2075)
+ok(g is True and cov == 0.756 and why == "",
+   "a real healthy run (75.6% mapped) stays narrative-grade", f"{g} {cov} {why}")
+
+g, _, why = CL.grade_corpus(False, 2712, 2000)
+ok(g is False and "ANTHROPIC_API_KEY" in why,
+   "no client is reported as a key problem, not as a canonicalisation problem", why)
+
+g, _, why = CL.grade_corpus(True, 0, 0)
+ok(g is False and "no themes" in why, "an empty sweep is named as an empty sweep", why)
+
+# the floor sits below every healthy run observed and above total failure
+ok(0.0 < CL.MIN_CANON_COVERAGE < 0.686,
+   "the floor rejects a dead stage without penalising normal partial coverage",
+   str(CL.MIN_CANON_COVERAGE))
+ok(CL.grade_corpus(True, 100, 25)[0] is True and CL.grade_corpus(True, 100, 24)[0] is False,
+   "the floor is an inclusive threshold at MIN_CANON_COVERAGE")
+
+# --- a degraded run must be able to SEE what it would overwrite ---
+import tempfile as _tf  # noqa: E402
+_prev_root = CL.ROOT
+CL.ROOT = Path(_tf.mkdtemp())
+ok(CL.published_meta() is None, "no published bundle yet reads as None, not as a crash")
+(CL.ROOT / "language.js").write_text(
+    'const LANGUAGE_META = {"narrativeGrade": true, "canonCoverage": 0.756, '
+    '"generated": "2026-08-07T12:00:00Z"};\nconst LANGUAGE = {};\n', encoding="utf-8")
+prev = CL.published_meta()
+ok(prev is not None and prev["narrativeGrade"] is True and prev["canonCoverage"] == 0.756,
+   "a healthy published bundle is legible to the next run, so it can refuse to clobber it",
+   json.dumps(prev))
+(CL.ROOT / "language.js").write_text("this is not javascript {{{", encoding="utf-8")
+ok(CL.published_meta() is None, "an unparseable bundle degrades to None rather than throwing")
+CL.ROOT = _prev_root
+
 if FAILED:
     print("\n".join("  x FAIL: " + f for f in FAILED))
     print(f"\n{len(FAILED)} failed")

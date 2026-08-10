@@ -16,17 +16,25 @@ global.navigator = {};
 global.history = { state: null, pushState: () => {}, replaceState: () => {} };
 global.fetch = () => Promise.reject(new Error("no network in export"));
 
+// Must load every data bundle index.html loads — an exported report built on a
+// thinner bundle than the app disagrees with the screen it claims to explain.
 const files = [
   "universe.js",
   "data.js",
   "sec.js",
+  "track.js",
   "segments.js",
   "sectors.js",
   "estimates.js",
+  "earnings.js",
+  "signals.js",
+  "whales.js",
+  "insiders.js",
+  "language.js",
   "scores.js",
   "charts.js",
   "app.js",
-];
+].filter((f) => fs.existsSync(path.join(ROOT, f)));
 const src = files.map((f) => fs.readFileSync(path.join(ROOT, f), "utf8")).join("\n;\n");
 vm.runInThisContext(`${src}
 globalThis.__SBC_EXPORT = { DATA, UNIVERSE_LIST, SEC, SECTORS, ESTIMATE_HISTORY, ScoreEngine: window.ScoreEngine, E: window.__engines };`, { filename: "score-export-bundle.js" });

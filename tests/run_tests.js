@@ -2366,5 +2366,63 @@ function ok_silent(cond, label) { if (!cond) ok(false, `dedupScore is finite for
     String(board.filter(r => !r.investment || !r.speculative).length));
 }
 
+// =============== 51. Every scoring harness sees what the browser sees ===============
+// The node harnesses rebuild the app in a VM from an explicit file list. Any
+// data bundle missing from that list is not an error -- the engine simply
+// scores without it. snapshot_scores.js shipped for its whole life without
+// language.js, so the conviction engine's language vote could never be cast in
+// the recorded track record while the browser cast it: on 2026-08-10, 161 of
+// 224 ranks differed between the two, top-10 included. A track record that
+// grades a board the user never saw is worse than no track record.
+{
+  const indexHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  const browserBundles = [...indexHtml.matchAll(/src="([\w.\-]+\.js)(?:\?v=\d+)?"/g)]
+    .map(m => m[1])
+    .filter(f => !["app.js", "charts.js", "scores.js"].includes(f));   // engine code, not data
+  ok(browserBundles.includes("language.js"),
+    "the browser loads language.js (guard is meaningful)", browserBundles.join(","));
+
+  for (const harness of ["scripts/snapshot_scores.js", "scripts/build_signals.js",
+                         "scripts/daily_brief.js", "scripts/export_score_report.js"]) {
+    const src = fs.readFileSync(path.join(root, harness), "utf8");
+    // the file list is the literal array of "*.js" strings near the top
+    const listed = new Set([...src.matchAll(/"([\w.\-]+\.js)"/g)].map(m => m[1]));
+    const missing = browserBundles.filter(f => !listed.has(f) && fs.existsSync(path.join(root, f)));
+    ok(missing.length === 0,
+      `${harness} loads every data bundle the browser loads — a harness scoring on less data records the harness, not the model`,
+      missing.length ? "missing: " + missing.join(",") : "");
+  }
+}
+
+// =============== 52. A degraded language corpus can never look healthy ===============
+// narrativeGrade was `bool(client) and bool(mapping or raw)`, so a corpus whose
+// canonicalisation failed outright still earned the stamp -- and convergence is
+// counted by exact string match, so the Radar then undercounts every narrative
+// on it while looking entirely normal. The flag must answer "is this corpus
+// countable", not "did anything at all come back".
+{
+  const meta = typeof LANGUAGE_META !== "undefined" ? LANGUAGE_META : null;
+  ok(meta !== null, "the language bundle publishes its metadata");
+  if (meta) {
+    ok(typeof meta.canonCoverage === "number",
+      "the bundle publishes canonicalisation coverage, not just a null theme count",
+      String(meta.canonCoverage));
+    // THE INVARIANT: narrative-grade implies a corpus that can actually be counted.
+    ok(meta.narrativeGrade !== true || meta.canonCoverage >= 0.25,
+      "a narrative-grade corpus is always one whose themes were actually canonicalised",
+      `narrativeGrade=${meta.narrativeGrade} coverage=${meta.canonCoverage}`);
+    // and a dark board always says why, so a missing key, an empty sweep and a
+    // billing failure are distinguishable without reading CI logs
+    ok(meta.narrativeGrade === true || (typeof meta.degradedReason === "string" && meta.degradedReason.length > 0),
+      "a corpus that is not narrative-grade states the reason it was withheld",
+      JSON.stringify(meta.degradedReason));
+    // the vote follows the flag: never cast on a corpus the collector disowned
+    if (meta.narrativeGrade !== true) {
+      ok(E.languageReady() === false,
+        "the language conviction vote is never cast on a corpus that is not narrative-grade");
+    }
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

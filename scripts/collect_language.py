@@ -358,6 +358,16 @@ EXTRACT_MODEL = "claude-haiku-4-5"   # high volume, one call per new filing
 CANON_MODEL = "claude-sonnet-5"      # one call per run: proposes the vocabulary
 ASSIGN_MODEL = "claude-haiku-4-5"    # mechanical matching against that vocabulary
 ASSIGN_BATCH = 200                   # phrases per assignment call
+# NARRATIVE-GRADE FLOOR. Convergence counting is exact string match, so an
+# uncanonicalised corpus does not fail loudly -- it silently undercounts every
+# narrative on the board. A healthy run maps 68-76% of themes (the rest keep
+# their own wording, which is correct). A run that maps almost nothing means
+# the canonicalisation stage did not really happen: on 2026-08-10 the
+# vocabulary call came back 400 "credit balance is too low" and the corpus
+# shipped at 0.0 coverage still flagged narrative-grade, because the old flag
+# only asked whether raw themes existed. Below this floor the corpus is NOT
+# narrative-grade and the Radar stays dark.
+MIN_CANON_COVERAGE = 0.25
 MDNA_CHARS_FOR_LLM = 60_000          # ~15k tokens of MD&A is plenty of strategy
 
 THEME_SCHEMA = {
@@ -618,6 +628,40 @@ def canonicalise(client, phrases):
     return mapping
 
 
+def grade_corpus(has_client, raw_n, mapped_n):
+    """Is this corpus countable? Returns (narrative_grade, coverage, reason).
+
+    Pure so the rule can be tested without a client, a network or a sweep --
+    the old inline version could only be exercised by a full production run,
+    which is how it shipped a 0.0-coverage corpus stamped narrative-grade.
+    """
+    coverage = round(mapped_n / raw_n, 3) if raw_n else 0.0
+    if not has_client:
+        return False, coverage, ("no ANTHROPIC_API_KEY or SDK available, so no "
+                                 "filing was ever read into themes")
+    if not raw_n:
+        return False, coverage, "no themes were extracted from any company"
+    if coverage < MIN_CANON_COVERAGE:
+        return False, coverage, (f"canonicalisation degraded — only {coverage:.0%} of "
+                                 f"{raw_n} themes mapped onto shared labels "
+                                 f"(needs {MIN_CANON_COVERAGE:.0%})")
+    return True, coverage, ""
+
+
+def published_meta():
+    """LANGUAGE_META from the bundle currently on disk, or None. Lets a run ask
+    whether it would be replacing something better than itself."""
+    path = ROOT / "language.js"
+    if not path.exists():
+        return None
+    try:
+        head = path.read_text(encoding="utf-8")[:200_000]
+        m = re.search(r"const LANGUAGE_META = (\{.*?\});", head, re.S)
+        return json.loads(m.group(1)) if m else None
+    except Exception:
+        return None
+
+
 def market_caps():
     """Rank by market cap straight from the terminal bundle — one source of
     truth, so the language sweep always covers the names the app ranks."""
@@ -727,7 +771,13 @@ def main():
             # how many times one company repeated itself
             p["phrases"] = {lab: 1 for lab in labels}
 
-    graded = bool(client) and bool(mapping or raw)
+    # HONEST QUALITY FLAG, computed from what the run actually achieved rather
+    # than from whether it produced any output at all. `mapping or raw` was
+    # true whenever a single theme existed, so a total canonicalisation failure
+    # still earned the narrative-grade stamp and the Radar rendered an
+    # undercounting board that looked healthy.
+    graded, canon_cov, degraded_reason = grade_corpus(bool(client), len(raw), len(mapping))
+
     meta = {
         "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "companies": len(bundle),
@@ -753,8 +803,29 @@ def main():
         # run shipped exactly that way, invisibly). Publish it so a degraded
         # corpus is legible in the bundle instead of inferred from a null.
         "rawThemes": len(raw),
-        "canonCoverage": round(len(mapping) / len(raw), 3) if raw else 0.0,
+        "canonCoverage": canon_cov,
+        # WHY the corpus is not narrative-grade, in words the UI can show. A
+        # bare false tells a reader the board is dark but not whether that is a
+        # missing key, an empty sweep or a billing failure -- and those need
+        # completely different fixes.
+        "degradedReason": degraded_reason,
     }
+    # A DEGRADED RUN MUST NOT REPLACE A HEALTHY BOARD. The published bundle is
+    # rebuilt from scratch every run, so before this guard a single failed
+    # canonicalisation overwrote a good corpus with an undercounting one --
+    # measured alternating 0.735 -> 0.0 -> 0.756 -> 0.0 across four runs. The
+    # per-company theme cache was already banked on disk during the sweep, so
+    # nothing collected today is lost: the next healthy run publishes it.
+    if not graded:
+        prev = published_meta()
+        if prev and prev.get("narrativeGrade") is True:
+            print(f"\nNOT PUBLISHING — this run is not narrative-grade "
+                  f"({degraded_reason}). Keeping the healthy bundle generated "
+                  f"{str(prev.get('generated', ''))[:10]} "
+                  f"(coverage {prev.get('canonCoverage')}). Today's themes are "
+                  f"cached and will publish on the next clean run.", flush=True)
+            return
+
     js = ("/* MANAGEMENT LANGUAGE — strategic themes read out of SEC MD&A sections\n"
           "   (and earnings-call transcripts where available) by a model, then\n"
           "   canonicalised across companies so shared strategy is countable.\n"
