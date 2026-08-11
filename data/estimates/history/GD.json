@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "GD"
+    },
+    {
+      "analystCountEps": 20.0,
+      "analystCountRevenue": 23.0,
+      "currentYearEps": 16.99896,
+      "currentYearRevenue": 55923031580.0,
+      "date": "2026-08-11",
+      "nextYearEps": 18.59454,
+      "nextYearRevenue": 58536910550.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "GD"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

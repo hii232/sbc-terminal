@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CRM"
+    },
+    {
+      "analystCountEps": 52.0,
+      "analystCountRevenue": 50.0,
+      "currentYearEps": 14.13358,
+      "currentYearRevenue": 46104775850.0,
+      "date": "2026-08-11",
+      "nextYearEps": 15.51484,
+      "nextYearRevenue": 50514769560.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CRM"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

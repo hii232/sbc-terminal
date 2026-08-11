@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "WDC"
+    },
+    {
+      "analystCountEps": 18.0,
+      "analystCountRevenue": 20.0,
+      "currentYearEps": 20.10436,
+      "currentYearRevenue": 19212460640.0,
+      "date": "2026-08-11",
+      "nextYearEps": 31.69948,
+      "nextYearRevenue": 26157059330.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "WDC"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

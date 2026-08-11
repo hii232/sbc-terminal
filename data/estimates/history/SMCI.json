@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "SMCI"
+    },
+    {
+      "analystCountEps": 9.0,
+      "analystCountRevenue": 9.0,
+      "currentYearEps": 3.31159,
+      "currentYearRevenue": 53291700140.0,
+      "date": "2026-08-11",
+      "nextYearEps": 3.85795,
+      "nextYearRevenue": 64866883440.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "SMCI"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

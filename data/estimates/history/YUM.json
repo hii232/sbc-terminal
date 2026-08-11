@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "YUM"
+    },
+    {
+      "analystCountEps": 18.0,
+      "analystCountRevenue": 16.0,
+      "currentYearEps": 6.64587,
+      "currentYearRevenue": 9085962160.0,
+      "date": "2026-08-11",
+      "nextYearEps": 7.46147,
+      "nextYearRevenue": 9658412740.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "YUM"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

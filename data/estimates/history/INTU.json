@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "INTU"
+    },
+    {
+      "analystCountEps": 33.0,
+      "analystCountRevenue": 31.0,
+      "currentYearEps": 23.83135,
+      "currentYearRevenue": 21366236240.0,
+      "date": "2026-08-11",
+      "nextYearEps": 27.36035,
+      "nextYearRevenue": 23780423660.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "INTU"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

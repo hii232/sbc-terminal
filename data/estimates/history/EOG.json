@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "EOG"
+    },
+    {
+      "analystCountEps": 26.0,
+      "analystCountRevenue": 9.0,
+      "currentYearEps": 16.57103,
+      "currentYearRevenue": 29660048120.0,
+      "date": "2026-08-11",
+      "nextYearEps": 14.64745,
+      "nextYearRevenue": 27072162980.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "EOG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

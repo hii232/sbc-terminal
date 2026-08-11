@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "DHR"
+    },
+    {
+      "analystCountEps": 24.0,
+      "analystCountRevenue": 22.0,
+      "currentYearEps": 8.50914,
+      "currentYearRevenue": 26343018500.0,
+      "date": "2026-08-11",
+      "nextYearEps": 9.29878,
+      "nextYearRevenue": 28464160010.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "DHR"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

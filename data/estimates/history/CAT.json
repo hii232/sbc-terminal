@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CAT"
+    },
+    {
+      "analystCountEps": 27.0,
+      "analystCountRevenue": 16.0,
+      "currentYearEps": 26.93791,
+      "currentYearRevenue": 78874211110.0,
+      "date": "2026-08-11",
+      "nextYearEps": 32.00976,
+      "nextYearRevenue": 87025373200.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CAT"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

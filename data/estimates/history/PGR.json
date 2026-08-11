@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "PGR"
+    },
+    {
+      "analystCountEps": 22.0,
+      "analystCountRevenue": 9.0,
+      "currentYearEps": 17.6096,
+      "currentYearRevenue": 87255177780.0,
+      "date": "2026-08-11",
+      "nextYearEps": 16.26888,
+      "nextYearRevenue": 92538644440.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "PGR"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

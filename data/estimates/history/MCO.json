@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MCO"
+    },
+    {
+      "analystCountEps": 24.0,
+      "analystCountRevenue": 21.0,
+      "currentYearEps": 16.97255,
+      "currentYearRevenue": 8288029950.0,
+      "date": "2026-08-11",
+      "nextYearEps": 18.91331,
+      "nextYearRevenue": 8889014590.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MCO"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "DLTR"
+    },
+    {
+      "analystCountEps": 28.0,
+      "analystCountRevenue": 20.0,
+      "currentYearEps": 6.97663,
+      "currentYearRevenue": 20669391850.0,
+      "date": "2026-08-11",
+      "nextYearEps": 7.68251,
+      "nextYearRevenue": 21896882610.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "DLTR"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "IBKR"
+    },
+    {
+      "analystCountEps": 12.0,
+      "analystCountRevenue": 7.0,
+      "currentYearEps": 2.71359,
+      "currentYearRevenue": 7484386290.0,
+      "date": "2026-08-11",
+      "nextYearEps": 3.18348,
+      "nextYearRevenue": 8672296510.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "IBKR"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

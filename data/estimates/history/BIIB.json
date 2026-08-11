@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "BIIB"
+    },
+    {
+      "analystCountEps": 32.0,
+      "analystCountRevenue": 31.0,
+      "currentYearEps": 12.44127,
+      "currentYearRevenue": 10431887450.0,
+      "date": "2026-08-11",
+      "nextYearEps": 16.60287,
+      "nextYearRevenue": 10635425480.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "BIIB"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

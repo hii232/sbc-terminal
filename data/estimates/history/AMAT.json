@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "AMAT"
+    },
+    {
+      "analystCountEps": 33.0,
+      "analystCountRevenue": 33.0,
+      "currentYearEps": 12.32569,
+      "currentYearRevenue": 33516336010.0,
+      "date": "2026-08-11",
+      "nextYearEps": 17.25438,
+      "nextYearRevenue": 43560923650.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "AMAT"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -146,6 +146,19 @@
       "revisionBreadth": null,
       "source": "Financial Modeling Prep analyst estimates",
       "ticker": "PEP"
+    },
+    {
+      "analystCountEps": null,
+      "analystCountRevenue": null,
+      "currentYearEps": 6.244,
+      "currentYearRevenue": 78377390124.0,
+      "date": "2026-08-11",
+      "nextYearEps": 6.77634,
+      "nextYearRevenue": 85308733208.0,
+      "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+      "revisionBreadth": null,
+      "source": "Financial Modeling Prep analyst estimates",
+      "ticker": "PEP"
     }
   ],
   "source": "Financial Modeling Prep analyst estimates",

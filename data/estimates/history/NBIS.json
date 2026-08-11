@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "NBIS"
+    },
+    {
+      "analystCountEps": 6.0,
+      "analystCountRevenue": 19.0,
+      "currentYearEps": -2.8,
+      "currentYearRevenue": 3378594250.0,
+      "date": "2026-08-11",
+      "nextYearEps": -5.82667,
+      "nextYearRevenue": 11418143510.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "NBIS"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

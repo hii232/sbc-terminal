@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "DDOG"
+    },
+    {
+      "analystCountEps": 46.0,
+      "analystCountRevenue": 45.0,
+      "currentYearEps": 2.54128,
+      "currentYearRevenue": 4472166630.0,
+      "date": "2026-08-11",
+      "nextYearEps": 2.96555,
+      "nextYearRevenue": 5465858450.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "DDOG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

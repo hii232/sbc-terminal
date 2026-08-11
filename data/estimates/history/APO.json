@@ -29,6 +29,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "APO"
+    },
+    {
+      "analystCountEps": 21.0,
+      "analystCountRevenue": 6.0,
+      "currentYearEps": 8.77599,
+      "currentYearRevenue": 5412800000.0,
+      "date": "2026-08-11",
+      "nextYearEps": 10.7512,
+      "nextYearRevenue": 6334883330.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "APO"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",
