@@ -2,7 +2,7 @@
  "ticker": "UNH",
  "cik": "0000731766",
  "entityName": "UnitedHealth Group Incorporated",
- "retrievedAt": "2026-08-10T11:47:10.867474Z",
+ "retrievedAt": "2026-08-14T11:44:11.175243Z",
  "fields": {
   "buyback": [
    {
@@ -1782,12 +1782,12 @@
     "confidence": 100
    },
    {
-    "value": 908144404,
+    "value": 897594847,
     "unit": "shares",
-    "periodEnd": "2026-04-30",
+    "periodEnd": "2026-07-31",
     "form": "10-Q",
-    "filedDate": "2026-05-05",
-    "accessionNumber": "0000731766-26-000127",
+    "filedDate": "2026-08-10",
+    "accessionNumber": "0000731766-26-000197",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

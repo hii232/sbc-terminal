@@ -2,7 +2,7 @@
  "ticker": "NUE",
  "cik": "0000073309",
  "entityName": "NUCOR CORPORATION",
- "retrievedAt": "2026-08-10T11:47:30.068718Z",
+ "retrievedAt": "2026-08-14T11:44:26.442103Z",
  "fields": {
   "buyback": [
    {
@@ -1974,12 +1974,12 @@
     "confidence": 100
    },
    {
-    "value": 227740950,
+    "value": 226875676,
     "unit": "shares",
-    "periodEnd": "2026-04-04",
+    "periodEnd": "2026-07-04",
     "form": "10-Q",
-    "filedDate": "2026-05-13",
-    "accessionNumber": "0001193125-26-220778",
+    "filedDate": "2026-08-12",
+    "accessionNumber": "0001193125-26-345891",
     "xbrlTag": "dei:EntityCommonStockSharesOutstanding",
     "sourceType": "SEC",
     "sourceStatus": "reported",

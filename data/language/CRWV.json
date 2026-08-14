@@ -57,38 +57,6 @@
      "quote": "we have pioneered and scaled innovative financing structures that have enabled us to grow our business at a rapid pace through timely and flexible access to capital...delayed draw term loans that are collateralized by contractual cash flows"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-13",
-   "source": "SEC 10-Q MD&A",
-   "words": 6389,
-   "themes": [
-    {
-     "theme": "gpu infrastructure buildout",
-     "quote": "we continue to focus on growth and innovation"
-    },
-    {
-     "theme": "ai customer contracts",
-     "quote": "our platform is trusted by some of the world's leading AI labs and AI enterprises"
-    },
-    {
-     "theme": "data center capacity expansion",
-     "quote": "successful deployment of new and expanded data centers, which resulted in an increase in rent expense of approximately $341 million"
-    },
-    {
-     "theme": "weights and biases acquisition",
-     "quote": "we acquired all of the outstanding equity interests of Weights and Biases, Inc., an AI developer platform"
-    },
-    {
-     "theme": "committed contract model",
-     "quote": "Our revenue primarily comes from committed contracts"
-    },
-    {
-     "theme": "infrastructure financing strategy",
-     "quote": "delayed draw term loan facilities of up to $7.6 billion assuming the relevant collateralization requirements are met"
-    }
-   ]
   }
  ]
 }
