@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ARES"
+    },
+    {
+      "analystCountEps": 15.0,
+      "analystCountRevenue": 5.0,
+      "currentYearEps": 5.84972,
+      "currentYearRevenue": 4954291600.0,
+      "date": "2026-08-14",
+      "nextYearEps": 7.18647,
+      "nextYearRevenue": 5811965400.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ARES"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

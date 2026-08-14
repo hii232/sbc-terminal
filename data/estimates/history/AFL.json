@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "AFL"
+    },
+    {
+      "analystCountEps": 14.0,
+      "analystCountRevenue": 4.0,
+      "currentYearEps": 7.03962,
+      "currentYearRevenue": 16977855360.0,
+      "date": "2026-08-14",
+      "nextYearEps": 7.57155,
+      "nextYearRevenue": 17266000570.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "AFL"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "GPN"
+    },
+    {
+      "analystCountEps": 34.0,
+      "analystCountRevenue": 26.0,
+      "currentYearEps": 13.69543,
+      "currentYearRevenue": 12350427320.0,
+      "date": "2026-08-14",
+      "nextYearEps": 15.92631,
+      "nextYearRevenue": 13009848920.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "GPN"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

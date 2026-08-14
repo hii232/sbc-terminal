@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ODFL"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 20.0,
+      "currentYearEps": 5.80532,
+      "currentYearRevenue": 5911927590.0,
+      "date": "2026-08-14",
+      "nextYearEps": 6.58603,
+      "nextYearRevenue": 6353549700.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ODFL"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

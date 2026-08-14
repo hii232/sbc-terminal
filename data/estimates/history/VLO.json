@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "VLO"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 12.0,
+      "currentYearEps": 43.14985,
+      "currentYearRevenue": 148256744200.0,
+      "date": "2026-08-14",
+      "nextYearEps": 29.27796,
+      "nextYearRevenue": 127506340830.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "VLO"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

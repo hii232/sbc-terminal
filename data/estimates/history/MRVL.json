@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MRVL"
+    },
+    {
+      "analystCountEps": 39.0,
+      "analystCountRevenue": 38.0,
+      "currentYearEps": 4.05065,
+      "currentYearRevenue": 11540329810.0,
+      "date": "2026-08-14",
+      "nextYearEps": 6.24248,
+      "nextYearRevenue": 16748467290.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MRVL"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

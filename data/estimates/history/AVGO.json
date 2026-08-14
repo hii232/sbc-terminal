@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "AVGO"
+    },
+    {
+      "analystCountEps": 46.0,
+      "analystCountRevenue": 48.0,
+      "currentYearEps": 11.62543,
+      "currentYearRevenue": 106039607190.0,
+      "date": "2026-08-14",
+      "nextYearEps": 19.53066,
+      "nextYearRevenue": 173526945620.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "AVGO"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

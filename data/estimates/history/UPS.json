@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "UPS"
+    },
+    {
+      "analystCountEps": 28.0,
+      "analystCountRevenue": 25.0,
+      "currentYearEps": 7.21206,
+      "currentYearRevenue": 91451330980.0,
+      "date": "2026-08-14",
+      "nextYearEps": 8.08133,
+      "nextYearRevenue": 94985704930.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "UPS"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

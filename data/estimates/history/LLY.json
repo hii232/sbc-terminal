@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "LLY"
+    },
+    {
+      "analystCountEps": 24.0,
+      "analystCountRevenue": 25.0,
+      "currentYearEps": 36.42212,
+      "currentYearRevenue": 87488834820.0,
+      "date": "2026-08-14",
+      "nextYearEps": 46.55722,
+      "nextYearRevenue": 100684377230.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "LLY"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

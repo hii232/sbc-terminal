@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "KKR"
+    },
+    {
+      "analystCountEps": 22.0,
+      "analystCountRevenue": 6.0,
+      "currentYearEps": 6.3137,
+      "currentYearRevenue": 10589423740.0,
+      "date": "2026-08-14",
+      "nextYearEps": 7.38895,
+      "nextYearRevenue": 12475773780.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "KKR"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

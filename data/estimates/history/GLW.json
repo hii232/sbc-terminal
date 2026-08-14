@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "GLW"
+    },
+    {
+      "analystCountEps": 16.0,
+      "analystCountRevenue": 11.0,
+      "currentYearEps": 3.26986,
+      "currentYearRevenue": 19217109460.0,
+      "date": "2026-08-14",
+      "nextYearEps": 4.32048,
+      "nextYearRevenue": 22876459370.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "GLW"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

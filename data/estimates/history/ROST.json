@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ROST"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 18.0,
+      "currentYearEps": 7.81893,
+      "currentYearRevenue": 25164585430.0,
+      "date": "2026-08-14",
+      "nextYearEps": 8.59288,
+      "nextYearRevenue": 26769940790.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ROST"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

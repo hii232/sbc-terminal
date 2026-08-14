@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MRK"
+    },
+    {
+      "analystCountEps": 24.0,
+      "analystCountRevenue": 23.0,
+      "currentYearEps": 2.7486,
+      "currentYearRevenue": 67138310570.0,
+      "date": "2026-08-14",
+      "nextYearEps": 9.56,
+      "nextYearRevenue": 70338741680.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MRK"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

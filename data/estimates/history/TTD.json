@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "TTD"
+    },
+    {
+      "analystCountEps": 20.0,
+      "analystCountRevenue": 36.0,
+      "currentYearEps": 1.16099,
+      "currentYearRevenue": 2777128200.0,
+      "date": "2026-08-14",
+      "nextYearEps": 0.99533,
+      "nextYearRevenue": 2677264620.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "TTD"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

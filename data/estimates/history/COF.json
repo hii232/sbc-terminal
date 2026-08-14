@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "COF"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 20.0,
+      "currentYearEps": 20.3998,
+      "currentYearRevenue": 64020587260.0,
+      "date": "2026-08-14",
+      "nextYearEps": 24.05119,
+      "nextYearRevenue": 67737069229.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "COF"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

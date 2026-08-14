@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "DASH"
+    },
+    {
+      "analystCountEps": 36.0,
+      "analystCountRevenue": 43.0,
+      "currentYearEps": 2.56553,
+      "currentYearRevenue": 17788408100.0,
+      "date": "2026-08-14",
+      "nextYearEps": 4.45651,
+      "nextYearRevenue": 21421470240.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "DASH"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

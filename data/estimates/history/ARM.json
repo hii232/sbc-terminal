@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ARM"
+    },
+    {
+      "analystCountEps": 38.0,
+      "analystCountRevenue": 38.0,
+      "currentYearEps": 2.22634,
+      "currentYearRevenue": 6044496820.0,
+      "date": "2026-08-14",
+      "nextYearEps": 3.05823,
+      "nextYearRevenue": 8193367890.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ARM"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

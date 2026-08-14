@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "AXON"
+    },
+    {
+      "analystCountEps": 20.0,
+      "analystCountRevenue": 19.0,
+      "currentYearEps": 7.71309,
+      "currentYearRevenue": 3707370120.0,
+      "date": "2026-08-14",
+      "nextYearEps": 10.55937,
+      "nextYearRevenue": 4793798680.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "AXON"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

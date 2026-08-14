@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ADSK"
+    },
+    {
+      "analystCountEps": 35.0,
+      "analystCountRevenue": 34.0,
+      "currentYearEps": 12.59749,
+      "currentYearRevenue": 8199874309.0,
+      "date": "2026-08-14",
+      "nextYearEps": 14.22849,
+      "nextYearRevenue": 9060556180.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ADSK"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "USB"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 12.0,
+      "currentYearEps": 5.23763,
+      "currentYearRevenue": 31083536670.0,
+      "date": "2026-08-14",
+      "nextYearEps": 5.79057,
+      "nextYearRevenue": 33241535350.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "USB"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

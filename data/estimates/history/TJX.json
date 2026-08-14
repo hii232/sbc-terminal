@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "TJX"
+    },
+    {
+      "analystCountEps": 14.0,
+      "analystCountRevenue": 21.0,
+      "currentYearEps": 5.21944,
+      "currentYearRevenue": 64114969140.0,
+      "date": "2026-08-14",
+      "nextYearEps": 5.72185,
+      "nextYearRevenue": 67853533970.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "TJX"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "IQV"
+    },
+    {
+      "analystCountEps": 21.0,
+      "analystCountRevenue": 18.0,
+      "currentYearEps": 12.96246,
+      "currentYearRevenue": 17414202790.0,
+      "date": "2026-08-14",
+      "nextYearEps": 14.44116,
+      "nextYearRevenue": 18468826650.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "IQV"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

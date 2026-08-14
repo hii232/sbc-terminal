@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "HON"
+    },
+    {
+      "analystCountEps": 20.0,
+      "analystCountRevenue": 19.0,
+      "currentYearEps": 8.31059,
+      "currentYearRevenue": 20161352680.0,
+      "date": "2026-08-14",
+      "nextYearEps": 10.00255,
+      "nextYearRevenue": 20575578600.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "HON"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

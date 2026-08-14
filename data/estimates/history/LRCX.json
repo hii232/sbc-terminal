@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "LRCX"
+    },
+    {
+      "analystCountEps": 26.0,
+      "analystCountRevenue": 26.0,
+      "currentYearEps": 9.45969,
+      "currentYearRevenue": 34762045650.0,
+      "date": "2026-08-14",
+      "nextYearEps": 11.55714,
+      "nextYearRevenue": 40234462420.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "LRCX"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

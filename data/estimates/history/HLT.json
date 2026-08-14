@@ -42,6 +42,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "HLT"
+    },
+    {
+      "analystCountEps": 26.0,
+      "analystCountRevenue": 17.0,
+      "currentYearEps": 9.03663,
+      "currentYearRevenue": 13033676360.0,
+      "date": "2026-08-14",
+      "nextYearEps": 10.45774,
+      "nextYearRevenue": 14158287750.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "HLT"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",
