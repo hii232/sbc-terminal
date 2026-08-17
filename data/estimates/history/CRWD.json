@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CRWD"
+    },
+    {
+      "analystCountEps": 53.0,
+      "analystCountRevenue": 52.0,
+      "currentYearEps": 1.23316,
+      "currentYearRevenue": 5945677240.0,
+      "date": "2026-08-17",
+      "nextYearEps": 1.56695,
+      "nextYearRevenue": 7236509890.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CRWD"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

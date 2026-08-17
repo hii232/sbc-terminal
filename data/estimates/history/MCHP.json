@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MCHP"
+    },
+    {
+      "analystCountEps": 24.0,
+      "analystCountRevenue": 23.0,
+      "currentYearEps": 3.65058,
+      "currentYearRevenue": 6397052870.0,
+      "date": "2026-08-17",
+      "nextYearEps": 4.57078,
+      "nextYearRevenue": 7423014340.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MCHP"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

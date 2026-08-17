@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "SLB"
+    },
+    {
+      "analystCountEps": 26.0,
+      "analystCountRevenue": 25.0,
+      "currentYearEps": 2.50197,
+      "currentYearRevenue": 36967056910.0,
+      "date": "2026-08-17",
+      "nextYearEps": 3.24148,
+      "nextYearRevenue": 39767251230.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "SLB"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MET"
+    },
+    {
+      "analystCountEps": 18.0,
+      "analystCountRevenue": 9.0,
+      "currentYearEps": 9.79511,
+      "currentYearRevenue": 80092950990.0,
+      "date": "2026-08-17",
+      "nextYearEps": 10.88112,
+      "nextYearRevenue": 83669774700.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MET"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "GEV"
+    },
+    {
+      "analystCountEps": 29.0,
+      "analystCountRevenue": 36.0,
+      "currentYearEps": 30.84574,
+      "currentYearRevenue": 46182373560.0,
+      "date": "2026-08-17",
+      "nextYearEps": 24.86619,
+      "nextYearRevenue": 52636827220.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "GEV"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "GILD"
+    },
+    {
+      "analystCountEps": 26.0,
+      "analystCountRevenue": 24.0,
+      "currentYearEps": -0.43424,
+      "currentYearRevenue": 30705805820.0,
+      "date": "2026-08-17",
+      "nextYearEps": 9.88844,
+      "nextYearRevenue": 32695186020.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "GILD"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "QCOM"
+    },
+    {
+      "analystCountEps": 34.0,
+      "analystCountRevenue": 33.0,
+      "currentYearEps": 10.52302,
+      "currentYearRevenue": 42951447040.0,
+      "date": "2026-08-17",
+      "nextYearEps": 10.20195,
+      "nextYearRevenue": 44809220420.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "QCOM"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "COR"
+    },
+    {
+      "analystCountEps": 11.0,
+      "analystCountRevenue": 9.0,
+      "currentYearEps": 17.86931,
+      "currentYearRevenue": 337121020000.0,
+      "date": "2026-08-17",
+      "nextYearEps": 19.82243,
+      "nextYearRevenue": 355252145160.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "COR"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

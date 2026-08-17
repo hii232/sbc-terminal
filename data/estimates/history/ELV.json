@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ELV"
+    },
+    {
+      "analystCountEps": 21.0,
+      "analystCountRevenue": 12.0,
+      "currentYearEps": 27.15838,
+      "currentYearRevenue": 196237836900.0,
+      "date": "2026-08-17",
+      "nextYearEps": 29.63423,
+      "nextYearRevenue": 200388921110.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ELV"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

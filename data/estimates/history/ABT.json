@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ABT"
+    },
+    {
+      "analystCountEps": 25.0,
+      "analystCountRevenue": 26.0,
+      "currentYearEps": 5.51806,
+      "currentYearRevenue": 50302711250.0,
+      "date": "2026-08-17",
+      "nextYearEps": 6.06367,
+      "nextYearRevenue": 54646705930.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ABT"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

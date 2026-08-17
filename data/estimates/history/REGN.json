@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "REGN"
+    },
+    {
+      "analystCountEps": 10.0,
+      "analystCountRevenue": 25.0,
+      "currentYearEps": 53.22424,
+      "currentYearRevenue": 16924263570.0,
+      "date": "2026-08-17",
+      "nextYearEps": 50.38474,
+      "nextYearRevenue": 18342633910.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "REGN"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

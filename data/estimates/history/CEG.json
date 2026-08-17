@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "CEG"
+    },
+    {
+      "analystCountEps": 20.0,
+      "analystCountRevenue": 12.0,
+      "currentYearEps": 11.90916,
+      "currentYearRevenue": 36624531880.0,
+      "date": "2026-08-17",
+      "nextYearEps": 13.34315,
+      "nextYearRevenue": 35233889530.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "CEG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

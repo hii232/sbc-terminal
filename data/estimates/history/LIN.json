@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "LIN"
+    },
+    {
+      "analystCountEps": 11.0,
+      "analystCountRevenue": 25.0,
+      "currentYearEps": 17.87835,
+      "currentYearRevenue": 36296986650.0,
+      "date": "2026-08-17",
+      "nextYearEps": 18.29298,
+      "nextYearRevenue": 38041069820.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "LIN"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "VST"
+    },
+    {
+      "analystCountEps": 9.0,
+      "analystCountRevenue": 9.0,
+      "currentYearEps": 9.60291,
+      "currentYearRevenue": 22087319840.0,
+      "date": "2026-08-17",
+      "nextYearEps": 10.53237,
+      "nextYearRevenue": 24528805560.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "VST"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

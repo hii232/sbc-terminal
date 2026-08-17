@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ICE"
+    },
+    {
+      "analystCountEps": 13.0,
+      "analystCountRevenue": 10.0,
+      "currentYearEps": 8.14977,
+      "currentYearRevenue": 11004270700.0,
+      "date": "2026-08-17",
+      "nextYearEps": 8.79755,
+      "nextYearRevenue": 11605827410.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ICE"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

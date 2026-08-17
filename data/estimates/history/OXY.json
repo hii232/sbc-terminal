@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "OXY"
+    },
+    {
+      "analystCountEps": 21.0,
+      "analystCountRevenue": 11.0,
+      "currentYearEps": 5.8316,
+      "currentYearRevenue": 26670630170.0,
+      "date": "2026-08-17",
+      "nextYearEps": 3.93524,
+      "nextYearRevenue": 24183929010.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "OXY"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

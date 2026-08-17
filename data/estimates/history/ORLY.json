@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ORLY"
+    },
+    {
+      "analystCountEps": 22.0,
+      "analystCountRevenue": 25.0,
+      "currentYearEps": 3.27953,
+      "currentYearRevenue": 19112324990.0,
+      "date": "2026-08-17",
+      "nextYearEps": 3.64938,
+      "nextYearRevenue": 20276374930.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ORLY"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "KHC"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 17.0,
+      "currentYearEps": 2.05245,
+      "currentYearRevenue": 24612085410.0,
+      "date": "2026-08-17",
+      "nextYearEps": 2.09218,
+      "nextYearRevenue": 24634186870.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "KHC"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ABNB"
+    },
+    {
+      "analystCountEps": 40.0,
+      "analystCountRevenue": 43.0,
+      "currentYearEps": 5.28991,
+      "currentYearRevenue": 14145799850.0,
+      "date": "2026-08-17",
+      "nextYearEps": 6.18089,
+      "nextYearRevenue": 15737349420.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ABNB"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

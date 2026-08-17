@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MELI"
+    },
+    {
+      "analystCountEps": 20.0,
+      "analystCountRevenue": 24.0,
+      "currentYearEps": 38.30553,
+      "currentYearRevenue": 41629476030.0,
+      "date": "2026-08-17",
+      "nextYearEps": 55.98684,
+      "nextYearRevenue": 53118570630.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MELI"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

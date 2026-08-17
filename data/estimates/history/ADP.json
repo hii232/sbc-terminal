@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ADP"
+    },
+    {
+      "analystCountEps": 18.0,
+      "analystCountRevenue": 16.0,
+      "currentYearEps": 12.25722,
+      "currentYearRevenue": 23224516470.0,
+      "date": "2026-08-17",
+      "nextYearEps": 13.39844,
+      "nextYearRevenue": 24555456310.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ADP"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

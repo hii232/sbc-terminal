@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MPC"
+    },
+    {
+      "analystCountEps": 19.0,
+      "analystCountRevenue": 11.0,
+      "currentYearEps": 50.23425,
+      "currentYearRevenue": 165356144300.0,
+      "date": "2026-08-17",
+      "nextYearEps": 32.20183,
+      "nextYearRevenue": 144887455780.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MPC"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

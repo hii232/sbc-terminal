@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ZS"
+    },
+    {
+      "analystCountEps": 44.0,
+      "analystCountRevenue": 45.0,
+      "currentYearEps": 4.13327,
+      "currentYearRevenue": 3331785390.0,
+      "date": "2026-08-17",
+      "nextYearEps": 4.59778,
+      "nextYearRevenue": 3899031050.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ZS"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

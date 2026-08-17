@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "SCCO"
+    },
+    {
+      "analystCountEps": 13.0,
+      "analystCountRevenue": 13.0,
+      "currentYearEps": 7.65627,
+      "currentYearRevenue": 16886055720.0,
+      "date": "2026-08-17",
+      "nextYearEps": 7.13762,
+      "nextYearRevenue": 16041757050.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "SCCO"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

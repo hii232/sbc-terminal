@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ISRG"
+    },
+    {
+      "analystCountEps": 27.0,
+      "analystCountRevenue": 32.0,
+      "currentYearEps": 10.79366,
+      "currentYearRevenue": 11772669820.0,
+      "date": "2026-08-17",
+      "nextYearEps": 12.07083,
+      "nextYearRevenue": 13249549360.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ISRG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "AMGN"
+    },
+    {
+      "analystCountEps": 33.0,
+      "analystCountRevenue": 31.0,
+      "currentYearEps": 22.99151,
+      "currentYearRevenue": 38890138230.0,
+      "date": "2026-08-17",
+      "nextYearEps": 24.27941,
+      "nextYearRevenue": 40002880020.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "AMGN"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

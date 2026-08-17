@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "HUBS"
+    },
+    {
+      "analystCountEps": 33.0,
+      "analystCountRevenue": 33.0,
+      "currentYearEps": 13.27636,
+      "currentYearRevenue": 3685003250.0,
+      "date": "2026-08-17",
+      "nextYearEps": 16.57257,
+      "nextYearRevenue": 4208362740.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "HUBS"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

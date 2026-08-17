@@ -56,6 +56,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "A"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 6.05947,
+        "currentYearRevenue": 7448410470.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.6108,
+        "nextYearRevenue": 7899468890.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "A"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -281,6 +294,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.60786,
         "currentYearRevenue": 366419852406.0,
         "date": "2026-08-14",
+        "nextYearEps": 6.09835,
+        "nextYearRevenue": 392776831583.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "AAPL"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.60786,
+        "currentYearRevenue": 366419852406.0,
+        "date": "2026-08-17",
         "nextYearEps": 6.09835,
         "nextYearRevenue": 392776831583.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -518,6 +544,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "ABBV"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 12.67965,
+        "currentYearRevenue": 56234025565.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.7644,
+        "nextYearRevenue": 58271874634.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "ABBV"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -574,6 +613,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.28991,
         "currentYearRevenue": 14145799850.0,
         "date": "2026-08-14",
+        "nextYearEps": 6.18089,
+        "nextYearRevenue": 15737349420.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ABNB"
+      },
+      {
+        "analystCountEps": 40.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 5.28991,
+        "currentYearRevenue": 14145799850.0,
+        "date": "2026-08-17",
         "nextYearEps": 6.18089,
         "nextYearRevenue": 15737349420.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -642,6 +694,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ABT"
+      },
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 5.51806,
+        "currentYearRevenue": 50302711250.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.06367,
+        "nextYearRevenue": 54646705930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ABT"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -698,6 +763,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 9.37813,
         "currentYearRevenue": 15801423830.0,
         "date": "2026-08-14",
+        "nextYearEps": 9.75118,
+        "nextYearRevenue": 15955756710.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ACGL"
+      },
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 7.0,
+        "currentYearEps": 9.37813,
+        "currentYearRevenue": 15801423830.0,
+        "date": "2026-08-17",
         "nextYearEps": 9.75118,
         "nextYearRevenue": 15955756710.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -762,6 +840,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 14.68338,
         "nextYearRevenue": 76614827580.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ACN"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 13.87199,
+        "currentYearRevenue": 73589145870.0,
+        "date": "2026-08-17",
+        "nextYearEps": 14.67016,
+        "nextYearRevenue": 76590179500.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -997,6 +1088,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "ADBE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 12.47427,
+        "currentYearRevenue": 15752629874.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.62558,
+        "nextYearRevenue": 17609757239.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "ADBE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -1053,6 +1157,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 12.43447,
         "currentYearRevenue": 14810172430.0,
         "date": "2026-08-14",
+        "nextYearEps": 15.06237,
+        "nextYearRevenue": 17156773239.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ADI"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 28.0,
+        "currentYearEps": 12.43447,
+        "currentYearRevenue": 14810172430.0,
+        "date": "2026-08-17",
         "nextYearEps": 15.06237,
         "nextYearRevenue": 17156773239.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -1121,6 +1238,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ADP"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 12.25722,
+        "currentYearRevenue": 23224516470.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.39844,
+        "nextYearRevenue": 24555456310.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ADP"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -1183,6 +1313,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ADSK"
+      },
+      {
+        "analystCountEps": 35.0,
+        "analystCountRevenue": 34.0,
+        "currentYearEps": 12.59749,
+        "currentYearRevenue": 8199862540.0,
+        "date": "2026-08-17",
+        "nextYearEps": 14.22849,
+        "nextYearRevenue": 9060541470.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ADSK"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -1239,6 +1382,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 7.03962,
         "currentYearRevenue": 16977855360.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.57155,
+        "nextYearRevenue": 17266000570.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AFL"
+      },
+      {
+        "analystCountEps": 14.0,
+        "analystCountRevenue": 4.0,
+        "currentYearEps": 7.03962,
+        "currentYearRevenue": 16977855360.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.57155,
         "nextYearRevenue": 17266000570.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -1307,6 +1463,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "AIG"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 8.03529,
+        "currentYearRevenue": 28885465810.0,
+        "date": "2026-08-17",
+        "nextYearEps": 8.78367,
+        "nextYearRevenue": 31216025110.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AIG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -1363,6 +1532,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 35.12733,
         "currentYearRevenue": 70025165920.0,
         "date": "2026-08-14",
+        "nextYearEps": 27.56875,
+        "nextYearRevenue": 72648674680.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ALL"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 35.12733,
+        "currentYearRevenue": 70025165920.0,
+        "date": "2026-08-17",
         "nextYearEps": 27.56875,
         "nextYearRevenue": 72648674680.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -1431,6 +1613,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ALLY"
+      },
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 5.2518,
+        "currentYearRevenue": 9049173240.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.43349,
+        "nextYearRevenue": 9616530810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ALLY"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -1489,6 +1684,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 17.34407,
         "nextYearRevenue": 43712320620.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AMAT"
+      },
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 34.0,
+        "currentYearEps": 12.7897,
+        "currentYearRevenue": 34145177490.0,
+        "date": "2026-08-17",
+        "nextYearEps": 18.15682,
+        "nextYearRevenue": 45648500750.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -1724,6 +1932,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "AMD"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.64582,
+        "currentYearRevenue": 16129371055.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.49889,
+        "nextYearRevenue": 23520416326.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "AMD"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -1780,6 +2001,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 22.99151,
         "currentYearRevenue": 38890138230.0,
         "date": "2026-08-14",
+        "nextYearEps": 24.27941,
+        "nextYearRevenue": 40002880020.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AMGN"
+      },
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 22.99151,
+        "currentYearRevenue": 38890138230.0,
+        "date": "2026-08-17",
         "nextYearEps": 24.27941,
         "nextYearRevenue": 40002880020.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -2017,6 +2251,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "AMZN"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.04996,
+        "currentYearRevenue": 470298361760.0,
+        "date": "2026-08-17",
+        "nextYearEps": -0.10658,
+        "nextYearRevenue": 510346366449.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "AMZN"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -2073,6 +2320,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 4.11295,
         "currentYearRevenue": 12667530860.0,
         "date": "2026-08-14",
+        "nextYearEps": 5.15956,
+        "nextYearRevenue": 16156985450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ANET"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 4.11295,
+        "currentYearRevenue": 12667530860.0,
+        "date": "2026-08-17",
         "nextYearEps": 5.15956,
         "nextYearRevenue": 16156985450.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -2141,6 +2401,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "APO"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 8.76742,
+        "currentYearRevenue": 5412800000.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.73359,
+        "nextYearRevenue": 6334883330.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "APO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -2203,6 +2476,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "APP"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 15.74128,
+        "currentYearRevenue": 8130175240.0,
+        "date": "2026-08-17",
+        "nextYearEps": 20.46078,
+        "nextYearRevenue": 10439263940.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "APP"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -2259,6 +2545,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.84972,
         "currentYearRevenue": 4954291600.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.18647,
+        "nextYearRevenue": 5811965400.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ARES"
+      },
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 5.0,
+        "currentYearEps": 5.84972,
+        "currentYearRevenue": 4954291600.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.18647,
         "nextYearRevenue": 5811965400.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -2327,6 +2626,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ARM"
+      },
+      {
+        "analystCountEps": 38.0,
+        "analystCountRevenue": 38.0,
+        "currentYearEps": 2.22634,
+        "currentYearRevenue": 6044496820.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.05823,
+        "nextYearRevenue": 8193367890.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ARM"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -2383,6 +2695,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 38.02898,
         "currentYearRevenue": 43213109670.0,
         "date": "2026-08-14",
+        "nextYearEps": 51.42462,
+        "nextYearRevenue": 54330005020.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ASML"
+      },
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 39.0,
+        "currentYearEps": 38.02898,
+        "currentYearRevenue": 43213109670.0,
+        "date": "2026-08-17",
         "nextYearEps": 51.42462,
         "nextYearRevenue": 54330005020.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -2451,6 +2776,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "AVGO"
+      },
+      {
+        "analystCountEps": 46.0,
+        "analystCountRevenue": 48.0,
+        "currentYearEps": 11.62543,
+        "currentYearRevenue": 106039607190.0,
+        "date": "2026-08-17",
+        "nextYearEps": 19.53066,
+        "nextYearRevenue": 173526945620.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AVGO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -2507,6 +2845,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 7.71309,
         "currentYearRevenue": 3707370120.0,
         "date": "2026-08-14",
+        "nextYearEps": 10.55937,
+        "nextYearRevenue": 4793798680.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AXON"
+      },
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 19.0,
+        "currentYearEps": 7.71309,
+        "currentYearRevenue": 3707370120.0,
+        "date": "2026-08-17",
         "nextYearEps": 10.55937,
         "nextYearRevenue": 4793798680.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -2575,6 +2926,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "AXP"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 17.67388,
+        "currentYearRevenue": 79505384410.0,
+        "date": "2026-08-17",
+        "nextYearEps": 20.10997,
+        "nextYearRevenue": 86772279230.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AXP"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -2632,6 +2996,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 20468805880.0,
         "date": "2026-08-14",
         "nextYearEps": 175.21555,
+        "nextYearRevenue": 22019315210.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "AZO"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 151.04103,
+        "currentYearRevenue": 20468805880.0,
+        "date": "2026-08-17",
+        "nextYearEps": 175.007,
         "nextYearRevenue": 22019315210.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -2862,6 +3239,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": -2.04938,
         "currentYearRevenue": 64170247469.0,
         "date": "2026-08-14",
+        "nextYearEps": -8.95304,
+        "nextYearRevenue": 66762368464.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "BA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -2.04938,
+        "currentYearRevenue": 64170247469.0,
+        "date": "2026-08-17",
         "nextYearEps": -8.95304,
         "nextYearRevenue": 66762368464.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -3099,6 +3489,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "BAC"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 1.81211,
+        "currentYearRevenue": 86056210203.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.49696,
+        "nextYearRevenue": 89402399391.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "BAC"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -3155,6 +3558,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 12.44744,
         "currentYearRevenue": 10431887450.0,
         "date": "2026-08-14",
+        "nextYearEps": 16.59653,
+        "nextYearRevenue": 10635457740.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BIIB"
+      },
+      {
+        "analystCountEps": 32.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 12.44744,
+        "currentYearRevenue": 10431887450.0,
+        "date": "2026-08-17",
         "nextYearEps": 16.59653,
         "nextYearRevenue": 10635457740.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -3223,6 +3639,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "BKNG"
+      },
+      {
+        "analystCountEps": 32.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 10.44798,
+        "currentYearRevenue": 29257928330.0,
+        "date": "2026-08-17",
+        "nextYearEps": 12.37639,
+        "nextYearRevenue": 32009077190.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BKNG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -3279,6 +3708,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 56.23449,
         "currentYearRevenue": 29264374000.0,
         "date": "2026-08-14",
+        "nextYearEps": 64.14989,
+        "nextYearRevenue": 32649843470.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BLK"
+      },
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 56.23449,
+        "currentYearRevenue": 29264374000.0,
+        "date": "2026-08-17",
         "nextYearEps": 64.14989,
         "nextYearRevenue": 32649843470.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -3347,6 +3789,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "BMY"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 6.94908,
+        "currentYearRevenue": 49847617680.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.55796,
+        "nextYearRevenue": 48132984200.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BMY"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -3409,6 +3864,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "BSX"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 3.30364,
+        "currentYearRevenue": 21366113090.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.43849,
+        "nextYearRevenue": 22336808840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BSX"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -3465,6 +3933,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 6.0234,
         "currentYearRevenue": 15029765280.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.48803,
+        "nextYearRevenue": 18622128970.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "BX"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 6.0234,
+        "currentYearRevenue": 15029765280.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.48803,
         "nextYearRevenue": 18622128970.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -3702,6 +4183,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "C"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 10.12168,
+        "currentYearRevenue": 70926928816.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.98658,
+        "nextYearRevenue": 75151298828.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "C"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -3764,6 +4258,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CAT"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 27.06406,
+        "currentYearRevenue": 79040663700.0,
+        "date": "2026-08-17",
+        "nextYearEps": 32.05457,
+        "nextYearRevenue": 87139057130.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CAT"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -3820,6 +4327,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 27.69626,
         "currentYearRevenue": 49499200970.0,
         "date": "2026-08-14",
+        "nextYearEps": 29.10528,
+        "nextYearRevenue": 51442619450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CB"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 7.0,
+        "currentYearEps": 27.69626,
+        "currentYearRevenue": 49499200970.0,
+        "date": "2026-08-17",
         "nextYearEps": 29.10528,
         "nextYearRevenue": 51442619450.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -3888,6 +4408,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CBOE"
+      },
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 14.22519,
+        "currentYearRevenue": 2868893500.0,
+        "date": "2026-08-17",
+        "nextYearEps": 15.24862,
+        "nextYearRevenue": 2975312450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CBOE"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -3944,6 +4477,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 4.80115,
         "currentYearRevenue": 6317878700.0,
         "date": "2026-08-14",
+        "nextYearEps": 9.53712,
+        "nextYearRevenue": 7160962510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CDNS"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 4.80115,
+        "currentYearRevenue": 6317878700.0,
+        "date": "2026-08-17",
         "nextYearEps": 9.53712,
         "nextYearRevenue": 7160962510.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -4012,6 +4558,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CEG"
+      },
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 11.90916,
+        "currentYearRevenue": 36624531880.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.34315,
+        "nextYearRevenue": 35233889530.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CEG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -4068,6 +4627,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.30081,
         "currentYearRevenue": 9182501500.0,
         "date": "2026-08-14",
+        "nextYearEps": 6.51428,
+        "nextYearRevenue": 9980308480.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CFG"
+      },
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 5.30081,
+        "currentYearRevenue": 9182501500.0,
+        "date": "2026-08-17",
         "nextYearEps": 6.51428,
         "nextYearRevenue": 9980308480.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -4136,6 +4708,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CI"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 30.50732,
+        "currentYearRevenue": 286641101410.0,
+        "date": "2026-08-17",
+        "nextYearEps": 33.47365,
+        "nextYearRevenue": 298715556510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CI"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -4192,6 +4777,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 3.87377,
         "currentYearRevenue": 21400585430.0,
         "date": "2026-08-14",
+        "nextYearEps": 4.10002,
+        "nextYearRevenue": 22059555180.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CL"
+      },
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 18.0,
+        "currentYearEps": 3.87377,
+        "currentYearRevenue": 21400585430.0,
+        "date": "2026-08-17",
         "nextYearEps": 4.10002,
         "nextYearRevenue": 22059555180.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -4260,6 +4858,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CME"
+      },
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 12.26719,
+        "currentYearRevenue": 7035808240.0,
+        "date": "2026-08-17",
+        "nextYearEps": 12.93443,
+        "nextYearRevenue": 7352384110.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CME"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -4322,6 +4933,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CMG"
+      },
+      {
+        "analystCountEps": 35.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 1.1497,
+        "currentYearRevenue": 13018032910.0,
+        "date": "2026-08-17",
+        "nextYearEps": 1.36903,
+        "nextYearRevenue": 14418680190.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CMG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -4378,6 +5002,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 20.3998,
         "currentYearRevenue": 64020587260.0,
         "date": "2026-08-14",
+        "nextYearEps": 24.05119,
+        "nextYearRevenue": 67737069229.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "COF"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 20.3998,
+        "currentYearRevenue": 64020587260.0,
+        "date": "2026-08-17",
         "nextYearEps": 24.05119,
         "nextYearRevenue": 67737069229.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -4615,6 +5252,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "COIN"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 13.29597,
+        "currentYearRevenue": 7322750923.0,
+        "date": "2026-08-17",
+        "nextYearEps": -11.9055,
+        "nextYearRevenue": 3139866588.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "COIN"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -4672,6 +5322,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 72656810460.0,
         "date": "2026-08-14",
         "nextYearEps": 9.41384,
+        "nextYearRevenue": 66424643240.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "COP"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 5.0,
+        "currentYearEps": 10.28426,
+        "currentYearRevenue": 72656810460.0,
+        "date": "2026-08-17",
+        "nextYearEps": 9.32405,
         "nextYearRevenue": 66424643240.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -4735,6 +5398,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 19.82443,
         "nextYearRevenue": 356034178490.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "COR"
+      },
+      {
+        "analystCountEps": 11.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 17.86931,
+        "currentYearRevenue": 337121020000.0,
+        "date": "2026-08-17",
+        "nextYearEps": 19.82243,
+        "nextYearRevenue": 355252145160.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -4970,6 +5646,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "COST"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 10.83061,
+        "currentYearRevenue": 194529922877.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.14838,
+        "nextYearRevenue": 222700000000.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "COST"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -5028,6 +5717,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 15.52155,
         "nextYearRevenue": 50508434350.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CRM"
+      },
+      {
+        "analystCountEps": 54.0,
+        "analystCountRevenue": 52.0,
+        "currentYearEps": 14.13399,
+        "currentYearRevenue": 46104729640.0,
+        "date": "2026-08-17",
+        "nextYearEps": 15.52155,
+        "nextYearRevenue": 50508440120.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -5094,6 +5796,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CRWD"
+      },
+      {
+        "analystCountEps": 53.0,
+        "analystCountRevenue": 52.0,
+        "currentYearEps": 1.23316,
+        "currentYearRevenue": 5945677240.0,
+        "date": "2026-08-17",
+        "nextYearEps": 1.56695,
+        "nextYearRevenue": 7236509890.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CRWD"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -5150,6 +5865,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": -5.19746,
         "currentYearRevenue": 12885494940.0,
         "date": "2026-08-14",
+        "nextYearEps": -4.23769,
+        "nextYearRevenue": 26371288240.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CRWV"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 37.0,
+        "currentYearEps": -5.19746,
+        "currentYearRevenue": 12885494940.0,
+        "date": "2026-08-17",
         "nextYearEps": -4.23769,
         "nextYearRevenue": 26371288240.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -5387,6 +6115,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "CSCO"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 3.14814,
+        "currentYearRevenue": 49234831843.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.20535,
+        "nextYearRevenue": 49722469376.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "CSCO"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -5449,6 +6190,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "CSX"
+      },
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 2.00572,
+        "currentYearRevenue": 15187769660.0,
+        "date": "2026-08-17",
+        "nextYearEps": 2.27151,
+        "nextYearRevenue": 15941620330.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CSX"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -5505,6 +6259,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.73621,
         "currentYearRevenue": 22194227790.0,
         "date": "2026-08-14",
+        "nextYearEps": 6.31409,
+        "nextYearRevenue": 23258655840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "CTSH"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 5.73621,
+        "currentYearRevenue": 22194227790.0,
+        "date": "2026-08-17",
         "nextYearEps": 6.31409,
         "nextYearRevenue": 23258655840.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -5742,6 +6509,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "CVX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 8.5646,
+        "currentYearRevenue": 157502878115.0,
+        "date": "2026-08-17",
+        "nextYearEps": 19.11635,
+        "nextYearRevenue": 239852294360.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "CVX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -5799,6 +6579,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 17788408100.0,
         "date": "2026-08-14",
         "nextYearEps": 4.45651,
+        "nextYearRevenue": 21421470240.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DASH"
+      },
+      {
+        "analystCountEps": 36.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 2.55472,
+        "currentYearRevenue": 17788408100.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.45623,
         "nextYearRevenue": 21421470240.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -5866,6 +6659,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "DDOG"
+      },
+      {
+        "analystCountEps": 46.0,
+        "analystCountRevenue": 45.0,
+        "currentYearEps": 2.52724,
+        "currentYearRevenue": 4471883690.0,
+        "date": "2026-08-17",
+        "nextYearEps": 2.96837,
+        "nextYearRevenue": 5469925110.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DDOG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -5928,6 +6734,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "DE"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 18.08621,
+        "currentYearRevenue": 41418802070.0,
+        "date": "2026-08-17",
+        "nextYearEps": 22.62161,
+        "nextYearRevenue": 44677914000.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DE"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -5984,6 +6803,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 7.5284,
         "currentYearRevenue": 5884491870.0,
         "date": "2026-08-14",
+        "nextYearEps": 8.39655,
+        "nextYearRevenue": 6316407700.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DECK"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 7.5284,
+        "currentYearRevenue": 5884491870.0,
+        "date": "2026-08-17",
         "nextYearEps": 8.39655,
         "nextYearRevenue": 6316407700.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -6052,6 +6884,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "DG"
+      },
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 7.38431,
+        "currentYearRevenue": 44416109760.0,
+        "date": "2026-08-17",
+        "nextYearEps": 8.03272,
+        "nextYearRevenue": 46293960750.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -6108,6 +6953,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 8.50914,
         "currentYearRevenue": 26343018500.0,
         "date": "2026-08-14",
+        "nextYearEps": 9.29878,
+        "nextYearRevenue": 28464160010.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DHR"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 8.50914,
+        "currentYearRevenue": 26343018500.0,
+        "date": "2026-08-17",
         "nextYearEps": 9.29878,
         "nextYearRevenue": 28464160010.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -6345,6 +7203,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "DIS"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.46115,
+        "currentYearRevenue": 67653169580.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.78352,
+        "nextYearRevenue": 84416514199.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "DIS"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -6403,6 +7274,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 7.69117,
         "nextYearRevenue": 21896412010.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DLTR"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 6.99544,
+        "currentYearRevenue": 20668532840.0,
+        "date": "2026-08-17",
+        "nextYearEps": 7.6935,
+        "nextYearRevenue": 21896901770.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -6586,6 +7470,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "DOCU"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.24441,
+        "currentYearRevenue": 965427660.0,
+        "date": "2026-08-17",
+        "nextYearEps": 0.73971,
+        "nextYearRevenue": 1430236789.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "DOCU"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -6648,6 +7545,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "DUK"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 6.70941,
+        "currentYearRevenue": 33762924410.0,
+        "date": "2026-08-17",
+        "nextYearEps": 7.16814,
+        "nextYearRevenue": 35293485560.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DUK"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -6704,6 +7614,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 2.66234,
         "currentYearRevenue": 5230035220.0,
         "date": "2026-08-14",
+        "nextYearEps": 3.12446,
+        "nextYearRevenue": 5799775560.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "DXCM"
+      },
+      {
+        "analystCountEps": 25.0,
+        "analystCountRevenue": 27.0,
+        "currentYearEps": 2.66234,
+        "currentYearRevenue": 5230035220.0,
+        "date": "2026-08-17",
         "nextYearEps": 3.12446,
         "nextYearRevenue": 5799775560.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -6772,6 +7695,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "EA"
+      },
+      {
+        "analystCountEps": 5.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 4.82,
+        "currentYearRevenue": 8108000000.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.16464,
+        "nextYearRevenue": 8758883910.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "EA"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -6828,6 +7764,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 27.15838,
         "currentYearRevenue": 196237836900.0,
         "date": "2026-08-14",
+        "nextYearEps": 29.63423,
+        "nextYearRevenue": 200388921110.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ELV"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 27.15838,
+        "currentYearRevenue": 196237836900.0,
+        "date": "2026-08-17",
         "nextYearEps": 29.63423,
         "nextYearRevenue": 200388921110.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -6896,6 +7845,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ENTG"
+      },
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 3.92154,
+        "currentYearRevenue": 3570553360.0,
+        "date": "2026-08-17",
+        "nextYearEps": 5.01566,
+        "nextYearRevenue": 4022822810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ENTG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -6958,6 +7920,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "EOG"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 16.46649,
+        "currentYearRevenue": 29839714780.0,
+        "date": "2026-08-17",
+        "nextYearEps": 14.52641,
+        "nextYearRevenue": 27243496320.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "EOG"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -7014,6 +7989,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 13.50587,
         "currentYearRevenue": 32743662970.0,
         "date": "2026-08-14",
+        "nextYearEps": 16.02188,
+        "nextYearRevenue": 36521104810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ETN"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 13.50587,
+        "currentYearRevenue": 32743662970.0,
+        "date": "2026-08-17",
         "nextYearEps": 16.02188,
         "nextYearRevenue": 36521104810.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -7082,6 +8070,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "EW"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 28.0,
+        "currentYearEps": 2.99837,
+        "currentYearRevenue": 6759249810.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.37571,
+        "nextYearRevenue": 7429113950.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "EW"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -7139,6 +8140,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 29521137350.0,
         "date": "2026-08-14",
         "nextYearEps": 4.08774,
+        "nextYearRevenue": 35536266490.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FCX"
+      },
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 3.00143,
+        "currentYearRevenue": 29521137350.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.12303,
         "nextYearRevenue": 35536266490.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -7375,6 +8389,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "FDX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 16.52468,
+        "currentYearRevenue": 93541595402.0,
+        "date": "2026-08-17",
+        "nextYearEps": 11.91947,
+        "nextYearRevenue": 90884469411.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "FDX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -7431,6 +8458,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 43.11008,
         "currentYearRevenue": 2547768780.0,
         "date": "2026-08-14",
+        "nextYearEps": 53.03951,
+        "nextYearRevenue": 2896777180.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FICO"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 43.11008,
+        "currentYearRevenue": 2547768780.0,
+        "date": "2026-08-17",
         "nextYearEps": 53.03951,
         "nextYearRevenue": 2896777180.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -7499,6 +8539,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "FIS"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 6.19298,
+        "currentYearRevenue": 13662818050.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.70026,
+        "nextYearRevenue": 14269094040.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FIS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -7555,6 +8608,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 3.06788,
         "currentYearRevenue": 12847303570.0,
         "date": "2026-08-14",
+        "nextYearEps": 4.89276,
+        "nextYearRevenue": 13954570710.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FITB"
+      },
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 3.06788,
+        "currentYearRevenue": 12847303570.0,
+        "date": "2026-08-17",
         "nextYearEps": 4.89276,
         "nextYearRevenue": 13954570710.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -7623,6 +8689,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "FTNT"
+      },
+      {
+        "analystCountEps": 43.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 3.45061,
+        "currentYearRevenue": 8119113280.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.75956,
+        "nextYearRevenue": 9009378200.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "FTNT"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -7679,6 +8758,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 16.99896,
         "currentYearRevenue": 55923031580.0,
         "date": "2026-08-14",
+        "nextYearEps": 18.59454,
+        "nextYearRevenue": 58536910550.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GD"
+      },
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 23.0,
+        "currentYearEps": 16.99896,
+        "currentYearRevenue": 55923031580.0,
+        "date": "2026-08-17",
         "nextYearEps": 18.59454,
         "nextYearRevenue": 58536910550.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -7916,6 +9008,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "GE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 1.26808,
+        "currentYearRevenue": 74824743052.0,
+        "date": "2026-08-17",
+        "nextYearEps": 2.03496,
+        "nextYearRevenue": 74168626100.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "GE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -7974,6 +9079,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 24.89605,
         "nextYearRevenue": 52519021660.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GEV"
+      },
+      {
+        "analystCountEps": 29.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 30.84574,
+        "currentYearRevenue": 46182373560.0,
+        "date": "2026-08-17",
+        "nextYearEps": 24.86619,
+        "nextYearRevenue": 52636827220.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -8040,6 +9158,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "GILD"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": -0.43424,
+        "currentYearRevenue": 30705805820.0,
+        "date": "2026-08-17",
+        "nextYearEps": 9.88844,
+        "nextYearRevenue": 32695186020.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GILD"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -8102,6 +9233,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "GIS"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 3.07912,
+        "currentYearRevenue": 17789953720.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.21155,
+        "nextYearRevenue": 17931708920.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GIS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -8158,6 +9302,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 3.26986,
         "currentYearRevenue": 19217109460.0,
         "date": "2026-08-14",
+        "nextYearEps": 4.32048,
+        "nextYearRevenue": 22876459370.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GLW"
+      },
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 3.26986,
+        "currentYearRevenue": 19217109460.0,
+        "date": "2026-08-17",
         "nextYearEps": 4.32048,
         "nextYearRevenue": 22876459370.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -8395,6 +9552,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "GOOGL"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.42868,
+        "currentYearRevenue": 253189995257.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.71713,
+        "nextYearRevenue": 283349214836.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "GOOGL"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -8453,6 +9623,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 15.92631,
         "nextYearRevenue": 13009848920.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "GPN"
+      },
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 13.69337,
+        "currentYearRevenue": 12350949550.0,
+        "date": "2026-08-17",
+        "nextYearEps": 15.92513,
+        "nextYearRevenue": 13010321990.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -8688,6 +9871,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "GS"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 20.16086,
+        "currentYearRevenue": 42670163814.0,
+        "date": "2026-08-17",
+        "nextYearEps": 59.88138,
+        "nextYearRevenue": 58531089561.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "GS"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -8867,6 +10063,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "HCA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 17.84606,
+        "currentYearRevenue": 59022544284.0,
+        "date": "2026-08-17",
+        "nextYearEps": 17.01464,
+        "nextYearRevenue": 60350575502.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "HCA"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -8929,6 +10138,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "HD"
+      },
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 14.95884,
+        "currentYearRevenue": 170904124110.0,
+        "date": "2026-08-17",
+        "nextYearEps": 16.10738,
+        "nextYearRevenue": 177254771380.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HD"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -8985,6 +10207,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 12.75849,
         "currentYearRevenue": 28878513530.0,
         "date": "2026-08-14",
+        "nextYearEps": 13.6889,
+        "nextYearRevenue": 29914935840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HIG"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 12.75849,
+        "currentYearRevenue": 28878513530.0,
+        "date": "2026-08-17",
         "nextYearEps": 13.6889,
         "nextYearRevenue": 29914935840.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -9053,6 +10288,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "HLT"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 9.04103,
+        "currentYearRevenue": 13036794010.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.45812,
+        "nextYearRevenue": 14161464220.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HLT"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -9110,6 +10358,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 20161352680.0,
         "date": "2026-08-14",
         "nextYearEps": 10.00255,
+        "nextYearRevenue": 20575578600.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HON"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 19.0,
+        "currentYearEps": 8.32273,
+        "currentYearRevenue": 20161352680.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.01793,
         "nextYearRevenue": 20575578600.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -9346,6 +10607,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "HOOD"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -5.51281,
+        "currentYearRevenue": 1830054805.0,
+        "date": "2026-08-17",
+        "nextYearEps": -1.12089,
+        "nextYearRevenue": 1371085229.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "HOOD"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -9402,6 +10676,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 8.4898,
         "currentYearRevenue": 12294747390.0,
         "date": "2026-08-14",
+        "nextYearEps": 9.87081,
+        "nextYearRevenue": 12607781630.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HSY"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 8.4898,
+        "currentYearRevenue": 12294747390.0,
+        "date": "2026-08-17",
         "nextYearEps": 9.87081,
         "nextYearRevenue": 12607781630.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -9470,6 +10757,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "HUBS"
+      },
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 13.27636,
+        "currentYearRevenue": 3685003250.0,
+        "date": "2026-08-17",
+        "nextYearEps": 16.57257,
+        "nextYearRevenue": 4208362740.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "HUBS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -9526,6 +10826,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 2.71359,
         "currentYearRevenue": 7484386290.0,
         "date": "2026-08-14",
+        "nextYearEps": 3.18348,
+        "nextYearRevenue": 8672296510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IBKR"
+      },
+      {
+        "analystCountEps": 12.0,
+        "analystCountRevenue": 7.0,
+        "currentYearEps": 2.71359,
+        "currentYearRevenue": 7484386290.0,
+        "date": "2026-08-17",
         "nextYearEps": 3.18348,
         "nextYearRevenue": 8672296510.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -9594,6 +10907,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "IBM"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 23.0,
+        "currentYearEps": 12.3266,
+        "currentYearRevenue": 70375241150.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.17491,
+        "nextYearRevenue": 73259816370.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IBM"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -9656,6 +10982,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ICE"
+      },
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 8.14977,
+        "currentYearRevenue": 11004270700.0,
+        "date": "2026-08-17",
+        "nextYearEps": 8.79755,
+        "nextYearRevenue": 11605827410.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ICE"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -9713,6 +11052,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 4724197240.0,
         "date": "2026-08-14",
         "nextYearEps": 16.7398,
+        "nextYearRevenue": 5140272560.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IDXX"
+      },
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 13.0,
+        "currentYearEps": 14.83498,
+        "currentYearRevenue": 4724197240.0,
+        "date": "2026-08-17",
+        "nextYearEps": 16.7397,
         "nextYearRevenue": 5140272560.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -9949,6 +11301,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "INTC"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.29037,
+        "currentYearRevenue": 73561257363.0,
+        "date": "2026-08-17",
+        "nextYearEps": 1.95919,
+        "nextYearRevenue": 63500298309.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "INTC"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -10011,6 +11376,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "INTU"
+      },
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 23.83198,
+        "currentYearRevenue": 21366621920.0,
+        "date": "2026-08-17",
+        "nextYearEps": 27.31751,
+        "nextYearRevenue": 23785331390.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "INTU"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -10067,6 +11445,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 12.96246,
         "currentYearRevenue": 17414202790.0,
         "date": "2026-08-14",
+        "nextYearEps": 14.44116,
+        "nextYearRevenue": 18468826650.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IQV"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 18.0,
+        "currentYearEps": 12.96246,
+        "currentYearRevenue": 17414202790.0,
+        "date": "2026-08-17",
         "nextYearEps": 14.44116,
         "nextYearRevenue": 18468826650.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -10135,6 +11526,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "IREN"
+      },
+      {
+        "analystCountEps": 9.0,
+        "analystCountRevenue": 14.0,
+        "currentYearEps": -2.05,
+        "currentYearRevenue": 722822710.0,
+        "date": "2026-08-17",
+        "nextYearEps": -0.83006,
+        "nextYearRevenue": 2997635050.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "IREN"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -10191,6 +11595,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 10.79366,
         "currentYearRevenue": 11772669820.0,
         "date": "2026-08-14",
+        "nextYearEps": 12.07083,
+        "nextYearRevenue": 13249549360.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ISRG"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 10.79366,
+        "currentYearRevenue": 11772669820.0,
+        "date": "2026-08-17",
         "nextYearEps": 12.07083,
         "nextYearRevenue": 13249549360.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -10428,6 +11845,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "JNJ"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 9.83192,
+        "currentYearRevenue": 94449186951.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.04625,
+        "nextYearRevenue": 95018825749.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "JNJ"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -10659,6 +12089,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "JPM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 10.49653,
+        "currentYearRevenue": 115939818336.0,
+        "date": "2026-08-17",
+        "nextYearEps": 7.73157,
+        "nextYearRevenue": 120271998401.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "JPM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -10715,6 +12158,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 1.82727,
         "currentYearRevenue": 8067602160.0,
         "date": "2026-08-14",
+        "nextYearEps": 2.13802,
+        "nextYearRevenue": 8602649460.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KEY"
+      },
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 1.82727,
+        "currentYearRevenue": 8067602160.0,
+        "date": "2026-08-17",
         "nextYearEps": 2.13802,
         "nextYearRevenue": 8602649460.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -10783,6 +12239,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "KHC"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 2.05245,
+        "currentYearRevenue": 24612085410.0,
+        "date": "2026-08-17",
+        "nextYearEps": 2.09218,
+        "nextYearRevenue": 24634186870.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KHC"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -10839,6 +12308,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 6.3137,
         "currentYearRevenue": 10589423740.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.38895,
+        "nextYearRevenue": 12475773780.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KKR"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 6.3137,
+        "currentYearRevenue": 10589423740.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.38895,
         "nextYearRevenue": 12475773780.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -10907,6 +12389,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "KLAC"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 5.4484,
+        "currentYearRevenue": 18099545630.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.57232,
+        "nextYearRevenue": 21056991290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KLAC"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -10963,6 +12458,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 7.45322,
         "currentYearRevenue": 16656677500.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.49511,
+        "nextYearRevenue": 17132070049.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "KMB"
+      },
+      {
+        "analystCountEps": 14.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 7.45322,
+        "currentYearRevenue": 16656677500.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.49511,
         "nextYearRevenue": 17132070049.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -11148,6 +12656,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "KO"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.29107,
+        "currentYearRevenue": 38125940355.0,
+        "date": "2026-08-17",
+        "nextYearEps": 2.49032,
+        "nextYearRevenue": 42833977378.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "KO"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -11204,6 +12725,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 11.99302,
         "currentYearRevenue": 23634295670.0,
         "date": "2026-08-14",
+        "nextYearEps": 13.42416,
+        "nextYearRevenue": 25212880990.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LHX"
+      },
+      {
+        "analystCountEps": 8.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 11.99302,
+        "currentYearRevenue": 23634295670.0,
+        "date": "2026-08-17",
         "nextYearEps": 13.42416,
         "nextYearRevenue": 25212880990.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -11272,6 +12806,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "LIN"
+      },
+      {
+        "analystCountEps": 11.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 17.87835,
+        "currentYearRevenue": 36296986650.0,
+        "date": "2026-08-17",
+        "nextYearEps": 18.29298,
+        "nextYearRevenue": 38041069820.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LIN"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -11330,6 +12877,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 46.55722,
         "nextYearRevenue": 100684377230.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LLY"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 27.0,
+        "currentYearEps": 36.72512,
+        "currentYearRevenue": 88190847500.0,
+        "date": "2026-08-17",
+        "nextYearEps": 47.33026,
+        "nextYearRevenue": 101770340920.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -11565,6 +13125,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "LMT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 22.46229,
+        "currentYearRevenue": 67029633451.0,
+        "date": "2026-08-17",
+        "nextYearEps": 23.18174,
+        "nextYearRevenue": 65263787929.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "LMT"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -11623,6 +13196,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 18.61016,
         "nextYearRevenue": 23567341120.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LNG"
+      },
+      {
+        "analystCountEps": 6.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 21.75118,
+        "currentYearRevenue": 22617461980.0,
+        "date": "2026-08-17",
+        "nextYearEps": 18.61016,
+        "nextYearRevenue": 23488514540.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -11689,6 +13275,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "LOW"
+      },
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 12.45478,
+        "currentYearRevenue": 92952136170.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.42294,
+        "nextYearRevenue": 95788072630.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LOW"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -11745,6 +13344,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 9.45969,
         "currentYearRevenue": 34762045650.0,
         "date": "2026-08-14",
+        "nextYearEps": 11.55714,
+        "nextYearRevenue": 40234462420.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LRCX"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 26.0,
+        "currentYearEps": 9.45969,
+        "currentYearRevenue": 34762045650.0,
+        "date": "2026-08-17",
         "nextYearEps": 11.55714,
         "nextYearRevenue": 40234462420.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -11813,6 +13425,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "LULU"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 31.0,
+        "currentYearEps": 11.03879,
+        "currentYearRevenue": 11041436710.0,
+        "date": "2026-08-17",
+        "nextYearEps": 11.46461,
+        "nextYearRevenue": 11342777350.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "LULU"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -11869,6 +13494,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 19.91084,
         "currentYearRevenue": 37243399790.0,
         "date": "2026-08-14",
+        "nextYearEps": 23.00987,
+        "nextYearRevenue": 41954705400.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MA"
+      },
+      {
+        "analystCountEps": 38.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 19.91084,
+        "currentYearRevenue": 37243399790.0,
+        "date": "2026-08-17",
         "nextYearEps": 23.00987,
         "nextYearRevenue": 41954705400.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -11937,6 +13575,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MAR"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 11.69359,
+        "currentYearRevenue": 27768154640.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.15472,
+        "nextYearRevenue": 29463252940.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MAR"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -11993,6 +13644,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 12.93707,
         "currentYearRevenue": 28206865440.0,
         "date": "2026-08-14",
+        "nextYearEps": 13.99836,
+        "nextYearRevenue": 29661277510.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCD"
+      },
+      {
+        "analystCountEps": 32.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 12.93707,
+        "currentYearRevenue": 28206865440.0,
+        "date": "2026-08-17",
         "nextYearEps": 13.99836,
         "nextYearRevenue": 29661277510.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -12061,6 +13725,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MCHP"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 23.0,
+        "currentYearEps": 3.65058,
+        "currentYearRevenue": 6397052870.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.57078,
+        "nextYearRevenue": 7423014340.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCHP"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -12117,6 +13794,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 44.6162,
         "currentYearRevenue": 431922829700.0,
         "date": "2026-08-14",
+        "nextYearEps": 50.53325,
+        "nextYearRevenue": 462502091780.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCK"
+      },
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 44.6162,
+        "currentYearRevenue": 431922829700.0,
+        "date": "2026-08-17",
         "nextYearEps": 50.53325,
         "nextYearRevenue": 462502091780.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -12185,6 +13875,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MCO"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 16.97255,
+        "currentYearRevenue": 8288029950.0,
+        "date": "2026-08-17",
+        "nextYearEps": 18.91331,
+        "nextYearRevenue": 8889014590.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MCO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -12247,6 +13950,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MDB"
+      },
+      {
+        "analystCountEps": 38.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 6.12642,
+        "currentYearRevenue": 2961456590.0,
+        "date": "2026-08-17",
+        "nextYearEps": 7.3356,
+        "nextYearRevenue": 3484455290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MDB"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -12303,6 +14019,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 3.0459,
         "currentYearRevenue": 40118214830.0,
         "date": "2026-08-14",
+        "nextYearEps": 3.36055,
+        "nextYearRevenue": 41294297230.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MDLZ"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 3.0459,
+        "currentYearRevenue": 40118214830.0,
+        "date": "2026-08-17",
         "nextYearEps": 3.36055,
         "nextYearRevenue": 41294297230.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -12371,6 +14100,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MDT"
+      },
+      {
+        "analystCountEps": 29.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 5.94894,
+        "currentYearRevenue": 38831345050.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.41248,
+        "nextYearRevenue": 40230925930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MDT"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -12433,6 +14175,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MELI"
+      },
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 38.30553,
+        "currentYearRevenue": 41629476030.0,
+        "date": "2026-08-17",
+        "nextYearEps": 55.98684,
+        "nextYearRevenue": 53118570630.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MELI"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -12490,6 +14245,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 80092950990.0,
         "date": "2026-08-14",
         "nextYearEps": 10.87556,
+        "nextYearRevenue": 83669774700.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MET"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 9.79511,
+        "currentYearRevenue": 80092950990.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.88112,
         "nextYearRevenue": 83669774700.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -12726,6 +14494,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "META"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 13.97264,
+        "currentYearRevenue": 117555515208.0,
+        "date": "2026-08-17",
+        "nextYearEps": 9.08271,
+        "nextYearRevenue": 116053692499.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "META"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -12788,6 +14569,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MPC"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 50.23425,
+        "currentYearRevenue": 165356144300.0,
+        "date": "2026-08-17",
+        "nextYearEps": 32.20183,
+        "nextYearRevenue": 144887455780.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MPC"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -12844,6 +14638,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 27.38798,
         "currentYearRevenue": 4116369530.0,
         "date": "2026-08-14",
+        "nextYearEps": 34.79503,
+        "nextYearRevenue": 5177637880.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MPWR"
+      },
+      {
+        "analystCountEps": 14.0,
+        "analystCountRevenue": 14.0,
+        "currentYearEps": 27.38798,
+        "currentYearRevenue": 4116369530.0,
+        "date": "2026-08-17",
         "nextYearEps": 34.79503,
         "nextYearRevenue": 5177637880.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -12912,6 +14719,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MRK"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 23.0,
+        "currentYearEps": 2.7486,
+        "currentYearRevenue": 67138310570.0,
+        "date": "2026-08-17",
+        "nextYearEps": 9.56,
+        "nextYearRevenue": 70338741680.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MRK"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -12968,6 +14788,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 4.05065,
         "currentYearRevenue": 11540329810.0,
         "date": "2026-08-14",
+        "nextYearEps": 6.24248,
+        "nextYearRevenue": 16748467290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MRVL"
+      },
+      {
+        "analystCountEps": 39.0,
+        "analystCountRevenue": 38.0,
+        "currentYearEps": 4.05065,
+        "currentYearRevenue": 11540329810.0,
+        "date": "2026-08-17",
         "nextYearEps": 6.24248,
         "nextYearRevenue": 16748467290.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -13036,6 +14869,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MS"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 12.97822,
+        "currentYearRevenue": 82655698650.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.64926,
+        "nextYearRevenue": 86501620030.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -13092,6 +14938,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 19.66069,
         "currentYearRevenue": 3512918190.0,
         "date": "2026-08-14",
+        "nextYearEps": 22.4968,
+        "nextYearRevenue": 3821661920.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MSCI"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 19.66069,
+        "currentYearRevenue": 3512918190.0,
+        "date": "2026-08-17",
         "nextYearEps": 22.4968,
         "nextYearRevenue": 3821661920.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -13329,6 +15188,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "MSFT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 9.27199,
+        "currentYearRevenue": 198704709367.0,
+        "date": "2026-08-17",
+        "nextYearEps": 9.61733,
+        "nextYearRevenue": 211548397686.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "MSFT"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -13385,6 +15257,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 19.29888,
         "currentYearRevenue": 10045258410.0,
         "date": "2026-08-14",
+        "nextYearEps": 21.06782,
+        "nextYearRevenue": 10399711320.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MTB"
+      },
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 10.0,
+        "currentYearEps": 19.29888,
+        "currentYearRevenue": 10045258410.0,
+        "date": "2026-08-17",
         "nextYearEps": 21.06782,
         "nextYearRevenue": 10399711320.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -13453,6 +15338,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "MU"
+      },
+      {
+        "analystCountEps": 38.0,
+        "analystCountRevenue": 42.0,
+        "currentYearEps": 73.38748,
+        "currentYearRevenue": 129741678360.0,
+        "date": "2026-08-17",
+        "nextYearEps": 154.88959,
+        "nextYearRevenue": 239843800520.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "MU"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -13515,6 +15413,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "NBIS"
+      },
+      {
+        "analystCountEps": 7.0,
+        "analystCountRevenue": 19.0,
+        "currentYearEps": -2.35667,
+        "currentYearRevenue": 3411619980.0,
+        "date": "2026-08-17",
+        "nextYearEps": -4.65857,
+        "nextYearRevenue": 11958693430.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NBIS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -13571,6 +15482,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 4.1376,
         "currentYearRevenue": 5912019810.0,
         "date": "2026-08-14",
+        "nextYearEps": 4.67336,
+        "nextYearRevenue": 6394942810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NDAQ"
+      },
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 4.1376,
+        "currentYearRevenue": 5912019810.0,
+        "date": "2026-08-17",
         "nextYearEps": 4.67336,
         "nextYearRevenue": 6394942810.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -13639,6 +15563,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "NEE"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 4.05004,
+        "currentYearRevenue": 31023795900.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.41589,
+        "nextYearRevenue": 34628973330.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NEE"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -13696,6 +15633,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 2871586330.0,
         "date": "2026-08-14",
         "nextYearEps": 1.67038,
+        "nextYearRevenue": 3693691830.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NET"
+      },
+      {
+        "analystCountEps": 33.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 1.26262,
+        "currentYearRevenue": 2871586330.0,
+        "date": "2026-08-17",
+        "nextYearEps": 1.67098,
         "nextYearRevenue": 3693691830.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -13926,6 +15876,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 1.07243,
         "currentYearRevenue": 29689570953.0,
         "date": "2026-08-14",
+        "nextYearEps": 1.0263,
+        "nextYearRevenue": 31617640344.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "NFLX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 1.07243,
+        "currentYearRevenue": 29689570953.0,
+        "date": "2026-08-17",
         "nextYearEps": 1.0263,
         "nextYearRevenue": 31617640344.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -14163,6 +16126,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "NKE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 3.1427,
+        "currentYearRevenue": 43240329104.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.66787,
+        "nextYearRevenue": 46559561711.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "NKE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -14219,6 +16195,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 29.01474,
         "currentYearRevenue": 44046717090.0,
         "date": "2026-08-14",
+        "nextYearEps": 30.43133,
+        "nextYearRevenue": 47003847290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NOC"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 29.01474,
+        "currentYearRevenue": 44046717090.0,
+        "date": "2026-08-17",
         "nextYearEps": 30.43133,
         "nextYearRevenue": 47003847290.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -14287,6 +16276,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "NOW"
+      },
+      {
+        "analystCountEps": 44.0,
+        "analystCountRevenue": 46.0,
+        "currentYearEps": 4.06764,
+        "currentYearRevenue": 16219289110.0,
+        "date": "2026-08-17",
+        "nextYearEps": 5.00619,
+        "nextYearRevenue": 19262432930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NOW"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -14344,6 +16346,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 36529801240.0,
         "date": "2026-08-14",
         "nextYearEps": 11.08415,
+        "nextYearRevenue": 38409861200.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NRG"
+      },
+      {
+        "analystCountEps": 10.0,
+        "analystCountRevenue": 8.0,
+        "currentYearEps": 8.80744,
+        "currentYearRevenue": 36529801240.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.9701,
         "nextYearRevenue": 38409861200.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -14411,6 +16426,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "NSC"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 19.0,
+        "currentYearEps": 12.97314,
+        "currentYearRevenue": 13235485150.0,
+        "date": "2026-08-17",
+        "nextYearEps": 14.30248,
+        "nextYearRevenue": 13801021870.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NSC"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -14467,6 +16495,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 18.79691,
         "currentYearRevenue": 40166724850.0,
         "date": "2026-08-14",
+        "nextYearEps": 18.82598,
+        "nextYearRevenue": 40518824630.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NUE"
+      },
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 14.0,
+        "currentYearEps": 18.79691,
+        "currentYearRevenue": 40166724850.0,
+        "date": "2026-08-17",
         "nextYearEps": 18.82598,
         "nextYearRevenue": 40518824630.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -14704,6 +16745,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "NVDA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.43252,
+        "currentYearRevenue": 26662163796.0,
+        "date": "2026-08-17",
+        "nextYearEps": 0.32685,
+        "nextYearRevenue": 26952415189.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "NVDA"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -14760,6 +16814,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 15.0591,
         "currentYearRevenue": 14244726800.0,
         "date": "2026-08-14",
+        "nextYearEps": 18.09511,
+        "nextYearRevenue": 15857452420.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "NXPI"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 28.0,
+        "currentYearEps": 15.0591,
+        "currentYearRevenue": 14244726800.0,
+        "date": "2026-08-17",
         "nextYearEps": 18.09511,
         "nextYearRevenue": 15857452420.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -14828,6 +16895,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ODFL"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 5.80532,
+        "currentYearRevenue": 5911927590.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.58603,
+        "nextYearRevenue": 6353549700.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ODFL"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -14884,6 +16964,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 3.84412,
         "currentYearRevenue": 3199895790.0,
         "date": "2026-08-14",
+        "nextYearEps": 4.28251,
+        "nextYearRevenue": 3504869110.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "OKTA"
+      },
+      {
+        "analystCountEps": 44.0,
+        "analystCountRevenue": 43.0,
+        "currentYearEps": 3.84412,
+        "currentYearRevenue": 3199895790.0,
+        "date": "2026-08-17",
         "nextYearEps": 4.28251,
         "nextYearRevenue": 3504869110.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -14952,6 +17045,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ON"
+      },
+      {
+        "analystCountEps": 30.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 3.19882,
+        "currentYearRevenue": 6556287330.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.51843,
+        "nextYearRevenue": 7394684520.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ON"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -15014,6 +17120,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ORCL"
+      },
+      {
+        "analystCountEps": 40.0,
+        "analystCountRevenue": 39.0,
+        "currentYearEps": 8.05313,
+        "currentYearRevenue": 89336547460.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.91494,
+        "nextYearRevenue": 130637237920.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ORCL"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -15070,6 +17189,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 3.27953,
         "currentYearRevenue": 19112324990.0,
         "date": "2026-08-14",
+        "nextYearEps": 3.64938,
+        "nextYearRevenue": 20276374930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ORLY"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 3.27953,
+        "currentYearRevenue": 19112324990.0,
+        "date": "2026-08-17",
         "nextYearEps": 3.64938,
         "nextYearRevenue": 20276374930.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -15138,6 +17270,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "OXY"
+      },
+      {
+        "analystCountEps": 21.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 5.8316,
+        "currentYearRevenue": 26670630170.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.93524,
+        "nextYearRevenue": 24183929010.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "OXY"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -15196,6 +17341,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 1.95095,
         "nextYearRevenue": 13810227820.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PANW"
+      },
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 51.0,
+        "currentYearEps": 3.77532,
+        "currentYearRevenue": 11422799360.0,
+        "date": "2026-08-17",
+        "nextYearEps": 1.94095,
+        "nextYearRevenue": 13829684290.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -15373,6 +17531,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 6.244,
         "currentYearRevenue": 78377390124.0,
         "date": "2026-08-14",
+        "nextYearEps": 6.77634,
+        "nextYearRevenue": 85308733208.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PEP"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 6.244,
+        "currentYearRevenue": 78377390124.0,
+        "date": "2026-08-17",
         "nextYearEps": 6.77634,
         "nextYearRevenue": 85308733208.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -15610,6 +17781,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "PFE"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 4.20822,
+        "currentYearRevenue": 81764526021.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.50281,
+        "nextYearRevenue": 100342363631.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PFE"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -15666,6 +17850,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 6.99447,
         "currentYearRevenue": 88745440150.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.40022,
+        "nextYearRevenue": 91480564340.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PG"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 6.99447,
+        "currentYearRevenue": 88745440150.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.40022,
         "nextYearRevenue": 91480564340.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -15730,6 +17927,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 16.26888,
         "nextYearRevenue": 92538644440.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PGR"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 17.6096,
+        "currentYearRevenue": 87190944440.0,
+        "date": "2026-08-17",
+        "nextYearEps": 16.26888,
+        "nextYearRevenue": 92472300000.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -15965,6 +18175,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "PLTR"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.15149,
+        "currentYearRevenue": 1527008699.0,
+        "date": "2026-08-17",
+        "nextYearEps": 0.0456,
+        "nextYearRevenue": 1902491600.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PLTR"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -16021,6 +18244,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 18.90073,
         "currentYearRevenue": 26309055160.0,
         "date": "2026-08-14",
+        "nextYearEps": 21.51594,
+        "nextYearRevenue": 27687604290.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PNC"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 8.0,
+        "currentYearEps": 18.90073,
+        "currentYearRevenue": 26309055160.0,
+        "date": "2026-08-17",
         "nextYearEps": 21.51594,
         "nextYearRevenue": 27687604290.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -16084,6 +18320,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 59604126860.0,
         "date": "2026-08-14",
         "nextYearEps": 14.68834,
+        "nextYearRevenue": 60107276060.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "PRU"
+      },
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 8.0,
+        "currentYearEps": 14.12084,
+        "currentYearRevenue": 59604126860.0,
+        "date": "2026-08-17",
+        "nextYearEps": 14.71334,
         "nextYearRevenue": 60107276060.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -16320,6 +18569,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "PYPL"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 4.60064,
+        "currentYearRevenue": 25338532839.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.0847,
+        "nextYearRevenue": 27520186777.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "PYPL"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -16378,6 +18640,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 10.26489,
         "nextYearRevenue": 44758452840.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "QCOM"
+      },
+      {
+        "analystCountEps": 34.0,
+        "analystCountRevenue": 33.0,
+        "currentYearEps": 10.52302,
+        "currentYearRevenue": 42951447040.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.20195,
+        "nextYearRevenue": 44809220420.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -16613,6 +18888,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "RBLX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -0.81155,
+        "currentYearRevenue": 2723714917.0,
+        "date": "2026-08-17",
+        "nextYearEps": -1.56091,
+        "nextYearRevenue": 2802129621.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "RBLX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -16669,6 +18957,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 53.22424,
         "currentYearRevenue": 16924263570.0,
         "date": "2026-08-14",
+        "nextYearEps": 50.38474,
+        "nextYearRevenue": 18342633910.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "REGN"
+      },
+      {
+        "analystCountEps": 10.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 53.22424,
+        "currentYearRevenue": 16924263570.0,
+        "date": "2026-08-17",
         "nextYearEps": 50.38474,
         "nextYearRevenue": 18342633910.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -16737,6 +19038,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "RF"
+      },
+      {
+        "analystCountEps": 16.0,
+        "analystCountRevenue": 6.0,
+        "currentYearEps": 2.62923,
+        "currentYearRevenue": 7841594480.0,
+        "date": "2026-08-17",
+        "nextYearEps": 2.84262,
+        "nextYearRevenue": 8220339169.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "RF"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -16799,6 +19113,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ROST"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 18.0,
+        "currentYearEps": 7.82063,
+        "currentYearRevenue": 25165882620.0,
+        "date": "2026-08-17",
+        "nextYearEps": 8.59828,
+        "nextYearRevenue": 26772828030.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ROST"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -16855,6 +19182,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 7.24243,
         "currentYearRevenue": 96233678600.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.85325,
+        "nextYearRevenue": 103136202870.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "RTX"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 7.24243,
+        "currentYearRevenue": 96233678600.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.85325,
         "nextYearRevenue": 103136202870.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -17092,6 +19432,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "SBUX"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 3.22903,
+        "currentYearRevenue": 29130007152.0,
+        "date": "2026-08-17",
+        "nextYearEps": 2.87032,
+        "nextYearRevenue": 32157917831.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "SBUX"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -17154,6 +19507,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "SCCO"
+      },
+      {
+        "analystCountEps": 13.0,
+        "analystCountRevenue": 13.0,
+        "currentYearEps": 7.65627,
+        "currentYearRevenue": 16886055720.0,
+        "date": "2026-08-17",
+        "nextYearEps": 7.13762,
+        "nextYearRevenue": 16041757050.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SCCO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -17210,6 +19576,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 6.48941,
         "currentYearRevenue": 28262770450.0,
         "date": "2026-08-14",
+        "nextYearEps": 7.80276,
+        "nextYearRevenue": 31555912500.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SCHW"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 6.48941,
+        "currentYearRevenue": 28262770450.0,
+        "date": "2026-08-17",
         "nextYearEps": 7.80276,
         "nextYearRevenue": 31555912500.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -17447,6 +19826,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "SHOP"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.63229,
+        "currentYearRevenue": 4543419337.0,
+        "date": "2026-08-17",
+        "nextYearEps": -0.03547083,
+        "nextYearRevenue": 5468386377.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "SHOP"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -17504,6 +19896,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 36967056910.0,
         "date": "2026-08-14",
         "nextYearEps": 3.24918,
+        "nextYearRevenue": 39767251230.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SLB"
+      },
+      {
+        "analystCountEps": 26.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 2.50197,
+        "currentYearRevenue": 36967056910.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.24148,
         "nextYearRevenue": 39767251230.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -17571,6 +19976,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "SMCI"
+      },
+      {
+        "analystCountEps": 7.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 4.3382,
+        "currentYearRevenue": 39506334870.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.87,
+        "nextYearRevenue": 78762368070.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SMCI"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -17627,6 +20045,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 1.93559,
         "currentYearRevenue": 6084080800.0,
         "date": "2026-08-14",
+        "nextYearEps": 2.69885,
+        "nextYearRevenue": 7648531310.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SNOW"
+      },
+      {
+        "analystCountEps": 50.0,
+        "analystCountRevenue": 49.0,
+        "currentYearEps": 1.93559,
+        "currentYearRevenue": 6084080800.0,
+        "date": "2026-08-17",
         "nextYearEps": 2.69885,
         "nextYearRevenue": 7648531310.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -17695,6 +20126,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "SNPS"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 24.0,
+        "currentYearEps": 14.78942,
+        "currentYearRevenue": 9680096260.0,
+        "date": "2026-08-17",
+        "nextYearEps": 17.28051,
+        "nextYearRevenue": 10731265170.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SNPS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -17757,6 +20201,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "SO"
+      },
+      {
+        "analystCountEps": 22.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 4.58582,
+        "currentYearRevenue": 30993715330.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.92406,
+        "nextYearRevenue": 32768781870.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -17813,6 +20270,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 17.87075,
         "currentYearRevenue": 14637057840.0,
         "date": "2026-08-14",
+        "nextYearEps": 20.23968,
+        "nextYearRevenue": 15641621170.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SPGI"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 17.87075,
+        "currentYearRevenue": 14637057840.0,
+        "date": "2026-08-17",
         "nextYearEps": 20.23968,
         "nextYearRevenue": 15641621170.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -17881,6 +20351,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "STZ"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 11.80013,
+        "currentYearRevenue": 9100917330.0,
+        "date": "2026-08-17",
+        "nextYearEps": 12.39194,
+        "nextYearRevenue": 9271042810.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "STZ"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -17937,6 +20420,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 9.36805,
         "currentYearRevenue": 15183382230.0,
         "date": "2026-08-14",
+        "nextYearEps": 10.47233,
+        "nextYearRevenue": 15983314990.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SYF"
+      },
+      {
+        "analystCountEps": 23.0,
+        "analystCountRevenue": 16.0,
+        "currentYearEps": 9.36805,
+        "currentYearRevenue": 15183382230.0,
+        "date": "2026-08-17",
         "nextYearEps": 10.47233,
         "nextYearRevenue": 15983314990.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -18005,6 +20501,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "SYK"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 27.0,
+        "currentYearEps": 15.01293,
+        "currentYearRevenue": 27292125910.0,
+        "date": "2026-08-17",
+        "nextYearEps": 16.76123,
+        "nextYearRevenue": 29681085670.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "SYK"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -18061,6 +20570,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.42266,
         "currentYearRevenue": 7450037800.0,
         "date": "2026-08-14",
+        "nextYearEps": 6.74963,
+        "nextYearRevenue": 8569244220.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TEAM"
+      },
+      {
+        "analystCountEps": 31.0,
+        "analystCountRevenue": 30.0,
+        "currentYearEps": 5.42266,
+        "currentYearRevenue": 7450037800.0,
+        "date": "2026-08-17",
         "nextYearEps": 6.74963,
         "nextYearRevenue": 8569244220.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -18129,6 +20651,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "TER"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 9.09271,
+        "currentYearRevenue": 5143439780.0,
+        "date": "2026-08-17",
+        "nextYearEps": 11.55303,
+        "nextYearRevenue": 6221303320.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TER"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -18185,6 +20720,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 4.61428,
         "currentYearRevenue": 21283027220.0,
         "date": "2026-08-14",
+        "nextYearEps": 4.97756,
+        "nextYearRevenue": 21988479340.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TFC"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 11.0,
+        "currentYearEps": 4.61428,
+        "currentYearRevenue": 21283027220.0,
+        "date": "2026-08-17",
         "nextYearEps": 4.97756,
         "nextYearRevenue": 21988479340.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -18422,6 +20970,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "TGT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 13.21994,
+        "currentYearRevenue": 106212551786.0,
+        "date": "2026-08-17",
+        "nextYearEps": 5.52332,
+        "nextYearRevenue": 108297392881.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "TGT"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -18479,6 +21040,19 @@ const ESTIMATE_HISTORY = {
         "currentYearRevenue": 64114969140.0,
         "date": "2026-08-14",
         "nextYearEps": 5.72185,
+        "nextYearRevenue": 67853533970.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TJX"
+      },
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 5.22478,
+        "currentYearRevenue": 64114969140.0,
+        "date": "2026-08-17",
+        "nextYearEps": 5.7337,
         "nextYearRevenue": 67853533970.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
@@ -18546,6 +21120,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "TMO"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 25.11793,
+        "currentYearRevenue": 47861328950.0,
+        "date": "2026-08-17",
+        "nextYearEps": 27.51008,
+        "nextYearRevenue": 50323327540.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TMO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -18602,6 +21189,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 34.05444,
         "currentYearRevenue": 43430603900.0,
         "date": "2026-08-14",
+        "nextYearEps": 30.20864,
+        "nextYearRevenue": 44697285080.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TRV"
+      },
+      {
+        "analystCountEps": 27.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 34.05444,
+        "currentYearRevenue": 43430603900.0,
+        "date": "2026-08-17",
         "nextYearEps": 30.20864,
         "nextYearRevenue": 44697285080.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -18839,6 +21439,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "TSLA"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.14522,
+        "currentYearRevenue": 53009897638.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.95584,
+        "nextYearRevenue": 82141808957.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "TSLA"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -19070,6 +21683,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "TSM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 98.43071,
+        "currentYearRevenue": 1332962912763.0,
+        "date": "2026-08-17",
+        "nextYearEps": 113.63484,
+        "nextYearRevenue": 1576725481576.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "TSM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -19128,6 +21754,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 0.99533,
         "nextYearRevenue": 2677264620.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TTD"
+      },
+      {
+        "analystCountEps": 20.0,
+        "analystCountRevenue": 36.0,
+        "currentYearEps": 1.16099,
+        "currentYearRevenue": 2744836940.0,
+        "date": "2026-08-17",
+        "nextYearEps": 0.99533,
+        "nextYearRevenue": 2655847960.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -19194,6 +21833,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "TTWO"
+      },
+      {
+        "analystCountEps": 15.0,
+        "analystCountRevenue": 21.0,
+        "currentYearEps": 1.91688,
+        "currentYearRevenue": 8520548380.0,
+        "date": "2026-08-17",
+        "nextYearEps": 5.29185,
+        "nextYearRevenue": 9224601850.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TTWO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -19252,6 +21904,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 10.03407,
         "nextYearRevenue": 24824395450.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "TXN"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 32.0,
+        "currentYearEps": 8.50003,
+        "currentYearRevenue": 21902801980.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.03407,
+        "nextYearRevenue": 24869439060.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -19481,6 +22146,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": -1.03594,
         "currentYearRevenue": 17128494134.0,
         "date": "2026-08-14",
+        "nextYearEps": -5.08039,
+        "nextYearRevenue": 31776721092.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "UBER"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": -1.03594,
+        "currentYearRevenue": 17128494134.0,
+        "date": "2026-08-17",
         "nextYearEps": -5.08039,
         "nextYearRevenue": 31776721092.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -19718,6 +22396,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "UNH"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 18.84129,
+        "currentYearRevenue": 286743784850.0,
+        "date": "2026-08-17",
+        "nextYearEps": 22.02389,
+        "nextYearRevenue": 323882736766.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "UNH"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -19774,6 +22465,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 13.05258,
         "currentYearRevenue": 26762497740.0,
         "date": "2026-08-14",
+        "nextYearEps": 14.15497,
+        "nextYearRevenue": 27934170140.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "UNP"
+      },
+      {
+        "analystCountEps": 24.0,
+        "analystCountRevenue": 22.0,
+        "currentYearEps": 13.05258,
+        "currentYearRevenue": 26762497740.0,
+        "date": "2026-08-17",
         "nextYearEps": 14.15497,
         "nextYearRevenue": 27934170140.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -19842,6 +22546,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "UPS"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 25.0,
+        "currentYearEps": 7.21206,
+        "currentYearRevenue": 91451330980.0,
+        "date": "2026-08-17",
+        "nextYearEps": 8.08133,
+        "nextYearRevenue": 94985704930.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "UPS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -19898,6 +22615,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 5.23763,
         "currentYearRevenue": 31083536670.0,
         "date": "2026-08-14",
+        "nextYearEps": 5.79057,
+        "nextYearRevenue": 33241535350.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "USB"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 5.23763,
+        "currentYearRevenue": 31083536670.0,
+        "date": "2026-08-17",
         "nextYearEps": 5.79057,
         "nextYearRevenue": 33241535350.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -20135,6 +22865,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "V"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.80312,
+        "currentYearRevenue": 24060299531.0,
+        "date": "2026-08-17",
+        "nextYearEps": 7.43247,
+        "nextYearRevenue": 29077529887.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "V"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -20191,6 +22934,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 9.06152,
         "currentYearRevenue": 3642933870.0,
         "date": "2026-08-14",
+        "nextYearEps": 10.03027,
+        "nextYearRevenue": 4085510610.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VEEV"
+      },
+      {
+        "analystCountEps": 28.0,
+        "analystCountRevenue": 29.0,
+        "currentYearEps": 9.06152,
+        "currentYearRevenue": 3642933870.0,
+        "date": "2026-08-17",
         "nextYearEps": 10.03027,
         "nextYearRevenue": 4085510610.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -20259,6 +23015,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "VLO"
+      },
+      {
+        "analystCountEps": 19.0,
+        "analystCountRevenue": 12.0,
+        "currentYearEps": 43.14985,
+        "currentYearRevenue": 148256744200.0,
+        "date": "2026-08-17",
+        "nextYearEps": 29.27796,
+        "nextYearRevenue": 127506340830.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VLO"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -20315,6 +23084,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 19.05202,
         "currentYearRevenue": 13188887710.0,
         "date": "2026-08-14",
+        "nextYearEps": 21.80113,
+        "nextYearRevenue": 14584278160.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VRTX"
+      },
+      {
+        "analystCountEps": 14.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 19.05202,
+        "currentYearRevenue": 13188887710.0,
+        "date": "2026-08-17",
         "nextYearEps": 21.80113,
         "nextYearRevenue": 14584278160.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -20383,6 +23165,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "VST"
+      },
+      {
+        "analystCountEps": 9.0,
+        "analystCountRevenue": 9.0,
+        "currentYearEps": 9.60291,
+        "currentYearRevenue": 22087319840.0,
+        "date": "2026-08-17",
+        "nextYearEps": 10.53237,
+        "nextYearRevenue": 24528805560.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "VST"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -20445,6 +23240,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "WDAY"
+      },
+      {
+        "analystCountEps": 41.0,
+        "analystCountRevenue": 40.0,
+        "currentYearEps": 10.7671,
+        "currentYearRevenue": 10669374680.0,
+        "date": "2026-08-17",
+        "nextYearEps": 12.64386,
+        "nextYearRevenue": 11840376700.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "WDAY"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -20501,6 +23309,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 20.10436,
         "currentYearRevenue": 19212460640.0,
         "date": "2026-08-14",
+        "nextYearEps": 31.69948,
+        "nextYearRevenue": 26157059330.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "WDC"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 20.0,
+        "currentYearEps": 20.10436,
+        "currentYearRevenue": 19212460640.0,
+        "date": "2026-08-17",
         "nextYearEps": 31.69948,
         "nextYearRevenue": 26157059330.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
@@ -20738,6 +23559,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "WFC"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 0.37093,
+        "currentYearRevenue": 72612245262.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.63074,
+        "nextYearRevenue": 75926675025.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "WFC"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -20963,6 +23797,19 @@ const ESTIMATE_HISTORY = {
         "currentYearEps": 2.13819,
         "currentYearRevenue": 571613501334.0,
         "date": "2026-08-14",
+        "nextYearEps": 2.0287,
+        "nextYearRevenue": 606594020169.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "WMT"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 2.13819,
+        "currentYearRevenue": 571613501334.0,
+        "date": "2026-08-17",
         "nextYearEps": 2.0287,
         "nextYearRevenue": 606594020169.0,
         "note": "Revision breadth is not inferred unless the provider supplies it directly.",
@@ -21200,6 +24047,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "XOM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 5.23946,
+        "currentYearRevenue": 292093171448.0,
+        "date": "2026-08-17",
+        "nextYearEps": 13.91563,
+        "nextYearRevenue": 425943490403.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "XOM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -21258,6 +24118,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 7.46147,
         "nextYearRevenue": 9658412740.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "YUM"
+      },
+      {
+        "analystCountEps": 17.0,
+        "analystCountRevenue": 15.0,
+        "currentYearEps": 6.63874,
+        "currentYearRevenue": 9081392970.0,
+        "date": "2026-08-17",
+        "nextYearEps": 7.45862,
+        "nextYearRevenue": 9657546920.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -21441,6 +24314,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Financial Modeling Prep analyst estimates",
         "ticker": "ZM"
+      },
+      {
+        "analystCountEps": null,
+        "analystCountRevenue": null,
+        "currentYearEps": 4.85034,
+        "currentYearRevenue": 4081094088.0,
+        "date": "2026-08-17",
+        "nextYearEps": 3.97673,
+        "nextYearRevenue": 4375179717.0,
+        "note": "Revision breadth is not inferred unless the provider supplies it directly.",
+        "revisionBreadth": null,
+        "source": "Financial Modeling Prep analyst estimates",
+        "ticker": "ZM"
       }
     ],
     "source": "Financial Modeling Prep analyst estimates",
@@ -21503,6 +24389,19 @@ const ESTIMATE_HISTORY = {
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",
         "ticker": "ZS"
+      },
+      {
+        "analystCountEps": 44.0,
+        "analystCountRevenue": 45.0,
+        "currentYearEps": 4.13327,
+        "currentYearRevenue": 3331785390.0,
+        "date": "2026-08-17",
+        "nextYearEps": 4.59778,
+        "nextYearRevenue": 3899031050.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ZS"
       }
     ],
     "source": "Yahoo Finance earningsTrend fiscal-year consensus",
@@ -21561,6 +24460,19 @@ const ESTIMATE_HISTORY = {
         "date": "2026-08-14",
         "nextYearEps": 6.7338,
         "nextYearRevenue": 9557042100.0,
+        "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+        "revisionBreadth": null,
+        "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+        "ticker": "ZTS"
+      },
+      {
+        "analystCountEps": 18.0,
+        "analystCountRevenue": 17.0,
+        "currentYearEps": 6.28547,
+        "currentYearRevenue": 9263154890.0,
+        "date": "2026-08-17",
+        "nextYearEps": 6.69491,
+        "nextYearRevenue": 9557100930.0,
         "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
         "revisionBreadth": null,
         "source": "Yahoo Finance earningsTrend fiscal-year consensus",

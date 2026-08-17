@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "IDXX"
+    },
+    {
+      "analystCountEps": 13.0,
+      "analystCountRevenue": 13.0,
+      "currentYearEps": 14.83498,
+      "currentYearRevenue": 4724197240.0,
+      "date": "2026-08-17",
+      "nextYearEps": 16.7397,
+      "nextYearRevenue": 5140272560.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "IDXX"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

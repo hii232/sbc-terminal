@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "STZ"
+    },
+    {
+      "analystCountEps": 23.0,
+      "analystCountRevenue": 21.0,
+      "currentYearEps": 11.80013,
+      "currentYearRevenue": 9100917330.0,
+      "date": "2026-08-17",
+      "nextYearEps": 12.39194,
+      "nextYearRevenue": 9271042810.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "STZ"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

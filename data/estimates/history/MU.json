@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "MU"
+    },
+    {
+      "analystCountEps": 38.0,
+      "analystCountRevenue": 42.0,
+      "currentYearEps": 73.38748,
+      "currentYearRevenue": 129741678360.0,
+      "date": "2026-08-17",
+      "nextYearEps": 154.88959,
+      "nextYearRevenue": 239843800520.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "MU"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

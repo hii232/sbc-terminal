@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "PANW"
+    },
+    {
+      "analystCountEps": 16.0,
+      "analystCountRevenue": 51.0,
+      "currentYearEps": 3.77532,
+      "currentYearRevenue": 11422799360.0,
+      "date": "2026-08-17",
+      "nextYearEps": 1.94095,
+      "nextYearRevenue": 13829684290.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "PANW"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

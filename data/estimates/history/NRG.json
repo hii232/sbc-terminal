@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "NRG"
+    },
+    {
+      "analystCountEps": 10.0,
+      "analystCountRevenue": 8.0,
+      "currentYearEps": 8.80744,
+      "currentYearRevenue": 36529801240.0,
+      "date": "2026-08-17",
+      "nextYearEps": 10.9701,
+      "nextYearRevenue": 38409861200.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "NRG"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

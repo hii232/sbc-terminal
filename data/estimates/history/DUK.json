@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "DUK"
+    },
+    {
+      "analystCountEps": 21.0,
+      "analystCountRevenue": 16.0,
+      "currentYearEps": 6.70941,
+      "currentYearRevenue": 33762924410.0,
+      "date": "2026-08-17",
+      "nextYearEps": 7.16814,
+      "nextYearRevenue": 35293485560.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "DUK"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",

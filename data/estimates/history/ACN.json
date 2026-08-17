@@ -55,6 +55,19 @@
       "revisionBreadth": null,
       "source": "Yahoo Finance earningsTrend fiscal-year consensus",
       "ticker": "ACN"
+    },
+    {
+      "analystCountEps": 28.0,
+      "analystCountRevenue": 26.0,
+      "currentYearEps": 13.87199,
+      "currentYearRevenue": 73589145870.0,
+      "date": "2026-08-17",
+      "nextYearEps": 14.67016,
+      "nextYearRevenue": 76590179500.0,
+      "note": "Keyless Yahoo fiscal-year consensus. Missing fields remain null and are not scored as zero.",
+      "revisionBreadth": null,
+      "source": "Yahoo Finance earningsTrend fiscal-year consensus",
+      "ticker": "ACN"
     }
   ],
   "source": "Yahoo Finance earningsTrend fiscal-year consensus",
