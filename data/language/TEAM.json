@@ -57,34 +57,6 @@
      "quote": "Expanding within the existing customer base is the primary driver of our success as a business. We are focused on continuing to grow our total customer base, specifically the number of customers with more than $10,000 in annualized recurrin"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-10-31",
-   "source": "SEC 10-Q MD&A",
-   "words": 5622,
-   "themes": [
-    {
-     "theme": "cloud-to-cloud migration",
-     "quote": "we announced plans to end-of-life our Data Center deployment offering. Beginning in March 2026, we will no longer sell term licenses to new customers"
-    },
-    {
-     "theme": "ai agent portfolio expansion",
-     "quote": "We've put AI at the center of our portfolio to enhance teamwork for users across our apps and Collections; a carefully curated set of apps and agents designed to solve complex tasks"
-    },
-    {
-     "theme": "customer expansion within base",
-     "quote": "expanding within the existing customer base is the primary driver of our success as a business"
-    },
-    {
-     "theme": "cloud infrastructure optimization",
-     "quote": "We expect cost of revenues to increase as we continue to invest in our cloud-based infrastructure to support our Cloud customers"
-    },
-    {
-     "theme": "strategic acquisitions for capability",
-     "quote": "we acquired BCNY for approximately $610 million. Total purchase price consideration was composed of approximately $488.3 million in cash"
-    }
-   ]
   }
  ]
 }

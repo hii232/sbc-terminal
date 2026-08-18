@@ -53,34 +53,6 @@
      "quote": "The Company's top 10 customers accounted for 76% and 77%, respectively, of its net revenue"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-10-31",
-   "source": "SEC 10-Q MD&A",
-   "words": 14192,
-   "themes": [
-    {
-     "theme": "flash business separation",
-     "quote": "completed the separation of its Flash business through a pro rata distribution of 80.1% of the outstanding shares of Sandisk Corporation to Western Digital stockholders"
-    },
-    {
-     "theme": "hdd product portfolio expansion",
-     "quote": "broad portfolio of technology and products addresses the following key end markets: Cloud, Client, and Consumer"
-    },
-    {
-     "theme": "cloud and enterprise storage",
-     "quote": "Cloud is comprised primarily of products for public or private cloud environments and enterprise customers"
-    },
-    {
-     "theme": "customer concentration management",
-     "quote": "top 10 customers accounted for 77% of net revenue for the three months ended October 3, 2025"
-    },
-    {
-     "theme": "debt reduction and restructuring",
-     "quote": "disposed of 21.3 million shares of Sandisk common stock, along with $4 million in cash, in a tax-free exchange for $800 million principal amount of the Company's Term Loan A-3"
-    }
-   ]
   }
  ]
 }
