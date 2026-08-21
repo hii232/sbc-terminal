@@ -49,34 +49,6 @@
      "quote": "entered into a series of interest rate swaps with the aggregate notional amount of $400 million"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-12",
-   "source": "SEC 10-K MD&A",
-   "words": 37687,
-   "themes": [
-    {
-     "theme": "advanced packaging technology",
-     "quote": "advanced packaging systems use our materials engineering expertise to allow customers to connect multiple chips together through heterogeneous integration"
-    },
-    {
-     "theme": "process control and metrology expansion",
-     "quote": "Our process control systems employ optical and eBeam technologies that allow customers to inspect and review critical semiconductor architectures throughout the manufacturing process"
-    },
-    {
-     "theme": "co-optimized materials solutions",
-     "quote": "Our comprehensive portfolio offers a variety of differentiated products, including co-optimized and integrated materials solutions that enable unique films, structures and devices"
-    },
-    {
-     "theme": "leading-edge node capability",
-     "quote": "Leading-edge represents customers that are producing on the most advanced technology nodes, defined as 7 nanometers and smaller"
-    },
-    {
-     "theme": "artificial intelligence market growth",
-     "quote": "Semiconductors provide the foundation for advances in technology that are reshaping the global economy, including artificial intelligence"
-    }
-   ]
   }
  ]
 }

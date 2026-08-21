@@ -49,34 +49,6 @@
      "quote": "We expect capital expenditures for fiscal 2026 to be between approximately 4% and 6% of fiscal 2026 revenue"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-25",
-   "source": "SEC 10-K MD&A",
-   "words": 43195,
-   "themes": [
-    {
-     "theme": "edge computing and intelligent sensing",
-     "quote": "The Intelligent Edge is characterized by ubiquitous sensing, hyper-scale and edge computing, artificial intelligence (AI) and pervasive connectivity."
-    },
-    {
-     "theme": "power management and electrification",
-     "quote": "The global drive towards improved energy efficiency, conservation, reliability and clean energy is driving investments in electrification across many different application areas, including electric vehicle charging infrastructure, renewable"
-    },
-    {
-     "theme": "ai and physical intelligence capabilities",
-     "quote": "This initiative integrates signal, power, sensing, time-series sampling, actuation and more to support autonomous operation and enhanced system responsiveness through foundational AI models that can reason about and interact with the real w"
-    },
-    {
-     "theme": "software and embedded platform expansion",
-     "quote": "we recently introduced an upgrade to our open-source embedded development platform, CodeFusion Studio 2.0, designed to support embedded system design through integrated workflows for signal processing, edge computing and connectivity"
-    },
-    {
-     "theme": "automotive electrification and autonomous systems",
-     "quote": "We develop differentiated, high-performance signal processing technologies that enable intelligent, efficient and immersive mobility solutions across electrification, digital cabin systems and autonomous platforms"
-    }
-   ]
   }
  ]
 }
