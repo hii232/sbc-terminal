@@ -53,30 +53,6 @@
      "quote": "Zoom Contact Center is an omnichannel cloud contact center platform that is optimized for video and intentionally supports a robust suite of channels"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-25",
-   "source": "SEC 10-Q MD&A",
-   "words": 45976,
-   "themes": [
-    {
-     "theme": "ai platform integration",
-     "quote": "Our platform is designed to enable seamless communication and collaboration through a suite of products that includes Zoom Workplace (including Zoom Meetings and Zoom Phone), Zoom Business Services (including Zoom Contact Center), Employee "
-    },
-    {
-     "theme": "large enterprise expansion",
-     "quote": "As we increase sales to large organizations, our sales cycles have and could continue to lengthen, and we could experience greater deployment challenges"
-    },
-    {
-     "theme": "product bundling and upsell",
-     "quote": "Our business depends on our ability to attract new customers, retain and upsell additional products and new product categories to existing customers, and upgrade free users to one of our paid offerings"
-    },
-    {
-     "theme": "international market growth",
-     "quote": "We have significant and expanding operations outside the United States, which may subject us to increased business, regulatory, and economic risks that could harm our business"
-    }
-   ]
   }
  ]
 }

@@ -53,30 +53,6 @@
      "quote": "Flex Credits, a new subscription-based flexible pricing model for certain AI solutions and platform capabilities, designed to make AI use simple, flexible, and scalable for our customers."
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-26",
-   "source": "SEC 10-Q MD&A",
-   "words": 34157,
-   "themes": [
-    {
-     "theme": "ai-powered platform expansion",
-     "quote": "artificial intelligence (\"AI\")-powered cloud platform to help manage their people, money, and agents"
-    },
-    {
-     "theme": "conversational ai acquisition",
-     "quote": "acquired all outstanding stock of Paradox, Inc. (\"Paradox\"), a candidate experience agent that uses conversational AI to simplify the job application journey"
-    },
-    {
-     "theme": "enterprise cloud consolidation",
-     "quote": "leading enterprise platform that provides organizations with solutions for financial management, human capital management (\"HCM\"), planning, spend management, and analytics"
-    },
-    {
-     "theme": "cloud infrastructure deployment",
-     "quote": "host our applications in data centers operated by third parties located in the United States, Europe, Canada, and the Asia-Pacific region"
-    }
-   ]
   }
  ]
 }

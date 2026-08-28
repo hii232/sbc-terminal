@@ -53,38 +53,6 @@
      "quote": "ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid cooling systems"
     }
    ]
-  },
-  {
-   "period": "2025Q3",
-   "date": "2025-11-06",
-   "source": "SEC 10-Q MD&A",
-   "words": 8600,
-   "themes": [
-    {
-     "theme": "hpc and ai services expansion",
-     "quote": "we are increasing our focus on diversification into HPC and AI services, including the provision of AI Cloud Services and potential colocation services"
-    },
-    {
-     "theme": "gpu infrastructure buildout",
-     "quote": "we entered into purchase order with respect to approximately 2,400 GPUs for a total purchase price of approximately $130 million, which are to be delivered by the end of calendar year 2025"
-    },
-    {
-     "theme": "direct-to-chip liquid cooling deployment",
-     "quote": "we are advancing the design of direct-to-chip liquid cooling systems, including to support an initial IT load of up to 200MW (based on rack density of 200kW, subject to customer requirements) liquid-cooled deployment at Childress"
-    },
-    {
-     "theme": "low-cost power acquisition",
-     "quote": "a key measure of the performance factor of our business is our ability to secure low-cost power, and similarly a key measure of the performance of our Bitcoin mining operations is the amount of power used to mine each Bitcoin"
-    },
-    {
-     "theme": "mining fleet efficiency upgrades",
-     "quote": "to remain cost competitive compared to other mining sector participants, we expect we will need to maintain an energy efficient mining fleet, which will require capital outlays to purchase new miners"
-    },
-    {
-     "theme": "bitcoin mining hashrate expansion",
-     "quote": "Average operating hashrate increased to 45.3 EH/s for the three months ended September 30, 2025 as compared to 12.1 EH/s for the three months ended September 30, 2024"
-    }
-   ]
   }
  ]
 }

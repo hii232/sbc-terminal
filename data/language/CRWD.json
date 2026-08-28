@@ -53,34 +53,6 @@
      "quote": "we entered into a definitive agreement to acquire 100% of the equity interest of SGNL.AI, Inc., a leader in continuous identity...and Seraphic Algorithms Ltd., a leader in browser runtime security"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 7771,
-   "themes": [
-    {
-     "theme": "cloud-native platform expansion",
-     "quote": "our open cloud architecture and single data model have allowed us to rapidly build and deploy new cloud modules, and we expect to continue investing in those efforts to further enhance our technology platform and product functionality"
-    },
-    {
-     "theme": "land-and-expand sales strategy",
-     "quote": "low friction land-and-expand sales strategy. When customers deploy our Falcon platform, they can start with any number of cloud modules and easily add additional cloud modules"
-    },
-    {
-     "theme": "ai-driven threat detection",
-     "quote": "cloud-scale AI enriches and correlates trillions of cybersecurity events per week with indicators of attack, threat intelligence, and enterprise data to create actionable data, identify shifts in adversary tactics, and automatically prevent"
-    },
-    {
-     "theme": "endpoint security consolidation",
-     "quote": "a single lightweight agent capable of harnessing vast amounts of security and enterprise data to deliver highly modular solutions"
-    },
-    {
-     "theme": "international market penetration",
-     "quote": "we believe that our market opportunity is large and requires us to continue to invest significantly in sales and marketing efforts to further grow our customer base, both domestically and internationally"
-    }
-   ]
   }
  ]
 }

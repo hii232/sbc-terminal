@@ -57,34 +57,6 @@
      "quote": "Veeva Quality Cloud unifies quality applications, processes, and partners across content management, training, quality assurance, and quality control lab solutions on the Veeva Vault platform."
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-21",
-   "source": "SEC 10-Q MD&A",
-   "words": 28478,
-   "themes": [
-    {
-     "theme": "cloud infrastructure expansion",
-     "quote": "expenses related to our computing infrastructure provided by third parties, including Amazon Web Services and Salesforce, Inc."
-    },
-    {
-     "theme": "r&d solutions growth",
-     "quote": "Revenues associated with our R&D Solutions are expected to increase as a percentage of both subscription services revenues and total revenues in the future"
-    },
-    {
-     "theme": "geographic expansion",
-     "quote": "We also offer certain of our R&D Solutions to industries outside the life sciences industry primarily in North America and Europe"
-    },
-    {
-     "theme": "customer acquisition and retention",
-     "quote": "As of January 31, 2025, 2024, and 2023, we served 1,477, 1,432, and 1,388 customers, respectively"
-    },
-    {
-     "theme": "professional services capacity",
-     "quote": "We utilize our own personnel to perform our professional services and business consulting engagements with customers"
-    }
-   ]
   }
  ]
 }

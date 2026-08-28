@@ -53,30 +53,6 @@
      "quote": "During fiscal 2026, we experienced strong momentum in Agentforce, Slack and Data 360, bolstered by the acquisition of Informatica"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-04",
-   "source": "SEC 10-Q MD&A",
-   "words": 39903,
-   "themes": [
-    {
-     "theme": "agentforce platform expansion",
-     "quote": "During the third quarter of fiscal 2025, the Company introduced Agentforce, a new layer of the trusted Salesforce Platform that enables companies to build and deploy AI agents that can respond to inputs, make decisions and take action auton"
-    },
-    {
-     "theme": "ai integration across products",
-     "quote": "With the deeply unified Salesforce Platform, the Company delivers a single source of truth, connecting customer data with integrated artificial intelligence across systems, apps and devices"
-    },
-    {
-     "theme": "cloud services subscription growth",
-     "quote": "Subscription and support revenues primarily include subscription fees from customers accessing the Company's enterprise cloud computing services"
-    },
-    {
-     "theme": "strategic investment portfolio",
-     "quote": "The Company is also exposed to concentrations of risk in its strategic investment portfolio, including within specific industries, as the Company primarily invests in enterprise cloud companies, technology startups and system integrators."
-    }
-   ]
   }
  ]
 }

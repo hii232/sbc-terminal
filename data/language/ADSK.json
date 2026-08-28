@@ -57,34 +57,6 @@
      "quote": "accelerate adoption of Fusion, Forma, and Flow"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-26",
-   "source": "SEC 10-Q MD&A",
-   "words": 7669,
-   "themes": [
-    {
-     "theme": "cloud platform convergence",
-     "quote": "drive customer workflow convergence by delivering a trusted design and make platform that connects people through automation, data, and insights"
-    },
-    {
-     "theme": "aeco digital transformation",
-     "quote": "we are strengthening our AECO solutions' foundation with both organic and inorganic investments"
-    },
-    {
-     "theme": "manufacturing cloud consolidation",
-     "quote": "combine organic and acquired software in existing and adjacent verticals to create end-to-end, cloud-based solutions for our customers that drive efficiency and sustainability"
-    },
-    {
-     "theme": "direct-to-customer transition",
-     "quote": "with the continued growth of our online Autodesk branded store and our new transaction model, we are transacting directly with more end customers, rather than through distributors"
-    },
-    {
-     "theme": "artificial intelligence capability building",
-     "quote": "we have been investing in AI for over a decade. Our focus is on building AI capabilities that add value to our customers' workloads through augmentation, automation and analysis"
-    }
-   ]
   }
  ]
 }

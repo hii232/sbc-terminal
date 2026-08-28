@@ -57,34 +57,6 @@
      "quote": "we focus on attracting and retaining our customers by building on and increasing the value we provide to them over time. This commitment to our customers' success helps drive increased customer investment in the number of users of our Okta "
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 5097,
-   "themes": [
-    {
-     "theme": "zero trust adoption expansion",
-     "quote": "As organizations shift from network-based security models to a Zero Trust security model focusing on adaptive and context-aware controls, identity has become the most reliable way to manage user access and protect digital assets."
-    },
-    {
-     "theme": "platform infrastructure scaling",
-     "quote": "We intend to continue to invest additional resources in our platform infrastructure, our platforms support organizations and security posture."
-    },
-    {
-     "theme": "customer expansion within accounts",
-     "quote": "By retaining customers and increasing value, we increase their spending with us through expanding the number of users who access our Okta Platform and Auth0 Platform, and by selling additional product offerings."
-    },
-    {
-     "theme": "developer-embedded identity solutions",
-     "quote": "Developers leverage our Okta Platform and Auth0 Platform to securely and efficiently embed identity into the software they build, allowing them to innovate and focus on their core mission."
-    },
-    {
-     "theme": "enterprise migration from legacy systems",
-     "quote": "We expect this trend to continue as larger enterprises recognize the value of our platforms and replace their legacy identity access management infrastructure."
-    }
-   ]
   }
  ]
 }

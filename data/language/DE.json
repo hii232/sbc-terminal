@@ -49,30 +49,6 @@
      "quote": "Plaintiffs seek a permanent injunction and other equitable relief to allow owners of our equipment, as well as independent repair providers, access to our repair tools and any other repair resources"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-18",
-   "source": "SEC 10-K MD&A",
-   "words": 41238,
-   "themes": [
-    {
-     "theme": "precision agriculture technology",
-     "quote": "Production and Precision Agriculture segment"
-    },
-    {
-     "theme": "equipment financing services",
-     "quote": "Financial Services segment"
-    },
-    {
-     "theme": "construction equipment portfolio",
-     "quote": "Construction and Forestry segment"
-    },
-    {
-     "theme": "compact equipment expansion",
-     "quote": "Compact Construction Equipment"
-    }
-   ]
   }
  ]
 }

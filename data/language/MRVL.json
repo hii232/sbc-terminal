@@ -61,30 +61,6 @@
      "quote": "concerns that U.S. companies may not be reliable suppliers as a result of these and other actions has caused, and may in the future cause, some of our customers in China to amass large inventories of our products well in advance of need or "
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-03",
-   "source": "SEC 10-Q MD&A",
-   "words": 5409,
-   "themes": [
-    {
-     "theme": "ai-driven data center semiconductors",
-     "quote": "Strong revenue growth from our data center market driven by AI related demand for our custom products and electro-optics portfolio"
-    },
-    {
-     "theme": "photonic interconnect acquisition",
-     "quote": "announced our intent to acquire Celestial AI Inc., a provider of a photonic fabric platform purpose-built for next-generation scale-up interconnect"
-    },
-    {
-     "theme": "foundry capacity reservation",
-     "quote": "To secure capacity over the long term, we have entered into capacity reservation arrangements with certain foundries and partners"
-    },
-    {
-     "theme": "carrier infrastructure market recovery",
-     "quote": "carrier infrastructure end market...increased by 98%...continued to recover due to normalizing customer inventory levels and strong adoption of our products"
-    }
-   ]
   }
  ]
 }

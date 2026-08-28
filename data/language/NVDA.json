@@ -65,34 +65,6 @@
      "quote": "We provided $3.5 billion in land, power, and shell guarantees to early-stage companies, generally over multi-year periods"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-19",
-   "source": "SEC 10-Q MD&A",
-   "words": 4306,
-   "themes": [
-    {
-     "theme": "blackwell architecture product cadence",
-     "quote": "We continue to execute Data Center compute product introductions, bringing new advanced architectures on a one-year product cadence. We began shipping production units of our new Blackwell Ultra platforms including GB300 in the second quart"
-    },
-    {
-     "theme": "data center networking fabric buildout",
-     "quote": "Networking revenue was up 162% from a year ago from the introduction and continued growth of NVLink compute fabric for GB200 and GB300 systems"
-    },
-    {
-     "theme": "agentic ai applications platform shift",
-     "quote": "Revenue was driven by three platform shifts \u2013 accelerated computing, powerful AI models, and agentic applications"
-    },
-    {
-     "theme": "us domestic manufacturing expansion",
-     "quote": "We are increasing our U.S.-based manufacturing and investing in specialized equipment and processes to support domestic production. This move is expected to strengthen our supply chain, add resiliency and redundancy, and meet the growing de"
-    },
-    {
-     "theme": "export control compliance navigation",
-     "quote": "In May 2025, the USG announced that it would rescind the AI Diffusion IFR and implement a replacement rule. The scope, timing, and requirements of the forthcoming rule remain uncertain. The replacement rule may impose new restrictions on ou"
-    }
-   ]
   }
  ]
 }
