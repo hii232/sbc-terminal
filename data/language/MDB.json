@@ -57,38 +57,6 @@
      "quote": "core component of our growth strategy for Atlas and MongoDB Enterprise Advanced is to convert developers and their organizations who are already using Community Server or the free tier of Atlas to become customers of our commercial products"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-02",
-   "source": "SEC 10-Q MD&A",
-   "words": 5730,
-   "themes": [
-    {
-     "theme": "multi-cloud hosted database expansion",
-     "quote": "MongoDB Atlas revenue represented 75% and 74%, respectively, as compared to 68% and 70% of our total revenue during the three and nine months ended October 31, 2024, respectively, reflecting the continued strength of MongoDB Atlas"
-    },
-    {
-     "theme": "land-and-expand with existing customers",
-     "quote": "We believe that there is a significant opportunity to drive additional sales to existing customers, and expect to invest in sales and marketing and customer success personnel and activities to achieve additional revenue growth from existing"
-    },
-    {
-     "theme": "developer platform feature integration",
-     "quote": "In addition to the database, our developer data platform includes a set of, tightly integrated, capabilities such as search, time series, data lifecycle, application-driven analytics and stream processing"
-    },
-    {
-     "theme": "self-serve adoption growth",
-     "quote": "We have experienced strong growth in self-serve customers of MongoDB Atlas, which are charged monthly in arrears based on their usage"
-    },
-    {
-     "theme": "sales force and channel expansion",
-     "quote": "We plan to continue to invest in acquiring new customers and additional workloads from existing customers across all of our channels"
-    },
-    {
-     "theme": "infrastructure cost optimization",
-     "quote": "The increase in third-party cloud infrastructure costs was partially offset by continued cost efficiencies realized as we scale MongoDB Atlas"
-    }
-   ]
   }
  ]
 }

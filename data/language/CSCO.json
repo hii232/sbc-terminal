@@ -49,34 +49,6 @@
      "quote": "Observability consists of our network assurance, monitoring and analytics and observability suite offerings"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-18",
-   "source": "SEC 10-Q MD&A",
-   "words": 32638,
-   "themes": [
-    {
-     "theme": "subscription revenue growth",
-     "quote": "Subscription revenue includes revenue recognized from our term software licenses, security software licenses, SaaS, and associated service arrangements"
-    },
-    {
-     "theme": "software and saas expansion",
-     "quote": "Our perpetual software and hardware in this category are distinct performance obligations where revenue is recognized upfront upon transfer of control. Term software licenses are multiple performance obligations"
-    },
-    {
-     "theme": "security product portfolio",
-     "quote": "Security consists of our Network Security, Identity and Access Management, Secure Access Service Edge (SASE) and Threat Intelligence, Detection, and Response offerings"
-    },
-    {
-     "theme": "observability and monitoring",
-     "quote": "Observability consists of our network assurance, monitoring and analytics and observability suite offerings"
-    },
-    {
-     "theme": "customer financing programs",
-     "quote": "We provide financing arrangements to customers for our hardware, software and service offerings"
-    }
-   ]
   }
  ]
 }

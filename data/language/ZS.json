@@ -57,34 +57,6 @@
      "quote": "We have and may in the future enter into arrangements to acquire or invest in complementary businesses, services and technologies, including intellectual property rights"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-25",
-   "source": "SEC 10-Q MD&A",
-   "words": 6999,
-   "themes": [
-    {
-     "theme": "cloud platform infrastructure expansion",
-     "quote": "we intend to continue to invest additional resources in our cloud platform and our customer support organizations as we grow our business"
-    },
-    {
-     "theme": "sales and marketing force growth",
-     "quote": "we intend to continue to make significant investments in our sales and marketing organization to drive additional revenue, further penetrate the market and expand our global customer base"
-    },
-    {
-     "theme": "research and development for new products",
-     "quote": "we continue to invest in research and development efforts to enhance the functionality of our cloud platform, improve the reliability, availability and scalability of our platform and access new customer markets"
-    },
-    {
-     "theme": "land and expand within existing customers",
-     "quote": "we leverage our land-and-expand model with the goal of generating incremental revenue, often within the term of the initial subscription, by increasing sales to our existing customers in one of three ways: expanding deployment of our cloud "
-    },
-    {
-     "theme": "ai-enabled security capabilities",
-     "quote": "the opportunity to use AI to counter cybersecurity threats and improve IT operations"
-    }
-   ]
   }
  ]
 }

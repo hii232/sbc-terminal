@@ -41,30 +41,6 @@
      "quote": "We will continue investing in research and development, advancing our applications and solutions portfolio, and expanding our position in developing and emerging markets."
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-22",
-   "source": "SEC 10-K MD&A",
-   "words": 65921,
-   "themes": [
-    {
-     "theme": "life sciences instrumentation expansion",
-     "quote": "Life Sciences and Diagnostics Markets segment focuses on instrumentation products serving pharmaceutical, diagnostics, and academic research customers"
-    },
-    {
-     "theme": "applied markets growth",
-     "quote": "Applied Markets segment includes products for chemical, environmental, food, and clinical markets with focus on expanding market presence"
-    },
-    {
-     "theme": "service and software revenue",
-     "quote": "Service and software revenues are growing as part of non-instrumentation business expansion"
-    },
-    {
-     "theme": "research and development investment",
-     "quote": "Significant R&D spending to develop new products and capabilities across instrumentation and applied markets"
-    }
-   ]
   }
  ]
 }
