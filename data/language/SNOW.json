@@ -65,38 +65,6 @@
      "quote": "On February 2, 2026, we acquired all the outstanding capital stock of Observe, Inc., a privately-held company that built an AI-powered observability platform."
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 10994,
-   "themes": [
-    {
-     "theme": "ai technology development",
-     "quote": "We will continue to invest significantly in research and development to improve our platform, including in the areas of data science and AI Technology."
-    },
-    {
-     "theme": "consumption-based pricing expansion",
-     "quote": "In future periods, we expect to see an increase in capacity contracts providing for quarterly upfront billings and monthly in arrears billings as our customers increasingly want to align consumption and timing of payments."
-    },
-    {
-     "theme": "large enterprise customer expansion",
-     "quote": "Our ability to increase usage of our platform by, and sell additional contracted capacity to, existing customers, and, in particular, large enterprise customers, will depend on a number of factors"
-    },
-    {
-     "theme": "data marketplace ecosystem",
-     "quote": "Our future growth is increasingly dependent on our ability to increase consumption of our platform by building and expanding the AI Data Cloud."
-    },
-    {
-     "theme": "public sector market entry",
-     "quote": "During the three months ended April 30, 2025, we began marketing the Snowflake platform to selected public sector customers who will have contractual rights to take possession of our software"
-    },
-    {
-     "theme": "gpu infrastructure scaling",
-     "quote": "increase of $63.2 million and $173.5 million in third-party cloud infrastructure expenses (including those related to GPUs) for the three and nine months ended October 31, 2025"
-    }
-   ]
   }
  ]
 }

@@ -57,34 +57,6 @@
      "quote": "We anticipate placing a greater focus on investing in customer success through professional services offered by partners. We believe it plays an important role in accelerating our customers' adoption of our products"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-05",
-   "source": "SEC 10-Q MD&A",
-   "words": 4763,
-   "themes": [
-    {
-     "theme": "public cloud infrastructure migration",
-     "quote": "information technology costs, particularly hosting costs, increased by $9.7 million as we continued our transition from co-located data centers to public cloud storage infrastructure to support future growth of our platform, including IAM"
-    },
-    {
-     "theme": "omnichannel go-to-market evolution",
-     "quote": "One pillar of our long-term strategy is to evolve our go-to-market ('GTM') channels from the historically direct sales-driven approach. We are currently investing in three routes to market, including direct sales, partner-assisted sales, an"
-    },
-    {
-     "theme": "ai-powered agreement management platform",
-     "quote": "Docusign's innovative IAM platform automates agreement workflows, uncovers actionable insights, and leverages AI capabilities, which enables organizations to create, commit to, and manage agreements"
-    },
-    {
-     "theme": "international expansion",
-     "quote": "We have since made significant investments to be able to offer our products in select civil law countries. For example, in Europe, we offer Standards-Based Signature ('SBS') technology tailored for the European Union's ('EU') electronic Ide"
-    },
-    {
-     "theme": "enterprise and mid-market segment growth",
-     "quote": "The increase was primarily due to the expansion of revenue from our commercial and enterprise accounts, as well as our digital channel. The number of our customers with greater than $300,000 in annualized contract value was 1,165 customers "
-    }
-   ]
   }
  ]
 }
