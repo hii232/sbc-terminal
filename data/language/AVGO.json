@@ -57,34 +57,6 @@
      "quote": "decrease was primarily due to an overall reduction in outstanding debt balances and debt refinancing activities"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-18",
-   "source": "SEC 10-K MD&A",
-   "words": 46610,
-   "themes": [
-    {
-     "theme": "ai data center semiconductor solutions",
-     "quote": "Our AI semiconductor solutions include custom accelerators or XPUs, Ethernet switching and routing silicon, Ethernet NICs, physical layer devices and optical components, as well as racks and systems based on our XPUs"
-    },
-    {
-     "theme": "custom silicon for hyperscalers",
-     "quote": "We provide advanced technology and intellectual property platforms for customers to design and develop application specific integrated circuits for AI and high-performance computing"
-    },
-    {
-     "theme": "infrastructure software modernization",
-     "quote": "Our infrastructure software solutions help enterprises simplify their information technology environments through private cloud, hybrid cloud and edge environments"
-    },
-    {
-     "theme": "vmware cloud foundation integration",
-     "quote": "VCF delivers integrated, enterprise-class compute, networking, storage, management and security across any supported environment with native Kubernetes support"
-    },
-    {
-     "theme": "private ai and edge deployment",
-     "quote": "VMware Private AI enables the use of generative AI technologies while addressing data privacy and compliance needs, and VMware Cloud Foundation Edge delivers frictionless management of edge apps"
-    }
-   ]
   }
  ]
 }

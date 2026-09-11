@@ -65,38 +65,6 @@
      "quote": "Our subscription and support revenue grew to $2.1 billion, or 80.2% of total revenue, for the second quarter of fiscal 2026, representing year-over-year growth of 13%."
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-11-20",
-   "source": "SEC 10-Q MD&A",
-   "words": 6307,
-   "themes": [
-    {
-     "theme": "platformization strategy",
-     "quote": "A key element of our strategy is to help our customers simplify their security architectures through consolidating disparate point products. We execute on this strategy by developing our capabilities and packaging our offerings into platfor"
-    },
-    {
-     "theme": "cloud-delivered security expansion",
-     "quote": "Our subscription and support revenue grew to $2.0 billion, or 82.5% of total revenue, for the first quarter of fiscal 2026, representing year-over-year growth of 14%... Cloud hosting service costs, which support our cloud-based subscription"
-    },
-    {
-     "theme": "ai-powered security capabilities",
-     "quote": "Our cybersecurity platforms and services help secure enterprise users, networks, clouds, and endpoints by delivering comprehensive cybersecurity backed by artificial intelligence (AI) and automation... In October 2025, we launched Prisma AI"
-    },
-    {
-     "theme": "identity security acquisition",
-     "quote": "in July 2025, we entered into a definitive agreement to acquire CyberArk Software Ltd. (CyberArk), an identity security company, which acquisition is expected to close during the third quarter of our fiscal 2026"
-    },
-    {
-     "theme": "software license revenue growth",
-     "quote": "As a percentage of product revenue, we expect our revenue from software licenses to vary from quarter to quarter and increase over the long term as we improve features and capabilities of our on-premise software"
-    },
-    {
-     "theme": "global sales force expansion",
-     "quote": "we continued to increase investment in our global sales force in order to support our growth and innovation... We expect sales and marketing expense to continue to increase in absolute dollars as we increase the size of our sales and market"
-    }
-   ]
   }
  ]
 }
