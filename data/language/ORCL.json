@@ -49,26 +49,6 @@
      "quote": "The increase in remaining performance obligations as of February 28, 2026 in comparison to February 28, 2025 was primarily attributable to certain significant cloud contracts that were entered into during the period"
     }
    ]
-  },
-  {
-   "period": "2025Q4",
-   "date": "2025-12-11",
-   "source": "SEC 10-Q MD&A",
-   "words": 548,
-   "themes": [
-    {
-     "theme": "data center geographic expansion",
-     "quote": "establish data centers in new geographic locations in order to meet current and expected customer demand"
-    },
-    {
-     "theme": "inference and training capacity buildout",
-     "quote": "increase our existing data center capacity and establish data centers in new geographic locations"
-    },
-    {
-     "theme": "cloud contract expansion",
-     "quote": "certain significant cloud contracts that were entered into during the period"
-    }
-   ]
   }
  ]
 }
